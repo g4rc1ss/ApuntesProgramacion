@@ -1,0 +1,14 @@
+[
+  {
+    "Nombre" : "Asier",
+    "Edad" : 20,
+    "Trabaja" : true,
+    "Soltero" : true
+  },
+  {
+    "Nombre" : "Alicia",
+    "Edad" : 46,
+    "Trabaja" : false,
+    "Soltero" : false
+  }
+]
