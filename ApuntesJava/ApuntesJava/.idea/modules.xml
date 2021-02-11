@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/01_JavaBasico/1_Sintaxis/1_Sintaxis.iml" filepath="$PROJECT_DIR$/BackEnd/01_JavaBasico/1_Sintaxis/1_Sintaxis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ApuntesJava.iml" filepath="$PROJECT_DIR$/.idea/ApuntesJava.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/JavaAvanzado/BasesDeDatos/BasesDeDatos.iml" filepath="$PROJECT_DIR$/BackEnd/JavaAvanzado/BasesDeDatos/BasesDeDatos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/JavaAvanzado/CifradoArchivos/CifradoArchivos.iml" filepath="$PROJECT_DIR$/BackEnd/JavaAvanzado/CifradoArchivos/CifradoArchivos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Desktop/CompilacionInstalacion/CompilacionInstalacion.iml" filepath="$PROJECT_DIR$/Desktop/CompilacionInstalacion/CompilacionInstalacion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/JavaAvanzado/ConexionesInternetJava/ConexionesInternetJava.iml" filepath="$PROJECT_DIR$/BackEnd/JavaAvanzado/ConexionesInternetJava/ConexionesInternetJava.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/JavaAvanzado/Escritura_Lectura/Escritura_Lectura.iml" filepath="$PROJECT_DIR$/BackEnd/JavaAvanzado/Escritura_Lectura/Escritura_Lectura.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Desktop/GraphicalUserInterface/GraphicalUserInterface.iml" filepath="$PROJECT_DIR$/Desktop/GraphicalUserInterface/GraphicalUserInterface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/JavaAvanzado/Hilos/Hilos.iml" filepath="$PROJECT_DIR$/BackEnd/JavaAvanzado/Hilos/Hilos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/JavaAvanzado/ListaArchivos_Dirs/ListaArchivos_Dirs.iml" filepath="$PROJECT_DIR$/BackEnd/JavaAvanzado/ListaArchivos_Dirs/ListaArchivos_Dirs.iml" />
+    </modules>
+  </component>
+</project>
