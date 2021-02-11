@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+	],
+	"settings": {
+		"files.exclude": {
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/CVS": true,
+			"**/.DS_Store": true,
+			"**/*pycache*": true,
+			"env": true,
+			"Scripts": true,
+		},
+		"python.pythonPath": "..\\..\\..\\env\\",
+		"files.encoding": "utf8"
+	}
+}
