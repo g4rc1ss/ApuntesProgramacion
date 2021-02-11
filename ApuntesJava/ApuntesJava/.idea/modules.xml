@@ -12,6 +12,7 @@
       <module fileurl="file://$PROJECT_DIR$/Desktop/GraphicalUserInterface/GraphicalUserInterface.iml" filepath="$PROJECT_DIR$/Desktop/GraphicalUserInterface/GraphicalUserInterface.iml" />
       <module fileurl="file://$PROJECT_DIR$/BackEnd/JavaAvanzado/Hilos/Hilos.iml" filepath="$PROJECT_DIR$/BackEnd/JavaAvanzado/Hilos/Hilos.iml" />
       <module fileurl="file://$PROJECT_DIR$/BackEnd/JavaAvanzado/ListaArchivos_Dirs/ListaArchivos_Dirs.iml" filepath="$PROJECT_DIR$/BackEnd/JavaAvanzado/ListaArchivos_Dirs/ListaArchivos_Dirs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Web/PruebaSpringMVC/PruebaSpringMVC.iml" filepath="$PROJECT_DIR$/Web/PruebaSpringMVC/PruebaSpringMVC.iml" />
     </modules>
   </component>
 </project>

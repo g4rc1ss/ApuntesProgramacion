@@ -18,7 +18,7 @@ public class ejemplosSintaxis{
 
 - ``class`` -> Creamos una clase, que es un modulo que se usa para declarar objetos y tratarlos añadiendo funciones.
 
-- ``Main(string[] args)`` -> el método main es el método principal de donde parte la aplicación siempre, no puede haber dos main en el mismo proyecto
+- ``Main(string[] args)`` -> el método Main es el método principal de donde parte la aplicación siempre, no puede haber dos Main en el mismo proyecto
 
 ---
 ## Declaración de variables
