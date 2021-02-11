@@ -1,0 +1,38 @@
+.content.tabs.elec-content-layout{
+    margin: 0 !important;
+    padding: 0;
+    position: absolute;
+    top: $navbarHeight;
+    // bottom: 0;
+    bottom: $footerHeight;
+    left: 0;
+    right: 0;
+    min-height: auto;
+    overflow: auto;
+    & > .container-fluid{
+        height: 100%;
+    }
+
+    .card-nav-tabs{
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+
+        & > .card-header{
+            position: static;
+            margin: 0 !important;
+            width: 100%;
+            padding: 0;
+        }
+
+        & > .card-body{
+            min-height: auto;
+            padding: 0;
+            overflow-y: auto;
+        }
+
+      
+    }
+}

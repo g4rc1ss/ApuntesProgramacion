@@ -1,0 +1,99 @@
+/*ICONS*/
+.icon {
+				display: block;
+				text-indent: -9999px;
+				width: 26px!important;
+				height: 26px!important;
+				background-size: 26px 26px!important;
+				
+				&.icon-m{
+					width: 22px!important;
+					height: 22px!important;
+					background-size: 22px 22px!important;
+					margin-left:8px;
+				}
+				
+				&.dashboard{
+					background: url(../img/icons/dashboard.svg);
+				}
+				&.solicitudes{
+					background: url(../img/icons/solicitudes.svg);
+				}
+				&.mapas{
+					background: url(../img/icons/mapas.svg);
+				}
+				&.historial{
+					background: url(../img/icons/historial.svg);
+				}	
+				&.certificados{
+					background: url(../img/icons/certificados.svg);
+				}
+				&.certificadosGray{
+					background: url(../img/icons/certificados_gray.svg);
+				}
+				&.certificadosBlue{
+					background: url(../img/icons/certificadosBlue.svg);
+				}
+				&.presupuestos{
+					background: url(../img/icons/presupuestos.svg);
+				}
+				&.presupuestosGray{
+					background: url(../img/icons/presupuestosGray.svg);
+				}
+				&.presupuestosBlue{
+					background: url(../img/icons/presupuestosBlue.svg);
+				}
+				&.cotizaciones{
+					background: url(../img/icons/cotizaciones.svg);
+				}	
+				&.cotizacionesGray{
+					background: url(../img/icons/cotizacionesGray.svg);
+				}	
+				&.cotizacionesBlue{
+					background: url(../img/icons/cotizacionesBlue.svg);
+				}					
+				&.contrataciones{
+					background: url(../img/icons/contrataciones.svg);
+				}
+				&.contratacionesGray{
+					background: url(../img/icons/contratacionesGray.svg);
+				}
+				&.contratacionesBlue{
+					background: url(../img/icons/contratacionesBlue.svg);
+				}
+				&.suplementos{
+					background: url(../img/icons/suplementos.svg);
+				}
+				&.suplementosGray{
+					background: url(../img/icons/suplementosGray.svg);
+				}
+				&.suplementosBlue{
+					background: url(../img/icons/suplementosBlue.svg);
+				}
+				&.siniestros{
+					background: url(../img/icons/siniestros.svg);
+				}	
+				&.siniestrosGray{
+					background: url(../img/icons/siniestrosGray.svg);
+				}
+				&.siniestrosBlue{
+					background: url(../img/icons/siniestrosBlue.svg);
+				}
+				&.tramite{
+					background: url(../img/icons/tramite.svg);
+					
+				}
+				&.retorno{
+					background: url(../img/icons/retorno.svg);
+					
+				}
+				
+			}
+.listado .active{
+	.icon{
+		&.tramite{
+					background: url(../img/icons/tramite_active.svg);
+					
+				}
+	}
+}

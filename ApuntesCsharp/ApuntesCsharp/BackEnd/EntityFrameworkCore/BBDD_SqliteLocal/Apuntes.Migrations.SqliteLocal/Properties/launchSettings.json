@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Migrations.Debug": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "CONSOLE_ENVIRONMENT": "Development"
+      }
+    },
+    "Migrations.Production": {
+      "commandName": "Project"
+    }
+  }
+}

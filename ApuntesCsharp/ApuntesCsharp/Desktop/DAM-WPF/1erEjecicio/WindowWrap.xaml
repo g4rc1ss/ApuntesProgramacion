@@ -1,0 +1,24 @@
+﻿<Window x:Class="_1erEjecicio.WindowWrap"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="WindowWrap" Height="200" Width="300">
+
+    <WrapPanel x:Name="panelWrap" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top"  >
+        <Button x:Name="btnHorizontal" Content="Horizontal" Width="75" Click="BtnHorizontal_Click"/>
+        <Button x:Name="btnVertical" Content="Vertical" Width="75" Click="BtnVertical_Click"/>
+        <Button x:Name="btnOpen" Content="Open" Width="75" Click="BtnOpen_Click"/>
+        <Button x:Name="btnSave" Content="Save" Width="75" Click="BtnSave_Click"/>
+        <Button x:Name="btndummy0" Content="Boton" Width="75"/>
+        <Button x:Name="btndummy1" Content="Boton" Width="75"/>
+        <Button x:Name="btndummy2" Content="Boton" Width="75"/>
+        <Button x:Name="btndummy3" Content="Boton" Width="75"/>
+        <Button x:Name="btndummy4" Content="Boton" Width="75"/>
+        <Button x:Name="btndummy5" Content="Boton" Width="75"/>
+        <Button x:Name="btndummy6" Content="Boton" Width="75"/>
+        <Button x:Name="btndummy7" Content="Boton" Width="75"/>
+        <Button x:Name="btndummy8" Content="Boton" Width="75"/>
+    </WrapPanel>
+</Window>

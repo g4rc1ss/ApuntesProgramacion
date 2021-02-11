@@ -1,0 +1,167 @@
+﻿@model LoginViewModel
+@{
+    Layout = "_AccountLayout";
+    ViewData["Title"] = "Login";
+    ViewBag.BodyClass = "login";
+}
+
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
+    <div class="container">
+        <div class="collapse navbar-collapse justify-content-end">
+            <div class="idiomas_dropdown dropdown text-right">
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="wrapper wrapper-full-page">
+    <div class="fondo"></div>
+    <div class="login-page">
+
+        <div class="container">
+
+            <div class="row alineaciony-center">
+                <div class="col-6 my-auto text-center">
+                    <img src="~/assets/img/logo-g-segur.jpg" class="img-fluid" />
+                </div>
+                <div class="col-5 ml-auto acceso">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1 class="card-title">Identity.Login.TitleH1"]</h1>
+                        </div>
+                        <div class="card-body">
+
+                            <form id="LoginValidation" method="post">
+                                <div class="form-group bmd-form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">person</i>
+                                            </span>
+                                        </div>
+                                        <label asp-for="UserName" class="bmd-label-floating ml-5 pl-2 control-label"></label>
+                                        <input type="text" asp-for="UserName" class="form-control" id="usuario" aria-required="true" maxlength="250">
+                                    </div>
+                                </div>
+
+                                <div class="form-group bmd-form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">lock</i>
+                                            </span>
+                                        </div>
+                                        <label asp-for="Password" class="bmd-label-floating ml-5 pl-2"></label>
+                                        <input type="password" asp-for="Password" class="form-control" id="examplePassword" aria-required="true">
+                                        <button type="button" class="btn btn-secondary btn-sm verContrasena" onclick="cambiarVisibilidad()">
+                                            <i class="material-icons">remove_red_eye</i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!--<div class="category form-category ml-4"><small>* Campos obligatorios</small></div>-->
+                                <div class="text-center font-bold mt-2 recordarContrasena" data-toggle="modal" data-target="#cambiarContrasena">Identity.Login.ForgotPassword"]</div>
+
+                                <div class="form-check ml-3 pl-1">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" asp-for="RememberMe"> Identity.Login.SessionOpen"]
+                                        <span class="form-check-sign">
+                                            <span class="check"></span>
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <button type="submit" asp-controller="Account" asp-action="Entry" onclick="Enter(this)" class="btn btn-primary btn-lg col-12 mt-3">Identity.Login.Enter"]</button>
+
+
+                                <!--<p class="col-9 description ml-auto mr-auto text-center">Identity.Login.RecoverMessage"]</p>-->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="cambiarContrasena" tabindex="-1" role="dialog" aria-labelledby="cambiarContrasena" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Identity.Login.ForgotPassword"]</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">Introduzca el usuario asociado a su cuenta de Elecnor. </p>
+                <form>
+                    <div class="form-group bmd-form-group mt-5">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="material-icons">person</i>
+                                </span>
+                            </div>
+                            <label for="usuario2" class="bmd-label-floating ml-4 pl-3 control-label"> Usuario</label>
+                            <input type="text" class="form-control" id="usuario2" required="false" name="usuario2" aria-required="true" maxlength="250">
+
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg col-12 mt-4 enviarEmail">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+
+        $(document).ready(function () {
+            setFormValidation('#LoginValidation');
+
+        });
+    </script>
+    <script>
+        $('body').on('click', '.enviarEmail', function (e) {
+            e.preventDefault();
+            $('#cambiarContrasena').modal('toggle');
+
+            Swal.fire({
+                title: '<strong>' + Identity.Login.RestorePasswordTitle"] +'</strong>',
+                type: 'success',
+                html: Identity.Login.RestorePasswordText"],
+                confirmButtonText: 'Aceptar',
+                confirmButtonAriaLabel: 'Aceptar'
+
+            })
+        })
+    </script>
+
+    <script>
+        function cambiarVisibilidad() {
+            let passwordField = document.getElementById("examplePassword");
+            if (passwordField.type == "password") {
+                passwordField.type = "text";
+            } else if (passwordField.type == "text") {
+                passwordField.type = "password";
+            }
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            setFormValidation('#LoginValidation');
+        });
+    </script>
+
+    <script>
+        function Enter(btn) {
+            btn.classList.add("disabled");
+        }
+    </script>
+}

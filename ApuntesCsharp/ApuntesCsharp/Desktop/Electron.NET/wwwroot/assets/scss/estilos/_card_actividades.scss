@@ -1,0 +1,383 @@
+.container-picklist {
+    .card {
+        box-shadow: none;
+    }
+    .card-header {
+        margin-top: 0 !important;
+        border-radius: 0;
+        /*margin-left: 4px;*/
+        width: 100% !important;
+    }
+    .fas.fa-sort {
+        font-size: 20px;
+        color: #ccc;
+        cursor: pointer;
+        margin-left: auto;
+    }
+    .card.card-picklist {
+        margin: 0;
+        .card-header {
+            display: flex;
+            padding: 0;
+            .card-title {
+                padding: 0.3rem 1.25rem;
+                background-color: $primary-color;
+                color: $white;
+                width: 100%;
+                margin: 0;
+            }
+            .btn {
+                margin: 0;
+                box-shadow: none;
+                text-transform: none;
+                font-size: 0.8rem;
+                padding: 0 1rem;
+                border-radius: 0;
+                border: 2px solid $green;
+                background-color: $green;
+                &:hover,
+                &:active,
+                &:focus {
+                    background-color: $white;
+                    color: $green;
+                }
+            }
+        }
+        .card-body {
+            min-height: auto !important;
+        }
+        &>.fa-chevron-right {
+            position: absolute;
+            top: 50px;
+            right: -38px;
+            font-size: 1.2rem;
+            color: $orange;
+        }
+        &.seleccionadas {
+            .card-title {
+                background-color: $blue;
+            }
+            .card-body-top {
+                .btn.btn-link {
+                    /*color: $orange;*/
+                }
+                .show>.btn.dropdown-toggle {
+                    color: $white;
+                }
+            }
+            .accordion-ordered-list {
+                border-color: $blue;
+                .accordion-secondlevel {
+                    color: $blue;
+                }
+            }
+        }
+        .form-check .form-check-sign .check {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(0, 0, 0, 0.3);
+        }
+    }
+    .search-filter {
+        padding-right: 1rem;
+        .btn {
+            background-color: transparent !important;
+            color: $mid-gray !important;
+            box-shadow: none;
+        }
+    }
+    .dropdown-menu {
+        padding: 0;
+        border-radius: 0;
+        border: 1px solid $orange;
+        .dropdown-item {
+            margin-right: 0;
+            margin-left: 0;
+            border-radius: 0;
+            &:hover,
+            &:focus {
+                background-color: $orange;
+                box-shadow: none;
+            }
+        }
+    }
+    .card-body-top {
+        border-bottom: 2px solid $primary-color;
+        /*margin-left: 4px;*/
+        .form-control {
+            padding-top: 14px;
+        }
+    }
+    .accordion-ordered-list {
+        font-size: 12px;
+        ol {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            li {
+                list-style: none;
+            }
+        }
+        .accordion-container {
+            position: relative;
+            border-bottom: 1px solid #ede7ed;
+        }
+        .accordion-toggle {
+            display: block;
+            padding: 8px 25px 8px 8px;
+        }
+        .accordion-firstlevel {
+            &>.accordion-container {
+                .accordion-toggle {
+                    padding-left: 60px;
+                    font-weight: bold;
+                    line-height: 19px;
+                    &::after {
+                        left: 50px;
+                    }
+                }
+                a.accordion-toggle:not(.collapsed) {
+                    background-color: $mid-blue;
+                }
+            }
+        }
+        .accordion-secondlevel {
+            color: $primary-color;
+            background-color: $light-purple;
+            &>.accordion-container {
+                .accordion-toggle {
+                    padding-left: 75px;
+                    font-weight: bold;
+                    line-height: 19px;
+                    &::after {
+                        left: 60px;
+                    }
+                }
+            }
+        }
+        span.accordion-toggle {
+            padding-left: 100px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        a.accordion-toggle {
+            text-decoration: none;
+            color: inherit;
+            &:hover {
+                background-color: $lorange !important;
+                color: $black;
+            }
+        }
+        ol {
+            counter-reset: item;
+            li {
+                .accordion-toggle::before {
+                    content: counters(item, '.') '. ';
+                    counter-increment: item;
+                }
+            }
+        }
+        a.accordion-toggle {
+            display: block;
+            position: relative;
+            &::after {
+                position: absolute;
+                font-size: 1rem;
+                content: '+';
+            }
+            &[aria-expanded='true']::after {
+                content: '-';
+            }
+        }
+        .activities-actions {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            &.align-left {
+                left: 15px;
+            }
+            &.align-right {
+                right: 0px;
+            }
+            .form-check {
+                padding-right: 9px;
+            }
+        }
+    }
+    .activities-actions {
+        display: flex;
+        align-items: center;
+        .form-check-sign {
+            top: 9px;
+            padding: 0;
+            cursor: pointer;
+        }
+        .btn-link {
+            line-height: 0;
+            font-size: inherit;
+        }
+        .text-gray {
+            margin-left: auto;
+        }
+    }
+    .modal table {
+        border: none;
+        border-top: 2px solid $mid-gray;
+        td {
+            padding: 2px 10px 5px 20px !important;
+        }
+        thead th {
+            background-color: $slight-gray;
+            font-size: inherit !important;
+            font-weight: bold;
+            padding: 5px 10px 5px 20px !important;
+        }
+        tbody {
+            background-color: rgba($slight-gray, 0.2);
+        }
+        tfoot {
+            background-color: rgba($slight-gray, 0.5);
+        }
+        &.table-hover tbody tr:hover {
+            background-color: $lorange;
+        }
+    }
+    .btn-variables {
+        position: absolute;
+        top: 0;
+        right: 15px;
+        z-index: 9;
+        color: $orange;
+    }
+    /* Perfect scrollbar */
+    .container-scrollbar {
+        width: 100%;
+        max-height: calc(100vh - 400px);
+    }
+    /* Editor texto summernote */
+    .note-editor.note-frame {
+        /*margin-top: 0;*/
+        .note-toolbar.card-header {
+            /*background-color: transparent;
+            border-bottom: 2px solid $blue;*/
+            left: 0;
+        }
+    }
+}
+
+.content.tabs .card-nav-tabs .container-picklist .card-body {
+    min-height: auto;
+}
+
+.formularioDetalle.container-picklist {
+    .form-check .form-check-input:checked+.form-check-sign .check {
+        border-color: #ee750b !important;
+    }
+    .form-check .form-check-sign .check::before {
+        margin-top: -5px;
+        margin-left: 5px;
+    }
+}
+
+
+/*  tabla presupuesto */
+
+.content.tabs {
+    .formularioDetalle.container-picklist {
+        .card.card-picklist {
+            .card-header {
+                .card-title {
+                    background-color: $blue;
+                }
+                .bootstrap-select {
+                    &:not([class*='col-']):not([class*='form-control']):not(.input-group-btn) {
+                        width: auto;
+                        min-width: 115px;
+                    }
+                    .btn {
+                        padding: 0 1rem;
+                        border: 2px solid $blue;
+                        background-color: $blue;
+                        height: 100%;
+                        &:hover,
+                        &:active,
+                        &:focus {
+                            background-color: $blue;
+                        }
+                    }
+                    .dropdown-toggle {
+                        .filter-option {
+                            color: $white;
+                            font-size: 12px;
+                            line-height: 28px;
+                        }
+                    }
+                }
+            }
+            .card-body {
+                .table {
+                    & thead th {
+                        border-bottom: 2px solid $blue;
+                        padding: 0 7px;
+                        text-align: right;
+                    }
+                    & tbody {
+                        tr {
+                            td {
+                                padding: 0 8px;
+                                text-align: right;
+                                font-size: 12px;
+                                .form-check {
+                                    margin-top: 0;
+                                    margin-bottom: 0;
+                                }
+                                &.articulo {
+                                    color: $primary-color;
+                                }
+                                input {
+                                    text-align: right;
+                                    padding: 2px 10px;
+                                }
+                                input.ud {
+                                    width: 45px;
+                                }
+                                input.precio_ud {
+                                    width: 75px;
+                                }
+                                .btn {
+                                    margin-top: 0;
+                                    margin-bottom: 0;
+                                }
+                            }
+                        }
+                    }
+                    & tfoot {
+                        tr {
+                            background-color: $mid-blue;
+                            color: $black;
+                            td {
+                                border-top: 2px solid $white;
+                                font-size: 12px;
+                                padding: 5px 8px;
+                            }
+                        }
+                    }
+                    .form-check {
+                        .form-check-sign {
+                            top: 9px !important;
+                            .check {
+                                width: 18px;
+                                height: 18px;
+                                border: 2px solid rgba(0, 0, 0, 0.3);
+                            }
+                        }
+                    }
+                    .btn.btn-just-icon {
+                        line-height: 0;
+                    }
+                }
+            }
+        }
+    }
+}
