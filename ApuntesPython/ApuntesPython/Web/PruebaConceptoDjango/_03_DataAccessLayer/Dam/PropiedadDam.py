@@ -5,21 +5,23 @@ class PropiedadDam(object):
     def __init__(self):
         super().__init__()
 
-    def getLastDirectores(self, numberOfPropertiesToTake: int, numberOfSkipProperties: int):
-        listaDirectores = list(
-            Directores.objects
-            .all()
-            .select_related('propiedaddetalleid')
-            .order_by('propiedaddetalleid__modifieddate')
-            [numberOfSkipProperties:numberOfPropertiesToTake]
-        )
-        return listaDirectores
+    def getLastPeliculas(self, numberOfPropertiesToTake: int, numberOfSkipProperties: int):
+        # listaPeliculas = list(
+        #     Peliculas.objects
+        #     .all()
+        #     .select_related('propiedaddetalleid')
+        #     .order_by('propiedaddetalleid__modifieddate')
+        #     [numberOfSkipProperties:numberOfPropertiesToTake]
+        # )
+        # return listaPeliculas
+        pass
 
-    def getRandomDirectores(self, numberOfPropertiesToTake: int, tipoOperacion=""):
-        listaDirectores = list(
-            Directores.objects
-            .filter(tipooperacionid__nombre=tipoOperacion)
-            .select_related('propiedaddetalleid')
-            .order_by('?')[:numberOfPropertiesToTake]
-        )
-        return listaDirectores
+    def getRandomPeliculas(self, numberOfPropertiesToTake: int, tipoOperacion=""):
+        # listaPeliculas = list(
+        #     Peliculas.objects
+        #     .filter(tipooperacionid__nombre=tipoOperacion)
+        #     .select_related('propiedaddetalleid')
+        #     .order_by('?')[:numberOfPropertiesToTake]
+        # )
+        # return listaPeliculas
+        pass
