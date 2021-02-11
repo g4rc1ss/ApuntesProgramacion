@@ -1,0 +1,12 @@
+{
+    "name": "asier/eguzkimendi",
+    "require": {
+        "doctrine/orm": "^2.8"
+    },
+    "authors": [
+        {
+            "name": "g4rc1ss",
+            "email": "garciss@protonmail.com"
+        }
+    ]
+}
