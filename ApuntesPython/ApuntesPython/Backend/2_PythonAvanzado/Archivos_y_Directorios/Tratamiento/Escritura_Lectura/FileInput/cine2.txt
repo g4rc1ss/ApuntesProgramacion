@@ -1,0 +1,7 @@
+Título;Dirección;País
+Gente de bien;Franco Lolli;Colombia
+Los hongos;Oscar Ruiz Navia;Colombia
+Manos sucias;Josef Kubota Wladyka;Colombia
+Amama;Asier Altuna;España
+Un día perfecto;Fernando León de Aranoa;España
+El desconocido;Dani de la Torre;España
