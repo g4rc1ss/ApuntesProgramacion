@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Apuntes.Console.Presentacion.Debug": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "CONSOLE_ENVIRONMENT": "Development"
+      }
+    },
+    "Migrations.Production": {
+      "commandName": "Project"
+    }
+  }
+}

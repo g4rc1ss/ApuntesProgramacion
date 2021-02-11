@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="CifradoAsimetricos\" />
+    <Folder Include="CifradoSimetricos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Garciss.Csharp.Libs" Version="3.3.0" />
+  </ItemGroup>
+</Project>
