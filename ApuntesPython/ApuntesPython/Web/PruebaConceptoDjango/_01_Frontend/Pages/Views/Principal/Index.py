@@ -11,9 +11,9 @@ class IndexView(object):
         respuestaIndex = IndexAction().getIndex()
 
         response = index.render({
-            "LastProperties": respuestaIndex.getLastProperties(),
-            "RandomSaleProperties": [sale for sale in respuestaIndex.getRandomProperties() if sale.tipooperacionid.nombre == "Venta"],
-            "RandomRentProperties": [rent for rent in respuestaIndex.getRandomProperties() if rent.tipooperacionid.nombre == "Alquiler"]
+            "ListaPeliculas": respuestaIndex.getPeliculas(),
+            "RandomFantasia": [aventura for aventura in respuestaIndex.getRandomPeliculas() if aventura.tipooperacionid.nombre == "Aventura"],
+            "RandomAventura": [fantasia for fantasia in respuestaIndex.getRandomPeliculas() if fantasia.tipooperacionid.nombre == "Fantasia"]
         })
 
         return HttpResponse(response)

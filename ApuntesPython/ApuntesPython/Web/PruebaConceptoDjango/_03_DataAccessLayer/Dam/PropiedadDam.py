@@ -1,27 +1,23 @@
-from _04_DatabaseModels.Tables.models import Directores
+from _04_DatabaseModels.Tables.models import Peliculas
 import time
 
 class PropiedadDam(object):
     def __init__(self):
         super().__init__()
 
-    def getLastPeliculas(self, numberOfPropertiesToTake: int, numberOfSkipProperties: int):
-        # listaPeliculas = list(
-        #     Peliculas.objects
-        #     .all()
-        #     .select_related('propiedaddetalleid')
-        #     .order_by('propiedaddetalleid__modifieddate')
-        #     [numberOfSkipProperties:numberOfPropertiesToTake]
-        # )
-        # return listaPeliculas
-        pass
+    def getPeliculas(self, numberOfDirectoresToTake: int, numberOfSkipDirectores: int):
+        listaPeliculas = list(
+            Peliculas.objects
+            .all()
+            .select_related('directorid')
+        )
+        return listaPeliculas
 
-    def getRandomPeliculas(self, numberOfPropertiesToTake: int, tipoOperacion=""):
-        # listaPeliculas = list(
-        #     Peliculas.objects
-        #     .filter(tipooperacionid__nombre=tipoOperacion)
-        #     .select_related('propiedaddetalleid')
-        #     .order_by('?')[:numberOfPropertiesToTake]
-        # )
-        # return listaPeliculas
-        pass
+    def getRandomPeliculas(self, numberOfDirectoresToTake: int, genero=""):
+        listaPeliculas = list(
+            Peliculas.objects
+            .filter(genero=genero)
+            .select_related('directorid')
+            .order_by('?')[:numberOfDirectoresToTake]
+        )
+        return listaPeliculas

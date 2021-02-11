@@ -1,20 +1,20 @@
 
 class IndexResponse(object):
-    lastProperties : list
-    randomProperties : list
+    listaPeliculas : list
+    randomPeliculas : list
 
     def __init__(self):
         super().__init__()
 
-    def setLasProperties(self, properties : list):
-        self.lastProperties = properties
+    def setPeliculas(self, properties : list):
+        self.listaPeliculas = properties
 
-    def setRandomProperties(self, properties : list):
-        self.randomProperties = properties
+    def setRandomPeliculas(self, properties : list):
+        self.randomPeliculas = properties
 
-    def getLastProperties(self):
-        return self.lastProperties
+    def getPeliculas(self):
+        return self.listaPeliculas
     
-    def getRandomProperties(self):
-        return self.randomProperties
+    def getRandomPeliculas(self):
+        return self.randomPeliculas
     

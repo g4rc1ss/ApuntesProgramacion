@@ -12,32 +12,22 @@ class IndexManager(object):
     def getIndex(self):
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
             procesos = {
-                'randomSale': executor.submit(PropiedadDam().getRandomProperties,
-                                              3, "Venta"),
-                'randomRent': executor.submit(PropiedadDam().getRandomProperties,
-                                     3, "Alquiler"),
-                'lastProperties': executor.submit(PropiedadDam().getLastProperties,
+                'randomFantasia': executor.submit(PropiedadDam().getRandomPeliculas,
+                                              3, "Fantasia"),
+                'randomAventura': executor.submit(PropiedadDam().getRandomPeliculas,
+                                     3, "Aventura"),
+                'listaPeliculas': executor.submit(PropiedadDam().getPeliculas,
                                          3, 0),
             }
 
-            randomSaleProperties = procesos['randomSale'].result()
-            randomRentProperties = procesos['randomRent'].result()
-            lastProperties = procesos['lastProperties'].result()
+            randomFantasia = procesos['randomFantasia'].result()
+            randomAventura = procesos['randomAventura'].result()
+            listaPeliculas = procesos['listaPeliculas'].result()
 
             response = IndexResponse.IndexResponse()
 
-            listaRandom = []
-            for random in randomSaleProperties + randomRentProperties:
-                random.preciopropiedad = round(random.preciopropiedad, 2)
-                random.imagenid.img = base64.b64encode(random.imagenid.img).decode()
-                listaRandom.append(random)
+            listaRandom = randomFantasia + randomAventura
 
-            listaLast = []
-            for last in lastProperties:
-                last.preciopropiedad = round(last.preciopropiedad, 2)
-                last.imagenid.img = base64.b64encode(last.imagenid.img).decode()
-                listaLast.append(last)
-
-            response.setRandomProperties(listaRandom)
-            response.setLasProperties(listaLast)
+            response.setRandomPeliculas(listaRandom)
+            response.setPeliculas(listaPeliculas)
             return response
