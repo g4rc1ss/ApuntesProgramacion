@@ -15,7 +15,7 @@
 			"env": true,
 			"Scripts": true,
 		},
-		"python.pythonPath": "..\\..\\..\\env\\",
+		"python.pythonPath": "..\\..\\env\\",
 		"files.encoding": "utf8"
 	}
 }
