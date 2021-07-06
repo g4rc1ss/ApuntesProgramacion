@@ -41,5 +41,5 @@ six==1.15.0
 sqlparse==0.4.1
 toml==0.10.2
 typing-extensions==3.7.4.3
-urllib3==1.26.2
+urllib3==1.26.5
 wget==3.2
