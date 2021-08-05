@@ -127,6 +127,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SincroniaAsincronia", "Back
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CifradoArchivos", "BackEnd\Seguridad\CifradoArchivos\CifradoArchivos.csproj", "{BC02B3EF-C903-4ED9-ABD1-586CA8808D6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncAwait", "BackEnd\Performance\AsyncAwait\AsyncAwait.csproj", "{5BAFE29F-39A6-4653-8AB4-DB53A05BCA13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -273,6 +275,10 @@ Global
 		{BC02B3EF-C903-4ED9-ABD1-586CA8808D6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC02B3EF-C903-4ED9-ABD1-586CA8808D6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC02B3EF-C903-4ED9-ABD1-586CA8808D6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BAFE29F-39A6-4653-8AB4-DB53A05BCA13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BAFE29F-39A6-4653-8AB4-DB53A05BCA13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BAFE29F-39A6-4653-8AB4-DB53A05BCA13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BAFE29F-39A6-4653-8AB4-DB53A05BCA13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -333,6 +339,7 @@ Global
 		{8DE98A4D-3997-4188-96D2-31AFE527AF86} = {DB77C912-4342-4B9D-93B3-21824168953D}
 		{8DB802F6-9005-4D9E-BF88-480C3FB257B0} = {62AE01BE-B705-4CFE-BB94-4EFA8AD5D640}
 		{BC02B3EF-C903-4ED9-ABD1-586CA8808D6B} = {EDEC32C5-5646-4581-83F4-0BAC65CD4E61}
+		{5BAFE29F-39A6-4653-8AB4-DB53A05BCA13} = {62AE01BE-B705-4CFE-BB94-4EFA8AD5D640}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E490D0C8-C5A7-4F24-8A9B-CE1635508778}

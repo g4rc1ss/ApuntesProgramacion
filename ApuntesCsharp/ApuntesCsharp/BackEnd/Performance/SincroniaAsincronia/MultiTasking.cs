@@ -1,5 +1,4 @@
-﻿using SincroniaAsincronia.Async;
-using SincroniaAsincronia.EjecucionEnParalelo;
+﻿using SincroniaAsincronia.EjecucionEnParalelo;
 using SincroniaAsincronia.Hilos;
 using SincroniaAsincronia.Tareas;
 using System;
@@ -24,7 +23,6 @@ namespace SincroniaAsincronia {
             new UsoParallelLINQ();
 
             // Asincronia
-            _ = new Asincronia().LlamadaAwaitMetodoAsync();
             for (var x = 0; x < 10000; x++)
                 Console.WriteLine("Ejecutando lo ultimo");
             Console.WriteLine("Pulsa para terminar el programa");
