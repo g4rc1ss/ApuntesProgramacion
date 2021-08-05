@@ -6,7 +6,6 @@ namespace Escritura_Lectura.ArchivosTexto.BinaryRead_Writer {
             var fuente = "./archivo";
             var destino = "./destino";
             using (File.Create(fuente)) {
-                if (File.Exists(fuente)) ;
             }
             File.WriteAllText(fuente, "fdsjfkhrjgflhndsbafbgrheikabhfarigfbsrghfaslbhfreai \n bfhwbgf rhjsbfgdhsflbglavgfb lcvjavf ljubfa asgfjveasfb esfj");
             using (File.Create(destino)) { }

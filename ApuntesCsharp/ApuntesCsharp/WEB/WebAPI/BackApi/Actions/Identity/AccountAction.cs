@@ -29,7 +29,7 @@ namespace BackApi.Actions.Identity {
             return Task.Run(() => {
                 try {
                     return applicationUserManager.Logout();
-                } catch (Exception ex) {
+                } catch (Exception) {
                     logger.LogInformation(nameof(CerrarSesion));
                     return false;
                 }
@@ -40,7 +40,7 @@ namespace BackApi.Actions.Identity {
             return Task.Run(() => {
                 try {
                     return applicationUserManager.CreateUserAccount(createAccountData);
-                } catch (Exception ex) {
+                } catch (Exception) {
                     logger.LogInformation(nameof(CrearCuentaUsuario));
                     return false;
                 }
