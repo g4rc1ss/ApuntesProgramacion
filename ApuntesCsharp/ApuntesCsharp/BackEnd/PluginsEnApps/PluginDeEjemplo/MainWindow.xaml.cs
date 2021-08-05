@@ -1,4 +1,5 @@
-﻿using PluginAPI.ExportAPI;
+﻿using Newtonsoft.Json;
+using PluginAPI.ExportAPI;
 using PluginDeEjemplo.DeserializeJson;
 using System;
 using System.IO;
@@ -17,10 +18,10 @@ namespace PluginDeEjemplo {
 
         private async void Button_Click(object sender, RoutedEventArgs e) {
             var response = await GetMyIp();
-            ExportAPI.ExportEventCaller(new ExportObject(response.Datos));
+            ExportAPI.ExportEventCaller(new ExportObject(response));
         }
 
-        private Task<Respuesta<string>> GetMyIp() {
+        private Task<string> GetMyIp() {
             return Task.Run(() => {
                 try {
                     var response = string.Empty;
@@ -30,16 +31,14 @@ namespace PluginDeEjemplo {
                         using (var stream = responseHttp.GetResponseStream()) {
                             using (var reader = new StreamReader(stream)) {
                                 var leerConsultaWebJson = reader.ReadToEnd();
-
-                                var leerJsonLocalizacion = ConvertHelper.JsonToObject<MyIp>(leerConsultaWebJson);
-
+                                var leerJsonLocalizacion = JsonConvert.DeserializeObject<MyIp>(leerConsultaWebJson);
                                 response = $"Direccion ip: {leerJsonLocalizacion.Ip} \n";
                             }
                         }
                     }
-                    return new Respuesta<string>(response);
+                    return response;
                 } catch (Exception ex) {
-                    return new Respuesta<string>(ex, nameof(GetMyIp));
+                    return ex.Message;
                 }
             });
         }

@@ -9,7 +9,9 @@ namespace FrontApi.Controllers {
         [HttpGet]
         [Route("api/cifrarText")]
         public ContentResult Cifrar([FromBody] Texto text) {
-            return CrearRespuesta(new Prueba().CifrarText(text.Text));
+            var cifrado = new Texto();
+            cifrado.Text = new Prueba().CifrarText(text.Text);
+            return CrearRespuesta(text);
         }
     }
 

@@ -25,7 +25,7 @@ namespace FrontApi.Controllers.pruebas {
             var resp = await LoginAsync(credentials);
             return CrearRespuesta(resp);
         }
-        private async Task<Respuesta> LoginAsync(CredentialsLogin credentials) {
+        private async Task<bool> LoginAsync(CredentialsLogin credentials) {
             var resp = await accountAction.InicioSesion(credentials.Username, credentials.Password, false);
             return resp;
         }
@@ -36,7 +36,7 @@ namespace FrontApi.Controllers.pruebas {
             var resp = await LogoutAsync();
             return CrearRespuesta(resp);
         }
-        private async Task<Respuesta> LogoutAsync() {
+        private async Task<bool> LogoutAsync() {
             var resp = await accountAction.CerrarSesion();
             return resp;
         }
@@ -47,7 +47,7 @@ namespace FrontApi.Controllers.pruebas {
             var resp = await CreateUserAsync(createAccountData);
             return CrearRespuesta(resp);
         }
-        private async Task<Respuesta> CreateUserAsync(CreateAccountData createAccountData) {
+        private async Task<bool> CreateUserAsync(CreateAccountData createAccountData) {
             var resp = await accountAction.CrearCuentaUsuario(createAccountData);
             return resp;
         }
