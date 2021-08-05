@@ -1,10 +1,9 @@
 ﻿namespace ConexionesInternetCSharp {
     public class LeerJSON {
-        public string Country_name { get; set; }
+        public string Ip { get; set; }
         public string City { get; set; }
-        public string Latitude { get; set; }
-        public string Longitude { get; set; }
-        public string IPv4 { get; set; }
-        public string State { get; set; }
+        public string Loc { get; set; }
+        public string Country { get; set; }
+        public string Readme { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using BackApi.BusinessManager.IdentityManager;
-using Garciss.Core.Common.Respuestas;
 using InmobiliariaEguzkimendi.Core.BusinessManager.IdentityManager;
 using Microsoft.Extensions.Logging;
 using System;
@@ -15,32 +14,35 @@ namespace BackApi.Actions.Identity {
             this.applicationUserManager = applicationUserManager;
         }
 
-        public Task<Respuesta> InicioSesion(string username, string password, bool rememberMe) {
+        public Task<bool> InicioSesion(string username, string password, bool rememberMe) {
             return Task.Run(() => {
                 try {
                     return applicationUserManager.Login(username, password, rememberMe);
-                } catch (Exception ex) {
-                    return new Respuesta(ex, nameof(InicioSesion), logger);
+                } catch (Exception) {
+                    logger.LogInformation(nameof(InicioSesion));
+                    return false;
                 }
             });
         }
 
-        public Task<Respuesta> CerrarSesion() {
+        public Task<bool> CerrarSesion() {
             return Task.Run(() => {
                 try {
                     return applicationUserManager.Logout();
                 } catch (Exception ex) {
-                    return new Respuesta(ex, nameof(CerrarSesion), logger);
+                    logger.LogInformation(nameof(CerrarSesion));
+                    return false;
                 }
             });
         }
 
-        public Task<Respuesta> CrearCuentaUsuario(CreateAccountData createAccountData) {
+        public Task<bool> CrearCuentaUsuario(CreateAccountData createAccountData) {
             return Task.Run(() => {
                 try {
                     return applicationUserManager.CreateUserAccount(createAccountData);
                 } catch (Exception ex) {
-                    return new Respuesta(ex, nameof(CrearCuentaUsuario), logger);
+                    logger.LogInformation(nameof(CrearCuentaUsuario));
+                    return false;
                 }
             });
         }

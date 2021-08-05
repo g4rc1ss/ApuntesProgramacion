@@ -1,5 +1,4 @@
-﻿using Garciss.Core.Common.Helper;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Threading;
@@ -17,7 +16,8 @@ namespace Apuntes.Migrations.SqliteLocal {
                 var migrator = scope.ServiceProvider.GetRequiredService<DatabaseMigrator>();
                 var initializer = scope.ServiceProvider.GetRequiredService<DatabaseInitializer>();
 
-                if (Helper.IsDevelopment) await migrator.DeleteDatabase();
+                //if (Helper.IsDevelopment) 
+                await migrator.DeleteDatabase();
 
                 await migrator.Migrate();
                 await initializer.Initialize(cancellationToken);

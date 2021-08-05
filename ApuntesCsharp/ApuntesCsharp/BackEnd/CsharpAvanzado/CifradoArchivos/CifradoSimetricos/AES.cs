@@ -1,5 +1,4 @@
-﻿using Garciss.Core.Libs.Encriptacion.Cryptography;
-using System;
+﻿using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -18,22 +17,23 @@ namespace CifradoSimetricos {
                     archivoEscritura.Close();//guardamos y cerramos el archivo
                 }
 
-                var archivoLectura = new StreamReader(archivoAES_TXT);
-                var textoCifrar = archivoLectura.ReadToEnd();
-                archivoLectura.Close();
+                Console.WriteLine("Escribe la contraseña");
+                var contraseña = Console.ReadLine();
 
-                var aes = new AESHelper();
                 using (HashAlgorithm hash = SHA256.Create()) {
-                    //Obtengo la pass por teclado
-                    Console.WriteLine("Escribe la contraseña");
-                    var contraseña = Console.ReadLine();
+                    using (var aesAlg = Aes.Create()) {
+                        aesAlg.Key = hash.ComputeHash(Encoding.Unicode.GetBytes(contraseña));
 
-                    var cifradoAES = new AESHelper();
-                    cifradoAES.EncriptarFichero(archivoAES_TXT, hash.ComputeHash(Encoding.Unicode.GetBytes(contraseña)), aes.IV);
+                        using (var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV))
+                        using (var fileStreamOutput = new FileStream($"{archivoAES_TXT}.crypt", FileMode.Create, FileAccess.Write))
+                        using (var cryptStream = new CryptoStream(fileStreamOutput, encryptor, CryptoStreamMode.Write))
+                        using (var fileStreamInput = new FileStream(archivoAES_TXT, FileMode.Open, FileAccess.Read))
+                            for (int data; (data = fileStreamInput.ReadByte()) != -1;)
+                                cryptStream.WriteByte((byte)data);
+                    }
                     File.Delete(archivoAES_TXT);
-
-                    cifradoAES.DesencriptarFichero($"{archivoAES_TXT}.crypt", aes.Key, aes.IV);
                 }
+                Console.WriteLine(File.ReadAllText($"{archivoAES_TXT}.crypt"));
                 File.Delete($"{archivoAES_TXT}.crypt");
 
             } catch (Exception ex) {

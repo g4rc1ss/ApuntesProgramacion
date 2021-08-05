@@ -1,6 +1,5 @@
 ﻿using DataAccessLayer.DataAccessManager;
 using DataAccessLayer.Database.Identity;
-using Garciss.Core.Common.Respuestas;
 using InmobiliariaEguzkimendi.Core.BusinessManager.IdentityManager;
 using Microsoft.Extensions.Logging;
 using System;
@@ -14,21 +13,25 @@ namespace BackApi.BusinessManager.IdentityManager {
             this.userDam = userDam;
         }
 
-        public Respuesta Login(string username, string password, bool rememberMe) {
+        public bool Login(string username, string password, bool rememberMe) {
             var resp = userDam.LogInAsync(username, password, rememberMe).Result;
-            if (!resp.Succeeded)
-                return new Respuesta(4000, $"Nombre de usuario {username} o contraseña incorrecta ***", nameof(Login), logger);
-            return new Respuesta();
+            if (!resp.Succeeded) {
+                logger.LogInformation($"Nombre de usuario {username} o contraseña incorrecta ***", nameof(Login));
+                return false;
+            }
+            return true;
         }
 
-        public Respuesta Logout() {
+        public bool Logout() {
             var resp = userDam.LogoutAsync().Result;
-            if (!resp)
-                return new Respuesta(4002, "Error al Cerrar la sesion", nameof(Logout), logger);
-            return new Respuesta();
+            if (!resp) {
+                logger.LogInformation("Error al Cerrar la sesion", nameof(Logout));
+                return false;
+            }
+            return true;
         }
 
-        public Respuesta CreateUserAccount(CreateAccountData createAccountData) {
+        public bool CreateUserAccount(CreateAccountData createAccountData) {
             var user = new User() {
                 UserName = createAccountData.UserName,
                 NormalizedUserName = createAccountData.NormalizedUserName,
@@ -41,14 +44,13 @@ namespace BackApi.BusinessManager.IdentityManager {
 
             if (respUser.Succeeded && respRole.Succeeded) {
                 var resp = Login(createAccountData.UserName, createAccountData.Password, false);
-                if (resp.Resultado != resp.OK)
-                    return resp;
+                return resp;
             } else {
                 var deleteToRevertOperation = userDam.DeleteUserAsync(user).Result;
-                return new Respuesta(4003, $"usuario creado? {respUser.Succeeded} \n , logger" +
+                logger.LogInformation($"usuario creado? {respUser.Succeeded} \n , logger" +
                     $"usuario insertado Rol? {respRole.Succeeded}", nameof(CreateUserAccount));
+                return false;
             }
-            return new Respuesta();
         }
     }
 }

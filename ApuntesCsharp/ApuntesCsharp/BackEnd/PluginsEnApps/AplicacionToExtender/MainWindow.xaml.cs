@@ -4,12 +4,10 @@ using Microsoft.Win32;
 using PluginAPI;
 using PluginAPI.ExportAPI;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -102,7 +100,7 @@ namespace AplicacionToExtender {
 
         private void LoadEventCall(object sender, EventArgs e) {
             var itemToLoad = sender as ExportObject;
-            if(itemToLoad.ObjectToExport is string) {
+            if (itemToLoad.ObjectToExport is string) {
                 MessageBox.Show(itemToLoad.ObjectToExport as string);
             }
         }

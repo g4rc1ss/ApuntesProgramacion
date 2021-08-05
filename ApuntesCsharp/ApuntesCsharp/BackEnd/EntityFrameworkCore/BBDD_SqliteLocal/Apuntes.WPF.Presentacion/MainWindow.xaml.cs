@@ -16,10 +16,10 @@ namespace Apuntes.WPF.Presentacion {
 
         private async void CargarBBDD(object sender, RoutedEventArgs e) {
             var respUsuarios = await userAction.GetAllUsers();
-            if (respUsuarios.Resultado != respUsuarios.OK) {
-                MessageBox.Show(respUsuarios.Mensaje, "", MessageBoxButton.OK, MessageBoxImage.Error);
+            if (respUsuarios.Count <= 0) {
+                MessageBox.Show("No se han obtenido resultados", "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            foreach (var users in respUsuarios.Datos) {
+            foreach (var users in respUsuarios) {
                 DataGrid_Table.Items.Add(new User() {
                     Name = users.Nombre,
                     Edad = users.Edad

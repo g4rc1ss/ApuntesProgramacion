@@ -12,10 +12,11 @@
     <Folder Include="ConexionSocket\" />
     <Folder Include="JSON\" />
     <Folder Include="ConexionSocket\ClienteServidor\" />
-    <Folder Include="Email\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Garciss.Csharp.Libs" Version="3.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="5.0.8" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.DirectoryServices" Version="5.0.0" />
   </ItemGroup>
 </Project>
