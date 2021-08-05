@@ -1,11 +1,13 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 
-namespace BasesDeDatos.MySQL {
+namespace MySqlDatabase.MySQL {
     public class UsarBBDD_MySQL {
         public void BaseMySQL() {
+            Console.WriteLine("Escribe el usuario");
+            var usuario = Console.ReadLine();
             Console.WriteLine("Escribe la password");
-            var connStr = $"server=localhost;user=asier;database=datosPrueba;port=3306;password={Console.ReadLine()}";
+            var connStr = $"server=localhost;user={usuario};database=datosPrueba;port=3306;password={Console.ReadLine()}";
 
             using (var conn = new MySqlConnection(connStr)) {
                 try {
@@ -35,15 +37,11 @@ namespace BasesDeDatos.MySQL {
 
                     // Ejecutamos una select y leemos los datos
                     var sql = "SELECT * FROM Empleado";
-                    using (var comandoSelect = new MySqlCommand(sql, conn)) {
-                        using (var leerSelect = comandoSelect.ExecuteReader()) {
-                            while (leerSelect.Read()) {
-                                // Leemos el array, cada posicion es el numero de columna por indice
-                                // El 0 es la primera columna, el 1 la segunda, el 2 la tercera, etc.
-                                Console.WriteLine(leerSelect[0] + " -- " + leerSelect[1] + "--" + leerSelect[2] + "--" + leerSelect[3]);
-                            }
-                            leerSelect.Close();
-                        }
+                    using (var comandoSelect = new MySqlCommand(sql, conn)) using (var leerSelect = comandoSelect.ExecuteReader()) {
+                        while (leerSelect.Read())                                 // Leemos el array, cada posicion es el numero de columna por indice
+                                                                                  // El 0 es la primera columna, el 1 la segunda, el 2 la tercera, etc.
+                            Console.WriteLine(leerSelect[0] + " -- " + leerSelect[1] + "--" + leerSelect[2] + "--" + leerSelect[3]);
+                        leerSelect.Close();
                     }
                 } catch (Exception ex) {
                     Console.WriteLine(ex.ToString());
