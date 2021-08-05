@@ -12,10 +12,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Garciss.Csharp.Libs" Version="3.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PluginAPI\PluginAPI.csproj" />
   </ItemGroup>
 

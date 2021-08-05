@@ -12,8 +12,7 @@
     <Folder Include="MySQL\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Garciss.Csharp.Libs" Version="3.3.0" />
-    <PackageReference Include="MySql.Data" Version="8.0.22" />
+    <PackageReference Include="MySql.Data" Version="8.0.26" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
