@@ -3,8 +3,8 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace CifradoAsimetricos {
-    public class RSA {
+namespace RsaCipherExample.Archivos {
+    public class RsaEncryptFile {
         private readonly string archivoRSA_TXT = "archivoRSA.txt";
         private readonly string archivoRSA_CRYPT = "archivoRSA.crypt";
 

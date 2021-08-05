@@ -3,11 +3,11 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace CifradoSimetricos {
-    public class AES {
+namespace AesCipherExample.Textos {
+    public class AesDecryptText {
         private readonly string archivoAES_TXT = "archivo.txt";
 
-        public void CifrarAES() {
+        public void DescifrarAES() {
             try {
                 if (!File.Exists(archivoAES_TXT)) {
                     var archivoEscritura = File.CreateText(archivoAES_TXT);
