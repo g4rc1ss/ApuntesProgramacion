@@ -1,9 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.DataProtection;
+using System;
 using System.Net;
 using System.Net.Mail;
 
 namespace ConexionesInternetCSharp.Email {
     public class EnviarEmail {
+        private IDataProtector dataProtector;
+        public EnviarEmail(IDataProtectionProvider dataProtectionProvider) {
+            dataProtector = dataProtectionProvider.CreateProtector("ConexionesInternetCSharp.Email.EnviarEmail");
+        }
+
         public void EnvioMail() {
             var servidorDeEnvio = "smtp.gmail.com";
             try {
@@ -11,6 +17,7 @@ namespace ConexionesInternetCSharp.Email {
                 Console.WriteLine("Usuario y Contraseña");
                 var usuario = Console.ReadLine();
                 var contraseña = string.Empty;
+                var contraseñaCifrada = string.Empty;
 
                 //Capuramos la contraseña de modo que no se vea en la consola
                 for (var stop = false; stop == false;) {
@@ -24,8 +31,8 @@ namespace ConexionesInternetCSharp.Email {
                     } else if (ultimaKey.Key != ConsoleKey.Enter) {
                         contraseña += ultimaKey.KeyChar;
                     } else {
-                        //Encriptamos la contraseña y limpiamos el string con la original
-                        var contraseñaCifrada = "";
+                        contraseñaCifrada = dataProtector.Protect(contraseña);
+                        Console.Write(contraseñaCifrada);
                         stop = true;
                         Console.Write("\n");
                     }
@@ -39,14 +46,14 @@ namespace ConexionesInternetCSharp.Email {
                     to: Console.ReadLine(),// Receptor
                     subject: "Prueba Envio Mensaje",// Asunto del mensaje
                     body: "Hola, es la prueba del envio de un mensaje por c# \n" +
-                    "Un saludo, \n"// Cuerpo del mensaje
+                    "Un saludo\n"// Cuerpo del mensaje
                 );
 
                 using (var cliente = new SmtpClient(servidorDeEnvio)) {
                     cliente.EnableSsl = true;
                     cliente.Credentials = new NetworkCredential(
                         usuario,
-                        contraseña
+                        dataProtector.Unprotect(contraseñaCifrada)
                     );
                     cliente.Send(mensaje);
                 }

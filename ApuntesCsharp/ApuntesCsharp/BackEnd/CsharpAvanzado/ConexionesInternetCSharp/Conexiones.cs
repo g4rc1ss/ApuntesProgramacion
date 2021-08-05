@@ -16,7 +16,7 @@ namespace ConexionesInternetCSharp {
             new ConexionSocket.ClienteServidor.Cliente().Conectar();
 
             // -------- Enviar un Email -------- \\
-            new Email.EnviarEmail().EnvioMail();
+            new Email.EnviarMailInyeccionDependenciasParaProtector();
 
             // -------- Conectar Active Directory -------- \\
             //new ActiveDirectory.AD();
