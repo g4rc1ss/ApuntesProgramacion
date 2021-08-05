@@ -1,6 +1,4 @@
-﻿using Garciss.Core.Data.Databases.SQLite;
-using Garciss.Core.Libs.Encriptacion.Cryptography;
-using System;
+﻿using System;
 using System.Data;
 using System.IO;
 

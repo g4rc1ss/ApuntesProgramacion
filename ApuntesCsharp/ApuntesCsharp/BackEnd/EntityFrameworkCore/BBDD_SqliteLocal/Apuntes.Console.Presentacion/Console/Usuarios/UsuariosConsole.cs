@@ -13,7 +13,7 @@ namespace Apuntes.Console.Presentacion.Console.Usuarios {
             var edad = int.Parse(System.Console.ReadLine());
 
             var users = await userAction.GetAllUsers();
-            foreach (var user in users.Datos) {
+            foreach (var user in users) {
                 System.Console.WriteLine($"Usuario: {user.Nombre} - Edad: {user.Edad} - Fecha: {user.FechaHoy}");
             }
         }

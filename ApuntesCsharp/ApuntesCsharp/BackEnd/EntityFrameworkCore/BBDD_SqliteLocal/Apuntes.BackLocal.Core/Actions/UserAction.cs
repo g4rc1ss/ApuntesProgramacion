@@ -1,6 +1,5 @@
 ﻿using Apuntes.BackLocal.Core.Manager;
 using Apuntes.BackLocal.DataAccessLayer.Database.Sqlite;
-using Garciss.Core.Common.Respuestas;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,12 +11,12 @@ namespace Apuntes.BackLocal.Core.Actions {
             this.userManager = userManager;
         }
 
-        public Task<Respuesta<List<Usuario>>> GetAllUsers() {
+        public Task<List<Usuario>> GetAllUsers() {
             return Task.Run(() => {
                 try {
                     return userManager.GetListaUsuarios();
-                } catch (Exception ex) {
-                    return new Respuesta<List<Usuario>>(ex, nameof(GetAllUsers));
+                } catch (Exception) {
+                    return new List<Usuario>();
                 }
             });
         }

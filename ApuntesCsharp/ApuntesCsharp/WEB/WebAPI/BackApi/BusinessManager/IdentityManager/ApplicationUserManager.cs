@@ -1,6 +1,5 @@
 ﻿using DataAccessLayer.DataAccessManager;
 using DataAccessLayer.Database.Identity;
-using Garciss.Core.Common.Respuestas;
 using InmobiliariaEguzkimendi.Core.BusinessManager.IdentityManager;
 using Microsoft.Extensions.Logging;
 using System;

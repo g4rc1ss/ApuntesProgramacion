@@ -1,6 +1,4 @@
-﻿using Garciss.Core.Common.Respuestas;
-using Garciss.Core.Libs.Encriptacion.Cryptography;
-using System.Text;
+﻿using System.Text;
 
 namespace BackApi {
     public class Prueba {

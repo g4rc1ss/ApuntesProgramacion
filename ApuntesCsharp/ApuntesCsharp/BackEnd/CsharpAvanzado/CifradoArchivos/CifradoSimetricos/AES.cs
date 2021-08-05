@@ -1,5 +1,4 @@
-﻿using Garciss.Core.Libs.Encriptacion.Cryptography;
-using System;
+﻿using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
