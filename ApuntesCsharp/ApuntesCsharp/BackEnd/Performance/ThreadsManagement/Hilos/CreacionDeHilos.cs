@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace SincroniaAsincronia.Hilos {
+namespace ThreadsManagement.Hilos {
     public class CreacionDeHilos {
         public void FuncHilo1() {
             for (var x = 0; x < 1000; x++)

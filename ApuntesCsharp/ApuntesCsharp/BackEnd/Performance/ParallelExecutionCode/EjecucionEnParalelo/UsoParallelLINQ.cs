@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace SincroniaAsincronia.EjecucionEnParalelo {
+namespace ParallelExecutionCode.EjecucionEnParalelo {
     internal class UsoParallelLINQ {
         public UsoParallelLINQ() {
             var source = Enumerable.Range(100, 20000);

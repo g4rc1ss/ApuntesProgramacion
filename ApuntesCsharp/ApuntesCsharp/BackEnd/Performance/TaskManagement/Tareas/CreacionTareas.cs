@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace SincroniaAsincronia.Tareas {
+namespace TaskManagement.Tareas {
     public class CreacionTareas {
         /// <summary>
         /// Creamos un metodo asincrono porque vamos a ejecutar el await 

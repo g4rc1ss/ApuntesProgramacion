@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SincroniaAsincronia.EjecucionEnParalelo {
+namespace ParallelExecutionCode.EjecucionEnParalelo {
     internal class UsoParallelBucles {
         // Info en la teoria ubicada en BackEnd > Sintaxis > Teoria > 2_UsoAvanzado
         public void BucleFor() {

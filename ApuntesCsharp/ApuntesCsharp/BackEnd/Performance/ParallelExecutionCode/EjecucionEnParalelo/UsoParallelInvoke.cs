@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace SincroniaAsincronia.EjecucionEnParalelo {
+namespace ParallelExecutionCode.EjecucionEnParalelo {
     internal class UsoParallelInvoke {
         public UsoParallelInvoke() {
             Parallel.Invoke(
