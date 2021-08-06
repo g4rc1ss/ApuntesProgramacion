@@ -5,53 +5,24 @@ using System.Text;
 
 namespace RsaCipherExample.Textos {
     public class RsaDecryptText {
-        private readonly string archivoRSA_TXT = "archivoRSA.txt";
-        private readonly string archivoRSA_CRYPT = "archivoRSA.crypt";
-
         public void DescifrarRSA() {
             try {
-                if (!File.Exists(archivoRSA_TXT)) {
-                    var archivoEscrituraRSA = File.CreateText(archivoRSA_TXT);
-                    archivoEscrituraRSA.Write("Esto es una prueba de escritura en un archivo de " +
-                        "texto. \n" +
-                        "Siguiente Linea jajajaja");
-                    archivoEscrituraRSA.Close();//guardamos y cerramos el archivo
-                }
-
-                var archivoLectura = new StreamReader(archivoRSA_TXT);
-                var textoCifrar = archivoLectura.ReadToEnd();
-                archivoLectura.Close();
-
-
+                Console.WriteLine("Escribe el texto a descifrar");
                 //Obtenemos un array de bytes del texto a cifrar
-                var textoCifrarBytes = Encoding.Default.GetBytes(textoCifrar);
-
+                var textoDescifrarBytes = Encoding.UTF8.GetBytes(Console.ReadLine());
 
                 // Instanciamos el algorimo asimétrico RSA
-                using (var rSA_Crypt = new RSACryptoServiceProvider()) {
+                using (var rsaCrypt = RSA.Create()) {
                     // Establecemos la longitud de la clave que queremos usar
-                    rSA_Crypt.KeySize = 4096;
-                    // Encriptamos el mensaje con un relleno OAEP.
-                    var mensajeCifrado = rSA_Crypt.Encrypt(textoCifrarBytes, true);
-
-                    // Escribir en un fichero el mensaje cifrado
-                    File.WriteAllBytes(archivoRSA_CRYPT, mensajeCifrado);
-                    File.Delete(archivoRSA_TXT);
-
+                    rsaCrypt.KeySize = 4096;
+                    rsaCrypt.ImportRSAPublicKey(File.ReadAllBytes("public.key"), out var publicKey);
+                    rsaCrypt.ImportRSAPrivateKey(File.ReadAllBytes("private.key"), out var privateKey);
 
                     // Desencriptamos el mensaje
-                    var mensajeDescifrado = rSA_Crypt.Decrypt(File.ReadAllBytes(archivoRSA_CRYPT), true);
-                    var mensajeOriginal = Encoding.Default.GetString(mensajeDescifrado);
+                    var mensajeDescifrado = rsaCrypt.Decrypt(textoDescifrarBytes, RSAEncryptionPadding.Pkcs1);
 
-
-                    var archivoEscritura = File.CreateText(archivoRSA_TXT);
-                    archivoEscritura.Write(mensajeOriginal);
-                    archivoEscritura.Close();
-
-
-                    // Sacamos el mensaje descifrado por consola
-                    Console.WriteLine("----------------------------------- \n Mensaje desencriptado:");
-                    Console.WriteLine(mensajeOriginal);
+                    Console.WriteLine("----------------------------------- \n Mensaje encriptado:");
+                    Console.WriteLine(Encoding.UTF8.GetString(mensajeDescifrado));
                 }
             } catch (Exception e) {
                 Console.WriteLine(e.Message);

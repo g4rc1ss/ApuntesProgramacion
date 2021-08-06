@@ -9,33 +9,34 @@ namespace AesCipherExample.Textos {
 
         public void CifrarAES() {
             try {
-                if (!File.Exists(archivoAES_TXT)) {
-                    var archivoEscritura = File.CreateText(archivoAES_TXT);
-                    archivoEscritura.Write("Esto es una prueba de escritura en un archivo de " +
-                        "texto. \n" +
-                       "Siguiente Linea jajajaja");
-                    archivoEscritura.Close();//guardamos y cerramos el archivo
-                }
+                Console.WriteLine("Escribe el texto a encriptar");
+                //Obtenemos un array de bytes del texto a cifrar
+                var textoCifrarBytes = Console.ReadLine();
 
                 Console.WriteLine("Escribe la contraseña");
                 var contraseña = Console.ReadLine();
 
+                var textoCifrado = default(byte[]);
                 using (HashAlgorithm hash = SHA256.Create()) {
                     using (var aesAlg = Aes.Create()) {
-                        aesAlg.Key = hash.ComputeHash(Encoding.Unicode.GetBytes(contraseña));
+                        aesAlg.Key = hash.ComputeHash(Encoding.UTF8.GetBytes(contraseña));
 
-                        using (var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV))
-                        using (var fileStreamOutput = new FileStream($"{archivoAES_TXT}.crypt", FileMode.Create, FileAccess.Write))
-                        using (var cryptStream = new CryptoStream(fileStreamOutput, encryptor, CryptoStreamMode.Write))
-                        using (var fileStreamInput = new FileStream(archivoAES_TXT, FileMode.Open, FileAccess.Read))
-                            for (int data; (data = fileStreamInput.ReadByte()) != -1;)
-                                cryptStream.WriteByte((byte)data);
+                        // Create an encryptor to perform the stream transform.
+                        using (var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV))                     // Create the streams used for encryption.
+                        using (var msEncrypt = new MemoryStream())
+                        using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write)) {
+                            using (var swEncrypt = new StreamWriter(csEncrypt)) {
+                                //Write all data to the stream.
+                                swEncrypt.Write(textoCifrarBytes);
+                                textoCifrarBytes = string.Empty;
+                            }
+                            textoCifrado = msEncrypt.ToArray();
+                        }
                     }
-                    File.Delete(archivoAES_TXT);
                 }
-                Console.WriteLine(File.ReadAllText($"{archivoAES_TXT}.crypt"));
-                File.Delete($"{archivoAES_TXT}.crypt");
 
+                File.Delete(archivoAES_TXT);
+                Console.WriteLine(Encoding.UTF8.GetString(textoCifrado));
             } catch (Exception ex) {
                 Console.WriteLine(ex.StackTrace);
             }

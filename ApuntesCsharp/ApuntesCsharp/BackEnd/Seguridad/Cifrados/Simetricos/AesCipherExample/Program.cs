@@ -1,6 +1,7 @@
 ﻿
 using AesCipherExample.Archivos;
 using AesCipherExample.Textos;
+using System;
 
 namespace AesCipherExample {
     internal class Program {
