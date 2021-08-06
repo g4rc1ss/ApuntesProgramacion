@@ -157,6 +157,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsoleApps", "ConsoleApps"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchivosTexto", "BackEnd\EscrituraLectura\ArchivosTexto\ArchivosTexto.csproj", "{F96147E0-39A9-4B99-9C83-786E9EB80045}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationFiles", "BackEnd\EscrituraLectura\ConfigurationFiles\ConfigurationFiles.csproj", "{A39A5B2E-66CB-41B5-B3BA-1B39297BD5CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -327,6 +329,10 @@ Global
 		{F96147E0-39A9-4B99-9C83-786E9EB80045}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F96147E0-39A9-4B99-9C83-786E9EB80045}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F96147E0-39A9-4B99-9C83-786E9EB80045}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A39A5B2E-66CB-41B5-B3BA-1B39297BD5CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A39A5B2E-66CB-41B5-B3BA-1B39297BD5CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A39A5B2E-66CB-41B5-B3BA-1B39297BD5CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A39A5B2E-66CB-41B5-B3BA-1B39297BD5CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -401,6 +407,7 @@ Global
 		{ED0BBAD4-52FE-443C-BDC6-E13635348CBE} = {BC12B1CE-3F9C-453D-8081-6149009ACA62}
 		{23263B5B-801F-455D-A6B0-A17D28319F42} = {BC12B1CE-3F9C-453D-8081-6149009ACA62}
 		{F96147E0-39A9-4B99-9C83-786E9EB80045} = {DB77C912-4342-4B9D-93B3-21824168953D}
+		{A39A5B2E-66CB-41B5-B3BA-1B39297BD5CA} = {DB77C912-4342-4B9D-93B3-21824168953D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E490D0C8-C5A7-4F24-8A9B-CE1635508778}

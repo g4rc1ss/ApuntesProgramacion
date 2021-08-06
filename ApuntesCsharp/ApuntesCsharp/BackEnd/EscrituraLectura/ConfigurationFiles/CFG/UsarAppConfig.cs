@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 
-namespace Escritura_Lectura.CFG {
+namespace ConfigurationFiles.CFG {
     public class UsarAppConfig {
         public string LocalizacionArchivo { get; private set; }
 
