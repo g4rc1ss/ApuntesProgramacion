@@ -4,7 +4,7 @@ using AesCipherExample.Textos;
 
 namespace AesCipherExample {
     internal class Program {
-        private static void Main(string[] args) {
+        private static void Main() {
             new AesEncryptFile().CifrarAES();
             new AesDecryptFile().DescifrarAES();
 

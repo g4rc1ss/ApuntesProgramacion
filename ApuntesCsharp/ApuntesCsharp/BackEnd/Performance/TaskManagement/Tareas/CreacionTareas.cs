@@ -7,11 +7,11 @@ namespace TaskManagement.Tareas {
         /// Creamos un metodo asincrono porque vamos a ejecutar el await 
         /// Con Task.Run( () => NombreMetodo() ) ejecutamos la tarea sobre ese metodo
         /// </summary>
-        public async void Task1() {
+        public static async void Task1() {
             await Task.Run(() => MetodoTask1());
         }
 
-        private void MetodoTask1() {
+        private static void MetodoTask1() {
             for (var x = 0; x < 1000; x++) {
                 Console.WriteLine("task1");
             }
@@ -23,11 +23,11 @@ namespace TaskManagement.Tareas {
         /// </summary>
         /// <param name="mostrar">tambien se muestra como pasar datos a metodos</param>
         /// <returns>nada, simplemente para demostrar como devolver otro tipo de obj</returns>
-        public async Task<string> Task3(string mostrar) {
+        public static async Task<string> Task3(string mostrar) {
             return await Task.Run(() => MetodoTask3(mostrar));
         }
 
-        private string MetodoTask3(string mostrar) {
+        private static string MetodoTask3(string mostrar) {
             for (var x = 0; x < 1000; x++) {
                 Console.WriteLine(mostrar);
             }
@@ -44,7 +44,7 @@ namespace TaskManagement.Tareas {
         /// El funcionamiento de esto es que ejecuto una tarea para ejecutar un codigo largo y que va a durar tiempo
         /// y cuando necesito los datos de ese metodo que he ejecutado uso el await para recibirlos, osea, el return
         /// </summary>
-        public async void Task2() {
+        public static async void Task2() {
             var tarea = Task.Run(() => {
                 for (var i = 0; i < 100000000; i++) {
                     for (var z = 0; z < 10; z++) {
@@ -56,7 +56,7 @@ namespace TaskManagement.Tareas {
             });
             Console.WriteLine(await tarea);
         }
-        private string Task2async() {
+        private static string Task2async() {
             return "mensaje";
         }
     }

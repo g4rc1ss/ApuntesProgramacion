@@ -4,16 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Apuntes.BackLocal.DataAccessLayer.Database;
 using Apuntes.BackLocal.DataAccessLayer.Database.Sqlite;
-using Microsoft.EntityFrameworkCore;
 
 namespace Apuntes.Migrations.SqliteLocal.Seeds {
     internal class SeedUser {
         private readonly ContextoSqlite contextoSqlite;
-        private readonly IDbContextFactory<ContextoSqlite> dbContextFactory;
 
-        public SeedUser(ContextoSqlite contextoSqlite, IDbContextFactory<ContextoSqlite> dbContextFactory) {
+        public SeedUser(ContextoSqlite contextoSqlite) {
             this.contextoSqlite = contextoSqlite;
-            this.dbContextFactory = dbContextFactory;
         }
 
         internal async Task InicializarDatosFavoritos() {

@@ -2,11 +2,11 @@
 
 namespace TaskManagement {
     internal class Program {
-        private static void Main(string[] args) {
+        private static void Main() {
             //Tareas normales de codigo
-            new CreacionTareas().Task2();
-            new CreacionTareas().Task1();
-            _ = new CreacionTareas().Task3("task3");
+            CreacionTareas.Task2();
+            CreacionTareas.Task1();
+            _ = CreacionTareas.Task3("task3");
         }
     }
 }

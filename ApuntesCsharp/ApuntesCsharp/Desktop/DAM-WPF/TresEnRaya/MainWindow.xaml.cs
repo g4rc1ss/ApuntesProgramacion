@@ -10,8 +10,8 @@ namespace TresEnRayaClase {
         private bool turno;
         private readonly int[] partida = new int[9];
         private int victorias1 = 0, victorias2 = 0;
-        private readonly List<Ellipse> circulos = new List<Ellipse>();
-        private readonly List<Grid> aspas = new List<Grid>();
+        private readonly List<Ellipse> circulos = new();
+        private readonly List<Grid> aspas = new();
         public MainWindow() {
             InitializeComponent();
             CargarLista();

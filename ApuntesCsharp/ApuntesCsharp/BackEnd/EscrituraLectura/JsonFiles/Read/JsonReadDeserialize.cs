@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace JsonFiles.Read {
     public class JsonReadDeserialize {
-        public void UsingJSON() {
+        public static void UsingJSON() {
 
             //Leemos el archivo JSON para indicar la ruta de lectura del fichero
             using (var jsonLectura = File.OpenText("ruta.json")) {

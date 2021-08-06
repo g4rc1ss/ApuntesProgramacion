@@ -3,7 +3,7 @@ using MySql.Data.MySqlClient;
 
 namespace MySqlDatabase.MySQL {
     public class UsarBBDD_MySQL {
-        public void BaseMySQL() {
+        public static void BaseMySQL() {
             Console.WriteLine("Escribe el usuario");
             var usuario = Console.ReadLine();
             Console.WriteLine("Escribe la password");

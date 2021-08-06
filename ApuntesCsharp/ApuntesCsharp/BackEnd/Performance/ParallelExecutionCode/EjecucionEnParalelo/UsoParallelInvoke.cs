@@ -10,10 +10,10 @@ namespace ParallelExecutionCode.EjecucionEnParalelo {
             );
         }
 
-        private void Metodo1() {
+        private static void Metodo1() {
             Console.WriteLine("Hola 1");
         }
-        private void Metodo2(int numero) {
+        private static void Metodo2(int numero) {
             Console.WriteLine($"Hola {numero}");
         }
     }

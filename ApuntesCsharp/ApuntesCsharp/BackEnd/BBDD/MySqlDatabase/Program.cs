@@ -1,7 +1,7 @@
 ﻿namespace MySqlDatabase {
     internal class Program {
-        private static void Main(string[] args) {
-            new MySQL.UsarBBDD_MySQL().BaseMySQL();
+        private static void Main() {
+            MySQL.UsarBBDD_MySQL.BaseMySQL();
         }
     }
 }

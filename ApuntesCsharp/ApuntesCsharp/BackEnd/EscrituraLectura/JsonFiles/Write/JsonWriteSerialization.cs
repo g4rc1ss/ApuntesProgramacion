@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace JsonFiles.Write {
     public class JsonWriteSerialization {
-        public void UsingJSON(ClaseParaJSON json) {
+        public static void UsingJSON(ClaseParaJSON json) {
 
             var jsonEscritura = JsonConvert.SerializeObject(json);
             Console.WriteLine("JSON serializado:");

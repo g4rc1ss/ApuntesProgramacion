@@ -9,20 +9,19 @@ using System.Windows.Threading;
 namespace EjecicioPong {
     public partial class MainWindow : Window {
 
-        private readonly DispatcherTimer timer = new DispatcherTimer();
+        private readonly DispatcherTimer timer = new();
         private bool teclaArriba, teclaAbajo, teclaW, teclaS;
-        private Key ultimaTecla;
         private bool humano;
         private int desplazamiento;
         private int velocidadBolita;
         private float dxBolita, dyBolita;
         private readonly int partes = 5;
-        private readonly Random r = new Random();
+        private readonly Random r = new();
         private int contadorAleatorio;
         private int posicionIA;
         private int puntuacionP1, puntuacionP2;
         private double despl;
-        private readonly MediaPlayer mediaPlayer = new MediaPlayer();
+        private readonly MediaPlayer mediaPlayer = new();
 
         public MainWindow() {
             InitializeComponent();
@@ -279,19 +278,15 @@ namespace EjecicioPong {
             switch (e.Key) {
                 case Key.Up:
                     teclaArriba = true;
-                    ultimaTecla = e.Key;
                     break;
                 case Key.Down:
                     teclaAbajo = true;
-                    ultimaTecla = e.Key;
                     break;
                 case Key.W:
                     teclaW = true;
-                    ultimaTecla = e.Key;
                     break;
                 case Key.S:
                     teclaS = true;
-                    ultimaTecla = e.Key;
                     break;
             }
         }
@@ -306,11 +301,9 @@ namespace EjecicioPong {
                     break;
                 case Key.W:
                     teclaW = false;
-
                     break;
                 case Key.S:
                     teclaS = false;
-
                     break;
             }
         }

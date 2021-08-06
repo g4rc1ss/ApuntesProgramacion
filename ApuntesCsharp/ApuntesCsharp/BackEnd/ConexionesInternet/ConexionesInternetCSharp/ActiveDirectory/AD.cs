@@ -40,7 +40,7 @@ namespace ConexionesInternetCSharp.ActiveDirectory {
 
                 foreach (PropertyValueCollection x in dir.Properties) {
                     Console.WriteLine($"----------------------------------------------------------- \n\n" +
-                        $"{x.PropertyName}  =  {x.Value.ToString()}");
+                        $"{x.PropertyName}  =  {x.Value}");
                 }
             }
         }

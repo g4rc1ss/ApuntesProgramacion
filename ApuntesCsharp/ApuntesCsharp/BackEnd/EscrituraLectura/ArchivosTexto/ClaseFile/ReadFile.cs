@@ -9,7 +9,7 @@ namespace ArchivosTexto.ClaseFile {
             var textoArchivoText = File.ReadAllText(nombreArchivoText);
             var textoArchivoTextAsync = File.ReadAllTextAsync(nombreArchivoTextAsync);
             var textoArchivoBytes = File.ReadAllBytes(nombreArchivoBytes);
-            var textoArchivoAllLines = File.ReadAllLines(nombreArchivoAllLines);
+            _ = File.ReadAllLines(nombreArchivoAllLines);
             var textoArchivoLines = File.ReadLines(nombreArchivoAllLines).ToList();
 
             Console.WriteLine($"{nameof(textoArchivoText)}: {textoArchivoText}\n \n");
@@ -18,6 +18,7 @@ namespace ArchivosTexto.ClaseFile {
             Console.WriteLine($"{nameof(textoArchivoBytes)}: {Encoding.UTF8.GetString(textoArchivoBytes)}\n \n");
 
             foreach (var texto in textoArchivoLines) {
+                string[] textoArchivoAllLines;
                 Console.WriteLine($"{nameof(textoArchivoAllLines)}: {texto}");
             }
             Console.WriteLine("\n \n");

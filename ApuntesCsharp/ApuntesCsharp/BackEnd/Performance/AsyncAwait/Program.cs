@@ -10,7 +10,7 @@ namespace AsyncAwait {
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
-        private static void Main(string[] args) {
+        private static void Main() {
             var asincronia = new Asincronia();
 
             for (var i = 0; i < 30; i++) {

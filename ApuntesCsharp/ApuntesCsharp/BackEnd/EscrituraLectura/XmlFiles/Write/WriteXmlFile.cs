@@ -12,7 +12,7 @@ namespace XmlFiles.Write {
             var empresa = document.CreateElement(string.Empty, "empresa", string.Empty);
             document.AppendChild(empresa);
 
-            for (int x = 1; x < 4; x++) {
+            for (var x = 1; x < 4; x++) {
                 var empleado = document.CreateElement(string.Empty, "empleado", string.Empty);
                 empleado.SetAttribute("id", $"{x}");
                 empresa.AppendChild(empleado);

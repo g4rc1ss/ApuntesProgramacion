@@ -3,9 +3,9 @@ using ThreadsManagement.Hilos;
 
 namespace ThreadsManagement {
     internal class Program {
-        private static void Main(string[] args) {
-            new Thread(new CreacionDeHilos().FuncHilo1).Start();
-            new Thread(() => new CreacionDeHilos().FuncHilo2("hilo2")).Start();
+        private static void Main() {
+            new Thread(CreacionDeHilos.FuncHilo1).Start();
+            new Thread(() => CreacionDeHilos.FuncHilo2("hilo2")).Start();
         }
     }
 }

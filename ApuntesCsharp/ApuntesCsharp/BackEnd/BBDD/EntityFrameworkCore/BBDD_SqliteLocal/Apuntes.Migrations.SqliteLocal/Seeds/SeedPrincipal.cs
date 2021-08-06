@@ -11,7 +11,7 @@ namespace Apuntes.Migrations.SqliteLocal.Seeds {
         }
 
         public async Task Seed(ContextoSqlite context, CancellationToken cancellationToken = default) {
-            await new SeedUser(dbContextFactory.CreateDbContext(), dbContextFactory).InicializarDatosFavoritos();
+            await new SeedUser(dbContextFactory.CreateDbContext()).InicializarDatosFavoritos();
         }
     }
 }

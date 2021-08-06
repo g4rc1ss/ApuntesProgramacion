@@ -6,25 +6,25 @@ using XmlFiles.Write;
 namespace XmlFiles {
     internal class Program {
         private const string NOMBRE_ARCHIVO_XML = "archivo.xml";
-        private const string NOMBRE_ARCHIVO_XML_LINQ= "archivoLinq.xml";
+        private const string NOMBRE_ARCHIVO_XML_LINQ = "archivoLinq.xml";
 
-        private static void Main(string[] args) {
+        private static void Main() {
             try {
-                new WriteXmlFile(NOMBRE_ARCHIVO_XML);
+                _ = new WriteXmlFile(NOMBRE_ARCHIVO_XML);
                 Console.WriteLine("Archivo XML Creado");
 
                 Console.WriteLine("\n--------------------------------------------------------------------\n");
-                new WriteXmlWithLinq(NOMBRE_ARCHIVO_XML_LINQ);
+                _ = new WriteXmlWithLinq(NOMBRE_ARCHIVO_XML_LINQ);
                 Console.WriteLine("Archivo LINQ XML Creado");
 
                 Console.WriteLine("\n--------------------------------------------------------------------\n");
-                new ReadXmlFile(NOMBRE_ARCHIVO_XML);
+                _ = new ReadXmlFile(NOMBRE_ARCHIVO_XML);
 
                 Console.WriteLine("\n--------------------------------------------------------------------\n");
-                new ReadXmlWithLinq(NOMBRE_ARCHIVO_XML);
+                _ = new ReadXmlWithLinq(NOMBRE_ARCHIVO_XML);
 
                 Console.WriteLine("\n--------------------------------------------------------------------\n");
-                new ReadXmlWithXpath(NOMBRE_ARCHIVO_XML);
+                _ = new ReadXmlWithXpath(NOMBRE_ARCHIVO_XML);
 
             } finally {
                 Console.WriteLine("\n--------------------------------------------------------------------\n");

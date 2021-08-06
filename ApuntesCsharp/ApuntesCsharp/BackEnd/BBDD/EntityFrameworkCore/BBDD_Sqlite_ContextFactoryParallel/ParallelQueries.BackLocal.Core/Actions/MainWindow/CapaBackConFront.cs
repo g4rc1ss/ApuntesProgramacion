@@ -5,7 +5,7 @@ using ParallelQueries.Migrations.LocalDB.Database;
 
 namespace ParallelQueries.BackLocal.Core.Actions.MainWindow {
     public class CapaBackConFront {
-        public bool CrearBaseDeDatos() {
+        public static bool CrearBaseDeDatos() {
             using (var contexto = new ContextoSqlite()) {
                 contexto.CreateDatabase();
 
@@ -16,7 +16,7 @@ namespace ParallelQueries.BackLocal.Core.Actions.MainWindow {
             return false;
         }
 
-        public List<object> CargaDeBaseDeDatos() {
+        public static List<object> CargaDeBaseDeDatos() {
             var baseDeDatos = new List<object>();
             using (var contextoUsers = new ContextoSqlite()) {
                 using (var contextoPueblos = ContextFactory.Create()) {

@@ -5,7 +5,7 @@ using ShellProgressBar;
 namespace ConsoleDesign.ProgressBar {
     //Importamos el modulo NuGet "ShellProgressBar"
     public class BarrasDeProgreso {
-        public void BarraProgreso() {
+        public static void BarraProgreso() {
             const int TOTALTICKS = 30;
 
             var options = new ProgressBarOptions {
