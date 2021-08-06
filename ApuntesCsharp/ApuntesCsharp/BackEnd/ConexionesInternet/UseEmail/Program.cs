@@ -4,7 +4,7 @@ namespace UseEmail {
     internal class Program {
         private static void Main() {
             // -------- Enviar un Email -------- \\
-            new Email.EnviarMailInyeccionDependenciasParaProtector();
+            _ = new Email.EnviarMailInyeccionDependenciasParaProtector();
         }
     }
 }

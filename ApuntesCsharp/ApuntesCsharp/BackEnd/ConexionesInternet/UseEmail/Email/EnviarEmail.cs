@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Mail;
 using Microsoft.AspNetCore.DataProtection;
 
-namespace ConexionesInternetCSharp.Email {
+namespace UseEmail.Email {
     public class EnviarEmail {
         private readonly IDataProtector dataProtector;
         public EnviarEmail(IDataProtectionProvider dataProtectionProvider) {

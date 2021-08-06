@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using Newtonsoft.Json;
 
-namespace ConexionesInternetCSharp.JSON {
+namespace UseApiWeb.JSON {
     public class DescargarJSON {
 
         public void DescargarRequestJSON() {

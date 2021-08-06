@@ -1,4 +1,4 @@
-﻿namespace ConexionesInternetCSharp {
+﻿namespace UseApiWeb.JSON {
     public class LeerJSON {
         public string Ip { get; set; }
         public string City { get; set; }
