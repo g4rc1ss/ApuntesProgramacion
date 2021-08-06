@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 
-namespace ArchivosTexto.Read.ClaseBinary {
+namespace ArchivosTexto.ClaseBinary {
     public class LeerBinario {
-        public void LeerArchivosBin(string nombreArchivo) {
+        public LeerBinario(string nombreArchivo) {
             // Apertura del archivo `ArchivoBinario.bin` en modo lectura:
             // Muestra la información tal cual está escrita en el archivo binario:
             using (var fs = new FileStream(nombreArchivo, FileMode.Open, FileAccess.Read)) {
