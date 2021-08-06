@@ -5,7 +5,7 @@ namespace ConexionesSocket {
     internal class Program {
         private static void Main() {
             // -------- Peticion de conexion tipo cliente -------- \\
-            ConexionSocket.ConsultasSocket.EstablecerSocket();
+            ConexionSocket.ConsultarPuertosAbiertos.EscanerPuertos();
 
             // -------- Conexion cliente-servidor -------- \\
             new Thread(() => ConexionSocket.ClienteServidor.Servidor.Conectar()).Start();
