@@ -3,14 +3,24 @@ using SqliteEfCore.Core;
 
 namespace ParallelQueries.Console.Presentacion {
     internal class Program {
+        private const string NOMBRE_BBDD = "BBDD_Local.db";
         private static void Main() {
-            if (!File.Exists("BBDD_Local.db")) {
-                EjecutarQueries.CrearBaseDeDatos();
-            }
+            try {
+                if (!File.Exists(NOMBRE_BBDD)) {
+                    EjecutarQueries.CrearBaseDeDatos();
+                }
 
-            var allData = EjecutarQueries.CargaDeBaseDeDatos();
-            foreach (var data in allData) {
-                System.Console.WriteLine($"{data.GetType().GetProperty("Name")}");
+                var allUsers = EjecutarQueries.CargarUsuarios();
+                foreach (var user in allUsers) {
+                    System.Console.WriteLine($"{user.Name} - {user.Edad}");
+                }
+
+                var allPueblos = EjecutarQueries.CargarPueblos();
+                foreach (var pueblo in allPueblos) {
+                    System.Console.WriteLine($"{pueblo.Nombre}");
+                }
+            } finally {
+                File.Delete(NOMBRE_BBDD);
             }
         }
     }

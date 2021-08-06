@@ -15,8 +15,7 @@ namespace SqliteEfCore.Core {
             return false;
         }
 
-        public static List<object> CargaDeBaseDeDatos() {
-            var baseDeDatos = new List<object>();
+        public static List<User> CargarUsuarios() {
             using (var context = new ContextoSqlite()) {
                 var users = (from consulta in context.Usuarios
                              where consulta.Id < 11
@@ -24,16 +23,18 @@ namespace SqliteEfCore.Core {
                                  Name = consulta.Nombre,
                                  Edad = consulta.Edad
                              }).ToList();
+                return users;
+            }
+        }
 
+        public static List<Pueblo> CargarPueblos() {
+            using (var context = new ContextoSqlite()) {
                 var pueblos = (from query in context.Pueblos
                                select new Pueblo() {
                                    Nombre = query.Nombre
                                }).ToList();
-
-                baseDeDatos.AddRange(users);
-                baseDeDatos.AddRange(pueblos);
+                return pueblos;
             }
-            return baseDeDatos;
         }
     }
 }
