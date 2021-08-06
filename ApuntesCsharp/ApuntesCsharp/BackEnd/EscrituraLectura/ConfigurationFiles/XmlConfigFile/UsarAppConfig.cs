@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 
-namespace ConfigurationFiles.CFG {
+namespace ConfigurationFiles.XmlConfigFile {
     public class UsarAppConfig {
         public string LocalizacionArchivo { get; private set; }
 
@@ -10,7 +10,6 @@ namespace ConfigurationFiles.CFG {
             //se tiene que instalar las dependencia NuGet "System.Configuration.ConfigurationManager"
             var archivoConfiguracion = ConfigurationManager.AppSettings;
             LocalizacionArchivo = archivoConfiguracion["LOCALIZACION_ARCHIVO"] ?? null;
-            Console.WriteLine(LocalizacionArchivo);
         }
     }
 }

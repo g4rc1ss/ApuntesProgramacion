@@ -1,18 +1,21 @@
-﻿using System;
+﻿using ConfigurationFiles.JsonConfigFile;
+using ConfigurationFiles.XmlConfigFile;
+using System;
 using System.IO;
 
-namespace ConfigurationFiles
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
+namespace ConfigurationFiles {
+    internal class Program {
+        private static void Main(string[] args) {
             // Usamos un archivo de configuracion
-            var localizacionArchivo = new CFG.UsarAppConfig();
-            localizacionArchivo.ArchivosConfiguracion();
-            var localizacion_Archivo = localizacionArchivo.LocalizacionArchivo;
+            var localizacionArchivoAppConfig = new UsarAppConfig();
+            localizacionArchivoAppConfig.ArchivosConfiguracion();
+            Console.WriteLine(localizacionArchivoAppConfig.LocalizacionArchivo);
 
-            File.Delete(localizacion_Archivo);
+            Console.WriteLine("---------------------------------------------------------------------------------------");
+
+            var localizacionArchivoAppSettings = new UsarAppSettingsJson();
+            localizacionArchivoAppSettings.ArchivosConfiguracion();
+            Console.WriteLine(localizacionArchivoAppSettings.LocalizacionArchivo);
         }
     }
 }
