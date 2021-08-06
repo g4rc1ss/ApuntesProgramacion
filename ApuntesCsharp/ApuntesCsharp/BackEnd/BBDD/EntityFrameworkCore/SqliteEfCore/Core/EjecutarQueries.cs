@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using SqliteEfCore.Database;
 
-namespace SqliteEfCore.Actions.MainWindow {
+namespace SqliteEfCore.Core {
     public class CapaBackConFront {
         public static bool CrearBaseDeDatos() {
             using (var contexto = new ContextoSqlite()) {
