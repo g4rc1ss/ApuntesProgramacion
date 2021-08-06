@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Escritura_Lectura.ArchivosTexto.BinaryRead_Writer {
+namespace ArchivosTexto.ArchivosTexto.BinaryRead_Writer {
     public class EscribirBinario {
         public void EscribirArchivosBin() {
             // Crea objeto `FileStream` para referenciar un archivo binario -ArchivoBinario.bin-:

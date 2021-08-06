@@ -133,11 +133,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ORM", "ORM", "{9F482526-4BE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ADO.NET", "ADO.NET", "{351EE22A-AC96-4520-B181-E03755B9D04F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySqlDatabase", "BackEnd\BBDD\MySqlDatabase\MySqlDatabase.csproj", "{590FAC53-CDC0-4584-B51A-B9FFDB53ACFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySqlDatabase", "BackEnd\BBDD\MySqlDatabase\MySqlDatabase.csproj", "{590FAC53-CDC0-4584-B51A-B9FFDB53ACFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqliteDatabase", "BackEnd\BBDD\SqliteDatabase\SqliteDatabase.csproj", "{D27148A0-CA97-4797-8A64-2AF53154429A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqliteDatabase", "BackEnd\BBDD\SqliteDatabase\SqliteDatabase.csproj", "{D27148A0-CA97-4797-8A64-2AF53154429A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AesCipherExample", "BackEnd\Seguridad\Cifrados\Simetricos\AesCipherExample\AesCipherExample.csproj", "{3831A28E-B7D6-45AE-BFBE-09AC4E5768E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AesCipherExample", "BackEnd\Seguridad\Cifrados\Simetricos\AesCipherExample\AesCipherExample.csproj", "{3831A28E-B7D6-45AE-BFBE-09AC4E5768E3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cifrados", "Cifrados", "{1BBC0F6D-4069-4C34-B07B-FD8663F11908}"
 EndProject
@@ -145,7 +145,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Simetricos", "Simetricos", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Asimetricos", "Asimetricos", "{C727BD23-F9DE-4AF6-8237-277F329EDA9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RsaCipherExample", "BackEnd\Seguridad\Cifrados\Asimetricos\RsaCipherExample\RsaCipherExample.csproj", "{28AB039F-180A-4C8A-B20B-09CE1231777A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RsaCipherExample", "BackEnd\Seguridad\Cifrados\Asimetricos\RsaCipherExample\RsaCipherExample.csproj", "{28AB039F-180A-4C8A-B20B-09CE1231777A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Arquitectura", "Arquitectura", "{BC12B1CE-3F9C-453D-8081-6149009ACA62}"
 EndProject
@@ -154,6 +154,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApps", "WebApps", "{ED0BBAD4-52FE-443C-BDC6-E13635348CBE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsoleApps", "ConsoleApps", "{23263B5B-801F-455D-A6B0-A17D28319F42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchivosTexto", "BackEnd\EscrituraLectura\ArchivosTexto\ArchivosTexto.csproj", "{F96147E0-39A9-4B99-9C83-786E9EB80045}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -321,6 +323,10 @@ Global
 		{28AB039F-180A-4C8A-B20B-09CE1231777A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28AB039F-180A-4C8A-B20B-09CE1231777A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28AB039F-180A-4C8A-B20B-09CE1231777A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F96147E0-39A9-4B99-9C83-786E9EB80045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F96147E0-39A9-4B99-9C83-786E9EB80045}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F96147E0-39A9-4B99-9C83-786E9EB80045}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F96147E0-39A9-4B99-9C83-786E9EB80045}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -394,6 +400,7 @@ Global
 		{2660615D-2920-4B89-9E71-A150F164055C} = {BC12B1CE-3F9C-453D-8081-6149009ACA62}
 		{ED0BBAD4-52FE-443C-BDC6-E13635348CBE} = {BC12B1CE-3F9C-453D-8081-6149009ACA62}
 		{23263B5B-801F-455D-A6B0-A17D28319F42} = {BC12B1CE-3F9C-453D-8081-6149009ACA62}
+		{F96147E0-39A9-4B99-9C83-786E9EB80045} = {DB77C912-4342-4B9D-93B3-21824168953D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E490D0C8-C5A7-4F24-8A9B-CE1635508778}

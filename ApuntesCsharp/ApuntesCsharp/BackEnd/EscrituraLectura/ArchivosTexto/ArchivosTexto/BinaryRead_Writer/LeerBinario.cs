@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Escritura_Lectura.ArchivosTexto.BinaryRead_Writer {
+namespace ArchivosTexto.ArchivosTexto.BinaryRead_Writer {
     public class LeerBinario {
         public void LeerArchivosBin() {
             // Apertura del archivo `ArchivoBinario.bin` en modo lectura:

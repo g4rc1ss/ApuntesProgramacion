@@ -14,14 +14,6 @@ namespace Escritura_Lectura {
             var localizacion_Archivo = localizacionArchivo.LocalizacionArchivo;
 
             InputOutput::File.Delete(localizacion_Archivo);
-
-            // Leemos y escribimos archivos binarios, ".bin"
-            new EscribirBinario().EscribirArchivosBin();
-            new LeerBinario().LeerArchivosBin();
-            new ReadAndWriteBinaryFile();
-
-            // Leemos y escribimos archivos con la libreria Stream
-            new ReadAndWriteWithStream();
         }
     }
 }
