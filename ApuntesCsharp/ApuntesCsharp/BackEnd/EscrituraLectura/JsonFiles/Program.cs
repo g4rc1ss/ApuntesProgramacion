@@ -2,7 +2,7 @@
     internal class Program {
         private static void Main(string[] args) {
             // Usamos JSON
-            new JSON.UsarJSO().UsingJSON();
+            new JSON.UsarJSON().UsingJSON();
         }
     }
 }
