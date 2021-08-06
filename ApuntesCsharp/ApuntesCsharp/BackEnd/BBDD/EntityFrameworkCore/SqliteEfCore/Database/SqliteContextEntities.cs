@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ParallelQueries.Migrations.LocalDB.Database.Sqlite;
+using SqliteEfCore.Database.Sqlite;
 
-namespace ParallelQueries.Migrations.LocalDB.Database {
+namespace SqliteEfCore.Database {
     public partial class ContextoSqlite {
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Pueblo> Pueblos { get; set; }
