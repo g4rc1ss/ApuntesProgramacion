@@ -2,10 +2,10 @@
 using System.Net;               //   Paso 1
 using System.Net.Sockets;       //   Paso 1
 
-namespace ConexionesInternetCSharp.ConexionSocket.ClienteServidor {
+namespace ConexionesSocket.ConexionSocket.ClienteServidor {
     public class Servidor {
 
-        public void Conectar() {
+        public static void Conectar() {
             using (var miPrimerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)) {
                 // paso 2 - creamos el socket
                 var miDireccion = new IPEndPoint(IPAddress.Parse("0.0.0.0"), 1234);

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.DirectoryServices;
 
-namespace ConexionesInternetCSharp.ActiveDirectory {
+namespace ActiveDirectory.ActiveDirectory {
     internal class AD {
         public AD() {
 
@@ -14,7 +14,7 @@ namespace ConexionesInternetCSharp.ActiveDirectory {
                 var ultimaKey = Console.ReadKey(true);
                 if (ultimaKey.Key == ConsoleKey.Backspace) {
                     try {
-                        pass = pass.Remove((pass.Length) - 1);
+                        pass = pass.Remove(pass.Length - 1);
                     } catch (Exception) {
                         Console.WriteLine("Todo borrado");
                     }
@@ -27,7 +27,7 @@ namespace ConexionesInternetCSharp.ActiveDirectory {
                 }
             }
 
-            var dir = new DirectoryEntry("LDAP://dominioAConectar", user, pass) {// agregar ruta de dominio
+            var dir = new DirectoryEntry("LDAP://dominioAConectar", user, pass) {
                 AuthenticationType = AuthenticationTypes.Secure
             };
             using (var search = new DirectorySearcher(dir)) {

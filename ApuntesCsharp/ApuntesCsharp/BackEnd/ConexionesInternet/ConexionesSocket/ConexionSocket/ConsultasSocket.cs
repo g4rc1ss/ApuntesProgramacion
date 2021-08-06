@@ -2,9 +2,9 @@
 using System.Net;
 using System.Net.Sockets;
 
-namespace ConexionesInternetCSharp.ConexionSocket {
+namespace ConexionesSocket.ConexionSocket {
     public class ConsultasSocket {
-        public void EstablecerSocket() {
+        public static void EstablecerSocket() {
             Socket socket = null;
             var port = 22;
 

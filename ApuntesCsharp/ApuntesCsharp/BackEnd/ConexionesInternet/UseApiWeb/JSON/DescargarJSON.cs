@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace UseApiWeb.JSON {
     public class DescargarJSON {
 
-        public void DescargarRequestJSON() {
+        public static void DescargarRequestJSON() {
 
             var host = Dns.GetHostEntry("google.es");
             var ip = host.AddressList[0].ToString();
