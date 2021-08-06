@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Apuntes.Migrations.LocalDB.Migrations {
-    public partial class CrearBBDD_Usuarios :Migration {
+    public partial class CrearBBDD_Usuarios : Migration {
         protected override void Up(MigrationBuilder migrationBuilder) {
             migrationBuilder.CreateTable(
                 name: "Usuarios",

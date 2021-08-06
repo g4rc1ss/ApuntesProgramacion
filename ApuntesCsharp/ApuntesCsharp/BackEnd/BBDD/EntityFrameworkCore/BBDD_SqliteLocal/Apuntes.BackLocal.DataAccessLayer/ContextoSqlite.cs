@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace Apuntes.BackLocal.DataAccessLayer.Database {
-    public class ContextoSqlite :DbContext {
+    public class ContextoSqlite : DbContext {
         public DbSet<Usuario> Usuarios { get; set; }
 
         public ContextoSqlite(DbContextOptions<ContextoSqlite> contextOptions) : base(contextOptions) {

@@ -5,7 +5,7 @@ namespace _1erEjecicio {
     /// <summary>
     /// Interaction logic for WindowCanvas.xaml
     /// </summary>
-    public partial class WindowCanvas :Window {
+    public partial class WindowCanvas : Window {
         public WindowCanvas() {
             InitializeComponent();
         }

@@ -1,11 +1,11 @@
-﻿using Apuntes.Back.Core.Database;
-using Apuntes.Back.Core.SQLite.ModelosBBDD;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Apuntes.Back.Core.Database;
+using Apuntes.Back.Core.SQLite.ModelosBBDD;
 
 namespace Apuntes.Migrations.SqlServer.Seeds {
-    public class SeedGenerator :IDataSeed {
+    public class SeedGenerator : IDataSeed {
         private ContextoSqlite contextoSqlite;
         private ContextoMSSQL contextoMSSQL;
 

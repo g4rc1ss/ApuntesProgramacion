@@ -1,9 +1,9 @@
-﻿using Apuntes.Back.Core.Database;
-using Apuntes.Back.Core.SQLite.ModelosBBDD;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Apuntes.Back.Core.Database;
+using Apuntes.Back.Core.SQLite.ModelosBBDD;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Apuntes.FrontEnd.Presentacion {
@@ -49,10 +49,12 @@ namespace Apuntes.FrontEnd.Presentacion {
                 var consultaParaBorrado = (from sql in db.Usuario
                                            where sql.ID == usuarios.ID
                                            select sql).ToList();
-                if (consultaParaBorrado.Count == 1)
+                if (consultaParaBorrado.Count == 1) {
                     db.Usuario.Remove(consultaParaBorrado[0]);
-                else if (consultaParaBorrado.Count > 1)
+                } else if (consultaParaBorrado.Count > 1) {
                     db.Usuario.RemoveRange(consultaParaBorrado);
+                }
+
                 db.SaveChanges();
 
                 //Console.WriteLine($"Borrando todas las filas de la tabla con sentencia SQL");

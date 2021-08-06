@@ -1,8 +1,8 @@
-﻿using BackApi.BusinessManager.IdentityManager;
+﻿using System;
+using System.Threading.Tasks;
+using BackApi.BusinessManager.IdentityManager;
 using InmobiliariaEguzkimendi.Core.BusinessManager.IdentityManager;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
 
 namespace BackApi.Actions.Identity {
     public class AccountAction {

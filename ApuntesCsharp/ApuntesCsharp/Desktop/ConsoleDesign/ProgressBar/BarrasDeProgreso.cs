@@ -1,6 +1,6 @@
-﻿using ShellProgressBar;
-using System;
+﻿using System;
 using System.Threading;
+using ShellProgressBar;
 
 namespace ConsoleDesign.ProgressBar {
     //Importamos el modulo NuGet "ShellProgressBar"

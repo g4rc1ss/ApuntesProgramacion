@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Apuntes.Migrations.SqlServer.Migrations {
-    public partial class Migration_SqlServerRemote :Migration {
+    public partial class Migration_SqlServerRemote : Migration {
         protected override void Up(MigrationBuilder migrationBuilder) {
             migrationBuilder.CreateTable(
                 name: "Usuario",

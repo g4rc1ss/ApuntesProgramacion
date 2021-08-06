@@ -1,10 +1,10 @@
-﻿using AplicacionToExtender.Database.DatabaseEntities;
+﻿using System.IO;
+using AplicacionToExtender.Database.DatabaseEntities;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
-using System.IO;
 
 namespace AplicacionToExtender.Database {
-    internal class PluginsContext :DbContext {
+    internal class PluginsContext : DbContext {
 
         public DbSet<Plugin> Plugins { get; set; }
 

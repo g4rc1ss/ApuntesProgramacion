@@ -1,7 +1,7 @@
-﻿using DataAccessLayer.DataAccessManager;
-using Microsoft.Extensions.DependencyInjection;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
+using DataAccessLayer.DataAccessManager;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace InmobiliariaEguzkimendi.DataAccessLayer {
     public static class ServiceCollectionExtensions {

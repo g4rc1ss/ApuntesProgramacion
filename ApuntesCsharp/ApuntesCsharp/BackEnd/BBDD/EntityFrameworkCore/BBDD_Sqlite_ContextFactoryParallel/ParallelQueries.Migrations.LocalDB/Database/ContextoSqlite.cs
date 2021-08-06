@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using ParallelQueries.Migrations.LocalDB.Database.Sqlite;
-using System.Threading.Tasks;
 
 namespace ParallelQueries.Migrations.LocalDB.Database {
-    public partial class ContextoSqlite :DbContext {
+    public partial class ContextoSqlite : DbContext {
 
         public ContextoSqlite() {
 
@@ -23,7 +23,7 @@ namespace ParallelQueries.Migrations.LocalDB.Database {
                 })
             );
 #endif
-            if (!optionsBuilder.IsConfigured)
+            if (!optionsBuilder.IsConfigured) {
                 optionsBuilder.UseSqlite(
                     new ConfigurationBuilder().AddJsonFile("appsettings.json", false, true)
                     .Build()
@@ -31,6 +31,7 @@ namespace ParallelQueries.Migrations.LocalDB.Database {
                     (opt) => {
                         opt.MigrationsAssembly(typeof(ContextoSqlite).Assembly.FullName);
                     });
+            }
         }
 
         public void CreateDatabase() {
@@ -39,16 +40,18 @@ namespace ParallelQueries.Migrations.LocalDB.Database {
 
                 using (var seedUser = new ContextoSqlite()) {
                     using (var seedPueblo = ContextFactory.Create()) {
-                        for (var x = 0; x < 200; x++)
+                        for (var x = 0; x < 200; x++) {
                             seedUser.Add(new Usuario() {
                                 Nombre = "Asier Seeds",
                                 Edad = 22
                             });
+                        }
 
-                        for (var x = 0; x < 200; x++)
+                        for (var x = 0; x < 200; x++) {
                             seedPueblo.Add(new Pueblo() {
                                 Nombre = $"Pueblo {x + 1}"
                             });
+                        }
 
                         Parallel.Invoke(
                             () => seedUser.SaveChanges(),

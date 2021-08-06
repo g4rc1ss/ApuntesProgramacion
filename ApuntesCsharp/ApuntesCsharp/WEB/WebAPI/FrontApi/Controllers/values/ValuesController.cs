@@ -3,14 +3,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FrontApi.Controllers {
     [ApiController]
-    public class ValuesController :BaseApiController {
+    public class ValuesController : BaseApiController {
 
         [ResponseCache(Duration = 4320)]
         [HttpGet]
         [Route("api/cifrarText")]
         public ContentResult Cifrar([FromBody] Texto text) {
-            var cifrado = new Texto();
-            cifrado.Text = new Prueba().CifrarText(text.Text);
+            var cifrado = new Texto {
+                Text = new Prueba().CifrarText(text.Text)
+            };
             return CrearRespuesta(text);
         }
     }

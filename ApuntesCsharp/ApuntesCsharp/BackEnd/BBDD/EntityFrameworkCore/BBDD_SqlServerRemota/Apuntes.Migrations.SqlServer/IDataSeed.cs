@@ -1,6 +1,6 @@
-﻿using Apuntes.Back.Core.Database;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using Apuntes.Back.Core.Database;
 
 namespace Apuntes.Migrations.SqlServer {
     public interface IDataSeed {

@@ -1,7 +1,6 @@
-﻿using ConfigurationFiles.JsonConfigFile;
+﻿using System;
+using ConfigurationFiles.JsonConfigFile;
 using ConfigurationFiles.XmlConfigFile;
-using System;
-using System.IO;
 
 namespace ConfigurationFiles {
     internal class Program {

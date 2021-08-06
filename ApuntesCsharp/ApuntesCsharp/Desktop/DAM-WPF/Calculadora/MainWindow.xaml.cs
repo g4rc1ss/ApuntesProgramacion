@@ -1,12 +1,12 @@
-﻿using CalculadoraComponente;
-using System;
+﻿using System;
 using System.Windows;
+using CalculadoraComponente;
 
 namespace Calculadora {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow :Window {
+    public partial class MainWindow : Window {
         private string operacion = "";
         private readonly int[] numero = new int[2];
         private bool insertar = true;
@@ -24,10 +24,11 @@ namespace Calculadora {
             var respuesta = compo.Accion(mostrar);
 
             if (ComprobarNumero(respuesta)) {
-                if (insertar)
+                if (insertar) {
                     numero[0] = int.Parse(mostrar.Text);
-                else if (!insertar)
+                } else if (!insertar) {
                     numero[1] = int.Parse(mostrar.Text);
+                }
             } else if (respuesta.Equals("+") || respuesta.Equals("-") || respuesta.Equals("*") || respuesta.Equals("/")) {
                 if (mostrar.Text.Equals("")) {
                     MessageBox.Show("Debes introducir un numero primero");
@@ -44,8 +45,10 @@ namespace Calculadora {
                 }
 
             } else if (respuesta.Equals("C")) {
-                for (var x = 0; x < numero.Length; x++)
+                for (var x = 0; x < numero.Length; x++) {
                     numero[x] = 0;
+                }
+
                 insertar = true;
                 operacionSeleccion = false;
             } else if (respuesta.Equals("=")) {
@@ -68,13 +71,13 @@ namespace Calculadora {
         private int Operar(string operacion) {
             switch (operacion) {
                 case "+":
-                return numero[0] + numero[1];
+                    return numero[0] + numero[1];
                 case "-":
-                return numero[0] - numero[1];
+                    return numero[0] - numero[1];
                 case "*":
-                return numero[0] * numero[1];
+                    return numero[0] * numero[1];
                 case "/":
-                return numero[0] / numero[1];
+                    return numero[0] / numero[1];
             }
             return 0;
         }

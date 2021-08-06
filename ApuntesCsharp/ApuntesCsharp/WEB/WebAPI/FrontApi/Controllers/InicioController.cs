@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Text;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FrontApi.Controllers {
-    public class InicioController :BaseApiController {
+    public class InicioController : BaseApiController {
 
         [HttpGet]
         [Route("")]

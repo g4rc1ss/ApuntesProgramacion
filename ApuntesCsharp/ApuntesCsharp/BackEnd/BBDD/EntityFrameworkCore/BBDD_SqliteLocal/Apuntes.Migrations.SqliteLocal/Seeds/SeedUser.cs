@@ -1,10 +1,10 @@
-﻿using Apuntes.BackLocal.DataAccessLayer.Database;
-using Apuntes.BackLocal.DataAccessLayer.Database.Sqlite;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Apuntes.BackLocal.DataAccessLayer.Database;
+using Apuntes.BackLocal.DataAccessLayer.Database.Sqlite;
+using Microsoft.EntityFrameworkCore;
 
 namespace Apuntes.Migrations.SqliteLocal.Seeds {
     internal class SeedUser {

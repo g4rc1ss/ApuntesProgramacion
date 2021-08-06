@@ -17,22 +17,25 @@ namespace ParallelExecutionCode.EjecucionEnParalelo {
             });
 
             // Or use foreach to merge results first.
-            foreach (var n in parallelQuery)
+            foreach (var n in parallelQuery) {
                 Console.WriteLine($"PARALLEL LINQ - parallelQuery - {n}");
+            }
 
             // You can also use ToArray, ToList, etc as with LINQ to Objects.
             var parallelQuery2 = (from num in source.AsParallel()
                                   where num % 10 == 0
                                   select num).ToArray();
 
-            foreach (var x in parallelQuery2)
+            foreach (var x in parallelQuery2) {
                 Console.WriteLine($"PARALLEL LINQ - parallelQuery2 - {x}");
+            }
 
             // Method syntax is also supported
             var parallelQuery3 = source.AsParallel().Where(n => n % 10 == 0).Select(n => n);
 
-            foreach (var z in parallelQuery3)
+            foreach (var z in parallelQuery3) {
                 Console.WriteLine($"PARALLEL LINQ - parallenQuery3 - {z}");
+            }
 
             Console.WriteLine("\nPress any key to exit...");
             Console.ReadLine();

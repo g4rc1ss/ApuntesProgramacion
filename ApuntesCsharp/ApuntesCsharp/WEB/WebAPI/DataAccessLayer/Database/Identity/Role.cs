@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
 namespace DataAccessLayer.Database.Identity {
-    public class Role :IdentityRole<int> {
+    public class Role : IdentityRole<int> {
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using DataAccessLayer;
+﻿using System;
+using DataAccessLayer;
 using DataAccessLayer.Database.Identity;
 using InmobiliariaEguzkimendi.DataAccessLayer;
 using Microsoft.AspNetCore.Builder;
@@ -9,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
 
 namespace FrontApi {
     public class Startup {

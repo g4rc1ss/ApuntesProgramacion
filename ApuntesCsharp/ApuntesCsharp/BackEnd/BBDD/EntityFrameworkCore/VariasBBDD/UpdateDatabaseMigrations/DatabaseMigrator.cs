@@ -1,6 +1,6 @@
-﻿using Apuntes.Back.Core.Database;
+﻿using System.Threading.Tasks;
+using Apuntes.Back.Core.Database;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
 namespace Apuntes.Migrations.SqlServer {
     /// <summary>

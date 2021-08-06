@@ -1,11 +1,8 @@
 ﻿using System;
 
-namespace XmlFiles
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
+namespace XmlFiles {
+    internal class Program {
+        private static void Main(string[] args) {
             Console.WriteLine("Hello World!");
         }
     }

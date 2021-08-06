@@ -1,17 +1,17 @@
-﻿using Apuntes.BackLocal.Core;
+﻿using System.Windows;
+using Apuntes.BackLocal.Core;
 using Apuntes.BackLocal.DataAccessLayer.Database;
 using InmobiliariaEguzkimendi.DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Windows;
 
 namespace Apuntes.WPF.Presentacion {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App :Application {
+    public partial class App : Application {
         protected override void OnStartup(StartupEventArgs e) {
             CreateHostBuilder(e.Args).Build().RunAsync();
         }

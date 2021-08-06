@@ -1,5 +1,5 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
+using MySql.Data.MySqlClient;
 
 namespace MySqlDatabase.MySQL {
     public class UsarBBDD_MySQL {
@@ -39,8 +39,11 @@ namespace MySqlDatabase.MySQL {
                     var sql = "SELECT * FROM Empleado";
                     using (var comandoSelect = new MySqlCommand(sql, conn)) using (var leerSelect = comandoSelect.ExecuteReader()) {
                         while (leerSelect.Read())                                 // Leemos el array, cada posicion es el numero de columna por indice
-                                                                                  // El 0 es la primera columna, el 1 la segunda, el 2 la tercera, etc.
+{
+                            // El 0 es la primera columna, el 1 la segunda, el 2 la tercera, etc.
                             Console.WriteLine(leerSelect[0] + " -- " + leerSelect[1] + "--" + leerSelect[2] + "--" + leerSelect[3]);
+                        }
+
                         leerSelect.Close();
                     }
                 } catch (Exception ex) {

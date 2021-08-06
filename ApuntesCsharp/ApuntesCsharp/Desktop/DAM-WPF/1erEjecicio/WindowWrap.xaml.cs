@@ -1,13 +1,13 @@
 ﻿
-using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Win32;
 
 namespace _1erEjecicio {
     /// <summary>
     /// Interaction logic for WindowWrap.xaml
     /// </summary>
-    public partial class WindowWrap :Window {
+    public partial class WindowWrap : Window {
         public WindowWrap() {
             InitializeComponent();
         }

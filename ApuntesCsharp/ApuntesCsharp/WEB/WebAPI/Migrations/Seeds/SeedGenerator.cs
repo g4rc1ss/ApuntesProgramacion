@@ -1,12 +1,12 @@
-﻿using DataAccessLayer;
-using DataAccessLayer.Database.Identity;
-using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using DataAccessLayer;
+using DataAccessLayer.Database.Identity;
+using Microsoft.AspNetCore.Identity;
 
 namespace Migrations.Seeds {
-    public class SeedGenerator :IDataSeed {
+    public class SeedGenerator : IDataSeed {
         private readonly UserManager<User> userManager;
         private readonly RoleManager<Role> roleManager;
 

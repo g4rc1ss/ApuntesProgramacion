@@ -7,7 +7,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace EjecicioPong {
-    public partial class MainWindow :Window {
+    public partial class MainWindow : Window {
 
         private readonly DispatcherTimer timer = new DispatcherTimer();
         private bool teclaArriba, teclaAbajo, teclaW, teclaS;
@@ -94,20 +94,20 @@ namespace EjecicioPong {
             double angulo = 0;
             switch (posicion) {
                 case 0:
-                angulo = Math.PI / 4;
-                break;
+                    angulo = Math.PI / 4;
+                    break;
                 case 1:
-                angulo = Math.PI / 8;
-                break;
+                    angulo = Math.PI / 8;
+                    break;
                 case 2:
-                angulo = 0;
-                break;
+                    angulo = 0;
+                    break;
                 case 3:
-                angulo = -Math.PI / 8;
-                break;
+                    angulo = -Math.PI / 8;
+                    break;
                 case 4:
-                angulo = -Math.PI / 4;
-                break;
+                    angulo = -Math.PI / 4;
+                    break;
             }
             dxBolita = velocidadBolita * (float)Math.Cos(angulo);
             dyBolita = -velocidadBolita * (float)Math.Sin(angulo);
@@ -125,8 +125,9 @@ namespace EjecicioPong {
         }
 
         private void AumentarVelocidadBolita() {
-            if (velocidadBolita <= 20)
+            if (velocidadBolita <= 20) {
                 velocidadBolita++;
+            }
         }
 
         private void RebotarIzda() {
@@ -134,20 +135,20 @@ namespace EjecicioPong {
             double angulo = 0;
             switch (posicion) {
                 case 0:
-                angulo = Math.PI / 4;
-                break;
+                    angulo = Math.PI / 4;
+                    break;
                 case 1:
-                angulo = Math.PI / 8;
-                break;
+                    angulo = Math.PI / 8;
+                    break;
                 case 2:
-                angulo = 0;
-                break;
+                    angulo = 0;
+                    break;
                 case 3:
-                angulo = -Math.PI / 8;
-                break;
+                    angulo = -Math.PI / 8;
+                    break;
                 case 4:
-                angulo = -Math.PI / 4;
-                break;
+                    angulo = -Math.PI / 4;
+                    break;
             }
             dxBolita = -velocidadBolita * (float)Math.Cos(angulo);
             dyBolita = -velocidadBolita * (float)Math.Sin(angulo);
@@ -161,13 +162,17 @@ namespace EjecicioPong {
 
         private void MoverBarras() {
             if (humano) {
-                if (teclaArriba)
-                    if (ComprobarLimiteSuperior(P1))
+                if (teclaArriba) {
+                    if (ComprobarLimiteSuperior(P1)) {
                         Canvas.SetTop(P1, Canvas.GetTop(P1) - desplazamiento);
+                    }
+                }
 
-                if (teclaAbajo)
-                    if (ComprobarLimiteInferior(P1))
+                if (teclaAbajo) {
+                    if (ComprobarLimiteInferior(P1)) {
                         Canvas.SetTop(P1, Canvas.GetTop(P1) + desplazamiento);
+                    }
+                }
             } else {
                 if (contadorAleatorio % 100 == 0) {
                     posicionIA = r.Next(partes);
@@ -175,20 +180,20 @@ namespace EjecicioPong {
                 }
                 switch (posicionIA) {
                     case 0:
-                    despl = Canvas.GetTop(bolita);
-                    break;
+                        despl = Canvas.GetTop(bolita);
+                        break;
                     case 1:
-                    despl = Canvas.GetTop(bolita) - P1.ActualHeight / partes;
-                    break;
+                        despl = Canvas.GetTop(bolita) - P1.ActualHeight / partes;
+                        break;
                     case 2:
-                    despl = Canvas.GetTop(bolita) - 2 * P1.ActualHeight / partes; ;
-                    break;
+                        despl = Canvas.GetTop(bolita) - 2 * P1.ActualHeight / partes; ;
+                        break;
                     case 3:
-                    despl = Canvas.GetTop(bolita) - 3 * P1.ActualHeight / partes; ;
-                    break;
+                        despl = Canvas.GetTop(bolita) - 3 * P1.ActualHeight / partes; ;
+                        break;
                     case 4:
-                    despl = Canvas.GetTop(bolita) - 4 * P1.ActualHeight / partes; ;
-                    break;
+                        despl = Canvas.GetTop(bolita) - 4 * P1.ActualHeight / partes; ;
+                        break;
                 }
                 contadorAleatorio++;
                 Canvas.SetTop(P1, despl);
@@ -200,13 +205,15 @@ namespace EjecicioPong {
                 }
             }
             if (teclaW) {
-                if (ComprobarLimiteSuperior(P2))
+                if (ComprobarLimiteSuperior(P2)) {
                     Canvas.SetTop(P2, Canvas.GetTop(P2) - desplazamiento);
+                }
             }
-            if (teclaS)
+            if (teclaS) {
                 if (ComprobarLimiteInferior(P2)) {
                     Canvas.SetTop(P2, Canvas.GetTop(P2) + desplazamiento);
                 }
+            }
         }
 
         private bool ComprobarTanto() {
@@ -223,10 +230,11 @@ namespace EjecicioPong {
 
         private void MoverBolita() {
             if (dxBolita == 0 && dyBolita == 0) {
-                if (r.Next(2) == 0)
+                if (r.Next(2) == 0) {
                     dxBolita = velocidadBolita;
-                else
+                } else {
                     dxBolita = -velocidadBolita;
+                }
             }
             if (!ComprobarColision()) {
                 if (ComprobarTanto()) {
@@ -270,40 +278,40 @@ namespace EjecicioPong {
         private void Window_KeyDown(object sender, KeyEventArgs e) {
             switch (e.Key) {
                 case Key.Up:
-                teclaArriba = true;
-                ultimaTecla = e.Key;
-                break;
+                    teclaArriba = true;
+                    ultimaTecla = e.Key;
+                    break;
                 case Key.Down:
-                teclaAbajo = true;
-                ultimaTecla = e.Key;
-                break;
+                    teclaAbajo = true;
+                    ultimaTecla = e.Key;
+                    break;
                 case Key.W:
-                teclaW = true;
-                ultimaTecla = e.Key;
-                break;
+                    teclaW = true;
+                    ultimaTecla = e.Key;
+                    break;
                 case Key.S:
-                teclaS = true;
-                ultimaTecla = e.Key;
-                break;
+                    teclaS = true;
+                    ultimaTecla = e.Key;
+                    break;
             }
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e) {
             switch (e.Key) {
                 case Key.Up:
-                teclaArriba = false;
-                break;
+                    teclaArriba = false;
+                    break;
                 case Key.Down:
-                teclaAbajo = false;
-                break;
+                    teclaAbajo = false;
+                    break;
                 case Key.W:
-                teclaW = false;
+                    teclaW = false;
 
-                break;
+                    break;
                 case Key.S:
-                teclaS = false;
+                    teclaS = false;
 
-                break;
+                    break;
             }
         }
     }

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 namespace CalculadoraComponente {
-    public class Componente :System.Windows.Controls.Button {
+    public class Componente : System.Windows.Controls.Button {
 
         public Componente() {
             Width = 30;
@@ -14,9 +14,9 @@ namespace CalculadoraComponente {
         public int Tipo { set; get; }
 
         public string Accion(System.Windows.Controls.TextBox cajaDeTexto) {
-            if (Tipo == 0)
+            if (Tipo == 0) {
                 return null;
-            else if (Tipo == 1) {//Numeros
+            } else if (Tipo == 1) {//Numeros
                 texto += Content.ToString();
                 cajaDeTexto.Text += Content.ToString();
                 return texto;

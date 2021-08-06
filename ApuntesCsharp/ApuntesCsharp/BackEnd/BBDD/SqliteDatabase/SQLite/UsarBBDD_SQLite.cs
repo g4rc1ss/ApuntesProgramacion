@@ -5,11 +5,7 @@ using System.IO;
 
 namespace SqliteDatabase.SQLite {
     public class UsarBBDD_SQLite {
-        private SQLiteConnection Conexion {
-            get {
-                return new SQLiteConnection(string.Format($"Data Source={dbName};Version=3;")).OpenAndReturn();
-            }
-        }
+        private SQLiteConnection Conexion => new SQLiteConnection(string.Format($"Data Source={dbName};Version=3;")).OpenAndReturn();
 
         private readonly string dbName = "Database.db";
 
@@ -59,7 +55,7 @@ namespace SqliteDatabase.SQLite {
                 using (var command = new SQLiteCommand("SELECT * from EMPRESA", connect)) {
                     var tabla = new DataTable();
                     tabla.Load(command.ExecuteReader());
-                    foreach (DataRow row in tabla.Rows)
+                    foreach (DataRow row in tabla.Rows) {
                         Console.WriteLine(
                             $"{row.Field<int>("ID")} \n" +
                             $"{row.Field<string>("NOMBRE")} \n" +
@@ -67,6 +63,7 @@ namespace SqliteDatabase.SQLite {
                             $"{row.Field<string>("DIRECCION")} \n" +
                             $"{row.Field<double>("SALARIO")} \n"
                         );
+                    }
                 }
             }
             File.Delete(dbName);

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using ThreadsManagement.Hilos;
 
-namespace ThreadsManagement
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
+namespace ThreadsManagement {
+    internal class Program {
+        private static void Main(string[] args) {
             new Thread(new CreacionDeHilos().FuncHilo1).Start();
             new Thread(() => new CreacionDeHilos().FuncHilo2("hilo2")).Start();
         }

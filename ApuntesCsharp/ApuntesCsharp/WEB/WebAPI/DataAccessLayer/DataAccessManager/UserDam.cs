@@ -1,11 +1,11 @@
-﻿using DataAccessLayer.DataAccessManager.DamBase;
+﻿using System;
+using System.Threading.Tasks;
+using DataAccessLayer.DataAccessManager.DamBase;
 using DataAccessLayer.Database.Identity;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.DataAccessManager {
-    public class UserDam :ApplicationDamBase {
+    public class UserDam : ApplicationDamBase {
         private readonly SignInManager<User> signInManager;
         private readonly UserManager<User> userManager;
         public UserDam(WebApiPruebaContext webApiPruebaContext, SignInManager<User> signInManager, UserManager<User> userManager) : base(webApiPruebaContext) {

@@ -1,7 +1,7 @@
-﻿using JsonFiles.JSON;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.IO;
+using JsonFiles.JSON;
+using Newtonsoft.Json;
 
 namespace JsonFiles.Read {
     public class JsonReadDeserialize {

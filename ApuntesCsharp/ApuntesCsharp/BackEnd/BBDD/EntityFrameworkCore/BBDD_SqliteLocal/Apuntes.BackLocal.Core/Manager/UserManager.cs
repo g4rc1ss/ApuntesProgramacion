@@ -1,8 +1,8 @@
-﻿using Apuntes.BackLocal.DataAccessLayer.DataAccessManager;
-using Apuntes.BackLocal.DataAccessLayer.Database.Sqlite;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Apuntes.BackLocal.DataAccessLayer.DataAccessManager;
+using Apuntes.BackLocal.DataAccessLayer.Database.Sqlite;
 
 namespace Apuntes.BackLocal.Core.Manager {
     public class UserManager {

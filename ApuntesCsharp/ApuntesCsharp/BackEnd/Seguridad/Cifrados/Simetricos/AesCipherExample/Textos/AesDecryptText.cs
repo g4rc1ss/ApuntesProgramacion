@@ -26,10 +26,11 @@ namespace AesCipherExample.Textos {
                         // Create the streams used for decryption.
                         using (var msDecrypt = new MemoryStream(textoCifrado))
                         using (var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
-                        using (var srDecrypt = new StreamReader(csDecrypt))
+                        using (var srDecrypt = new StreamReader(csDecrypt)) {
                             // Read the decrypted bytes from the decrypting stream
                             // and place them in a string.
                             textoDescifrado = srDecrypt.ReadToEnd();
+                        }
                     }
                 }
 

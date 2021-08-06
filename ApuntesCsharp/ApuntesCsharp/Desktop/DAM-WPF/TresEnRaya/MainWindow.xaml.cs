@@ -6,7 +6,7 @@ using System.Windows.Shapes;
 
 namespace TresEnRayaClase {
 
-    public partial class MainWindow :Window {
+    public partial class MainWindow : Window {
         private bool turno;
         private readonly int[] partida = new int[9];
         private int victorias1 = 0, victorias2 = 0;
@@ -24,65 +24,69 @@ namespace TresEnRayaClase {
         }
 
         private void Inicio() {
-            foreach (var circulo in circulos)
+            foreach (var circulo in circulos) {
                 circulo.Visibility = Visibility.Hidden;
+            }
 
-            foreach (var aspa in aspas)
+            foreach (var aspa in aspas) {
                 aspa.Visibility = Visibility.Hidden;
+            }
 
             lblTurno.Content = "Jugador 1";
             turno = true;
 
-            for (var i = 0; i < 9; i++)
+            for (var i = 0; i < 9; i++) {
                 partida[i] = 0;
+            }
         }
 
         private void Tablero_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
             var fuente = e.OriginalSource as FrameworkElement;
             switch (fuente.Name) {
                 case "Rect1":
-                Mostrar(1);
-                //MessageBox.Show("0,0");
-                break;
+                    Mostrar(1);
+                    //MessageBox.Show("0,0");
+                    break;
                 case "Rect2":
-                Mostrar(2);
-                //MessageBox.Show("0,1");
-                break;
+                    Mostrar(2);
+                    //MessageBox.Show("0,1");
+                    break;
                 case "Rect3":
-                Mostrar(3);
-                // MessageBox.Show("0,2");
-                break;
+                    Mostrar(3);
+                    // MessageBox.Show("0,2");
+                    break;
                 case "Rect4":
-                Mostrar(4);
-                //MessageBox.Show("1,0");
-                break;
+                    Mostrar(4);
+                    //MessageBox.Show("1,0");
+                    break;
                 case "Rect5":
-                Mostrar(5);
-                //MessageBox.Show("1,1");
-                break;
+                    Mostrar(5);
+                    //MessageBox.Show("1,1");
+                    break;
                 case "Rect6":
-                Mostrar(6);
-                //MessageBox.Show("1,2");
-                break;
+                    Mostrar(6);
+                    //MessageBox.Show("1,2");
+                    break;
                 case "Rect7":
-                Mostrar(7);
-                //MessageBox.Show("2,0");
-                break;
+                    Mostrar(7);
+                    //MessageBox.Show("2,0");
+                    break;
                 case "Rect8":
-                Mostrar(8);
-                //MessageBox.Show("2,1");
-                break;
+                    Mostrar(8);
+                    //MessageBox.Show("2,1");
+                    break;
                 case "Rect9":
-                Mostrar(9);
-                //MessageBox.Show("2,2");
-                break;
+                    Mostrar(9);
+                    //MessageBox.Show("2,2");
+                    break;
             }
         }
 
         private void Mostrar(int cuadradito) {
 
-            if (partida[cuadradito - 1] != 0)
+            if (partida[cuadradito - 1] != 0) {
                 return;
+            }
 
             if (turno) { // turno del jugador 1 
                 partida[cuadradito - 1] = 1;
@@ -93,12 +97,16 @@ namespace TresEnRayaClase {
                 circulos[cuadradito - 1].Visibility = Visibility.Visible;
             }
 
-            if (ComprobarFinal())
+            if (ComprobarFinal()) {
                 return;
-            if (turno)
+            }
+
+            if (turno) {
                 lblTurno.Content = "Jugador 2";
-            else
+            } else {
                 lblTurno.Content = "Jugador 1";
+            }
+
             turno = !turno;
         }
 
@@ -133,9 +141,11 @@ namespace TresEnRayaClase {
                 return true;
             }
             var final = true;
-            for (var i = 0; i < 9 && final; i++)
-                if (partida[i] == 0)
+            for (var i = 0; i < 9 && final; i++) {
+                if (partida[i] == 0) {
                     final = false;
+                }
+            }
 
             if (final) {
                 MessageBox.Show("Gana el gato");

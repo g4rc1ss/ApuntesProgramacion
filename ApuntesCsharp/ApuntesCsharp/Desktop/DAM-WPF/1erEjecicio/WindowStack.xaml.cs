@@ -5,19 +5,21 @@ namespace _1erEjecicio {
     /// <summary>
     /// Interaction logic for WindowStack.xaml
     /// </summary>
-    public partial class WindowStack :Window {
+    public partial class WindowStack : Window {
         public WindowStack() {
             InitializeComponent();
         }
 
         private void BtnVertical_Click(object sender, RoutedEventArgs e) {
-            if (panelStack.Orientation != Orientation.Vertical)
+            if (panelStack.Orientation != Orientation.Vertical) {
                 panelStack.Orientation = Orientation.Vertical;
+            }
         }
 
         private void BtnHorizontal_Click(object sender, RoutedEventArgs e) {
-            if (panelStack.Orientation != Orientation.Horizontal)
+            if (panelStack.Orientation != Orientation.Horizontal) {
                 panelStack.Orientation = Orientation.Horizontal;
+            }
         }
 
         private void BtnSeparar_Click(object sender, RoutedEventArgs e) {

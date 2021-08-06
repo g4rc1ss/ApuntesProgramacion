@@ -1,10 +1,10 @@
-﻿using EjemploMVC.Models;
+﻿using System.Diagnostics;
+using EjemploMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics;
 
 namespace EjemploMVC.Controllers {
-    public class HomeController :Controller {
+    public class HomeController : Controller {
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger) {

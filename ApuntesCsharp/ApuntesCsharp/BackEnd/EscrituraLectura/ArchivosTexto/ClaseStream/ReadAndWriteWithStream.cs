@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace ArchivosTexto.ArchivosTexto.StreamRead_Writer {
+namespace ArchivosTexto.Read.ClaseStream {
     public class ReadAndWriteWithStream {
         public ReadAndWriteWithStream() {
             var fuente = "./archivo";
@@ -8,13 +8,11 @@ namespace ArchivosTexto.ArchivosTexto.StreamRead_Writer {
 
             using (File.Create(fuente)) { }
             using (File.Create(destino)) { }
-            
+
             File.WriteAllText(fuente, "fdsjfkhrjgflhndsbafbgrheikabhfarigfbsrghfaslbhfreai \n bfhwbgf rhjsbfgdhsflbglavgfb lcvjavf ljubfa asgfjveasfb esfj");
 
-            using (var readFile = new StreamReader(fuente)) {
-                using (var writeFile = new StreamWriter(destino)) {
-                    writeFile.Write(readFile.ReadToEnd());
-                }
+            using (var readFile = new StreamReader(fuente)) using (var writeFile = new StreamWriter(destino)) {
+                writeFile.Write(readFile.ReadToEnd());
             }
         }
     }

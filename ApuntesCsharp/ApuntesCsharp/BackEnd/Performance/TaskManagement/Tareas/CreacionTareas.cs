@@ -12,8 +12,9 @@ namespace TaskManagement.Tareas {
         }
 
         private void MetodoTask1() {
-            for (var x = 0; x < 1000; x++)
+            for (var x = 0; x < 1000; x++) {
                 Console.WriteLine("task1");
+            }
         }
 
         /// <summary>
@@ -27,8 +28,10 @@ namespace TaskManagement.Tareas {
         }
 
         private string MetodoTask3(string mostrar) {
-            for (var x = 0; x < 1000; x++)
+            for (var x = 0; x < 1000; x++) {
                 Console.WriteLine(mostrar);
+            }
+
             return null;
         }
 
@@ -43,8 +46,11 @@ namespace TaskManagement.Tareas {
         /// </summary>
         public async void Task2() {
             var tarea = Task.Run(() => {
-                for (var i = 0; i < 100000000; i++)
-                    for (var z = 0; z < 10; z++) ;
+                for (var i = 0; i < 100000000; i++) {
+                    for (var z = 0; z < 10; z++) {
+                        ;
+                    }
+                }
 
                 return Task2async();
             });

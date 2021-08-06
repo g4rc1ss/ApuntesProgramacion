@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
 
-namespace ArchivosTexto.ArchivosTexto.BinaryRead_Writer {
+namespace ArchivosTexto.Read.ClaseBinary {
     public class LeerBinario {
-        public void LeerArchivosBin() {
+        public void LeerArchivosBin(string nombreArchivo) {
             // Apertura del archivo `ArchivoBinario.bin` en modo lectura:
             // Muestra la información tal cual está escrita en el archivo binario:
-            using (var fs = new FileStream("ArchivoBinario.bin", FileMode.Open, FileAccess.Read)) {
+            using (var fs = new FileStream(nombreArchivo, FileMode.Open, FileAccess.Read)) {
                 Console.Write(Environment.NewLine);
                 // Lectura y conversión de los datos binarios en el tipo de 
                 // correspondiente:

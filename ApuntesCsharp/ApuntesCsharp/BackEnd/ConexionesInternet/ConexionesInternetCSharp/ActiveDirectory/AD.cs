@@ -38,9 +38,10 @@ namespace ConexionesInternetCSharp.ActiveDirectory {
                 var variable = search.FindAll();
                 dir = variable[0].GetDirectoryEntry();
 
-                foreach (PropertyValueCollection x in dir.Properties)
+                foreach (PropertyValueCollection x in dir.Properties) {
                     Console.WriteLine($"----------------------------------------------------------- \n\n" +
                         $"{x.PropertyName}  =  {x.Value.ToString()}");
+                }
             }
         }
     }

@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Apuntes.Migrations.SqliteLocal.Migrations {
-    public partial class crearTablaUsuarios :Migration {
+    public partial class crearTablaUsuarios : Migration {
         protected override void Up(MigrationBuilder migrationBuilder) {
             migrationBuilder.CreateTable(
                 name: "Usuarios",

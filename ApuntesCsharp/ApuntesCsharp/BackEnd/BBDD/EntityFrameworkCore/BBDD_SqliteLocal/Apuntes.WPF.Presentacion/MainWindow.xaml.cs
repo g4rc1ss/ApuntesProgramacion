@@ -1,12 +1,12 @@
-﻿using Apuntes.BackLocal.Core.Actions;
+﻿using System.Windows;
+using Apuntes.BackLocal.Core.Actions;
 using Apuntes.BackLocal.Core.DataAccessObject;
-using System.Windows;
 
 namespace Apuntes.WPF.Presentacion {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow :Window {
+    public partial class MainWindow : Window {
         private readonly UserAction userAction;
 
         public MainWindow(UserAction userAction) {

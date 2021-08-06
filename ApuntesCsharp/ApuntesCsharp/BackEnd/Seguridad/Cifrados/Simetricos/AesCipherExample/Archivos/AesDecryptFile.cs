@@ -21,9 +21,11 @@ namespace AesCipherExample.Archivos {
                         using (var decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV))
                         using (var fileStreamCrypt = new FileStream(archivoAES_TXT_Cifrado, FileMode.Open, FileAccess.Read))
                         using (var fileStreamOut = new FileStream(archivoAES_TXT, FileMode.OpenOrCreate, FileAccess.Write))
-                        using (var decryptStream = new CryptoStream(fileStreamCrypt, decryptor, CryptoStreamMode.Read))
-                            for (int data; (data = decryptStream.ReadByte()) != -1;)
+                        using (var decryptStream = new CryptoStream(fileStreamCrypt, decryptor, CryptoStreamMode.Read)) {
+                            for (int data; (data = decryptStream.ReadByte()) != -1;) {
                                 fileStreamOut.WriteByte((byte)data);
+                            }
+                        }
                     }
                 }
 

@@ -1,7 +1,7 @@
-﻿using Apuntes.BackLocal.DataAccessLayer.Database;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Apuntes.BackLocal.DataAccessLayer.Database;
 
 namespace Apuntes.Migrations.SqliteLocal {
 
@@ -18,8 +18,9 @@ namespace Apuntes.Migrations.SqliteLocal {
         }
 
         public async Task Initialize(CancellationToken cancellationToken = default) {
-            foreach (var seed in dataSeeds)
+            foreach (var seed in dataSeeds) {
                 await seed.Seed(contextoSqlite, cancellationToken);
+            }
         }
     }
 }

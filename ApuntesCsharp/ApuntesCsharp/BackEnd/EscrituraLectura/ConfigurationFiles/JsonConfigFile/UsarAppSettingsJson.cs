@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Configuration;
 
 namespace ConfigurationFiles.JsonConfigFile {
     public class UsarAppSettingsJson {

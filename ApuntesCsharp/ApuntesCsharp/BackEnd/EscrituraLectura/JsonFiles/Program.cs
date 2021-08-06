@@ -1,7 +1,7 @@
-﻿using JsonFiles.JSON;
+﻿using System;
+using JsonFiles.JSON;
 using JsonFiles.Read;
 using JsonFiles.Write;
-using System;
 
 namespace JsonFiles {
     internal class Program {

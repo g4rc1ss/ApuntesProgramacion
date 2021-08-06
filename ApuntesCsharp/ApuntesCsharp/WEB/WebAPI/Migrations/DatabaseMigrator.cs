@@ -1,6 +1,6 @@
-﻿using DataAccessLayer;
+﻿using System.Threading.Tasks;
+using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
 namespace Migrations {
     /// <summary>

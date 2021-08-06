@@ -1,11 +1,11 @@
-﻿using Apuntes.Back.Core.Database.Models.Generico;
+﻿using System.IO;
+using Apuntes.Back.Core.Database.Models.Generico;
 using Apuntes.Back.Core.SQLite.ModelosBBDD;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
-using System.IO;
 
 namespace Apuntes.Back.Core.Database {
-    public class ContextoMSSQL :DbContext, ITablesGenericas {
+    public class ContextoMSSQL : DbContext, ITablesGenericas {
         public DbSet<ModelosParaBBDD> Usuario { get; set; }
         public DbSet<ModeloDosConClaveForanea> Material { get; set; }
 

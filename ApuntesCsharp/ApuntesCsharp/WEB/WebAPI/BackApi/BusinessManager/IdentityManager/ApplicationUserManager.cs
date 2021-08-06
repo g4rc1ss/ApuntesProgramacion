@@ -1,8 +1,8 @@
-﻿using DataAccessLayer.DataAccessManager;
+﻿using System;
+using DataAccessLayer.DataAccessManager;
 using DataAccessLayer.Database.Identity;
 using InmobiliariaEguzkimendi.Core.BusinessManager.IdentityManager;
 using Microsoft.Extensions.Logging;
-using System;
 
 namespace BackApi.BusinessManager.IdentityManager {
     public class ApplicationUserManager {

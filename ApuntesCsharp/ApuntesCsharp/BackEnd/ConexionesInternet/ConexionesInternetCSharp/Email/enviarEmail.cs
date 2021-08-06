@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.DataProtection;
-using System;
+﻿using System;
 using System.Net;
 using System.Net.Mail;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace ConexionesInternetCSharp.Email {
     public class EnviarEmail {
-        private IDataProtector dataProtector;
+        private readonly IDataProtector dataProtector;
         public EnviarEmail(IDataProtectionProvider dataProtectionProvider) {
             dataProtector = dataProtectionProvider.CreateProtector("ConexionesInternetCSharp.Email.EnviarEmail");
         }

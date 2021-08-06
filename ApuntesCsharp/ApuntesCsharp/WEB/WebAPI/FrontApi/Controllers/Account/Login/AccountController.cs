@@ -1,12 +1,12 @@
-﻿using BackApi.Actions.Identity;
+﻿using System.Threading.Tasks;
+using BackApi.Actions.Identity;
 using FrontApi.Clases.Login;
 using InmobiliariaEguzkimendi.Core.BusinessManager.IdentityManager;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace FrontApi.Controllers.pruebas {
     [ApiController]
-    public class AccountController :BaseApiController {
+    public class AccountController : BaseApiController {
         private readonly AccountAction accountAction;
         public AccountController(AccountAction accountAction) {
             this.accountAction = accountAction;

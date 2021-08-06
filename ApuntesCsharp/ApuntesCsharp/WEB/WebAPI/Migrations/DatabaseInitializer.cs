@@ -1,7 +1,7 @@
-﻿using DataAccessLayer;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using DataAccessLayer;
 
 namespace Migrations {
 
@@ -18,8 +18,9 @@ namespace Migrations {
         }
 
         public async Task Initialize(CancellationToken cancellationToken = default) {
-            foreach (var seed in dataSeeds)
+            foreach (var seed in dataSeeds) {
                 await seed.Seed(webApiPruebaContext, cancellationToken);
+            }
         }
     }
 }

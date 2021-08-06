@@ -1,5 +1,4 @@
-﻿using System;
-using TaskManagement.Tareas;
+﻿using TaskManagement.Tareas;
 
 namespace TaskManagement {
     internal class Program {

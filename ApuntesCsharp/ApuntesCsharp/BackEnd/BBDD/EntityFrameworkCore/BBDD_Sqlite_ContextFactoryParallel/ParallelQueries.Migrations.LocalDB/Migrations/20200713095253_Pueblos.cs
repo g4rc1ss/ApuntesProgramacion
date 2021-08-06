@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Apuntes.Migrations.LocalDB.Migrations {
-    public partial class Pueblos :Migration {
+    public partial class Pueblos : Migration {
         protected override void Up(MigrationBuilder migrationBuilder) {
             migrationBuilder.CreateTable(
                 name: "Pueblos",

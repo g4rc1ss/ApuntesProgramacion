@@ -1,5 +1,4 @@
 ﻿using ParallelExecutionCode.EjecucionEnParalelo;
-using System;
 
 namespace ParallelExecutionCode {
     internal class Program {

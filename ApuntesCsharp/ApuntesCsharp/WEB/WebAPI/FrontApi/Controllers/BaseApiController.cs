@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace FrontApi.Controllers {
-    public class BaseApiController :ControllerBase {
+    public class BaseApiController : ControllerBase {
 
         /// <summary>
         /// Creamos la respuesta para que nos devuelva los datos en formato JSON
@@ -15,9 +15,11 @@ namespace FrontApi.Controllers {
         protected ContentResult CrearRespuesta(object respuesta) {
             var data = new Dictionary<string, object>();
             var resp = respuesta.GetType().GetProperties();
-            foreach (var i in resp)
-                if (i.Name != null && i.GetValue(respuesta) != null)
+            foreach (var i in resp) {
+                if (i.Name != null && i.GetValue(respuesta) != null) {
                     data.Add(i.Name, i.GetValue(respuesta));
+                }
+            }
 
             return Content(
                 $"{JsonConvert.SerializeObject(data)}",

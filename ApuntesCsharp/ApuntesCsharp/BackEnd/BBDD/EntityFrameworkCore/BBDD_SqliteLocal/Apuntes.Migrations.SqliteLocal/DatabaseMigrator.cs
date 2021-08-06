@@ -1,6 +1,6 @@
-﻿using Apuntes.BackLocal.DataAccessLayer.Database;
+﻿using System.Threading.Tasks;
+using Apuntes.BackLocal.DataAccessLayer.Database;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
 namespace Apuntes.Migrations.SqliteLocal {
     /// <summary>

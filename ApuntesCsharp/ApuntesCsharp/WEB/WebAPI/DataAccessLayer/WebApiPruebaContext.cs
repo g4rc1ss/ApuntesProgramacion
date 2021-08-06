@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer {
-    public class WebApiPruebaContext :IdentityDbContext<User, Role, int> {
+    public class WebApiPruebaContext : IdentityDbContext<User, Role, int> {
 
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Role> Role { get; set; }

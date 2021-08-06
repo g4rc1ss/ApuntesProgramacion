@@ -1,9 +1,8 @@
-﻿using AsyncAwait.Async;
-using System;
-using System.Threading.Tasks;
+﻿using System;
+using AsyncAwait.Async;
 
 namespace AsyncAwait {
-    class Program {
+    internal class Program {
         /// <summary>
         /// Creamos un bucle que cree Arrobas cada vez que se recarga, se llama a un metodo que es asincrono, pero no se usa await para no bloquear
         /// el hilo, el await se usa mas adelante, como se hace con las GUIS al final. Por tanto la interfaz principal no se bloquea y se pueden
@@ -11,10 +10,10 @@ namespace AsyncAwait {
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
-        static void Main(string[] args) {
+        private static void Main(string[] args) {
             var asincronia = new Asincronia();
 
-            for (int i = 0; i < 30; i++) {
+            for (var i = 0; i < 30; i++) {
                 Console.Write("@");
 
                 var ejecutarSincronico = Console.ReadLine();

@@ -1,7 +1,7 @@
-﻿using ParallelQueries.Migrations.LocalDB.Database;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ParallelQueries.Migrations.LocalDB.Database;
 
 namespace ParallelQueries.BackLocal.Core.Actions.MainWindow {
     public class CapaBackConFront {
@@ -9,8 +9,9 @@ namespace ParallelQueries.BackLocal.Core.Actions.MainWindow {
             using (var contexto = new ContextoSqlite()) {
                 contexto.CreateDatabase();
 
-                if (contexto.Database.CanConnect())
+                if (contexto.Database.CanConnect()) {
                     return true;
+                }
             }
             return false;
         }
