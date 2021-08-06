@@ -11,12 +11,15 @@ namespace JsonFiles.JSON {
             };
 
             var jsonEscritura = JsonConvert.SerializeObject(crearJSON);
+            Console.WriteLine("JSON serializado:");
+            Console.WriteLine(jsonEscritura);
             File.WriteAllText(Directory.GetCurrentDirectory() + "/ruta.json", jsonEscritura);
 
             //Leemos el archivo JSON para indicar la ruta de lectura del fichero
             using (var jsonLectura = File.OpenText(Directory.GetCurrentDirectory() + "/ruta.json")) {
                 var json = jsonLectura.ReadToEnd();
                 var localizacion = JsonConvert.DeserializeObject<ClaseParaJSON>(json);
+                Console.WriteLine("JSON Deserializado:");
                 Console.WriteLine(localizacion.Ruta);
             }
         }
