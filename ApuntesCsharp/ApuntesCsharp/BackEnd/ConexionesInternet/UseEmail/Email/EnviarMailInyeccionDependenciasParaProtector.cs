@@ -7,7 +7,7 @@ namespace ConexionesInternetCSharp.Email {
             serviceCollection.AddDataProtection();
             var services = serviceCollection.BuildServiceProvider();
 
-            var instance = ActivatorUtilities.CreateInstance<EnviarEmail>(services);
+            var instance = ActivatorUtilities.CreateInstance<nviarEmail>(services);
             instance.EnvioMail();
         }
     }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ActiveDirectory {
+﻿namespace ActiveDirectory {
     internal class Program {
         private static void Main() {
             // -------- Conectar Active Directory -------- \\
