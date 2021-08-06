@@ -3,7 +3,7 @@ using System.Linq;
 using SqliteEfCore.Database;
 
 namespace SqliteEfCore.Core {
-    public class CapaBackConFront {
+    public class EjecutarQueries {
         public static bool CrearBaseDeDatos() {
             using (var contexto = new ContextoSqlite()) {
                 contexto.CreateDatabase();
