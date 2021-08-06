@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace Escritura_Lectura.JSON {
+namespace JsonFiles.JSON {
     public class UsarJSON {
         public void UsingJSON() {
             // Creamos un archivo JSON para indicar la ruta
