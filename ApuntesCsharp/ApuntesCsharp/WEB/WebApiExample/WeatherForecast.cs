@@ -1,9 +1,7 @@
 using System;
 
-namespace WebApiExample
-{
-    public class WeatherForecast
-    {
+namespace WebApiExample {
+    public class WeatherForecast {
         public DateTime Date { get; set; }
 
         public int TemperatureC { get; set; }

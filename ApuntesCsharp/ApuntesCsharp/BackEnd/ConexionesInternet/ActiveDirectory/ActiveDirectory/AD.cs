@@ -1,8 +1,4 @@
-﻿using System;
-using System.DirectoryServices.Protocols;
-using System.Net;
-
-namespace ActiveDirectory.ActiveDirectory {
+﻿namespace ActiveDirectory.ActiveDirectory {
     internal class AD {
         public AD() {
 
