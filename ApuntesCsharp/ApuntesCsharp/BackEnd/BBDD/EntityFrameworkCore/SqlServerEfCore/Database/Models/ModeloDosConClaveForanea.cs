@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Apuntes.Back.Core.SQLite.ModelosBBDD {
+namespace SqlServerEfCore.Database.Models {
     public class ModeloDosConClaveForanea {
         [ForeignKey("ID")]
         public ModelosParaBBDD UsuarioID { get; set; }

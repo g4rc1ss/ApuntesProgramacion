@@ -1,9 +1,8 @@
-﻿using System.IO;
-using Apuntes.Back.Core.SQLite.ModelosBBDD;
+﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
+using SqlServerEfCore.Database.Models;
 
-namespace Apuntes.Back.Core.Database {
+namespace SqlServerEfCore.Database {
     public class ContextoMSSQL : DbContext {
         public DbSet<ModelosParaBBDD> Usuario { get; set; }
         public DbSet<ModeloDosConClaveForanea> Material { get; set; }
@@ -16,19 +15,36 @@ namespace Apuntes.Back.Core.Database {
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-#if DEBUG
-            optionsBuilder.UseLoggerFactory(
-                new Microsoft.Extensions.Logging.LoggerFactory(new[] {
-                    new Microsoft.Extensions.Logging.Debug.DebugLoggerProvider()
-                })
-            );
-#endif
-
             if (!optionsBuilder.IsConfigured) {
-                var cadenasDeConexion = JObject.Parse(File.ReadAllText("appsettings.json"));
-                optionsBuilder.UseSqlServer(
-                    (string)cadenasDeConexion["ConnectionStrings"][nameof(ContextoMSSQL)]
-                );
+                optionsBuilder.UseSqlServer("Server=(LocalDB)\\MSSQLLocalDB;Initial Catalog=PruebaEfCoreSqlServer;Integrated Security=true;");
+            }
+        }
+
+        public void CreateDatabase() {
+            if (!Database.CanConnect()) {
+                Database.Migrate();
+
+                using (var context = new ContextoMSSQL()) {
+                    context.Add(new ModelosParaBBDD() {
+                        Nombre = "Nombre",
+                        Apellido = "Apellido",
+                        Direccion = "C/ Direccion",
+                        Edad = 22,
+                        Material = new List<ModeloDosConClaveForanea>() {
+                            new ModeloDosConClaveForanea() {
+                                Material = "Materiall",
+                                TipoMaterial = TipoMaterial.Avion,
+                            }
+                        }
+                    });
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public void DeleteDatabase() {
+            if (Database.CanConnect()) {
+                Database.EnsureDeleted();
             }
         }
     }

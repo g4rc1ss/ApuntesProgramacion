@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Apuntes.Back.Core.Database;
-using Apuntes.Back.Core.SQLite.ModelosBBDD;
 using Microsoft.EntityFrameworkCore;
+using SqlServerEfCore.Database;
+using SqlServerEfCore.Database.Models;
 
-
-namespace Apuntes.FrontEnd.Presentacion {
+namespace SqlServerEfCore.Core {
     public static class EjecutarConsultasSqlServer {
         public static void EjecutarSentenciasLinqAndSQL() {
-            // Creamos la Base de datos con Update-Database en la linea de comandos de nuget
-            // Agregamos contenido
             using (var db = new ContextoMSSQL()) {
                 Console.WriteLine("Insertando Datos...");
                 var modeloBBDD = new ModelosParaBBDD {

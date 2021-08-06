@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Apuntes.Back.Core.SQLite.ModelosBBDD {
+namespace SqlServerEfCore.Database.Models {
     public class ModelosParaBBDD {
         public int ID { get; set; }
         public string Nombre { get; set; }
