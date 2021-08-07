@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\WebAPI.Backend.Business\WebAPI.Backend.Business.csproj" />
     <ProjectReference Include="..\WebApi.SimulateDataForTesting\WebApi.SimulateDataForTesting.csproj" />
   </ItemGroup>
