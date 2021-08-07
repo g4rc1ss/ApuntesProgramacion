@@ -61,9 +61,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Seguridad", "Seguridad", "{EDEC32C5-5646-4581-83F4-0BAC65CD4E61}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EntityFrameworkCore", "EntityFrameworkCore", "{93BD8A34-DE33-4476-97D2-19A084BD4A48}"
-	ProjectSection(SolutionItems) = preProject
-		BackEnd\BBDD\EntityFrameworkCore\Apuntes de contextos.md = BackEnd\BBDD\EntityFrameworkCore\Apuntes de contextos.md
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BBDD_SqliteLocal", "BBDD_SqliteLocal", "{49958F4C-03BE-4BC4-A2A7-9B04582BBB64}"
 EndProject
@@ -139,11 +136,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "Arquitec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Migrations", "Arquitectura\WebApps\WebAPI\Migrations\Migrations.csproj", "{A294255B-48BB-49EB-9356-D547F07DE108}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorPagesExample", "WEB\RazorPagesExample\RazorPagesExample.csproj", "{7AB52B58-EA61-49E3-BE69-0814DA21AF66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorPagesExample", "WEB\RazorPagesExample\RazorPagesExample.csproj", "{7AB52B58-EA61-49E3-BE69-0814DA21AF66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcExample", "WEB\MvcExample\MvcExample.csproj", "{91DB6DD4-EE4B-4780-87C4-AB63C8C469E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcExample", "WEB\MvcExample\MvcExample.csproj", "{91DB6DD4-EE4B-4780-87C4-AB63C8C469E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiExample", "WEB\WebApiExample\WebApiExample.csproj", "{9BA2F5E7-CFEC-4671-8043-3C159EDEB3ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiExample", "WEB\WebApiExample\WebApiExample.csproj", "{9BA2F5E7-CFEC-4671-8043-3C159EDEB3ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
