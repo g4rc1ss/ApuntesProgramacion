@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Reflection;
-using DataAccessLayer.DataAccessManager;
 using Microsoft.Extensions.DependencyInjection;
+using WebAPI.Backend.Data.DataAccessManager;
 
-namespace InmobiliariaEguzkimendi.DataAccessLayer {
+namespace WebAPI.Backend.Data {
     public static class ServiceCollectionExtensions {
         public static IServiceCollection AddEguzkimendiDAL(this IServiceCollection services) {
             foreach (var damType in Assembly.GetExecutingAssembly().GetTypes()

@@ -1,4 +1,4 @@
-﻿namespace DataAccessLayer.DataAccessManager.DamBase {
+﻿namespace WebAPI.Backend.Data.DataAccessManager.DamBase {
     public abstract class ApplicationDamBase {
         protected readonly WebApiPruebaContext webApiPruebaContext;
 

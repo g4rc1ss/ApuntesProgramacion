@@ -2,7 +2,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FrontApi.Controllers {
+namespace WebAPI.Frontend.Api.Controllers {
     public class InicioController : BaseApiController {
 
         [HttpGet]

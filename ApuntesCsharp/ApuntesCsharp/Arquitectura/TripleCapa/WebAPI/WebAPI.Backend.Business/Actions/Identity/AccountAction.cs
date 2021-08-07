@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using BackApi.BusinessManager.IdentityManager;
-using InmobiliariaEguzkimendi.Core.BusinessManager.IdentityManager;
 using Microsoft.Extensions.Logging;
+using WebAPI.Backend.Business.BusinessManager.IdentityManager;
 
-namespace BackApi.Actions.Identity {
+namespace WebAPI.Backend.Business.Actions.Identity {
     public class AccountAction {
         private readonly ILogger<AccountAction> logger;
         private readonly ApplicationUserManager applicationUserManager;

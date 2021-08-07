@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Migrations {
+namespace WebAPI.Migrations {
     internal class Program {
         private static void Main(string[] args) {
             CreateHostBuilder(args).Build().RunAsync();

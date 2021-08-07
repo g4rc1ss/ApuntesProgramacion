@@ -3,7 +3,7 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace FrontApi.Controllers {
+namespace WebAPI.Frontend.Api.Controllers {
     public class BaseApiController : ControllerBase {
 
         /// <summary>

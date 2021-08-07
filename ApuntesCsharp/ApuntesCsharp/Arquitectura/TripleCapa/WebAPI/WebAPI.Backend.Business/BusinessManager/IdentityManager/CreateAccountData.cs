@@ -1,4 +1,4 @@
-﻿namespace InmobiliariaEguzkimendi.Core.BusinessManager.IdentityManager {
+﻿namespace WebAPI.Backend.Business.BusinessManager.IdentityManager {
     public class CreateAccountData {
         public string UserName { get; set; }
         public string Password { get; set; }

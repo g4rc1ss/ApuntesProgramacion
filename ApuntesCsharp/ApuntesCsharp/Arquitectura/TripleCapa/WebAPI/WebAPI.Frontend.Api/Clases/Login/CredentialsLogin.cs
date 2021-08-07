@@ -1,4 +1,4 @@
-﻿namespace FrontApi.Clases.Login {
+﻿namespace WebAPI.Frontend.Api.Clases.Login {
     public class CredentialsLogin {
         public string Username { get; set; }
         public string Password { get; set; }

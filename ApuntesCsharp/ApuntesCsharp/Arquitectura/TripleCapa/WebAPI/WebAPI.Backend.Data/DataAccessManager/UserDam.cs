@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DataAccessLayer.DataAccessManager.DamBase;
-using DataAccessLayer.Database.Identity;
 using Microsoft.AspNetCore.Identity;
+using WebAPI.Backend.Data.DataAccessManager.DamBase;
+using WebAPI.Backend.Data.Database.Identity;
 
-namespace DataAccessLayer.DataAccessManager {
+namespace WebAPI.Backend.Data.DataAccessManager {
     public class UserDam : ApplicationDamBase {
         private readonly SignInManager<User> signInManager;
         private readonly UserManager<User> userManager;

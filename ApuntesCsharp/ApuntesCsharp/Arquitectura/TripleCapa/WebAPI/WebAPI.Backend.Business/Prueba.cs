@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace BackApi {
+namespace WebAPI.Backend.Business {
     public class Prueba {
         public static string CifrarText(string text) {
             return new string(Encoding.UTF8.GetString(CifrarTextoAes(text)));

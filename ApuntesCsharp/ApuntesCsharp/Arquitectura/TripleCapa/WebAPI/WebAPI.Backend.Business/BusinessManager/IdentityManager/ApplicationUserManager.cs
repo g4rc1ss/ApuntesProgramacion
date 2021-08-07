@@ -1,10 +1,9 @@
 ﻿using System;
 using DataAccessLayer.DataAccessManager;
 using DataAccessLayer.Database.Identity;
-using InmobiliariaEguzkimendi.Core.BusinessManager.IdentityManager;
 using Microsoft.Extensions.Logging;
 
-namespace BackApi.BusinessManager.IdentityManager {
+namespace WebAPI.Backend.Business.BusinessManager.IdentityManager {
     public class ApplicationUserManager {
         private readonly ILogger<ApplicationUserManager> logger;
         private readonly UserDam userDam;

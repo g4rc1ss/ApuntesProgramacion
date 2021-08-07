@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Migrations {
+namespace WebAPI.Migrations {
     public class MigrationService : IHostedService {
         private readonly IServiceProvider serviceProvider;
 

@@ -2,7 +2,7 @@
 using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 
-namespace Migrations {
+namespace WebAPI.Migrations {
     /// <summary>
     /// Clase para instancias los contextos de los que hay que ejecutar las migraciones para crearlos
     /// </summary>

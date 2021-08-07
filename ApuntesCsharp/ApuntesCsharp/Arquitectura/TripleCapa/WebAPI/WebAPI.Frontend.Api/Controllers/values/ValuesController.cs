@@ -1,7 +1,7 @@
 ﻿using BackApi;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FrontApi.Controllers {
+namespace WebAPI.Frontend.Api.Controllers.values {
     [ApiController]
     public class ValuesController : BaseApiController {
 

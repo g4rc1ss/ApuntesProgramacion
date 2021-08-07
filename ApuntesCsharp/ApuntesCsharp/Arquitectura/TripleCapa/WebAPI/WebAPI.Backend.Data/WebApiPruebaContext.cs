@@ -1,9 +1,9 @@
-﻿using DataAccessLayer.Database.Identity;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using WebAPI.Backend.Data.Database.Identity;
 
-namespace DataAccessLayer {
+namespace WebAPI.Backend.Data {
     public class WebApiPruebaContext : IdentityDbContext<User, Role, int> {
 
         public virtual DbSet<User> User { get; set; }
