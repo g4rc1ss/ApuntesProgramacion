@@ -10,7 +10,7 @@ namespace DesktopUI.Backend.Data.DataAccessManager {
         }
 
         public List<Usuario> GetAllUsers() {
-            using (var context = contextSqlite.CreateDbContext()) {
+            using (var context = contexto.CreateDbContext()) {
                 return (from user in context.Usuarios
                         orderby user.Id
                         select user).ToList();
@@ -18,7 +18,7 @@ namespace DesktopUI.Backend.Data.DataAccessManager {
         }
 
         public List<Usuario> GetAllUsersWithEdad(int edad) {
-            using (var context = contextSqlite.CreateDbContext()) {
+            using (var context = contexto.CreateDbContext()) {
                 return (from user in context.Usuarios
                         where user.Edad == edad
                         orderby user.Id

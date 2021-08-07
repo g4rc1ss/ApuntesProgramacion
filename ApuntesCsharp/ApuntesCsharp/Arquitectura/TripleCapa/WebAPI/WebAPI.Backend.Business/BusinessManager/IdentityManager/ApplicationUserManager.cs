@@ -1,13 +1,14 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
-using WebAPI.Backend.Data.DataAccessManager;
+using WebAPI.Backend.Business.BusinessManager.IdentityManager.Interfaces;
+using WebAPI.Backend.Data.DataAccessManager.Interfaces;
 using WebAPI.Backend.Data.Database.Identity;
 
 namespace WebAPI.Backend.Business.BusinessManager.IdentityManager {
-    public class ApplicationUserManager {
+    public class ApplicationUserManager : IApplicationUserManager {
         private readonly ILogger<ApplicationUserManager> logger;
-        private readonly UserDam userDam;
-        public ApplicationUserManager(ILogger<ApplicationUserManager> logger, UserDam userDam) {
+        private readonly IUserDam userDam;
+        public ApplicationUserManager(ILogger<ApplicationUserManager> logger, IUserDam userDam) {
             this.logger = logger;
             this.userDam = userDam;
         }

@@ -2,10 +2,11 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using WebAPI.Backend.Data.DataAccessManager.DamBase;
+using WebAPI.Backend.Data.DataAccessManager.Interfaces;
 using WebAPI.Backend.Data.Database.Identity;
 
 namespace WebAPI.Backend.Data.DataAccessManager {
-    public class UserDam : ApplicationDamBase {
+    public class UserDam : ApplicationDamBase, IUserDam {
         private readonly SignInManager<User> signInManager;
         private readonly UserManager<User> userManager;
         public UserDam(WebApiPruebaContext webApiPruebaContext, SignInManager<User> signInManager, UserManager<User> userManager) : base(webApiPruebaContext) {

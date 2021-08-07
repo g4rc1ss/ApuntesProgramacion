@@ -16,6 +16,8 @@ namespace WebAPI.Migrations {
                 var migrator = scope.ServiceProvider.GetRequiredService<DatabaseMigrator>();
                 var initializer = scope.ServiceProvider.GetRequiredService<DatabaseInitializer>();
 
+                await migrator.DeleteDatabase();
+
                 await migrator.Migrate();
                 await initializer.Initialize(cancellationToken);
             }

@@ -1,14 +1,14 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Backend.Business.Actions.Identity;
+using WebAPI.Backend.Business.Actions.Account.Interfaces;
 using WebAPI.Backend.Business.BusinessManager.IdentityManager;
 using WebAPI.Frontend.Api.Clases.Login;
 
 namespace WebAPI.Frontend.Api.Controllers.Account.Login {
     [ApiController]
     public class AccountController : BaseApiController {
-        private readonly AccountAction accountAction;
-        public AccountController(AccountAction accountAction) {
+        private readonly IAccountAction accountAction;
+        public AccountController(IAccountAction accountAction) {
             this.accountAction = accountAction;
         }
         /// <summary>

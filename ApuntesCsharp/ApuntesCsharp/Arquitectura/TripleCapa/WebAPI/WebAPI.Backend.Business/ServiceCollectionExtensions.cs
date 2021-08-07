@@ -4,14 +4,21 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace WebAPI.Backend.Business {
     public static class ServiceCollectionExtensions {
-        public static IServiceCollection AddEguzkimendiCore(this IServiceCollection services) {
-            foreach (var managerType in Assembly.GetExecutingAssembly().GetTypes()
-                                                                        .Where(x => x.Name.Contains("Manager"))) {
-                services.AddScoped(managerType);
+        public static IServiceCollection AddWebApiBackendBusiness(this IServiceCollection services) {
+            var tiposAction = (from type in Assembly.GetExecutingAssembly().GetTypes()
+                               where type.Name.Contains("Action") && type.IsClass
+                               select type).ToDictionary(key => key.GetInterfaces().Where(x => x.Name.Contains(key.Name)).First(), value => value);
+
+            var tiposManager = (from type in Assembly.GetExecutingAssembly().GetTypes()
+                                where type.Name.Contains("Manager") && type.IsClass
+                                select type).ToDictionary(key => key.GetInterfaces().Where(x => x.Name.Contains(key.Name)).First(), value => value);
+
+            foreach (var damType in tiposAction) {
+                services.AddScoped(damType.Key, damType.Value);
             }
-            foreach (var managerType in Assembly.GetExecutingAssembly().GetTypes()
-                                                                        .Where(x => x.Name.Contains("Action"))) {
-                services.AddScoped(managerType);
+
+            foreach (var damType in tiposManager) {
+                services.AddScoped(damType.Key, damType.Value);
             }
 
             return services;

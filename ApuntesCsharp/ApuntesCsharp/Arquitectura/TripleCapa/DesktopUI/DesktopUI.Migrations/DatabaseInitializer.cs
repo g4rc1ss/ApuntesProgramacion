@@ -9,17 +9,16 @@ namespace DesktopUI.Migrations {
     // Con esta clase nos encargamos de inicializar la BBDD siempre con los datos que queramos
     public class DatabaseInitializer {
         private readonly IEnumerable<IDataSeed> dataSeeds;
-        private readonly ContextoSqlServer contextoSqlite;
+        private readonly ContextoSqlServer contexto;
 
-        public DatabaseInitializer(
-            IEnumerable<IDataSeed> dataSeeds, ContextoSqlServer contextoSqlite) {
+        public DatabaseInitializer(IEnumerable<IDataSeed> dataSeeds, ContextoSqlServer contexto) {
             this.dataSeeds = dataSeeds;
-            this.contextoSqlite = contextoSqlite;
+            this.contexto = contexto;
         }
 
         public async Task Initialize(CancellationToken cancellationToken = default) {
             foreach (var seed in dataSeeds) {
-                await seed.Seed(contextoSqlite, cancellationToken);
+                await seed.Seed(contexto, cancellationToken);
             }
         }
     }

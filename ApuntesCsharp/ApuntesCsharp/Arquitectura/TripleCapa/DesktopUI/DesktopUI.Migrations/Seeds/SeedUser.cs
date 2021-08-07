@@ -7,10 +7,10 @@ using DesktopUI.Backend.Data.Database;
 
 namespace DesktopUI.Migrations.Seeds {
     internal class SeedUser {
-        private readonly ContextoSqlServer contextoSqlite;
+        private readonly ContextoSqlServer contexto;
 
-        public SeedUser(ContextoSqlServer contextoSqlite) {
-            this.contextoSqlite = contextoSqlite;
+        public SeedUser(ContextoSqlServer contexto) {
+            this.contexto = contexto;
         }
 
         internal async Task InicializarDatosFavoritos() {
@@ -24,8 +24,8 @@ namespace DesktopUI.Migrations.Seeds {
                 });
             }
 
-            contextoSqlite.Usuarios.AddRange(users);
-            await contextoSqlite.SaveChangesAsync();
+            contexto.Usuarios.AddRange(users);
+            await contexto.SaveChangesAsync();
         }
     }
 }

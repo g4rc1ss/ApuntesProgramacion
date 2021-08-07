@@ -2,10 +2,10 @@
 
 namespace DesktopUI.Backend.Data.DataAccessManager.BaseDam {
     public abstract class DataAccessLayer {
-        internal IDbContextFactory<ContextoSqlServer> contextSqlite;
+        internal IDbContextFactory<ContextoSqlServer> contexto;
 
         public DataAccessLayer(IDbContextFactory<ContextoSqlServer> dbContextFactory) {
-            contextSqlite = dbContextFactory;
+            contexto = dbContextFactory;
         }
     }
 }

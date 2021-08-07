@@ -38,8 +38,8 @@ namespace WebAPI.Frontend.Api {
             _ = services.AddDbContext<WebApiPruebaContext>(options => {
                 _ = options.UseSqlServer(Configuration.GetConnectionString(nameof(WebApiPruebaContext)));
             });
-            _ = services.AddEguzkimendiCore();
-            _ = services.AddEguzkimendiDAL();
+            _ = services.AddWebApiBackendBusiness();
+            _ = services.AddWebApiBackendData();
 
             _ = services.ConfigureApplicationCookie(opts => {
                 opts.LoginPath = "/Login";

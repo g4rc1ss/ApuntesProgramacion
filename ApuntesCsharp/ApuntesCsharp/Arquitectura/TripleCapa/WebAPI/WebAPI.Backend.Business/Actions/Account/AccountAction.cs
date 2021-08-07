@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using WebAPI.Backend.Business.Actions.Account.Interfaces;
 using WebAPI.Backend.Business.BusinessManager.IdentityManager;
+using WebAPI.Backend.Business.BusinessManager.IdentityManager.Interfaces;
 
-namespace WebAPI.Backend.Business.Actions.Identity {
-    public class AccountAction {
+namespace WebAPI.Backend.Business.Actions.Account {
+    internal class AccountAction : IAccountAction {
         private readonly ILogger<AccountAction> logger;
-        private readonly ApplicationUserManager applicationUserManager;
+        private readonly IApplicationUserManager applicationUserManager;
 
-        public AccountAction(ILogger<AccountAction> logger, ApplicationUserManager applicationUserManager) {
+        public AccountAction(ILogger<AccountAction> logger, IApplicationUserManager applicationUserManager) {
             this.logger = logger;
             this.applicationUserManager = applicationUserManager;
         }

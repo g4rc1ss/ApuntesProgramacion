@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Backend.Data;
 
@@ -15,6 +16,10 @@ namespace WebAPI.Migrations {
 
         public Task Migrate() {
             return webApiPruebaContext.Database.MigrateAsync();
+        }
+
+        public Task DeleteDatabase() {
+            return webApiPruebaContext.Database.EnsureDeletedAsync();
         }
     }
 }
