@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DesktopUI.Backend.Business.Manager.Interfaces;
 using DesktopUI.Backend.Data.DataAccessManager;
+using DesktopUI.Backend.Data.DataAccessManager.Interfaces;
 using DesktopUI.Backend.Data.Database;
 
 namespace DesktopUI.Backend.Business.Manager {
-    public class UserManager {
-        private readonly UserDam userDam;
-        public UserManager(UserDam userDam) {
+    public class UserManager : IUserManager {
+        private readonly IUserDam userDam;
+        public UserManager(IUserDam userDam) {
             this.userDam = userDam;
         }
 

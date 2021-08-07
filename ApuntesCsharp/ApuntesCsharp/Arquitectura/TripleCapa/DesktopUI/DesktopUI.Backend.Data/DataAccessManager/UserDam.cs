@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DesktopUI.Backend.Data.DataAccessManager.BaseDam;
+using DesktopUI.Backend.Data.DataAccessManager.Interfaces;
 using DesktopUI.Backend.Data.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace DesktopUI.Backend.Data.DataAccessManager {
-    public class UserDam : DataAccessLayer {
+    public class UserDam : DataAccessLayer, IUserDam {
         public UserDam(IDbContextFactory<ContextoSqlServer> dbContextFactory) : base(dbContextFactory) {
         }
 

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DesktopUI.Backend.Business.Manager;
+using DesktopUI.Backend.Business.Actions.Interfaces;
+using DesktopUI.Backend.Business.Manager.Interfaces;
 using DesktopUI.Backend.Data.Database;
 
 namespace DesktopUI.Backend.Business.Actions {
-    public class UserAction {
-        private readonly UserManager userManager;
-        public UserAction(UserManager userManager) {
+    public class UserAction : IUserAction {
+        private readonly IUserManager userManager;
+        public UserAction(IUserManager userManager) {
             this.userManager = userManager;
         }
 

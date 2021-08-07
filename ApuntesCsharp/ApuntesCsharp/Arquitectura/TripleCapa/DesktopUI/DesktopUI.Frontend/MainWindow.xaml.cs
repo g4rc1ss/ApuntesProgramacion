@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using DesktopUI.Backend.Business.Actions;
+using DesktopUI.Backend.Business.Actions.Interfaces;
 using DesktopUI.Backend.Business.DataAccessObject;
 
 namespace DesktopUI.Frontend {
@@ -7,9 +8,9 @@ namespace DesktopUI.Frontend {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
-        private readonly UserAction userAction;
+        private readonly IUserAction userAction;
 
-        public MainWindow(UserAction userAction) {
+        public MainWindow(IUserAction userAction) {
             InitializeComponent();
             this.userAction = userAction;
         }
