@@ -1,7 +1,6 @@
-﻿using Apuntes.BackLocal.DataAccessLayer.Database;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace Apuntes.BackLocal.DataAccessLayer.DataAccessManager.BaseDam {
+namespace Backend.Data.DataAccessManager.BaseDam {
     public abstract class DataAccessLayer {
         internal IDbContextFactory<ContextoSqlite> contextSqlite;
 

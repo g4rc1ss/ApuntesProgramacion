@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Apuntes.BackLocal.DataAccessLayer.Database;
+using Backend.Data;
 
-namespace Apuntes.Migrations.SqliteLocal {
+namespace Migrations {
 
     // Clase que invoka a una interfaz, que esta esta vinculada a un Seed.
     // Con esta clase nos encargamos de inicializar la BBDD siempre con los datos que queramos

@@ -1,13 +1,12 @@
 ﻿using System.Windows;
-using Apuntes.BackLocal.Core;
-using Apuntes.BackLocal.DataAccessLayer.Database;
-using InmobiliariaEguzkimendi.DataAccessLayer;
+using Backend.Business;
+using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Apuntes.WPF.Presentacion {
+namespace Frontend {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>

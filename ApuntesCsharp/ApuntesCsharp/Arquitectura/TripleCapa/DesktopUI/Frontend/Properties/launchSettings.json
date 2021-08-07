@@ -1,10 +1,11 @@
 {
   "profiles": {
-    "Apuntes.WPF.Presentacion": {
+    "Frontend": {
       "commandName": "Project",
       "environmentVariables": {
         "WPF_ENVIRONMENT": "Development"
-      }
+      },
+      "sqlDebugging": false
     }
   }
 }

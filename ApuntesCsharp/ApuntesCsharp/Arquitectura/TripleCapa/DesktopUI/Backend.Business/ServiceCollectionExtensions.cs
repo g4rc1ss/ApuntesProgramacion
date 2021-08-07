@@ -2,7 +2,7 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Apuntes.BackLocal.Core {
+namespace Backend.Business {
     public static class ServiceCollectionExtensions {
         public static IServiceCollection AddApuntesBackLocalCore(this IServiceCollection services) {
             foreach (var managerType in Assembly.GetExecutingAssembly().GetTypes()

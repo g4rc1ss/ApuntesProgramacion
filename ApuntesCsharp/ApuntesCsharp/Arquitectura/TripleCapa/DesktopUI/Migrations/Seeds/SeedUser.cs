@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Apuntes.BackLocal.DataAccessLayer.Database;
-using Apuntes.BackLocal.DataAccessLayer.Database.Sqlite;
+using Backend.Data;
+using Backend.Data.Database.Sqlite;
 
-namespace Apuntes.Migrations.SqliteLocal.Seeds {
+namespace Migrations.Seeds {
     internal class SeedUser {
         private readonly ContextoSqlite contextoSqlite;
 

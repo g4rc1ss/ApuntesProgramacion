@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Apuntes.BackLocal.Core.Manager;
-using Apuntes.BackLocal.DataAccessLayer.Database.Sqlite;
+using Backend.Business.Manager;
+using Backend.Data.Database.Sqlite;
 
-namespace Apuntes.BackLocal.Core.Actions {
+namespace Backend.Business.Actions {
     public class UserAction {
         private readonly UserManager userManager;
         public UserAction(UserManager userManager) {

@@ -1,8 +1,7 @@
 ﻿using System.Windows;
-using Apuntes.BackLocal.Core.Actions;
-using Apuntes.BackLocal.Core.DataAccessObject;
+using Backend.Business.Actions;
 
-namespace Apuntes.WPF.Presentacion {
+namespace Frontend {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>

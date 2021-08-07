@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using Apuntes.BackLocal.DataAccessLayer.Database;
+using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Apuntes.Migrations.SqliteLocal {
+namespace Migrations {
     /// <summary>
     /// Clase para instancias los contextos de los que hay que ejecutar las migraciones para crearlos
     /// </summary>

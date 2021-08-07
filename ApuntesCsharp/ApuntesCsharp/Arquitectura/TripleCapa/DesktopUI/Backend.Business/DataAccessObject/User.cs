@@ -1,4 +1,4 @@
-﻿namespace Apuntes.BackLocal.Core.DataAccessObject {
+﻿namespace Backend.Business.DataAccessObject {
     public class User {
         public string Name { get; set; }
         public int Edad { get; set; }

@@ -2,7 +2,7 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Apuntes.WPF.Presentacion {
+namespace Frontend {
     public static class ServiceCollectionExtensions {
         public static IServiceCollection AddApuntesConsolePresentacion(this IServiceCollection services) {
             foreach (var managerType in Assembly.GetExecutingAssembly().GetTypes()

@@ -1,11 +1,11 @@
-﻿using Apuntes.BackLocal.DataAccessLayer.Database;
+﻿using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Apuntes.Migrations.SqliteLocal {
+namespace Migrations {
     internal class Program {
         private static void Main(string[] args) {
             CreateHostBuilder(args).Build().RunAsync();

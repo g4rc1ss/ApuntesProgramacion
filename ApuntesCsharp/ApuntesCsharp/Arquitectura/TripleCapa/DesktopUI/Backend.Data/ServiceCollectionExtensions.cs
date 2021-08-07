@@ -2,7 +2,7 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace InmobiliariaEguzkimendi.DataAccessLayer {
+namespace Backend.Data {
     public static class ServiceCollectionExtensions {
         public static IServiceCollection AddApuntesDataAccessLayer(this IServiceCollection services) {
             foreach (var damType in Assembly.GetExecutingAssembly().GetTypes()

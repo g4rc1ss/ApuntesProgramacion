@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Apuntes.BackLocal.DataAccessLayer.Database;
+using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Apuntes.Migrations.SqliteLocal.Seeds {
+namespace Migrations.Seeds {
     public class SeedPrincipal : IDataSeed {
         private readonly IDbContextFactory<ContextoSqlite> dbContextFactory;
         public SeedPrincipal(IDbContextFactory<ContextoSqlite> dbContextFactory) {

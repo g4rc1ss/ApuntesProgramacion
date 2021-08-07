@@ -1,7 +1,7 @@
-﻿using Apuntes.BackLocal.DataAccessLayer.Database.Sqlite;
+﻿using Backend.Data.Database.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
-namespace Apuntes.BackLocal.DataAccessLayer.Database {
+namespace Backend.Data {
     public class ContextoSqlite : DbContext {
         public DbSet<Usuario> Usuarios { get; set; }
 

@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Apuntes.BackLocal.DataAccessLayer.Database;
+using Backend.Data;
 
-namespace Apuntes.Migrations.SqliteLocal {
+namespace Migrations {
     public interface IDataSeed {
         Task Seed(ContextoSqlite context, CancellationToken cancellationToken = default);
     }

@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Apuntes.BackLocal.DataAccessLayer.Database;
-using Apuntes.BackLocal.DataAccessLayer.Database.Sqlite;
+using Backend.Data.Database.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
-namespace Apuntes.BackLocal.DataAccessLayer.DataAccessManager {
+namespace Backend.Data.DataAccessManager {
     public class UserDam : BaseDam.DataAccessLayer {
         public UserDam(IDbContextFactory<ContextoSqlite> dbContextFactory) : base(dbContextFactory) {
         }

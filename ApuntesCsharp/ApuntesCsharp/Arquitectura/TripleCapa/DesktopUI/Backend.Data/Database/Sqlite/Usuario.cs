@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Apuntes.BackLocal.DataAccessLayer.Database.Sqlite {
+namespace Backend.Data.Database.Sqlite {
     public class Usuario {
         public int Id { get; set; }
         public string Nombre { get; set; }
