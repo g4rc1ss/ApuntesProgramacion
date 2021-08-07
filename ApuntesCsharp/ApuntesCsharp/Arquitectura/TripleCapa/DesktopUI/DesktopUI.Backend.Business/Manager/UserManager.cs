@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DesktopUI.Backend.Business.Manager.Interfaces;
-using DesktopUI.Backend.Data.DataAccessManager;
 using DesktopUI.Backend.Data.DataAccessManager.Interfaces;
 using DesktopUI.Backend.Data.Database;
 

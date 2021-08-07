@@ -3,7 +3,6 @@ using DesktopUI.Backend.Business.Manager;
 using DesktopUI.Backend.Data.DataAccessManager.Interfaces;
 using DesktopUI.SimulateDataForTesting;
 using DesktopUI.SimulateDataForTesting.UserMocks;
-using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

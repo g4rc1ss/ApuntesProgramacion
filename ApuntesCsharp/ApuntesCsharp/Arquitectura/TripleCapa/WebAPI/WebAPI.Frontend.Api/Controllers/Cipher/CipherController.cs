@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Backend.Business.Actions.Cipher.Interfaces;
-using WebAPI.Backend.Business.BusinessManager.CipherManager;
 
 namespace WebAPI.Frontend.Api.Controllers.Cipher {
     [ApiController]
