@@ -30,7 +30,7 @@ namespace DesktopUI.UnitTest {
         public void GetAllUsersOk() {
             var resultado = userManagerOk.GetListaUsuarios();
 
-            Assert.IsTrue(resultado.Count > 0);
+            Assert.IsTrue(resultado.Count == 4);
         }
 
         [TestMethod]

@@ -24,8 +24,8 @@ namespace DesktopUI.Backend.Business.Manager {
                 () => {
                     listaUsuariosConEdad = userDam.GetAllUsersWithEdad(12);
                 });
-            var response = listaUsuarios.Concat(listaUsuariosConEdad).ToList();
-            return new List<Usuario>(response);
+            var response = listaUsuarios?.Concat(listaUsuariosConEdad).ToList();
+            return response;
         }
     }
 }

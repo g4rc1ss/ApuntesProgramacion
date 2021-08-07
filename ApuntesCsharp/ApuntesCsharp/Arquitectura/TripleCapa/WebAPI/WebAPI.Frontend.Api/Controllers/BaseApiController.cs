@@ -22,7 +22,7 @@ namespace WebAPI.Frontend.Api.Controllers {
             }
 
             return Content(
-                $"{JsonConvert.SerializeObject(data)}",
+                $"{JsonConvert.SerializeObject(data.Count < 1 ? respuesta : data)}",
                 "aplication/JSON",
                 Encoding.UTF8
             );

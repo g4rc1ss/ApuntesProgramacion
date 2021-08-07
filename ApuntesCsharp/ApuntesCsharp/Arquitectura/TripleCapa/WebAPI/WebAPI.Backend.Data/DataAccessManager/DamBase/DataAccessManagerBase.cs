@@ -1,8 +1,8 @@
 ﻿namespace WebAPI.Backend.Data.DataAccessManager.DamBase {
-    public abstract class ApplicationDamBase {
+    public abstract class DataAccessManagerBase {
         protected readonly WebApiPruebaContext webApiPruebaContext;
 
-        protected ApplicationDamBase(WebApiPruebaContext webApiPruebaContext) {
+        protected DataAccessManagerBase(WebApiPruebaContext webApiPruebaContext) {
             this.webApiPruebaContext = webApiPruebaContext;
         }
     }
