@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Migrations.Seeds {
     public class SeedPrincipal : IDataSeed {
-        private readonly IDbContextFactory<ContextoSqlite> dbContextFactory;
-        public SeedPrincipal(IDbContextFactory<ContextoSqlite> dbContextFactory) {
+        private readonly IDbContextFactory<ContextoSqlServer> dbContextFactory;
+        public SeedPrincipal(IDbContextFactory<ContextoSqlServer> dbContextFactory) {
             this.dbContextFactory = dbContextFactory;
         }
 
-        public async Task Seed(ContextoSqlite context, CancellationToken cancellationToken = default) {
+        public async Task Seed(ContextoSqlServer context, CancellationToken cancellationToken = default) {
             await new SeedUser(dbContextFactory.CreateDbContext()).InicializarDatosFavoritos();
         }
     }

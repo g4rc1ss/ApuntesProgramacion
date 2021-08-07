@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.Data;
-using Backend.Data.Database.Sqlite;
+using Backend.Data.Database;
 
 namespace Migrations.Seeds {
     internal class SeedUser {
-        private readonly ContextoSqlite contextoSqlite;
+        private readonly ContextoSqlServer contextoSqlite;
 
-        public SeedUser(ContextoSqlite contextoSqlite) {
+        public SeedUser(ContextoSqlServer contextoSqlite) {
             this.contextoSqlite = contextoSqlite;
         }
 

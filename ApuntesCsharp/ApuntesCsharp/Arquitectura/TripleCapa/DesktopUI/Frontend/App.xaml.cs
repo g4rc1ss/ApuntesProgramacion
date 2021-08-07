@@ -12,27 +12,27 @@ namespace Frontend {
     /// </summary>
     public partial class App : Application {
         protected override void OnStartup(StartupEventArgs e) {
-            CreateHostBuilder(e.Args).Build().RunAsync();
+            _ = CreateHostBuilder(e.Args).Build().RunAsync();
         }
 
         private static IHostBuilder CreateHostBuilder(string[] args) {
             return new HostBuilder()
                 .UseEnvironment(System.Environment.GetEnvironmentVariable("WPF_ENVIRONMENT") ?? "Production")
                 .ConfigureAppConfiguration((hostContext, configBuilder) => {
-                    configBuilder.AddJsonFile("appsettings.json");
-                    configBuilder.AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true);
+                    _ = configBuilder.AddJsonFile("appsettings.json");
+                    _ = configBuilder.AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true);
                 })
                 .ConfigureServices((hostContext, services) => {
-                    services.AddOptions();
+                    _ = services.AddOptions();
 
-                    services.AddApuntesConsolePresentacion();
-                    services.AddApuntesBackLocalCore();
-                    services.AddApuntesDataAccessLayer();
+                    _ = services.AddFrontend();
+                    _ = services.AddBackendBusiness();
+                    _ = services.AddBackendData();
 
-                    services.AddDbContextFactory<ContextoSqlite>(options => {
-                        options.UseSqlite(hostContext.Configuration.GetConnectionString(nameof(ContextoSqlite)));
+                    _ = services.AddDbContextFactory<ContextoSqlServer>(options => {
+                        options.UseSqlite(hostContext.Configuration.GetConnectionString(nameof(ContextoSqlServer)));
                     });
-                    services.AddScoped(p => p.GetRequiredService<IDbContextFactory<ContextoSqlite>>().CreateDbContext());
+                    _ = services.AddScoped(p => p.GetRequiredService<IDbContextFactory<ContextoSqlServer>>().CreateDbContext());
 
                     var presentation = services.BuildServiceProvider().GetRequiredService<MainWindow>();
                     presentation.Show();

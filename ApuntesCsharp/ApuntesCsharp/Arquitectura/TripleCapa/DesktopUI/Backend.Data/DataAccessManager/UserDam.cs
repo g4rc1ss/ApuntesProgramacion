@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Backend.Data.Database.Sqlite;
+using Backend.Data.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Data.DataAccessManager {
     public class UserDam : BaseDam.DataAccessLayer {
-        public UserDam(IDbContextFactory<ContextoSqlite> dbContextFactory) : base(dbContextFactory) {
+        public UserDam(IDbContextFactory<ContextoSqlServer> dbContextFactory) : base(dbContextFactory) {
         }
 
         public List<Usuario> GetAllUsers() {

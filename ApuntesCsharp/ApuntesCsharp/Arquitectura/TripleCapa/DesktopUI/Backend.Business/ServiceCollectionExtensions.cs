@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Backend.Business {
     public static class ServiceCollectionExtensions {
-        public static IServiceCollection AddApuntesBackLocalCore(this IServiceCollection services) {
+        public static IServiceCollection AddBackendBusiness(this IServiceCollection services) {
             foreach (var managerType in Assembly.GetExecutingAssembly().GetTypes()
                                                                         .Where(x => x.Name.Contains("Manager"))) {
                 services.AddScoped(managerType);

@@ -2,9 +2,9 @@
 
 namespace Backend.Data.DataAccessManager.BaseDam {
     public abstract class DataAccessLayer {
-        internal IDbContextFactory<ContextoSqlite> contextSqlite;
+        internal IDbContextFactory<ContextoSqlServer> contextSqlite;
 
-        public DataAccessLayer(IDbContextFactory<ContextoSqlite> dbContextFactory) {
+        public DataAccessLayer(IDbContextFactory<ContextoSqlServer> dbContextFactory) {
             contextSqlite = dbContextFactory;
         }
     }

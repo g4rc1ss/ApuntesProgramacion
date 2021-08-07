@@ -8,29 +8,29 @@ using Microsoft.Extensions.Logging;
 namespace Migrations {
     internal class Program {
         private static void Main(string[] args) {
-            CreateHostBuilder(args).Build().RunAsync();
+            _ = CreateHostBuilder(args).Build().RunAsync();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) {
             return new HostBuilder()
                 .UseEnvironment(System.Environment.GetEnvironmentVariable("CONSOLE_ENVIRONMENT") ?? "Production")
                 .ConfigureAppConfiguration((hostContext, configBuilder) => {
-                    configBuilder.AddJsonFile("appsettings.json");
-                    configBuilder.AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true);
+                    _ = configBuilder.AddJsonFile("appsettings.json");
+                    _ = configBuilder.AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true);
                 })
                 .ConfigureLogging((ctx, l) => {
-                    l.AddConfiguration(ctx.Configuration);
-                    l.AddConsole();
+                    _ = l.AddConfiguration(ctx.Configuration);
+                    _ = l.AddConsole();
                 })
                 .ConfigureServices((hostContext, services) => {
-                    services.AddOptions();
+                    _ = services.AddOptions();
 
-                    services.AddDbContextFactory<ContextoSqlite>(options => {
-                        options.UseSqlite(hostContext.Configuration.GetConnectionString(nameof(ContextoSqlite)), sql => {
+                    _ = services.AddDbContextFactory<ContextoSqlServer>(options => {
+                        options.UseSqlite(hostContext.Configuration.GetConnectionString(nameof(ContextoSqlServer)), sql => {
                             sql.MigrationsAssembly(typeof(Program).Assembly.FullName);
                         });
                     });
-                    services.AddScoped(p => p.GetRequiredService<IDbContextFactory<ContextoSqlite>>().CreateDbContext());
+                    services.AddScoped(p => p.GetRequiredService<IDbContextFactory<ContextoSqlServer>>().CreateDbContext());
 
                     // Agregamos el tipo de clase DatabaseMigrator para crear la bbdd a traves de las migraciones y contextos
                     services.AddTransient<DatabaseMigrator>();

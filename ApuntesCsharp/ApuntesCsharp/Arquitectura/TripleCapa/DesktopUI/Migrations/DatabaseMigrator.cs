@@ -7,9 +7,9 @@ namespace Migrations {
     /// Clase para instancias los contextos de los que hay que ejecutar las migraciones para crearlos
     /// </summary>
     public class DatabaseMigrator {
-        private readonly ContextoSqlite contextoSqlite;
+        private readonly ContextoSqlServer contextoSqlite;
 
-        public DatabaseMigrator(ContextoSqlite contextoSqlite) {
+        public DatabaseMigrator(ContextoSqlServer contextoSqlite) {
             this.contextoSqlite = contextoSqlite;
         }
 

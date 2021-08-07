@@ -9,10 +9,10 @@ namespace Migrations {
     // Con esta clase nos encargamos de inicializar la BBDD siempre con los datos que queramos
     public class DatabaseInitializer {
         private readonly IEnumerable<IDataSeed> dataSeeds;
-        private readonly ContextoSqlite contextoSqlite;
+        private readonly ContextoSqlServer contextoSqlite;
 
         public DatabaseInitializer(
-            IEnumerable<IDataSeed> dataSeeds, ContextoSqlite contextoSqlite) {
+            IEnumerable<IDataSeed> dataSeeds, ContextoSqlServer contextoSqlite) {
             this.dataSeeds = dataSeeds;
             this.contextoSqlite = contextoSqlite;
         }

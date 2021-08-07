@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Backend.Business.Manager;
-using Backend.Data.Database.Sqlite;
+using Backend.Data.Database;
 
 namespace Backend.Business.Actions {
     public class UserAction {

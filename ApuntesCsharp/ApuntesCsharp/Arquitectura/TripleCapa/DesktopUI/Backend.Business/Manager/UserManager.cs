@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.Data.DataAccessManager;
-using Backend.Data.Database.Sqlite;
+using Backend.Data.Database;
 
 namespace Backend.Business.Manager {
     public class UserManager {

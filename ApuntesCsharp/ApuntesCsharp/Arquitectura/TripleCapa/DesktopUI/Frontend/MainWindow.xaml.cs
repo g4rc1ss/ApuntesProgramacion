@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Backend.Business.Actions;
+using Backend.Business.DataAccessObject;
 
 namespace Frontend {
     /// <summary>
