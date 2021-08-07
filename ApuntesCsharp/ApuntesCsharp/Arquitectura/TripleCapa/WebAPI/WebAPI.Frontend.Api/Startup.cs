@@ -1,7 +1,4 @@
 ﻿using System;
-using DataAccessLayer;
-using DataAccessLayer.Database.Identity;
-using InmobiliariaEguzkimendi.DataAccessLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebAPI.Backend.Business;
+using WebAPI.Backend.Data;
+using WebAPI.Backend.Data.Database.Identity;
 
 namespace WebAPI.Frontend.Api {
     public class Startup {
@@ -23,9 +23,9 @@ namespace WebAPI.Frontend.Api {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            services.AddControllers();
+            _ = services.AddControllers();
 
-            services.AddIdentity<User, Role>(options => {
+            _ = services.AddIdentity<User, Role>(options => {
                 options.Password.RequiredLength = 8;
                 options.Password.RequireNonAlphanumeric = true;
                 options.Password.RequireDigit = true;
@@ -35,13 +35,13 @@ namespace WebAPI.Frontend.Api {
               .AddRoles<Role>()
               .AddEntityFrameworkStores<WebApiPruebaContext>();
 
-            services.AddDbContext<WebApiPruebaContext>(options => {
-                options.UseSqlServer(Configuration.GetConnectionString(nameof(WebApiPruebaContext)));
+            _ = services.AddDbContext<WebApiPruebaContext>(options => {
+                _ = options.UseSqlServer(Configuration.GetConnectionString(nameof(WebApiPruebaContext)));
             });
-            services.AddEguzkimendiCore();
-            services.AddEguzkimendiDAL();
+            _ = services.AddEguzkimendiCore();
+            _ = services.AddEguzkimendiDAL();
 
-            services.ConfigureApplicationCookie(opts => {
+            _ = services.ConfigureApplicationCookie(opts => {
                 opts.LoginPath = "/Login";
                 opts.AccessDeniedPath = "";
                 opts.LogoutPath = "";
@@ -56,16 +56,16 @@ namespace WebAPI.Frontend.Api {
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
             if (env.IsDevelopment()) {
-                app.UseDeveloperExceptionPage();
+                _ = app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            _ = app.UseHttpsRedirection();
 
-            app.UseRouting();
+            _ = app.UseRouting();
 
-            app.UseAuthorization();
+            _ = app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => {
+            _ = app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
             });
         }

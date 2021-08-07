@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using BackApi.Actions.Identity;
-using InmobiliariaEguzkimendi.Core.BusinessManager.IdentityManager;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.Backend.Business.Actions.Identity;
+using WebAPI.Backend.Business.BusinessManager.IdentityManager;
 using WebAPI.Frontend.Api.Clases.Login;
 
 namespace WebAPI.Frontend.Api.Controllers.Account.Login {

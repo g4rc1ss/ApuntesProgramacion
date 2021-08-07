@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Backend.Data\DesktopUI.Backend.Data.csproj" />
+    <ProjectReference Include="..\DesktopUI.Backend.Data\DesktopUI.Backend.Data.csproj" />
   </ItemGroup>
 
 </Project>

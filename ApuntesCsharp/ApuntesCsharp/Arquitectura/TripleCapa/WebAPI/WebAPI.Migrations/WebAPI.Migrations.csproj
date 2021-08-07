@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
+    <ProjectReference Include="..\WebAPI.Backend.Data\WebAPI.Backend.Data.csproj" />
   </ItemGroup>
   
   <ItemGroup>

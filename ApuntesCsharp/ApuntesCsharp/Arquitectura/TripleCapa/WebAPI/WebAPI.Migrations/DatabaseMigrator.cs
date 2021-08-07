@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
+using WebAPI.Backend.Data;
 
 namespace WebAPI.Migrations {
     /// <summary>

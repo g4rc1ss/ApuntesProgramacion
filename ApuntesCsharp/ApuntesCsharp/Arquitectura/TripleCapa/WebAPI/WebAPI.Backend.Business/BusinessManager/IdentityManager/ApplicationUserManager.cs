@@ -1,7 +1,7 @@
 ﻿using System;
-using DataAccessLayer.DataAccessManager;
-using DataAccessLayer.Database.Identity;
 using Microsoft.Extensions.Logging;
+using WebAPI.Backend.Data.DataAccessManager;
+using WebAPI.Backend.Data.Database.Identity;
 
 namespace WebAPI.Backend.Business.BusinessManager.IdentityManager {
     public class ApplicationUserManager {

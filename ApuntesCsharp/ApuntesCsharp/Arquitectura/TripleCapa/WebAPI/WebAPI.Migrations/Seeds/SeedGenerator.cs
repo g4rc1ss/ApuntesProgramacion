@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using DataAccessLayer;
-using DataAccessLayer.Database.Identity;
 using Microsoft.AspNetCore.Identity;
+using WebAPI.Backend.Data;
+using WebAPI.Backend.Data.Database.Identity;
 
 namespace WebAPI.Migrations.Seeds {
     public class SeedGenerator : IDataSeed {

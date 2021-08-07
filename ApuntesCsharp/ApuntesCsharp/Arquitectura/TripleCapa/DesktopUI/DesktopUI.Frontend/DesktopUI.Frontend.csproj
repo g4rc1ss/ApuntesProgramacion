@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Backend.Business\DesktopUI.Backend.Business.csproj" />
+    <ProjectReference Include="..\DesktopUI.Backend.Business\DesktopUI.Backend.Business.csproj" />
   </ItemGroup>
 
   <ItemGroup>
