@@ -26,24 +26,24 @@ namespace Migrations {
                     _ = services.AddOptions();
 
                     _ = services.AddDbContextFactory<ContextoSqlServer>(options => {
-                        options.UseSqlite(hostContext.Configuration.GetConnectionString(nameof(ContextoSqlServer)), sql => {
-                            sql.MigrationsAssembly(typeof(Program).Assembly.FullName);
+                        _ = options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(ContextoSqlServer)), sql => {
+                            _ = sql.MigrationsAssembly(typeof(Program).Assembly.FullName);
                         });
                     });
-                    services.AddScoped(p => p.GetRequiredService<IDbContextFactory<ContextoSqlServer>>().CreateDbContext());
+                    _ = services.AddScoped(p => p.GetRequiredService<IDbContextFactory<ContextoSqlServer>>().CreateDbContext());
 
                     // Agregamos el tipo de clase DatabaseMigrator para crear la bbdd a traves de las migraciones y contextos
-                    services.AddTransient<DatabaseMigrator>();
+                    _ = services.AddTransient<DatabaseMigrator>();
 
                     //// Creamos unas clases para incializar la base de datos con datos una vez creada.
-                    services.AddTransient<DatabaseInitializer>();
+                    _ = services.AddTransient<DatabaseInitializer>();
                     //// Scaneamos y ejecutamos el Seed correspondiente para inicializar la BBDD
-                    services.Scan(scan => scan.FromAssemblyOf<DatabaseInitializer>()
-                        .AddClasses(@class => @class.AssignableTo<IDataSeed>())
-                        .As<IDataSeed>()
-                        .WithTransientLifetime());
+                    _ = services.Scan(scan => scan.FromAssemblyOf<DatabaseInitializer>()
+                          .AddClasses(@class => @class.AssignableTo<IDataSeed>())
+                          .As<IDataSeed>()
+                          .WithTransientLifetime());
 
-                    services.AddHostedService<MigrationService>();
+                    _ = services.AddHostedService<MigrationService>();
                 });
         }
     }

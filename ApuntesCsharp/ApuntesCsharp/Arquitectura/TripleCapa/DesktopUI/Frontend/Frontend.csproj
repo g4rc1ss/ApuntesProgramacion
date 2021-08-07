@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <AssemblyName>Apuntes.WPF.Presentacion</AssemblyName>
+    <AssemblyName>Frontend</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

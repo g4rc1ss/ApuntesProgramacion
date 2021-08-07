@@ -30,7 +30,7 @@ namespace Frontend {
                     _ = services.AddBackendData();
 
                     _ = services.AddDbContextFactory<ContextoSqlServer>(options => {
-                        options.UseSqlite(hostContext.Configuration.GetConnectionString(nameof(ContextoSqlServer)));
+                        options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(ContextoSqlServer)));
                     });
                     _ = services.AddScoped(p => p.GetRequiredService<IDbContextFactory<ContextoSqlServer>>().CreateDbContext());
 

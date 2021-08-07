@@ -17,10 +17,10 @@ namespace Frontend {
         private async void CargarBBDD(object sender, RoutedEventArgs e) {
             var respUsuarios = await userAction.GetAllUsers();
             if (respUsuarios.Count <= 0) {
-                MessageBox.Show("No se han obtenido resultados", "", MessageBoxButton.OK, MessageBoxImage.Error);
+                _ = MessageBox.Show("No se han obtenido resultados", "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             foreach (var users in respUsuarios) {
-                DataGrid_Table.Items.Add(new User() {
+                _ = DataGrid_Table.Items.Add(new User() {
                     Name = users.Nombre,
                     Edad = users.Edad
                 });
