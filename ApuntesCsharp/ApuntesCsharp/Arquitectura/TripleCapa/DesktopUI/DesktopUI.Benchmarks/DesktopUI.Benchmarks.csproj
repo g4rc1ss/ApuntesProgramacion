@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DesktopUI.Backend.Business\DesktopUI.Backend.Business.csproj" />
     <ProjectReference Include="..\DesktopUI.SimulateDataForTesting\DesktopUI.SimulateDataForTesting.csproj" />
   </ItemGroup>

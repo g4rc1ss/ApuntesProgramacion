@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BenchmarkDotNet.Attributes;
+﻿using BenchmarkDotNet.Attributes;
 using WebAPI.Backend.Business.BusinessManager.CipherManager;
 
 namespace WebApi.Benchmarks.BenchmarkManager {
-    internal class CipherManagerBench {
+    public class CipherManagerBench {
         private const string TEXTO_CIFRAR = "Hola, me llamo Ralph";
         private static CipherManager cipherManager;
 
         [GlobalSetup]
-        internal void Inicializar() {
+        public void Inicializar() {
             cipherManager = new CipherManager();
         }
 
         [Benchmark]
-        internal void Login() {
+        public void Login() {
             cipherManager.CifrarText(TEXTO_CIFRAR);
         }
     }
