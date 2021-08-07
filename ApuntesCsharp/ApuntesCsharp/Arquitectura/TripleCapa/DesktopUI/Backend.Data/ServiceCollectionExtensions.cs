@@ -2,12 +2,12 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Backend.Data {
+namespace DesktopUI.Backend.Data {
     public static class ServiceCollectionExtensions {
         public static IServiceCollection AddBackendData(this IServiceCollection services) {
             foreach (var damType in Assembly.GetExecutingAssembly().GetTypes()
                                                                     .Where(x => x.Name.Contains("Dam")).ToList()) {
-                services.AddScoped(damType);
+                _ = services.AddScoped(damType);
             }
             return services;
         }

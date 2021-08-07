@@ -1,8 +1,7 @@
 ﻿using System.Windows;
-using Backend.Business.Actions;
-using Backend.Business.DataAccessObject;
+using DesktopUI.Backend.Business.Actions;
 
-namespace Frontend {
+namespace DesktopUI.Frontend {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>

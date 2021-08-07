@@ -2,7 +2,7 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Backend.Business {
+namespace DesktopUI.Backend.Business {
     public static class ServiceCollectionExtensions {
         public static IServiceCollection AddBackendBusiness(this IServiceCollection services) {
             foreach (var managerType in Assembly.GetExecutingAssembly().GetTypes()

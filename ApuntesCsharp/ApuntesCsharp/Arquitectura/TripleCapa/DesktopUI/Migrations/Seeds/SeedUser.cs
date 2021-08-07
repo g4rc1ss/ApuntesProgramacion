@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Backend.Data;
-using Backend.Data.Database;
+using DesktopUI.Backend.Data;
+using DesktopUI.Backend.Data.Database;
 
-namespace Migrations.Seeds {
+namespace DesktopUI.Migrations.Seeds {
     internal class SeedUser {
         private readonly ContextoSqlServer contextoSqlite;
 

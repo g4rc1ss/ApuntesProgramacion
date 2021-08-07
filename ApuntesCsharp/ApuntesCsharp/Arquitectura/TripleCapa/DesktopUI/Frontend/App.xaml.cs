@@ -1,12 +1,12 @@
 ﻿using System.Windows;
-using Backend.Business;
-using Backend.Data;
+using DesktopUI.Backend.Business;
+using DesktopUI.Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Frontend {
+namespace DesktopUI.Frontend {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>

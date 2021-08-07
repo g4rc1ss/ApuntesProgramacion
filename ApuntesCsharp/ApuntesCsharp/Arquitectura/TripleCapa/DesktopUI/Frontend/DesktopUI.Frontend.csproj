@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <AssemblyName>Frontend</AssemblyName>
+    <AssemblyName>DesktopUI.Frontend</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Backend.Business\Backend.Business.csproj" />
+    <ProjectReference Include="..\Backend.Business\DesktopUI.Backend.Business.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Backend.Data.DataAccessManager;
-using Backend.Data.Database;
+using DesktopUI.Backend.Data.DataAccessManager;
+using DesktopUI.Backend.Data.Database;
 
-namespace Backend.Business.Manager {
+namespace DesktopUI.Backend.Business.Manager {
     public class UserManager {
         private readonly UserDam userDam;
         public UserManager(UserDam userDam) {

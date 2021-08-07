@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using Backend.Data;
+using DesktopUI.Backend.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Migrations {
+namespace DesktopUI.Migrations {
     /// <summary>
     /// Clase para instancias los contextos de los que hay que ejecutar las migraciones para crearlos
     /// </summary>

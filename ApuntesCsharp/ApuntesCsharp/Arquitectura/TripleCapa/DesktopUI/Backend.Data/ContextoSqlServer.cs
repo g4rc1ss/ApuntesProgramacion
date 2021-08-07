@@ -1,7 +1,7 @@
-﻿using Backend.Data.Database;
+﻿using DesktopUI.Backend.Data.Database;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backend.Data {
+namespace DesktopUI.Backend.Data {
     public class ContextoSqlServer : DbContext {
         public DbSet<Usuario> Usuarios { get; set; }
 

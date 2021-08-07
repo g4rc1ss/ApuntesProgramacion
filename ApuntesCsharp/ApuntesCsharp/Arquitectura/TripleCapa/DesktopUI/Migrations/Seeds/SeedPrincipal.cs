@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Backend.Data;
+using DesktopUI.Backend.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Migrations.Seeds {
+namespace DesktopUI.Migrations.Seeds {
     public class SeedPrincipal : IDataSeed {
         private readonly IDbContextFactory<ContextoSqlServer> dbContextFactory;
         public SeedPrincipal(IDbContextFactory<ContextoSqlServer> dbContextFactory) {

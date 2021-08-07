@@ -1,11 +1,11 @@
-﻿using Backend.Data;
+﻿using DesktopUI.Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Migrations {
+namespace DesktopUI.Migrations {
     internal class Program {
         private static void Main(string[] args) {
             _ = CreateHostBuilder(args).Build().RunAsync();

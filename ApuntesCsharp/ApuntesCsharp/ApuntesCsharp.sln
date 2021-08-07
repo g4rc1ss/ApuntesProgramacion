@@ -126,13 +126,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Backend", "02_Backend", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03_Utilities", "03_Utilities", "{B1723657-343A-4FCA-90A5-6B9FE50038A3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frontend", "Arquitectura\TripleCapa\DesktopUI\Frontend\Frontend.csproj", "{7B3585A0-60BA-4D43-B380-927306FD9BF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.Frontend", "Arquitectura\TripleCapa\DesktopUI\Frontend\DesktopUI.Frontend.csproj", "{7B3585A0-60BA-4D43-B380-927306FD9BF9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Business", "Arquitectura\TripleCapa\DesktopUI\Backend.Business\Backend.Business.csproj", "{07710C71-2306-47ED-905B-A38321A1D9C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.Backend.Business", "Arquitectura\TripleCapa\DesktopUI\Backend.Business\DesktopUI.Backend.Business.csproj", "{07710C71-2306-47ED-905B-A38321A1D9C4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Data", "Arquitectura\TripleCapa\DesktopUI\Backend.Data\Backend.Data.csproj", "{CA10D2E5-5B91-44EA-88D9-4320D73486FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.Backend.Data", "Arquitectura\TripleCapa\DesktopUI\Backend.Data\DesktopUI.Backend.Data.csproj", "{CA10D2E5-5B91-44EA-88D9-4320D73486FA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Migrations", "Arquitectura\TripleCapa\DesktopUI\Migrations\Migrations.csproj", "{FE21F5BF-3447-4C12-8C4E-0D4FD88E9FA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.Migrations", "Arquitectura\TripleCapa\DesktopUI\Migrations\DesktopUI.Migrations.csproj", "{FE21F5BF-3447-4C12-8C4E-0D4FD88E9FA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

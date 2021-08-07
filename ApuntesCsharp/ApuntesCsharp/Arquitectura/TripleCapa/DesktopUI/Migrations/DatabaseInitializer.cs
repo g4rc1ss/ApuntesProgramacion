@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Backend.Data;
+using DesktopUI.Backend.Data;
 
-namespace Migrations {
+namespace DesktopUI.Migrations {
 
     // Clase que invoka a una interfaz, que esta esta vinculada a un Seed.
     // Con esta clase nos encargamos de inicializar la BBDD siempre con los datos que queramos

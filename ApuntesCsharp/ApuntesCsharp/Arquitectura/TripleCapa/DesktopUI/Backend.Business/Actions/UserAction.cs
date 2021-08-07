@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Backend.Business.Manager;
-using Backend.Data.Database;
+using DesktopUI.Backend.Business.Manager;
+using DesktopUI.Backend.Data.Database;
 
-namespace Backend.Business.Actions {
+namespace DesktopUI.Backend.Business.Actions {
     public class UserAction {
         private readonly UserManager userManager;
         public UserAction(UserManager userManager) {
