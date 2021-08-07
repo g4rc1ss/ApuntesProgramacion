@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using DesktopUI.Backend.Business.Actions;
+using DesktopUI.Backend.Business.DataAccessObject;
 
 namespace DesktopUI.Frontend {
     /// <summary>
