@@ -12,6 +12,10 @@
         <ProgressBar Name="BarraProgreso" HorizontalAlignment="Center" Height="15" Margin="0,267,0,0" VerticalAlignment="Top" Width="496"/>
         <Label Content="Ruta de carpeta" HorizontalAlignment="Center" Margin="0,66,0,0" VerticalAlignment="Top" Height="26"/>
         <Button Content="Comenzar" HorizontalAlignment="Center" Margin="0,175,0,0" VerticalAlignment="Top" Height="42" Width="138" Click="Empezar"/>
+        <ComboBox Name="ExtensionesDe" HorizontalAlignment="Left" Margin="94,180,0,0" VerticalAlignment="Top" Width="59"/>
+        <ComboBox Name="ExtensionesA" HorizontalAlignment="Left" Margin="456,180,0,0" VerticalAlignment="Top" Width="60"/>
+        <Label Content="De" HorizontalAlignment="Left" Margin="111,149,0,0" VerticalAlignment="Top"/>
+        <Label Content="A" HorizontalAlignment="Left" Margin="477,149,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.752,0.424"/>
 
     </Grid>
 </Window>
