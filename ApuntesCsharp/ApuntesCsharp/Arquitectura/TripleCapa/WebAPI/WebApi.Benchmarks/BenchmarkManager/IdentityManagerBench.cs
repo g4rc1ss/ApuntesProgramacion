@@ -7,9 +7,6 @@ using WebAPI.Backend.Business.BusinessManager.IdentityManager;
 using WebAPI.Backend.Data.DataAccessManager.Interfaces;
 
 namespace WebApi.Benchmarks.BenchmarkManager {
-
-    [SimpleJob(BenchmarkDotNet.Jobs.RuntimeMoniker.NetCoreApp31)]
-    [SimpleJob(BenchmarkDotNet.Jobs.RuntimeMoniker.Net50)]
     public class IdentityManagerBench {
         private ApplicationUserManager applicationUserManager;
         private readonly ILogger<ApplicationUserManager> logger = Mock.Of<ILogger<ApplicationUserManager>>();
