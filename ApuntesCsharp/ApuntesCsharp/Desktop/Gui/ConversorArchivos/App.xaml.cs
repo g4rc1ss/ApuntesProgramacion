@@ -1,30 +1,25 @@
-﻿using ConversorArchivos.WindowView;
+﻿using System.Windows;
+using ConversorArchivos.WindowView;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Windows;
 
-namespace ConversorArchivos
-{
+namespace ConversorArchivos {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
-    {
-        protected override void OnStartup(StartupEventArgs e)
-        {
+    public partial class App : Application {
+        protected override void OnStartup(StartupEventArgs e) {
             _ = CreateHostBuilder(e.Args).Build().RunAsync();
         }
 
-        private static IHostBuilder CreateHostBuilder(string[] args)
-        {
+        private static IHostBuilder CreateHostBuilder(string[] args) {
             return new HostBuilder()
-.ConfigureServices((hostContext, services) =>
-{
+.ConfigureServices((hostContext, services) => {
     _ = services.AddOptions();
 
     _ = services.AddDependencyInyection();
 
-    MainWindow presentation = services.BuildServiceProvider().GetRequiredService<MainWindow>();
+    var presentation = services.BuildServiceProvider().GetRequiredService<MainWindow>();
     presentation.Show();
 });
         }

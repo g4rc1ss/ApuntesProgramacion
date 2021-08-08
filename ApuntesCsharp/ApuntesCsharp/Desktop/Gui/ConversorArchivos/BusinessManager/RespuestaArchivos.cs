@@ -1,7 +1,5 @@
-﻿namespace ConversorArchivos.BusinessManager
-{
-    public class RespuestaArchivos
-    {
+﻿namespace ConversorArchivos.BusinessManager {
+    public class RespuestaArchivos {
 
     }
 }

@@ -1,30 +1,25 @@
-﻿namespace ConversorArchivos.BusinessManager.ConversorManager
-{
-    using Aspose.Words;
-    using ConversorArchivos.BusinessManager.ConversorManager.Interfaces;
+﻿namespace ConversorArchivos.BusinessManager.ConversorManager {
     using System.IO;
     using System.Threading.Tasks;
+    using Aspose.Words;
+    using ConversorArchivos.BusinessManager.ConversorManager.Interfaces;
 
-    public class ConversorManager : IConversorManager
-    {
-        public ConversorManager()
-        {
+    public class ConversorManager : IConversorManager {
+        public ConversorManager() {
 
         }
 
-        public void ConvertTo(string folderPath, string extensionInicial, string extensionFinal)
-        {
-            string[] listadoArchivos = Directory.GetFiles(folderPath, $"*.{extensionInicial}", SearchOption.AllDirectories);
+        public void ConvertTo(string folderPath, string extensionInicial, string extensionFinal) {
+            var listadoArchivos = Directory.GetFiles(folderPath, $"*.{extensionInicial}", SearchOption.AllDirectories);
 
-            _ = Parallel.ForEach(listadoArchivos, archivo =>
-              {
-                  FileInfo nombreArchivo = new FileInfo(archivo);
-                  string nombreArchivoSinExtension = nombreArchivo.Name.Replace(nombreArchivo.Extension, string.Empty);
-                  DirectoryInfo directorio = Directory.CreateDirectory($"{nombreArchivo.DirectoryName}\\{nombreArchivoSinExtension}");
+            _ = Parallel.ForEach(listadoArchivos, archivo => {
+                var nombreArchivo = new FileInfo(archivo);
+                var nombreArchivoSinExtension = nombreArchivo.Name.Replace(nombreArchivo.Extension, string.Empty);
+                var directorio = Directory.CreateDirectory($"{nombreArchivo.DirectoryName}\\{nombreArchivoSinExtension}");
 
-                  Document archivoConvertido = new Document(nombreArchivo.FullName);
-                  archivoConvertido.Save($"{directorio.FullName}\\{nombreArchivoSinExtension}.{extensionFinal}");
-              });
+                var archivoConvertido = new Document(nombreArchivo.FullName);
+                archivoConvertido.Save($"{directorio.FullName}\\{nombreArchivoSinExtension}.{extensionFinal}");
+            });
         }
     }
 }
