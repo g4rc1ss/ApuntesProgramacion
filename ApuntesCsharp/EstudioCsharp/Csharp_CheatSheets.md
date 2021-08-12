@@ -471,6 +471,11 @@ Se implementan como clases y se definen como entidades separadas de las clases.
 
 Una interfaz representa un contrato, en el cual una clase que implementa una interfaz debe implementar cualquier aspecto de dicha interfaz exactamente como esté definido
 
+El beneficio que da las interfaces es que permite tener una capa de abstraccion en el codigo, donde puedes hacer uso de ella para ejecutar ciertas clases usando la interfaz como instancia.
+
+Por ejemplo una de las cosas que se consiguen mediante las interfaces es la api Linq, Linq hace uso de la interfaz `IEnumerable` para procesar los datos, por tanto, si yo ahora creo una coleccion mia propia que implemente dicha interfaz, podre hacer uso de las funciones de consulta de LINQ y todo es porque la api lo que espera recibir es una clase que tenga implementada esa interfaz.
+La interfaz tiene una serie de metodos implementados y Linq hace uso de ellos para leer y procesar la coleccion.
+
 ```Csharp
 interface IMiInterfaz
 {
@@ -489,8 +494,25 @@ public class PruebaInterfazImplícita : IMiInterfaz
 # Conceptos Avanzados
 
 ## Liberacion de Memoria
+La liberacion de memoria en .Net consiste en marchar ciertos objetos como "liberados", quiere decir, que son objetos que ya no se van a volver a usar y que quiere liberar el recurso que se esta usando o cerrar el proceso.
 
+Para dicha liberacion se ha de implementar una interfaz, que se llama `IDisposable` y tambien se suele hacer uso de los llamado Destructores.
 
+El método Dispose se implementa para liberar recursos de la clase donde se implementa, sobretodo se usa para gestión de código no administrado como usos como conexiones a BBDD, Streams, etc.
+
+```Csharp
+```
+
+Los finalizadores (también denominados destructores) se usan para realizar cualquier limpieza final necesaria cuando el recolector de basura va a liberar el objeto de memoria
+
+- Los finalizadores no se pueden definir en struct. Solo se usan con clases.
+- Una clase solo puede tener un finalizador.
+- Los finalizadores no se pueden heredar ni sobrecargar.
+- No se puede llamar a los finalizadores. Se invocan automáticamente.
+- Un finalizador no permite modificadores ni tiene parámetros.
+
+```Csharp
+```
 
 ---
 ## Enumerador
