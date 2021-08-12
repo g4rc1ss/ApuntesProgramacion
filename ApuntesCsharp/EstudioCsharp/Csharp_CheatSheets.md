@@ -513,12 +513,20 @@ public enum EnumeradorCartas {
 ---
 ## Indizadores
 
+```Csharp
+```
+
 ---
 ## Boxing y Unboxing
+
+```Csharp
+```
 
 ---
 ## Generics
 
+```Csharp
+```
 
 ---
 # Tratamiento de Excepciones
@@ -535,9 +543,14 @@ Las excepciones son errores durante la ejecución del programa y lo que se hace 
 
 ## Async & Await
 
+```Csharp
+```
+
 ---
 ## Parallel
 
+```Csharp
+```
 
 ---
 # LINQ
