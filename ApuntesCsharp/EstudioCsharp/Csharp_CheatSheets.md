@@ -501,6 +501,31 @@ Para dicha liberacion se ha de implementar una interfaz, que se llama `IDisposab
 El método Dispose se implementa para liberar recursos de la clase donde se implementa, sobretodo se usa para gestión de código no administrado como usos como conexiones a BBDD, Streams, etc.
 
 ```Csharp
+public void Dispose()
+{
+    this.Dispose(true);
+    GC.SuppressFinalize(this);
+}
+
+protected virtual void Dispose(bool disposing)
+{
+    if (disposing)
+    {
+        // Liberamos los recursos
+        // En un clase como stream por ejemplo, aqui se ejecutaria el metodo Close()
+    }
+}
+```
+
+En todas las clases que tengan implementada la interfaz `IDisposable` se puede usar la instruccion `using` para liberar los recursos automaticamente cuando se acaba la sentencia.
+
+```Csharp
+using (var objeto = File.Create(""))
+{
+    objeto.ToString();
+}
+
+using var @object = File.Create("");
 ```
 
 Los finalizadores (también denominados destructores) se usan para realizar cualquier limpieza final necesaria cuando el recolector de basura va a liberar el objeto de memoria
@@ -512,6 +537,13 @@ Los finalizadores (también denominados destructores) se usan para realizar cual
 - Un finalizador no permite modificadores ni tiene parámetros.
 
 ```Csharp
+internal class Program
+{
+    ~Program()
+    {
+        // Instrucciones para la limpieza de recursos
+    }
+}
 ```
 
 ---
@@ -534,45 +566,230 @@ public enum EnumeradorCartas {
 
 ---
 ## Indizadores
-
+Permiten crear una clase, un struct o una interfaz con un "indice" al que se accederá a traves del objeto instanciado de la clase, no hace falta acceder a la matriz como tal.
 ```Csharp
+public class ClaseIndex
+{
+    private readonly float[] temps = new float[10] { 56.2F, 56.7F, 56.5F, 56.9F, 58.8F,
+                                            61.3F, 65.9F, 62.1F, 59.2F, 57.5F };
+    public float this[int index] {
+        get {
+            return temps[index];
+        }
+        set {
+            temps[index] = value;
+        }
+    }
+    public int Contador {
+        get {
+            return temps.Length;
+        }
+    }
+}
+
+public static void Main(string[] args)
+{
+    var objetoIndice = new ClaseIndex();
+
+    objetoIndice[1] = 58.3F;
+    objetoIndice[5] = 98.4F;
+
+    for (int x = 0; x < objetoIndice.Contador; x++)
+        Console.WriteLine(objetoIndice[x]);
+}
 ```
 
 ---
 ## Boxing y Unboxing
+Todos los tipos de C# directa o indirectamente se derivan del tipo de clase object, y object es la clase base definitiva de todos los tipos. Los valores de tipos de referencia se tratan como objetos mediante la visualización de los valores como tipo object.
+
+Los valores de tipos de valor se tratan como objetos mediante la realización de operaciones de conversión boxing y operaciones de conversión unboxing
 
 ```Csharp
+int i = 123;
+object o = i; // Boxing
+int j = (int)o; // Unboxing
 ```
 
 ---
 ## Generics
+Los genéricos introducen en .NET el concepto de parámetros de tipo, lo que le permite diseñar clases y métodos que aplazan la especificación de uno o varios tipos hasta que el código de cliente declare y cree una instancia de la clase o el método.
+
+Para que usar los genéricos?
+- Use tipos genéricos para maximizar la reutilización del código, la seguridad de tipos y el rendimiento.
+- El uso más común de los genéricos es crear clases de colección.
+La biblioteca de clases .NET Framework contiene varias clases de colección genéricas nuevas en el espacio de nombres System.Collections.Generic. Estas se deberían usar siempre que sea posible en lugar de clases como ArrayList en el espacio de nombres System.Collections.
+- Puede crear sus propias interfaces, clases, métodos, eventos y delegados genéricos.
+- Puede limitar las clases genéricas para habilitar el acceso a métodos en tipos de datos determinados.
+- Puede obtener información sobre los tipos que se usan en un tipo de datos genérico en tiempo de ejecución mediante la reflexión
 
 ```Csharp
+class ClaseGenerica<T> where T : class, IEnumerable, new()
+{
+    public void Add(T input)
+    {
+    }
+}
+
+class ClaseIEnumerable : IEnumerable
+{
+    public ClaseIEnumerable()
+    {
+
+    }
+
+    public IEnumerator GetEnumerator() => throw new NotImplementedException();
+    IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
+}
 ```
+
+### Constraints
+Los constraints son condiciones que deben de cumplir el parametro que se le pasa al generic para que funcione.
+
+| Constraint | Descripción |
+| ---------- | ----------- |
+| class | El argumento de tipo debe ser cualquier clase, interfaz, delegado o tipo de matriz. |
+| class? |	El argumento de tipo debe ser una clase, interfaz, delegado o tipo de matriz que acepte valores NULL o que no acepte valores NULL. |
+| struct | El argumento de tipo debe ser tipos de valor que no aceptan valores NULL, como los tipos de datos primitivos int, char, bool, float, etc.
+| new() |	El argumento de tipo debe ser un tipo de referencia que tenga un constructor público sin parámetros. No se puede combinar con restricciones. `struct unmanaged`
+| notnull |	Disponible en C# 8.0 en adelante. El argumento de tipo puede ser tipos de referencia que no aceptan valores NULL o tipos de valor. Si no es así, el compilador genera una advertencia en lugar de un error.
+| unmanaged | El argumento de tipo debe ser tipos no permitidos queno aceptan valores NULL.
+| baseClassName | El argumento de tipo debe ser o derivar de la clase base especificada. Las clases Object, Array, ValueType no se pueden como restricción de clase base. Enum, Delegate, MulticastDelegate no se admiten como restricción de clase base antes de C# 7.3.
+| baseClassName? | El argumento de tipo debe ser o derivar de la clase base especificada que acepta valores NULL o que no acepta valores NULL.
+| interfaceName | El argumento de tipo debe ser o implementar la interfaz especificada.
+| interfaceName? | El argumento de tipo debe ser o implementar la interfaz especificada. Puede ser un tipo de referencia que acepta valores NULL, un tipo de referencia que no acepta valores NULL o un tipo de valor.
+| where T: U | El argumento de tipo proporcionado para `T` debe ser o derivar del argumento proporcionado para `U`.
 
 ---
 # Tratamiento de Excepciones
 
 ## Excepciones
-Las excepciones son errores durante la ejecución del programa y lo que se hace es intentar solucionar el error o mostrar un mensaje mas claro sobre el problema al usuario, por ejemplo: se necesita ser super usuario, se esta dividiendo entre 0, no hay conexión a internet...
+Una excepción es cualquier condición de error o comportamiento inesperado que encuentra un programa en ejecución. 
 
+Las excepciones pueden iniciarse debido a un error en el código propio o en el código al que se llama (por ejemplo, una biblioteca compartida), a recursos del sistema operativo no disponibles, a condiciones inesperadas que encuentra el runtime (por ejemplo, imposibilidad de comprobar el código), etc.
+
+### Capurando las excepciones
 ```Csharp
+try
+{
+    // Ejecucion del codigo que puede llegar a tener una excepcion
+}
+catch (Exception ex)
+{
+    // Se ha producido la excepcion y se obtiene un objeto de tipo Exception
+    // Este objeto contiene unos valores para rastrear el motivo del error
+}
+finally
+{
+    // Esta es una parte del codigo que se ejecuta siempre aunque se produzca la excepcion
+    // Y generalmente se usa para cerrar recursos, por ejemplo, abres una conexion con
+    // la base de datos y a la hora de recibir los datos se produce la excepcion,
+    // pues pasara por aqui para cerrar la conexion con la base de datos.
+}
+```
 
+### Provocando una excepcion
+```Csharp
+public static void Main(string[] args)
+{
+    throw new ArgumentNullException($"El parametro {nameof(args)} es nulo");
+}
+```
+
+### Creando excepciones propias
+```Csharp
+class MyException : Exception
+{
+    public MyException() : base()
+    {
+    }
+
+    public MyException(string message) : base(message)
+    {
+    }
+
+    public MyException(string message, Exception innerException) : base(message, innerException)
+    {
+    }
+
+    protected MyException(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
+    }
+}
 ```
 
 ---
 # Programación Asincrona & MultiThreading
 
 ## Async & Await
+El núcleo de la programación asincrónica son los objetos `Task` y `Task<T>`, que modelan las operaciones asincrónicas. Son compatibles con las palabras clave `async` y `await`. El modelo es bastante sencillo en la mayoría de los casos:
+
+- Para el código enlazado a E/S, espera una operación que devuelva `Task` o `Task<T>` dentro de un método async.
+- Para el código enlazado a la CPU, espera una operación que se inicia en un subproceso en segundo plano con el método `Task.Run`.
+
+La palabra clave `await` es donde ocurre la magia. Genera control para el autor de la llamada del método que ha realizado `await`, y permite una interfaz de usuario con capacidad de respuesta o un servicio flexible.
+
+Por ejemplo, en una interfaz Desktop, si se usa el patron en las operaciones costosas, la interfaz no se bloqueará mientras se ejecutan las instrucciones.  
+En una aplicacion web como `ASP.NET` usar el patron hara que se puedan recibir mas peticiones mientras las peticiones anteriores estan en espera de que termine el proceso que ocupa tiempo, como por ejemplo, una consulta a BBDD.
 
 ```Csharp
+public async Task MetodoAsync()
+{
+    // Para operaciones E/S
+    var stringData = await _httpClient.GetStringAsync(URL);
+
+    // Para operaciones enlazadas a la CPU
+    await Task.Run(() => 
+    {
+        // Ejecucion de codigo costoso en tiempo
+        Thread.Sleep(10000)
+    });
+}
 ```
 
 ---
 ## Parallel
+Muchos equipos y estaciones de trabajo personales tienen varios núcleos de CPU que permiten ejecutar múltiples subprocesos simultáneamente. Para aprovecharse del hardware, se puede paralelizar el código para distribuir el trabajo entre dichos núcleos.
+
+Por ejemplo, imaginemos que tenemos una aplicacion que requiere de realizar 3 consultas para obtener datos diferentes de una BBDD, aprovechandonos del multithreading, podemos hacer uso de la clase Parallel para realizar esas consultas de forma paralelizada y reducir los tiempos.
+
+### Parallel Invoke
+Permite la ejecucion paralelizada de un array de delegados
+
+Cuando se ejecuta la instruccion, el metodo Invoke recibe un array de delegados que ejecutaran en un hilo nuevo y esperara a que estos terminen
+```Csharp
+Parallel.Invoke(
+    () => Metodo1(),
+    () => Metodo2(2)
+);
+```
+
+### Parallel For
+Permite la ejecucion paralelizada de la lectura de una coleccion que implemente `IEnumerable`
 
 ```Csharp
+Parallel.For(0, 100, (i, state) => {
+    Console.WriteLine($"LAMBDA -- {i}, {state.IsStopped}");
+});
 ```
+- El primer parámetro del método se envía el numero por el que se empieza
+- El segundo parámetro se envía el numero final de la iteración
+- En el tercer parámetro se envían 1 o 2 parámetros
+    - `int`: que contendrá el número por el que va la iteración
+    - `ParallelLoopState`: un objeto que se encargara de gestionar los      estados de los hilos, pudiendo parar la ejecución, etc.
+
+### Parallel ForEach
+El bucle paralelizado ForEach, permite leer una coleccion que implementa `IEnumerable` al igual que el bucle paralelizado For, la diferencia reside en que en ForEach obtienes ya el objeto del indice.
+
+```Csharp
+Parallel.ForEach(listas, (linea, state) => {
+    Console.WriteLine($"ForEach LAMBDA -- {linea}");
+});
+```
+- El primer parámetro se envía el objeto que queremos leer, un List<string> por ejemplo
+- El segundo parámetro va la lambda que puede recibir dos parámetros
+    - `obj` contendrá un objeto del tipo de la lista y solo 1 elemento de dicha lista, es lo mismo que si a un array le hacemos un objetoArray[x] con un for normal
+    - `ParallelLoopState` un objeto que se encargara de gestionar los estados de los hilos, pudiendo parar la ejecución, etc
 
 ---
 # LINQ
