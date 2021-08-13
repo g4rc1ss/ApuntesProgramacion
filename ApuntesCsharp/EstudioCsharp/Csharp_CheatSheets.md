@@ -809,157 +809,129 @@ Linq es una API orientada al uso de consultas a diferentes tipos de contenido, c
 ```Csharp
 var cust = new List<Customer>();
 //queryAllCustomers is an IEnumerable<Customer>
-IEnumerable<Customer> queryAllCustomers = from cust in customers
-                                          select cust;
+from cust in customers
+select cust;
 ```
 ## Join
 
 ```Csharp
-var innerJoinQuery = from category in categories
-                     join prod in products on category.ID equals prod.CategoryID
-                     select new
-                     {
-                         ProductName = prod.Name,
-                         Category = category.Name
-                     };
+from category in categories
+join prod in products on category.ID equals prod.CategoryID
+select new
+{
+    ProductName = prod.Name,
+    Category = category.Name
+};
 
-var query = products.Join(categories,
-    product => product.CategoryID,
-    category => category.ID,
-    (product, category) => new
-    {
-        ProductName = product.Name,
-        Category = category.Name
-    });
+products.Join(categories,
+product => product.CategoryID,
+category => category.ID,
+(product, category) => new
+{
+    ProductName = product.Name,
+    Category = category.Name
+});
 ```
 
 ## Let
 ```Csharp
 
-var earlyBirdQuery = from sentence in strings
-                    let words = sentence.Split(' ')
-                    from word in words
-                    let w = word.ToLower()
-                    where w[0] == 'a' || w[0] == 'e'
-                        || w[0] == 'i' || w[0] == 'o'
-                        || w[0] == 'u'
-                    select word;
+from sentence in strings
+let words = sentence.Split(' ')
+from word in words
+let w = word.ToLower()
+where w[0] == 'a' || w[0] == 'e'
+    || w[0] == 'i' || w[0] == 'o'
+    || w[0] == 'u'
+select word;
 ```
 
 ## Where
 ```Csharp
-var cust = new List<Customer>();
-//queryAllCustomers is an IEnumerable<Customer>
-var queryLondonCustomers = from cust in customers
-where cust.City == "London"
-select cust;
-fruits.Where(fruit => fruit.Length < 6);
+from prod in products
+where prod.Name == "Producto 2"
+select prod;
 ```                                                                                                                                                       
-
 ## Group by
 ```Csharp
-// queryCustomersByCity is an IEnumerable<IGrouping<string, Customer>>
-var queryCustomersByCity =
-from cust in customers
-group cust by cust.City;
-// customerGroup is an IGrouping<string, Customer>
-foreach (var customerGroup in queryCustomersByCity)
+from product in products
+group product by new
 {
-Console.WriteLine(customerGroup.Key);
-foreach (Customer customer in customerGroup)
+    product.CategoryID,
+    product.Name
+} into prod
+select new
 {
-Console.WriteLine(" {0}", customer.Name);
-}
-}
-// Group the pets using Age as the key value 
-// and selecting only the pet's Name for each value.
-IEnumerable<IGrouping<int, string>> query =
-pets.GroupBy(pet => pet.Age, pet => pet.Name);
-// Iterate over each IGrouping in the collection.
-foreach (IGrouping<int, string> petGroup in query)
+    idCategoria = prod.Key.CategoryID,
+    nombre = prod.Key.Name
+};
+
+products.GroupBy(product => new
 {
-// Print the key value of the IGrouping.
-Console.WriteLine(petGroup.Key);
-// Iterate over each value in the 
-// IGrouping and print the value.
-foreach (string name in petGroup)
-Console.WriteLine(" {0}", name);
-}
+    product.CategoryID,
+    product.Name
+}).Select(prod => new
+{
+    idCategoria = prod.Key.CategoryID,
+    nombre= prod.Key.Name
+});
 ```
 
 ## Order by
 ```Csharp
-var cust = new List<Customer>();
-//queryAllCustomers is an IEnumerable<Customer>
-var queryLondonCustomers3 = 
-from cust in customers
-where cust.City == "London"
-orderby cust.Name ascending // descending
-select cust;
-// ascending
-IEnumerable<Pet> query = pets.OrderBy(pet => pet.Age);
-// descending
-IEnumerable<Pet> query = pets.OrderByDescending(pet => pet.Age);
+from product in products
+orderby product.CategoryID ascending
+select product;
+
+products.OrderBy(product => product.CategoryID);
+
+from product in products
+orderby product.CategoryID descending
+select product;
+products.OrderByDescending(product => product.CategoryID);
 ```
-Las consultas de arriba tratan la variable con linq para realizar las consultas y dependiendo del tipo de
-consulta que sea, estos te devolveran objetos interfaz del tipo IEnumerable<T>, IQueryable<T>, etc.
-Esto son objetos configurables para poder realizar consultas particionadas en memoria y en diferentes puntos,
-un ejemplo de uso, por ejemplo que no se muestren ciertos datos si no se cumple una condición especifica
-que hay que comprobar, o quieres reutilizar la misma consulta.
-Para poder convertir definitivamente estos objetos en objetos en memoria definitivos y poder tratarlos, se
-deberá de usar los siguientes métodos después de la consulta.
+
+Para poder tratar las consultas, la api de LINQ devuelve objetos del tipo `IEnumerable<>` o `IQueryable<>`.  
+Hay diferentes formas de leer los datos, por un lado mediante un `foreach` se pueden iterar un `IEnumerable` y por otro lado, hay metodos que convierten los datos a una coleccion directamente.
 
 ## ToList()
 ```Csharp
-var cust = new List<Customer>();
-//queryAllCustomers is an IEnumerable<Customer>
-var queryLondonCustomers3 = 
-(from cust in customers
-where cust.City == "London"
-orderby cust.Name ascending
-select cust).ToList();
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).ToList();
 ```
 
 ## ToArray()
 ```Csharp
-var cust = new List<Customer>();
-//queryAllCustomers is an IEnumerable<Customer>
-var queryLondonCustomers3 = 
-(from cust in customers
-where cust.City == "London"
-orderby cust.Name ascending
-select cust).ToArray();
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).ToArray();
 ```
 
 ## ToDictionary()
 ```Csharp
-var cust = new List<Customer>();
-//queryAllCustomers is an IEnumerable<Customer>
-var queryLondonCustomers3 = 
-(from cust in customers
-where cust.City == "London"
-orderby cust.Name ascending
-select cust).ToDictionary();
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).ToDictionary(key => key.CategoryID, value => value.Name);
 ```
 
 ## ToLookup()
 ```Csharp
-var cust = new List<Customer>();
-//queryAllCustomers is an IEnumerable<Customer>
-var queryLondonCustomers3 = 
-(from cust in customers
-where cust.City == "London"
-orderby cust.Name ascending
-select cust).ToLookup();
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).ToLookup(key => key.CategoryID, value => value.Name);
 ```
 
 ## Count()
 ```Csharp
-var cust = new List<Customer>();
-//queryAllCustomers is an IEnumerable<Customer>
-var queryLondonCustomers3 = 
-(from cust in customers
-where cust.City == "London"
-orderby cust.Name ascending
-select cust).Count()
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).Count()
+ ```
+
+ ## FirstOrDefault()
+```Csharp
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).FirstOrDefault()
  ```
