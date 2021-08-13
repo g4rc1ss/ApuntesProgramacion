@@ -133,7 +133,7 @@ var saludo = "Hola";
 Console.WriteLine($"{saludo} terricola");
 ```
 
-### Métodos habituale
+### Métodos habituales
 ---
 
 ```csharp
@@ -494,7 +494,7 @@ public class PruebaInterfazImplícita : IMiInterfaz
 # Conceptos Avanzados
 
 ## Liberacion de Memoria
-La liberacion de memoria en .Net consiste en marchar ciertos objetos como "liberados", quiere decir, que son objetos que ya no se van a volver a usar y que quiere liberar el recurso que se esta usando o cerrar el proceso.
+La liberacion de memoria en .Net consiste en marcar ciertos objetos como "liberados", quiere decir, que son objetos que ya no se van a volver a usar y que quiere liberar el recurso que se esta usando o cerrar el proceso.
 
 Para dicha liberacion se ha de implementar una interfaz, que se llama `IDisposable` y tambien se suele hacer uso de los llamado Destructores.
 
