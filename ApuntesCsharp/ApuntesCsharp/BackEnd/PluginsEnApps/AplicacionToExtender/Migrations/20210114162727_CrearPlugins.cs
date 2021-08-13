@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AplicacionToExtender.Migrations {
-    public partial class CrearPlugins :Migration {
+    public partial class CrearPlugins : Migration {
         protected override void Up(MigrationBuilder migrationBuilder) {
             migrationBuilder.CreateTable(
                 name: "Plugins",
