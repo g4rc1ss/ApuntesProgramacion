@@ -1,11 +1,11 @@
-﻿using AplicacionToExtender.Database;
-using System.Windows;
+﻿using System.Windows;
+using AplicacionToExtender.Database;
 
 namespace AplicacionToExtender {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App :Application {
+    public partial class App : Application {
         protected override void OnStartup(StartupEventArgs e) {
             base.OnStartup(e);
 
