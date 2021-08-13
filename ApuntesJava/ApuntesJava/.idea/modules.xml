@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/ApuntesJava.iml" filepath="$PROJECT_DIR$/.idea/ApuntesJava.iml" />
       <module fileurl="file://$PROJECT_DIR$/BackEnd/BBDD/ORM/Hibernate/Hibernate.iml" filepath="$PROJECT_DIR$/BackEnd/BBDD/ORM/Hibernate/Hibernate.iml" />
-      <module fileurl="file://$PROJECT_DIR$/BackEnd/BBDD/JDBC/MySqlDatabase/MySqlDatabase.iml" filepath="$PROJECT_DIR$/BackEnd/BBDD/JDBC/MySqlDatabase/MySqlDatabase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/BBDD/JDBC/MariaDbDatabase/MariaDbDatabase.iml" filepath="$PROJECT_DIR$/BackEnd/BBDD/JDBC/MariaDbDatabase/MariaDbDatabase.iml" />
       <module fileurl="file://$PROJECT_DIR$/BackEnd/BBDD/JDBC/OracleDatabase/OracleDatabase.iml" filepath="$PROJECT_DIR$/BackEnd/BBDD/JDBC/OracleDatabase/OracleDatabase.iml" />
       <module fileurl="file://$PROJECT_DIR$/BackEnd/BBDD/JDBC/SqliteDatabase/SqliteDatabase.iml" filepath="$PROJECT_DIR$/BackEnd/BBDD/JDBC/SqliteDatabase/SqliteDatabase.iml" />
     </modules>

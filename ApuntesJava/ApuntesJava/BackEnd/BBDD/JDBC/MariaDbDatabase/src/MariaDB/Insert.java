@@ -1,4 +1,4 @@
-package MySQL;
+package MariaDB;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

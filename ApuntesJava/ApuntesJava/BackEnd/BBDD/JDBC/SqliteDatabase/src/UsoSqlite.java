@@ -1,4 +1,4 @@
-public class UsoBaseDeDatos {
+public class UsoSqlite {
     public static void main(String[] args) {
         new SQLite.createTable().crearTable();
         new SQLite.InsertInto().insertDatos();
