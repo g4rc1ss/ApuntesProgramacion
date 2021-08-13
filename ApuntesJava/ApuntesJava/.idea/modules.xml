@@ -2,11 +2,22 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/Seguridad/Cifrados/Simetrico/AesCipherExample/AesCipherExample.iml" filepath="$PROJECT_DIR$/BackEnd/Seguridad/Cifrados/Simetrico/AesCipherExample/AesCipherExample.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/ApuntesJava.iml" filepath="$PROJECT_DIR$/.idea/ApuntesJava.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/EscrituraLectura/ArchivosTexto/ArchivosTexto.iml" filepath="$PROJECT_DIR$/BackEnd/EscrituraLectura/ArchivosTexto/ArchivosTexto.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/ConexionesInternet/ConexionSocket/ConexionSocket.iml" filepath="$PROJECT_DIR$/BackEnd/ConexionesInternet/ConexionSocket/ConexionSocket.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/Seguridad/Cifrados/Asimetrico/DsaCipherExample/DsaCipherExample.iml" filepath="$PROJECT_DIR$/BackEnd/Seguridad/Cifrados/Asimetrico/DsaCipherExample/DsaCipherExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/Performance/ExecutorThreading/ExecutorThreading.iml" filepath="$PROJECT_DIR$/BackEnd/Performance/ExecutorThreading/ExecutorThreading.iml" />
       <module fileurl="file://$PROJECT_DIR$/BackEnd/BBDD/ORM/Hibernate/Hibernate.iml" filepath="$PROJECT_DIR$/BackEnd/BBDD/ORM/Hibernate/Hibernate.iml" />
       <module fileurl="file://$PROJECT_DIR$/BackEnd/BBDD/JDBC/MariaDbDatabase/MariaDbDatabase.iml" filepath="$PROJECT_DIR$/BackEnd/BBDD/JDBC/MariaDbDatabase/MariaDbDatabase.iml" />
       <module fileurl="file://$PROJECT_DIR$/BackEnd/BBDD/JDBC/OracleDatabase/OracleDatabase.iml" filepath="$PROJECT_DIR$/BackEnd/BBDD/JDBC/OracleDatabase/OracleDatabase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Desktop/GraphicalUserInterface/ProyectoFarolas/ProyectoFarolas.iml" filepath="$PROJECT_DIR$/Desktop/GraphicalUserInterface/ProyectoFarolas/ProyectoFarolas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/Seguridad/Cifrados/Asimetrico/RsaCipherExample/RsaCipherExample.iml" filepath="$PROJECT_DIR$/BackEnd/Seguridad/Cifrados/Asimetrico/RsaCipherExample/RsaCipherExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/EscrituraLectura/SerializacionObjetos/SerializacionObjetos.iml" filepath="$PROJECT_DIR$/BackEnd/EscrituraLectura/SerializacionObjetos/SerializacionObjetos.iml" />
       <module fileurl="file://$PROJECT_DIR$/BackEnd/BBDD/JDBC/SqliteDatabase/SqliteDatabase.iml" filepath="$PROJECT_DIR$/BackEnd/BBDD/JDBC/SqliteDatabase/SqliteDatabase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/Performance/Thread/Thread.iml" filepath="$PROJECT_DIR$/BackEnd/Performance/Thread/Thread.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/ConexionesInternet/UseEmail/UseEmail.iml" filepath="$PROJECT_DIR$/BackEnd/ConexionesInternet/UseEmail/UseEmail.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/EscrituraLectura/XmlFiles/XmlFiles.iml" filepath="$PROJECT_DIR$/BackEnd/EscrituraLectura/XmlFiles/XmlFiles.iml" />
     </modules>
   </component>
 </project>

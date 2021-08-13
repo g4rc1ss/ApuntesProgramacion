@@ -1,4 +1,4 @@
-package internet.Email;
+package Email;
 
 public class EnviarEmail {
 }

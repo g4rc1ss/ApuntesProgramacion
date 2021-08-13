@@ -1,4 +1,4 @@
-package internet.ConexionSocket;
+package ConexionSocket;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -14,22 +14,22 @@ public class PortScan {
     int[] puertosMasUsados = {21, 22, 80, 443, 55};
 
     public boolean conexion(String host, int port) {
-        try{
+        try {
             socket = new Socket(host, port);
             return true;
-        } catch (IOException e){
+        } catch (IOException e) {
             return false;
         }
     }
 
-    public void menu(){
+    public void menu() {
         teclado = new Scanner(System.in);
 
         System.out.print(
                 "1. 1 o mas puertos\n" +
-                "2. los puertos mas usados\n" +
-                "99. Salir\n" +
-                "#>\t");
+                        "2. los puertos mas usados\n" +
+                        "99. Salir\n" +
+                        "#>\t");
         int opcion = teclado.nextInt();
 
         if (opcion == 99)
@@ -60,25 +60,25 @@ public class PortScan {
         }
     }
 
-    public void puertosTeclado(){
+    public void puertosTeclado() {
         port = iPort;
-        if (fPort != 0){
-            while (fPort >= port && iPort <= port){
+        if (fPort != 0) {
+            while (fPort >= port && iPort <= port) {
                 comprobacion(conexion(host, port));
                 port++;
             }
-        }
-        else
+        } else
             comprobacion(conexion(host, port));
     }
-    public void puertosUsados(){
-        for (int i = 0; i < puertosMasUsados.length; i ++){
+
+    public void puertosUsados() {
+        for (int i = 0; i < puertosMasUsados.length; i++) {
             port = puertosMasUsados[i];
             comprobacion(conexion(host, port));
         }
     }
 
-    public void comprobacion(boolean comprobar){
+    public void comprobacion(boolean comprobar) {
         if (comprobar)
             System.out.println("[+] " + port + " Abierto");
         else
