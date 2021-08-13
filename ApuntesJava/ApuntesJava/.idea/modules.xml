@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BackEnd/01_JavaBasico/1_Sintaxis/1_Sintaxis.iml" filepath="$PROJECT_DIR$/BackEnd/01_JavaBasico/1_Sintaxis/1_Sintaxis.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/ApuntesJava.iml" filepath="$PROJECT_DIR$/.idea/ApuntesJava.iml" />
-      <module fileurl="file://$PROJECT_DIR$/BackEnd/BasesDeDatos/BasesDeDatos.iml" filepath="$PROJECT_DIR$/BackEnd/BasesDeDatos/BasesDeDatos.iml" />
-      <module fileurl="file://$PROJECT_DIR$/BackEnd/CifradoArchivos/CifradoArchivos.iml" filepath="$PROJECT_DIR$/BackEnd/CifradoArchivos/CifradoArchivos.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Desktop/CompilacionInstalacion/CompilacionInstalacion.iml" filepath="$PROJECT_DIR$/Desktop/CompilacionInstalacion/CompilacionInstalacion.iml" />
-      <module fileurl="file://$PROJECT_DIR$/BackEnd/ConexionesInternetJava/ConexionesInternetJava.iml" filepath="$PROJECT_DIR$/BackEnd/ConexionesInternetJava/ConexionesInternetJava.iml" />
-      <module fileurl="file://$PROJECT_DIR$/BackEnd/Escritura_Lectura/Escritura_Lectura.iml" filepath="$PROJECT_DIR$/BackEnd/Escritura_Lectura/Escritura_Lectura.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Desktop/GraphicalUserInterface/GraphicalUserInterface.iml" filepath="$PROJECT_DIR$/Desktop/GraphicalUserInterface/GraphicalUserInterface.iml" />
-      <module fileurl="file://$PROJECT_DIR$/BackEnd/Hilos/Hilos.iml" filepath="$PROJECT_DIR$/BackEnd/Hilos/Hilos.iml" />
-      <module fileurl="file://$PROJECT_DIR$/BackEnd/ListaArchivos_Dirs/ListaArchivos_Dirs.iml" filepath="$PROJECT_DIR$/BackEnd/ListaArchivos_Dirs/ListaArchivos_Dirs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/BBDD/ORM/Hibernate/Hibernate.iml" filepath="$PROJECT_DIR$/BackEnd/BBDD/ORM/Hibernate/Hibernate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/BBDD/JDBC/MySqlDatabase/MySqlDatabase.iml" filepath="$PROJECT_DIR$/BackEnd/BBDD/JDBC/MySqlDatabase/MySqlDatabase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/BBDD/JDBC/OracleDatabase/OracleDatabase.iml" filepath="$PROJECT_DIR$/BackEnd/BBDD/JDBC/OracleDatabase/OracleDatabase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/BBDD/JDBC/SqliteDatabase/SqliteDatabase.iml" filepath="$PROJECT_DIR$/BackEnd/BBDD/JDBC/SqliteDatabase/SqliteDatabase.iml" />
     </modules>
   </component>
 </project>
