@@ -759,8 +759,11 @@ Permite la ejecucion paralelizada de un array de delegados
 Cuando se ejecuta la instruccion, el metodo Invoke recibe un array de delegados que ejecutaran en un hilo nuevo y esperara a que estos terminen
 ```Csharp
 Parallel.Invoke(
-    () => Metodo1(),
-    () => Metodo2(2)
+    () => objeto.Metodo1(),
+    () =>
+    {
+        objeto = new Program();
+    }
 );
 ```
 
@@ -768,8 +771,10 @@ Parallel.Invoke(
 Permite la ejecucion paralelizada de la lectura de una coleccion que implemente `IEnumerable`
 
 ```Csharp
-Parallel.For(0, 100, (i, state) => {
-    Console.WriteLine($"LAMBDA -- {i}, {state.IsStopped}");
+Parallel.For(0, collection.Count, (x, state) =>
+{
+    Console.WriteLine($"Valor de la coleccion - {collection[x]} \n" +
+        $"Estado del hilo {state.IsStopped}");
 });
 ```
 - El primer parámetro del método se envía el numero por el que se empieza
@@ -782,14 +787,179 @@ Parallel.For(0, 100, (i, state) => {
 El bucle paralelizado ForEach, permite leer una coleccion que implementa `IEnumerable` al igual que el bucle paralelizado For, la diferencia reside en que en ForEach obtienes ya el objeto del indice.
 
 ```Csharp
-Parallel.ForEach(listas, (linea, state) => {
-    Console.WriteLine($"ForEach LAMBDA -- {linea}");
+Parallel.ForEach(collection, (item, state, index) =>
+{
+    Console.WriteLine($"Valor de la coleccion - {item} \n" +
+        $"Manipulacion de estado de los hilos {state.LowestBreakIteration} \n" +
+        $"Indice en el que estamos posicionados actualmente - {index}");
 });
 ```
 - El primer parámetro se envía el objeto que queremos leer, un List<string> por ejemplo
 - El segundo parámetro va la lambda que puede recibir dos parámetros
-    - `obj` contendrá un objeto del tipo de la lista y solo 1 elemento de dicha lista, es lo mismo que si a un array le hacemos un objetoArray[x] con un for normal
-    - `ParallelLoopState` un objeto que se encargara de gestionar los estados de los hilos, pudiendo parar la ejecución, etc
+    - `obj` Contendrá un objeto del tipo de la lista y solo 1 elemento de dicha lista, es lo mismo que si a un array le hacemos un objetoArray[x] con un for normal.
+    - `ParallelLoopState` Un objeto que se encargara de gestionar los estados de los hilos, pudiendo parar la ejecución, etc.
+    - `index` Una propiedad que devuelve en que indice de la coleccion estamos.
 
 ---
 # LINQ
+Linq es una API orientada al uso de consultas a diferentes tipos de contenido, como objetos, entidades, XML, etc. De esta manera se resume en una sintaxis sencilla y fácil de leer, tratar y mantener el tratamiento de diferentes tipos de datos.
+
+## From
+
+```Csharp
+var cust = new List<Customer>();
+//queryAllCustomers is an IEnumerable<Customer>
+IEnumerable<Customer> queryAllCustomers = from cust in customers
+                                          select cust;
+```
+## Join
+
+```Csharp
+var innerJoinQuery = from category in categories
+                     join prod in products on category.ID equals prod.CategoryID
+                     select new
+                     {
+                         ProductName = prod.Name,
+                         Category = category.Name
+                     };
+
+var query = products.Join(categories,
+    product => product.CategoryID,
+    category => category.ID,
+    (product, category) => new
+    {
+        ProductName = product.Name,
+        Category = category.Name
+    });
+```
+
+## Let
+```Csharp
+
+var earlyBirdQuery = from sentence in strings
+                    let words = sentence.Split(' ')
+                    from word in words
+                    let w = word.ToLower()
+                    where w[0] == 'a' || w[0] == 'e'
+                        || w[0] == 'i' || w[0] == 'o'
+                        || w[0] == 'u'
+                    select word;
+```
+
+## Where
+```Csharp
+var cust = new List<Customer>();
+//queryAllCustomers is an IEnumerable<Customer>
+var queryLondonCustomers = from cust in customers
+where cust.City == "London"
+select cust;
+fruits.Where(fruit => fruit.Length < 6);
+```                                                                                                                                                       
+
+## Group by
+```Csharp
+// queryCustomersByCity is an IEnumerable<IGrouping<string, Customer>>
+var queryCustomersByCity =
+from cust in customers
+group cust by cust.City;
+// customerGroup is an IGrouping<string, Customer>
+foreach (var customerGroup in queryCustomersByCity)
+{
+Console.WriteLine(customerGroup.Key);
+foreach (Customer customer in customerGroup)
+{
+Console.WriteLine(" {0}", customer.Name);
+}
+}
+// Group the pets using Age as the key value 
+// and selecting only the pet's Name for each value.
+IEnumerable<IGrouping<int, string>> query =
+pets.GroupBy(pet => pet.Age, pet => pet.Name);
+// Iterate over each IGrouping in the collection.
+foreach (IGrouping<int, string> petGroup in query)
+{
+// Print the key value of the IGrouping.
+Console.WriteLine(petGroup.Key);
+// Iterate over each value in the 
+// IGrouping and print the value.
+foreach (string name in petGroup)
+Console.WriteLine(" {0}", name);
+}
+```
+
+## Order by
+```Csharp
+var cust = new List<Customer>();
+//queryAllCustomers is an IEnumerable<Customer>
+var queryLondonCustomers3 = 
+from cust in customers
+where cust.City == "London"
+orderby cust.Name ascending // descending
+select cust;
+// ascending
+IEnumerable<Pet> query = pets.OrderBy(pet => pet.Age);
+// descending
+IEnumerable<Pet> query = pets.OrderByDescending(pet => pet.Age);
+```
+Las consultas de arriba tratan la variable con linq para realizar las consultas y dependiendo del tipo de
+consulta que sea, estos te devolveran objetos interfaz del tipo IEnumerable<T>, IQueryable<T>, etc.
+Esto son objetos configurables para poder realizar consultas particionadas en memoria y en diferentes puntos,
+un ejemplo de uso, por ejemplo que no se muestren ciertos datos si no se cumple una condición especifica
+que hay que comprobar, o quieres reutilizar la misma consulta.
+Para poder convertir definitivamente estos objetos en objetos en memoria definitivos y poder tratarlos, se
+deberá de usar los siguientes métodos después de la consulta.
+
+## ToList()
+```Csharp
+var cust = new List<Customer>();
+//queryAllCustomers is an IEnumerable<Customer>
+var queryLondonCustomers3 = 
+(from cust in customers
+where cust.City == "London"
+orderby cust.Name ascending
+select cust).ToList();
+```
+
+## ToArray()
+```Csharp
+var cust = new List<Customer>();
+//queryAllCustomers is an IEnumerable<Customer>
+var queryLondonCustomers3 = 
+(from cust in customers
+where cust.City == "London"
+orderby cust.Name ascending
+select cust).ToArray();
+```
+
+## ToDictionary()
+```Csharp
+var cust = new List<Customer>();
+//queryAllCustomers is an IEnumerable<Customer>
+var queryLondonCustomers3 = 
+(from cust in customers
+where cust.City == "London"
+orderby cust.Name ascending
+select cust).ToDictionary();
+```
+
+## ToLookup()
+```Csharp
+var cust = new List<Customer>();
+//queryAllCustomers is an IEnumerable<Customer>
+var queryLondonCustomers3 = 
+(from cust in customers
+where cust.City == "London"
+orderby cust.Name ascending
+select cust).ToLookup();
+```
+
+## Count()
+```Csharp
+var cust = new List<Customer>();
+//queryAllCustomers is an IEnumerable<Customer>
+var queryLondonCustomers3 = 
+(from cust in customers
+where cust.City == "London"
+orderby cust.Name ascending
+select cust).Count()
+ ```
