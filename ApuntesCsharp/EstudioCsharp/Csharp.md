@@ -686,6 +686,44 @@ ExportAPI.ExportEvent += LoadEventCall;
 ```
 
 ---
+## Codigo no Administrado
+El codigo no administrado es un tipo de codigo al que no puede acceder el `Garbage Collector` para realizar el proceso de limpieza de memoria, por tanto hay que hacerlo manualmente.  
+Para eliminar los recursos no administrados se suele hacer uso de la interfaz `IDisposable` o el uso de destructores explicado en la seccion [Liberación de memoria](#liberacion-de-memoria)
+
+### P/Invoke 
+Es una tecnologia que permite hacer uso de librerias compiladas de forma nativa con lenguajes como `Rust`, `Cpp`, etc.  
+De esta forma permite realizar interoperabilidad con librerias de los diferentes sitemas como Windows, por ejemplo se puede hacer uso de esto para ejecutar librerias como el diseño de las GUi nativas.
+
+```rust
+#[no_mangle]
+pub extern fn add_numbers(number1: i32, number2: i32) -> i32 {
+    println!("Hola con Rust");
+    number1 + number2
+}
+
+/*
+> cargo new lib
+> cd lib
+Creamos el archivo lib.rs
+Editamos el archivo cargo.toml y agregamos:
+    [lib]
+    name="libreriaEjemploRust"
+    crate-type = ["dylib"]
+> cargo build
+```
+
+```Csharp
+[DllImport("libreriaEjemploRust.dll")]
+private static extern int add_numbers(int number1, int number2);
+
+public static void Main(string[] args)
+{
+    int suma = add_numbers(1, 2);
+    Console.WriteLine(suma);
+}
+```
+
+---
 # Tratamiento de Excepciones
 
 ## Excepciones
