@@ -1,16 +1,13 @@
+Param (
+    [string] $RUTA_ARCHIVO_ORIGEN,
+    [string] $RUTA_ARCHIVO_DESTINO
+)
+
 try {
-    
-    $RUTA_ARCHIVO_ORIGEN = "C:\Users\garci\Downloads\Csharp.md"
 
-    if ($RUTA_ARCHIVO_ORIGEN.Contains('\')) {
-        $RutaOrigenSplit = $RUTA_ARCHIVO_ORIGEN.Split('\')
+    if (($RUTA_ARCHIVO_ORIGEN -ne "" -or $RUTA_ARCHIVO_ORIGEN -ne $null) -and ($RUTA_ARCHIVO_DESTINO -ne "" -or $RUTA_ARCHIVO_DESTINO -ne $null)) {
+        throw "Ingrese los parametros de origen y destino"
     }
-    elseif ($RUTA_ARCHIVO_ORIGEN.Contains('/')) {
-        $RutaOrigenSplit = $RUTA_ARCHIVO_ORIGEN.Split('/')
-    }
-
-    $RUTA_ARCHIVO_INDICES = "Indices_" + $RutaOrigenSplit[$RutaOrigenSplit.Length - 1]
-
 
     $archivoLeido = [IO.FILE]::ReadAllText($RUTA_ARCHIVO_ORIGEN);
 
@@ -45,7 +42,7 @@ try {
         $textoIndices += $indice + "[" + $texto.Replace("#", "") + "](#" + $texto.ToLower().Replace(' ', '-').Replace("#-", "") + ")`n`n";
     }
     
-    [IO.FILE]::WriteAllText($RUTA_ARCHIVO_INDICES, $textoIndices);
+    [IO.FILE]::WriteAllText($RUTA_ARCHIVO_DESTINO, $textoIndices);
 }
 finally {
     # Se borran todas las variables usadas en el script
