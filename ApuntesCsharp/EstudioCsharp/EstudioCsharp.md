@@ -137,7 +137,7 @@ var saludo = "Hola";
 Console.WriteLine($"{saludo} terricola");
 ```
 
-### Métodos habituales
+### Métodos de string
 ---
 
 ```csharp
@@ -184,7 +184,7 @@ Las colecciones proporcionan una manera más flexible de trabajar con grupos de 
 
 Una lista es un tipo de colección ordenada(un array)
 
-### Métodos habituales
+### Métodos de listas
 
 ```Csharp
 var lista = new List<string>() { "Hola" };
@@ -212,7 +212,7 @@ Una clase de Diccionario es una estructura de datos que representa una colecció
 claves y valores de pares de datos. La clave es idéntica en un par clave-valor y puede 
 tener como máximo un valor en el diccionario
 
-### Métodos habituales
+### Métodos de diccionarios
 
 ```Csharp
 var diccionario = new Dictionary<string, string>()
@@ -255,7 +255,7 @@ tupla.Item4;
 ## Tablas Hash
 Representa una colección de pares de clave y valor que se organizan por código hash de la clave
 
-### Métodos habituales
+### Métodos de tablas hash
 
 ```Csharp
 var tablaHash = new Hashtable();
@@ -282,7 +282,7 @@ El Stack es una coleccion LIFO(Last in, First Out) sin tamaño fijo de los objet
 
 Al usar la forma de almacenamiento LIFO, en la coleccion se trabaja todo el rato sobre los primeros elementos, osea que cuando agregas un elemento nuevo por ejemplo, no se guardaria en el ultimo indice, sino que se almacenaria en el indice 0, al principio de la coleccion.
 
-### Métodos habituales
+### Métodos de pilas
 ```Csharp
 var pila = new Stack<string>();
 pila.Push("prueba de push");
@@ -311,7 +311,7 @@ La Queue es una coleccion FIFO(First In, First Out).
 
 Al usar la forma de almacenamiento FIFO, a la hora de agregar elementos se tendran que ir agregando al final de la coleccion y a la hora de trabajar con ellos, se iran extrayendo del mas antiguo al mas nuevo, por tanto, se accedera a los primeros.
 
-### Métodos habituales
+### Métodos de colas
 ```Csharp
 var cola = new Queue<string>();
 cola.Enqueue("prueba de push");
