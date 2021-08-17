@@ -723,6 +723,64 @@ public static void Main(string[] args)
 }
 ```
 
+### Codigo inseguro
+La mayor parte del código de C# que se escribe es "código seguro comprobable". El código seguro comprobable significa que las herramientas de .NET pueden comprobar que el código es seguro. En general, el código seguro no accede directamente a la memoria mediante punteros. Tampoco asigna memoria sin procesar. En su lugar, crea objetos administrados.
+
+Este modo es un tipo de [Codigo no Administrado](#codigo-no-administrado) puesto que a este codigo no acceden las herramientas de .Net para liberar el especio de memoria que ocupan por ejemplo.
+
+El código no seguro tiene las propiedades siguientes:
+
+- Los métodos, tipos y bloques de código se pueden definir como no seguros.
+- En algunos casos, el código no seguro puede aumentar el rendimiento de la aplicación al eliminar las comprobaciones de límites de matriz.
+- El código no seguro es necesario al llamar a funciones nativas que requieren punteros.
+- El código no seguro presenta riesgos para la seguridad y la estabilidad.
+- El código que contenga bloques no seguros deberá compilarse con la opción del compilador AllowUnsafeBlocks.
+
+#### Punteros
+- `int* p`: p es un puntero a un entero.
+- `int** p`: p es un puntero a un puntero a un entero.
+- `int*[] p`: p es una matriz unidimensional de punteros a enteros.
+- `char* p`: p es un puntero a un valor char.
+- `void* p`: p es un puntero a un tipo desconocido.
+
+```Csharp
+unsafe
+{
+    int[] numeroParaFixed = new int[5] { 3000, 2000, 1, 2, 3 };
+    // La instrucción fixed evita que el recolector de elementos no utilizados reubique una variable móvil.
+    fixed (int* variable = &numeroParaFixed[0])
+    {
+        int* numero = variable;
+        Console.WriteLine(*numero);
+
+        *numero += 2;
+        Console.WriteLine(*numero);
+
+        *numero += 2;
+        Console.WriteLine(*numero);
+
+        *numero += 2;
+        Console.WriteLine(*numero);
+    }
+}
+```
+
+En la tabla siguiente se muestran los operadores e instrucciones que pueden funcionar en punteros en un contexto no seguro:
+
+| Operador/Instrucción | Usar |
+| -------------------- | ---- |
+| *  | Realiza el direccionamiento indirecto del puntero. |
+| -> |	Obtiene acceso a un miembro de un struct a través de un puntero. |
+| [] | Indiza un puntero. |
+| &  | Obtiene la dirección de una variable. |
+| ++ y -- |	Incrementa y disminuye los punteros. |
+| + y - | Realiza aritmética con punteros. |
+| ==, !=, <, >, <= y >= | Compara los punteros. |
+| stackalloc | Asigna memoria en la pila. |
+| Instrucción fixed | Fija provisionalmente una variable para que pueda encontrarse su dirección. |
+
+Mas informacion sobre codigo no seguro: [enlace](https://docs.microsoft.com/es-es/dotnet/csharp/language-reference/unsafe-code)
+
 ---
 # Tratamiento de Excepciones
 
