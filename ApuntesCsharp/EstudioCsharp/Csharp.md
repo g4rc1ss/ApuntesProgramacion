@@ -676,6 +676,7 @@ public static event EventHandler ExportEvent;
 
 public static void ExportEventCaller(ExportObject export)
 {
+    // El constructor de EventHandler recibe dos objetos, un object y un EventArgs
     ExportEvent?.Invoke(export, null);
 }
 
