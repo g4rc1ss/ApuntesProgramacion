@@ -40,7 +40,7 @@ try {
         }
         
         $texto = $texto.Replace("#", $null);
-        $textoIndices += $indice + "[" + $texto + "](#" + $texto.ToLower().Trim().Replace(' ', '-').Replace("#-", "") + ")`n`n";
+        $textoIndices += $indice + "[" + $texto.Trim() + "](#" + $texto.ToLower().Trim().Replace(' ', '-').Replace("#-", "") + ")`n`n";
     }
     
     [IO.FILE]::WriteAllText($RUTA_ARCHIVO_DESTINO, $textoIndices);
