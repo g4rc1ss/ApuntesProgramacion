@@ -4,8 +4,8 @@ Param (
 )
 
 try {
-
-    if (($RUTA_ARCHIVO_ORIGEN -ne "" -or $RUTA_ARCHIVO_ORIGEN -ne $null) -and ($RUTA_ARCHIVO_DESTINO -ne "" -or $RUTA_ARCHIVO_DESTINO -ne $null)) {
+    
+    if (($RUTA_ARCHIVO_ORIGEN -eq "" -or $RUTA_ARCHIVO_ORIGEN -eq $null) -and ($RUTA_ARCHIVO_DESTINO -eq "" -or $RUTA_ARCHIVO_DESTINO -eq $null)) {
         throw "Ingrese los parametros de origen y destino"
     }
 
@@ -39,7 +39,8 @@ try {
             $indice = "`t`t`t ${titulo}. ";
         }
         
-        $textoIndices += $indice + "[" + $texto.Replace("#", "") + "](#" + $texto.ToLower().Replace(' ', '-').Replace("#-", "") + ")`n`n";
+        $texto = $texto.Replace("#", $null);
+        $textoIndices += $indice + "[" + $texto + "](#" + $texto.ToLower().Trim().Replace(' ', '-').Replace("#-", "") + ")`n`n";
     }
     
     [IO.FILE]::WriteAllText($RUTA_ARCHIVO_DESTINO, $textoIndices);
