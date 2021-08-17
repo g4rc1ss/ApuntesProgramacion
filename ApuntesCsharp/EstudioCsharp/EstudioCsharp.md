@@ -1,212 +1,5 @@
 # Indice
 
-1. [ Estructura del código
-](#estructura-del-código)
-
-	 1. [ Declaración de variables
-](#declaración-de-variables)
-
-	 1. [ Convertir tipos
-](#convertir-tipos)
-
-	 1. [ Sentencias de flujo
-](#sentencias-de-flujo)
-
-	 1. [ Operador ternario
-](#operador-ternario)
-
-	 1. [ Bucles
-](#bucles)
-
-1. [ Cadenas
-](#cadenas)
-
-	 1. [ String
-](#string)
-
-		 1. [ Literales
-](#literales)
-
-		 1. [ Interpolacion de Cadenas
-](#interpolacion-de-cadenas)
-
-		 1. [ Métodos habituales
-](#métodos-habituales)
-
-	 1. [ StringBuilder
-](#stringbuilder)
-
-1. [ Colecciones
-](#colecciones)
-
-	 1. [ Listas:
-](#listas:)
-
-		 1. [ Métodos habituales
-](#métodos-habituales)
-
-	 1. [ Diccionarios:
-](#diccionarios:)
-
-		 1. [ Métodos habituales
-](#métodos-habituales)
-
-	 1. [ Tuplas
-](#tuplas)
-
-	 1. [ Tablas Hash
-](#tablas-hash)
-
-		 1. [ Métodos habituales
-](#métodos-habituales)
-
-	 1. [ Pilas
-](#pilas)
-
-		 1. [ Métodos habituales
-](#métodos-habituales)
-
-	 1. [ Colas
-](#colas)
-
-		 1. [ Métodos habituales
-](#métodos-habituales)
-
-1. [ Programación Orientada a Objetos
-](#programación-orientada-a-objetos)
-
-	 1. [ Class
-](#class)
-
-	 1. [ Static Class
-](#static-class)
-
-	 1. [ Abstract Class
-](#abstract-class)
-
-	 1. [ Sealed Class
-](#sealed-class)
-
-	 1. [ Metodos
-](#metodos)
-
-	 1. [ Propiedades
-](#propiedades)
-
-	 1. [ Delegados
-](#delegados)
-
-	 1. [ Herencia
-](#herencia)
-
-	 1. [ Interface
-](#interface)
-
-1. [ Conceptos Avanzados
-](#conceptos-avanzados)
-
-	 1. [ Liberacion de Memoria
-](#liberacion-de-memoria)
-
-	 1. [ Enumerador
-](#enumerador)
-
-	 1. [ Indizadores
-](#indizadores)
-
-	 1. [ Boxing y Unboxing
-](#boxing-y-unboxing)
-
-	 1. [ Generics
-](#generics)
-
-		 1. [ Constraints
-](#constraints)
-
-	 1. [ Eventos
-](#eventos)
-
-	 1. [ Codigo no Administrado
-](#codigo-no-administrado)
-
-		 1. [ P/Invoke 
-](#p/invoke)
-
-		 1. [ Codigo inseguro
-](#codigo-inseguro)
-
-			 1. [ Punteros
-](#punteros)
-
-1. [ Tratamiento de Excepciones
-](#tratamiento-de-excepciones)
-
-	 1. [ Excepciones
-](#excepciones)
-
-		 1. [ Capurando las excepciones
-](#capurando-las-excepciones)
-
-		 1. [ Provocando una excepcion
-](#provocando-una-excepcion)
-
-		 1. [ Creando excepciones propias
-](#creando-excepciones-propias)
-
-1. [ Programación Asincrona & MultiThreading
-](#programación-asincrona-&-multithreading)
-
-	 1. [ Async & Await
-](#async-&-await)
-
-	 1. [ Parallel
-](#parallel)
-
-		 1. [ Parallel Invoke
-](#parallel-invoke)
-
-		 1. [ Parallel For
-](#parallel-for)
-
-		 1. [ Parallel ForEach
-](#parallel-foreach)
-
-1. [ LINQ
-](#linq)
-
-	 1. [ From
-](#from)
-
-	 1. [ Join
-](#join)
-
-	 1. [ Let
-](#let)
-
-	 1. [ Where
-](#where)
-
-	 1. [ Group by
-](#group-by)
-
-	 1. [ Order by
-](#order-by)
-
-	 1. [ ToList()
-](#tolist())
-
-	 1. [ ToArray()
-](#toarray())
-
-	 1. [ ToDictionary()
-](#todictionary())
-
-	 1. [ ToLookup()
-](#tolookup())
-
-	 1. [ Count()
-](#count())
-
 
 
 # Estructura del código
@@ -387,7 +180,7 @@ var cadenaCompleta = stringBuilder.ToString();
 Las colecciones proporcionan una manera más flexible de trabajar con grupos de objetos. A diferencia de las matrices, el grupo de objetos con el que trabaja puede aumentar y reducirse de manera dinámica a medida que cambian las necesidades de la aplicación
 
 ---
-## Listas:
+## Listas
 
 Una lista es un tipo de colección ordenada(un array)
 
@@ -413,7 +206,7 @@ lista.Reverse();
 ```
 
 ---
-## Diccionarios:
+## Diccionarios
 
 Una clase de Diccionario es una estructura de datos que representa una colección de 
 claves y valores de pares de datos. La clave es idéntica en un par clave-valor y puede 
@@ -1226,42 +1019,42 @@ products.OrderByDescending(product => product.CategoryID);
 Para poder tratar las consultas, la api de LINQ devuelve objetos del tipo `IEnumerable<>` o `IQueryable<>`.  
 Hay diferentes formas de leer los datos, por un lado mediante un `foreach` se pueden iterar un `IEnumerable` y por otro lado, hay metodos que convierten los datos a una coleccion directamente.
 
-## ToList()
+## ToList
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).ToList();
 ```
 
-## ToArray()
+## ToArray
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).ToArray();
 ```
 
-## ToDictionary()
+## ToDictionary
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).ToDictionary(key => key.CategoryID, value => value.Name);
 ```
 
-## ToLookup()
+## ToLookup
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).ToLookup(key => key.CategoryID, value => value.Name);
 ```
 
-## Count()
+## Count
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).Count()
  ```
 
- ## FirstOrDefault()
+ ## FirstOrDefault
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
