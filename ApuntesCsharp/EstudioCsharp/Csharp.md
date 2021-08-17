@@ -744,7 +744,25 @@ El código no seguro tiene las propiedades siguientes:
 - `void* p`: p es un puntero a un tipo desconocido.
 
 ```Csharp
+unsafe
+{
+    int[] numeroParaFixed = new int[5] { 3000, 2000, 1, 2, 3 };
+    // La instrucción fixed evita que el recolector de elementos no utilizados reubique una variable móvil.
+    fixed (int* variable = &numeroParaFixed[0])
+    {
+        int* numero = variable;
+        Console.WriteLine(*numero);
 
+        *numero += 2;
+        Console.WriteLine(*numero);
+
+        *numero += 2;
+        Console.WriteLine(*numero);
+
+        *numero += 2;
+        Console.WriteLine(*numero);
+    }
+}
 ```
 
 En la tabla siguiente se muestran los operadores e instrucciones que pueden funcionar en punteros en un contexto no seguro:
