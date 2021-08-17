@@ -1,5 +1,3 @@
-# Indice
-
 1. [Indice](#indice)
 
 1. [Estructura del código](#estructura-del-código)
@@ -139,6 +137,8 @@
 	 1. [ToLookup](#tolookup)
 
 	 1. [Count](#count)
+
+	 1. [FirstOrDefault](#firstordefault)
 
 
 
@@ -1194,7 +1194,7 @@ where prod.Name == "Producto 2"
 select prod).Count()
  ```
 
- ## FirstOrDefault
+## FirstOrDefault
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
