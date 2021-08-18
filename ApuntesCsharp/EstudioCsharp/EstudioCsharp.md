@@ -1,5 +1,3 @@
-1. [Indice](#indice)
-
 1. [Estructura del código](#estructura-del-código)
 
 	 1. [Declaración de variables](#declaración-de-variables)
@@ -86,7 +84,7 @@
 
 	 1. [Codigo no Administrado](#codigo-no-administrado)
 
-		 1. [P/Invoke](#p/invoke)
+		 1. [P/Invoke](#p-invoke)
 
 		 1. [Codigo inseguro](#codigo-inseguro)
 
@@ -102,9 +100,9 @@
 
 		 1. [Creando excepciones propias](#creando-excepciones-propias)
 
-1. [Programación Asincrona & MultiThreading](#programación-asincrona-&-multithreading)
+1. [Programación Asincrona & MultiThreading](#programación-asincrona-multithreading)
 
-	 1. [Async & Await](#async-&-await)
+	 1. [Async & Await](#async-await)
 
 	 1. [Parallel](#parallel)
 

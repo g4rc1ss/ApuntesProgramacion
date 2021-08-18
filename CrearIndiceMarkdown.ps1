@@ -4,11 +4,13 @@ Param (
 )
 
 try {
-    
+
     if (($RUTA_ARCHIVO_ORIGEN -eq "" -or $RUTA_ARCHIVO_ORIGEN -eq $null) -and ($RUTA_ARCHIVO_DESTINO -eq "" -or $RUTA_ARCHIVO_DESTINO -eq $null)) {
         throw "Ingrese los parametros de origen y destino"
     }
 
+    $caracteresEspeciales = [Linq.Enumerable]::ToArray("[$&+,:;=?@#|'<>.-^*()%!]/");
+    
     $archivoLeido = [IO.FILE]::ReadAllText($RUTA_ARCHIVO_ORIGEN);
 
     [System.Collections.ArrayList]$textoFiltrado = New-Object System.Collections.ArrayList;
@@ -39,8 +41,13 @@ try {
             $indice = "`t`t`t ${titulo}. ";
         }
         
-        $texto = $texto.Replace("#", $null);
-        $textoIndices += $indice + "[" + $texto.Trim() + "](#" + $texto.ToLower().Trim().Replace(' ', '-').Replace("#-", "") + ")`n`n";
+        $textoLink = $texto;
+        foreach ($caracter in $caracteresEspeciales) {
+            $textoLink = $textoLink.Replace($caracter, ' ');
+        }
+        $textoLink = $textoLink -replace "\s{2,}", " ";
+
+        $textoIndices += $indice + "[" + $texto.Replace("#", "").Trim() + "](#" + $textoLink.ToLower().Trim().Replace(' ', '-') + ")`n`n";
     }
     
     [IO.FILE]::WriteAllText($RUTA_ARCHIVO_DESTINO, $textoIndices);
