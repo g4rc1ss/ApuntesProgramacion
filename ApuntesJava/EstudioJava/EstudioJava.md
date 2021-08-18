@@ -355,34 +355,12 @@ public void setNombre(String nombre) {
 }
 ```
 
-----
-## Delegados
-Un delegate es un tipo de referencia que puede utilizarse para encapsular un método con nombre o anónimo.
-
-Imaginemos que podemos crear un método, almacenarlo en un objeto y pasarlo como parámetro de una función, pues en eso consiste.
-```Java
-
-internal void MetodoDelegado(List<string> coleccion, Action<string> delegado)
-{
-    foreach (var item in coleccion)
-    {
-        delegado?.Invoke(item);
-    }
-}
-
-clase.MetodoDelegado(new List<string>() { "Hola", "Adios" }, (x) =>
-{
-    Console.WriteLine(x.Contains("Ho"));
-});
-```
-
 ---
 ## Herencia
 La herencia significa que se pueden crear nuevas clases partiendo de clases existentes, que tendrá todas los atributos, propiedades y los métodos de su 'superclass' o 'clase padre' y además se le podrán añadir otros atributos, propiedades y métodos propios.
 
 ```Java
-public class Clase : SuperClase 
-{
+class Clase extends SuperClase {
 }
 ```
 
@@ -396,19 +374,13 @@ Una interfaz representa un contrato, en el cual una clase que implementa una int
 
 El beneficio que da las interfaces es que permite tener una capa de abstraccion en el codigo, donde puedes hacer uso de ella para ejecutar ciertas clases usando la interfaz como instancia.
 
-Por ejemplo una de las cosas que se consiguen mediante las interfaces es la api Linq, Linq hace uso de la interfaz `IEnumerable` para procesar los datos, por tanto, si yo ahora creo una coleccion mia propia que implemente dicha interfaz, podre hacer uso de las funciones de consulta de LINQ y todo es porque la api lo que espera recibir es una clase que tenga implementada esa interfaz.
-La interfaz tiene una serie de metodos implementados y Linq hace uso de ellos para leer y procesar la coleccion.
-
 ```Java
-interface IMiInterfaz
-{
+interface MiInterfaz {
     void MiMetodo();
 }
 
-public class PruebaInterfazImplícita : IMiInterfaz 
-{
-    public void MiMetodo() 
-    {    
+class PruebaInterfazImplícita implements MiInterfaz {
+    public void MiMetodo() {
     }
 }
 ```
@@ -416,60 +388,6 @@ public class PruebaInterfazImplícita : IMiInterfaz
 ---
 # Conceptos Avanzados
 
-## Liberacion de Memoria
-La liberacion de memoria en .Net consiste en marcar ciertos objetos como "liberados", quiere decir, que son objetos que ya no se van a volver a usar y que quiere liberar el recurso que se esta usando o cerrar el proceso.
-
-Para dicha liberacion se ha de implementar una interfaz, que se llama `IDisposable` y tambien se suele hacer uso de los llamado Destructores.
-
-El método Dispose se implementa para liberar recursos de la clase donde se implementa, sobretodo se usa para gestión de código no administrado como usos como conexiones a BBDD, Streams, etc.
-
-```Java
-public void Dispose()
-{
-    this.Dispose(true);
-    GC.SuppressFinalize(this);
-}
-
-protected virtual void Dispose(bool disposing)
-{
-    if (disposing)
-    {
-        // Liberamos los recursos
-        // En un clase como stream por ejemplo, aqui se ejecutaria el metodo Close()
-    }
-}
-```
-
-En todas las clases que tengan implementada la interfaz `IDisposable` se puede usar la instruccion `using` para liberar los recursos automaticamente cuando se acaba la sentencia.
-
-```Java
-using (var objeto = File.Create(""))
-{
-    objeto.ToString();
-}
-
-using var @object = File.Create("");
-```
-
-Los finalizadores (también denominados destructores) se usan para realizar cualquier limpieza final necesaria cuando el recolector de basura va a liberar el objeto de memoria
-
-- Los finalizadores no se pueden definir en struct. Solo se usan con clases.
-- Una clase solo puede tener un finalizador.
-- Los finalizadores no se pueden heredar ni sobrecargar.
-- No se puede llamar a los finalizadores. Se invocan automáticamente.
-- Un finalizador no permite modificadores ni tiene parámetros.
-
-```Java
-internal class Program
-{
-    ~Program()
-    {
-        // Instrucciones para la limpieza de recursos
-    }
-}
-```
-
----
 ## Enumerador
 
 Una enumeración es un conjunto de constantes enteras que tienen asociado un nombre para cada valor.
@@ -488,223 +406,53 @@ public enum EnumeradorCartas {
 ```
 
 ---
-## Indizadores
-Permiten crear una clase, un struct o una interfaz con un "indice" al que se accederá a traves del objeto instanciado de la clase, no hace falta acceder a la matriz como tal.
-```Java
-public class ClaseIndex
-{
-    private readonly float[] temps = new float[10] { 56.2F, 56.7F, 56.5F, 56.9F, 58.8F,
-                                            61.3F, 65.9F, 62.1F, 59.2F, 57.5F };
-    public float this[int index] {
-        get {
-            return temps[index];
-        }
-        set {
-            temps[index] = value;
-        }
-    }
-    public int Contador {
-        get {
-            return temps.Length;
-        }
-    }
-}
-
-public static void Main(string[] args)
-{
-    var objetoIndice = new ClaseIndex();
-
-    objetoIndice[1] = 58.3F;
-    objetoIndice[5] = 98.4F;
-
-    for (int x = 0; x < objetoIndice.Contador; x++)
-        Console.WriteLine(objetoIndice[x]);
-}
-```
-
----
 ## Boxing y Unboxing
-Todos los tipos de C# directa o indirectamente se derivan del tipo de clase object, y object es la clase base definitiva de todos los tipos. Los valores de tipos de referencia se tratan como objetos mediante la visualización de los valores como tipo object.
+Todos los tipos de Java directa o indirectamente se derivan del tipo de clase Object, y Object es la clase base definitiva de todos los tipos. Los valores de tipos de referencia se tratan como objetos mediante la visualización de los valores como tipo object.
 
 Los valores de tipos de valor se tratan como objetos mediante la realización de operaciones de conversión boxing y operaciones de conversión unboxing
 
 ```Java
 int i = 123;
-object o = i; // Boxing
+Object o = i; // Boxing
 int j = (int)o; // Unboxing
 ```
 
 ---
 ## Generics
-Los genéricos introducen en .NET el concepto de parámetros de tipo, lo que le permite diseñar clases y métodos que aplazan la especificación de uno o varios tipos hasta que el código de cliente declare y cree una instancia de la clase o el método.
+Los genéricos introducen en Java el concepto de parámetros de tipo, lo que le permite diseñar clases y métodos que aplazan la especificación de uno o varios tipos hasta que el código de cliente declare y cree una instancia de la clase o el método.
 
 Para que usar los genéricos?
 - Use tipos genéricos para maximizar la reutilización del código, la seguridad de tipos y el rendimiento.
-- El uso más común de los genéricos es crear clases de colección.
-La biblioteca de clases .NET Framework contiene varias clases de colección genéricas nuevas en el espacio de nombres System.Collections.Generic. Estas se deberían usar siempre que sea posible en lugar de clases como ArrayList en el espacio de nombres System.Collections.
-- Puede crear sus propias interfaces, clases, métodos, eventos y delegados genéricos.
+- El uso más común de los genéricos es crear clases de colección.  
+En Java la Clase `ArrayList<>` o `HashMap<String, String>` se utilizan genericos para poder crear un array o un diccionario respectivamente, permitiendo la reutilizacion de código
+- Puede crear sus propias interfaces, clases, métodos... Genéricos.
 - Puede limitar las clases genéricas para habilitar el acceso a métodos en tipos de datos determinados.
 - Puede obtener información sobre los tipos que se usan en un tipo de datos genérico en tiempo de ejecución mediante la reflexión
 
 ```Java
-class ClaseGenerica<T> where T : class, IEnumerable, new()
-{
-    public void Add(T input)
-    {
+class ClaseGenerica<T extends ArrayList & List> {
+    public void Add(T input) {
     }
 }
 
-class ClaseIEnumerable : IEnumerable
-{
-    public ClaseIEnumerable()
-    {
-
+class ClaseIEnumerable implements List {
+    @Override
+    public int size() {
+        return 0;
     }
 
-    public IEnumerator GetEnumerator() => throw new NotImplementedException();
-    IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
-}
-```
+    @Override
+    public boolean isEmpty() {
+        return false;
+    }
 
-### Constraints
-Los constraints son condiciones que deben de cumplir el parametro que se le pasa al generic para que funcione.
-
-| Constraint | Descripción |
-| ---------- | ----------- |
-| class | El argumento de tipo debe ser cualquier clase, interfaz, delegado o tipo de matriz. |
-| class? |	El argumento de tipo debe ser una clase, interfaz, delegado o tipo de matriz que acepte valores NULL o que no acepte valores NULL. |
-| struct | El argumento de tipo debe ser tipos de valor que no aceptan valores NULL, como los tipos de datos primitivos int, char, bool, float, etc.
-| new() |	El argumento de tipo debe ser un tipo de referencia que tenga un constructor público sin parámetros. No se puede combinar con restricciones. `struct unmanaged`
-| notnull |	Disponible en C# 8.0 en adelante. El argumento de tipo puede ser tipos de referencia que no aceptan valores NULL o tipos de valor. Si no es así, el compilador genera una advertencia en lugar de un error.
-| unmanaged | El argumento de tipo debe ser tipos no permitidos queno aceptan valores NULL.
-| baseClassName | El argumento de tipo debe ser o derivar de la clase base especificada. Las clases Object, Array, ValueType no se pueden como restricción de clase base. Enum, Delegate, MulticastDelegate no se admiten como restricción de clase base antes de C# 7.3.
-| baseClassName? | El argumento de tipo debe ser o derivar de la clase base especificada que acepta valores NULL o que no acepta valores NULL.
-| interfaceName | El argumento de tipo debe ser o implementar la interfaz especificada.
-| interfaceName? | El argumento de tipo debe ser o implementar la interfaz especificada. Puede ser un tipo de referencia que acepta valores NULL, un tipo de referencia que no acepta valores NULL o un tipo de valor.
-| where T: U | El argumento de tipo proporcionado para `T` debe ser o derivar del argumento proporcionado para `U`.
-
----
-## Eventos
-Un evento es un mensaje que envía un objeto cuando ocurre una acción.
-
-Los eventos se realizan a mano en el codigo y son contenedores de un metodo Delegado que es el que se va a invocar.
-
-Por ejemplo al interactuar con una interfaz de escritorio, como WPF, se crea un objeto Button y se agrega al evento `Click` el metodo que se ha de ejecutar `Button_Click(object sender, RoutedEventArgs e)`  
-Por debajo lo que hace el codigo es detectar cuando se pulsa el boton y entonces, invoca el evento el cual tiene agregar como delegado el metodo que hemos escrito.
-
-Para crear y controlar un evento se realiza el siguiente codigo:
-
-```Java
-public static event EventHandler ExportEvent;
-
-public static void ExportEventCaller(ExportObject export)
-{
-    // El constructor de EventHandler recibe dos objetos, un object y un EventArgs
-    ExportEvent?.Invoke(export, null);
-}
-
-
-ExportAPI.ExportEvent += LoadEventCall;
-// LoadEventCall es el metodo que se va a ejecutar
-```
-
----
-## Codigo no Administrado
-El codigo no administrado es un tipo de codigo al que no puede acceder el `Garbage Collector` para realizar el proceso de limpieza de memoria, por tanto hay que hacerlo manualmente.  
-Para eliminar los recursos no administrados se suele hacer uso de la interfaz `IDisposable` o el uso de destructores explicado en la seccion [Liberación de memoria](#liberacion-de-memoria)
-
-### P/Invoke 
-Es una tecnologia que permite hacer uso de librerias compiladas de forma nativa con lenguajes como `Rust`, `Cpp`, etc.  
-De esta forma permite realizar interoperabilidad con librerias de los diferentes sitemas como Windows, por ejemplo se puede hacer uso de esto para ejecutar librerias como el diseño de las GUi nativas.
-
-```rust
-#[no_mangle]
-pub extern fn add_numbers(number1: i32, number2: i32) -> i32 {
-    println!("Hola con Rust");
-    number1 + number2
-}
-
-/*
-> cargo new lib
-> cd lib
-Creamos el archivo lib.rs
-Editamos el archivo cargo.toml y agregamos:
-    [lib]
-    name="libreriaEjemploRust"
-    crate-type = ["dylib"]
-> cargo build
-```
-
-```Java
-[DllImport("libreriaEjemploRust.dll")]
-private static extern int add_numbers(int number1, int number2);
-
-public static void Main(string[] args)
-{
-    int suma = add_numbers(1, 2);
-    Console.WriteLine(suma);
-}
-```
-
-### Codigo inseguro
-La mayor parte del código de C# que se escribe es "código seguro comprobable". El código seguro comprobable significa que las herramientas de .NET pueden comprobar que el código es seguro. En general, el código seguro no accede directamente a la memoria mediante punteros. Tampoco asigna memoria sin procesar. En su lugar, crea objetos administrados.
-
-Este modo es un tipo de [Codigo no Administrado](#codigo-no-administrado) puesto que a este codigo no acceden las herramientas de .Net para liberar el especio de memoria que ocupan por ejemplo.
-
-El código no seguro tiene las propiedades siguientes:
-
-- Los métodos, tipos y bloques de código se pueden definir como no seguros.
-- En algunos casos, el código no seguro puede aumentar el rendimiento de la aplicación al eliminar las comprobaciones de límites de matriz.
-- El código no seguro es necesario al llamar a funciones nativas que requieren punteros.
-- El código no seguro presenta riesgos para la seguridad y la estabilidad.
-- El código que contenga bloques no seguros deberá compilarse con la opción del compilador AllowUnsafeBlocks.
-
-#### Punteros
-- `int* p`: p es un puntero a un entero.
-- `int** p`: p es un puntero a un puntero a un entero.
-- `int*[] p`: p es una matriz unidimensional de punteros a enteros.
-- `char* p`: p es un puntero a un valor char.
-- `void* p`: p es un puntero a un tipo desconocido.
-
-```Java
-unsafe
-{
-    int[] numeroParaFixed = new int[5] { 3000, 2000, 1, 2, 3 };
-    // La instrucción fixed evita que el recolector de elementos no utilizados reubique una variable móvil.
-    fixed (int* variable = &numeroParaFixed[0])
-    {
-        int* numero = variable;
-        Console.WriteLine(*numero);
-
-        *numero += 2;
-        Console.WriteLine(*numero);
-
-        *numero += 2;
-        Console.WriteLine(*numero);
-
-        *numero += 2;
-        Console.WriteLine(*numero);
+    @Override
+    public boolean contains(Object o) {
+        return false;
     }
 }
 ```
 
-En la tabla siguiente se muestran los operadores e instrucciones que pueden funcionar en punteros en un contexto no seguro:
-
-| Operador/Instrucción | Usar |
-| -------------------- | ---- |
-| *  | Realiza el direccionamiento indirecto del puntero. |
-| -> |	Obtiene acceso a un miembro de un struct a través de un puntero. |
-| [] | Indiza un puntero. |
-| &  | Obtiene la dirección de una variable. |
-| ++ y -- |	Incrementa y disminuye los punteros. |
-| + y - | Realiza aritmética con punteros. |
-| ==, !=, <, >, <= y >= | Compara los punteros. |
-| stackalloc | Asigna memoria en la pila. |
-| Instrucción fixed | Fija provisionalmente una variable para que pueda encontrarse su dirección. |
-
-Mas informacion sobre codigo no seguro: [enlace](https://docs.microsoft.com/es-es/dotnet/csharp/language-reference/unsafe-code)
-
----
 # Tratamiento de Excepciones
 
 ## Excepciones
@@ -714,17 +462,12 @@ Las excepciones pueden iniciarse debido a un error en el código propio o en el 
 
 ### Capurando las excepciones
 ```Java
-try
-{
+try {
     // Ejecucion del codigo que puede llegar a tener una excepcion
-}
-catch (Exception ex)
-{
+} catch (Exception ex) {
     // Se ha producido la excepcion y se obtiene un objeto de tipo Exception
     // Este objeto contiene unos valores para rastrear el motivo del error
-}
-finally
-{
+} finally {
     // Esta es una parte del codigo que se ejecuta siempre aunque se produzca la excepcion
     // Y generalmente se usa para cerrar recursos, por ejemplo, abres una conexion con
     // la base de datos y a la hora de recibir los datos se produce la excepcion,
@@ -734,248 +477,121 @@ finally
 
 ### Provocando una excepcion
 ```Java
-public static void Main(string[] args)
-{
-    throw new ArgumentNullException($"El parametro {nameof(args)} es nulo");
+public static void main(String[] args) {
+    throw new IllegalArgumentException("El parametro es nulo");
 }
 ```
 
 ### Creando excepciones propias
 ```Java
-class MyException : Exception
-{
-    public MyException() : base()
-    {
+class MyException extends Exception {
+    public MyException() {
     }
 
-    public MyException(string message) : base(message)
-    {
+    public MyException(String message) {
+        super(message);
     }
 
-    public MyException(string message, Exception innerException) : base(message, innerException)
-    {
+    public MyException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    protected MyException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
+    public MyException(Throwable cause) {
+        super(cause);
+    }
+
+    public MyException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
     }
 }
 ```
 
 ---
-# Programación Asincrona & MultiThreading
+# Programación MultiThreading
 
-## Async & Await
-El núcleo de la programación asincrónica son los objetos `Task` y `Task<T>`, que modelan las operaciones asincrónicas. Son compatibles con las palabras clave `async` y `await`. El modelo es bastante sencillo en la mayoría de los casos:
+## Thread
+Thread (hilo, tarea) es la clase base de Java para definir hilos de ejecución concurrentes dentro de un mismo programa.
 
-- Para el código enlazado a E/S, espera una operación que devuelva `Task` o `Task<T>` dentro de un método async.
-- Para el código enlazado a la CPU, espera una operación que se inicia en un subproceso en segundo plano con el método `Task.Run`.
-
-La palabra clave `await` es donde ocurre la magia. Genera control para el autor de la llamada del método que ha realizado `await`, y permite una interfaz de usuario con capacidad de respuesta o un servicio flexible.
-
-Por ejemplo, en una interfaz Desktop, si se usa el patron en las operaciones costosas, la interfaz no se bloqueará mientras se ejecutan las instrucciones.  
-En una aplicacion web como `ASP.NET` usar el patron hara que se puedan recibir mas peticiones mientras las peticiones anteriores estan en espera de que termine el proceso que ocupa tiempo, como por ejemplo, una consulta a BBDD.
+### Implement Runnable
+Se puede implementar el multithreading a traves de la interfaz Runnable:
 
 ```Java
-public async Task MetodoAsync()
-{
-    // Para operaciones E/S
-    var stringData = await _httpClient.GetStringAsync(URL);
+public class HiloConInterface implements Runnable {
+    int x;
+    // Constructor
+    public HiloConInterface(int x) {
+        this.x = x;
+    }
 
-    // Para operaciones enlazadas a la CPU
-    await Task.Run(() => 
-    {
-        // Ejecucion de codigo costoso en tiempo
-        Thread.Sleep(10000)
-    });
+    // Metodo que hay que implementar
+    public void run() {
+        for (int i = 0; i < x; i++)
+            System.out.println("En hilo " + x + ". Paso numero " + i);
+    }
 }
 ```
 
----
-## Parallel
+### Extends Thread
+La clase thread se puede heredar para hacer uso de ella:
+
+```Java
+public class HiloConHerencia extends Thread {
+    private int c; // Contador de cada hilo
+    private int hilo;
+
+    // Constructor
+    public HiloConHerencia(int hilo) {
+        this.hilo = hilo;
+        System.out.println("CREANDO HILO: " + hilo);
+    }
+
+    // Metodos
+    /* el metodo run se ejecuta tras el start del objeto en el main */
+    public void run() {
+        c = 0;
+        while (c <= 5) {
+            System.out.println("el hilo " + hilo + ", C = " + c);
+            c++;
+        }
+    }
+}
+```
+
+## Executor
 Muchos equipos y estaciones de trabajo personales tienen varios núcleos de CPU que permiten ejecutar múltiples subprocesos simultáneamente. Para aprovecharse del hardware, se puede paralelizar el código para distribuir el trabajo entre dichos núcleos.
 
-Por ejemplo, imaginemos que tenemos una aplicacion que requiere de realizar 3 consultas para obtener datos diferentes de una BBDD, aprovechandonos del multithreading, podemos hacer uso de la clase Parallel para realizar esas consultas de forma paralelizada y reducir los tiempos.
+Por ejemplo, imaginemos que tenemos una aplicacion que requiere de realizar 3 consultas para obtener datos diferentes de una BBDD, aprovechandonos del multithreading, podemos hacer esas consultas de forma paralelizada y reducir los tiempos.
 
-### Parallel Invoke
-Permite la ejecucion paralelizada de un array de delegados
-
-Cuando se ejecuta la instruccion, el metodo Invoke recibe un array de delegados que ejecutaran en un hilo nuevo y esperara a que estos terminen
 ```Java
-Parallel.Invoke(
-    () => objeto.Metodo1(),
-    () =>
-    {
-        objeto = new Program();
-    }
-);
+ExecutorService task = Executors.newCachedThreadPool();
+
+var taskToExecute = new ArrayList<Callable<Object>>();
+for (int x = 0; x < 10; x++) {
+    int finalX = x;
+    taskToExecute.add(() -> {
+        Thread.sleep(1000);
+        return finalX;
+    });
+}
+var resultados = task.invokeAll(taskToExecute);
+for (var result : resultados) {
+    System.out.println(result.get());
+}
+task.shutdown();
 ```
 
-### Parallel For
-Permite la ejecucion paralelizada de la lectura de una coleccion que implemente `IEnumerable`
+## Parallel Stream ForEach
+Permite la ejecucion paralelizada de la lectura de una coleccion que implemente `List`
 
 ```Java
-Parallel.For(0, collection.Count, (x, state) =>
-{
-    Console.WriteLine($"Valor de la coleccion - {collection[x]} \n" +
-        $"Estado del hilo {state.IsStopped}");
+ var lista = new ArrayList<Integer>();
+for (int x = 0; x < 1000; x++) {
+    lista.add(x);
+}
+
+//Para paralelizar una lista mediante una funcion automatizada pasandole una lambda
+lista.parallelStream().forEach((x) -> {
+    System.out.println(x);
 });
 ```
-- El primer parámetro del método se envía el numero por el que se empieza
-- El segundo parámetro se envía el numero final de la iteración
-- En el tercer parámetro se envían 1 o 2 parámetros
-    - `int`: que contendrá el número por el que va la iteración
-    - `ParallelLoopState`: un objeto que se encargara de gestionar los      estados de los hilos, pudiendo parar la ejecución, etc.
-
-### Parallel ForEach
-El bucle paralelizado ForEach, permite leer una coleccion que implementa `IEnumerable` al igual que el bucle paralelizado For, la diferencia reside en que en ForEach obtienes ya el objeto del indice.
-
-```Java
-Parallel.ForEach(collection, (item, state, index) =>
-{
-    Console.WriteLine($"Valor de la coleccion - {item} \n" +
-        $"Manipulacion de estado de los hilos {state.LowestBreakIteration} \n" +
-        $"Indice en el que estamos posicionados actualmente - {index}");
-});
-```
-- El primer parámetro se envía el objeto que queremos leer, un List<string> por ejemplo
-- El segundo parámetro va la lambda que puede recibir dos parámetros
-    - `obj` Contendrá un objeto del tipo de la lista y solo 1 elemento de dicha lista, es lo mismo que si a un array le hacemos un objetoArray[x] con un for normal.
-    - `ParallelLoopState` Un objeto que se encargara de gestionar los estados de los hilos, pudiendo parar la ejecución, etc.
-    - `index` Una propiedad que devuelve en que indice de la coleccion estamos.
-
----
-# LINQ
-Linq es una API orientada al uso de consultas a diferentes tipos de contenido, como objetos, entidades, XML, etc. De esta manera se resume en una sintaxis sencilla y fácil de leer, tratar y mantener el tratamiento de diferentes tipos de datos.
-
-## From
-
-```Java
-var cust = new List<Customer>();
-//queryAllCustomers is an IEnumerable<Customer>
-from cust in customers
-select cust;
-```
-## Join
-
-```Java
-from category in categories
-join prod in products on category.ID equals prod.CategoryID
-select new
-{
-    ProductName = prod.Name,
-    Category = category.Name
-};
-
-products.Join(categories,
-product => product.CategoryID,
-category => category.ID,
-(product, category) => new
-{
-    ProductName = product.Name,
-    Category = category.Name
-});
-```
-
-## Let
-```Java
-
-from sentence in strings
-let words = sentence.Split(' ')
-from word in words
-let w = word.ToLower()
-where w[0] == 'a' || w[0] == 'e'
-    || w[0] == 'i' || w[0] == 'o'
-    || w[0] == 'u'
-select word;
-```
-
-## Where
-```Java
-from prod in products
-where prod.Name == "Producto 2"
-select prod;
-```                                                                                                                                                       
-## Group by
-```Java
-from product in products
-group product by new
-{
-    product.CategoryID,
-    product.Name
-} into prod
-select new
-{
-    idCategoria = prod.Key.CategoryID,
-    nombre = prod.Key.Name
-};
-
-products.GroupBy(product => new
-{
-    product.CategoryID,
-    product.Name
-}).Select(prod => new
-{
-    idCategoria = prod.Key.CategoryID,
-    nombre= prod.Key.Name
-});
-```
-
-## Order by
-```Java
-from product in products
-orderby product.CategoryID ascending
-select product;
-
-products.OrderBy(product => product.CategoryID);
-
-from product in products
-orderby product.CategoryID descending
-select product;
-products.OrderByDescending(product => product.CategoryID);
-```
-
-Para poder tratar las consultas, la api de LINQ devuelve objetos del tipo `IEnumerable<>` o `IQueryable<>`.  
-Hay diferentes formas de leer los datos, por un lado mediante un `foreach` se pueden iterar un `IEnumerable` y por otro lado, hay metodos que convierten los datos a una coleccion directamente.
-
-## ToList
-```Java
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).ToList();
-```
-
-## ToArray
-```Java
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).ToArray();
-```
-
-## ToDictionary
-```Java
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).ToDictionary(key => key.CategoryID, value => value.Name);
-```
-
-## ToLookup
-```Java
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).ToLookup(key => key.CategoryID, value => value.Name);
-```
-
-## Count
-```Java
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).Count()
- ```
-
-## FirstOrDefault
-```Java
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).FirstOrDefault()
- ```
+- El parámetro `x` contiene un objeto del tipo de la lista y solo 1 elemento de dicha lista, es lo mismo que si a un array le hacemos un `objetoArray[x]` con un for normal.
