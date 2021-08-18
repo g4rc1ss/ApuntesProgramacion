@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script type="text/javascript">
+            window.document.write("<b>Document.write</b> nos permite escribir texto o tags HTML");
+            window.document.write("pero solo mientras se carga la web. ");
+            window.document.write("Si lo utilizamos una vez cargada la web, se borrará todo el contenido HTML");
+            
+        </script>
+        
+        <h1 id="titulo">DEPURAR EL CODIGO JAVASCRIPT </h1>
+        <p id="contenido"></p>
+
+        <script src="modificarHTML.js" type="text/javascript"></script>
+
+        
+        <!-- al clicar sobre un DIV llamamos a la función "saluda()" -->
+        <div onclick="saluda('cuidado con las mayusculas')">SALUDA</div>
+
+        <h2>MENU JAVASCRIPT</h2>
+        <script src="seleccionaMenu.js" type="text/javascript"></script>
+        <h4 id="seleccionaPrimero" onclick="seleccionPrimero()">CLICK PARA SELECCIONAR EL PRIMERO</h4>
+
+        <div id="primero">
+
+        </div>
+           <!--Pregunta 3  -->
+        <h4 >Indica tu nombre</h4>
+        <input id="inputNombre" /> 
+        <button onclick="guardaElNombre()">Guarda el nombre</button>
+        <!--A clicar en el botón muestra aquí el nombre escrito en #inputNombre-->
+        <div id="tuNombre">
+
+        </div>
+    </body>
+</html>

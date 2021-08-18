@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trabajo</title>
+    
+    <!-- Javascript destinado a la validacion del formulario -->
+    <script src="formulario.js" defer></script>
+    <!-- Conjunto de funciones destinadas a las validaciones de todos los campos -->
+    <script src="validaciones.js" defer></script>
+    <!-- Conjunto de funciones que se ejecutaran al realizar una accion como pulsar el boton de guardar datos -->
+    <script src="Acciones.js" defer></script>
+    <!-- Otro tipo de funciones aparte, como la funcion para obtener el valor de las cookies -->
+    <script src="otrasFunciones.js" defer></script>
+</head>
+
+<body>
+    <div>
+        <form method="post" action="#" onsubmit="return validationForm()">
+            <label>Usuario:</label>
+            <input id="inputNick" type="text" onchange="changeInput('inputNick')" size="15"> <br>
+
+            <label>Password:</label>
+            <input id="inputPass1" type="password" onchange="changeInput('inputPass1')" size="15">
+            <label>Confirma Password</label>
+            <input id="inputPass2" type="password" onchange="changeInput('inputPass2')" size="15"> <br>
+
+            <label>Email</label>
+            <input id="inputEmail" type="text" onchange="changeInput('inputEmail')" size="15">
+            <label>Tus aficiones</label>
+            <select name="aficiones" id="aficiones" onchange="changeSelect()">
+                <option value="" disabled selected style="display:none;">aficiones</option>
+                <option value="Programar">Programar</option>
+                <option value="Leer">Leer</option>
+                <option value="Cantar">Cantar</option>
+                <option value="Bailar">Bailar</option>
+            </select> <br>
+
+            <label>DNI</label>
+            <input id="inputDNI" type="text" onchange="changeInput('inputDNI')" size="15"> <br><br>
+
+            <label>Acepto las condiciones</label>
+            <input id="aceptarCondiciones" type="checkbox">
+            <input type="submit" size="15" value="REGISTRATE"><br><br>
+
+            <input type="button" onclick="saveChanges()" size="15" value="Guardar Datos">
+            <input type="button" onclick="cargarDatos()" value="Recuperar Datos"> <br><br>
+
+            <label>Nueva aficion</label>
+            <input id="inputAficion" type="text" size="10">
+            <input type="button" onclick="addAficion()" value="Añadir aficion">
+        </form>
+    </div>
+</body>
+
+</html>
