@@ -1,6 +1,6 @@
 Param (
-    [string] $RUTA_ARCHIVO_ORIGEN,
-    [string] $RUTA_ARCHIVO_DESTINO
+    [string] $RUTA_ARCHIVO_ORIGEN = "C:\Users\garci\Documents\AplicacionesGit\ApuntesProgramacion\ApuntesCsharp\EstudioCsharp\EstudioCsharp.md",
+    [string] $RUTA_ARCHIVO_DESTINO = "C:\Users\garci\Documents\AplicacionesGit\ApuntesProgramacion\ApuntesCsharp\EstudioCsharp\Indices_EstudioCsharp.md"
 )
 
 try {
@@ -9,7 +9,7 @@ try {
         throw "Ingrese los parametros de origen y destino"
     }
 
-    $caracteresEspeciales = [Linq.Enumerable]::ToArray("[$&+,:;=?@#|'<>.-^*()%!]/");
+    $caracteresEspeciales = [Linq.Enumerable]::ToArray("[$&+,:;=?@|'<>.-^*()%!]/");
     
     $archivoLeido = [IO.FILE]::ReadAllText($RUTA_ARCHIVO_ORIGEN);
 
@@ -41,13 +41,22 @@ try {
             $indice = "`t`t`t ${titulo}. ";
         }
         
+        # Reemplaza todos los espacios en blanco superiores a 2 en uno solo
+        $texto = $texto -replace "\s{2,}", " ";
         $textoLink = $texto;
+        
         foreach ($caracter in $caracteresEspeciales) {
-            $textoLink = $textoLink.Replace($caracter, ' ');
+            # Reemplazamos el caracter especial por un -
+            $textoLink = $textoLink.Replace($caracter, '-');
         }
-        $textoLink = $textoLink -replace "\s{2,}", " ";
+        # se pasa el contenido a minusculas, se reemplazan los simbolos # y luego se quitan los espacios en blanco por -
+        $textoLink = $textoLink.ToLower().Replace("#", "").Trim().Replace(' ', '-')
+        # Reemplazamos en los textos que tengan mas de 2 - en solo 2, porque significaria que uno es para el espacio en blanco y el otro para el caracter especial
+        $textoLink = $textoLink -replace "-{2,}", "--";
 
-        $textoIndices += $indice + "[" + $texto.Replace("#", "").Trim() + "](#" + $textoLink.ToLower().Trim().Replace(' ', '-') + ")`n`n";
+        $texto = $texto.Replace("#", "").Trim();
+
+        $textoIndices += $indice + "[" + $texto + "](#" + $textoLink + ")`n`n";
     }
     
     [IO.FILE]::WriteAllText($RUTA_ARCHIVO_DESTINO, $textoIndices);

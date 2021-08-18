@@ -100,9 +100,9 @@
 
 		 1. [Creando excepciones propias](#creando-excepciones-propias)
 
-1. [Programación Asincrona & MultiThreading](#programación-asincrona-multithreading)
+1. [Programación Asincrona & MultiThreading](#programación-asincrona--multithreading)
 
-	 1. [Async & Await](#async-await)
+	 1. [Async & Await](#async--await)
 
 	 1. [Parallel](#parallel)
 
