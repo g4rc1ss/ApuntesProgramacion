@@ -23,9 +23,9 @@ public class ejemplosSintaxis{
 ---
 ## Declaración de variables
 ```Java
-        String a = "hoa"; int b = 2; double c = 2.0; boolean d = false;
-        var x = "h";
-        System.out.printf("%s %.2f %d %n %b", a, c, b, d);
+String a = "hoa"; int b = 2; double c = 2.0; boolean d = false;
+var x = "h";
+System.out.printf("%s %.2f %d %n %b", a, c, b, d);
 ```
 `var` es un "comodín" que se usa para no tener que indicar el objeto que te viene de vuelta (un string, un int, un float, un obj)
 `printf`
@@ -141,7 +141,7 @@ String ternario = a3.equals("0") ? a3 : Integer.toString(b3);
 ----
 ## Bucles
 ```java
- int edad = 0;
+int edad = 0;
 while (edad < 3) {
     edad ++;
     System.out.println(edad);
