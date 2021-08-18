@@ -1,4 +1,4 @@
-package Tratamiento.Binarios;
+package Binarios;
 
 import java.io.EOFException;
 import java.io.File;

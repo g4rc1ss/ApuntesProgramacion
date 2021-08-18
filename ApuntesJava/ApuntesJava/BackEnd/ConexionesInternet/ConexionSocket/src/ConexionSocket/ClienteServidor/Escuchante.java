@@ -1,4 +1,4 @@
-package internet.ConexionSocket.ClienteServidor;
+package ConexionSocket.ClienteServidor;
 
 import java.io.DataInputStream;
 import java.io.IOException;

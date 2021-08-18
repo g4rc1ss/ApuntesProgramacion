@@ -5,7 +5,7 @@
  */
 
 /*Exportar a ficheros las claves privada y pública */
-package Cifrado.Asimetrico.DSA;
+package DsaCipherExample;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

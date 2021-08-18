@@ -1,4 +1,4 @@
-package internet.ConexionSocket.BBDD_Alumnos;
+package ConexionSocket.BBDD_Alumnos;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -26,34 +26,34 @@ public class Server {
                 op = inObjeto.readInt();
 
                 switch (op) {
-                case 1:
-                    System.out.println("DAR DE ALTA SELECCIONADO");
-                    darAltaAlumno(inObjeto);
-                    break;
+                    case 1:
+                        System.out.println("DAR DE ALTA SELECCIONADO");
+                        darAltaAlumno(inObjeto);
+                        break;
 
-                case 2:
-                    System.out.println("BUSCADOR SELECCIONADO");
-                    buscadorNIF(inObjeto);
-                    break;
+                    case 2:
+                        System.out.println("BUSCADOR SELECCIONADO");
+                        buscadorNIF(inObjeto);
+                        break;
 
-                case 3:
-                    System.out.println("MODIFICAR SELECCIONADO");
-                    modificarNIF(inObjeto);
-                    break;
+                    case 3:
+                        System.out.println("MODIFICAR SELECCIONADO");
+                        modificarNIF(inObjeto);
+                        break;
 
-                case 4:
-                    System.out.println("DAR DE BAJA SELECCIONADO");
-                    eliminar(inObjeto);
-                    break;
+                    case 4:
+                        System.out.println("DAR DE BAJA SELECCIONADO");
+                        eliminar(inObjeto);
+                        break;
 
-                case 5:
-                    System.out.println("LISTAR SELECCIONADO");
-                    listar(inObjeto);
-                    break;
-                case 6:
-                    System.out.println("Fin de la conexión");
-                    salir(inObjeto);
-                    return;
+                    case 5:
+                        System.out.println("LISTAR SELECCIONADO");
+                        listar(inObjeto);
+                        break;
+                    case 6:
+                        System.out.println("Fin de la conexión");
+                        salir(inObjeto);
+                        return;
 
                 }
 

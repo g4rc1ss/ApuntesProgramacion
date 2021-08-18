@@ -1,9 +1,9 @@
-package Cifrado.Asimetrico.DSA;
+package DsaCipherExample.FirmadoDocumentos;
 
 /*Generación de claves pública y privada*/
 /*Se genera la pareja de claves, Se firma un mensaje con firma privada y se verifica con clave pública*/
 /**
- * @author david
+ * @author
  */
 
 import java.security.*;

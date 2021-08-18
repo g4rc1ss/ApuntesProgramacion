@@ -1,7 +1,7 @@
-package Cifrado.Asimetrico.RSA;
+package RsaCipherExample;
 
 public class RSA {
-    public void cifrarRSA(){
+    public void cifrarRSA() {
 
     }
 }

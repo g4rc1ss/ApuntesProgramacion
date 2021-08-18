@@ -1,4 +1,4 @@
-package Tratamiento.ArchivosTexto;
+package ArchivosTexto;
 
 import java.io.*;
 

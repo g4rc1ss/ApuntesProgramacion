@@ -1,4 +1,4 @@
-package internet.ConexionSocket.BBDD_Alumnos;
+package ConexionSocket.BBDD_Alumnos;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -32,62 +32,62 @@ public class Client {
                 opcion = Integer.parseInt(entrScan.nextLine());
 
                 switch (opcion) {
-                case 1:
-                    darAlta();
-                    break;
+                    case 1:
+                        darAlta();
+                        break;
 
-                case 2:
-                    System.out.println("----------------------------------------");
-                    System.out.println("------- SELECCIONADO -------");
-                    System.out.println("----------------------------------------");
-                    // Aqui le escribimos el DNI, porque el m�todo lo necesita
-                    System.out.println("Escribe el dni: ");
-                    Scanner entrScan2 = new Scanner(System.in);
-                    String nifConsultar = entrScan2.nextLine();
-                    buscadorNIF(nifConsultar);
-                    break;
+                    case 2:
+                        System.out.println("----------------------------------------");
+                        System.out.println("------- SELECCIONADO -------");
+                        System.out.println("----------------------------------------");
+                        // Aqui le escribimos el DNI, porque el m�todo lo necesita
+                        System.out.println("Escribe el dni: ");
+                        Scanner entrScan2 = new Scanner(System.in);
+                        String nifConsultar = entrScan2.nextLine();
+                        buscadorNIF(nifConsultar);
+                        break;
 
-                case 3:
+                    case 3:
 
-                    System.out.println("----------------------------------------");
-                    System.out.println("-------- MODIFICAR SELECCIONADO --------");
-                    System.out.println("----------------------------------------");
+                        System.out.println("----------------------------------------");
+                        System.out.println("-------- MODIFICAR SELECCIONADO --------");
+                        System.out.println("----------------------------------------");
 
-                    System.out.println("Escribe el NIF del alumno que quieres modificar: ");
-                    Scanner entrScan3 = new Scanner(System.in);
-                    String nifModificar = entrScan3.nextLine();
-                    modificarNIF(nifModificar);
-                    break;
+                        System.out.println("Escribe el NIF del alumno que quieres modificar: ");
+                        Scanner entrScan3 = new Scanner(System.in);
+                        String nifModificar = entrScan3.nextLine();
+                        modificarNIF(nifModificar);
+                        break;
 
-                case 4:
+                    case 4:
 
-                    System.out.println("----------------------------------------");
-                    System.out.println("------- DAR DE BAJA SELECCIONADO -------");
-                    System.out.println("----------------------------------------");
+                        System.out.println("----------------------------------------");
+                        System.out.println("------- DAR DE BAJA SELECCIONADO -------");
+                        System.out.println("----------------------------------------");
 
-                    System.out.println("Escribe el NIF del alumno que quieres dar de baja: ");
-                    Scanner entrScan4 = new Scanner(System.in);
-                    String nifEliminar = entrScan4.nextLine();
-                    eliminar(nifEliminar);
-                    break;
+                        System.out.println("Escribe el NIF del alumno que quieres dar de baja: ");
+                        Scanner entrScan4 = new Scanner(System.in);
+                        String nifEliminar = entrScan4.nextLine();
+                        eliminar(nifEliminar);
+                        break;
 
-                case 5:
+                    case 5:
 
-                    System.out.println("----------------------------------------");
-                    System.out.println("---- LISTAR POR CICLO SELECCIONADO -----");
-                    System.out.println("----------------------------------------");
+                        System.out.println("----------------------------------------");
+                        System.out.println("---- LISTAR POR CICLO SELECCIONADO -----");
+                        System.out.println("----------------------------------------");
 
-                    System.out.println("Escribe el ciclo que quieres listar ");
-                    Scanner entrScan5 = new Scanner(System.in);
-                    String ciclo = entrScan5.nextLine();
-                    listar(ciclo);
-                    break;
+                        System.out.println("Escribe el ciclo que quieres listar ");
+                        Scanner entrScan5 = new Scanner(System.in);
+                        String ciclo = entrScan5.nextLine();
+                        listar(ciclo);
+                        break;
 
-                case 6:
+                    case 6:
 
-                    cerrar();
-                    cliente.close();
-                    return;
+                        cerrar();
+                        cliente.close();
+                        return;
                 }
             }
         }

@@ -1,4 +1,4 @@
-package internet.ConexionSocket.MensajeriaConsoleSocket;
+package ConexionSocket.MensajeriaConsoleSocket;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -11,16 +11,16 @@ public class Cliente {
     static Socket cliente;
     static int opcion;
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         cliente = new Socket("localhost", 9999);
         System.out.println("1 > Mandar Mensaje");
         System.out.println("2 > Leer Mensaje");
         System.out.println("Selecciona una opcion> ");
         Scanner teclado = new Scanner(System.in);
 
-        while (true){
+        while (true) {
             opcion = teclado.nextInt();
-            switch (opcion){
+            switch (opcion) {
                 case 1:
                     System.out.println("Escribe el mensaje a mandar");
                     teclado.nextLine();
@@ -47,7 +47,7 @@ public class Cliente {
             try (ObjectOutputStream escribir = new ObjectOutputStream(cliente.getOutputStream())) {
                 escribir.writeUTF(mensaje);
             }
-        } catch (IOException ex){
+        } catch (IOException ex) {
         }
     }
 }

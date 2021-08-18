@@ -1,4 +1,4 @@
-package Tratamiento.Binarios;
+package Binarios;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,8 +1,8 @@
-package internet.ConexionSocket.BBDD_Alumnos;
+package ConexionSocket.BBDD_Alumnos;
 
 import java.io.Serializable;
 
-public class Alumno implements Serializable{
+public class Alumno implements Serializable {
 
     String Nombre;
     String Apellidos;
@@ -10,7 +10,7 @@ public class Alumno implements Serializable{
     String Telefono;
     String CicloForm;
     int Curso;
-	
+
     public Alumno(String Nombre, String Apellidos, String NIF, String Telefono, String CicloForm, int Curso) {
         this.Nombre = Nombre;
         this.Apellidos = Apellidos;
@@ -20,52 +20,52 @@ public class Alumno implements Serializable{
         this.Curso = Curso;
     }
 
-	public String getNombre() {
-		return Nombre;
-	}
+    public String getNombre() {
+        return Nombre;
+    }
 
-	public void setNombre(String nombre) {
-		Nombre = nombre;
-	}
+    public void setNombre(String nombre) {
+        Nombre = nombre;
+    }
 
-	public String getApellidos() {
-		return Apellidos;
-	}
+    public String getApellidos() {
+        return Apellidos;
+    }
 
-	public void setApellidos(String apellidos) {
-		Apellidos = apellidos;
-	}
+    public void setApellidos(String apellidos) {
+        Apellidos = apellidos;
+    }
 
-	public String getNIF() {
-		return NIF;
-	}
+    public String getNIF() {
+        return NIF;
+    }
 
-	public void setNIF(String nIF) {
-		NIF = nIF;
-	}
+    public void setNIF(String nIF) {
+        NIF = nIF;
+    }
 
-	public String getTelefono() {
-		return Telefono;
-	}
+    public String getTelefono() {
+        return Telefono;
+    }
 
-	public void setTelefono(String telefono) {
-		Telefono = telefono;
-	}
+    public void setTelefono(String telefono) {
+        Telefono = telefono;
+    }
 
-	public String getCicloForm() {
-		return CicloForm;
-	}
+    public String getCicloForm() {
+        return CicloForm;
+    }
 
-	public void setCicloForm(String cicloForm) {
-		CicloForm = cicloForm;
-	}
+    public void setCicloForm(String cicloForm) {
+        CicloForm = cicloForm;
+    }
 
-	public int getCurso() {
-		return Curso;
-	}
+    public int getCurso() {
+        return Curso;
+    }
 
-	public void setCurso(int curso) {
-		Curso = curso;
-	}
+    public void setCurso(int curso) {
+        Curso = curso;
+    }
 
 }
