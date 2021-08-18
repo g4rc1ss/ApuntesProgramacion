@@ -25,6 +25,7 @@ public class WriteRandomAccessFile {
             escribir.writeInt(valores.get(x));
             escribir.writeDouble(reales.get(x));
         }
+        escribir.close();
     }
 
 }
