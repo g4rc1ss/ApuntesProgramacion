@@ -1,3 +1,146 @@
+1. [Estructura del código](#estructura-del-código)
+
+	 1. [Declaración de variables](#declaración-de-variables)
+
+	 1. [Convertir tipos](#convertir-tipos)
+
+	 1. [Sentencias de flujo](#sentencias-de-flujo)
+
+	 1. [Operador ternario](#operador-ternario)
+
+	 1. [Bucles](#bucles)
+
+1. [Cadenas](#cadenas)
+
+	 1. [String](#string)
+
+		 1. [Literales](#literales)
+
+		 1. [Interpolacion de Cadenas](#interpolacion-de-cadenas)
+
+		 1. [Métodos de string](#métodos-de-string)
+
+	 1. [StringBuilder](#stringbuilder)
+
+1. [Colecciones](#colecciones)
+
+	 1. [Listas](#listas)
+
+		 1. [Métodos de listas](#métodos-de-listas)
+
+	 1. [Diccionarios](#diccionarios)
+
+		 1. [Métodos de diccionarios](#métodos-de-diccionarios)
+
+	 1. [Tuplas](#tuplas)
+
+	 1. [Tablas Hash](#tablas-hash)
+
+		 1. [Métodos de tablas hash](#métodos-de-tablas-hash)
+
+	 1. [Pilas](#pilas)
+
+		 1. [Métodos de pilas](#métodos-de-pilas)
+
+	 1. [Colas](#colas)
+
+		 1. [Métodos de colas](#métodos-de-colas)
+
+1. [Programación Orientada a Objetos](#programación-orientada-a-objetos)
+
+	 1. [Class](#class)
+
+	 1. [Static Class](#static-class)
+
+	 1. [Abstract Class](#abstract-class)
+
+	 1. [Sealed Class](#sealed-class)
+
+	 1. [Metodos](#metodos)
+
+	 1. [Propiedades](#propiedades)
+
+	 1. [Delegados](#delegados)
+
+	 1. [Herencia](#herencia)
+
+	 1. [Interface](#interface)
+
+1. [Conceptos Avanzados](#conceptos-avanzados)
+
+	 1. [Liberacion de Memoria](#liberacion-de-memoria)
+
+	 1. [Enumerador](#enumerador)
+
+	 1. [Indizadores](#indizadores)
+
+	 1. [Boxing y Unboxing](#boxing-y-unboxing)
+
+	 1. [Generics](#generics)
+
+		 1. [Constraints](#constraints)
+
+	 1. [Eventos](#eventos)
+
+	 1. [Codigo no Administrado](#codigo-no-administrado)
+
+		 1. [P/Invoke](#pinvoke)
+
+		 1. [Codigo inseguro](#codigo-inseguro)
+
+			 1. [Punteros](#punteros)
+
+1. [Tratamiento de Excepciones](#tratamiento-de-excepciones)
+
+	 1. [Excepciones](#excepciones)
+
+		 1. [Capurando las excepciones](#capurando-las-excepciones)
+
+		 1. [Provocando una excepcion](#provocando-una-excepcion)
+
+		 1. [Creando excepciones propias](#creando-excepciones-propias)
+
+1. [Programación Asincrona & MultiThreading](#programación-asincrona--multithreading)
+
+	 1. [Async & Await](#async--await)
+
+	 1. [Parallel](#parallel)
+
+		 1. [Parallel Invoke](#parallel-invoke)
+
+		 1. [Parallel For](#parallel-for)
+
+		 1. [Parallel ForEach](#parallel-foreach)
+
+1. [LINQ](#linq)
+
+	 1. [From](#from)
+
+	 1. [Join](#join)
+
+	 1. [Let](#let)
+
+	 1. [Where](#where)
+
+	 1. [Group by](#group-by)
+
+	 1. [Order by](#order-by)
+
+	 1. [ToList](#tolist)
+
+	 1. [ToArray](#toarray)
+
+	 1. [ToDictionary](#todictionary)
+
+	 1. [ToLookup](#tolookup)
+
+	 1. [Count](#count)
+
+	 1. [FirstOrDefault](#firstordefault)
+
+
+
+
 # Estructura del código
 
 ```Csharp
@@ -133,7 +276,7 @@ var saludo = "Hola";
 Console.WriteLine($"{saludo} terricola");
 ```
 
-### Métodos habituale
+### Métodos de string
 ---
 
 ```csharp
@@ -176,11 +319,11 @@ var cadenaCompleta = stringBuilder.ToString();
 Las colecciones proporcionan una manera más flexible de trabajar con grupos de objetos. A diferencia de las matrices, el grupo de objetos con el que trabaja puede aumentar y reducirse de manera dinámica a medida que cambian las necesidades de la aplicación
 
 ---
-## Listas:
+## Listas
 
 Una lista es un tipo de colección ordenada(un array)
 
-### Métodos habituales
+### Métodos de listas
 
 ```Csharp
 var lista = new List<string>() { "Hola" };
@@ -202,13 +345,13 @@ lista.Reverse();
 ```
 
 ---
-## Diccionarios:
+## Diccionarios
 
 Una clase de Diccionario es una estructura de datos que representa una colección de 
 claves y valores de pares de datos. La clave es idéntica en un par clave-valor y puede 
 tener como máximo un valor en el diccionario
 
-### Métodos habituales
+### Métodos de diccionarios
 
 ```Csharp
 var diccionario = new Dictionary<string, string>()
@@ -251,7 +394,7 @@ tupla.Item4;
 ## Tablas Hash
 Representa una colección de pares de clave y valor que se organizan por código hash de la clave
 
-### Métodos habituales
+### Métodos de tablas hash
 
 ```Csharp
 var tablaHash = new Hashtable();
@@ -278,7 +421,7 @@ El Stack es una coleccion LIFO(Last in, First Out) sin tamaño fijo de los objet
 
 Al usar la forma de almacenamiento LIFO, en la coleccion se trabaja todo el rato sobre los primeros elementos, osea que cuando agregas un elemento nuevo por ejemplo, no se guardaria en el ultimo indice, sino que se almacenaria en el indice 0, al principio de la coleccion.
 
-### Métodos habituales
+### Métodos de pilas
 ```Csharp
 var pila = new Stack<string>();
 pila.Push("prueba de push");
@@ -307,7 +450,7 @@ La Queue es una coleccion FIFO(First In, First Out).
 
 Al usar la forma de almacenamiento FIFO, a la hora de agregar elementos se tendran que ir agregando al final de la coleccion y a la hora de trabajar con ellos, se iran extrayendo del mas antiguo al mas nuevo, por tanto, se accedera a los primeros.
 
-### Métodos habituales
+### Métodos de colas
 ```Csharp
 var cola = new Queue<string>();
 cola.Enqueue("prueba de push");
@@ -494,7 +637,7 @@ public class PruebaInterfazImplícita : IMiInterfaz
 # Conceptos Avanzados
 
 ## Liberacion de Memoria
-La liberacion de memoria en .Net consiste en marchar ciertos objetos como "liberados", quiere decir, que son objetos que ya no se van a volver a usar y que quiere liberar el recurso que se esta usando o cerrar el proceso.
+La liberacion de memoria en .Net consiste en marcar ciertos objetos como "liberados", quiere decir, que son objetos que ya no se van a volver a usar y que quiere liberar el recurso que se esta usando o cerrar el proceso.
 
 Para dicha liberacion se ha de implementar una interfaz, que se llama `IDisposable` y tambien se suele hacer uso de los llamado Destructores.
 
@@ -659,6 +802,127 @@ Los constraints son condiciones que deben de cumplir el parametro que se le pasa
 | interfaceName | El argumento de tipo debe ser o implementar la interfaz especificada.
 | interfaceName? | El argumento de tipo debe ser o implementar la interfaz especificada. Puede ser un tipo de referencia que acepta valores NULL, un tipo de referencia que no acepta valores NULL o un tipo de valor.
 | where T: U | El argumento de tipo proporcionado para `T` debe ser o derivar del argumento proporcionado para `U`.
+
+---
+## Eventos
+Un evento es un mensaje que envía un objeto cuando ocurre una acción.
+
+Los eventos se realizan a mano en el codigo y son contenedores de un metodo Delegado que es el que se va a invocar.
+
+Por ejemplo al interactuar con una interfaz de escritorio, como WPF, se crea un objeto Button y se agrega al evento `Click` el metodo que se ha de ejecutar `Button_Click(object sender, RoutedEventArgs e)`  
+Por debajo lo que hace el codigo es detectar cuando se pulsa el boton y entonces, invoca el evento el cual tiene agregar como delegado el metodo que hemos escrito.
+
+Para crear y controlar un evento se realiza el siguiente codigo:
+
+```Csharp
+public static event EventHandler ExportEvent;
+
+public static void ExportEventCaller(ExportObject export)
+{
+    // El constructor de EventHandler recibe dos objetos, un object y un EventArgs
+    ExportEvent?.Invoke(export, null);
+}
+
+
+ExportAPI.ExportEvent += LoadEventCall;
+// LoadEventCall es el metodo que se va a ejecutar
+```
+
+---
+## Codigo no Administrado
+El codigo no administrado es un tipo de codigo al que no puede acceder el `Garbage Collector` para realizar el proceso de limpieza de memoria, por tanto hay que hacerlo manualmente.  
+Para eliminar los recursos no administrados se suele hacer uso de la interfaz `IDisposable` o el uso de destructores explicado en la seccion [Liberación de memoria](#liberacion-de-memoria)
+
+### P/Invoke 
+Es una tecnologia que permite hacer uso de librerias compiladas de forma nativa con lenguajes como `Rust`, `Cpp`, etc.  
+De esta forma permite realizar interoperabilidad con librerias de los diferentes sitemas como Windows, por ejemplo se puede hacer uso de esto para ejecutar librerias como el diseño de las GUi nativas.
+
+```rust
+#[no_mangle]
+pub extern fn add_numbers(number1: i32, number2: i32) -> i32 {
+    println!("Hola con Rust");
+    number1 + number2
+}
+
+/*
+> cargo new lib
+> cd lib
+Creamos el archivo lib.rs
+Editamos el archivo cargo.toml y agregamos:
+    [lib]
+    name="libreriaEjemploRust"
+    crate-type = ["dylib"]
+> cargo build
+```
+
+```Csharp
+[DllImport("libreriaEjemploRust.dll")]
+private static extern int add_numbers(int number1, int number2);
+
+public static void Main(string[] args)
+{
+    int suma = add_numbers(1, 2);
+    Console.WriteLine(suma);
+}
+```
+
+### Codigo inseguro
+La mayor parte del código de C# que se escribe es "código seguro comprobable". El código seguro comprobable significa que las herramientas de .NET pueden comprobar que el código es seguro. En general, el código seguro no accede directamente a la memoria mediante punteros. Tampoco asigna memoria sin procesar. En su lugar, crea objetos administrados.
+
+Este modo es un tipo de [Codigo no Administrado](#codigo-no-administrado) puesto que a este codigo no acceden las herramientas de .Net para liberar el especio de memoria que ocupan por ejemplo.
+
+El código no seguro tiene las propiedades siguientes:
+
+- Los métodos, tipos y bloques de código se pueden definir como no seguros.
+- En algunos casos, el código no seguro puede aumentar el rendimiento de la aplicación al eliminar las comprobaciones de límites de matriz.
+- El código no seguro es necesario al llamar a funciones nativas que requieren punteros.
+- El código no seguro presenta riesgos para la seguridad y la estabilidad.
+- El código que contenga bloques no seguros deberá compilarse con la opción del compilador AllowUnsafeBlocks.
+
+#### Punteros
+- `int* p`: p es un puntero a un entero.
+- `int** p`: p es un puntero a un puntero a un entero.
+- `int*[] p`: p es una matriz unidimensional de punteros a enteros.
+- `char* p`: p es un puntero a un valor char.
+- `void* p`: p es un puntero a un tipo desconocido.
+
+```Csharp
+unsafe
+{
+    int[] numeroParaFixed = new int[5] { 3000, 2000, 1, 2, 3 };
+    // La instrucción fixed evita que el recolector de elementos no utilizados reubique una variable móvil.
+    fixed (int* variable = &numeroParaFixed[0])
+    {
+        int* numero = variable;
+        Console.WriteLine(*numero);
+
+        *numero += 2;
+        Console.WriteLine(*numero);
+
+        *numero += 2;
+        Console.WriteLine(*numero);
+
+        *numero += 2;
+        Console.WriteLine(*numero);
+    }
+}
+```
+
+En la tabla siguiente se muestran los operadores e instrucciones que pueden funcionar en punteros en un contexto no seguro:
+
+| Operador/Instrucción | Usar |
+| -------------------- | ---- |
+| *  | Realiza el direccionamiento indirecto del puntero. |
+| -> |	Obtiene acceso a un miembro de un struct a través de un puntero. |
+| [] | Indiza un puntero. |
+| &  | Obtiene la dirección de una variable. |
+| ++ y -- |	Incrementa y disminuye los punteros. |
+| + y - | Realiza aritmética con punteros. |
+| ==, !=, <, >, <= y >= | Compara los punteros. |
+| stackalloc | Asigna memoria en la pila. |
+| Instrucción fixed | Fija provisionalmente una variable para que pueda encontrarse su dirección. |
+
+Mas informacion sobre codigo no seguro: [enlace](https://docs.microsoft.com/es-es/dotnet/csharp/language-reference/unsafe-code)
 
 ---
 # Tratamiento de Excepciones
@@ -894,42 +1158,42 @@ products.OrderByDescending(product => product.CategoryID);
 Para poder tratar las consultas, la api de LINQ devuelve objetos del tipo `IEnumerable<>` o `IQueryable<>`.  
 Hay diferentes formas de leer los datos, por un lado mediante un `foreach` se pueden iterar un `IEnumerable` y por otro lado, hay metodos que convierten los datos a una coleccion directamente.
 
-## ToList()
+## ToList
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).ToList();
 ```
 
-## ToArray()
+## ToArray
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).ToArray();
 ```
 
-## ToDictionary()
+## ToDictionary
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).ToDictionary(key => key.CategoryID, value => value.Name);
 ```
 
-## ToLookup()
+## ToLookup
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).ToLookup(key => key.CategoryID, value => value.Name);
 ```
 
-## Count()
+## Count
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).Count()
  ```
 
- ## FirstOrDefault()
+## FirstOrDefault
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
