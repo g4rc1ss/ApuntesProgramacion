@@ -1,6 +1,6 @@
 Param (
-    [string] $RUTA_ARCHIVO_ORIGEN = "C:\Users\garci\Documents\AplicacionesGit\ApuntesProgramacion\ApuntesCsharp\EstudioCsharp\EstudioCsharp.md",
-    [string] $RUTA_ARCHIVO_DESTINO = "C:\Users\garci\Documents\AplicacionesGit\ApuntesProgramacion\ApuntesCsharp\EstudioCsharp\Indices_EstudioCsharp.md"
+    [string] $RUTA_ARCHIVO_ORIGEN,
+    [string] $RUTA_ARCHIVO_DESTINO
 )
 
 try {
