@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "DesktopUI.Frontend": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "WPF_ENVIRONMENT": "Development"
+      },
+      "sqlDebugging": false
+    }
+  }
+}

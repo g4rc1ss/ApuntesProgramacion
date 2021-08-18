@@ -11,6 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ShellProgressBar" Version="5.0.0" />
+    <PackageReference Include="ShellProgressBar" Version="5.1.0" />
   </ItemGroup>
 </Project>
