@@ -47,7 +47,8 @@ try {
         
         foreach ($caracter in $caracteresEspeciales) {
             # Reemplazamos el caracter especial por un -
-            $textoLink = $textoLink.Replace($caracter, '-');
+            $textoLink = $textoLink.Replace("\b${caracter}\b", "-");
+            $textoLink = $textoLink.Replace("${caracter}", "");
         }
         # se pasa el contenido a minusculas, se reemplazan los simbolos # y luego se quitan los espacios en blanco por -
         $textoLink = $textoLink.ToLower().Replace("#", "").Trim().Replace(' ', '-')

@@ -84,7 +84,7 @@
 
 	 1. [Codigo no Administrado](#codigo-no-administrado)
 
-		 1. [P/Invoke](#p-invoke)
+		 1. [P/Invoke](#pinvoke)
 
 		 1. [Codigo inseguro](#codigo-inseguro)
 
@@ -137,6 +137,7 @@
 	 1. [Count](#count)
 
 	 1. [FirstOrDefault](#firstordefault)
+
 
 
 
