@@ -5,6 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Django",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}\\Web\\PruebaConceptoDjango\\_04_DatabaseModels",
+            "django": true,
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "runserver"
+            ],
+            "serverReadyAction": {
+                "pattern": ".*(http?:\\/\\/\\S+:[0-9]+\\/?).*",
+                "uriFormat": "%s",
+                "action": "openExternally"
+            }
+        },
+        {
             "name": "Python: Archivo actual",
             "type": "python",
             "request": "launch",
