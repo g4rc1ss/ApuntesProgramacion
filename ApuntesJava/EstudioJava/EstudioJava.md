@@ -163,7 +163,14 @@ Una lista es un tipo de colección ordenada(un array)
 ### Métodos de ArrayList
 
 ```Java
+// Agrega al ultimo elemento de la lista el objeto que se le pasa por parametro
+lista.add("me llamo Ralph");
 
+// Devuelve la posicion de la lista donde se ubica el objeto a buscar
+lista.indexOf("Hola");
+
+// Eliminar de la lista el objeto indicado
+lista.remove("me llamo Ralph");
 ```
 
 ---
@@ -176,65 +183,21 @@ tener como máximo un valor en el diccionario
 ### Métodos de diccionarios
 
 ```Java
-var diccionario = new Dictionary<string, string>()
-{
-    { "Clave", "Valor" },
-    {"Key", "Value" }
-};
-
-// Devuelve una lista con las claves del diccionario
-Dictionary<string, string>.KeyCollection claves = diccionario.Keys;
+var diccionario = new HashMap<String, String>();
+diccionario.put("Clave", "Valor");
+diccionario.put("Key", "Value");
 
 // Devuelve una lista con los valores del diccionario
-Dictionary<string, string>.ValueCollection valores = diccionario.Values;
+var valores = diccionario.values();
 
 // Devuelve un bool indicando si la clave existe en el diccionario
-diccionario.ContainsKey("Clave");
+diccionario.containsKey("Clave");
 
 // Elimina la Key del diccionario y por tanto, los valores asociados a la misma
-diccionario.Remove("Key");
+diccionario.remove("Key");
 
 // Metodo para obtener el valor asociado a la clave indicada
-diccionario.TryGetValue("Key", out string valor);
-
-```
-
-----
-## Tuplas
-Una tupla es una estructura de datos que contiene una secuencia de elementos de diferentes tipos, esta estructura es de solo lectura, por tanto se usa para almacenar objetos que no van a ser modificados después.
-
-```Java
-var tupla = new Tuple<string, bool, int, double>("cadena", false, 500, 578.98);
-
-tupla.Item1;
-tupla.Item2;
-tupla.Item3;
-tupla.Item4;
-```
-
-----
-## Tablas Hash
-Representa una colección de pares de clave y valor que se organizan por código hash de la clave
-
-### Métodos de tablas hash
-
-```Java
-var tablaHash = new Hashtable();
-
-// Agrega un nuevo elemento con el par clave-valor
-tablaHash.Add("Key", "Value");
-
-// Elimina la Clave y el valor asociado a la misma
-tablaHash.Remove("Key");
-
-// Devuelve un bool para saber si contiene la clave
-tablaHash.ContainsKey("Key");
-
-// Limpia todos los elementos de la tabla
-tablaHash.Clear();
-
-// Para acceder al valor asociado a la clave mediante el inidizador
-tablaHash["Key"];
+diccionario.get("Clave");
 ```
 
 ----
@@ -245,25 +208,25 @@ Al usar la forma de almacenamiento LIFO, en la coleccion se trabaja todo el rato
 
 ### Métodos de pilas
 ```Java
-var pila = new Stack<string>();
-pila.Push("prueba de push");
+ var pila = new Stack<String>();
+pila.push("prueba de push");
 
-// Agrega un nuevo elemento en la parte superior de Stack<T>
-pila.Push("Elemento");
+// Agrega un nuevo elemento en el ultimo indice
+pila.push("Elemento");
 
-// Elimina un elemento de la parte superior
-pila.Pop();
+// Elimina un elemento en el ultimo indice
+pila.pop();
 
-// Devuelve un eleemnto de la parte superior
-pila.Peek();
+// Devuelve un eleemnto en el ultimo indice
+pila.peek();
 
 // Limpia todos los elementos de la coleccion
-pila.Clear();
+pila.clear();
 
 // Convierte la pila en un array del tipo indicado
-pila.ToArray();
+pila.toArray();
 
-pila.Contains("objeto");
+pila.contains("objeto");
 ```
 
 ----
@@ -274,26 +237,26 @@ Al usar la forma de almacenamiento FIFO, a la hora de agregar elementos se tendr
 
 ### Métodos de colas
 ```Java
-var cola = new Queue<string>();
-cola.Enqueue("prueba de push");
+Queue<String> cola = new LinkedList<>();
+cola.add("prueba de push");
 
 // Agrega un nuevo elemento al final de la coleccion
-cola.Enqueue("Elemento");
+cola.add("Elemento");
 
 // Elimina el elemento mas antiguo, por tanto el primer elemento de la coleccion
-cola.Dequeue();
+cola.remove();
 
 // Devuelve el elemento mas antiguo de la coleccion
-cola.Peek();
+cola.peek();
 
 // Limpia todos los elementos de la coleccion
-cola.Clear();
+cola.clear();
 
 // Convierte la cola en un array del tipo indicado
-cola.ToArray();
+cola.toArray();
 
 // Comprobamos si la coleccion contiene un objeto especifico
-cola.Contains("objeto");
+cola.contains("objeto");
 ```
 
 ---
@@ -309,8 +272,7 @@ Las clases admiten herencia y polimorfismo, mecanismos por los que las clases de
 
 ```Java
 //[access modifier] - [class] - [identifier]
-public class Customer 
-{
+public class Customer {
    // Fields, properties, methods and events go here...
 }
 ```
@@ -321,13 +283,11 @@ public class Customer
 La instruccion `static` se usa cuando se quiere el acceso a un metodo o propiedad sin que tenga que ser instanciada la clase.
 
 Las clases estaticas estan bien usarlas cuando los datos almacenados no requieren de ser unicos o la clase no requiere de almacenar datos en si.
-por ejemplo, la libreria `Convert` de .Net solo realiza conversion de tipos, no requiere de almacenar dicha conversion.
+por ejemplo, la libreria `String` de Java realiza solo gestion sobre cadenas y las devuelve, no almacena nada de ellas.
 
 ```Java
-public static class A 
-{
-    public static void Metodo()
-    {
+public class A {
+    public static void Metodo() {
     }
 }
 ```
@@ -340,16 +300,19 @@ No se pueden crear instancias de una clase abstracta.
 La finalidad de una clase abstracta es ser una clase de la cual se hereda y te da la posibilidad de tener metodos base completamente funcionales y metodos abstractos, estos ultimos son metodos que han de ser "declarados" en la clase abstracta y sobreescritos en la clase que herede de la abstracta.
 
 ```Java
-internal abstract class A
-{
-    private void MetodoFuncional() => Console.WriteLine("");
+abstract class A {
+    private void MetodoFuncional() {
+        System.out.println("");
+    }
 
-    internal abstract void MetodoNoFuncional(string parametro);
+    abstract void MetodoNoFuncional(String parametro);
 }
 
-internal class B : A
-{
-    internal override void MetodoNoFuncional(string parametro) => throw new NotImplementedException();
+class B extends A {
+    @Override
+    void MetodoNoFuncional(String parametro) {
+        System.out.println("");
+    }
 }
 ```
 
@@ -359,10 +322,8 @@ El modificador `sealed` se usa para sellar una clase y que esta no pueda ser her
 
 Tambien se puede usar este modificador en metodos o propiedades para que estos no puedan ser sobreescritos
 ```Java
-sealed class SealedClass
-{
+final class FinalClass {
 }
-
 ```
 
 ----
@@ -370,30 +331,27 @@ sealed class SealedClass
 Un método es un bloque de código que contiene una serie de instrucciones.
 ```Java
 //[access modifier] - [type] - [identifier]
-private void Metodo()
-{
-    _ = Console.WriteLine("");
+private void Metodo() {
+    System.out.println("");
 }
 
-private string MetodoConReturn()
-{
-    return string.Empty;
+private String MetodoConReturn() {
+    return "";
 }
 ```
 
 ----
 ## Propiedades
-Las propiedades se comportan como campos cuando se obtiene acceso a ellas. Pero, a diferencia de los
-campos, las propiedades se implementan con descriptores de acceso que definen las instrucciones que se
-ejecutan cuando se tiene acceso a una propiedad o se asigna.
+Las propiedades se comportan como campos cuando se obtiene acceso a ellas. Pero, a diferencia de los campos, las propiedades se implementan con descriptores de acceso que definen las instrucciones que se ejecutan cuando se tiene acceso a una propiedad o se asigna.
 ```Java
-// Propiedad automatica
-public string propiedad { get; set; }
-// Definiendo el propio almacenamiento
-private string _propiedadDos;
-public string propiedadDos {
-    get { return _propiedadDos; }
-    set { _propiedadDos = value; }
+private String nombre;
+
+public String getNombre() {
+    return nombre;
+}
+
+public void setNombre(String nombre) {
+    this.nombre = nombre;
 }
 ```
 
