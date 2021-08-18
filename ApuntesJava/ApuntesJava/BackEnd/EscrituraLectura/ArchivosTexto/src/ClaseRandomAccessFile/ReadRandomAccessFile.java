@@ -1,17 +1,20 @@
-package Binarios;
+package ClaseRandomAccessFile;
 
 import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-public class Leer {
-    public static void main(String[] args) {
+public class ReadRandomAccessFile {
+    public ReadRandomAccessFile(String nombreArchivo) {
         try {
-            File archivo = new File("archivo.dat");//cargamos el fichero binario
-            RandomAccessFile leer = new RandomAccessFile(archivo, "r");//instanciamos el fichero aleatorio y le damos permisos lectura
+            //cargamos el fichero binario
+            File archivo = new File(nombreArchivo);
+            //instanciamos el fichero aleatorio y le damos permisos lectura
+            RandomAccessFile leer = new RandomAccessFile(archivo, "r");
             try {
-                while (true) {//bucle hasta que no haya mas a leer
+                //bucle hasta que no haya mas a leer
+                while (true) {
                     int valores = leer.readInt();
                     double reales = leer.readDouble();
                     System.out.println("Valores: " + valores + " reales: " + reales);

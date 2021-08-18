@@ -1,12 +1,15 @@
-package ArchivosTexto;
+package ClaseBuffered;
 
-import java.io.*;
 
-public class LeerFichTxtConBuffer {
-    public static void main(String[] args) {
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class ReadBuffered {
+    public ReadBuffered(String nombreArchivo) {
         try {
-            File fic = new File("FichTextoBuffer.txt");//declara fichero
-            BufferedReader fichero = new BufferedReader(new FileReader(fic));
+            BufferedReader fichero = new BufferedReader(new FileReader(nombreArchivo));
 
             String linea;
             while ((linea = fichero.readLine()) != null)
