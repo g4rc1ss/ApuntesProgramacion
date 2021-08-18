@@ -1,14 +1,17 @@
 package ConexionSocket.MensajeriaConsoleSocket;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Servidor {
-    public static void main(String[] args) throws Exception {
+    public Boolean ejecutar = true;
+
+    public Servidor() throws IOException {
         ServerSocket servidor = new ServerSocket(9999);
-        while (true) {
+        while (ejecutar) {
             Socket cliente = servidor.accept();
             ObjectInputStream paquete_datos = new ObjectInputStream(cliente.getInputStream());
             String mensaje = paquete_datos.readUTF();
@@ -20,5 +23,6 @@ public class Servidor {
                 paquete_envio.writeUTF(mensaje);
             }
         }
+        System.out.println("Servidor de mensajes cerrado");
     }
 }

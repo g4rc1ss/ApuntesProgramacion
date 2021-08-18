@@ -7,18 +7,19 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Cliente {
-
+    public Boolean ejecutar = true;
     static Socket cliente;
     static int opcion;
 
-    public static void main(String[] args) throws Exception {
+    public Cliente() throws Exception {
         cliente = new Socket("localhost", 9999);
         System.out.println("1 > Mandar Mensaje");
         System.out.println("2 > Leer Mensaje");
+        System.out.println("99 > Cerrar cliente");
         System.out.println("Selecciona una opcion> ");
         Scanner teclado = new Scanner(System.in);
 
-        while (true) {
+        while (ejecutar) {
             opcion = teclado.nextInt();
             switch (opcion) {
                 case 1:
@@ -30,6 +31,10 @@ public class Cliente {
                 case 2:
                     System.out.println("Leyendo mensaje...");
                     leerMensaje();
+                    break;
+                case 99:
+                    System.out.println("Cliente cerrado");
+                    ejecutar = false;
                     break;
             }
         }

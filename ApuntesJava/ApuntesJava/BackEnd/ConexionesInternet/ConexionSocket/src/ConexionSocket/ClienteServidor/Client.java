@@ -1,4 +1,4 @@
-package ConexionSocket.BBDD_Alumnos;
+package ConexionSocket.ClienteServidor;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -11,7 +11,7 @@ public class Client {
     static Socket cliente;
     static int opcion;
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public Client() throws IOException, ClassNotFoundException {
         while (true) {
             // COMPRUEBA QUE HAY CONEXION AL SERVIDOR
             if (conexion()) {
@@ -102,9 +102,7 @@ public class Client {
             cliente = new Socket(Host, Puerto);
             System.out.println("CONEXION ESTABLECIDA");
             return true;
-
         } catch (IOException ex) {
-
             return false;
         }
 
@@ -162,19 +160,14 @@ public class Client {
 
     // FUNCION PARA CONSULTAR POR NIF
     public static void buscadorNIF(String nif) throws IOException, ClassNotFoundException {
-
         try {
-
             try (ObjectOutputStream perSal2 = new ObjectOutputStream(cliente.getOutputStream())) {
                 perSal2.writeInt(2);
                 perSal2.writeUTF(nif);
-
             }
-
         } catch (IOException ex) {
             Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     // FUNCION MODIFICAR ALUMNOS

@@ -1,21 +1,23 @@
-package ConexionSocket.BBDD_Alumnos;
+package ConexionSocket.ClienteServidor;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
-
+    private static String NOMBRE_ARCHIVO;
+    public Boolean ejecutar = true;
     static Socket cliente;
     static Alumno buscar;
     static int op;
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public Server(String nombreArchivo) throws IOException, ClassNotFoundException {
+        NOMBRE_ARCHIVO = nombreArchivo;
 
         int numeroPuerto = 6000;// Puerto
         ServerSocket servidor = new ServerSocket(numeroPuerto);
 
-        while (true) {
+        while (ejecutar) {
             System.out.println("ESPERANDO CONEXION");
 
             cliente = servidor.accept();
@@ -54,18 +56,16 @@ public class Server {
                         System.out.println("Fin de la conexión");
                         salir(inObjeto);
                         return;
-
                 }
-
             }
-
         }
+        System.out.println("Servidor de BBDD cerrado");
     }
 
     public static void darAltaAlumno(ObjectInputStream inObjeto2) throws IOException, ClassNotFoundException {
 
         buscar = (Alumno) inObjeto2.readObject();
-        FileOutputStream archivo = new FileOutputStream("datos.dat", true);
+        FileOutputStream archivo = new FileOutputStream(NOMBRE_ARCHIVO, true);
         // salida.writeObject(buscar);
         try (ObjectOutputStream salida = new ObjectOutputStream(archivo)) {
             salida.writeObject(buscar);
@@ -78,7 +78,7 @@ public class Server {
     public static void buscadorNIF(ObjectInputStream inObjetos)
             throws FileNotFoundException, IOException, ClassNotFoundException {
 
-        String fichero = "datos.dat";
+        String fichero = NOMBRE_ARCHIVO;
         String niffichero = "";
         String bnif = inObjetos.readUTF();
 
@@ -134,7 +134,7 @@ public class Server {
     public static void eliminar(ObjectInputStream inObjetos)
             throws FileNotFoundException, IOException, ClassNotFoundException {
 
-        String fichero = "datos.dat";
+        String fichero = NOMBRE_ARCHIVO;
         String ficheroaux = "datosaux.dat";
         String niffichero = "";
         String bnif = inObjetos.readUTF();
@@ -178,7 +178,7 @@ public class Server {
             } else {
                 mifichero.close();
                 mificheroaux.close();
-                File a = new File("datos.dat");
+                File a = new File(NOMBRE_ARCHIVO);
                 a.delete();
                 File b = new File("datosaux.dat");
                 b.renameTo(a);
@@ -193,7 +193,7 @@ public class Server {
             throws FileNotFoundException, IOException, ClassNotFoundException {
 
         int sw = 0;
-        String fichero = "datos.dat";
+        String fichero = NOMBRE_ARCHIVO;
         String niffichero = "";
         String bciclo = inObjetos.readUTF();
         System.out.println("Listado de alumnos del Ciclo: " + bciclo);

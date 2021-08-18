@@ -1,4 +1,4 @@
-package ConexionSocket.BBDD_Alumnos;
+package ConexionSocket.ClienteServidor;
 
 import java.io.Serializable;
 

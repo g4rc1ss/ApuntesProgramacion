@@ -33,7 +33,7 @@ public class PortScan {
         int opcion = teclado.nextInt();
 
         if (opcion == 99)
-            System.exit(0);
+            return;
         else {
             System.out.println("Introduce el host a analizar");
             teclado.nextLine();
