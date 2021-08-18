@@ -1,20 +1,19 @@
-# Sintaxis Java
+# Estructura del código
+```Java
+package com.company;
 
-## Estructura del código
+import java.util.Scanner;
 
-````Java
-package sintaxis;
-import System;
+public class Main {
 
-public class ejemplosSintaxis{
-    public static void Main(string[] args){
-
+    public static void main(String[] args) {
+        
     }
 }
-````
+```
 - ``import`` -> Para importar librerías y módulos
 
-- ``package`` -> indica la ubicación del programa, debe de ir lo primero del código siempre
+- ``package`` -> indica la ubicación del programa
 
 - ``class`` -> Creamos una clase, que es un modulo que se usa para declarar objetos y tratarlos añadiendo funciones.
 
@@ -23,164 +22,295 @@ public class ejemplosSintaxis{
 ---
 ## Declaración de variables
 ```Java
-String a = "hoa"; int b = 2; double c = 2.0; boolean d = false;
+String a = "hoa";
+int b = 2;
+double c = 2.0;
+Boolean d = false;
 var x = "h";
-System.out.printf("%s %.2f %d %n %b", a, c, b, d);
+final int CONSTANTE = 2;
 ```
-`var` es un "comodín" que se usa para no tener que indicar el objeto que te viene de vuelta (un string, un int, un float, un obj)
-`printf`
- - Para String usamos = %s
- - Para double o float = %numEnteros.NumeroDecimalesf
- - Para integer = %d %n
- - Para boolean = %b
+- `var` Se usa para no tener que indicar el tipo de la variable, lo detecta automaticamente
+- `final` Se usa para establecer un valor que no puede ser modificado
+
 ---
 ## Convertir tipos
-```java
-String d2 = ""+d+"";
-int c2 = (int) c;
-float b2 = (float)b;
-System.out.printf("%s %.2f %d %n %b", a, c, b, d);
+```Java
+System.out.println((int)2.4f); // 2
+int x = 1;
+boolean bol = (x != 0); // true
+System.out.println(bol);
 ```
-
----
-## Métodos habituales en cadenas
-
-- ``cadena.replace(x, y)`` -> Devuelve una cadena en la que se reemplazan las letras o asi metidas en "x" por las de "y"
-
-- ``cadena.split(x)`` -> Devuelve un Array con la cadena separada dividiéndola cada vez que encuentre el char enviado, por defecto sera el símbolo '-'
-
-- ``cadena.startsWith(x)`` -> Devuelve true o false si inicia la cadena por "x", usado mucho en menus de opciones
-
----
-## Array:
-
-Una Array es un tipo de lista de variables ordenada en un único objeto
-````java
-String[] array = new String[5];
-String[] array2 = {"H", "o", "l", "a"};
-````
-
----
-## Listas:
-
-Una lista es un tipo de colección ordenada(un array)
-
-### Métodos habituales Listas
-
-- ``lista.add(x)`` -> Agrega al ultimo elemento de la lista "x"
-
-- ``lista.size()`` -> Devuelve el numero de elementos que tiene la lista
-
-- ``lista.indexOf(x)`` -> Devuelve la posición en laque se encuentra la primera x. se pueden poner los parámetros "start", "stop" que indican desde donde hasta donde del array recorrer
-
-- ``lista.remove(X)`` -> Elimina el primer valor "x" de la lista
-
-```java
-ArrayList<String> arrayList = new ArrayList<>();
-arrayList.add("");
-arrayList.add(3, ""); //3 es el indice
-```
-
----
-## Diccionarios:
-
-Un diccionario o tabla de hashes(en otros lenguajes) son colecciones que relacionan una clave y valor. osea que se asocia una especie de significado
-
-----
-### Métodos habituales de diccionario:
-- ``diccionario.containsKey(k)`` -> Devuelve el valor de la key
-
-- ``diccionario.Keys`` -> Devuelve una lista de claves
-
-- ``diccionario.remove(k)`` -> Borra el contenido asociado a la clave k
-
-- ``diccionario.values`` -> Devuelve una lista de los valores del diccionario
-
-```java
- Map<Integer, String> dictionary = new HashMap<Integer, String>();
-dictionary.put(0, "hola");
-System.out.println(dictionary.get(0));
-```
+Para convertir los tipos de datos se pueden usa el metodo `valueOf()` de los tipos habituales como Integer, String, etc.  
+En general se realizan casteos como arriba explicado
 
 ----
 ## Sentencias de flujo
+```Java
+if (true) {
 
-```java
-if (a == b || b == c &&  !d){
-    System.out.println("pasa por verdadero");
-} else if ( a != b){
-    System.out.println("diferente");
-} else{
-    System.out.println("pues nah!");
+} else if (true) {
+
+} else {
+
 }
 
-switch(b) {
-    case 0:
-        System.out.println("es 0");
+switch (opt) {
+    case "Hola":
         break;
-    case 1:
-        System.out.println("es 1");
-        break;
-    case 2:
-        System.out.println("es 2");
-        break;
-    case 3:
-        System.out.println("es 3");
+    default:
         break;
 }
 ```
 
 ---
 ## Operador ternario
-````java
-String a3 = "0";
-int b3 = 2;
-String ternario = a3.equals("0") ? a3 : Integer.toString(b3);
+````Java
+ArrayList<String> lista = null;
+"x".startsWith('d') ? "Empieza por D" : "Pues no, no empieza por d";
+assert lista != null;
 ````
+- En el operador ternario se realiza la comprobacion de un `bool` y se agregan dos simbolos, el `?` cuando se cumple la condicion y los `:` si no se cumple dicha condicion
+- El uso de `assert` se usa para comprobar el estado de un objeto, generalmente si este es null, la comprobacion se realiza y si es `false` lanzara una excepcion.
 
 ----
 ## Bucles
-```java
-int edad = 0;
-while (edad < 3) {
-    edad ++;
-    System.out.println(edad);
+```Java
+while (true) {
 }
 
-for(int x = 0; x < 3; x++){
-    edad ++;
-    System.out.printf("%d %n rango: %d %n", edad, x);
+for (int i = 0; i < 90; i++) {
 }
 
-for (var i : arrayList)
-    System.out.print(i);
-```
-----
-## Funciones
-```java
-private void imprimir(String texto){
-    imprimir(texto, 1);
+for (var item : list) {
 }
-private void imprimir(String texto, int veces){
-    for(int x = 0; x < veces; x ++)
-        System.out.println(texto);
-}
-new EjemploSintaxis().imprimir("hola, este es el texto");
 ```
-En java no hay parámetros opcionales, asique se deberá de sobrecargar métodos para ello
 
 ---
+# Cadenas
+
+## String
+Una cadena es un objeto de tipo String cuyo valor es texto. Internamente, el 
+texto se almacena como una colección secuencial de solo lectura de 
+objetos Char.
+
+### Literales
+| Secuencia de escape | Nombre de carácter | Codificación Unicode |
+| ------------------- | ------------------ | -------------------- |
+| \' | Comilla simple | 0x0027
+| \" | Comilla doble  | 0x0022
+| \\ | Barra diagonal inversa | 0x005C
+| \0 | Null | 0x0000
+| \b | Retroceso | 0x0008
+| \f | Avance de página | 0x000C
+| \n | Nueva línea | 0x000A
+| \r | Retorno de carro | 0x000D
+| \t | Tabulación horizontal | 0x0009
+
+### Concatenar Cadenas
+---
+La concatenacion de cadenas se utiliza para, en un String, agregar el contenido de una variable.
+```Java
+var saludo = "Hola";
+System.out.println((saludo + " terricola");
+```
+
+### Métodos de string
+---
+
+```Java
+var cadena = "Hola, yo me llamo Ralph, que tal estamos?";
+
+// Devuelve una cadena en la que se reemplazan los caracteres introducidos, el primero es el valor a cambiar y el segundo parametro el nuevo valor
+var cadenaReplace = cadena.replace(',', '\n');
+
+// Devuelve un Array con la cadena separada dividiéndola cada vez que encuentre el char enviado, por defecto sera el símbolo '-'
+var cadenaSplit = cadena.split("m");
+
+// Devuelve el indice donde se encuentra el caracter indicado
+var cadenaIndex = cadena.indexOf('m');
+
+// Compara el string con otro objeto, como por ejemplo, otra cadena
+var cadenaCompare = cadena.compareTo("Hola, yo me llamo Ralph");
+
+// Devuelve los caracteres entre una posicion de indice y otra, si no se indica la otra se devolvera la cadena desde el indice inicial
+var cadenaSubString = cadena.substring(3, 5);
+```
+
+---
+## StringBuilder
+StringBuilder es una clase de cadena mutable. Mutabilidad significa que una vez creada una instancia de la clase, se puede modificar anexando, quitando, reemplazando o insertando caracteres. 
+
+StringBuilder mantiene un búfer para alojar las modificaciones en la cadena.
+
+Los datos nuevos se anexan al búfer si hay espacio disponible; de lo contrario, se asigna un búfer nuevo y mayor, los datos del búfer original se copian en el nuevo búfer y, a continuación, los nuevos datos se anexan al nuevo búfer.
+
+```Java
+var stringBuilder = new StringBuilder();
+stringBuilder.append(true);
+stringBuilder.append("Terminado");
+var cadenaCompleta = stringBuilder.toString();
+```
+
+---
+# Colecciones
+Las colecciones proporcionan una manera más flexible de trabajar con grupos de objetos. A diferencia de las matrices, el grupo de objetos con el que trabaja puede aumentar y reducirse de manera dinámica a medida que cambian las necesidades de la aplicación
+
+---
+## Listas
+
+Una lista es un tipo de colección ordenada(un array)
+
+### Métodos de ArrayList
+
+```Java
+
+```
+
+---
+## Diccionarios
+
+Una clase de Diccionario es una estructura de datos que representa una colección de 
+claves y valores de pares de datos. La clave es idéntica en un par clave-valor y puede 
+tener como máximo un valor en el diccionario
+
+### Métodos de diccionarios
+
+```Java
+var diccionario = new Dictionary<string, string>()
+{
+    { "Clave", "Valor" },
+    {"Key", "Value" }
+};
+
+// Devuelve una lista con las claves del diccionario
+Dictionary<string, string>.KeyCollection claves = diccionario.Keys;
+
+// Devuelve una lista con los valores del diccionario
+Dictionary<string, string>.ValueCollection valores = diccionario.Values;
+
+// Devuelve un bool indicando si la clave existe en el diccionario
+diccionario.ContainsKey("Clave");
+
+// Elimina la Key del diccionario y por tanto, los valores asociados a la misma
+diccionario.Remove("Key");
+
+// Metodo para obtener el valor asociado a la clave indicada
+diccionario.TryGetValue("Key", out string valor);
+
+```
+
+----
+## Tuplas
+Una tupla es una estructura de datos que contiene una secuencia de elementos de diferentes tipos, esta estructura es de solo lectura, por tanto se usa para almacenar objetos que no van a ser modificados después.
+
+```Java
+var tupla = new Tuple<string, bool, int, double>("cadena", false, 500, 578.98);
+
+tupla.Item1;
+tupla.Item2;
+tupla.Item3;
+tupla.Item4;
+```
+
+----
+## Tablas Hash
+Representa una colección de pares de clave y valor que se organizan por código hash de la clave
+
+### Métodos de tablas hash
+
+```Java
+var tablaHash = new Hashtable();
+
+// Agrega un nuevo elemento con el par clave-valor
+tablaHash.Add("Key", "Value");
+
+// Elimina la Clave y el valor asociado a la misma
+tablaHash.Remove("Key");
+
+// Devuelve un bool para saber si contiene la clave
+tablaHash.ContainsKey("Key");
+
+// Limpia todos los elementos de la tabla
+tablaHash.Clear();
+
+// Para acceder al valor asociado a la clave mediante el inidizador
+tablaHash["Key"];
+```
+
+----
+## Pilas
+El Stack es una coleccion LIFO(Last in, First Out) sin tamaño fijo de los objetos indicados.
+
+Al usar la forma de almacenamiento LIFO, en la coleccion se trabaja todo el rato sobre los primeros elementos, osea que cuando agregas un elemento nuevo por ejemplo, no se guardaria en el ultimo indice, sino que se almacenaria en el indice 0, al principio de la coleccion.
+
+### Métodos de pilas
+```Java
+var pila = new Stack<string>();
+pila.Push("prueba de push");
+
+// Agrega un nuevo elemento en la parte superior de Stack<T>
+pila.Push("Elemento");
+
+// Elimina un elemento de la parte superior
+pila.Pop();
+
+// Devuelve un eleemnto de la parte superior
+pila.Peek();
+
+// Limpia todos los elementos de la coleccion
+pila.Clear();
+
+// Convierte la pila en un array del tipo indicado
+pila.ToArray();
+
+pila.Contains("objeto");
+```
+
+----
+## Colas
+La Queue es una coleccion FIFO(First In, First Out).
+
+Al usar la forma de almacenamiento FIFO, a la hora de agregar elementos se tendran que ir agregando al final de la coleccion y a la hora de trabajar con ellos, se iran extrayendo del mas antiguo al mas nuevo, por tanto, se accedera a los primeros.
+
+### Métodos de colas
+```Java
+var cola = new Queue<string>();
+cola.Enqueue("prueba de push");
+
+// Agrega un nuevo elemento al final de la coleccion
+cola.Enqueue("Elemento");
+
+// Elimina el elemento mas antiguo, por tanto el primer elemento de la coleccion
+cola.Dequeue();
+
+// Devuelve el elemento mas antiguo de la coleccion
+cola.Peek();
+
+// Limpia todos los elementos de la coleccion
+cola.Clear();
+
+// Convierte la cola en un array del tipo indicado
+cola.ToArray();
+
+// Comprobamos si la coleccion contiene un objeto especifico
+cola.Contains("objeto");
+```
+
+---
+# Programación Orientada a Objetos
+
 ## Class
 
 Una clase es una estructura de datos que combina estados (campos) y acciones (métodos y otros miembros de función) en una sola unidad. 
 
-De una clase se pueden hacer instancias y objetos para usar sus funciones etc y permitir la reutilizacion de código
+De una clase se pueden hacer instancias de objetos para usar sus metodos, propiedades, etc. Y de esta forma, poder reutilizar codigo.
 
 Las clases admiten herencia y polimorfismo, mecanismos por los que las clases derivadas pueden extender y especializar clases base.
 
-```java
+```Java
 //[access modifier] - [class] - [identifier]
-public class Customer {
+public class Customer 
+{
    // Fields, properties, methods and events go here...
 }
 ```
@@ -188,13 +318,16 @@ public class Customer {
 ---
 ## Static Class
 
-Los `static` se usan para no tener que instanciar clases o métodos con objetos.
+La instruccion `static` se usa cuando se quiere el acceso a un metodo o propiedad sin que tenga que ser instanciada la clase.
 
-Todos los métodos, propiedades, variables, etc. Deberán de ser `static`
+Las clases estaticas estan bien usarlas cuando los datos almacenados no requieren de ser unicos o la clase no requiere de almacenar datos en si.
+por ejemplo, la libreria `Convert` de .Net solo realiza conversion de tipos, no requiere de almacenar dicha conversion.
 
-```java
-public static class A {
-    public static void metodo(){
+```Java
+public static class A 
+{
+    public static void Metodo()
+    {
     }
 }
 ```
@@ -204,11 +337,177 @@ public static class A {
 
 No se pueden crear instancias de una clase abstracta. 
 
-El propósito de una clase abstracta es para el uso de herencias, tiene una funcionalidad parecida a las `interface`, te obligan a heredar métodos, propiedades, variables...
+La finalidad de una clase abstracta es ser una clase de la cual se hereda y te da la posibilidad de tener metodos base completamente funcionales y metodos abstractos, estos ultimos son metodos que han de ser "declarados" en la clase abstracta y sobreescritos en la clase que herede de la abstracta.
 
-```java
-public abstract class A {
-    // Class members here.
+```Java
+internal abstract class A
+{
+    private void MetodoFuncional() => Console.WriteLine("");
+
+    internal abstract void MetodoNoFuncional(string parametro);
+}
+
+internal class B : A
+{
+    internal override void MetodoNoFuncional(string parametro) => throw new NotImplementedException();
+}
+```
+
+----
+## Sealed Class
+El modificador `sealed` se usa para sellar una clase y que esta no pueda ser heredada.
+
+Tambien se puede usar este modificador en metodos o propiedades para que estos no puedan ser sobreescritos
+```Java
+sealed class SealedClass
+{
+}
+
+```
+
+----
+## Metodos
+Un método es un bloque de código que contiene una serie de instrucciones.
+```Java
+//[access modifier] - [type] - [identifier]
+private void Metodo()
+{
+    _ = Console.WriteLine("");
+}
+
+private string MetodoConReturn()
+{
+    return string.Empty;
+}
+```
+
+----
+## Propiedades
+Las propiedades se comportan como campos cuando se obtiene acceso a ellas. Pero, a diferencia de los
+campos, las propiedades se implementan con descriptores de acceso que definen las instrucciones que se
+ejecutan cuando se tiene acceso a una propiedad o se asigna.
+```Java
+// Propiedad automatica
+public string propiedad { get; set; }
+// Definiendo el propio almacenamiento
+private string _propiedadDos;
+public string propiedadDos {
+    get { return _propiedadDos; }
+    set { _propiedadDos = value; }
+}
+```
+
+----
+## Delegados
+Un delegate es un tipo de referencia que puede utilizarse para encapsular un método con nombre o anónimo.
+
+Imaginemos que podemos crear un método, almacenarlo en un objeto y pasarlo como parámetro de una función, pues en eso consiste.
+```Java
+
+internal void MetodoDelegado(List<string> coleccion, Action<string> delegado)
+{
+    foreach (var item in coleccion)
+    {
+        delegado?.Invoke(item);
+    }
+}
+
+clase.MetodoDelegado(new List<string>() { "Hola", "Adios" }, (x) =>
+{
+    Console.WriteLine(x.Contains("Ho"));
+});
+```
+
+---
+## Herencia
+La herencia significa que se pueden crear nuevas clases partiendo de clases existentes, que tendrá todas los atributos, propiedades y los métodos de su 'superclass' o 'clase padre' y además se le podrán añadir otros atributos, propiedades y métodos propios.
+
+```Java
+public class Clase : SuperClase 
+{
+}
+```
+
+---
+## Interface
+Las interfaces, como las clases, definen un conjunto de propiedades, métodos y eventos. Pero de forma contraria a las clases, las interfaces no proporcionan implementación.
+
+Se implementan como clases y se definen como entidades separadas de las clases.
+
+Una interfaz representa un contrato, en el cual una clase que implementa una interfaz debe implementar cualquier aspecto de dicha interfaz exactamente como esté definido
+
+El beneficio que da las interfaces es que permite tener una capa de abstraccion en el codigo, donde puedes hacer uso de ella para ejecutar ciertas clases usando la interfaz como instancia.
+
+Por ejemplo una de las cosas que se consiguen mediante las interfaces es la api Linq, Linq hace uso de la interfaz `IEnumerable` para procesar los datos, por tanto, si yo ahora creo una coleccion mia propia que implemente dicha interfaz, podre hacer uso de las funciones de consulta de LINQ y todo es porque la api lo que espera recibir es una clase que tenga implementada esa interfaz.
+La interfaz tiene una serie de metodos implementados y Linq hace uso de ellos para leer y procesar la coleccion.
+
+```Java
+interface IMiInterfaz
+{
+    void MiMetodo();
+}
+
+public class PruebaInterfazImplícita : IMiInterfaz 
+{
+    public void MiMetodo() 
+    {    
+    }
+}
+```
+
+---
+# Conceptos Avanzados
+
+## Liberacion de Memoria
+La liberacion de memoria en .Net consiste en marcar ciertos objetos como "liberados", quiere decir, que son objetos que ya no se van a volver a usar y que quiere liberar el recurso que se esta usando o cerrar el proceso.
+
+Para dicha liberacion se ha de implementar una interfaz, que se llama `IDisposable` y tambien se suele hacer uso de los llamado Destructores.
+
+El método Dispose se implementa para liberar recursos de la clase donde se implementa, sobretodo se usa para gestión de código no administrado como usos como conexiones a BBDD, Streams, etc.
+
+```Java
+public void Dispose()
+{
+    this.Dispose(true);
+    GC.SuppressFinalize(this);
+}
+
+protected virtual void Dispose(bool disposing)
+{
+    if (disposing)
+    {
+        // Liberamos los recursos
+        // En un clase como stream por ejemplo, aqui se ejecutaria el metodo Close()
+    }
+}
+```
+
+En todas las clases que tengan implementada la interfaz `IDisposable` se puede usar la instruccion `using` para liberar los recursos automaticamente cuando se acaba la sentencia.
+
+```Java
+using (var objeto = File.Create(""))
+{
+    objeto.ToString();
+}
+
+using var @object = File.Create("");
+```
+
+Los finalizadores (también denominados destructores) se usan para realizar cualquier limpieza final necesaria cuando el recolector de basura va a liberar el objeto de memoria
+
+- Los finalizadores no se pueden definir en struct. Solo se usan con clases.
+- Una clase solo puede tener un finalizador.
+- Los finalizadores no se pueden heredar ni sobrecargar.
+- No se puede llamar a los finalizadores. Se invocan automáticamente.
+- Un finalizador no permite modificadores ni tiene parámetros.
+
+```Java
+internal class Program
+{
+    ~Program()
+    {
+        // Instrucciones para la limpieza de recursos
+    }
 }
 ```
 
@@ -221,49 +520,504 @@ El objetivo fundamental de implementar una enumeración es facilitar la legibili
 Supongamos que necesitamos almacenar en un juego de cartas el tipo de carta actual (oro, basto, copa o espada), podemos definir una variable entera y almacenar un 1 si es oro, un 2 si es basto y así sucesivamente.
 Luego mediante if podemos analizar el valor de esa variable y proceder de acuerdo al valor existente.
 
-```java
-public enum EnumeradorCSharp {
-    hola,
-    adios
+```Java
+public enum EnumeradorCartas {
+    oro,
+    basto,
+    copa,
+    espada
 }
 ```
 
 ---
-## Herencia
-La herencia significa que se pueden crear nuevas clases partiendo de clases existentes, que tendrá todas los atributos, propiedades y los métodos de su 'superclass' o 'clase padre' y además se le podrán añadir otros atributos, propiedades y métodos propios.
+## Indizadores
+Permiten crear una clase, un struct o una interfaz con un "indice" al que se accederá a traves del objeto instanciado de la clase, no hace falta acceder a la matriz como tal.
+```Java
+public class ClaseIndex
+{
+    private readonly float[] temps = new float[10] { 56.2F, 56.7F, 56.5F, 56.9F, 58.8F,
+                                            61.3F, 65.9F, 62.1F, 59.2F, 57.5F };
+    public float this[int index] {
+        get {
+            return temps[index];
+        }
+        set {
+            temps[index] = value;
+        }
+    }
+    public int Contador {
+        get {
+            return temps.Length;
+        }
+    }
+}
 
-```java
-public class Clase extends SuperClase {
+public static void Main(string[] args)
+{
+    var objetoIndice = new ClaseIndex();
 
+    objetoIndice[1] = 58.3F;
+    objetoIndice[5] = 98.4F;
+
+    for (int x = 0; x < objetoIndice.Contador; x++)
+        Console.WriteLine(objetoIndice[x]);
 }
 ```
 
 ---
-## Interface
+## Boxing y Unboxing
+Todos los tipos de C# directa o indirectamente se derivan del tipo de clase object, y object es la clase base definitiva de todos los tipos. Los valores de tipos de referencia se tratan como objetos mediante la visualización de los valores como tipo object.
 
-Las interfaces se usan para definir atributos o métodos para herencia de una clase. Por ejemplo una `interface Ianimal` se definirá el método `int numPatas();` que retornada el numero de patas del animal, al implementar la interfaz habrá que crear un método de igual nombre que retorne el numero de patas. Es usado para definir la clase de herencia
+Los valores de tipos de valor se tratan como objetos mediante la realización de operaciones de conversión boxing y operaciones de conversión unboxing
 
-```java
-public class PruebaInterfazImplícita implements IMiInterfaz {
-    public void MiMetodo() {
-	    System.out.println("Hola");
+```Java
+int i = 123;
+object o = i; // Boxing
+int j = (int)o; // Unboxing
+```
+
+---
+## Generics
+Los genéricos introducen en .NET el concepto de parámetros de tipo, lo que le permite diseñar clases y métodos que aplazan la especificación de uno o varios tipos hasta que el código de cliente declare y cree una instancia de la clase o el método.
+
+Para que usar los genéricos?
+- Use tipos genéricos para maximizar la reutilización del código, la seguridad de tipos y el rendimiento.
+- El uso más común de los genéricos es crear clases de colección.
+La biblioteca de clases .NET Framework contiene varias clases de colección genéricas nuevas en el espacio de nombres System.Collections.Generic. Estas se deberían usar siempre que sea posible en lugar de clases como ArrayList en el espacio de nombres System.Collections.
+- Puede crear sus propias interfaces, clases, métodos, eventos y delegados genéricos.
+- Puede limitar las clases genéricas para habilitar el acceso a métodos en tipos de datos determinados.
+- Puede obtener información sobre los tipos que se usan en un tipo de datos genérico en tiempo de ejecución mediante la reflexión
+
+```Java
+class ClaseGenerica<T> where T : class, IEnumerable, new()
+{
+    public void Add(T input)
+    {
+    }
+}
+
+class ClaseIEnumerable : IEnumerable
+{
+    public ClaseIEnumerable()
+    {
+
+    }
+
+    public IEnumerator GetEnumerator() => throw new NotImplementedException();
+    IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
+}
+```
+
+### Constraints
+Los constraints son condiciones que deben de cumplir el parametro que se le pasa al generic para que funcione.
+
+| Constraint | Descripción |
+| ---------- | ----------- |
+| class | El argumento de tipo debe ser cualquier clase, interfaz, delegado o tipo de matriz. |
+| class? |	El argumento de tipo debe ser una clase, interfaz, delegado o tipo de matriz que acepte valores NULL o que no acepte valores NULL. |
+| struct | El argumento de tipo debe ser tipos de valor que no aceptan valores NULL, como los tipos de datos primitivos int, char, bool, float, etc.
+| new() |	El argumento de tipo debe ser un tipo de referencia que tenga un constructor público sin parámetros. No se puede combinar con restricciones. `struct unmanaged`
+| notnull |	Disponible en C# 8.0 en adelante. El argumento de tipo puede ser tipos de referencia que no aceptan valores NULL o tipos de valor. Si no es así, el compilador genera una advertencia en lugar de un error.
+| unmanaged | El argumento de tipo debe ser tipos no permitidos queno aceptan valores NULL.
+| baseClassName | El argumento de tipo debe ser o derivar de la clase base especificada. Las clases Object, Array, ValueType no se pueden como restricción de clase base. Enum, Delegate, MulticastDelegate no se admiten como restricción de clase base antes de C# 7.3.
+| baseClassName? | El argumento de tipo debe ser o derivar de la clase base especificada que acepta valores NULL o que no acepta valores NULL.
+| interfaceName | El argumento de tipo debe ser o implementar la interfaz especificada.
+| interfaceName? | El argumento de tipo debe ser o implementar la interfaz especificada. Puede ser un tipo de referencia que acepta valores NULL, un tipo de referencia que no acepta valores NULL o un tipo de valor.
+| where T: U | El argumento de tipo proporcionado para `T` debe ser o derivar del argumento proporcionado para `U`.
+
+---
+## Eventos
+Un evento es un mensaje que envía un objeto cuando ocurre una acción.
+
+Los eventos se realizan a mano en el codigo y son contenedores de un metodo Delegado que es el que se va a invocar.
+
+Por ejemplo al interactuar con una interfaz de escritorio, como WPF, se crea un objeto Button y se agrega al evento `Click` el metodo que se ha de ejecutar `Button_Click(object sender, RoutedEventArgs e)`  
+Por debajo lo que hace el codigo es detectar cuando se pulsa el boton y entonces, invoca el evento el cual tiene agregar como delegado el metodo que hemos escrito.
+
+Para crear y controlar un evento se realiza el siguiente codigo:
+
+```Java
+public static event EventHandler ExportEvent;
+
+public static void ExportEventCaller(ExportObject export)
+{
+    // El constructor de EventHandler recibe dos objetos, un object y un EventArgs
+    ExportEvent?.Invoke(export, null);
+}
+
+
+ExportAPI.ExportEvent += LoadEventCall;
+// LoadEventCall es el metodo que se va a ejecutar
+```
+
+---
+## Codigo no Administrado
+El codigo no administrado es un tipo de codigo al que no puede acceder el `Garbage Collector` para realizar el proceso de limpieza de memoria, por tanto hay que hacerlo manualmente.  
+Para eliminar los recursos no administrados se suele hacer uso de la interfaz `IDisposable` o el uso de destructores explicado en la seccion [Liberación de memoria](#liberacion-de-memoria)
+
+### P/Invoke 
+Es una tecnologia que permite hacer uso de librerias compiladas de forma nativa con lenguajes como `Rust`, `Cpp`, etc.  
+De esta forma permite realizar interoperabilidad con librerias de los diferentes sitemas como Windows, por ejemplo se puede hacer uso de esto para ejecutar librerias como el diseño de las GUi nativas.
+
+```rust
+#[no_mangle]
+pub extern fn add_numbers(number1: i32, number2: i32) -> i32 {
+    println!("Hola con Rust");
+    number1 + number2
+}
+
+/*
+> cargo new lib
+> cd lib
+Creamos el archivo lib.rs
+Editamos el archivo cargo.toml y agregamos:
+    [lib]
+    name="libreriaEjemploRust"
+    crate-type = ["dylib"]
+> cargo build
+```
+
+```Java
+[DllImport("libreriaEjemploRust.dll")]
+private static extern int add_numbers(int number1, int number2);
+
+public static void Main(string[] args)
+{
+    int suma = add_numbers(1, 2);
+    Console.WriteLine(suma);
+}
+```
+
+### Codigo inseguro
+La mayor parte del código de C# que se escribe es "código seguro comprobable". El código seguro comprobable significa que las herramientas de .NET pueden comprobar que el código es seguro. En general, el código seguro no accede directamente a la memoria mediante punteros. Tampoco asigna memoria sin procesar. En su lugar, crea objetos administrados.
+
+Este modo es un tipo de [Codigo no Administrado](#codigo-no-administrado) puesto que a este codigo no acceden las herramientas de .Net para liberar el especio de memoria que ocupan por ejemplo.
+
+El código no seguro tiene las propiedades siguientes:
+
+- Los métodos, tipos y bloques de código se pueden definir como no seguros.
+- En algunos casos, el código no seguro puede aumentar el rendimiento de la aplicación al eliminar las comprobaciones de límites de matriz.
+- El código no seguro es necesario al llamar a funciones nativas que requieren punteros.
+- El código no seguro presenta riesgos para la seguridad y la estabilidad.
+- El código que contenga bloques no seguros deberá compilarse con la opción del compilador AllowUnsafeBlocks.
+
+#### Punteros
+- `int* p`: p es un puntero a un entero.
+- `int** p`: p es un puntero a un puntero a un entero.
+- `int*[] p`: p es una matriz unidimensional de punteros a enteros.
+- `char* p`: p es un puntero a un valor char.
+- `void* p`: p es un puntero a un tipo desconocido.
+
+```Java
+unsafe
+{
+    int[] numeroParaFixed = new int[5] { 3000, 2000, 1, 2, 3 };
+    // La instrucción fixed evita que el recolector de elementos no utilizados reubique una variable móvil.
+    fixed (int* variable = &numeroParaFixed[0])
+    {
+        int* numero = variable;
+        Console.WriteLine(*numero);
+
+        *numero += 2;
+        Console.WriteLine(*numero);
+
+        *numero += 2;
+        Console.WriteLine(*numero);
+
+        *numero += 2;
+        Console.WriteLine(*numero);
+    }
+}
+```
+
+En la tabla siguiente se muestran los operadores e instrucciones que pueden funcionar en punteros en un contexto no seguro:
+
+| Operador/Instrucción | Usar |
+| -------------------- | ---- |
+| *  | Realiza el direccionamiento indirecto del puntero. |
+| -> |	Obtiene acceso a un miembro de un struct a través de un puntero. |
+| [] | Indiza un puntero. |
+| &  | Obtiene la dirección de una variable. |
+| ++ y -- |	Incrementa y disminuye los punteros. |
+| + y - | Realiza aritmética con punteros. |
+| ==, !=, <, >, <= y >= | Compara los punteros. |
+| stackalloc | Asigna memoria en la pila. |
+| Instrucción fixed | Fija provisionalmente una variable para que pueda encontrarse su dirección. |
+
+Mas informacion sobre codigo no seguro: [enlace](https://docs.microsoft.com/es-es/dotnet/csharp/language-reference/unsafe-code)
+
+---
+# Tratamiento de Excepciones
+
+## Excepciones
+Una excepción es cualquier condición de error o comportamiento inesperado que encuentra un programa en ejecución. 
+
+Las excepciones pueden iniciarse debido a un error en el código propio o en el código al que se llama (por ejemplo, una biblioteca compartida), a recursos del sistema operativo no disponibles, a condiciones inesperadas que encuentra el runtime (por ejemplo, imposibilidad de comprobar el código), etc.
+
+### Capurando las excepciones
+```Java
+try
+{
+    // Ejecucion del codigo que puede llegar a tener una excepcion
+}
+catch (Exception ex)
+{
+    // Se ha producido la excepcion y se obtiene un objeto de tipo Exception
+    // Este objeto contiene unos valores para rastrear el motivo del error
+}
+finally
+{
+    // Esta es una parte del codigo que se ejecuta siempre aunque se produzca la excepcion
+    // Y generalmente se usa para cerrar recursos, por ejemplo, abres una conexion con
+    // la base de datos y a la hora de recibir los datos se produce la excepcion,
+    // pues pasara por aqui para cerrar la conexion con la base de datos.
+}
+```
+
+### Provocando una excepcion
+```Java
+public static void Main(string[] args)
+{
+    throw new ArgumentNullException($"El parametro {nameof(args)} es nulo");
+}
+```
+
+### Creando excepciones propias
+```Java
+class MyException : Exception
+{
+    public MyException() : base()
+    {
+    }
+
+    public MyException(string message) : base(message)
+    {
+    }
+
+    public MyException(string message, Exception innerException) : base(message, innerException)
+    {
+    }
+
+    protected MyException(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
     }
 }
 ```
 
 ---
-## Excepciones
-Las excepciones son errores durante la ejecución del programa y lo que se hace es intentar solucionar el error o mostrar un mensaje mas claro sobre el problema al usuario, por ejemplo: se necesita ser super usuario, se esta dividiendo entre 0, no hay conexión a internet...
+# Programación Asincrona & MultiThreading
 
-```java
-try {
-    int numero = 0;
-    int resultado = 2 / numero;
-} catch(ArithmeticException zero) {
-    System.out.printf("Estas dividiendo entre 0 %s", zero.getMessage());
-} catch(Exception ex) {
-    System.out.printf("Estas haciendo algo mal %s", ex.getMessage());
-} finally {
-    //Aquí se suele añadir instrucciones de finalizacion del programa o cerrado de archivos
+## Async & Await
+El núcleo de la programación asincrónica son los objetos `Task` y `Task<T>`, que modelan las operaciones asincrónicas. Son compatibles con las palabras clave `async` y `await`. El modelo es bastante sencillo en la mayoría de los casos:
+
+- Para el código enlazado a E/S, espera una operación que devuelva `Task` o `Task<T>` dentro de un método async.
+- Para el código enlazado a la CPU, espera una operación que se inicia en un subproceso en segundo plano con el método `Task.Run`.
+
+La palabra clave `await` es donde ocurre la magia. Genera control para el autor de la llamada del método que ha realizado `await`, y permite una interfaz de usuario con capacidad de respuesta o un servicio flexible.
+
+Por ejemplo, en una interfaz Desktop, si se usa el patron en las operaciones costosas, la interfaz no se bloqueará mientras se ejecutan las instrucciones.  
+En una aplicacion web como `ASP.NET` usar el patron hara que se puedan recibir mas peticiones mientras las peticiones anteriores estan en espera de que termine el proceso que ocupa tiempo, como por ejemplo, una consulta a BBDD.
+
+```Java
+public async Task MetodoAsync()
+{
+    // Para operaciones E/S
+    var stringData = await _httpClient.GetStringAsync(URL);
+
+    // Para operaciones enlazadas a la CPU
+    await Task.Run(() => 
+    {
+        // Ejecucion de codigo costoso en tiempo
+        Thread.Sleep(10000)
+    });
 }
 ```
+
+---
+## Parallel
+Muchos equipos y estaciones de trabajo personales tienen varios núcleos de CPU que permiten ejecutar múltiples subprocesos simultáneamente. Para aprovecharse del hardware, se puede paralelizar el código para distribuir el trabajo entre dichos núcleos.
+
+Por ejemplo, imaginemos que tenemos una aplicacion que requiere de realizar 3 consultas para obtener datos diferentes de una BBDD, aprovechandonos del multithreading, podemos hacer uso de la clase Parallel para realizar esas consultas de forma paralelizada y reducir los tiempos.
+
+### Parallel Invoke
+Permite la ejecucion paralelizada de un array de delegados
+
+Cuando se ejecuta la instruccion, el metodo Invoke recibe un array de delegados que ejecutaran en un hilo nuevo y esperara a que estos terminen
+```Java
+Parallel.Invoke(
+    () => objeto.Metodo1(),
+    () =>
+    {
+        objeto = new Program();
+    }
+);
+```
+
+### Parallel For
+Permite la ejecucion paralelizada de la lectura de una coleccion que implemente `IEnumerable`
+
+```Java
+Parallel.For(0, collection.Count, (x, state) =>
+{
+    Console.WriteLine($"Valor de la coleccion - {collection[x]} \n" +
+        $"Estado del hilo {state.IsStopped}");
+});
+```
+- El primer parámetro del método se envía el numero por el que se empieza
+- El segundo parámetro se envía el numero final de la iteración
+- En el tercer parámetro se envían 1 o 2 parámetros
+    - `int`: que contendrá el número por el que va la iteración
+    - `ParallelLoopState`: un objeto que se encargara de gestionar los      estados de los hilos, pudiendo parar la ejecución, etc.
+
+### Parallel ForEach
+El bucle paralelizado ForEach, permite leer una coleccion que implementa `IEnumerable` al igual que el bucle paralelizado For, la diferencia reside en que en ForEach obtienes ya el objeto del indice.
+
+```Java
+Parallel.ForEach(collection, (item, state, index) =>
+{
+    Console.WriteLine($"Valor de la coleccion - {item} \n" +
+        $"Manipulacion de estado de los hilos {state.LowestBreakIteration} \n" +
+        $"Indice en el que estamos posicionados actualmente - {index}");
+});
+```
+- El primer parámetro se envía el objeto que queremos leer, un List<string> por ejemplo
+- El segundo parámetro va la lambda que puede recibir dos parámetros
+    - `obj` Contendrá un objeto del tipo de la lista y solo 1 elemento de dicha lista, es lo mismo que si a un array le hacemos un objetoArray[x] con un for normal.
+    - `ParallelLoopState` Un objeto que se encargara de gestionar los estados de los hilos, pudiendo parar la ejecución, etc.
+    - `index` Una propiedad que devuelve en que indice de la coleccion estamos.
+
+---
+# LINQ
+Linq es una API orientada al uso de consultas a diferentes tipos de contenido, como objetos, entidades, XML, etc. De esta manera se resume en una sintaxis sencilla y fácil de leer, tratar y mantener el tratamiento de diferentes tipos de datos.
+
+## From
+
+```Java
+var cust = new List<Customer>();
+//queryAllCustomers is an IEnumerable<Customer>
+from cust in customers
+select cust;
+```
+## Join
+
+```Java
+from category in categories
+join prod in products on category.ID equals prod.CategoryID
+select new
+{
+    ProductName = prod.Name,
+    Category = category.Name
+};
+
+products.Join(categories,
+product => product.CategoryID,
+category => category.ID,
+(product, category) => new
+{
+    ProductName = product.Name,
+    Category = category.Name
+});
+```
+
+## Let
+```Java
+
+from sentence in strings
+let words = sentence.Split(' ')
+from word in words
+let w = word.ToLower()
+where w[0] == 'a' || w[0] == 'e'
+    || w[0] == 'i' || w[0] == 'o'
+    || w[0] == 'u'
+select word;
+```
+
+## Where
+```Java
+from prod in products
+where prod.Name == "Producto 2"
+select prod;
+```                                                                                                                                                       
+## Group by
+```Java
+from product in products
+group product by new
+{
+    product.CategoryID,
+    product.Name
+} into prod
+select new
+{
+    idCategoria = prod.Key.CategoryID,
+    nombre = prod.Key.Name
+};
+
+products.GroupBy(product => new
+{
+    product.CategoryID,
+    product.Name
+}).Select(prod => new
+{
+    idCategoria = prod.Key.CategoryID,
+    nombre= prod.Key.Name
+});
+```
+
+## Order by
+```Java
+from product in products
+orderby product.CategoryID ascending
+select product;
+
+products.OrderBy(product => product.CategoryID);
+
+from product in products
+orderby product.CategoryID descending
+select product;
+products.OrderByDescending(product => product.CategoryID);
+```
+
+Para poder tratar las consultas, la api de LINQ devuelve objetos del tipo `IEnumerable<>` o `IQueryable<>`.  
+Hay diferentes formas de leer los datos, por un lado mediante un `foreach` se pueden iterar un `IEnumerable` y por otro lado, hay metodos que convierten los datos a una coleccion directamente.
+
+## ToList
+```Java
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).ToList();
+```
+
+## ToArray
+```Java
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).ToArray();
+```
+
+## ToDictionary
+```Java
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).ToDictionary(key => key.CategoryID, value => value.Name);
+```
+
+## ToLookup
+```Java
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).ToLookup(key => key.CategoryID, value => value.Name);
+```
+
+## Count
+```Java
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).Count()
+ ```
+
+## FirstOrDefault
+```Java
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).FirstOrDefault()
+ ```
