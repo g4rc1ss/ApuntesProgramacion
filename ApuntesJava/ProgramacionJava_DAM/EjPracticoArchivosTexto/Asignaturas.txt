@@ -1,7 +1,0 @@
-programacion.txt
-bbdd.txt
-sistemas.txt
-entornos.txt
-lenguaje.txt
-ingles.txt
-fol.txt

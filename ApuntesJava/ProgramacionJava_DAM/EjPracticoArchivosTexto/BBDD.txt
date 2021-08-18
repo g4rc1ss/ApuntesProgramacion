@@ -1,5 +1,0 @@
-Bases de Datos
-Markel	1
-Gorka	11
-Eduardo	21
-Aritz	31

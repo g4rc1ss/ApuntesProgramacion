@@ -1,5 +1,0 @@
-Entornos de Desarrollo
-Markel	4
-Gorka	14
-Eduardo	24
-Aritz	34
