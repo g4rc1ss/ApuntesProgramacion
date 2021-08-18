@@ -1,23 +1,21 @@
-﻿using AplicacionToExtender.Database;
-using AplicacionToExtender.Database.DatabaseEntities;
-using Microsoft.Win32;
-using PluginAPI;
-using PluginAPI.ExportAPI;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using AplicacionToExtender.Database;
+using AplicacionToExtender.Database.DatabaseEntities;
+using Microsoft.Win32;
+using PluginAPI;
+using PluginAPI.ExportAPI;
 
 namespace AplicacionToExtender {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow :Window {
+    public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
             LoadPlugins();
@@ -69,10 +67,11 @@ namespace AplicacionToExtender {
                         var plugin = CreateInstanceForAssemblyPath(pluginPath);
                         plugin.Execute();
 
-                        if (plugin.ExportInterface.fullWindow)
+                        if (plugin.ExportInterface.fullWindow) {
                             (plugin.ExportInterface.windowInterface as Window).Show();
-                        else
+                        } else {
                             control.Content = plugin.ExportInterface.windowInterface;
+                        }
                     }
                 }
             }
@@ -102,7 +101,7 @@ namespace AplicacionToExtender {
 
         private void LoadEventCall(object sender, EventArgs e) {
             var itemToLoad = sender as ExportObject;
-            if(itemToLoad.ObjectToExport is string) {
+            if (itemToLoad.ObjectToExport is string) {
                 MessageBox.Show(itemToLoad.ObjectToExport as string);
             }
         }

@@ -2,7 +2,7 @@
   <library name="org.xerial:sqlite-jdbc:3.27.2" type="repository">
     <properties maven-id="org.xerial:sqlite-jdbc:RELEASE" />
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.34.0/sqlite-jdbc-3.34.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.36.0.1/sqlite-jdbc-3.36.0.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

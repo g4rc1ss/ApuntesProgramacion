@@ -2,7 +2,7 @@
   <library name="org.mariadb.jdbc:mariadb-java-client:2.6.0" type="repository">
     <properties maven-id="org.mariadb.jdbc:mariadb-java-client:RELEASE" />
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/mariadb/jdbc/mariadb-java-client/2.7.2/mariadb-java-client-2.7.2.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/mariadb/jdbc/mariadb-java-client/3.0.1-beta/mariadb-java-client-3.0.1-beta.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
