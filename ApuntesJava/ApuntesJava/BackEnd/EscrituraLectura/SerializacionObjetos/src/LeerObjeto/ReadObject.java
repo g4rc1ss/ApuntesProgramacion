@@ -1,32 +1,30 @@
+package LeerObjeto;
+
+import Entidades.Empleado;
+
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-public class Main {
-    public static void main(String[] args) {
+public class ReadObject {
+    public ReadObject(String nombreArchivo) {
         ArrayList<Empleado> listaEmpleados = new ArrayList<>();
         for (int x = 0; x < 10; x++)
             listaEmpleados.add(new Empleado("nombre numero" + x, x + 10, 2000 + x));
         try {
-            ObjectOutputStream escribirListaEmpleados = new ObjectOutputStream(
-                    new FileOutputStream("archivo.dat")
-            );
-            escribirListaEmpleados.writeObject(listaEmpleados);
-
             ObjectInputStream leerListaEmpleados = new ObjectInputStream(
-                    new FileInputStream("archivo.dat")
+                    new FileInputStream(nombreArchivo)
             );
-            listaEmpleados.clear();
-            listaEmpleados = (ArrayList<Empleado>) leerListaEmpleados.readObject();
 
-            for (Empleado empleado : listaEmpleados) {
-                System.out.println( "Nombre: " + empleado.getNombre()
+            var objetoLeido = (ArrayList<Empleado>) leerListaEmpleados.readObject();
+
+            for (Empleado empleado : objetoLeido) {
+                System.out.println("Nombre: " + empleado.getNombre()
                         + "\nEdad: " + empleado.getEdad()
                         + "\nSueldo: " + empleado.getSueldo()
                         + "\nClave: " + empleado.getClaveDefecto());
                 System.out.println("-----------------------------");
+                leerListaEmpleados.close();
             }
         } catch (Exception ex) {
             ex.printStackTrace();

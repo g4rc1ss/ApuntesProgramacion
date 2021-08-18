@@ -1,3 +1,5 @@
+package Entidades;
+
 import java.io.Serializable;
 
 public class Empleado implements Serializable {
@@ -7,7 +9,7 @@ public class Empleado implements Serializable {
     // Marcamos la variable como transient para que no se serialice en el fichero de objeto
     private transient String claveDefecto = "patata";
 
-    Empleado(String nombre, int edad, double sueldo) {
+    public Empleado(String nombre, int edad, double sueldo) {
         this.nombre = nombre;
         this.edad = edad;
         this.sueldo = sueldo;
