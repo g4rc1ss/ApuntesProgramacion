@@ -1,3 +1,146 @@
+1. [Estructura del código](#estructura-del-código)
+
+	 1. [Declaración de variables](#declaración-de-variables)
+
+	 1. [Convertir tipos](#convertir-tipos)
+
+	 1. [Sentencias de flujo](#sentencias-de-flujo)
+
+	 1. [Operador ternario](#operador-ternario)
+
+	 1. [Bucles](#bucles)
+
+1. [Cadenas](#cadenas)
+
+	 1. [String](#string)
+
+		 1. [Literales](#literales)
+
+		 1. [Interpolacion de Cadenas](#interpolacion-de-cadenas)
+
+		 1. [Métodos de string](#métodos-de-string)
+
+	 1. [StringBuilder](#stringbuilder)
+
+1. [Colecciones](#colecciones)
+
+	 1. [Listas](#listas)
+
+		 1. [Métodos de listas](#métodos-de-listas)
+
+	 1. [Diccionarios](#diccionarios)
+
+		 1. [Métodos de diccionarios](#métodos-de-diccionarios)
+
+	 1. [Tuplas](#tuplas)
+
+	 1. [Tablas Hash](#tablas-hash)
+
+		 1. [Métodos de tablas hash](#métodos-de-tablas-hash)
+
+	 1. [Pilas](#pilas)
+
+		 1. [Métodos de pilas](#métodos-de-pilas)
+
+	 1. [Colas](#colas)
+
+		 1. [Métodos de colas](#métodos-de-colas)
+
+1. [Programación Orientada a Objetos](#programación-orientada-a-objetos)
+
+	 1. [Class](#class)
+
+	 1. [Static Class](#static-class)
+
+	 1. [Abstract Class](#abstract-class)
+
+	 1. [Sealed Class](#sealed-class)
+
+	 1. [Metodos](#metodos)
+
+	 1. [Propiedades](#propiedades)
+
+	 1. [Delegados](#delegados)
+
+	 1. [Herencia](#herencia)
+
+	 1. [Interface](#interface)
+
+1. [Conceptos Avanzados](#conceptos-avanzados)
+
+	 1. [Liberacion de Memoria](#liberacion-de-memoria)
+
+	 1. [Enumerador](#enumerador)
+
+	 1. [Indizadores](#indizadores)
+
+	 1. [Boxing y Unboxing](#boxing-y-unboxing)
+
+	 1. [Generics](#generics)
+
+		 1. [Constraints](#constraints)
+
+	 1. [Eventos](#eventos)
+
+	 1. [Codigo no Administrado](#codigo-no-administrado)
+
+		 1. [P/Invoke](#pinvoke)
+
+		 1. [Codigo inseguro](#codigo-inseguro)
+
+			 1. [Punteros](#punteros)
+
+1. [Tratamiento de Excepciones](#tratamiento-de-excepciones)
+
+	 1. [Excepciones](#excepciones)
+
+		 1. [Capurando las excepciones](#capurando-las-excepciones)
+
+		 1. [Provocando una excepcion](#provocando-una-excepcion)
+
+		 1. [Creando excepciones propias](#creando-excepciones-propias)
+
+1. [Programación Asincrona & MultiThreading](#programación-asincrona--multithreading)
+
+	 1. [Async & Await](#async--await)
+
+	 1. [Parallel](#parallel)
+
+		 1. [Parallel Invoke](#parallel-invoke)
+
+		 1. [Parallel For](#parallel-for)
+
+		 1. [Parallel ForEach](#parallel-foreach)
+
+1. [LINQ](#linq)
+
+	 1. [From](#from)
+
+	 1. [Join](#join)
+
+	 1. [Let](#let)
+
+	 1. [Where](#where)
+
+	 1. [Group by](#group-by)
+
+	 1. [Order by](#order-by)
+
+	 1. [ToList](#tolist)
+
+	 1. [ToArray](#toarray)
+
+	 1. [ToDictionary](#todictionary)
+
+	 1. [ToLookup](#tolookup)
+
+	 1. [Count](#count)
+
+	 1. [FirstOrDefault](#firstordefault)
+
+
+
+
 # Estructura del código
 
 ```Csharp
@@ -133,7 +276,7 @@ var saludo = "Hola";
 Console.WriteLine($"{saludo} terricola");
 ```
 
-### Métodos habituales
+### Métodos de string
 ---
 
 ```csharp
@@ -176,11 +319,11 @@ var cadenaCompleta = stringBuilder.ToString();
 Las colecciones proporcionan una manera más flexible de trabajar con grupos de objetos. A diferencia de las matrices, el grupo de objetos con el que trabaja puede aumentar y reducirse de manera dinámica a medida que cambian las necesidades de la aplicación
 
 ---
-## Listas:
+## Listas
 
 Una lista es un tipo de colección ordenada(un array)
 
-### Métodos habituales
+### Métodos de listas
 
 ```Csharp
 var lista = new List<string>() { "Hola" };
@@ -202,13 +345,13 @@ lista.Reverse();
 ```
 
 ---
-## Diccionarios:
+## Diccionarios
 
 Una clase de Diccionario es una estructura de datos que representa una colección de 
 claves y valores de pares de datos. La clave es idéntica en un par clave-valor y puede 
 tener como máximo un valor en el diccionario
 
-### Métodos habituales
+### Métodos de diccionarios
 
 ```Csharp
 var diccionario = new Dictionary<string, string>()
@@ -251,7 +394,7 @@ tupla.Item4;
 ## Tablas Hash
 Representa una colección de pares de clave y valor que se organizan por código hash de la clave
 
-### Métodos habituales
+### Métodos de tablas hash
 
 ```Csharp
 var tablaHash = new Hashtable();
@@ -278,7 +421,7 @@ El Stack es una coleccion LIFO(Last in, First Out) sin tamaño fijo de los objet
 
 Al usar la forma de almacenamiento LIFO, en la coleccion se trabaja todo el rato sobre los primeros elementos, osea que cuando agregas un elemento nuevo por ejemplo, no se guardaria en el ultimo indice, sino que se almacenaria en el indice 0, al principio de la coleccion.
 
-### Métodos habituales
+### Métodos de pilas
 ```Csharp
 var pila = new Stack<string>();
 pila.Push("prueba de push");
@@ -307,7 +450,7 @@ La Queue es una coleccion FIFO(First In, First Out).
 
 Al usar la forma de almacenamiento FIFO, a la hora de agregar elementos se tendran que ir agregando al final de la coleccion y a la hora de trabajar con ellos, se iran extrayendo del mas antiguo al mas nuevo, por tanto, se accedera a los primeros.
 
-### Métodos habituales
+### Métodos de colas
 ```Csharp
 var cola = new Queue<string>();
 cola.Enqueue("prueba de push");
@@ -1015,42 +1158,42 @@ products.OrderByDescending(product => product.CategoryID);
 Para poder tratar las consultas, la api de LINQ devuelve objetos del tipo `IEnumerable<>` o `IQueryable<>`.  
 Hay diferentes formas de leer los datos, por un lado mediante un `foreach` se pueden iterar un `IEnumerable` y por otro lado, hay metodos que convierten los datos a una coleccion directamente.
 
-## ToList()
+## ToList
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).ToList();
 ```
 
-## ToArray()
+## ToArray
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).ToArray();
 ```
 
-## ToDictionary()
+## ToDictionary
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).ToDictionary(key => key.CategoryID, value => value.Name);
 ```
 
-## ToLookup()
+## ToLookup
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).ToLookup(key => key.CategoryID, value => value.Name);
 ```
 
-## Count()
+## Count
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).Count()
  ```
 
- ## FirstOrDefault()
+## FirstOrDefault
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
