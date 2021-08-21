@@ -18,11 +18,11 @@ if ($null -eq $ubicacionRequirements) {
 }
 
 foreach ($requirementsPath in $ubicacionRequirements) {
-    $textoRequirements = [IO.FILE]::ReadAllText($requirementsPath);
+    $textoRequirements = [IO.FILE]::ReadAllText($requirementsPath.FullName);
 
-    $dependenciesToUpdate = $textoRequirements.Split("\n")
+    $dependenciesToUpdate = $textoRequirements.Split("`n")
     foreach ($package in $dependenciesToUpdate) {
-        powershell "$($ubicacionPip.FullName) install -U $($package.Spit("==")[0])"
+        powershell "$($ubicacionPip.FullName) install -U $($package.Split("==")[0])"
     }
     powershell "$($ubicacionPip.FullName) freeze > $($requirementsPath.FullName)"
 }
