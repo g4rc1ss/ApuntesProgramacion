@@ -1,7 +1,7 @@
 $Global:CurrentPath = Split-Path $MyInvocation.MyCommand.Path
 
 Set-Location $CurrentPath
-Import-Module ".\Library\FilterSearch.ps1"
+Import-Module ".\FilterSearch.ps1"
 
 
 #Nos posicionamos en la carpeta anterior a Scripts
@@ -18,7 +18,7 @@ if ($null -eq $ubicacionRequirements) {
 }
 
 foreach ($requirementsPath in $ubicacionRequirements) {
-    $textoRequirements = [System.IO.File].ReadAllText($ubicacionRequirements)
+    $textoRequirements = [IO.FILE]::ReadAllText($requirementsPath);
 
     $dependenciesToUpdate = $textoRequirements.Split("\n")
     foreach ($package in $dependenciesToUpdate) {

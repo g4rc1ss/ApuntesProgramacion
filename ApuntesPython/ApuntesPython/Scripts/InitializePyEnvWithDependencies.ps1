@@ -1,7 +1,7 @@
 $Global:CurrentPath = Split-Path $MyInvocation.MyCommand.Path
 
 Set-Location $CurrentPath
-Import-Module ".\Library\FilterSearch.ps1"
+Import-Module ".\FilterSearch.ps1"
 
 
 #Nos posicionamos en la carpeta anterior a Scripts
