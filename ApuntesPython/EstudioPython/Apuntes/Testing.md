@@ -9,8 +9,7 @@ Pruebas insertadas en el código fuente
 
 Sirva el siguiente ejemplo para mostrar la facilidad de uso de doctest. En el ejemplo hay una función llamada impar() que en su documentación incluye cuatro pruebas precedidas por los caracteres ">>>" (los mismos que se utilizan en una sesión interactiva Python para indicar el lugar donde se introducen los comandos),incluyendo debajo de cada prueba el resultado esperado en cada una de ellas.
 
-fmatemat1.py:
-```
+```python
 def impar(n):
     '''
     La función impar(n) devuelve:
@@ -45,7 +44,7 @@ También, se obtendría el mismo informe omitiendo la clausula if y las líneas 
 
 En cualquiera de los casos en la salida se obtiene un informe con el resultado de cada prueba, que en esta ocasión termina con el mensaje: "4 passed and 0 failed. Test passed.":
 
- ````
+ ````python
 Trying:
     impar(0)
 Expecting:
@@ -84,8 +83,8 @@ Si el archivo .py es un módulo con muchas funciones y/o clases que se prevee in
 
 En ese caso tendríamos dos archivos como en el siguiente ejemplo: uno con el código fuente como (fmatemat2.py) que utiliza la función testfile() para referenciar al archivo de texto y el propio archivo de texto (fmatemat2.txt) con la documentación y las pruebas.
 
-fmatemat2.py:
-````
+
+````python
 def impar(n):
     if n%2 != 0:
         return True
@@ -97,8 +96,7 @@ if __name__ == '__main__':
     doctest.testfile('fmatemat2.txt')
 ````
 
-fmatemat2.txt:
-````
+````txt
 Módulo fmatemat2
 =================
 
@@ -135,8 +133,7 @@ Para poder escribir pruebas para doctest resulta necesario conocer el modo en qu
 
 En primer lugar indicar que se analizan todas las cadenas de documentación de las funciones, clases y métodos existentes del módulo actual y no son analizados los módulos importados. En ese caso lo que si es posible es declarar una variable __test__ con un diccionario con el conjunto de pruebas. En el diccionario las claves son cadenas que se corresponden con nombres de funciones o métodos (del módulo importado) a los que se les asigna un docstring con una o más pruebas:
 
-fmatemat3.py:
-````
+````python
 from fmatemat1 import impar
 
 __test__ = {
@@ -167,8 +164,7 @@ Cada vez que doctest encuentra una cadena de documentación para pruebas utiliza
 ---
 El siguiente ejemplo contiene una prueba un poco más sofisticada que incluye un comentario, una importación, asignaciones y la clausula if.
 
-fmatemat4.py:
-```
+```python
 def impar(n):
     '''
     La función impar(n) devuelve:
@@ -194,12 +190,13 @@ def impar(n):
 if __name__ == '__main__':    
     import doctest    
     doctest.testmod()
-
+````
 
 Ejecutar las pruebas con:
 
-$ python3 fmatemat4.py -v
+`$ python3 fmatemat4.py -v`
 
+```
 Trying:
     from datetime import datetime
 Expecting nothing
@@ -232,12 +229,11 @@ ok
 5 tests in 2 items.
 5 passed and 0 failed.
 Test passed.
-````
+```
 
 El resultado de una prueba puede ser el mensaje que devuelve una excepción si se expresa de manera literal, aunque doctest hará bien su trabajo cuando las salidas contengan detalles que cambian dependiendo de un valor como un número de línea, una ruta de un archivo, o bien, cuando se omitan estos detalles:
 
-fmatemat5.py:
-````
+```python
 def impar(n):
     '''
     La función impar(n) devuelve:
