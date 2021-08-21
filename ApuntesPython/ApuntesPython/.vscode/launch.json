@@ -8,9 +8,9 @@
             "name": "Python: Django",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}\\Web\\PruebaConceptoDjango\\_04_DatabaseModels",
+            "program": "${workspaceFolder}\\Web\\PruebaConceptoDjango\\manage.py",
             "django": true,
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}\\Web\\PruebaConceptoDjango\\",
             "args": [
                 "runserver"
             ],
