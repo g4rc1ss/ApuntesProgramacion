@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}\\Web\\PruebaConceptoDjango\\manage.py",
             "django": true,
-            "cwd": "${workspaceFolder}\\Web\\PruebaConceptoDjango\\",
+            "cwd": "${workspaceFolder}",
             "args": [
                 "runserver"
             ],
