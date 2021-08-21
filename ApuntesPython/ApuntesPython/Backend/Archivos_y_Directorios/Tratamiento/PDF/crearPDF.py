@@ -9,11 +9,13 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
 import os
 
-doc = SimpleDocTemplate(os.path.dirname(os.path.abspath(__file__))+"/prueba.pdf", pagesize=letter,
+pathArchivoActual = os.path.dirname(os.path.abspath(__file__))
+
+doc = SimpleDocTemplate(pathArchivoActual+"/prueba.pdf", pagesize=letter,
                         rightMargin=72, leftMargin=72,
                         topMargin=72, bottomMargin=18)
 Story = []
-logotipo = "PDF/python.png"
+logotipo = pathArchivoActual + "\\python.png"
 nombreRevista = "Programación Avanzada"
 numero = 4
 precio = "10.00"
