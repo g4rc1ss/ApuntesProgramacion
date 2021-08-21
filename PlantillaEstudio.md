@@ -50,20 +50,20 @@
 ### Literales
 | Secuencia de escape | Nombre de carácter | Codificación Unicode |
 | ------------------- | ------------------ | -------------------- |
-| \' | Comilla simple | 0x0027
-| \" | Comilla doble  | 0x0022
-| \\ | Barra diagonal inversa | 0x005C
-| \0 | Null | 0x0000
-| \a | Alerta | 0x0007
-| \b | Retroceso | 0x0008
-| \f | Avance de página | 0x000C
-| \n | Nueva línea | 0x000A
-| \r | Retorno de carro | 0x000D
-| \t | Tabulación horizontal | 0x0009
-| \U | Secuencia de escape Unicode para pares suplentes. | \Unnnnnnnn
-| \u | Secuencia de escape Unicode | \u0041 = "A"
-| \v | Tabulación vertical | 0x000B
-| \x | Secuencia de escape Unicode similar a "\u" | \x0041 o \x41 = "A"
+| \\' | Comilla simple | 0x0027
+| \\" | Comilla doble  | 0x0022
+| \\\\ | Barra diagonal inversa | 0x005C
+| \\0 | Null | 0x0000
+| \\a | Alerta | 0x0007
+| \\b | Retroceso | 0x0008
+| \\f | Avance de página | 0x000C
+| \\n | Nueva línea | 0x000A
+| \\r | Retorno de carro | 0x000D
+| \\t | Tabulación horizontal | 0x0009
+| \\U | Secuencia de escape Unicode para pares suplentes. | \\Unnnnnnnn
+| \\u | Secuencia de escape Unicode | \\u0041 = "A"
+| \\v | Tabulación vertical | 0x000B
+| \\x | Secuencia de escape Unicode similar a "\\u" | \\x0041 o \\x41 = "A"
 
 ### Interpolacion de Cadenas
 ---

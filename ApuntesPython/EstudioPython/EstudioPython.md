@@ -1,17 +1,10 @@
 # Sintaxis de Python
 ## Declaración de variables
 ```python
-a = "hoa"; b = 2; c = 2.0; d = False
+
 print(f"{a} {b} {c} {d}") #formatear salida menos liosa que concatenar
 ```
 ---
-## Convertir tipos
-```python
-d = str(d)
-c = int(c)
-b = float(b)
-print(f"nuevos tipos: {a} {b} {c} {d}")
-```
 ---
 ## En las cadenas para rutas se puede usar r""
 ```python
@@ -108,32 +101,7 @@ diccionario = {"Clave":"resultado", 1:"asier", "apellido":"garcia"}
 diccionario['Clave'] = 2#asignación de nuevos valores
 print(f"{diccionario} \t {diccionario['Clave']} \t {diccionario[1]}")
 ```
-----
-## Sentencias de flujo
 
-```python
-if a == b or b == c and not bool(d):
-    print("pasa por verdadero")
-elif a != b:
-    print("diferente")
-else:
-    print("pues nah!")
-```
-----
-## Bucles
-```python
-edad = 0
-while edad < 3:
-    edad += 1
-    print(f"{edad}")
-
-for i in range(0, 3):
-    edad += 1
-    print(f"{edad} rango: {i}")
-print("----------")
-for i in tupla:
-    print(f"{i}")
-```
 ----
 ## Funciones
 ```python
@@ -186,14 +154,6 @@ Creamos la lambda a la que le pasamos x como parámetro(la lista) y luego ejecut
 
 ````python
 print(listaBuenaFilter)
-````
----
-## Operador ternario
-````python
-a = 0
-b = 2
-ternario = a if b == 1 else b
-print(ternario)
 ````
 ---
 ## Comprensión de listas
