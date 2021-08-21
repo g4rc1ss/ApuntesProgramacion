@@ -1,12 +1,12 @@
 # coding: utf-8
 #pip install mysql
 
-import mysql
-from mysql.connector import errorcode
+import MySQLdb._mysql as mysql
+from MySQLdb.connections import errorcode
 
 try:
     #Conectamos con la base de datos MySQL
-    cnx = mysql.connector.connect(user='asier', password=f'{input("Teclea la pass")}', host='127.0.0.1', database='prueba')
+    cnx = mysql.connect(user='asier', password=f'{input("Teclea la pass")}', host='127.0.0.1', database='prueba')
 
     cursor = cnx.cursor()#creamos el objeto para trabajar con la bd
 

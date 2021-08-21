@@ -2,6 +2,8 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import subprocess
+import platform
 
 
 def main():
@@ -17,6 +19,16 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
+def createDatabase():
+    if os.environ['PROCESSOR_ARCHITECTURE'].endswith('64'):
+        if platform.system() == "Windows":
+            subprocess.call("..\\InicializarBBDD_PostgreSQL\\winx64\\PruebaConceptoMigrations_PostgreSQL.exe")
+        elif platform.system() == "Darwin":
+            subprocess.call("..\\InicializarBBDD_PostgreSQL\\MacOSx64\\PruebaConceptoMigrations_PostgreSQL")
+        elif platform.system() == "Linux":
+            subprocess.call("..\\InicializarBBDD_PostgreSQL\\Linux_x64\\PruebaConceptoMigrations_PostgreSQL")
+    pass
 
 if __name__ == '__main__':
+    createDatabase()
     main()
