@@ -12,8 +12,8 @@ class IndexView(object):
 
         response = index.render({
             "ListaPeliculas": respuestaIndex.getPeliculas(),
-            "RandomFantasia": [aventura for aventura in respuestaIndex.getRandomPeliculas() if aventura.tipooperacionid.nombre == "Aventura"],
-            "RandomAventura": [fantasia for fantasia in respuestaIndex.getRandomPeliculas() if fantasia.tipooperacionid.nombre == "Fantasia"]
+            "RandomFantasia": [aventura for aventura in respuestaIndex.getRandomPeliculas() if aventura.genero == "Aventura"],
+            "RandomAventura": [fantasia for fantasia in respuestaIndex.getRandomPeliculas() if fantasia.genero == "Fantasia"]
         })
 
         return HttpResponse(response)
