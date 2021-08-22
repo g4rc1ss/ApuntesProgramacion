@@ -187,15 +187,15 @@ objetos Char.
 ### Literales
 | Secuencia de escape | Nombre de carácter | Codificación Unicode |
 | ------------------- | ------------------ | -------------------- |
-| \' | Comilla simple | 0x0027
-| \" | Comilla doble  | 0x0022
-| \\ | Barra diagonal inversa | 0x005C
-| \0 | Null | 0x0000
-| \b | Retroceso | 0x0008
-| \f | Avance de página | 0x000C
-| \n | Nueva línea | 0x000A
-| \r | Retorno de carro | 0x000D
-| \t | Tabulación horizontal | 0x0009
+| \\' | Comilla simple | 0x0027
+| \\" | Comilla doble  | 0x0022
+| \\\\ | Barra diagonal inversa | 0x005C
+| \\0 | Null | 0x0000
+| \\b | Retroceso | 0x0008
+| \\f | Avance de página | 0x000C
+| \\n | Nueva línea | 0x000A
+| \\r | Retorno de carro | 0x000D
+| \\t | Tabulación horizontal | 0x0009
 
 ### Concatenar Cadenas
 ---
