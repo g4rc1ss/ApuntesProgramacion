@@ -11,8 +11,6 @@ class mywindow(QtWidgets.QMainWindow):
 
     def btnAgregar(self):
         self.ui.lista = QtWidgets.QListWidgetItem("Hola")
-        self.ui.lista.ad
-            
        
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
