@@ -61,6 +61,8 @@ WHERE CustomerID = 1;
 | BETWEEN | Entre x e y. Se usa para filtrar entre un rango de dos resultados, por ejemplo, un rango de fechas|
 | LIKE | Busca algo que coincida, que aplican patrones de busqueda, por ejemplo, `LIKE '%textoBuscar%'`, el `%` indica que le da igual el contenido que haya, o antes, o despues de tu filtro |
 | IN | Filtra el contenido de la consulta sobre una lista de resultados y devuelve los que coincidan con dicha lista |
+| IS NULL | Comprueba si el valor en la columna es nulo |
+| IS NOT NULL | Se comprueba si los registros no son nulos |
 
 ## Operadores Condicionales Where
 | Operator | Description |
@@ -87,15 +89,54 @@ WHERE Country='Germany' AND (City='Berlin' OR City='München');
 ```
 
 # Order By
+La clausula `Order By` se utiliza para ordenar de manera ascendente o descendente los resultados de una consulta.  
+- `asc` : Ascendente
+- `desc` : Descendente
 
+Por defecto, si no se indica nada, se ordenada de manera ascendente
+```SQL
+SELECT column1, column2
+FROM table_name
+ORDER BY column1, column2 ASC|DESC;
+```
 
 # Join
+La clausula ``
 
 # Union
+La clausula ``
+
 
 # Insert
+La clausula `Insert` se utiliza para poder crear registros a una tabla de la Base de Datos.
+```SQL
+-- Indicando nombres de la columna y el valor correspondiente a dicha columna
+INSERT INTO table_name (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);
+
+-- Indicando los valores, el orden en el que se agregan, es el orden de las columnas, por tanto, valor1 ira a columna 1
+INSERT INTO table_name
+VALUES (value1, value2, value3, ...);
+```
 
 # Update
+La clausula `Update` se utiliza para actualizar registros almacenados en la tabla indicada.
+
+> Hay que tener cuidado con la actualizacion de los datos sin una clausula Where, puesto que si se ejecuta la consulta, se actualizaran TODOS los datos de dicha tabla
+
+```SQL
+UPDATE table_name
+SET column1 = value1, column2 = value2
+WHERE condition;
+```
 
 # Delete
+La clausula `delete` se utiliza para borrar registros de una tabla
 
+> Hay que tener cuidado con el borrado de los datos sin una clausula Where, puesto que si se ejecuta la consulta, se borraran TODOS los datos de dicha tabla
+
+Para borrar un registro especifico, se ha de indicar en la clausula where la el contenido de la columna de la primary key
+```SQL
+DELETE FROM table_name 
+WHERE condition;
+```
