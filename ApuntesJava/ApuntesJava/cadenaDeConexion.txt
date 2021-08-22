@@ -1,0 +1,3 @@
+jdbc:mysql://localhost:3306/?useSSL=true
+root
+1234
