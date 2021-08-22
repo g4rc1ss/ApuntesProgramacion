@@ -95,6 +95,33 @@ UNION ALL
 SELECT City FROM Suppliers;
 ```
 
+## ALL
+La condición será verdadera solo si la operación es verdadera para todos los valores en el rango. 
+
+````SQL
+SELECT ALL column_name(s)
+FROM table_name
+WHERE condition;
+````
+
+## INTO
+La instruccion `INTO` se usa para copiar datos de una tabla SQL en otra.  
+Puede ser usado para crear tablas Backup por ejemplo o para migrar una base de datos a otra.
+
+````SQL
+SELECT *
+INTO newtable [IN externaldb]
+FROM oldtable
+WHERE condition;
+
+-- Inserta en una tabla los clientes con pais "Germany"
+SELECT * INTO CustomersGermany
+FROM Customers
+WHERE Country = 'Germany';
+````
+
+# Case
+
 # Where
 La clausula `where` sirve para realizar filtrado de registros al realizar la consulta, por ejemplo, si queremos obtener un registro especifico por un campo `id`.
 
@@ -156,6 +183,43 @@ WHERE NOT condition
 SELECT * FROM Customers
 WHERE Country='Germany' AND (City='Berlin' OR City='München');
 ```
+
+## Exists
+Se utiliza para probar la existencia de cualquier registro en una subconsulta.
+
+```SQL
+SELECT column_name(s)
+FROM table_name
+WHERE EXISTS (
+    SELECT column_name 
+    FROM table_name 
+    WHERE condition);
+```
+
+## ANY
+- Devuelve un valor booleano como resultado
+- Devuelve VERDADERO si CUALQUIERA de los valores de la subconsulta cumple la condición
+
+````SQL
+SELECT column_name(s)
+FROM table_name
+WHERE column_name operator ANY
+  (SELECT column_name
+  FROM table_name
+  WHERE condition);
+````
+
+## ALL
+- Devuelve un valor booleano como resultado.
+- Devuelve VERDADERO si TODOS los valores de la subconsulta cumplen la condición
+````SQL
+SELECT column_name(s)
+FROM table_name
+WHERE column_name operator ALL
+  (SELECT column_name
+  FROM table_name
+  WHERE condition);
+````
 
 # Order By
 La clausula `Order By` se utiliza para ordenar de manera ascendente o descendente los resultados de una consulta.  
@@ -270,6 +334,23 @@ VALUES (value1, value2, value3, ...);
 INSERT INTO table_name
 VALUES (value1, value2, value3, ...);
 ```
+
+## INSERT INTO SELECT
+- Copia datos de una tabla y los inserta en otra tabla.
+- Requiere que los tipos de datos en las tablas de origen y destino coincidan
+
+````SQl
+-- Copia todas las columnas de una tabla a otra tabla
+INSERT INTO table2
+SELECT * FROM table1
+WHERE condition;
+
+-- Copia solo algunas columnas de una tabla a otra tabla:
+INSERT INTO table2 (column1, column2, column3, ...)
+SELECT column1, column2, column3, ...
+FROM table1
+WHERE condition;
+````
 
 # Update
 La clausula `Update` se utiliza para actualizar registros almacenados en la tabla indicada.
