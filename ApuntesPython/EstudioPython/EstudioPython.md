@@ -466,10 +466,29 @@ if __name__ == "__main__":
 
 ---
 # Comprension de Listas
-
-
-## 
+La comprensión de listas, es una funcionalidad que nos permite crear listas avanzadas en una misma línea de código.  
+Son muy utiles para realizar filtrados de listas, por ejemplo, obtenemos una consulta de la BBDD y queremos obtener un dato especifico de la lista recibida, se puede usar la compresion de listas para realizar el filtro.
 
 ```Python
+# Método tradicional
+lista = []
+for numero in range(0,11):
+    lista.append(numero**2)
+print(lista)
 
+# Con comprensión de listas
+lista = [numero**2 for numero in  range(0,11)]
+print(lista)
+
+
+# Método tradicional
+lista = []
+for numero in range(0,11):
+    if numero % 2 == 0:
+        lista.append(numero)
+print(lista)
+
+# Con comprensión de listas
+lista = [numero for numero in range(0,11) if numero % 2 == 0 ]
+print(lista)
 ```
