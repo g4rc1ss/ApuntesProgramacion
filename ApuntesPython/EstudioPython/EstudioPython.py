@@ -1,18 +1,7 @@
-variableString = "2"
-variableInteger = 1
-variableFloat = 2.0
-variableBooleana = True
+listaComprension = [1, 2, 3, 4, 5]
 
-edad = 0
+print(f"{listaComprension} \t {[n*2 for n in listaComprension]}")
 
-print("\'")
-print("\"")
-print("\\")
-print("\0")
-print("\a")
-print("\b")
-print("\f")
-print("\n")
-print("\r")
-print("\t")
-print("\v")
+listaComprension = [["asier", 22], ["pedro", 23]]
+print(
+    f"{listaComprension} \t {[array for array in listaComprension for nombre in array if nombre == 'asier']}")
