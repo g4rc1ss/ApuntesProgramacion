@@ -1,17 +1,17 @@
-﻿using Newtonsoft.Json;
-using PluginAPI.ExportAPI;
-using PluginDeEjemplo.DeserializeJson;
-using System;
+﻿using System;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
+using Newtonsoft.Json;
+using PluginAPI.ExportAPI;
+using PluginDeEjemplo.DeserializeJson;
 
 namespace PluginDeEjemplo {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow :Window {
+    public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
         }
