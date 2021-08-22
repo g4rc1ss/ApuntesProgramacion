@@ -1,3 +1,86 @@
+1. [Estructura del código](#estructura-del-código)
+
+	 1. [Declaración de variables](#declaración-de-variables)
+
+	 1. [Convertir tipos](#convertir-tipos)
+
+	 1. [Sentencias de flujo](#sentencias-de-flujo)
+
+	 1. [Operador ternario](#operador-ternario)
+
+	 1. [Bucles](#bucles)
+
+1. [Cadenas](#cadenas)
+
+	 1. [String](#string)
+
+		 1. [Literales](#literales)
+
+		 1. [Interpolacion de Cadenas](#interpolacion-de-cadenas)
+
+		 1. [Métodos de string](#métodos-de-string)
+
+1. [Colecciones](#colecciones)
+
+	 1. [Listas](#listas)
+
+		 1. [Métodos de listas](#métodos-de-listas)
+
+	 1. [Diccionarios](#diccionarios)
+
+		 1. [Métodos de diccionarios](#métodos-de-diccionarios)
+
+	 1. [Tuplas](#tuplas)
+
+1. [Programación Orientada a Objetos](#programación-orientada-a-objetos)
+
+	 1. [Class](#class)
+
+	 1. [Abstract Class](#abstract-class)
+
+	 1. [Metodos](#metodos)
+
+	 1. [Metodos estaticos](#metodos-estaticos)
+
+	 1. [Encapsulamiento](#encapsulamiento)
+
+	 1. [Herencia](#herencia)
+
+1. [Conceptos Avanzados](#conceptos-avanzados)
+
+	 1. [Liberacion de Memoria](#liberacion-de-memoria)
+
+	 1. [Enumerador](#enumerador)
+
+	 1. [Codigo no Administrado](#codigo-no-administrado)
+
+		 1. [Ctypes para cargar dll nativas](#ctypes-para-cargar-dll-nativas)
+
+1. [Tratamiento de Excepciones](#tratamiento-de-excepciones)
+
+	 1. [Excepciones](#excepciones)
+
+		 1. [Capurando las excepciones](#capurando-las-excepciones)
+
+		 1. [Provocando una excepcion](#provocando-una-excepcion)
+
+		 1. [Creando excepciones propias](#creando-excepciones-propias)
+
+1. [MultiThreading & Multiprocessing](#multithreading--multiprocessing)
+
+	 1. [Multithreading](#multithreading)
+
+		 1. [Thread](#thread)
+
+		 1. [ThreadPoolExecutor](#threadpoolexecutor)
+
+	 1. [Multiprocessing](#multiprocessing)
+
+		 1. [ProcessPoolExecutor](#processpoolexecutor)
+
+1. [Comprension de Listas](#comprension-de-listas)
+
+
 # Estructura del código
 
 ```Python
@@ -102,16 +185,16 @@ print(f"El contenido de la variable es: {variableBooleana}")
 ---
 
 ```Python
-# Devuelve una cadena en la que se reemplazan los caracteres introducidos, el primero es el valor a cambiar y el segundo parametro el nuevo valor
+''' Devuelve una cadena en la que se reemplazan los caracteres introducidos, el primero es el valor a cambiar y el segundo parametro el nuevo valor '''
 cadena.replace(" ", "\n")
 
-# Devuelve un Array con la cadena separada dividiéndola cada vez que encuentre el char enviado, por defecto sera el símbolo '-'
+''' Devuelve un Array con la cadena separada dividiéndola cada vez que encuentre el char enviado, por defecto sera el símbolo '-' '''
 cadena.split('m')
 
-# Devuelve el indice donde se encuentra el caracter indicado
+''' Devuelve el indice donde se encuentra el caracter indicado '''
 cadena.index("l")
 
-# Devuelve los caracteres entre una posicion de indice y otra, si no se indica la otra se devolvera la cadena desde el indice inicial
+''' Devuelve los caracteres entre una posicion de indice y otra, si no se indica la otra se devolvera la cadena desde el indice inicial '''
 cadena[3:5]
 ```
 
@@ -127,34 +210,34 @@ Una lista es un tipo de colección ordenada(un array)
 ### Métodos de listas
 
 ```Python
-# Agrega al ultimo elemento de la lista "x"
+''' Agrega al ultimo elemento de la lista "x" '''
 lista.append(x)
 
-# Devuelve el numero de veces que se encuentra "x" en la lista
+''' Devuelve el numero de veces que se encuentra "x" en la lista '''
 lista.count(x)
 
-# Agrega los elementos de x a la lista, se suele usar para juntar varias listas
+''' Agrega los elementos de x a la lista, se suele usar para juntar varias listas '''
 lista.extend(x)
 
-# Devuelve la posición en laque se encuentra la primera x. se pueden poner los parámetros "start", "stop" que indican desde donde hasta donde del array recorrer
+''' Devuelve la posición en laque se encuentra la primera x. se pueden poner los parámetros "start", "stop" que indican desde donde hasta donde del array recorrer '''
 lista.index(x)
 
-# Inserta el objeto "y" en la posición "x"
+''' Inserta el objeto "y" en la posición "x" '''
 lista.insert(x, y)
 
-# Devuelve el valor de la posición x y lo elimina
+''' Devuelve el valor de la posición x y lo elimina '''
 lista.pop(x)
 
-# Elimina el primer valor "x" de la lista
+''' Elimina el primer valor "x" de la lista '''
 lista.remove(X)
 
-# Invierta la lista. Se trabaja sobre la lista real, no sobre copia
+''' Invierta la lista. Se trabaja sobre la lista real, no sobre copia '''
 lista.reverse()
 
-# Ordena la lista por orden alfabetico o numerico
+''' Ordena la lista por orden alfabetico o numerico '''
 lista.sort()
 
-# Indica si se debe ordenar la lista de forma inversa
+''' Indica si se debe ordenar la lista de forma inversa '''
 lista.sort(reverse=True)
 ```
 
@@ -174,19 +257,19 @@ claves y valores de pares de datos. La clave es idéntica en un par clave-valor 
 ```Python
 diccionario = {"Clave": "resultado", 1: "asier", "apellido": "garcia"}
 
-# Devuelve una lista con las claves del diccionario
+''' Devuelve una lista con las claves del diccionario '''
 diccionario.keys()
 
-# Devuelve una lista con los valores del diccionario
+''' Devuelve una lista con los valores del diccionario '''
 diccionario.values()
 
-# Devuelve un bool indicando si la clave existe en el diccionario
+''' Devuelve un bool indicando si la clave existe en el diccionario '''
 diccionario.has_key(k)
 
-# Elimina la Key del diccionario y por tanto, los valores asociados a la misma
+''' Elimina la Key del diccionario y por tanto, los valores asociados a  la misma'''
 diccionario.pop(k)
 
-# Metodo para obtener el valor asociado a la clave indicada
+''' Metodo para obtener el valor asociado a la clave indicada '''
 diccionario.get(k)
 ```
 
@@ -244,7 +327,7 @@ class ClaseHereda(ClaseMetodosAbstractos):
 ## Metodos
 Un método es un bloque de código que contiene una serie de instrucciones.
 ```Python
-# Funciones normales, sin clase
+''' Funciones normales, sin clase '''
 def funcion(param1, param2 = 2, param3 = True, param4 = ""):
     pass
 
@@ -253,7 +336,7 @@ class Clase(object):
     def __init__(self):
         super().__init__()
 
-    # Metodos de clase
+    ''' Metodos de clase '''
     def metodo(self, param1, param2 = 2, param3 = True, param4 = ""):
         pass
 ```
@@ -346,7 +429,7 @@ class TipoCartas(enum.Enum):
 ## Codigo no Administrado
 El codigo no administrado es un tipo de codigo al que no puede acceder el `Garbage Collector` para realizar el proceso de limpieza de memoria, por tanto hay que hacerlo manualmente.
 
-### Ctypes - Interoperabilidad con dll nativas
+### Ctypes para cargar dll nativas
 Es una tecnologia que permite hacer uso de librerias compiladas de forma nativa con Python como `Rust`, `Cpp`, etc.
 De esta forma permite realizar interoperabilidad con librerias de los diferentes sitemas como Windows, por ejemplo se puede hacer uso de esto para ejecutar librerias como el diseño de las GUi nativas.
 
@@ -470,25 +553,25 @@ La comprensión de listas, es una funcionalidad que nos permite crear listas ava
 Son muy utiles para realizar filtrados de listas, por ejemplo, obtenemos una consulta de la BBDD y queremos obtener un dato especifico de la lista recibida, se puede usar la compresion de listas para realizar el filtro.
 
 ```Python
-# Método tradicional
+''' Método tradicional '''
 lista = []
 for numero in range(0,11):
     lista.append(numero**2)
 print(lista)
 
-# Con comprensión de listas
+''' Con comprensión de listas '''
 lista = [numero**2 for numero in  range(0,11)]
 print(lista)
 
 
-# Método tradicional
+''' Método tradicional '''
 lista = []
 for numero in range(0,11):
     if numero % 2 == 0:
         lista.append(numero)
 print(lista)
 
-# Con comprensión de listas
+''' Con comprensión de listas '''
 lista = [numero for numero in range(0,11) if numero % 2 == 0 ]
 print(lista)
 ```
