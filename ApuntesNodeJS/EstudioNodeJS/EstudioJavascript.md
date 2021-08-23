@@ -88,7 +88,7 @@ Una cadena es un objeto de tipo String cuyo valor es texto. Internamente, el tex
 ---
 La interpolación de cadenas se usa para mejorar la legibilidad y el mantenimiento del código. Se obtienen los mismos resultados que con las concatenaciones, pero es mas claro y mejor.
 ```Javascript
-
+let interpolacion = `Interpolando una variable: ${variable}`
 ```
 
 ### Métodos de string
@@ -96,61 +96,42 @@ La interpolación de cadenas se usa para mejorar la legibilidad y el mantenimien
 
 ```Javascript
 // Devuelve una cadena en la que se reemplazan los caracteres introducidos, el primero es el valor a cambiar y el segundo parametro el nuevo valor
-cadena.Replace(',', '\n');
+cadena.replace(',', '\n');
 
 // Devuelve un Array con la cadena separada dividiéndola cada vez que encuentre el char enviado, por defecto sera el símbolo '-'
-cadena.Split('m');
+cadena.split('m');
 
 // Devuelve el indice donde se encuentra el caracter indicado
-cadena.IndexOf('m');
+cadena.indexOf('m');
 
 // Compara el string con otro objeto, como por ejemplo, otra cadena
-cadena.CompareTo("Hola, yo me llamo Ralph");
+cadena.localeCompare("Hola, yo me llamo Ralph"); // si es true, devuelve 0
 
 // Devuelve los caracteres entre una posicion de indice y otra, si no se indica la otra se devolvera la cadena desde el indice inicial
-cadena.Substring(3, 5);
+cadena.substring(3, 5);
 ```
 
----
-## StringBuilder
-StringBuilder es una clase de cadena mutable. Mutabilidad significa que una vez creada una instancia de la clase, se puede modificar anexando, quitando, reemplazando o insertando caracteres. 
-
-StringBuilder mantiene un búfer para alojar las modificaciones en la cadena.
-
-Los datos nuevos se anexan al búfer si hay espacio disponible; de lo contrario, se asigna un búfer nuevo y mayor, los datos del búfer original se copian en el nuevo búfer y, a continuación, los nuevos datos se anexan al nuevo búfer.
-
-```Javascript
-
-```
-
----
 # Colecciones
 Las colecciones proporcionan una manera más flexible de trabajar con grupos de objetos. A diferencia de las matrices, el grupo de objetos con el que trabaja puede aumentar y reducirse de manera dinámica a medida que cambian las necesidades de la aplicación
 
 ---
-## Listas
+## Arrays
 
-Una lista es un tipo de colección ordenada(un array)
+Una array es un tipo de colección para almacenar objetos y poder recorrerlos mas adelante
 
-### Métodos de listas
+### Métodos de array
 
 ```Javascript
-var lista = new List<string>() { "Hola" };
+let array = ["3", "ewrgf", "sfesf"];
 
-// Agrega al ultimo elemento de la lista el objeto que se le pasa por parametro
-lista.Add("me llamo Ralph");
+// Agrega al ultimo elemento del array el objeto que se le pasa por parametro
+array.push("me llamo Ralph");
 
-// Devuelve la posicion de la lista donde se ubica el objeto a buscar
-lista.IndexOf("Hola");
+// Devuelve la posicion del array donde se ubica el objeto a buscar
+array.indexOf("Hola");
 
-// Insertas en la posicion 1 el objeto que se quiere, si hay elementos en dicha posicion se mueven hacia la derecha, por tanto el de la 1 pasaria a la posicion 2
-lista.Insert(1, "jajajajaja");
-
-// Eliminar de la lista el objeto indicado
-lista.Remove("me llamo Ralph");
-
-// Ordenas la lista al contra
-lista.Reverse();
+// Ordenas la array al contra
+array.reverse();
 ```
 
 ---
@@ -162,127 +143,28 @@ claves y valores de pares de datos. La clave es idéntica en un par clave-valor 
 ### Métodos de diccionarios
 
 ```Javascript
-var diccionario = new Dictionary<string, string>()
-{
-    { "Clave", "Valor" },
-    {"Key", "Value" }
-};
+let diccionario = new Map();
+diccionario.set("Clave", "Valor");
+diccionario.set("Clave 2", "Valor 2");
+diccionario.set(3, 3);
 
 // Devuelve una lista con las claves del diccionario
-Dictionary<string, string>.KeyCollection claves = diccionario.Keys;
+diccionario.keys();
 
 // Devuelve una lista con los valores del diccionario
-Dictionary<string, string>.ValueCollection valores = diccionario.Values;
+diccionario.values();
 
 // Devuelve un bool indicando si la clave existe en el diccionario
-diccionario.ContainsKey("Clave");
+diccionario.has("Clave");
 
 // Elimina la Key del diccionario y por tanto, los valores asociados a la misma
-diccionario.Remove("Key");
+diccionario.delete(3);
 
 // Metodo para obtener el valor asociado a la clave indicada
-diccionario.TryGetValue("Key", out string valor);
+diccionario.get("Clave");
 
 ```
 
-----
-## Tuplas
-Una tupla es una estructura de datos que contiene una secuencia de elementos de diferentes tipos, esta estructura es de solo lectura, por tanto se usa para almacenar objetos que no van a ser modificados después.
-
-```Javascript
-var tupla = new Tuple<string, bool, int, double>("cadena", false, 500, 578.98);
-
-tupla.Item1;
-tupla.Item2;
-tupla.Item3;
-tupla.Item4;
-```
-
-----
-## Tablas Hash
-Representa una colección de pares de clave y valor que se organizan por código hash de la clave
-
-### Métodos de tablas hash
-
-```Javascript
-var tablaHash = new Hashtable();
-
-// Agrega un nuevo elemento con el par clave-valor
-tablaHash.Add("Key", "Value");
-
-// Elimina la Clave y el valor asociado a la misma
-tablaHash.Remove("Key");
-
-// Devuelve un bool para saber si contiene la clave
-tablaHash.ContainsKey("Key");
-
-// Limpia todos los elementos de la tabla
-tablaHash.Clear();
-
-// Para acceder al valor asociado a la clave mediante el inidizador
-tablaHash["Key"];
-```
-
-----
-## Pilas
-El Stack es una coleccion LIFO(Last in, First Out) sin tamaño fijo de los objetos indicados.
-
-Al usar la forma de almacenamiento LIFO, en la coleccion se trabaja todo el rato sobre los primeros elementos, osea que cuando agregas un elemento nuevo por ejemplo, no se guardaria en el ultimo indice, sino que se almacenaria en el indice 0, al principio de la coleccion.
-
-### Métodos de pilas
-```Javascript
-var pila = new Stack<string>();
-pila.Push("prueba de push");
-
-// Agrega un nuevo elemento en la parte superior de Stack<T>
-pila.Push("Elemento");
-
-// Elimina un elemento de la parte superior
-pila.Pop();
-
-// Devuelve un eleemnto de la parte superior
-pila.Peek();
-
-// Limpia todos los elementos de la coleccion
-pila.Clear();
-
-// Convierte la pila en un array del tipo indicado
-pila.ToArray();
-
-pila.Contains("objeto");
-```
-
-----
-## Colas
-La Queue es una coleccion FIFO(First In, First Out).
-
-Al usar la forma de almacenamiento FIFO, a la hora de agregar elementos se tendran que ir agregando al final de la coleccion y a la hora de trabajar con ellos, se iran extrayendo del mas antiguo al mas nuevo, por tanto, se accedera a los primeros.
-
-### Métodos de colas
-```Javascript
-var cola = new Queue<string>();
-cola.Enqueue("prueba de push");
-
-// Agrega un nuevo elemento al final de la coleccion
-cola.Enqueue("Elemento");
-
-// Elimina el elemento mas antiguo, por tanto el primer elemento de la coleccion
-cola.Dequeue();
-
-// Devuelve el elemento mas antiguo de la coleccion
-cola.Peek();
-
-// Limpia todos los elementos de la coleccion
-cola.Clear();
-
-// Convierte la cola en un array del tipo indicado
-cola.ToArray();
-
-// Comprobamos si la coleccion contiene un objeto especifico
-cola.Contains("objeto");
-```
-
----
 # Programación Orientada a Objetos
 
 ## Class
@@ -294,64 +176,42 @@ De una clase se pueden hacer instancias de objetos para usar sus metodos, propie
 Las clases admiten herencia y polimorfismo, mecanismos por los que las clases derivadas pueden extender y especializar clases base.
 
 ```Javascript
+class ClaseEjemplo {
+    variable = "";
 
+    constructor(variable) {
+        this.variable = variable;
+    }
+
+    metodo() {
+        // Code
+    }
+}
 ```
 
----
-## Static Class
-
-La instruccion `static` se usa cuando se quiere el acceso a un metodo o propiedad sin que tenga que ser instanciada la clase.
-
-Las clases estaticas estan bien usarlas cuando los datos almacenados no requieren de ser unicos o la clase no requiere de almacenar datos en si.
-por ejemplo, la libreria `Convert` de .Net solo realiza conversion de tipos, no requiere de almacenar dicha conversion.
-
-```Javascript
-
-```
-
----
-## Abstract Class
-
-No se pueden crear instancias de una clase abstracta. 
-
-La finalidad de una clase abstracta es ser una clase de la cual se hereda y te da la posibilidad de tener metodos base completamente funcionales y metodos abstractos, estos ultimos son metodos que han de ser "declarados" en la clase abstracta y sobreescritos en la clase que herede de la abstracta.
-
-```Javascript
-
-```
-
-----
-## Sealed Class
-El modificador `sealed` se usa para sellar una clase y que esta no pueda ser heredada.
-
-Tambien se puede usar este modificador en metodos o propiedades para que estos no puedan ser sobreescritos
-```Javascript
-
-```
-
-----
 ## Metodos
 Un método es un bloque de código que contiene una serie de instrucciones.
 ```Javascript
+function funcion() {
+    // Code
+}
 
+// Metodo de clase
+metodo() {
+    // Code
+}
 ```
 
-----
-## Propiedades
-Las propiedades se comportan como campos cuando se obtiene acceso a ellas. Pero, a diferencia de los
-campos, las propiedades se implementan con descriptores de acceso que definen las instrucciones que se
-ejecutan cuando se tiene acceso a una propiedad o se asigna.
-```Javascript
-
-```
-
-----
 ## Delegados
 Un delegate es un tipo de referencia que puede utilizarse para encapsular un método con nombre o anónimo.
 
 Imaginemos que podemos crear un método, almacenarlo en un objeto y pasarlo como parámetro de una función, pues en eso consiste.
 ```Javascript
+let delegado = function(){
+    document.write("codigoEjecutar");
+};
 
+delegado.apply();
 ```
 
 ---
@@ -359,24 +219,29 @@ Imaginemos que podemos crear un método, almacenarlo en un objeto y pasarlo como
 La herencia significa que se pueden crear nuevas clases partiendo de clases existentes, que tendrá todas los atributos, propiedades y los métodos de su 'superclass' o 'clase padre' y además se le podrán añadir otros atributos, propiedades y métodos propios.
 
 ```Javascript
+class ClasePadre {
+    variable = "";
 
+    constructor(variable) {
+        this.variable = variable;
+    }
+
+    metodo() {
+        // Code
+    }
+}
+
+class Clasehija extends ClasePadre {    
+    constructor(variable) {
+        super();
+    }
+
+    metodo() {
+        // Code
+    }
+}
 ```
 
----
-## Interface
-Las interfaces, como las clases, definen un conjunto de propiedades, métodos y eventos. Pero de forma contraria a las clases, las interfaces no proporcionan implementación.
-
-Se implementan como clases y se definen como entidades separadas de las clases.
-
-Una interfaz representa un contrato, en el cual una clase que implementa una interfaz debe implementar cualquier aspecto de dicha interfaz exactamente como esté definido
-
-El beneficio que da las interfaces es que permite tener una capa de abstraccion en el codigo, donde puedes hacer uso de ella para ejecutar ciertas clases usando la interfaz como instancia.
-
-```Javascript
-
-```
-
----
 # Conceptos Avanzados
 
 ## Liberacion de Memoria
