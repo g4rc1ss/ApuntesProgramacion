@@ -1,6 +1,5 @@
 # Estructura del código
 
----
 ## Declaración de variables
 ```Javascript
 var variableGlobal = "2";
@@ -242,139 +241,6 @@ class Clasehija extends ClasePadre {
 }
 ```
 
-# Conceptos Avanzados
-
-## Liberacion de Memoria
-
-
-```Javascript
-
-```
-
----
-## Enumerador
-
-Una enumeración es un conjunto de constantes enteras que tienen asociado un nombre para cada valor.
-
-El objetivo fundamental de implementar una enumeración es facilitar la legibilidad de un programa.
-Supongamos que necesitamos almacenar en un juego de cartas el tipo de carta actual (oro, basto, copa o espada), podemos definir una variable entera y almacenar un 1 si es oro, un 2 si es basto y así sucesivamente.
-Luego mediante if podemos analizar el valor de esa variable y proceder de acuerdo al valor existente.
-
-```Javascript
-
-```
-
----
-## Indizadores
-Permiten crear una clase, un struct o una interfaz con un "indice" al que se accederá a traves del objeto instanciado de la clase, no hace falta acceder a la matriz como tal.
-```Javascript
-
-```
-
----
-## Boxing y Unboxing
-Todos los tipos de C# directa o indirectamente se derivan del tipo de clase object, y object es la clase base definitiva de todos los tipos. Los valores de tipos de referencia se tratan como objetos mediante la visualización de los valores como tipo object.
-
-Los valores de tipos de valor se tratan como objetos mediante la realización de operaciones de conversión boxing y operaciones de conversión unboxing
-
-```Javascript
-
-```
-
----
-## Generics
-Los genéricos introducen en .NET el concepto de parámetros de tipo, lo que le permite diseñar clases y métodos que aplazan la especificación de uno o varios tipos hasta que el código de cliente declare y cree una instancia de la clase o el método.
-
-Para que usar los genéricos?
-- Use tipos genéricos para maximizar la reutilización del código, la seguridad de tipos y el rendimiento.
-- El uso más común de los genéricos es crear clases de colección.
-La biblioteca de clases .NET Framework contiene varias clases de colección genéricas nuevas en el espacio de nombres System.Collections.Generic. Estas se deberían usar siempre que sea posible en lugar de clases como ArrayList en el espacio de nombres System.Collections.
-- Puede crear sus propias interfaces, clases, métodos, eventos y delegados genéricos.
-- Puede limitar las clases genéricas para habilitar el acceso a métodos en tipos de datos determinados.
-- Puede obtener información sobre los tipos que se usan en un tipo de datos genérico en tiempo de ejecución mediante la reflexión
-
-```Javascript
-
-```
-
-### Constraints
-Los constraints son condiciones que deben de cumplir el parametro que se le pasa al generic para que funcione.
-
-| Constraint | Descripción |
-| ---------- | ----------- |
-| | |
-
----
-## Eventos
-Un evento es un mensaje que envía un objeto cuando ocurre una acción.
-
-Los eventos se realizan a mano en el codigo y son contenedores de un metodo Delegado que es el que se va a invocar.
-
-Por ejemplo al interactuar con una interfaz de escritorio, se crea un objeto Button y se agrega al evento para detectar el click y se vincula a un metodo que se ha de ejecutar `Button_Click()`  
-Por debajo lo que hace el codigo es detectar cuando se pulsa el boton y entonces, invoca el evento el cual tiene agregar como delegado el metodo que hemos escrito.
-
-Para crear y controlar un evento se realiza el siguiente codigo:
-
-```Javascript
-
-```
-
----
-## Codigo no Administrado
-El codigo no administrado es un tipo de codigo al que no puede acceder el `Garbage Collector` para realizar el proceso de limpieza de memoria, por tanto hay que hacerlo manualmente.
-
-### 
-Es una tecnologia que permite hacer uso de librerias compiladas de forma nativa con Javascripts como `Rust`, `Cpp`, etc.  
-De esta forma permite realizar interoperabilidad con librerias de los diferentes sitemas como Windows, por ejemplo se puede hacer uso de esto para ejecutar librerias como el diseño de las GUi nativas.
-
-```rust
-#[no_mangle]
-pub extern fn add_numbers(number1: i32, number2: i32) -> i32 {
-    println!("Hola con Rust");
-    number1 + number2
-}
-
-/*
-> cargo new lib
-> cd lib
-Creamos el archivo lib.rs
-Editamos el archivo cargo.toml y agregamos:
-    [lib]
-    name="libreriaEjemploRust"
-    crate-type = ["dylib"]
-> cargo build
-```
-
-```Javascript
-
-```
-
-### Codigo inseguro
-La mayor parte del código que se escribe es "código seguro comprobable". El código seguro comprobable significa que las herramientas del Javascript pueden comprobar que el código es seguro. En general, el código seguro no accede directamente a la memoria mediante punteros. Tampoco asigna memoria sin procesar. En su lugar, crea objetos administrados.
-
-Este modo es un tipo de [Codigo no Administrado](#codigo-no-administrado) puesto que a este codigo no acceden las herramientas para liberar el espacio de memoria que ocupan por ejemplo.
-
-El código no seguro tiene las propiedades siguientes:
-
-- Los métodos, tipos y bloques de código se pueden definir como no seguros.
-- En algunos casos, el código no seguro puede aumentar el rendimiento de la aplicación al eliminar las comprobaciones de límites de matriz.
-- El código no seguro es necesario al llamar a funciones nativas que requieren punteros.
-- El código no seguro presenta riesgos para la seguridad y la estabilidad.
-- El código que contenga bloques no seguros deberá compilarse con la opción del compilador AllowUnsafeBlocks.
-
-#### Punteros
-
-```Javascript
-
-```
-
-En la tabla siguiente se muestran los operadores e instrucciones que pueden funcionar en punteros en un contexto no seguro:
-
-| Operador/Instrucción | Usar |
-| -------------------- | ---- |
-| | | |
-
----
 # Tratamiento de Excepciones
 
 ## Excepciones
@@ -384,56 +250,68 @@ Las excepciones pueden iniciarse debido a un error en el código propio o en el 
 
 ### Capurando las excepciones
 ```Javascript
-
+try {
+    // Code
+} catch (err) {
+    // Code
+} finally {
+    // Code
+}
 ```
 
 ### Provocando una excepcion
 ```Javascript
-
+throw(console.log("Excepcion"));
 ```
 
 ### Creando excepciones propias
 ```Javascript
+class MiExcepcion extends Error {
+    constructor(mensaje) {
+        super(mensaje);
+        this.name = "MiExcepcion";
+    }
+}
 
+try {
+    throw(new MiExcepcion("Excepciooooooooon"));
+} catch (excepcionMia) {
+    document.write(excepcionMia.message);
+} finally {
+    // Code
+}
 ```
 
----
-# Programación Asincrona & MultiThreading
-
-## 
-
-
-```Javascript
-
-```
-
----
-## Paralelismo
-Muchos equipos y estaciones de trabajo personales tienen varios núcleos de CPU que permiten ejecutar múltiples subprocesos simultáneamente. Para aprovecharse del hardware, se puede paralelizar el código para distribuir el trabajo entre dichos núcleos.
-
-Por ejemplo, imaginemos que tenemos una aplicacion que requiere de realizar 3 consultas para obtener datos diferentes de una BBDD, aprovechandonos del multithreading, podemos hacer uso de la clase Parallel para realizar esas consultas de forma paralelizada y reducir los tiempos.
-
-### Ejecucion de metodos paralelamente
-Permite la ejecucion paralelizada de un array de delegados
-
-Cuando se ejecuta la instruccion, el metodo Invoke recibe un array de delegados que ejecutaran en un hilo nuevo y esperara a que estos terminen
-```Javascript
-
-```
-
-### Recorrer un bucle de forma paralela
-Permite la ejecucion paralelizada de la lectura de una coleccion
-
-```Javascript
-
-```
-
----
 # Comprension de Listas
 
 
-## 
+## Filter
+Procesa el array aplicandole el filtro que se le indique dentro de function, si la comprobacion es `true` se agregara al array de salida el contenido correspondiente.
 
 ```Javascript
+array.filter(function(numero){
+    return numero > 5;
+});
+```
 
+## Map
+Devuelve un nuevo array con los requisitos que le indiquemos dentro de la funcion.  
+Por ejemplo, se puede utililzar para devolver los objetos del array que se esta procesando con un formato especifico o insertar ciertos datos del array en una clase.
+```Javascript
+array.map(function(numeroFilter){
+    return `Número: ${numeroFilter}`;
+});
+```
+
+## Sort
+Ordenamos un array que contiene objetos indicando la forma de filtrado
+```Javascript
+let arrayOrdenado = array.sort(function (persona, personaSiguiente) {
+    if (persona.nombre > personaSiguiente.nombre) {
+        return 1;
+    } else if (personaSiguiente.nombre > persona.nombre) {
+        return -1;
+    }
+    return 0;
+});
 ```
