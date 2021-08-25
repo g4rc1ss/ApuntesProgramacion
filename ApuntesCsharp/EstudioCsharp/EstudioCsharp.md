@@ -2,6 +2,8 @@
 
 	 1. [Declaración de variables](#declaración-de-variables)
 
+	 1. [Tipos Nullables](#tipos-nullables)
+
 	 1. [Convertir tipos](#convertir-tipos)
 
 	 1. [Sentencias de flujo](#sentencias-de-flujo)
@@ -74,7 +76,11 @@
 
 	 1. [Indizadores](#indizadores)
 
+	 1. [Yield](#yield)
+
 	 1. [Boxing y Unboxing](#boxing-y-unboxing)
+
+	 1. [Dynamic](#dynamic)
 
 	 1. [Generics](#generics)
 
@@ -139,8 +145,6 @@
 	 1. [FirstOrDefault](#firstordefault)
 
 
-
-
 # Estructura del código
 
 ```Csharp
@@ -177,6 +181,14 @@ const int CONSTANTE = 2;
 ```
 - `var` Se usa para no tener que indicar el tipo de la variable, lo detecta automaticamente
 - `const` Se usa para establecer un valor que no puede ser modificado
+
+---
+## Tipos Nullables
+Los tipos primitivos no pueden ser `null` por defecto, no obstante, si se requiere de hacer uso de null en dichos tipos, se pueden definir de la siguiente forma.
+```Csharp
+int? numero = null;
+Nullable<int> = null;
+```
 
 ---
 ## Convertir tipos
@@ -743,6 +755,43 @@ public static void Main(string[] args)
 ```
 
 ---
+## Yield
+Lo que el operador yield realiza es pausar la ejecución de la iteración y devuelve el valor al método que realiza la llamada para que este continúe con su ejecución y cuando termine volverá al siguiente punto del iterador.
+
+- `yield` nos puede dar mejoras en el rendimiento y el uso de la ram lo cual siempre es importante.
+- Una vez nos acostumbramos a utilizarlo, podemos ver que es muy útil y muy potente, pero desafortunadamente no es muy común
+```Csharp
+public class Coche
+{
+    public IEnumerable<string> FiltrarCochesGetNombresYield(List<Coche> coches)
+    {
+        foreach (Coche coche in coches)
+        {
+            if (coche.Marca == MarcaCcohe.Opel)
+            {
+                yield return coche.Modelo;
+            }
+        }
+    }
+}
+
+List<Coche> coches = new List<Coche>()
+{
+    new Coche(MarcaCcohe.Audi, "A3"),
+    new Coche(MarcaCcohe.Audi, "A5"),
+    new Coche(MarcaCcohe.Opel, "Vectra"),
+    new Coche(MarcaCcohe.Opel, "Astra"),
+};
+
+
+foreach (string modelo in FiltrarCochesGetNombresYield(coches))
+{
+    Console.WriteLine($"El modelo del cohce es {modelo}");
+}
+```
+
+
+---
 ## Boxing y Unboxing
 Todos los tipos de C# directa o indirectamente se derivan del tipo de clase object, y object es la clase base definitiva de todos los tipos. Los valores de tipos de referencia se tratan como objetos mediante la visualización de los valores como tipo object.
 
@@ -752,6 +801,25 @@ Los valores de tipos de valor se tratan como objetos mediante la realización de
 int i = 123;
 object o = i; // Boxing
 int j = (int)o; // Unboxing
+```
+
+---
+## Dynamic
+Cuando creamos una variable debemos indicar el tipo de variable que va a ser, o podemos utilizar la palabra clave var, la cual se convertirá en tiempo de compilación en el tipo de variable - la cual denominamos variable implícita -
+
+En el caso de las variables dinámicas, en vez de determinar su valor en tiempo de compilación se determina durante el tiempo de ejecución, o runtime.
+
+Cuando el compilador pasa por la variable lo que hace es convertir en tipo en un tipo Object en la gran mayoría de los casos. 
+
+Lo que quiere decir que cada vez que le asignamos un valor, cambiará también el tipo de variable que es el objeto, podemos verlo utilizando la siguiente línea de código:
+```Csharp
+// Se inicializa tipo int
+dynamic variableDinamica = 1;
+// Se le asigna tipo string
+variableDinamica = "test";
+
+// Para obtener el tipo de la variable
+variableDinamica.GetType().ToString();
 ```
 
 ---

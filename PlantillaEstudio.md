@@ -18,6 +18,13 @@
 ```
 
 ---
+## Tipos Nullables
+Los tipos primitivos no pueden ser `null` por defecto, no obstante, si se requiere de hacer uso de null en dichos tipos, se pueden definir de la siguiente forma.
+```Lenguaje
+
+```
+
+---
 ## Convertir tipos
 ```Lenguaje
 
@@ -382,7 +389,17 @@ Luego mediante if podemos analizar el valor de esa variable y proceder de acuerd
 
 ---
 ## Indizadores
-Permiten crear una clase, un struct o una interfaz con un "indice" al que se accederá a traves del objeto instanciado de la clase, no hace falta acceder a la matriz como tal.
+Son una propiedad que nos permite trabajar con un objeto como si fuera un array pudiendo acceder a los atributos del objeto mediante un `[index]`
+```Lenguaje
+
+```
+
+---
+## yield
+Lo que el operador yield realiza es pausar la ejecución de la iteración y devuelve el valor al método que realiza la llamada para que este continúe con su ejecución y cuando termine volverá al siguiente punto del iterador.
+
+- `yield` nos puede dar mejoras en el rendimiento y el uso de la ram lo cual siempre es importante.
+- Una vez nos acostumbramos a utilizarlo, podemos ver que es muy útil y muy potente, pero desafortunadamente no es muy común
 ```Lenguaje
 
 ```
@@ -396,6 +413,20 @@ Los valores de tipos de valor se tratan como objetos mediante la realización de
 ```Lenguaje
 
 ```
+
+---
+## Dynamic
+Cuando creamos una variable debemos indicar el tipo de variable que va a ser, o podemos utilizar la palabra clave var, la cual se convertirá en tiempo de compilación en el tipo de variable - la cual denominamos variable implícita -
+
+En el caso de las variables dinámicas, en vez de determinar su valor en tiempo de compilación se determina durante el tiempo de ejecución, o runtime.
+
+Cuando el compilador pasa por la variable lo que hace es convertir en tipo en un tipo Object en la gran mayoría de los casos. 
+
+Lo que quiere decir que cada vez que le asignamos un valor, cambiará también el tipo de variable que es el objeto, podemos verlo utilizando la siguiente línea de código:
+```Lenguaje
+
+```
+
 
 ---
 ## Generics
