@@ -20,11 +20,21 @@ fun main(args: Array<String>) {
 ```Kotlin
 var cadena: String = ""
 var numero: Int = 0
+var flotante: Float = 1.5f
 var booleana: Boolean = false
 val constante: String = "Constante"
 ```
 - `val` -> La palabra reservada val se utiliza indicar una variable que es de solo lectura, por tanto no puede ser modificada.
 
+---
+## Convertir tipos
+```Kotlin
+flotante.toInt()
+numero.toFloat()
+cadena.toByte()
+```
+
+---
 ## Sentencias de flujo
 ```Kotlin
 if (true) {
@@ -57,19 +67,37 @@ for(dato in prueba.listaDatos){
 
 var x: Int = 0
 while(x < prueba.listaDatos.size){
-    println(prueba.listaDatos.get(x))
-    x ++
+    if(x == 1){
+        continue
+    }
 }
 
 x = 0
 do{
-    println(prueba.listaDatos.get(x))
+    if(x == 1){
+        break
+    }
     x ++
 } while(x < prueba.listaDatos.size)
+    
+    println(sets)
+}
 ```
+- `continue` -> La expresión continue un una expresión de salto que solo se permite dentro de los cuerpos de los bucles. Su funcionalidad es saltar las sentencias de una iteración y pasar a la siguiente.
+- `break` -> La expresión break es una expresión de salto que se permite solo al interior de los bucles. Su objetivo es pasar el control al siguiente punto del programa luego del bucle, es decir, finalizar el bucle.
 
----
+
 # Cadenas
+
+```Kotlin
+val variableTexto: String = "Variable con Texto"
+// raw string
+val textoMultilinea = """
+    Hola, este es un comentario
+    de muchas lineas juntas
+    en el lenguaje Kotlin
+"""
+```
 
 ## Literales
 | Secuencia de escape | Nombre de carácter | Codificación Unicode |
