@@ -238,7 +238,6 @@ sets.remove(3)
 # Programación Orientada a Objetos
 
 ## Class
-
 Una clase es una estructura de datos que combina estados (campos) y acciones (métodos y otros miembros de función) en una sola unidad. 
 
 De una clase se pueden hacer instancias de objetos para usar sus metodos, propiedades, etc. Y de esta forma, poder reutilizar codigo.
@@ -246,55 +245,57 @@ De una clase se pueden hacer instancias de objetos para usar sus metodos, propie
 Las clases admiten herencia y polimorfismo, mecanismos por los que las clases derivadas pueden extender y especializar clases base.
 
 ```Kotlin
-
+class Prueba {
+    private var nombre: String
+    private var apellidos: String
+    public var listaDatos = java.util.ArrayList<String>()
+   
+    constructor(nombre: String, apellidos: String) {
+        this.nombre = nombre
+        this.apellidos = apellidos
+    }
+    
+    fun getNombre(): String {
+        return nombre
+    }
+}
 ```
 
 ---
-## Static Class
-
-La instruccion `static` se usa cuando se quiere el acceso a un metodo o propiedad sin que tenga que ser instanciada la clase.
-
-Las clases estaticas estan bien usarlas cuando los datos almacenados no requieren de ser unicos o la clase no requiere de almacenar datos en si.
-por ejemplo, la libreria `Convert` de .Net solo realiza conversion de tipos, no requiere de almacenar dicha conversion.
-
-```Kotlin
-
-```
-
----
-## Abstract Class
-
-No se pueden crear instancias de una clase abstracta. 
-
-La finalidad de una clase abstracta es ser una clase de la cual se hereda y te da la posibilidad de tener metodos base completamente funcionales y metodos abstractos, estos ultimos son metodos que han de ser "declarados" en la clase abstracta y sobreescritos en la clase que herede de la abstracta.
-
-```Kotlin
-
-```
-
-----
-## Sealed Class
-El modificador `sealed` se usa para sellar una clase y que esta no pueda ser heredada.
-
-Tambien se puede usar este modificador en metodos o propiedades para que estos no puedan ser sobreescritos
-```Kotlin
-
-```
-
-----
 ## Metodos
 Un método es un bloque de código que contiene una serie de instrucciones.
 ```Kotlin
+fun metodo(parametro: Int, parametroTexto: String) {
+    // Code
+}
 
+fun metodoReturn(): String {
+    return ""
+}
+```
+
+----
+## Metodos Estaticos
+Sirven para poder acceder a un metodo sin hacer falta instanciar la clase para ello.
+```Kotlin
+class PruebaClaseStatic {   
+    constructor() {
+        
+    }
+    
+    companion object MetodosStatic {
+        fun getNombre(): String {
+            return "Asier"
+        }
+    }
+}
 ```
 
 ----
 ## Propiedades
-Las propiedades se comportan como campos cuando se obtiene acceso a ellas. Pero, a diferencia de los
-campos, las propiedades se implementan con descriptores de acceso que definen las instrucciones que se
-ejecutan cuando se tiene acceso a una propiedad o se asigna.
+Las propiedades se comportan como campos cuando se obtiene acceso a ellas. Pero, a diferencia de los campos, las propiedades se implementan con descriptores de acceso que definen las instrucciones que se ejecutan cuando se tiene acceso a una propiedad o se asigna.
 ```Kotlin
-
+var propiedad: Int get(){ return propiedad } set(value) { propiedad = value }
 ```
 
 ----
@@ -312,6 +313,48 @@ La herencia significa que se pueden crear nuevas clases partiendo de clases exis
 
 ```Kotlin
 
+```
+
+## Abstract Class
+No se pueden crear instancias de una clase abstracta. 
+
+La finalidad de una clase abstracta es ser una clase de la cual se hereda y te da la posibilidad de tener metodos base completamente funcionales y metodos abstractos, estos ultimos son metodos que han de ser "declarados" en la clase abstracta y sobreescritos en la clase que herede de la abstracta.
+
+```Kotlin
+abstract class ClaseAbstracta {
+    abstract val propiedadAbstracta: Int
+
+    abstract fun metodoAbstracto()
+
+    fun metodoNoAbstracto() {
+        // Cuerpo
+    }
+}
+
+class PruebaClaseHeredaDeAbstracta : ClaseAbstracta {
+    override val propiedadAbstracta: Int = 0
+    
+    constructor() {
+        
+    }
+    
+    override fun metodoAbstracto() {
+        
+    }
+}
+```
+
+----
+## Sealed Class
+El modificador `sealed` se usa para sellar una clase y que esta no pueda ser heredada.
+
+Tambien se puede usar este modificador en metodos o propiedades para que estos no puedan ser sobreescritos
+```Kotlin
+sealed class ClaseSellada {
+    constructor() {
+        
+    }
+}
 ```
 
 ---
@@ -485,7 +528,7 @@ En la tabla siguiente se muestran los operadores e instrucciones que pueden func
 | -------------------- | ---- |
 | | | |
 
----
+
 # Tratamiento de Excepciones
 
 ## Excepciones
@@ -495,17 +538,30 @@ Las excepciones pueden iniciarse debido a un error en el código propio o en el 
 
 ### Capurando las excepciones
 ```Kotlin
-
+try{
+    // Code
+}catch(ex: Exception){
+    println("Excepcion capturada")
+}
 ```
 
 ### Provocando una excepcion
 ```Kotlin
-
+throw NullPointerException("")
 ```
 
 ### Creando excepciones propias
 ```Kotlin
+class MiExcepcion : Exception{
+    constructor(message: String) : super(message) {
+    }
+}
 
+try{
+        throw MiExcepcion("")
+    }catch(ex: Exception){
+        println("Excepcion capturada")
+    }
 ```
 
 ---
