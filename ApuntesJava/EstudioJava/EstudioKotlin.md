@@ -27,6 +27,16 @@ val constante: String = "Constante"
 - `val` -> La palabra reservada val se utiliza indicar una variable que es de solo lectura, por tanto no puede ser modificada.
 
 ---
+## Tipos Nullables
+Con el mismo marco de las variables de solo lectura y mutables, Kotlin evita que tus tipos acepten el literal constante null (ausencia de valor) como regla general.
+
+Si necesitas un tipo que acepte nulos, defínelo como anulable, ubicando un signo de interrogación de cierre (?) al final del tipo.
+```Kotlin
+var aceptaNull: String?
+aceptaNull = null
+```
+
+---
 ## Convertir tipos
 ```Kotlin
 flotante.toInt()
