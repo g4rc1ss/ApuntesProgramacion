@@ -295,7 +295,9 @@ class PruebaClaseStatic {
 ## Propiedades
 Las propiedades se comportan como campos cuando se obtiene acceso a ellas. Pero, a diferencia de los campos, las propiedades se implementan con descriptores de acceso que definen las instrucciones que se ejecutan cuando se tiene acceso a una propiedad o se asigna.
 ```Kotlin
-var propiedad: Int get(){ return propiedad } set(value) { propiedad = value }
+var propiedad: Int 
+        get(){ return propiedad } 
+        set(value) { propiedad = value }
 ```
 
 ----
@@ -304,7 +306,11 @@ Un delegate es un tipo de referencia que puede utilizarse para encapsular un mé
 
 Imaginemos que podemos crear un método, almacenarlo en un objeto y pasarlo como parámetro de una función, pues en eso consiste.
 ```Kotlin
+val delegado by lazy {
+    metodoImprimirPantalla()
+}
 
+delegado
 ```
 
 ---
@@ -312,9 +318,28 @@ Imaginemos que podemos crear un método, almacenarlo en un objeto y pasarlo como
 La herencia significa que se pueden crear nuevas clases partiendo de clases existentes, que tendrá todas los atributos, propiedades y los métodos de su 'superclass' o 'clase padre' y además se le podrán añadir otros atributos, propiedades y métodos propios.
 
 ```Kotlin
+open class ClasePadre {
+    constructor() {
+        // Code
+    }
+    
+    open fun metodo() {
+        // Code
+    }
+}
 
+class ClaseHija : ClasePadre {
+    constructor() : super() {
+        // Code
+    }
+    
+    override fun metodo() {
+        // Code
+    }
+}
 ```
 
+---
 ## Abstract Class
 No se pueden crear instancias de una clase abstracta. 
 
@@ -368,17 +393,35 @@ Una interfaz representa un contrato, en el cual una clase que implementa una int
 El beneficio que da las interfaces es que permite tener una capa de abstraccion en el codigo, donde puedes hacer uso de ella para ejecutar ciertas clases usando la interfaz como instancia.
 
 ```Kotlin
+interface IInterfaz {
+    val p1: Int // Propiedad abstracta
 
+    val p2: Boolean // Propiedad regular con accesor
+        get() = p1 > 0
+
+    fun m1() // Método abstracto
+
+    fun m2() { // Método regular
+        print("Método implementado")
+    }
+}
+
+class Ejemplo : IInterfaz {
+    override val p1: Int  = 0
+    
+    override fun m1() {
+        // Code
+    }
+}
 ```
 
----
 # Conceptos Avanzados
 
 ## Liberacion de Memoria
-
+Para evitar que el programa se quede sin memoria, la `JVM` tiene una funcion que se llama Garbage Collector que nos abstrae de la necesidad de tener que liberar la memoria a mano, no obstante, si queremos liberar o borrar la memoria podemos usar el siguiente metodo.
 
 ```Kotlin
-
+System.gc()
 ```
 
 ---
@@ -391,7 +434,12 @@ Supongamos que necesitamos almacenar en un juego de cartas el tipo de carta actu
 Luego mediante if podemos analizar el valor de esa variable y proceder de acuerdo al valor existente.
 
 ```Kotlin
-
+enum class TipoCarta {
+    ORO,
+    BASTO,
+    COPA,
+    ESPADA
+}
 ```
 
 ---
@@ -437,18 +485,23 @@ Lo que quiere decir que cada vez que le asignamos un valor, cambiará también e
 
 ---
 ## Generics
-Los genéricos introducen en .NET el concepto de parámetros de tipo, lo que le permite diseñar clases y métodos que aplazan la especificación de uno o varios tipos hasta que el código de cliente declare y cree una instancia de la clase o el método.
+Los genéricos introducen en el concepto de parámetros de tipo, lo que le permite diseñar clases y métodos que aplazan la especificación de uno o varios tipos hasta que el código de cliente declare y cree una instancia de la clase o el método.
 
 Para que usar los genéricos?
 - Use tipos genéricos para maximizar la reutilización del código, la seguridad de tipos y el rendimiento.
 - El uso más común de los genéricos es crear clases de colección.
-La biblioteca de clases .NET Framework contiene varias clases de colección genéricas nuevas en el espacio de nombres System.Collections.Generic. Estas se deberían usar siempre que sea posible en lugar de clases como ArrayList en el espacio de nombres System.Collections.
 - Puede crear sus propias interfaces, clases, métodos, eventos y delegados genéricos.
 - Puede limitar las clases genéricas para habilitar el acceso a métodos en tipos de datos determinados.
 - Puede obtener información sobre los tipos que se usan en un tipo de datos genérico en tiempo de ejecución mediante la reflexión
 
 ```Kotlin
+class ClaseGenerica<T>(t: T) {
+    val propiedad: T = t
 
+    fun metodo(param: T) {
+        println(param)
+    }
+}
 ```
 
 ### Constraints
