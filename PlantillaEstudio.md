@@ -360,7 +360,7 @@ El beneficio que da las interfaces es que permite tener una capa de abstraccion 
 # Conceptos Avanzados
 
 ## Liberacion de Memoria
-
+Para evitar que el programa se quede sin memoria, la `JVM` tiene una funcion que se llama Garbage Collector que nos abstrae de la necesidad de tener que liberar la memoria a mano, no obstante, si queremos liberar o borrar la memoria podemos usar el siguiente metodo.
 
 ```Lenguaje
 
