@@ -27,13 +27,38 @@ val constante: String = "Constante"
 - `val` -> La palabra reservada val se utiliza indicar una variable que es de solo lectura, por tanto no puede ser modificada.
 
 ---
-## Tipos Nullables
+## Anulabilidad
 Con el mismo marco de las variables de solo lectura y mutables, Kotlin evita que tus tipos acepten el literal constante null (ausencia de valor) como regla general.
 
 Si necesitas un tipo que acepte nulos, defínelo como anulable, ubicando un signo de interrogación de cierre (?) al final del tipo.
 ```Kotlin
 var aceptaNull: String?
 aceptaNull = null
+```
+
+### Operador de acceso seguro
+Si el miembro existe, entonces se retorna el contenido, de lo contrario se obtendrá null del recibidor.
+
+```Kotlin
+aceptaNull?.toBigDecimal()
+```
+
+### Operador Elvis
+En Kotlin, este operador se reduce para comprobar expresiones anulables. Si el operando de la izquierda es null entonces retornará el de la derecha:
+
+```Kotlin
+val passwordSize = if (password!=null) password.length else 0
+// Esto equivale a:
+val passwordSize = password?.length ?: 0
+```
+
+### Operador de asercion
+También es posible manejar la anulabilidad en Kotlin, usando el operador de aserción not null (`!!`) o __not-null assertion operator__
+
+Este convierte cualquier valor a un tipo no anulable. Si no se puede, se lanza una excepción del tipo `NullPointerException`
+
+```Kotlin
+aceptaNull!!
 ```
 
 ---
