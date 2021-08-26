@@ -48,7 +48,6 @@ Los tipos primitivos no pueden ser `null` por defecto, no obstante, si se requie
 
 ```
 
----
 # Cadenas
 
 ## String
@@ -111,7 +110,6 @@ Los datos nuevos se anexan al búfer si hay espacio disponible; de lo contrario,
 
 ```
 
----
 # Colecciones
 Las colecciones proporcionan una manera más flexible de trabajar con grupos de objetos. A diferencia de las matrices, el grupo de objetos con el que trabaja puede aumentar y reducirse de manera dinámica a medida que cambian las necesidades de la aplicación
 
@@ -270,7 +268,6 @@ cola.ToArray();
 cola.Contains("objeto");
 ```
 
----
 # Programación Orientada a Objetos
 
 ## Class
@@ -290,34 +287,10 @@ Las clases admiten herencia y polimorfismo, mecanismos por los que las clases de
 
 La instruccion `static` se usa cuando se quiere el acceso a un metodo o propiedad sin que tenga que ser instanciada la clase.
 
-Las clases estaticas estan bien usarlas cuando los datos almacenados no requieren de ser unicos o la clase no requiere de almacenar datos en si.
-por ejemplo, la libreria `Convert` de .Net solo realiza conversion de tipos, no requiere de almacenar dicha conversion.
-
 ```Lenguaje
 
 ```
 
----
-## Abstract Class
-
-No se pueden crear instancias de una clase abstracta. 
-
-La finalidad de una clase abstracta es ser una clase de la cual se hereda y te da la posibilidad de tener metodos base completamente funcionales y metodos abstractos, estos ultimos son metodos que han de ser "declarados" en la clase abstracta y sobreescritos en la clase que herede de la abstracta.
-
-```Lenguaje
-
-```
-
-----
-## Sealed Class
-El modificador `sealed` se usa para sellar una clase y que esta no pueda ser heredada.
-
-Tambien se puede usar este modificador en metodos o propiedades para que estos no puedan ser sobreescritos
-```Lenguaje
-
-```
-
-----
 ## Metodos
 Un método es un bloque de código que contiene una serie de instrucciones.
 ```Lenguaje
@@ -351,6 +324,26 @@ La herencia significa que se pueden crear nuevas clases partiendo de clases exis
 ```
 
 ---
+## Abstract Class
+
+No se pueden crear instancias de una clase abstracta. 
+
+La finalidad de una clase abstracta es ser una clase de la cual se hereda y te da la posibilidad de tener metodos base completamente funcionales y metodos abstractos, estos ultimos son metodos que han de ser "declarados" en la clase abstracta y sobreescritos en la clase que herede de la abstracta.
+
+```Lenguaje
+
+```
+
+----
+## Sealed Class
+El modificador `sealed` se usa para sellar una clase y que esta no pueda ser heredada.
+
+Tambien se puede usar este modificador en metodos o propiedades para que estos no puedan ser sobreescritos
+```Lenguaje
+
+```
+
+---
 ## Interface
 Las interfaces, como las clases, definen un conjunto de propiedades, métodos y eventos. Pero de forma contraria a las clases, las interfaces no proporcionan implementación.
 
@@ -364,7 +357,6 @@ El beneficio que da las interfaces es que permite tener una capa de abstraccion 
 
 ```
 
----
 # Conceptos Avanzados
 
 ## Liberacion de Memoria
@@ -521,7 +513,7 @@ En la tabla siguiente se muestran los operadores e instrucciones que pueden func
 | -------------------- | ---- |
 | | | |
 
----
+
 # Tratamiento de Excepciones
 
 ## Excepciones
@@ -575,7 +567,6 @@ Permite la ejecucion paralelizada de la lectura de una coleccion
 
 ```
 
----
 # Comprension de Listas
 
 
