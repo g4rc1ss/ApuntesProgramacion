@@ -176,7 +176,6 @@ for (var item : list) {
 }
 ```
 
----
 # Cadenas
 
 ## String
@@ -242,7 +241,6 @@ stringBuilder.append("Terminado");
 var cadenaCompleta = stringBuilder.toString();
 ```
 
----
 # Colecciones
 Las colecciones proporcionan una manera más flexible de trabajar con grupos de objetos. A diferencia de las matrices, el grupo de objetos con el que trabaja puede aumentar y reducirse de manera dinámica a medida que cambian las necesidades de la aplicación
 
@@ -350,7 +348,6 @@ cola.toArray();
 cola.contains("objeto");
 ```
 
----
 # Programación Orientada a Objetos
 
 ## Class
@@ -476,7 +473,6 @@ class PruebaInterfazImplícita implements MiInterfaz {
 }
 ```
 
----
 # Conceptos Avanzados
 
 ## Enumerador
@@ -597,7 +593,6 @@ class MyException extends Exception {
 }
 ```
 
----
 # Programación MultiThreading
 
 ## Thread

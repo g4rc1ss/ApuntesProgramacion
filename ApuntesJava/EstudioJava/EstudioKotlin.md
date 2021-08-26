@@ -154,7 +154,6 @@ La interpolación de cadenas se usa para mejorar la legibilidad y el mantenimien
 var cadena: String = "$nombreVariable"
 ```
 
----
 # Colecciones
 Las colecciones proporcionan una manera más flexible de trabajar con grupos de objetos. A diferencia de las matrices, el grupo de objetos con el que trabaja puede aumentar y reducirse de manera dinámica a medida que cambian las necesidades de la aplicación
 
@@ -426,7 +425,6 @@ System.gc()
 
 ---
 ## Enumerador
-
 Una enumeración es un conjunto de constantes enteras que tienen asociado un nombre para cada valor.
 
 El objetivo fundamental de implementar una enumeración es facilitar la legibilidad de un programa.
@@ -446,7 +444,16 @@ enum class TipoCarta {
 ## Indizadores
 Son una propiedad que nos permite trabajar con un objeto como si fuera un array pudiendo acceder a los atributos del objeto mediante un `[index]`
 ```Kotlin
+class PruebaIndexer {
+    var lista = arrayOf<Int>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0)
+    
+    operator fun get(index: Int) : Int {
+        return lista.get(index)
+    }
+}
 
+val prueba = PruebaIndexer()
+prueba[0]
 ```
 
 ---
@@ -456,32 +463,15 @@ Lo que el operador yield realiza es pausar la ejecución de la iteración y devu
 - `yield` nos puede dar mejoras en el rendimiento y el uso de la ram lo cual siempre es importante.
 - Una vez nos acostumbramos a utilizarlo, podemos ver que es muy útil y muy potente, pero desafortunadamente no es muy común
 ```Kotlin
+val lista = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 0)
+var secuencia = sequence {
+    yield(lista)
+}
 
+for(valor in secuencia) {
+    println(valor)
+}
 ```
-
----
-## Boxing y Unboxing
-Todos los tipos de C# directa o indirectamente se derivan del tipo de clase object, y object es la clase base definitiva de todos los tipos. Los valores de tipos de referencia se tratan como objetos mediante la visualización de los valores como tipo object.
-
-Los valores de tipos de valor se tratan como objetos mediante la realización de operaciones de conversión boxing y operaciones de conversión unboxing
-
-```Kotlin
-
-```
-
----
-## Dynamic
-Cuando creamos una variable debemos indicar el tipo de variable que va a ser, o podemos utilizar la palabra clave var, la cual se convertirá en tiempo de compilación en el tipo de variable - la cual denominamos variable implícita -
-
-En el caso de las variables dinámicas, en vez de determinar su valor en tiempo de compilación se determina durante el tiempo de ejecución, o runtime.
-
-Cuando el compilador pasa por la variable lo que hace es convertir en tipo en un tipo Object en la gran mayoría de los casos. 
-
-Lo que quiere decir que cada vez que le asignamos un valor, cambiará también el tipo de variable que es el objeto, podemos verlo utilizando la siguiente línea de código:
-```Kotlin
-
-```
-
 
 ---
 ## Generics
@@ -503,84 +493,6 @@ class ClaseGenerica<T>(t: T) {
     }
 }
 ```
-
-### Constraints
-Los constraints son condiciones que deben de cumplir el parametro que se le pasa al generic para que funcione.
-
-| Constraint | Descripción |
-| ---------- | ----------- |
-| | |
-
----
-## Eventos
-Un evento es un mensaje que envía un objeto cuando ocurre una acción.
-
-Los eventos se realizan a mano en el codigo y son contenedores de un metodo Delegado que es el que se va a invocar.
-
-Por ejemplo al interactuar con una interfaz de escritorio, se crea un objeto Button y se agrega al evento para detectar el click y se vincula a un metodo que se ha de ejecutar `Button_Click()`  
-Por debajo lo que hace el codigo es detectar cuando se pulsa el boton y entonces, invoca el evento el cual tiene agregar como delegado el metodo que hemos escrito.
-
-Para crear y controlar un evento se realiza el siguiente codigo:
-
-```Kotlin
-
-```
-
----
-## Codigo no Administrado
-El codigo no administrado es un tipo de codigo al que no puede acceder el `Garbage Collector` para realizar el proceso de limpieza de memoria, por tanto hay que hacerlo manualmente.
-
-### 
-Es una tecnologia que permite hacer uso de librerias compiladas de forma nativa con Kotlins como `Rust`, `Cpp`, etc.  
-De esta forma permite realizar interoperabilidad con librerias de los diferentes sitemas como Windows, por ejemplo se puede hacer uso de esto para ejecutar librerias como el diseño de las GUi nativas.
-
-```rust
-#[no_mangle]
-pub extern fn add_numbers(number1: i32, number2: i32) -> i32 {
-    println!("Hola con Rust");
-    number1 + number2
-}
-
-/*
-> cargo new lib
-> cd lib
-Creamos el archivo lib.rs
-Editamos el archivo cargo.toml y agregamos:
-    [lib]
-    name="libreriaEjemploRust"
-    crate-type = ["dylib"]
-> cargo build
-```
-
-```Kotlin
-
-```
-
-### Codigo inseguro
-La mayor parte del código que se escribe es "código seguro comprobable". El código seguro comprobable significa que las herramientas del Kotlin pueden comprobar que el código es seguro. En general, el código seguro no accede directamente a la memoria mediante punteros. Tampoco asigna memoria sin procesar. En su lugar, crea objetos administrados.
-
-Este modo es un tipo de [Codigo no Administrado](#codigo-no-administrado) puesto que a este codigo no acceden las herramientas para liberar el espacio de memoria que ocupan por ejemplo.
-
-El código no seguro tiene las propiedades siguientes:
-
-- Los métodos, tipos y bloques de código se pueden definir como no seguros.
-- En algunos casos, el código no seguro puede aumentar el rendimiento de la aplicación al eliminar las comprobaciones de límites de matriz.
-- El código no seguro es necesario al llamar a funciones nativas que requieren punteros.
-- El código no seguro presenta riesgos para la seguridad y la estabilidad.
-- El código que contenga bloques no seguros deberá compilarse con la opción del compilador AllowUnsafeBlocks.
-
-#### Punteros
-
-```Kotlin
-
-```
-
-En la tabla siguiente se muestran los operadores e instrucciones que pueden funcionar en punteros en un contexto no seguro:
-
-| Operador/Instrucción | Usar |
-| -------------------- | ---- |
-| | | |
-
 
 # Tratamiento de Excepciones
 
@@ -617,43 +529,171 @@ try{
     }
 ```
 
----
-# Programación Asincrona & MultiThreading
+# Corrutinas
+Una corrutina es un conjunto de sentencias que realizan una tarea específica, con la capacidad suspender o resumir su ejecución sin bloquear un hilo.
 
-## 
+Esto permite que tengas diferentes corrutinas cooperando entre ellas, suspendiéndose y resumiéndose en puntos especificados por ti o por Kotlin.
+
+No significa que exista un hilo por cada corrutina, al contrario, puedes ejecutar varias en un solo. Donde podrás crear tu propio procesamiento concurrente.
+
+Este comportamiento de las corrutinas en Kotlin te permite:
+
+- Reducir recursos del sistema al evitar la creación de grandes cantidades de hilos
+- Facilitar el retorno de datos de una tarea asíncrona
+- Facilitar el intercambio de datos entre tareas asíncronas
 
 
+## Async/Await
+La función `async{}` crea una corrutina y retorna su resultado futuro como una instancia de `Deferred<T>`.
+
+`Deferred<T>` posee una función miembro denominada `await()`, la cual espera hasta que se ejecuten las sentencias (sin bloquear un hilo) y así entregar el valor de la corrutina.
 ```Kotlin
+import kotlinx.coroutines.*
 
+fun main() = runBlocking {
+    val totalTime = async {
+        val t0 = System.currentTimeMillis()
+        (1..5).forEach {
+            delay(300)
+            println("¡Palabra $it encontrada!")
+        }
+        System.currentTimeMillis() - t0
+    }
+    println("Tiempo empleado: ${totalTime.await()}")
+}
 ```
 
----
-## Paralelismo
-Muchos equipos y estaciones de trabajo personales tienen varios núcleos de CPU que permiten ejecutar múltiples subprocesos simultáneamente. Para aprovecharse del hardware, se puede paralelizar el código para distribuir el trabajo entre dichos núcleos.
+# LINQ
+Linq es una API orientada al uso de consultas a diferentes tipos de contenido, como objetos, entidades, XML, etc. De esta manera se resume en una sintaxis sencilla y fácil de leer, tratar y mantener el tratamiento de diferentes tipos de datos.
 
-Por ejemplo, imaginemos que tenemos una aplicacion que requiere de realizar 3 consultas para obtener datos diferentes de una BBDD, aprovechandonos del multithreading, podemos hacer uso de la clase Parallel para realizar esas consultas de forma paralelizada y reducir los tiempos.
+## From
 
-### Ejecucion de metodos paralelamente
-Permite la ejecucion paralelizada de un array de delegados
+```Csharp
+var cust = new List<Customer>();
+//queryAllCustomers is an IEnumerable<Customer>
+from cust in customers
+select cust;
+```
+## Join
 
-Cuando se ejecuta la instruccion, el metodo Invoke recibe un array de delegados que ejecutaran en un hilo nuevo y esperara a que estos terminen
-```Kotlin
+```Csharp
+from category in categories
+join prod in products on category.ID equals prod.CategoryID
+select new
+{
+    ProductName = prod.Name,
+    Category = category.Name
+};
 
+products.Join(categories,
+product => product.CategoryID,
+category => category.ID,
+(product, category) => new
+{
+    ProductName = product.Name,
+    Category = category.Name
+});
 ```
 
-### Recorrer un bucle de forma paralela
-Permite la ejecucion paralelizada de la lectura de una coleccion
+## Let
+```Csharp
 
-```Kotlin
-
+from sentence in strings
+let words = sentence.Split(' ')
+from word in words
+let w = word.ToLower()
+where w[0] == 'a' || w[0] == 'e'
+    || w[0] == 'i' || w[0] == 'o'
+    || w[0] == 'u'
+select word;
 ```
 
----
-# Comprension de Listas
+## Where
+```Csharp
+from prod in products
+where prod.Name == "Producto 2"
+select prod;
+```                                                                                                                                                       
+## Group by
+```Csharp
+from product in products
+group product by new
+{
+    product.CategoryID,
+    product.Name
+} into prod
+select new
+{
+    idCategoria = prod.Key.CategoryID,
+    nombre = prod.Key.Name
+};
 
-
-## 
-
-```Kotlin
-
+products.GroupBy(product => new
+{
+    product.CategoryID,
+    product.Name
+}).Select(prod => new
+{
+    idCategoria = prod.Key.CategoryID,
+    nombre= prod.Key.Name
+});
 ```
+
+## Order by
+```Csharp
+from product in products
+orderby product.CategoryID ascending
+select product;
+
+products.OrderBy(product => product.CategoryID);
+
+from product in products
+orderby product.CategoryID descending
+select product;
+products.OrderByDescending(product => product.CategoryID);
+```
+
+Para poder tratar las consultas, la api de LINQ devuelve objetos del tipo `IEnumerable<>` o `IQueryable<>`.  
+Hay diferentes formas de leer los datos, por un lado mediante un `foreach` se pueden iterar un `IEnumerable` y por otro lado, hay metodos que convierten los datos a una coleccion directamente.
+
+## ToList
+```Csharp
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).ToList();
+```
+
+## ToArray
+```Csharp
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).ToArray();
+```
+
+## ToDictionary
+```Csharp
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).ToDictionary(key => key.CategoryID, value => value.Name);
+```
+
+## ToLookup
+```Csharp
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).ToLookup(key => key.CategoryID, value => value.Name);
+```
+
+## Count
+```Csharp
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).Count()
+ ```
+
+## FirstOrDefault
+```Csharp
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).FirstOrDefault()
+ ```
