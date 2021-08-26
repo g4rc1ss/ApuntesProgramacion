@@ -21,6 +21,7 @@ fun main(args: Array<String>) {
 var cadena: String = ""
 var numero: Int = 0
 var booleana: Boolean = false
+val constante: String = "Constante"
 ```
 
 ## Sentencias de flujo
@@ -43,76 +44,37 @@ when (numero) {
 ---
 ## Operador ternario
 ````Kotlin
-
+if (prueba.listaDatos.size > 0) prueba.listaDatos.get(0) else java.util.ArrayList<String>()
 ````
 
 ----
 ## Bucles
 ```Kotlin
+for(dato in prueba.listaDatos){
+    println(dato)
+}
 
+var x: Int = 0
+while(x < prueba.listaDatos.size){
+    println(prueba.listaDatos.get(x))
+    x ++
+}
+
+x = 0
+do{
+    println(prueba.listaDatos.get(x))
+    x ++
+} while(x < prueba.listaDatos.size)
 ```
 
 ---
 # Cadenas
 
-## String
-
-
-### Literales
-| Secuencia de escape | Nombre de carácter | Codificación Unicode |
-| ------------------- | ------------------ | -------------------- |
-| \\' | Comilla simple | 0x0027
-| \\" | Comilla doble  | 0x0022
-| \\\\ | Barra diagonal inversa | 0x005C
-| \\0 | Null | 0x0000
-| \\a | Alerta | 0x0007
-| \\b | Retroceso | 0x0008
-| \\f | Avance de página | 0x000C
-| \\n | Nueva línea | 0x000A
-| \\r | Retorno de carro | 0x000D
-| \\t | Tabulación horizontal | 0x0009
-| \\U | Secuencia de escape Unicode para pares suplentes. | \\Unnnnnnnn
-| \\u | Secuencia de escape Unicode | \\u0041 = "A"
-| \\v | Tabulación vertical | 0x000B
-| \\x | Secuencia de escape Unicode similar a "\\u" | \\x0041 o \\x41 = "A"
-
-### Interpolacion de Cadenas
+## Interpolacion de Cadenas
 ---
 La interpolación de cadenas se usa para mejorar la legibilidad y el mantenimiento del código. Se obtienen los mismos resultados que con las concatenaciones, pero es mas claro y mejor.
 ```Kotlin
-
-```
-
-### Métodos de string
----
-
-```Kotlin
-// Devuelve una cadena en la que se reemplazan los caracteres introducidos, el primero es el valor a cambiar y el segundo parametro el nuevo valor
-cadena.Replace(',', '\n');
-
-// Devuelve un Array con la cadena separada dividiéndola cada vez que encuentre el char enviado, por defecto sera el símbolo '-'
-cadena.Split('m');
-
-// Devuelve el indice donde se encuentra el caracter indicado
-cadena.IndexOf('m');
-
-// Compara el string con otro objeto, como por ejemplo, otra cadena
-cadena.CompareTo("Hola, yo me llamo Ralph");
-
-// Devuelve los caracteres entre una posicion de indice y otra, si no se indica la otra se devolvera la cadena desde el indice inicial
-cadena.Substring(3, 5);
-```
-
----
-## StringBuilder
-StringBuilder es una clase de cadena mutable. Mutabilidad significa que una vez creada una instancia de la clase, se puede modificar anexando, quitando, reemplazando o insertando caracteres. 
-
-StringBuilder mantiene un búfer para alojar las modificaciones en la cadena.
-
-Los datos nuevos se anexan al búfer si hay espacio disponible; de lo contrario, se asigna un búfer nuevo y mayor, los datos del búfer original se copian en el nuevo búfer y, a continuación, los nuevos datos se anexan al nuevo búfer.
-
-```Kotlin
-
+var cadena: String = "$nombreVariable"
 ```
 
 ---
@@ -120,161 +82,82 @@ Los datos nuevos se anexan al búfer si hay espacio disponible; de lo contrario,
 Las colecciones proporcionan una manera más flexible de trabajar con grupos de objetos. A diferencia de las matrices, el grupo de objetos con el que trabaja puede aumentar y reducirse de manera dinámica a medida que cambian las necesidades de la aplicación
 
 ---
-## Listas
-
-Una lista es un tipo de colección ordenada(un array)
+## Listas mutables
+Una lista es una colección genérica de elementos que se caracteriza por almacenarlos de forma ordenada, donde pueden existir duplicados (incluso un ítem `null`) y se indexan los elementos con base `0`.
 
 ### Métodos de listas
 
 ```Kotlin
-var lista = new List<string>() { "Hola" };
+val lista = mutableListOf("Dato 1", "Dato 2", "Dato 3") 
 
 // Agrega al ultimo elemento de la lista el objeto que se le pasa por parametro
-lista.Add("me llamo Ralph");
+lista.add("Dato 4")
 
 // Devuelve la posicion de la lista donde se ubica el objeto a buscar
-lista.IndexOf("Hola");
+lista.indexOf("Dato 0")
 
 // Insertas en la posicion 1 el objeto que se quiere, si hay elementos en dicha posicion se mueven hacia la derecha, por tanto el de la 1 pasaria a la posicion 2
-lista.Insert(1, "jajajajaja");
+lista.add(0, "Dato 0")
 
 // Eliminar de la lista el objeto indicado
-lista.Remove("me llamo Ralph");
+lista.remove("Dato 3")
 
 // Ordenas la lista al contra
-lista.Reverse();
+lista.reverse()
+
 ```
 
 ---
-## Diccionarios
+## Mapas
+Un mapa es una colección que almacena sus elementos (entradas) en forma de pares clave-valor.
 
-Una clase de Diccionario es una estructura de datos que representa una colección de 
-claves y valores de pares de datos. La clave es idéntica en un par clave-valor y puede tener como máximo un valor en el diccionario
+Esto quiere decir que a cada clave le corresponde un solo valor y será única como si se tratase de un identificador.
 
-### Métodos de diccionarios
+### Métodos de Mapas
 
 ```Kotlin
-var diccionario = new Dictionary<string, string>()
-{
-    { "Clave", "Valor" },
-    {"Key", "Value" }
-};
+var diccionario = mutableMapOf<String, String>(
+    "Clave 1" to "Valor 1",
+    "Clave 2" to "Valor 2",
+    "Clave 3" to "Valor 3"
+)
 
 // Devuelve una lista con las claves del diccionario
-Dictionary<string, string>.KeyCollection claves = diccionario.Keys;
+diccionario.keys
 
 // Devuelve una lista con los valores del diccionario
-Dictionary<string, string>.ValueCollection valores = diccionario.Values;
+diccionario.values;
 
 // Devuelve un bool indicando si la clave existe en el diccionario
-diccionario.ContainsKey("Clave");
+diccionario.containsKey("Clave 4")
 
 // Elimina la Key del diccionario y por tanto, los valores asociados a la misma
-diccionario.Remove("Key");
+diccionario.remove("Clave 4");
 
 // Metodo para obtener el valor asociado a la clave indicada
-diccionario.TryGetValue("Key", out string valor);
+diccionario.get("Clave 4");
 
 ```
 
 ----
-## Tuplas
-Una tupla es una estructura de datos que contiene una secuencia de elementos de diferentes tipos, esta estructura es de solo lectura, por tanto se usa para almacenar objetos que no van a ser modificados después.
+## Sets
+Un conjunto o set es una colección de elementos sin ordenar que no soporta duplicados. Puedes ver este diseño conceptual como el modelo de los conjuntos matemáticos.
+
+La interfaz genérica `Set<E>` es la que representa a los conjuntos de solo lectura en el paquete `kotlin.collections`. Al igual que List, Set extiende de `Collection<E>`:
 
 ```Kotlin
-var tupla = new Tuple<string, bool, int, double>("cadena", false, 500, 578.98);
+val sets = setOf<Int>(1, 2, 3, 4, 5, 6, 7, 8, 9, 0)
 
-tupla.Item1;
-tupla.Item2;
-tupla.Item3;
-tupla.Item4;
+// Agrega al ultimo elemento de la coleccion el objeto que se le pasa por parametro
+sets.add(10)
+
+// Devuelve la posicion de la coleccion donde se ubica el objeto a buscar
+sets.indexOf(20)
+
+// Eliminar de la coleccion el objeto indicado
+sets.remove(3)
 ```
 
-----
-## Tablas Hash
-Representa una colección de pares de clave y valor que se organizan por código hash de la clave
-
-### Métodos de tablas hash
-
-```Kotlin
-var tablaHash = new Hashtable();
-
-// Agrega un nuevo elemento con el par clave-valor
-tablaHash.Add("Key", "Value");
-
-// Elimina la Clave y el valor asociado a la misma
-tablaHash.Remove("Key");
-
-// Devuelve un bool para saber si contiene la clave
-tablaHash.ContainsKey("Key");
-
-// Limpia todos los elementos de la tabla
-tablaHash.Clear();
-
-// Para acceder al valor asociado a la clave mediante el inidizador
-tablaHash["Key"];
-```
-
-----
-## Pilas
-El Stack es una coleccion LIFO(Last in, First Out) sin tamaño fijo de los objetos indicados.
-
-Al usar la forma de almacenamiento LIFO, en la coleccion se trabaja todo el rato sobre los primeros elementos, osea que cuando agregas un elemento nuevo por ejemplo, no se guardaria en el ultimo indice, sino que se almacenaria en el indice 0, al principio de la coleccion.
-
-### Métodos de pilas
-```Kotlin
-var pila = new Stack<string>();
-pila.Push("prueba de push");
-
-// Agrega un nuevo elemento en la parte superior de Stack<T>
-pila.Push("Elemento");
-
-// Elimina un elemento de la parte superior
-pila.Pop();
-
-// Devuelve un eleemnto de la parte superior
-pila.Peek();
-
-// Limpia todos los elementos de la coleccion
-pila.Clear();
-
-// Convierte la pila en un array del tipo indicado
-pila.ToArray();
-
-pila.Contains("objeto");
-```
-
-----
-## Colas
-La Queue es una coleccion FIFO(First In, First Out).
-
-Al usar la forma de almacenamiento FIFO, a la hora de agregar elementos se tendran que ir agregando al final de la coleccion y a la hora de trabajar con ellos, se iran extrayendo del mas antiguo al mas nuevo, por tanto, se accedera a los primeros.
-
-### Métodos de colas
-```Kotlin
-var cola = new Queue<string>();
-cola.Enqueue("prueba de push");
-
-// Agrega un nuevo elemento al final de la coleccion
-cola.Enqueue("Elemento");
-
-// Elimina el elemento mas antiguo, por tanto el primer elemento de la coleccion
-cola.Dequeue();
-
-// Devuelve el elemento mas antiguo de la coleccion
-cola.Peek();
-
-// Limpia todos los elementos de la coleccion
-cola.Clear();
-
-// Convierte la cola en un array del tipo indicado
-cola.ToArray();
-
-// Comprobamos si la coleccion contiene un objeto especifico
-cola.Contains("objeto");
-```
-
----
 # Programación Orientada a Objetos
 
 ## Class
