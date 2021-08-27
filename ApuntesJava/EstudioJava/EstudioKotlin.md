@@ -1,3 +1,109 @@
+1. [Estructura del código](#estructura-del-código)
+
+	 1. [Declaración de variables](#declaración-de-variables)
+
+	 1. [Anulabilidad](#anulabilidad)
+
+		 1. [Operador de acceso seguro](#operador-de-acceso-seguro)
+
+		 1. [Operador Elvis](#operador-elvis)
+
+		 1. [Operador de asercion](#operador-de-asercion)
+
+	 1. [Convertir tipos](#convertir-tipos)
+
+	 1. [Sentencias de flujo](#sentencias-de-flujo)
+
+	 1. [Operador ternario](#operador-ternario)
+
+	 1. [Bucles](#bucles)
+
+1. [Cadenas](#cadenas)
+
+	 1. [Literales](#literales)
+
+	 1. [Interpolacion de Cadenas](#interpolacion-de-cadenas)
+
+1. [Colecciones](#colecciones)
+
+	 1. [Listas mutables](#listas-mutables)
+
+		 1. [Métodos de listas](#métodos-de-listas)
+
+	 1. [Mapas](#mapas)
+
+		 1. [Métodos de Mapas](#métodos-de-mapas)
+
+	 1. [Sets](#sets)
+
+1. [Programación Orientada a Objetos](#programación-orientada-a-objetos)
+
+	 1. [Class](#class)
+
+	 1. [Metodos](#metodos)
+
+	 1. [Metodos Estaticos](#metodos-estaticos)
+
+	 1. [Propiedades](#propiedades)
+
+	 1. [Delegados](#delegados)
+
+	 1. [Herencia](#herencia)
+
+	 1. [Abstract Class](#abstract-class)
+
+	 1. [Sealed Class](#sealed-class)
+
+	 1. [Interface](#interface)
+
+1. [Conceptos Avanzados](#conceptos-avanzados)
+
+	 1. [Liberacion de Memoria](#liberacion-de-memoria)
+
+	 1. [Enumerador](#enumerador)
+
+	 1. [Indizadores](#indizadores)
+
+	 1. [yield](#yield)
+
+	 1. [Generics](#generics)
+
+1. [Tratamiento de Excepciones](#tratamiento-de-excepciones)
+
+	 1. [Excepciones](#excepciones)
+
+		 1. [Capurando las excepciones](#capurando-las-excepciones)
+
+		 1. [Provocando una excepcion](#provocando-una-excepcion)
+
+		 1. [Creando excepciones propias](#creando-excepciones-propias)
+
+1. [Corrutinas](#corrutinas)
+
+	 1. [Async/Await](#asyncawait)
+
+1. [Compresion de Colecciones](#compresion-de-colecciones)
+
+	 1. [Map](#map)
+
+	 1. [Filter](#filter)
+
+	 1. [GroupBy](#groupby)
+
+	 1. [Sorted](#sorted)
+
+	 1. [Convertir a Lista](#convertir-a-lista)
+
+	 1. [Convertir a Array](#convertir-a-array)
+
+	 1. [Convertir a Diccionario](#convertir-a-diccionario)
+
+	 1. [Contar](#contar)
+
+	 1. [Obtener el Primero](#obtener-el-primero)
+
+
+
 # Estructura del código
 
 ```Kotlin
