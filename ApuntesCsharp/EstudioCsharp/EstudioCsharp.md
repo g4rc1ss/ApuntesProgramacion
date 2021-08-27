@@ -254,7 +254,6 @@ foreach (var item in new List<string>())
 }
 ```
 
----
 # Cadenas
 
 ## String
@@ -326,7 +325,6 @@ stringBuilder.Replace("Hola", "Adios");
 var cadenaCompleta = stringBuilder.ToString();
 ```
 
----
 # Colecciones
 Las colecciones proporcionan una manera más flexible de trabajar con grupos de objetos. A diferencia de las matrices, el grupo de objetos con el que trabaja puede aumentar y reducirse de manera dinámica a medida que cambian las necesidades de la aplicación
 
@@ -486,7 +484,6 @@ cola.ToArray();
 cola.Contains("objeto");
 ```
 
----
 # Programación Orientada a Objetos
 
 ## Class
@@ -645,7 +642,6 @@ public class PruebaInterfazImplícita : IMiInterfaz
 }
 ```
 
----
 # Conceptos Avanzados
 
 ## Liberacion de Memoria
@@ -992,7 +988,7 @@ En la tabla siguiente se muestran los operadores e instrucciones que pueden func
 
 Mas informacion sobre codigo no seguro: [enlace](https://docs.microsoft.com/es-es/dotnet/csharp/language-reference/unsafe-code)
 
----
+
 # Tratamiento de Excepciones
 
 ## Excepciones
@@ -1050,7 +1046,6 @@ class MyException : Exception
 }
 ```
 
----
 # Programación Asincrona & MultiThreading
 
 ## Async & Await
@@ -1132,7 +1127,6 @@ Parallel.ForEach(collection, (item, state, index) =>
     - `ParallelLoopState` Un objeto que se encargara de gestionar los estados de los hilos, pudiendo parar la ejecución, etc.
     - `index` Una propiedad que devuelve en que indice de la coleccion estamos.
 
----
 # LINQ
 Linq es una API orientada al uso de consultas a diferentes tipos de contenido, como objetos, entidades, XML, etc. De esta manera se resume en una sintaxis sencilla y fácil de leer, tratar y mantener el tratamiento de diferentes tipos de datos.
 
