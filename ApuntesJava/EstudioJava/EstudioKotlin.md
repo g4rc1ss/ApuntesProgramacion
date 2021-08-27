@@ -563,137 +563,71 @@ fun main() = runBlocking {
 }
 ```
 
-# LINQ
-Linq es una API orientada al uso de consultas a diferentes tipos de contenido, como objetos, entidades, XML, etc. De esta manera se resume en una sintaxis sencilla y fácil de leer, tratar y mantener el tratamiento de diferentes tipos de datos.
+# Compresion de Colecciones
+La compresion de colecciones consiste en un conjunto de funciones de extension que contiene la libreria de `Kotlin` para poder operar sobre estas con el objetivo de realizar un manejo sencillo sobre las listas.
 
-## From
+## Map
+```Kotlin
+var listaMapeada = lista.map{
+    object {
+        var numero = it
+    }
+}
 
-```Csharp
-var cust = new List<Customer>();
-//queryAllCustomers is an IEnumerable<Customer>
-from cust in customers
-select cust;
-```
-## Join
-
-```Csharp
-from category in categories
-join prod in products on category.ID equals prod.CategoryID
-select new
-{
-    ProductName = prod.Name,
-    Category = category.Name
-};
-
-products.Join(categories,
-product => product.CategoryID,
-category => category.ID,
-(product, category) => new
-{
-    ProductName = product.Name,
-    Category = category.Name
-});
+for(value in listaMapeada){
+    println(value.numero)
+}
 ```
 
-## Let
-```Csharp
+## Filter
+```Kotlin
+val listaFiltrada = lista.filter{ x -> x > 4 }
+```                                                                             
+## GroupBy
+```Kotlin
+val numbers = listOf(-2, -1, 0, 1)
 
-from sentence in strings
-let words = sentence.Split(' ')
-from word in words
-let w = word.ToLower()
-where w[0] == 'a' || w[0] == 'e'
-    || w[0] == 'i' || w[0] == 'o'
-    || w[0] == 'u'
-select word;
+numbers.groupBy { 1 } // {1=[-2, -1, 0, 1]}
+numbers.groupBy { it } // {-2=[-2], -1=[-1], 0=[0], 1=[1]}
+numbers.groupBy { it.sign } // {-1=[-2, -1], 0=[0], 1=[1]}
+numbers.groupBy { it / 2 } // {-1=[-2], 0=[-1, 0, 1]}
+"hola".groupBy { "Caracteres" } // {Caracteres=[h, o, l, a]}
 ```
 
-## Where
-```Csharp
-from prod in products
-where prod.Name == "Producto 2"
-select prod;
-```                                                                                                                                                       
-## Group by
-```Csharp
-from product in products
-group product by new
-{
-    product.CategoryID,
-    product.Name
-} into prod
-select new
-{
-    idCategoria = prod.Key.CategoryID,
-    nombre = prod.Key.Name
-};
+## Sorted
+```Kotlin
+val numbers = arrayOf(8, 1, 2, -3, 0)
+val sortedNumbers = numbers.sorted()
+// [-3, 0, 1, 2, 8]
 
-products.GroupBy(product => new
-{
-    product.CategoryID,
-    product.Name
-}).Select(prod => new
-{
-    idCategoria = prod.Key.CategoryID,
-    nombre= prod.Key.Name
-});
+val names = listOf("Bruno", "Maricela", "Victor", "Ana", "Vilma")
+val namesInDescOrder = names.sortedDescending()
+// [Vilma, Victor, Maricela, Bruno, Ana]
 ```
 
-## Order by
-```Csharp
-from product in products
-orderby product.CategoryID ascending
-select product;
 
-products.OrderBy(product => product.CategoryID);
-
-from product in products
-orderby product.CategoryID descending
-select product;
-products.OrderByDescending(product => product.CategoryID);
+## Convertir a Lista
+```Kotlin
+lista.filter{ x -> x > 4 }.toList()
+lista.filter{ x -> x > 4 }.toMutableList()
 ```
 
-Para poder tratar las consultas, la api de LINQ devuelve objetos del tipo `IEnumerable<>` o `IQueryable<>`.  
-Hay diferentes formas de leer los datos, por un lado mediante un `foreach` se pueden iterar un `IEnumerable` y por otro lado, hay metodos que convierten los datos a una coleccion directamente.
-
-## ToList
-```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).ToList();
+## Convertir a Array
+```Kotlin
+lista.filter{ x -> x > 4 }.toTypedArray()
 ```
 
-## ToArray
-```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).ToArray();
+## Convertir a Diccionario
+```Kotlin
+lista.filter{ x -> x > 4 }.map{ "Clave $it" to "Valor $it" }.toMap()
 ```
 
-## ToDictionary
-```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).ToDictionary(key => key.CategoryID, value => value.Name);
-```
-
-## ToLookup
-```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).ToLookup(key => key.CategoryID, value => value.Name);
-```
-
-## Count
-```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).Count()
+## Contar
+```Kotlin
+lista.filter{ x -> x > 4 }.count()
  ```
 
-## FirstOrDefault
-```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).FirstOrDefault()
+## Obtener el Primero
+```Kotlin
+lista.filter{ x -> x > 4 }.firstOrNull()
  ```
