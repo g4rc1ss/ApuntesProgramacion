@@ -1051,6 +1051,82 @@ internal class Program
 }
 ```
 
+---
+## Serializacion
+La serialización es el proceso de convertir un objeto en una secuencia de bytes para almacenarlo o transmitirlo a la memoria, a una base de datos o a un archivo. Su propósito principal es guardar el estado de un objeto para poder volver a crearlo cuando sea necesario. El proceso inverso se denomina deserialización.
+
+```Csharp
+public class ClaseSerializacion
+{
+    public string Nombre { get; set; }
+    public string Apellidos { get; set; }
+    private string CuentaBancaria { get; set; }
+
+    public ClaseSerializacion()
+    {
+    }
+
+    public ClaseSerializacion(string nombre, string apellidos, string cuentaBancaria)
+    {
+        Nombre = nombre ?? throw new ArgumentNullException(nameof(nombre));
+        Apellidos = apellidos ?? throw new ArgumentNullException(nameof(apellidos));
+        CuentaBancaria = cuentaBancaria ?? throw new ArgumentNullException(nameof(cuentaBancaria));
+    }
+}
+```
+
+### Archivo JSON
+La serialización de JSON serializa las propiedades públicas de un objeto en una cadena, una matriz de bytes, etc.
+
+#### Serializar JSON
+```Csharp
+static void Main(string[] args)
+{
+    var serializacion = new ClaseSerializacion("Nombre", "Apellido", "cuentaaaa bancariaaaa");
+    var serializado = System.Text.Json.JsonSerializer.Serialize(serializacion);
+}
+```
+
+#### Deserializar JSON
+```Csharp
+static void Main(string[] args)
+{
+    const string JSON = @"{""Nombre"":""Nombre"",""Apellidos"":""Apellido""}";
+    var deserializado = System.Text.Json.JsonSerializer.Deserialize<ClaseSerializacion>(JSON);
+}
+```
+
+### Archivo XML
+La serialización XML serializa las propiedades y los campos públicos de un objeto o los parámetros y valores devueltos de los métodos en una secuencia XML que se ajusta a un documento específico del lenguaje de definición de esquema XML (XSD). La serialización XML produce clases fuertemente tipadas cuyas propiedades y campos públicos se convierten a XML.
+
+#### Serializar XML
+```Csharp
+static void Main(string[] args)
+{
+    var serializacion = new ClaseSerializacion("Nombre", "Apellido", "cuentaaaa bancariaaaa");
+    var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(ClaseSerializacion));
+    using var file = System.IO.File.Create("Archivo.xml");
+    xmlSerializer.Serialize(file, serializacion);
+}
+```
+
+#### Deserializar XML
+```Csharp
+static void Main(string[] args)
+{
+    var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(ClaseSerializacion));
+    using var file = System.IO.File.OpenRead("Archivo.xml");
+    var objetoDeserializado = xmlSerializer.Deserialize(file);
+}
+```
+
+---
+## Reflexion
+`Reflection` proporciona objetos (de tipo `Type`) que describen los ensamblados, módulos y tipos. Puedes usar reflexión para crear dinámicamente una instancia de un tipo, enlazar el tipo a un objeto existente u obtener el tipo desde un objeto existente e invocar sus métodos, o acceder a sus campos y propiedades. Si usas atributos en el código, la reflexión le permite acceder a ellos.
+
+```Csharp
+```
+
 # Programación Asincrona
 La programacion asincrona se realiza cuando se quieren evitar bloqueos en el hilo principal de la aplicación, cuando se realiza una operacion que requiere tiempo de procesamiento, el hilo sobre el que se esta ejecutando se bloquea hasta que termine, eso causa que la aplicacion no responda a mas operaciones.
 
