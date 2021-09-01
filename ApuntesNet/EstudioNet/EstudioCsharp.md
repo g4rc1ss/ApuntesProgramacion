@@ -534,8 +534,97 @@ public class PruebaInterfazImplícita : IMiInterfaz
 }
 ```
 
+# Tratamiento de Excepciones
+
+## Excepciones
+Una excepción es cualquier condición de error o comportamiento inesperado que encuentra un programa en ejecución. 
+
+Las excepciones pueden iniciarse debido a un error en el código propio o en el código al que se llama (por ejemplo, una biblioteca compartida), a recursos del sistema operativo no disponibles, a condiciones inesperadas que encuentra el runtime (por ejemplo, imposibilidad de comprobar el código), etc.
+
+### Capurando las excepciones
+```Csharp
+try
+{
+    // Ejecucion del codigo que puede llegar a tener una excepcion
+}
+catch (Exception ex)
+{
+    // Se ha producido la excepcion y se obtiene un objeto de tipo Exception
+    // Este objeto contiene unos valores para rastrear el motivo del error
+}
+finally
+{
+    // Esta es una parte del codigo que se ejecuta siempre aunque se produzca la excepcion
+    // Y generalmente se usa para cerrar recursos, por ejemplo, abres una conexion con
+    // la base de datos y a la hora de recibir los datos se produce la excepcion,
+    // pues pasara por aqui para cerrar la conexion con la base de datos.
+}
+```
+
+### Provocando una excepcion
+```Csharp
+public static void Main(string[] args)
+{
+    throw new ArgumentNullException($"El parametro {nameof(args)} es nulo");
+}
+```
+
+### Creando excepciones propias
+```Csharp
+class MyException : Exception
+{
+    public MyException() : base()
+    {
+    }
+
+    public MyException(string message) : base(message)
+    {
+    }
+
+    public MyException(string message, Exception innerException) : base(message, innerException)
+    {
+    }
+
+    protected MyException(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
+    }
+}
+```
+
+
 # Conceptos Avanzados
 
+## Boxing y Unboxing
+Todos los tipos de C# directa o indirectamente se derivan del tipo de clase object, y object es la clase base definitiva de todos los tipos. Los valores de tipos de referencia se tratan como objetos mediante la visualización de los valores como tipo object.
+
+Los valores de tipos de valor se tratan como objetos mediante la realización de operaciones de conversión boxing y operaciones de conversión unboxing
+
+```Csharp
+int i = 123;
+object o = i; // Boxing
+int j = (int)o; // Unboxing
+```
+
+---
+## Dynamic
+Cuando creamos una variable debemos indicar el tipo de variable que va a ser, o podemos utilizar la palabra clave var, la cual se convertirá en tiempo de compilación en el tipo de variable - la cual denominamos variable implícita -
+
+En el caso de las variables dinámicas, en vez de determinar su valor en tiempo de compilación se determina durante el tiempo de ejecución, o runtime.
+
+Cuando el compilador pasa por la variable lo que hace es convertir en tipo en un tipo Object en la gran mayoría de los casos. 
+
+Lo que quiere decir que cada vez que le asignamos un valor, cambiará también el tipo de variable que es el objeto, podemos verlo utilizando la siguiente línea de código:
+```Csharp
+// Se inicializa tipo int
+dynamic variableDinamica = 1;
+// Se le asigna tipo string
+variableDinamica = "test";
+
+// Para obtener el tipo de la variable
+variableDinamica.GetType().ToString();
+```
+
+---
 ## Enumerador
 
 Una enumeración es un conjunto de constantes enteras que tienen asociado un nombre para cada valor.
@@ -626,37 +715,6 @@ foreach (string modelo in FiltrarCochesGetNombresYield(coches))
 
 
 ---
-## Boxing y Unboxing
-Todos los tipos de C# directa o indirectamente se derivan del tipo de clase object, y object es la clase base definitiva de todos los tipos. Los valores de tipos de referencia se tratan como objetos mediante la visualización de los valores como tipo object.
-
-Los valores de tipos de valor se tratan como objetos mediante la realización de operaciones de conversión boxing y operaciones de conversión unboxing
-
-```Csharp
-int i = 123;
-object o = i; // Boxing
-int j = (int)o; // Unboxing
-```
-
----
-## Dynamic
-Cuando creamos una variable debemos indicar el tipo de variable que va a ser, o podemos utilizar la palabra clave var, la cual se convertirá en tiempo de compilación en el tipo de variable - la cual denominamos variable implícita -
-
-En el caso de las variables dinámicas, en vez de determinar su valor en tiempo de compilación se determina durante el tiempo de ejecución, o runtime.
-
-Cuando el compilador pasa por la variable lo que hace es convertir en tipo en un tipo Object en la gran mayoría de los casos. 
-
-Lo que quiere decir que cada vez que le asignamos un valor, cambiará también el tipo de variable que es el objeto, podemos verlo utilizando la siguiente línea de código:
-```Csharp
-// Se inicializa tipo int
-dynamic variableDinamica = 1;
-// Se le asigna tipo string
-variableDinamica = "test";
-
-// Para obtener el tipo de la variable
-variableDinamica.GetType().ToString();
-```
-
----
 ## Generics
 Los genéricos introducen en .NET el concepto de parámetros de tipo, lo que le permite diseñar clases y métodos que aplazan la especificación de uno o varios tipos hasta que el código de cliente declare y cree una instancia de la clase o el método.
 
@@ -728,60 +786,6 @@ public static void ExportEventCaller(ExportObject export)
 
 ExportAPI.ExportEvent += LoadEventCall;
 // LoadEventCall es el metodo que se va a ejecutar
-```
-
----
-## Liberacion de Memoria
-La liberacion de memoria en .Net consiste en marcar ciertos objetos como "liberados", quiere decir, que son objetos que ya no se van a volver a usar y que quiere liberar el recurso que se esta usando o cerrar el proceso.
-
-Para dicha liberacion se ha de implementar una interfaz, que se llama `IDisposable` y tambien se suele hacer uso de los llamado Destructores.
-
-El método Dispose se implementa para liberar recursos de la clase donde se implementa, sobretodo se usa para gestión de código no administrado como usos como conexiones a BBDD, Streams, etc.
-
-```Csharp
-public void Dispose()
-{
-    this.Dispose(true);
-    GC.SuppressFinalize(this);
-}
-
-protected virtual void Dispose(bool disposing)
-{
-    if (disposing)
-    {
-        // Liberamos los recursos
-        // En un clase como stream por ejemplo, aqui se ejecutaria el metodo Close()
-    }
-}
-```
-
-En todas las clases que tengan implementada la interfaz `IDisposable` se puede usar la instruccion `using` para liberar los recursos automaticamente cuando se acaba la sentencia.
-
-```Csharp
-using (var objeto = File.Create(""))
-{
-    objeto.ToString();
-}
-
-using var @object = File.Create("");
-```
-
-Los finalizadores (también denominados destructores) se usan para realizar cualquier limpieza final necesaria cuando el recolector de basura va a liberar el objeto de memoria
-
-- Los finalizadores no se pueden definir en struct. Solo se usan con clases.
-- Una clase solo puede tener un finalizador.
-- Los finalizadores no se pueden heredar ni sobrecargar.
-- No se puede llamar a los finalizadores. Se invocan automáticamente.
-- Un finalizador no permite modificadores ni tiene parámetros.
-
-```Csharp
-internal class Program
-{
-    ~Program()
-    {
-        // Instrucciones para la limpieza de recursos
-    }
-}
 ```
 
 ---
@@ -880,60 +884,56 @@ En la tabla siguiente se muestran los operadores e instrucciones que pueden func
 
 Mas informacion sobre codigo no seguro: [enlace](https://docs.microsoft.com/es-es/dotnet/csharp/language-reference/unsafe-code)
 
+---
+## Liberacion de Memoria
+La liberacion de memoria en .Net consiste en marcar ciertos objetos como "liberados", quiere decir, que son objetos que ya no se van a volver a usar y que quiere liberar el recurso que se esta usando o cerrar el proceso.
 
-# Tratamiento de Excepciones
+Para dicha liberacion se ha de implementar una interfaz, que se llama `IDisposable` y tambien se suele hacer uso de los llamado Destructores.
 
-## Excepciones
-Una excepción es cualquier condición de error o comportamiento inesperado que encuentra un programa en ejecución. 
+El método Dispose se implementa para liberar recursos de la clase donde se implementa, sobretodo se usa para gestión de código no administrado como usos como conexiones a BBDD, Streams, etc.
 
-Las excepciones pueden iniciarse debido a un error en el código propio o en el código al que se llama (por ejemplo, una biblioteca compartida), a recursos del sistema operativo no disponibles, a condiciones inesperadas que encuentra el runtime (por ejemplo, imposibilidad de comprobar el código), etc.
-
-### Capurando las excepciones
 ```Csharp
-try
+public void Dispose()
 {
-    // Ejecucion del codigo que puede llegar a tener una excepcion
+    this.Dispose(true);
+    GC.SuppressFinalize(this);
 }
-catch (Exception ex)
+
+protected virtual void Dispose(bool disposing)
 {
-    // Se ha producido la excepcion y se obtiene un objeto de tipo Exception
-    // Este objeto contiene unos valores para rastrear el motivo del error
-}
-finally
-{
-    // Esta es una parte del codigo que se ejecuta siempre aunque se produzca la excepcion
-    // Y generalmente se usa para cerrar recursos, por ejemplo, abres una conexion con
-    // la base de datos y a la hora de recibir los datos se produce la excepcion,
-    // pues pasara por aqui para cerrar la conexion con la base de datos.
+    if (disposing)
+    {
+        // Liberamos los recursos
+        // En un clase como stream por ejemplo, aqui se ejecutaria el metodo Close()
+    }
 }
 ```
 
-### Provocando una excepcion
+En todas las clases que tengan implementada la interfaz `IDisposable` se puede usar la instruccion `using` para liberar los recursos automaticamente cuando se acaba la sentencia.
+
 ```Csharp
-public static void Main(string[] args)
+using (var objeto = File.Create(""))
 {
-    throw new ArgumentNullException($"El parametro {nameof(args)} es nulo");
+    objeto.ToString();
 }
+
+using var @object = File.Create("");
 ```
 
-### Creando excepciones propias
+Los finalizadores (también denominados destructores) se usan para realizar cualquier limpieza final necesaria cuando el recolector de basura va a liberar el objeto de memoria
+
+- Los finalizadores no se pueden definir en struct. Solo se usan con clases.
+- Una clase solo puede tener un finalizador.
+- Los finalizadores no se pueden heredar ni sobrecargar.
+- No se puede llamar a los finalizadores. Se invocan automáticamente.
+- Un finalizador no permite modificadores ni tiene parámetros.
+
 ```Csharp
-class MyException : Exception
+internal class Program
 {
-    public MyException() : base()
+    ~Program()
     {
-    }
-
-    public MyException(string message) : base(message)
-    {
-    }
-
-    public MyException(string message, Exception innerException) : base(message, innerException)
-    {
-    }
-
-    protected MyException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
+        // Instrucciones para la limpieza de recursos
     }
 }
 ```
