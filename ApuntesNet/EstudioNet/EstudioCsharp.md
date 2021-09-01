@@ -534,6 +534,92 @@ public class PruebaInterfazImplícita : IMiInterfaz
 }
 ```
 
+---
+## Polimorfismo
+Es la capacidad que tiene una clase en convertirse en un nuevo objeto sin cambiar su esencia y luego volver al objeto origina de donde salió.
+
+Hay tres tipos de polimorfismo:
+- Polimorfismo por Herencia: Cuando se hereda de una clase normal y puedo convertirme en ella.
+- Polimorfismo por Abstraccion: Cuando puedo heredar de una clase abstracta y puedo convertirme en ella.
+- Polimorfismo por Interface: Es la posibilidad que tenemos de implementar una interface y puedo convertirme en ella.
+
+### Polimorfismo por Herencia
+Este tipo de polimorfismo es el mas común que existe, y tiene la facultad de heredar de una clase padre y reemplazarla.
+
+```Csharp
+class Padre
+{
+    public virtual void Escribiendo()
+    {
+        Console.WriteLine("Escribiendo el Padre");
+    }
+}
+
+class Hijo : Padre
+{
+    public override void Escribiendo()
+    {
+        Console.WriteLine("Escribiendo el hijo");
+    }
+}
+
+static void Main(string[] args)
+{
+    // Insertamos la clase hijo en la clase Padre
+    Padre papa = new Hijo();
+    papa.Escribiendo();
+}
+```
+
+### Polimorfismo por Abstraccion
+Este tipo de polimorfismo se da con el uso de las clases abstractas. Pero que es una clase abstracta es aquella que además de lo normal que contiene una clase tiene comportamientos que si están definidos pero no implementados.
+
+```Csharp
+abstract class Padre
+{
+    public abstract void Escribiendo();
+}
+
+class Hijo : Padre
+{
+    public override void Escribiendo()
+    {
+        Console.WriteLine("Escribiendo el hijo");
+    }
+}
+
+static void Main(string[] args)
+{
+    // La clase hijo sobreescribe el metodo abstracto y lo insertamos a la clase padre.
+    Padre papa = new Hijo();
+    papa.Escribiendo();
+}
+```
+
+### Polimorfismo por Interface
+Es uno de los polimorfismos mas importantes por que esta basado por contratos, que son los encargados de decirme que puedo hacer o no y como debo de hacerlo.
+
+```Csharp
+interface IPadre
+{
+    void Escribiendo();
+}
+
+class Hijo : IPadre
+{
+    public void Escribiendo()
+    {
+        Console.WriteLine("Escribiendo el hijo");
+    }
+}
+
+static void Main(string[] args)
+{
+    IPadre papa = new Hijo();
+    papa.Escribiendo();
+}
+```
+
 # Tratamiento de Excepciones
 
 ## Excepciones
