@@ -591,7 +591,6 @@ class MyException : Exception
 }
 ```
 
-
 # Conceptos Avanzados
 
 ## Boxing y Unboxing
@@ -712,7 +711,6 @@ foreach (string modelo in FiltrarCochesGetNombresYield(coches))
     Console.WriteLine($"El modelo del cohce es {modelo}");
 }
 ```
-
 
 ---
 ## Generics
@@ -938,7 +936,11 @@ internal class Program
 }
 ```
 
-# Programación Asincrona & MultiThreading
+# Programación Asincrona
+La programacion asincrona se realiza cuando se quieren evitar bloqueos en el hilo principal de la aplicación, cuando se realiza una operacion que requiere tiempo de procesamiento, el hilo sobre el que se esta ejecutando se bloquea hasta que termine, eso causa que la aplicacion no responda a mas operaciones.
+
+Por ejemplo, en una interfaz Desktop, si se usa el patron en las operaciones costosas, la interfaz no se bloqueará mientras se ejecutan las instrucciones.  
+En una aplicacion web como `ASP.NET` usar el patron hara que se puedan recibir mas peticiones mientras las peticiones anteriores estan en espera de que termine el proceso que ocupa tiempo, como por ejemplo, una consulta a BBDD.
 
 ## Async & Await
 El núcleo de la programación asincrónica son los objetos `Task` y `Task<T>`, que modelan las operaciones asincrónicas. Son compatibles con las palabras clave `async` y `await`. El modelo es bastante sencillo en la mayoría de los casos:
@@ -947,9 +949,6 @@ El núcleo de la programación asincrónica son los objetos `Task` y `Task<T>`, 
 - Para el código enlazado a la CPU, espera una operación que se inicia en un subproceso en segundo plano con el método `Task.Run`.
 
 La palabra clave `await` es donde ocurre la magia. Genera control para el autor de la llamada del método que ha realizado `await`, y permite una interfaz de usuario con capacidad de respuesta o un servicio flexible.
-
-Por ejemplo, en una interfaz Desktop, si se usa el patron en las operaciones costosas, la interfaz no se bloqueará mientras se ejecutan las instrucciones.  
-En una aplicacion web como `ASP.NET` usar el patron hara que se puedan recibir mas peticiones mientras las peticiones anteriores estan en espera de que termine el proceso que ocupa tiempo, como por ejemplo, una consulta a BBDD.
 
 ```Csharp
 public async Task MetodoAsync()
@@ -966,11 +965,13 @@ public async Task MetodoAsync()
 }
 ```
 
----
-## Parallel
+# MultiThreading
 Muchos equipos y estaciones de trabajo personales tienen varios núcleos de CPU que permiten ejecutar múltiples subprocesos simultáneamente. Para aprovecharse del hardware, se puede paralelizar el código para distribuir el trabajo entre dichos núcleos.
 
 Por ejemplo, imaginemos que tenemos una aplicacion que requiere de realizar 3 consultas para obtener datos diferentes de una BBDD, aprovechandonos del multithreading, podemos hacer uso de la clase Parallel para realizar esas consultas de forma paralelizada y reducir los tiempos.
+
+## Parallel
+La clase estatica `Parallel` contiene los metodos `For`, `ForEach` e `Invoke` y se utiliza para hacer procesamiento multihilo de manera automatizada, su uso principal consta en el tratamiento de objetos como `Listas` o `Arrays` y la ejecucion de metodos en paralelo.
 
 ### Parallel Invoke
 Permite la ejecucion paralelizada de un array de delegados
@@ -1019,19 +1020,19 @@ Parallel.ForEach(collection, (item, state, index) =>
     - `ParallelLoopState` Un objeto que se encargara de gestionar los estados de los hilos, pudiendo parar la ejecución, etc.
     - `index` Una propiedad que devuelve en que indice de la coleccion estamos.
 
+
 # LINQ
 Linq es una API orientada al uso de consultas a diferentes tipos de contenido, como objetos, entidades, XML, etc. De esta manera se resume en una sintaxis sencilla y fácil de leer, tratar y mantener el tratamiento de diferentes tipos de datos.
 
 ## From
-
 ```Csharp
 var cust = new List<Customer>();
 //queryAllCustomers is an IEnumerable<Customer>
 from cust in customers
 select cust;
 ```
-## Join
 
+## Join
 ```Csharp
 from category in categories
 join prod in products on category.ID equals prod.CategoryID
