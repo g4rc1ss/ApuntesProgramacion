@@ -1,149 +1,3 @@
-1. [Estructura del código](#estructura-del-código)
-
-	 1. [Declaración de variables](#declaración-de-variables)
-
-	 1. [Tipos Nullables](#tipos-nullables)
-
-	 1. [Convertir tipos](#convertir-tipos)
-
-	 1. [Sentencias de flujo](#sentencias-de-flujo)
-
-	 1. [Operador ternario](#operador-ternario)
-
-	 1. [Bucles](#bucles)
-
-1. [Cadenas](#cadenas)
-
-	 1. [String](#string)
-
-		 1. [Literales](#literales)
-
-		 1. [Interpolacion de Cadenas](#interpolacion-de-cadenas)
-
-		 1. [Métodos de string](#métodos-de-string)
-
-	 1. [StringBuilder](#stringbuilder)
-
-1. [Colecciones](#colecciones)
-
-	 1. [Listas](#listas)
-
-		 1. [Métodos de listas](#métodos-de-listas)
-
-	 1. [Diccionarios](#diccionarios)
-
-		 1. [Métodos de diccionarios](#métodos-de-diccionarios)
-
-	 1. [Tuplas](#tuplas)
-
-	 1. [Tablas Hash](#tablas-hash)
-
-		 1. [Métodos de tablas hash](#métodos-de-tablas-hash)
-
-	 1. [Pilas](#pilas)
-
-		 1. [Métodos de pilas](#métodos-de-pilas)
-
-	 1. [Colas](#colas)
-
-		 1. [Métodos de colas](#métodos-de-colas)
-
-1. [Programación Orientada a Objetos](#programación-orientada-a-objetos)
-
-	 1. [Class](#class)
-
-	 1. [Static Class](#static-class)
-
-	 1. [Abstract Class](#abstract-class)
-
-	 1. [Sealed Class](#sealed-class)
-
-	 1. [Metodos](#metodos)
-
-	 1. [Propiedades](#propiedades)
-
-	 1. [Delegados](#delegados)
-
-	 1. [Herencia](#herencia)
-
-	 1. [Interface](#interface)
-
-1. [Conceptos Avanzados](#conceptos-avanzados)
-
-	 1. [Liberacion de Memoria](#liberacion-de-memoria)
-
-	 1. [Enumerador](#enumerador)
-
-	 1. [Indizadores](#indizadores)
-
-	 1. [Yield](#yield)
-
-	 1. [Boxing y Unboxing](#boxing-y-unboxing)
-
-	 1. [Dynamic](#dynamic)
-
-	 1. [Generics](#generics)
-
-		 1. [Constraints](#constraints)
-
-	 1. [Eventos](#eventos)
-
-	 1. [Codigo no Administrado](#codigo-no-administrado)
-
-		 1. [P/Invoke](#pinvoke)
-
-		 1. [Codigo inseguro](#codigo-inseguro)
-
-			 1. [Punteros](#punteros)
-
-1. [Tratamiento de Excepciones](#tratamiento-de-excepciones)
-
-	 1. [Excepciones](#excepciones)
-
-		 1. [Capurando las excepciones](#capurando-las-excepciones)
-
-		 1. [Provocando una excepcion](#provocando-una-excepcion)
-
-		 1. [Creando excepciones propias](#creando-excepciones-propias)
-
-1. [Programación Asincrona & MultiThreading](#programación-asincrona--multithreading)
-
-	 1. [Async & Await](#async--await)
-
-	 1. [Parallel](#parallel)
-
-		 1. [Parallel Invoke](#parallel-invoke)
-
-		 1. [Parallel For](#parallel-for)
-
-		 1. [Parallel ForEach](#parallel-foreach)
-
-1. [LINQ](#linq)
-
-	 1. [From](#from)
-
-	 1. [Join](#join)
-
-	 1. [Let](#let)
-
-	 1. [Where](#where)
-
-	 1. [Group by](#group-by)
-
-	 1. [Order by](#order-by)
-
-	 1. [ToList](#tolist)
-
-	 1. [ToArray](#toarray)
-
-	 1. [ToDictionary](#todictionary)
-
-	 1. [ToLookup](#tolookup)
-
-	 1. [Count](#count)
-
-	 1. [FirstOrDefault](#firstordefault)
-
 
 # Estructura del código
 
@@ -192,11 +46,11 @@ Nullable<int> = null;
 
 ---
 ## Convertir tipos
+Para convertir a otros tipos se puede hacer uso de la clase estatica `Convert` como el ejemplo de arriba
 ```Csharp
 Convert.ToInt32(2.0); // 2
 Convert.ToBoolean(1); // true
 ```
-Para convertir a otros tipos se puede hacer uso de la clase estatica `Convert` como el ejemplo de arriba
 
 ----
 ## Sentencias de flujo
@@ -228,11 +82,50 @@ switch (opt)
 "x".StartsWith('d') ? "Empieza por D" : "Pues no, no empieza por d";
 lista?.Count; lista[0]?.Trim();
 lista ?? new List<string>();
-
 ````
+
 - En el operador ternario se realiza la comprobacion de un `bool` y se agregan dos simbolos, el `?` cuando se cumple la condicion y los `:` si no se cumple dicha condicion
 - El uso de `?.` o `[0]?` Se usa para comprobar si el contenido es null y si es asi, se va "arrastrando" el null, osea que en este caso, si `lista` es null, no se comprobaria `.count` y se devolveria null
 - El uso de `??` es una comprobacion resumida de un operador ternario para comprobar null, la instruccion es que si `list` es null, se ejecute `new List<string>`
+
+---
+## Sobreescribir Operadores
+Un tipo definido por el usuario puede sobrecargar un operador de C# predefinido. Es decir, un tipo puede proporcionar la implementación personalizada de una operación cuando uno o los dos operandos son de ese tipo
+````Csharp
+class ClaseConOperadores
+{
+    public decimal NumeroOperar { get; set; }
+    public ClaseConOperadores(decimal numeroOperar)
+    {
+        NumeroOperar = numeroOperar;
+    }
+
+    public static ClaseConOperadores operator +(ClaseConOperadores a, ClaseConOperadores b)
+    {
+        return new ClaseConOperadores(a.NumeroOperar + b.NumeroOperar);
+    }
+
+    public static ClaseConOperadores operator -(ClaseConOperadores a, ClaseConOperadores b)
+    {
+        return new ClaseConOperadores(a.NumeroOperar - b.NumeroOperar);
+    }
+
+    public static ClaseConOperadores operator *(ClaseConOperadores a, ClaseConOperadores b)
+    {
+        return new ClaseConOperadores(a.NumeroOperar * b.NumeroOperar);
+    }
+
+    public static ClaseConOperadores operator /(ClaseConOperadores a, ClaseConOperadores b)
+    {
+        return new ClaseConOperadores(a.NumeroOperar / b.NumeroOperar);
+    }
+
+    public override bool Equals(object obj) => base.Equals(obj);
+    public override int GetHashCode() => base.GetHashCode();
+    public override string ToString() => $"{NumeroOperar}";
+}
+````
+
 
 ----
 ## Bucles
@@ -518,41 +411,7 @@ public static class A
     }
 }
 ```
-
 ---
-## Abstract Class
-
-No se pueden crear instancias de una clase abstracta. 
-
-La finalidad de una clase abstracta es ser una clase de la cual se hereda y te da la posibilidad de tener metodos base completamente funcionales y metodos abstractos, estos ultimos son metodos que han de ser "declarados" en la clase abstracta y sobreescritos en la clase que herede de la abstracta.
-
-```Csharp
-internal abstract class A
-{
-    private void MetodoFuncional() => Console.WriteLine("");
-
-    internal abstract void MetodoNoFuncional(string parametro);
-}
-
-internal class B : A
-{
-    internal override void MetodoNoFuncional(string parametro) => throw new NotImplementedException();
-}
-```
-
-----
-## Sealed Class
-El modificador `sealed` se usa para sellar una clase y que esta no pueda ser heredada.
-
-Tambien se puede usar este modificador en metodos o propiedades para que estos no puedan ser sobreescritos
-```Csharp
-sealed class SealedClass
-{
-}
-
-```
-
-----
 ## Metodos
 Un método es un bloque de código que contiene una serie de instrucciones.
 ```Csharp
@@ -616,6 +475,39 @@ public class Clase : SuperClase
 ```
 
 ---
+## Abstract Class
+
+No se pueden crear instancias de una clase abstracta. 
+
+La finalidad de una clase abstracta es ser una clase de la cual se hereda y te da la posibilidad de tener metodos base completamente funcionales y metodos abstractos, estos ultimos son metodos que han de ser "declarados" en la clase abstracta y sobreescritos en la clase que herede de la abstracta.
+
+```Csharp
+internal abstract class A
+{
+    private void MetodoFuncional() => Console.WriteLine("");
+
+    internal abstract void MetodoNoFuncional(string parametro);
+}
+
+internal class B : A
+{
+    internal override void MetodoNoFuncional(string parametro) => throw new NotImplementedException();
+}
+```
+
+----
+## Sealed Class
+El modificador `sealed` se usa para sellar una clase y que esta no pueda ser heredada.
+
+Tambien se puede usar este modificador en metodos o propiedades para que estos no puedan ser sobreescritos
+```Csharp
+sealed class SealedClass
+{
+}
+
+``` 
+
+---
 ## Interface
 Las interfaces, como las clases, definen un conjunto de propiedades, métodos y eventos. Pero de forma contraria a las clases, las interfaces no proporcionan implementación.
 
@@ -644,60 +536,6 @@ public class PruebaInterfazImplícita : IMiInterfaz
 
 # Conceptos Avanzados
 
-## Liberacion de Memoria
-La liberacion de memoria en .Net consiste en marcar ciertos objetos como "liberados", quiere decir, que son objetos que ya no se van a volver a usar y que quiere liberar el recurso que se esta usando o cerrar el proceso.
-
-Para dicha liberacion se ha de implementar una interfaz, que se llama `IDisposable` y tambien se suele hacer uso de los llamado Destructores.
-
-El método Dispose se implementa para liberar recursos de la clase donde se implementa, sobretodo se usa para gestión de código no administrado como usos como conexiones a BBDD, Streams, etc.
-
-```Csharp
-public void Dispose()
-{
-    this.Dispose(true);
-    GC.SuppressFinalize(this);
-}
-
-protected virtual void Dispose(bool disposing)
-{
-    if (disposing)
-    {
-        // Liberamos los recursos
-        // En un clase como stream por ejemplo, aqui se ejecutaria el metodo Close()
-    }
-}
-```
-
-En todas las clases que tengan implementada la interfaz `IDisposable` se puede usar la instruccion `using` para liberar los recursos automaticamente cuando se acaba la sentencia.
-
-```Csharp
-using (var objeto = File.Create(""))
-{
-    objeto.ToString();
-}
-
-using var @object = File.Create("");
-```
-
-Los finalizadores (también denominados destructores) se usan para realizar cualquier limpieza final necesaria cuando el recolector de basura va a liberar el objeto de memoria
-
-- Los finalizadores no se pueden definir en struct. Solo se usan con clases.
-- Una clase solo puede tener un finalizador.
-- Los finalizadores no se pueden heredar ni sobrecargar.
-- No se puede llamar a los finalizadores. Se invocan automáticamente.
-- Un finalizador no permite modificadores ni tiene parámetros.
-
-```Csharp
-internal class Program
-{
-    ~Program()
-    {
-        // Instrucciones para la limpieza de recursos
-    }
-}
-```
-
----
 ## Enumerador
 
 Una enumeración es un conjunto de constantes enteras que tienen asociado un nombre para cada valor.
@@ -890,6 +728,60 @@ public static void ExportEventCaller(ExportObject export)
 
 ExportAPI.ExportEvent += LoadEventCall;
 // LoadEventCall es el metodo que se va a ejecutar
+```
+
+---
+## Liberacion de Memoria
+La liberacion de memoria en .Net consiste en marcar ciertos objetos como "liberados", quiere decir, que son objetos que ya no se van a volver a usar y que quiere liberar el recurso que se esta usando o cerrar el proceso.
+
+Para dicha liberacion se ha de implementar una interfaz, que se llama `IDisposable` y tambien se suele hacer uso de los llamado Destructores.
+
+El método Dispose se implementa para liberar recursos de la clase donde se implementa, sobretodo se usa para gestión de código no administrado como usos como conexiones a BBDD, Streams, etc.
+
+```Csharp
+public void Dispose()
+{
+    this.Dispose(true);
+    GC.SuppressFinalize(this);
+}
+
+protected virtual void Dispose(bool disposing)
+{
+    if (disposing)
+    {
+        // Liberamos los recursos
+        // En un clase como stream por ejemplo, aqui se ejecutaria el metodo Close()
+    }
+}
+```
+
+En todas las clases que tengan implementada la interfaz `IDisposable` se puede usar la instruccion `using` para liberar los recursos automaticamente cuando se acaba la sentencia.
+
+```Csharp
+using (var objeto = File.Create(""))
+{
+    objeto.ToString();
+}
+
+using var @object = File.Create("");
+```
+
+Los finalizadores (también denominados destructores) se usan para realizar cualquier limpieza final necesaria cuando el recolector de basura va a liberar el objeto de memoria
+
+- Los finalizadores no se pueden definir en struct. Solo se usan con clases.
+- Una clase solo puede tener un finalizador.
+- Los finalizadores no se pueden heredar ni sobrecargar.
+- No se puede llamar a los finalizadores. Se invocan automáticamente.
+- Un finalizador no permite modificadores ni tiene parámetros.
+
+```Csharp
+internal class Program
+{
+    ~Program()
+    {
+        // Instrucciones para la limpieza de recursos
+    }
+}
 ```
 
 ---
