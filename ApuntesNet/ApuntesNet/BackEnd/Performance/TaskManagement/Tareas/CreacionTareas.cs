@@ -48,7 +48,6 @@ namespace TaskManagement.Tareas {
             var tarea = Task.Run(() => {
                 for (var i = 0; i < 100000000; i++) {
                     for (var z = 0; z < 10; z++) {
-                        ;
                     }
                 }
 
