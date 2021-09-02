@@ -534,6 +534,92 @@ public class PruebaInterfazImplícita : IMiInterfaz
 }
 ```
 
+---
+## Polimorfismo
+Es la capacidad que tiene una clase en convertirse en un nuevo objeto sin cambiar su esencia y luego volver al objeto origina de donde salió.
+
+Hay tres tipos de polimorfismo:
+- Polimorfismo por Herencia: Cuando se hereda de una clase normal y puedo convertirme en ella.
+- Polimorfismo por Abstraccion: Cuando puedo heredar de una clase abstracta y puedo convertirme en ella.
+- Polimorfismo por Interface: Es la posibilidad que tenemos de implementar una interface y puedo convertirme en ella.
+
+### Polimorfismo por Herencia
+Este tipo de polimorfismo es el mas común que existe, y tiene la facultad de heredar de una clase padre y reemplazarla.
+
+```Csharp
+class Padre
+{
+    public virtual void Escribiendo()
+    {
+        Console.WriteLine("Escribiendo el Padre");
+    }
+}
+
+class Hijo : Padre
+{
+    public override void Escribiendo()
+    {
+        Console.WriteLine("Escribiendo el hijo");
+    }
+}
+
+static void Main(string[] args)
+{
+    // Insertamos la clase hijo en la clase Padre
+    Padre papa = new Hijo();
+    papa.Escribiendo();
+}
+```
+
+### Polimorfismo por Abstraccion
+Este tipo de polimorfismo se da con el uso de las clases abstractas. Pero que es una clase abstracta es aquella que además de lo normal que contiene una clase tiene comportamientos que si están definidos pero no implementados.
+
+```Csharp
+abstract class Padre
+{
+    public abstract void Escribiendo();
+}
+
+class Hijo : Padre
+{
+    public override void Escribiendo()
+    {
+        Console.WriteLine("Escribiendo el hijo");
+    }
+}
+
+static void Main(string[] args)
+{
+    // La clase hijo sobreescribe el metodo abstracto y lo insertamos a la clase padre.
+    Padre papa = new Hijo();
+    papa.Escribiendo();
+}
+```
+
+### Polimorfismo por Interface
+Es uno de los polimorfismos mas importantes por que esta basado por contratos, que son los encargados de decirme que puedo hacer o no y como debo de hacerlo.
+
+```Csharp
+interface IPadre
+{
+    void Escribiendo();
+}
+
+class Hijo : IPadre
+{
+    public void Escribiendo()
+    {
+        Console.WriteLine("Escribiendo el hijo");
+    }
+}
+
+static void Main(string[] args)
+{
+    IPadre papa = new Hijo();
+    papa.Escribiendo();
+}
+```
+
 # Tratamiento de Excepciones
 
 ## Excepciones
@@ -963,6 +1049,144 @@ internal class Program
         // Instrucciones para la limpieza de recursos
     }
 }
+```
+
+---
+## Serializacion
+La serialización es el proceso de convertir un objeto en una secuencia de bytes para almacenarlo o transmitirlo a la memoria, a una base de datos o a un archivo. Su propósito principal es guardar el estado de un objeto para poder volver a crearlo cuando sea necesario. El proceso inverso se denomina deserialización.
+
+```Csharp
+public class ClaseSerializacion
+{
+    public string Nombre { get; set; }
+    public string Apellidos { get; set; }
+    private string CuentaBancaria { get; set; }
+
+    public ClaseSerializacion()
+    {
+    }
+
+    public ClaseSerializacion(string nombre, string apellidos, string cuentaBancaria)
+    {
+        Nombre = nombre ?? throw new ArgumentNullException(nameof(nombre));
+        Apellidos = apellidos ?? throw new ArgumentNullException(nameof(apellidos));
+        CuentaBancaria = cuentaBancaria ?? throw new ArgumentNullException(nameof(cuentaBancaria));
+    }
+}
+```
+
+### Archivo JSON
+La serialización de JSON serializa las propiedades públicas de un objeto en una cadena, una matriz de bytes, etc.
+
+#### Serializar JSON
+```Csharp
+static void Main(string[] args)
+{
+    var serializacion = new ClaseSerializacion("Nombre", "Apellido", "cuentaaaa bancariaaaa");
+    var serializado = System.Text.Json.JsonSerializer.Serialize(serializacion);
+}
+```
+
+#### Deserializar JSON
+```Csharp
+static void Main(string[] args)
+{
+    const string JSON = @"{""Nombre"":""Nombre"",""Apellidos"":""Apellido""}";
+    var deserializado = System.Text.Json.JsonSerializer.Deserialize<ClaseSerializacion>(JSON);
+}
+```
+
+### Archivo XML
+La serialización XML serializa las propiedades y los campos públicos de un objeto o los parámetros y valores devueltos de los métodos en una secuencia XML que se ajusta a un documento específico del lenguaje de definición de esquema XML (XSD). La serialización XML produce clases fuertemente tipadas cuyas propiedades y campos públicos se convierten a XML.
+
+#### Serializar XML
+```Csharp
+static void Main(string[] args)
+{
+    var serializacion = new ClaseSerializacion("Nombre", "Apellido", "cuentaaaa bancariaaaa");
+    var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(ClaseSerializacion));
+    using var file = System.IO.File.Create("Archivo.xml");
+    xmlSerializer.Serialize(file, serializacion);
+}
+```
+
+#### Deserializar XML
+```Csharp
+static void Main(string[] args)
+{
+    var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(ClaseSerializacion));
+    using var file = System.IO.File.OpenRead("Archivo.xml");
+    var objetoDeserializado = xmlSerializer.Deserialize(file);
+}
+```
+
+---
+## Reflexion
+`Reflection` proporciona objetos (de tipo `Type`) que describen los ensamblados, módulos y tipos. Puedes usar reflexión para crear dinámicamente una instancia de un tipo, enlazar el tipo a un objeto existente u obtener el tipo desde un objeto existente e invocar sus métodos, o acceder a sus campos y propiedades. Si usas atributos en el código, la reflexión le permite acceder a ellos.
+
+```Csharp
+interface IClaseReflexion
+{
+    string Nombre { get; set; }
+}
+
+interface IClaseReflexionDos : IClaseReflexion
+{
+    string Apellidos { get; set; }
+}
+
+public class ClaseReflexion : IClaseReflexionDos
+{
+    [Prueba("Hola", NamedInt = 5000)]
+    public string Nombre { get; set; }
+    public string Apellidos { get; set; }
+    private string CuentaBancaria { get; set; }
+
+
+    public ClaseReflexion()
+    {
+    }
+
+    public ClaseReflexion(string nombre, string apellidos, string cuentaBancaria)
+    {
+        Nombre = nombre ?? throw new ArgumentNullException(nameof(nombre));
+        Apellidos = apellidos ?? throw new ArgumentNullException(nameof(apellidos));
+        CuentaBancaria = cuentaBancaria ?? throw new ArgumentNullException(nameof(cuentaBancaria));
+    }
+}
+
+[AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]
+internal sealed class PruebaAttribute : Attribute
+{
+    // See the attribute guidelines at 
+    //  http://go.microsoft.com/fwlink/?LinkId=85236
+    private readonly string positionalString;
+
+    // This is a positional argument
+    public PruebaAttribute(string positionalString)
+    {
+        this.positionalString = positionalString;
+    }
+
+    public string PositionalString {
+        get { return positionalString; }
+    }
+
+    // This is a named argument
+    public int NamedInt { get; set; }
+}
+
+
+var obtenerTodasInterfaces = from interfaz in Assembly.GetExecutingAssembly().GetTypes()
+                             where interfaz.IsInterface
+                             select interfaz;
+var obtenerClaseImplementaInterface = from clase in Assembly.GetExecutingAssembly().GetTypes()
+                                      where clase.IsClass && clase.GetInterface(nameof(IClaseReflexion)) != null
+                                      select clase;
+var leerAtributosDePropiedades = from propiedad in typeof(ClaseReflexion).GetProperties()
+                                 let atributo = propiedad.GetCustomAttribute<PruebaAttribute>()
+                                 where atributo != null
+                                 select atributo;
 ```
 
 # Programación Asincrona
