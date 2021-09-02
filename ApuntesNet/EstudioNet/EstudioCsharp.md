@@ -422,6 +422,71 @@ cola.ToArray();
 cola.Contains("objeto");
 ```
 
+---
+## Implementar la Interfaz IEnumerable
+`IEnumerable<T>` es la interfaz base para las colecciones, como listas, diccionarios, etc.  
+Tiene un metodo que ha de ser implementado llamado `GetEnumerator` que devolvera un objeto de tipo `Enumerator<T>`.  
+
+Se puede usar la palabra clave `yield` para ir moviendonos al siguiente registro de la lista o implementando dicha interfaz en una clase para poder ir moviendonos a los siguientes elementos.
+```Csharp
+internal class Program
+{
+    private static void Main(string[] args)
+    {
+        var coches = new ListaPersonalizada<Coche>(10);
+        coches.listaCoches[0] = new Coche(MarcaCoche.Audi, "A3");
+        coches.listaCoches[1] = new Coche(MarcaCoche.Audi, "A5");
+        coches.listaCoches[2] = new Coche(MarcaCoche.Opel, "Vectra");
+        coches.listaCoches[3] = new Coche(MarcaCoche.Opel, "Astra");
+        
+        foreach (var coche in coches)
+        {
+            Console.WriteLine(coche.Marca.ToString());
+            Console.WriteLine(coche.Modelo);
+        }
+    }
+}
+
+public class Coche
+{
+    public MarcaCoche Marca { get; set; }
+    public string Modelo { get; set; }
+
+    public Coche(MarcaCoche marcaCoche, string modelo)
+    {
+        Marca = marcaCoche;
+
+        Modelo = modelo;
+    }
+}
+
+public class ListaPersonalizada<T> : IEnumerable<T>
+{
+    public T[] listaCoches;
+
+    public ListaPersonalizada(int maxIndex)
+    {
+        listaCoches = new T[maxIndex];
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        for (int i = 0; i < listaCoches.Length; i++)
+        {
+            yield return listaCoches[i];
+        }
+    }
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+}
+
+public enum MarcaCoche
+{
+    Audi,
+    Opel,
+}
+```
+
 # Programación Orientada a Objetos
 
 ## Class
@@ -1275,7 +1340,9 @@ Parallel.ForEach(collection, (item, state, index) =>
 # LINQ
 Linq es una API orientada al uso de consultas a diferentes tipos de contenido, como objetos, entidades, XML, etc. De esta manera se resume en una sintaxis sencilla y fácil de leer, tratar y mantener el tratamiento de diferentes tipos de datos.
 
-## From
+---
+## Sintaxis de consulta
+### From
 ```Csharp
 var cust = new List<Customer>();
 //queryAllCustomers is an IEnumerable<Customer>
@@ -1283,7 +1350,7 @@ from cust in customers
 select cust;
 ```
 
-## Join
+### Join
 ```Csharp
 from category in categories
 join prod in products on category.ID equals prod.CategoryID
@@ -1303,7 +1370,7 @@ category => category.ID,
 });
 ```
 
-## Let
+### Let
 ```Csharp
 
 from sentence in strings
@@ -1316,13 +1383,13 @@ where w[0] == 'a' || w[0] == 'e'
 select word;
 ```
 
-## Where
+### Where
 ```Csharp
 from prod in products
 where prod.Name == "Producto 2"
 select prod;
 ```                                                                                                                                                       
-## Group by
+### Group by
 ```Csharp
 from product in products
 group product by new
@@ -1347,7 +1414,7 @@ products.GroupBy(product => new
 });
 ```
 
-## Order by
+### Order by
 ```Csharp
 from product in products
 orderby product.CategoryID ascending
@@ -1361,47 +1428,53 @@ select product;
 products.OrderByDescending(product => product.CategoryID);
 ```
 
+---
+## Evaluacion/Ejecucion de Consulta
 Para poder tratar las consultas, la api de LINQ devuelve objetos del tipo `IEnumerable<>` o `IQueryable<>`.  
 Hay diferentes formas de leer los datos, por un lado mediante un `foreach` se pueden iterar un `IEnumerable` y por otro lado, hay metodos que convierten los datos a una coleccion directamente.
 
-## ToList
+### ToList
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).ToList();
 ```
 
-## ToArray
+### ToArray
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).ToArray();
 ```
 
-## ToDictionary
+### ToDictionary
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).ToDictionary(key => key.CategoryID, value => value.Name);
 ```
 
-## ToLookup
+### ToLookup
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).ToLookup(key => key.CategoryID, value => value.Name);
 ```
 
-## Count
+### Count
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).Count()
  ```
 
-## FirstOrDefault
+### FirstOrDefault
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).FirstOrDefault()
  ```
+
+---
+## Arboles de Expresion
+
