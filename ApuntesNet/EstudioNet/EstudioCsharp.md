@@ -430,59 +430,30 @@ Tiene un metodo que ha de ser implementado llamado `GetEnumerator` que devolvera
 Se puede usar la palabra clave `yield` para ir moviendonos al siguiente registro de la lista o implementando dicha interfaz en una clase para poder ir moviendonos a los siguientes elementos.
 
 Para ver el ejemplo con `yield`, [pincha aqui ](#yield)
+
 ```Csharp
-internal class Program
+public class EnumerablePersonalizado<T> : IEnumerable<T>
 {
-    private static void Main(string[] args)
+    public T[] enumerable;
+
+    public EnumerablePersonalizado(int maxIndex)
     {
-        var coches = new ListaPersonalizada<Coche>(4);
-        coches.listaCoches[0] = new Coche(MarcaCoche.Audi, "A3");
-        coches.listaCoches[1] = new Coche(MarcaCoche.Audi, "A5");
-        coches.listaCoches[2] = new Coche(MarcaCoche.Opel, "Vectra");
-        coches.listaCoches[3] = new Coche(MarcaCoche.Opel, "Astra");
-
-        foreach (var coche in coches)
-        {
-            Console.Write(coche.Modelo + coche.Marca);
-        }
-    }
-}
-
-public class Coche
-{
-    public MarcaCoche Marca { get; set; }
-    public string Modelo { get; set; }
-
-    public Coche(MarcaCoche marcaCoche, string modelo)
-    {
-        Marca = marcaCoche;
-
-        Modelo = modelo;
-    }
-}
-
-public class ListaPersonalizada<T> : IEnumerable<T>
-{
-    public T[] listaCoches;
-
-    public ListaPersonalizada(int maxIndex)
-    {
-        listaCoches = new T[maxIndex];
+        enumerable = new T[maxIndex];
     }
 
-    public IEnumerator<T> GetEnumerator() => new EnumeradorListaPersonalizada<T>(listaCoches);
+    public IEnumerator<T> GetEnumerator() => new EnumeradorEnumerablePersonalizado<T>(enumerable);
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }
 
-public class EnumeradorListaPersonalizada<T> : IEnumerator<T>
+public class EnumeradorEnumerablePersonalizado<T> : IEnumerator<T>
 {
     private T[] collection;
     private int indiceActual;
     private T objetoActual;
     private bool disposedValue = false;
 
-    public EnumeradorListaPersonalizada(T[] collection)
+    public EnumeradorEnumerablePersonalizado(T[] collection)
     {
         this.collection = collection;
         indiceActual = -1;
@@ -530,13 +501,79 @@ public class EnumeradorListaPersonalizada<T> : IEnumerator<T>
         disposedValue = true;
     }
 }
+```
 
-public enum MarcaCoche
+---
+## Implementar IList
+
+
+```Csharp
+public class ListaPersonalizada<T> : IList<T>
 {
-    Audi,
-    Opel,
+    public T[] lista;
 
+    public ListaPersonalizada()
+    {
+        lista = Array.Empty<T>();
+    }
+
+    public T this[int index] {
+        get {
+            return lista[index];
+        }
+
+        set {
+            lista[index] = value;
+        }
+    }
+
+    public int Count {
+        get {
+            return lista.Length;
+        }
+    }
+
+    public bool IsReadOnly {
+        get {
+            throw new NotImplementedException();
+        }
+    }
+
+    public void Add(T item)
+    {
+        var listaNueva = new T[lista.Length + 1];
+        for (int i = 0; i < lista.Length; i++)
+        {
+            listaNueva[i] = lista[i];
+        }
+        listaNueva[lista.Length] = item;
+        lista = listaNueva;
+    }
+
+    public void Clear() => throw new NotImplementedException();
+    public bool Contains(T item) => throw new NotImplementedException();
+    public void CopyTo(T[] array, int arrayIndex) => throw new NotImplementedException();
+    public int IndexOf(T item) => throw new NotImplementedException();
+    public void Insert(int index, T item) => throw new NotImplementedException();
+    public bool Remove(T item) => throw new NotImplementedException();
+    public void RemoveAt(int index) => throw new NotImplementedException();
+    public IEnumerator<T> GetEnumerator()
+    {
+        foreach (var item in lista)
+        {
+            yield return item;
+        }
+    }
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }
+```
+
+---
+## Implementar IDictionary
+
+
+```Csharp
+
 ```
 
 # Programación Orientada a Objetos
