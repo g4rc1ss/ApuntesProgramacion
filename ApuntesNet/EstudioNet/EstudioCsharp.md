@@ -1,4 +1,3 @@
-
 # Estructura del código
 
 ```Csharp
