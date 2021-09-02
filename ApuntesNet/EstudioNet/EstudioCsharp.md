@@ -1697,5 +1697,42 @@ select prod).FirstOrDefault()
  ```
 
 ---
+## Metodos de Extension
+En `Linq` mediante el uso de la interfaz `IEnumerable<T>` se pueden realizar metodos de extension para ampliar y personalizar la libreria linq para realizar filtros o guardar el objeto en una lista personalizada
+
+### Consultas personalizadas
+```Csharp
+public static class ExtensionLinq
+{
+    public static IEnumerable<Coche> FiltrarPorAudi(this IEnumerable<Coche> coches)
+    {
+        foreach (Coche coche in coches)
+        {
+            if (coche?.Marca == MarcaCoche.Audi)
+            {
+                yield return coche;
+            }
+        }
+    }
+}
+```
+
+### Ejecucion de Consultas Personalizadas
+```Csharp
+public static class ExtensionLinq
+{
+    public static ListaPersonalizada<T> ToListaPersonalizada<T>(this IEnumerable<T> coches)
+    {
+        var listaNueva = new ListaPersonalizada<T>();
+        foreach (var coche in coches)
+        {
+            listaNueva.Add(coche);
+        }
+        return listaNueva;
+    }
+}
+```
+
+---
 ## Arboles de Expresion
 
