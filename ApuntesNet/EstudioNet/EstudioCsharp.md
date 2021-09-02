@@ -1125,7 +1125,68 @@ static void Main(string[] args)
 `Reflection` proporciona objetos (de tipo `Type`) que describen los ensamblados, módulos y tipos. Puedes usar reflexión para crear dinámicamente una instancia de un tipo, enlazar el tipo a un objeto existente u obtener el tipo desde un objeto existente e invocar sus métodos, o acceder a sus campos y propiedades. Si usas atributos en el código, la reflexión le permite acceder a ellos.
 
 ```Csharp
+interface IClaseReflexion
+{
+    string Nombre { get; set; }
+}
 
+interface IClaseReflexionDos : IClaseReflexion
+{
+    string Apellidos { get; set; }
+}
+
+public class ClaseReflexion : IClaseReflexionDos
+{
+    [Prueba("Hola", NamedInt = 5000)]
+    public string Nombre { get; set; }
+    public string Apellidos { get; set; }
+    private string CuentaBancaria { get; set; }
+
+
+    public ClaseReflexion()
+    {
+    }
+
+    public ClaseReflexion(string nombre, string apellidos, string cuentaBancaria)
+    {
+        Nombre = nombre ?? throw new ArgumentNullException(nameof(nombre));
+        Apellidos = apellidos ?? throw new ArgumentNullException(nameof(apellidos));
+        CuentaBancaria = cuentaBancaria ?? throw new ArgumentNullException(nameof(cuentaBancaria));
+    }
+}
+
+[AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]
+internal sealed class PruebaAttribute : Attribute
+{
+    // See the attribute guidelines at 
+    //  http://go.microsoft.com/fwlink/?LinkId=85236
+    private readonly string positionalString;
+
+    // This is a positional argument
+    public PruebaAttribute(string positionalString)
+    {
+        this.positionalString = positionalString;
+    }
+
+    public string PositionalString {
+        get { return positionalString; }
+    }
+
+    // This is a named argument
+    public int NamedInt { get; set; }
+}
+
+
+var obtenerTodasInterfaces = from interfaz in Assembly.GetExecutingAssembly().GetTypes()
+                             where interfaz.IsInterface
+                             select interfaz;
+var obtenerClaseImplementaInterface = from clase in Assembly.GetExecutingAssembly().GetTypes()
+                                      where clase.IsClass && clase.GetInterface(nameof(IClaseReflexion)) != null
+                                      select clase;
+var leerAtributosDePropiedades = from propiedad in typeof(ClaseReflexion).GetProperties()
+                                 let atributo = propiedad.GetCustomAttribute<PruebaAttribute>()
+                                 where atributo != null
+                                 select atributo;
 ```
 
 # Programación Asincrona
