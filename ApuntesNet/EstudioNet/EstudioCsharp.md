@@ -1050,62 +1050,26 @@ Lo que el operador yield realiza es pausar la ejecución de la iteración y devu
 
 - `yield` nos puede dar mejoras en el rendimiento y el uso de la ram lo cual siempre es importante.
 - Una vez nos acostumbramos a utilizarlo, podemos ver que es muy útil y muy potente, pero desafortunadamente no es muy común
+
 ```Csharp
-internal class Program
+public class EnumerablePersonalizado<T> : IEnumerable<T>
 {
-    private static void Main(string[] args)
+    public T[] collection;
+
+    public EnumerablePersonalizado(int maxIndex)
     {
-        var coches = new ListaPersonalizada<Coche>(10);
-        coches.listaCoches[0] = new Coche(MarcaCoche.Audi, "A3");
-        coches.listaCoches[1] = new Coche(MarcaCoche.Audi, "A5");
-        coches.listaCoches[2] = new Coche(MarcaCoche.Opel, "Vectra");
-        coches.listaCoches[3] = new Coche(MarcaCoche.Opel, "Astra");
-        
-        foreach (var coche in coches)
-        {
-            Console.WriteLine(coche.Marca.ToString());
-            Console.WriteLine(coche.Modelo);
-        }
-    }
-}
-
-public class Coche
-{
-    public MarcaCoche Marca { get; set; }
-    public string Modelo { get; set; }
-
-    public Coche(MarcaCoche marcaCoche, string modelo)
-    {
-        Marca = marcaCoche;
-
-        Modelo = modelo;
-    }
-}
-
-public class ListaPersonalizada<T> : IEnumerable<T>
-{
-    public T[] listaCoches;
-
-    public ListaPersonalizada(int maxIndex)
-    {
-        listaCoches = new T[maxIndex];
+        collection = new T[maxIndex];
     }
 
     public IEnumerator<T> GetEnumerator()
     {
-        for (int i = 0; i < listaCoches.Length; i++)
+        for (int i = 0; i < collection.Length; i++)
         {
-            yield return listaCoches[i];
+            yield return collection[i];
         }
     }
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-}
-
-public enum MarcaCoche
-{
-    Audi,
-    Opel,
 }
 ```
 
