@@ -428,21 +428,22 @@ cola.Contains("objeto");
 Tiene un metodo que ha de ser implementado llamado `GetEnumerator` que devolvera un objeto de tipo `Enumerator<T>`.  
 
 Se puede usar la palabra clave `yield` para ir moviendonos al siguiente registro de la lista o implementando dicha interfaz en una clase para poder ir moviendonos a los siguientes elementos.
+
+Para ver el ejemplo con `yield`, [pincha aqui ](#yield)
 ```Csharp
 internal class Program
 {
     private static void Main(string[] args)
     {
-        var coches = new ListaPersonalizada<Coche>(10);
+        var coches = new ListaPersonalizada<Coche>(4);
         coches.listaCoches[0] = new Coche(MarcaCoche.Audi, "A3");
         coches.listaCoches[1] = new Coche(MarcaCoche.Audi, "A5");
         coches.listaCoches[2] = new Coche(MarcaCoche.Opel, "Vectra");
         coches.listaCoches[3] = new Coche(MarcaCoche.Opel, "Astra");
-        
+
         foreach (var coche in coches)
         {
-            Console.WriteLine(coche.Marca.ToString());
-            Console.WriteLine(coche.Modelo);
+            Console.Write(coche.Modelo + coche.Marca);
         }
     }
 }
@@ -469,21 +470,72 @@ public class ListaPersonalizada<T> : IEnumerable<T>
         listaCoches = new T[maxIndex];
     }
 
-    public IEnumerator<T> GetEnumerator()
-    {
-        for (int i = 0; i < listaCoches.Length; i++)
-        {
-            yield return listaCoches[i];
-        }
-    }
+    public IEnumerator<T> GetEnumerator() => new EnumeradorListaPersonalizada<T>(listaCoches);
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+}
+
+public class EnumeradorListaPersonalizada<T> : IEnumerator<T>
+{
+    private T[] collection;
+    private int indiceActual;
+    private T objetoActual;
+    private bool disposedValue = false;
+
+    public EnumeradorListaPersonalizada(T[] collection)
+    {
+        this.collection = collection;
+        indiceActual = -1;
+        objetoActual = default;
+    }
+
+    public T Current { get { return objetoActual; } }
+
+    object IEnumerator.Current { get { return Current; } }
+
+    public bool MoveNext()
+    {
+        if (++indiceActual >= collection.Length)
+        {
+            return false;
+        }
+        else
+        {
+            objetoActual = collection[indiceActual];
+        }
+        return true;
+    }
+
+    public void Reset()
+    {
+        indiceActual = -1;
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                collection = null;
+                objetoActual = default;
+            }
+        }
+        disposedValue = true;
+    }
 }
 
 public enum MarcaCoche
 {
     Audi,
     Opel,
+
 }
 ```
 
@@ -859,32 +911,61 @@ Lo que el operador yield realiza es pausar la ejecución de la iteración y devu
 - `yield` nos puede dar mejoras en el rendimiento y el uso de la ram lo cual siempre es importante.
 - Una vez nos acostumbramos a utilizarlo, podemos ver que es muy útil y muy potente, pero desafortunadamente no es muy común
 ```Csharp
-public class Coche
+internal class Program
 {
-    public IEnumerable<string> FiltrarCochesGetNombresYield(List<Coche> coches)
+    private static void Main(string[] args)
     {
-        foreach (Coche coche in coches)
+        var coches = new ListaPersonalizada<Coche>(10);
+        coches.listaCoches[0] = new Coche(MarcaCoche.Audi, "A3");
+        coches.listaCoches[1] = new Coche(MarcaCoche.Audi, "A5");
+        coches.listaCoches[2] = new Coche(MarcaCoche.Opel, "Vectra");
+        coches.listaCoches[3] = new Coche(MarcaCoche.Opel, "Astra");
+        
+        foreach (var coche in coches)
         {
-            if (coche.Marca == MarcaCcohe.Opel)
-            {
-                yield return coche.Modelo;
-            }
+            Console.WriteLine(coche.Marca.ToString());
+            Console.WriteLine(coche.Modelo);
         }
     }
 }
 
-List<Coche> coches = new List<Coche>()
+public class Coche
 {
-    new Coche(MarcaCcohe.Audi, "A3"),
-    new Coche(MarcaCcohe.Audi, "A5"),
-    new Coche(MarcaCcohe.Opel, "Vectra"),
-    new Coche(MarcaCcohe.Opel, "Astra"),
-};
+    public MarcaCoche Marca { get; set; }
+    public string Modelo { get; set; }
 
+    public Coche(MarcaCoche marcaCoche, string modelo)
+    {
+        Marca = marcaCoche;
 
-foreach (string modelo in FiltrarCochesGetNombresYield(coches))
+        Modelo = modelo;
+    }
+}
+
+public class ListaPersonalizada<T> : IEnumerable<T>
 {
-    Console.WriteLine($"El modelo del cohce es {modelo}");
+    public T[] listaCoches;
+
+    public ListaPersonalizada(int maxIndex)
+    {
+        listaCoches = new T[maxIndex];
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        for (int i = 0; i < listaCoches.Length; i++)
+        {
+            yield return listaCoches[i];
+        }
+    }
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+}
+
+public enum MarcaCoche
+{
+    Audi,
+    Opel,
 }
 ```
 
