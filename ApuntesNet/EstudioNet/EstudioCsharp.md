@@ -9,7 +9,7 @@ namespace ProgramNamespace
     {
         static void Main(string[] args)
         {
-            
+            // Code...
         }
     }
 }
@@ -49,6 +49,37 @@ Para convertir a otros tipos se puede hacer uso de la clase estatica `Convert` c
 ```Csharp
 Convert.ToInt32(2.0); // 2
 Convert.ToBoolean(1); // true
+```
+
+---
+## Boxing y Unboxing
+Todos los tipos de C# directa o indirectamente se derivan del tipo de clase object, y object es la clase base definitiva de todos los tipos. Los valores de tipos de referencia se tratan como objetos mediante la visualización de los valores como tipo object.
+
+Los valores de tipos de valor se tratan como objetos mediante la realización de operaciones de conversión boxing y operaciones de conversión unboxing
+
+```Csharp
+int i = 123;
+object o = i; // Boxing
+int j = (int)o; // Unboxing
+```
+
+---
+## Dynamic
+Cuando creamos una variable debemos indicar el tipo de variable que va a ser, o podemos utilizar la palabra clave var, la cual se convertirá en tiempo de compilación en el tipo de variable - la cual denominamos variable implícita -
+
+En el caso de las variables dinámicas, en vez de determinar su valor en tiempo de compilación se determina durante el tiempo de ejecución, o runtime.
+
+Cuando el compilador pasa por la variable lo que hace es convertir en tipo en un tipo Object en la gran mayoría de los casos. 
+
+Lo que quiere decir que cada vez que le asignamos un valor, cambiará también el tipo de variable que es el objeto, podemos verlo utilizando la siguiente línea de código:
+```Csharp
+// Se inicializa tipo int
+dynamic variableDinamica = 1;
+// Se le asigna tipo string
+variableDinamica = "test";
+
+// Para obtener el tipo de la variable
+variableDinamica.GetType().ToString();
 ```
 
 ----
@@ -146,6 +177,23 @@ foreach (var item in new List<string>())
 }
 ```
 
+---
+## Enumerador
+Una enumeración es un conjunto de constantes enteras que tienen asociado un nombre para cada valor.
+
+El objetivo fundamental de implementar una enumeración es facilitar la legibilidad de un programa.
+Supongamos que necesitamos almacenar en un juego de cartas el tipo de carta actual (oro, basto, copa o espada), podemos definir una variable entera y almacenar un 1 si es oro, un 2 si es basto y así sucesivamente.
+Luego mediante if podemos analizar el valor de esa variable y proceder de acuerdo al valor existente.
+
+```Csharp
+public enum EnumeradorCartas {
+    oro,
+    basto,
+    copa,
+    espada
+}
+```
+
 # Cadenas
 
 ## String
@@ -172,7 +220,6 @@ objetos Char.
 | \\x | Secuencia de escape Unicode similar a "\u" | \x0041 o \x41 = "A"
 
 ### Interpolacion de Cadenas
----
 La interpolación de cadenas se usa para mejorar la legibilidad y el mantenimiento del código. Se obtienen los mismos resultados que con el método `String.Format`, pero mejora la facilidad de uso y la claridad en línea.
 ```csharp
 var saludo = "Hola";
@@ -180,7 +227,6 @@ Console.WriteLine($"{saludo} terricola");
 ```
 
 ### Métodos de string
----
 
 ```csharp
 var cadena = "Hola, yo me llamo Ralph, que tal estamos?";
@@ -678,55 +724,6 @@ class MyException : Exception
 
 # Conceptos Avanzados
 
-## Boxing y Unboxing
-Todos los tipos de C# directa o indirectamente se derivan del tipo de clase object, y object es la clase base definitiva de todos los tipos. Los valores de tipos de referencia se tratan como objetos mediante la visualización de los valores como tipo object.
-
-Los valores de tipos de valor se tratan como objetos mediante la realización de operaciones de conversión boxing y operaciones de conversión unboxing
-
-```Csharp
-int i = 123;
-object o = i; // Boxing
-int j = (int)o; // Unboxing
-```
-
----
-## Dynamic
-Cuando creamos una variable debemos indicar el tipo de variable que va a ser, o podemos utilizar la palabra clave var, la cual se convertirá en tiempo de compilación en el tipo de variable - la cual denominamos variable implícita -
-
-En el caso de las variables dinámicas, en vez de determinar su valor en tiempo de compilación se determina durante el tiempo de ejecución, o runtime.
-
-Cuando el compilador pasa por la variable lo que hace es convertir en tipo en un tipo Object en la gran mayoría de los casos. 
-
-Lo que quiere decir que cada vez que le asignamos un valor, cambiará también el tipo de variable que es el objeto, podemos verlo utilizando la siguiente línea de código:
-```Csharp
-// Se inicializa tipo int
-dynamic variableDinamica = 1;
-// Se le asigna tipo string
-variableDinamica = "test";
-
-// Para obtener el tipo de la variable
-variableDinamica.GetType().ToString();
-```
-
----
-## Enumerador
-
-Una enumeración es un conjunto de constantes enteras que tienen asociado un nombre para cada valor.
-
-El objetivo fundamental de implementar una enumeración es facilitar la legibilidad de un programa.
-Supongamos que necesitamos almacenar en un juego de cartas el tipo de carta actual (oro, basto, copa o espada), podemos definir una variable entera y almacenar un 1 si es oro, un 2 si es basto y así sucesivamente.
-Luego mediante if podemos analizar el valor de esa variable y proceder de acuerdo al valor existente.
-
-```Csharp
-public enum EnumeradorCartas {
-    oro,
-    basto,
-    copa,
-    espada
-}
-```
-
----
 ## Atributos
 Los atributos proporcionan un método eficaz para asociar metadatos, o información declarativa, con código (ensamblados, tipos, métodos, propiedades, etc.). Después de asociar un atributo con una entidad de programa, se puede consultar el atributo en tiempo de ejecución mediante la utilización de una técnica denominada reflexión.
 
