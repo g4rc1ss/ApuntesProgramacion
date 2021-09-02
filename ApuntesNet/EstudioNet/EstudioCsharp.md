@@ -425,7 +425,7 @@ cola.Contains("objeto");
 ---
 ## Implementar la Interfaz IEnumerable
 `IEnumerable<T>` es la interfaz base para las colecciones, como listas, diccionarios, etc.  
-Tiene un metodo que ha de ser implementado llamado `GetEnumerator` que devolvera un objeto de tipo `Enumerator<T>`.  
+Tiene un metodo que ha de ser implementado llamado `GetEnumerator` que devolvera un objeto de tipo `IEnumerator<T>`.  
 
 Se puede usar la palabra clave `yield` para ir moviendonos al siguiente registro de la lista o implementando dicha interfaz en una clase para poder ir moviendonos a los siguientes elementos.
 
@@ -505,7 +505,8 @@ public class EnumeradorEnumerablePersonalizado<T> : IEnumerator<T>
 
 ---
 ## Implementar IList
-
+Si se quiere realizar un tipo de lista ordenada personalizado se debera de implementar la interfaz `IList<T>`.  
+Las listas requieren que sean dinamicas, por tanto se implementara el metodo `Add()`, que se pueda acceder a ellas mediante un `index[]`, que se puedan limpiar, etc.
 
 ```Csharp
 public class ListaPersonalizada<T> : IList<T>
@@ -570,10 +571,112 @@ public class ListaPersonalizada<T> : IList<T>
 
 ---
 ## Implementar IDictionary
-
+`IDictionary<TKey, TValue>` es una interfaz base que se utiliza para las colecciones con pares clave-valor.  
+Las claves tienes que ser unicas y los valores pueden ser `null` o repetidos.
 
 ```Csharp
+public class DiccionarioPersonalizado<TKey, TValue> : IDictionary<TKey, TValue>
+{
+    private DictionaryEntry[] dictionary;
+    private int itemsInUse = 0;
 
+    public DiccionarioPersonalizado()
+    {
+        dictionary = Array.Empty<DictionaryEntry>();
+    }
+
+    public TValue this[TKey key] {
+        get {
+            if (TryGetKeyIndex(key, out var index))
+            {
+                return (TValue)dictionary[index].Value;
+            }
+            return default;
+        }
+
+        set {
+            if (TryGetKeyIndex(key, out var index))
+            {
+                dictionary[index].Value = value;
+            }
+            else
+            {
+                Add(key, value);
+            }
+        }
+    }
+
+    public ICollection<TKey> Keys {
+        get {
+            var keys = new TKey[itemsInUse];
+            for (int i = 0; i < itemsInUse; i++)
+                keys[i] = (TKey)dictionary[i].Key;
+            return keys;
+        }
+    }
+
+    public ICollection<TValue> Values {
+        get {
+            var values = new TValue[itemsInUse];
+            for (int i = 0; i < itemsInUse; i++)
+                values[i] = (TValue)dictionary[i].Key;
+            return values;
+        }
+    }
+
+    public int Count {
+        get {
+            throw new NotImplementedException();
+        }
+    }
+
+    public bool IsReadOnly {
+        get {
+            throw new NotImplementedException();
+        }
+    }
+
+    private bool TryGetKeyIndex(object key, out int index)
+    {
+        for (index = 0; index < itemsInUse; index++)
+        {
+            if (dictionary[index].Key.Equals(key))
+                return true;
+        }
+        return false;
+    }
+
+    public void Add(TKey key, TValue value)
+    {
+        var diccionarioNuevo = new DictionaryEntry[itemsInUse + 1];
+        for (int i = 0; i < itemsInUse; i++)
+        {
+            diccionarioNuevo[i].Key = dictionary[i].Key;
+            diccionarioNuevo[i].Value = dictionary[i].Value;
+        }
+        diccionarioNuevo[itemsInUse].Key = key;
+        diccionarioNuevo[itemsInUse].Value = value;
+        dictionary = diccionarioNuevo;
+        itemsInUse++;
+    }
+
+    public void Add(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
+    public void Clear() => throw new NotImplementedException();
+    public bool Contains(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
+    public bool ContainsKey(TKey key) => throw new NotImplementedException();
+    public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex) => throw new NotImplementedException();
+    public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
+    {
+        foreach (var item in dictionary)
+        {
+            yield return new KeyValuePair<TKey, TValue>((TKey)item.Key, (TValue)item.Value);
+        }
+    }
+    public bool Remove(TKey key) => throw new NotImplementedException();
+    public bool Remove(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
+    public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value) => throw new NotImplementedException();
+    IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
+}
 ```
 
 # Programación Orientada a Objetos
