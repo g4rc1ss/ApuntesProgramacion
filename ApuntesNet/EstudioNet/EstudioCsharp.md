@@ -1770,7 +1770,7 @@ select prod).FirstOrDefault()
 ## Metodos de Extension
 En `Linq` mediante el uso de la interfaz `IEnumerable<T>` se pueden realizar metodos de extension para ampliar y personalizar la libreria linq para realizar filtros o guardar el objeto en una lista personalizada
 
-### Consultas personalizadas
+### Tratamiento de Consultas personalizadas
 ```Csharp
 public static class ExtensionLinq
 {
