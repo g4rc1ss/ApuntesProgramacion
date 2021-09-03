@@ -1278,10 +1278,10 @@ var resultado2 = ClaseFunc.Run(() =>
 ```Csharp
 public static class ClaseExpression
 {
-    public static TResult Run<T1, TResult>(Func<T1, TResult> action, params T1[] arguments)
+    public static TResult Run<T1, TResult>(Func<T1, TResult> action, T1 argument)
     {
         _ = action ?? throw new ArgumentNullException($"{nameof(action)} esta null");
-        return action.Invoke(arguments[0]);
+        return action.Invoke(argument);
     }
 }
 
