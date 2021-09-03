@@ -9,7 +9,7 @@ namespace ProgramNamespace
     {
         static void Main(string[] args)
         {
-            
+            // Code...
         }
     }
 }
@@ -49,6 +49,37 @@ Para convertir a otros tipos se puede hacer uso de la clase estatica `Convert` c
 ```Csharp
 Convert.ToInt32(2.0); // 2
 Convert.ToBoolean(1); // true
+```
+
+---
+## Boxing y Unboxing
+Todos los tipos de C# directa o indirectamente se derivan del tipo de clase object, y object es la clase base definitiva de todos los tipos. Los valores de tipos de referencia se tratan como objetos mediante la visualización de los valores como tipo object.
+
+Los valores de tipos de valor se tratan como objetos mediante la realización de operaciones de conversión boxing y operaciones de conversión unboxing
+
+```Csharp
+int i = 123;
+object o = i; // Boxing
+int j = (int)o; // Unboxing
+```
+
+---
+## Dynamic
+Cuando creamos una variable debemos indicar el tipo de variable que va a ser, o podemos utilizar la palabra clave var, la cual se convertirá en tiempo de compilación en el tipo de variable - la cual denominamos variable implícita -
+
+En el caso de las variables dinámicas, en vez de determinar su valor en tiempo de compilación se determina durante el tiempo de ejecución, o runtime.
+
+Cuando el compilador pasa por la variable lo que hace es convertir en tipo en un tipo Object en la gran mayoría de los casos. 
+
+Lo que quiere decir que cada vez que le asignamos un valor, cambiará también el tipo de variable que es el objeto, podemos verlo utilizando la siguiente línea de código:
+```Csharp
+// Se inicializa tipo int
+dynamic variableDinamica = 1;
+// Se le asigna tipo string
+variableDinamica = "test";
+
+// Para obtener el tipo de la variable
+variableDinamica.GetType().ToString();
 ```
 
 ----
@@ -146,6 +177,23 @@ foreach (var item in new List<string>())
 }
 ```
 
+---
+## Enumerador
+Una enumeración es un conjunto de constantes enteras que tienen asociado un nombre para cada valor.
+
+El objetivo fundamental de implementar una enumeración es facilitar la legibilidad de un programa.
+Supongamos que necesitamos almacenar en un juego de cartas el tipo de carta actual (oro, basto, copa o espada), podemos definir una variable entera y almacenar un 1 si es oro, un 2 si es basto y así sucesivamente.
+Luego mediante if podemos analizar el valor de esa variable y proceder de acuerdo al valor existente.
+
+```Csharp
+public enum EnumeradorCartas {
+    oro,
+    basto,
+    copa,
+    espada
+}
+```
+
 # Cadenas
 
 ## String
@@ -172,7 +220,6 @@ objetos Char.
 | \\x | Secuencia de escape Unicode similar a "\u" | \x0041 o \x41 = "A"
 
 ### Interpolacion de Cadenas
----
 La interpolación de cadenas se usa para mejorar la legibilidad y el mantenimiento del código. Se obtienen los mismos resultados que con el método `String.Format`, pero mejora la facilidad de uso y la claridad en línea.
 ```csharp
 var saludo = "Hola";
@@ -180,7 +227,6 @@ Console.WriteLine($"{saludo} terricola");
 ```
 
 ### Métodos de string
----
 
 ```csharp
 var cadena = "Hola, yo me llamo Ralph, que tal estamos?";
@@ -374,6 +420,263 @@ cola.ToArray();
 
 // Comprobamos si la coleccion contiene un objeto especifico
 cola.Contains("objeto");
+```
+
+---
+## Implementar la Interfaz IEnumerable
+`IEnumerable<T>` es la interfaz base para las colecciones, como listas, diccionarios, etc.  
+Tiene un metodo que ha de ser implementado llamado `GetEnumerator` que devolvera un objeto de tipo `IEnumerator<T>`.  
+
+Se puede usar la palabra clave `yield` para ir moviendonos al siguiente registro de la lista o implementando dicha interfaz en una clase para poder ir moviendonos a los siguientes elementos.
+
+Para ver el ejemplo con `yield`, [pincha aqui ](#yield)
+
+```Csharp
+public class EnumerablePersonalizado<T> : IEnumerable<T>
+{
+    public T[] enumerable;
+
+    public EnumerablePersonalizado(int maxIndex)
+    {
+        enumerable = new T[maxIndex];
+    }
+
+    public IEnumerator<T> GetEnumerator() => new EnumeradorEnumerablePersonalizado<T>(enumerable);
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+}
+
+public class EnumeradorEnumerablePersonalizado<T> : IEnumerator<T>
+{
+    private T[] collection;
+    private int indiceActual;
+    private T objetoActual;
+    private bool disposedValue = false;
+
+    public EnumeradorEnumerablePersonalizado(T[] collection)
+    {
+        this.collection = collection;
+        indiceActual = -1;
+        objetoActual = default;
+    }
+
+    public T Current { get { return objetoActual; } }
+
+    object IEnumerator.Current { get { return Current; } }
+
+    public bool MoveNext()
+    {
+        if (++indiceActual >= collection.Length)
+        {
+            return false;
+        }
+        else
+        {
+            objetoActual = collection[indiceActual];
+        }
+        return true;
+    }
+
+    public void Reset()
+    {
+        indiceActual = -1;
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                collection = null;
+                objetoActual = default;
+            }
+        }
+        disposedValue = true;
+    }
+}
+```
+
+---
+## Implementar IList
+Si se quiere realizar un tipo de lista ordenada personalizado se debera de implementar la interfaz `IList<T>`.  
+Las listas requieren que sean dinamicas, por tanto se implementara el metodo `Add()`, que se pueda acceder a ellas mediante un `index[]`, que se puedan limpiar, etc.
+
+```Csharp
+public class ListaPersonalizada<T> : IList<T>
+{
+    public T[] lista;
+
+    public ListaPersonalizada()
+    {
+        lista = Array.Empty<T>();
+    }
+
+    public T this[int index] {
+        get {
+            return lista[index];
+        }
+
+        set {
+            lista[index] = value;
+        }
+    }
+
+    public int Count {
+        get {
+            return lista.Length;
+        }
+    }
+
+    public bool IsReadOnly {
+        get {
+            throw new NotImplementedException();
+        }
+    }
+
+    public void Add(T item)
+    {
+        var listaNueva = new T[lista.Length + 1];
+        for (int i = 0; i < lista.Length; i++)
+        {
+            listaNueva[i] = lista[i];
+        }
+        listaNueva[lista.Length] = item;
+        lista = listaNueva;
+    }
+
+    public void Clear() => throw new NotImplementedException();
+    public bool Contains(T item) => throw new NotImplementedException();
+    public void CopyTo(T[] array, int arrayIndex) => throw new NotImplementedException();
+    public int IndexOf(T item) => throw new NotImplementedException();
+    public void Insert(int index, T item) => throw new NotImplementedException();
+    public bool Remove(T item) => throw new NotImplementedException();
+    public void RemoveAt(int index) => throw new NotImplementedException();
+    public IEnumerator<T> GetEnumerator()
+    {
+        foreach (var item in lista)
+        {
+            yield return item;
+        }
+    }
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+}
+```
+
+---
+## Implementar IDictionary
+`IDictionary<TKey, TValue>` es una interfaz base que se utiliza para las colecciones con pares clave-valor.  
+Las claves tienes que ser unicas y los valores pueden ser `null` o repetidos.
+
+```Csharp
+public class DiccionarioPersonalizado<TKey, TValue> : IDictionary<TKey, TValue>
+{
+    private DictionaryEntry[] dictionary;
+    private int itemsInUse = 0;
+
+    public DiccionarioPersonalizado()
+    {
+        dictionary = Array.Empty<DictionaryEntry>();
+    }
+
+    public TValue this[TKey key] {
+        get {
+            if (TryGetKeyIndex(key, out var index))
+            {
+                return (TValue)dictionary[index].Value;
+            }
+            return default;
+        }
+
+        set {
+            if (TryGetKeyIndex(key, out var index))
+            {
+                dictionary[index].Value = value;
+            }
+            else
+            {
+                Add(key, value);
+            }
+        }
+    }
+
+    public ICollection<TKey> Keys {
+        get {
+            var keys = new TKey[itemsInUse];
+            for (int i = 0; i < itemsInUse; i++)
+                keys[i] = (TKey)dictionary[i].Key;
+            return keys;
+        }
+    }
+
+    public ICollection<TValue> Values {
+        get {
+            var values = new TValue[itemsInUse];
+            for (int i = 0; i < itemsInUse; i++)
+                values[i] = (TValue)dictionary[i].Key;
+            return values;
+        }
+    }
+
+    public int Count {
+        get {
+            throw new NotImplementedException();
+        }
+    }
+
+    public bool IsReadOnly {
+        get {
+            throw new NotImplementedException();
+        }
+    }
+
+    private bool TryGetKeyIndex(object key, out int index)
+    {
+        for (index = 0; index < itemsInUse; index++)
+        {
+            if (dictionary[index].Key.Equals(key))
+                return true;
+        }
+        return false;
+    }
+
+    public void Add(TKey key, TValue value)
+    {
+        var diccionarioNuevo = new DictionaryEntry[itemsInUse + 1];
+        for (int i = 0; i < itemsInUse; i++)
+        {
+            diccionarioNuevo[i].Key = dictionary[i].Key;
+            diccionarioNuevo[i].Value = dictionary[i].Value;
+        }
+        diccionarioNuevo[itemsInUse].Key = key;
+        diccionarioNuevo[itemsInUse].Value = value;
+        dictionary = diccionarioNuevo;
+        itemsInUse++;
+    }
+
+    public void Add(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
+    public void Clear() => throw new NotImplementedException();
+    public bool Contains(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
+    public bool ContainsKey(TKey key) => throw new NotImplementedException();
+    public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex) => throw new NotImplementedException();
+    public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
+    {
+        foreach (var item in dictionary)
+        {
+            yield return new KeyValuePair<TKey, TValue>((TKey)item.Key, (TValue)item.Value);
+        }
+    }
+    public bool Remove(TKey key) => throw new NotImplementedException();
+    public bool Remove(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
+    public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value) => throw new NotImplementedException();
+    IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
+}
 ```
 
 # Programación Orientada a Objetos
@@ -619,6 +922,53 @@ static void Main(string[] args)
 }
 ```
 
+---
+## Covarianza y Contravarianza
+La covarianza y la contravarianza habilitan la conversión de referencias implícita de tipos de matriz, tipos de delegado y argumentos de tipo genérico. La covarianza conserva la compatibilidad de asignaciones y la contravarianza la invierte.
+
+### Covarianza
+La covarianza permite la conversion implícita de un tipo mas derivado(un tipo hijo) a uno menos derivado(un tipo padre).
+
+```Csharp
+// Covariante porque string es una clase que hereda de object
+IEnumerable<object> convariante = new List<string>();
+object[] arrayCovariante = new string[10];
+
+```
+
+### Contravarianza
+La contravarianza permite la conversion de una clase hija a una clase padre.
+
+```Csharp
+class ClaseBase
+{
+}
+
+class ClaseHijo : ClaseBase
+{
+
+}
+
+class Comparar : IEqualityComparer<ClaseBase>
+{
+    public bool Equals(ClaseBase x, ClaseBase y)
+    {
+        return x == y;
+    }
+
+    public int GetHashCode([DisallowNull] ClaseBase obj)
+    {
+        return obj.GetHashCode();
+    }
+}
+
+// Contravariante porque la interfaz IEqualityComparer es contravariante
+// Primero inicializamos a una ClaseBase la clase Comparar y luego la agregamos
+// A una clase con una interfaz que implementa otra clase que deriva de ClaseBase
+IEqualityComparer<ClaseBase> claseComparar = new Comparar();
+IEqualityComparer<ClaseHijo> contravariante = claseComparar;
+```
+
 # Tratamiento de Excepciones
 
 ## Excepciones
@@ -678,55 +1028,6 @@ class MyException : Exception
 
 # Conceptos Avanzados
 
-## Boxing y Unboxing
-Todos los tipos de C# directa o indirectamente se derivan del tipo de clase object, y object es la clase base definitiva de todos los tipos. Los valores de tipos de referencia se tratan como objetos mediante la visualización de los valores como tipo object.
-
-Los valores de tipos de valor se tratan como objetos mediante la realización de operaciones de conversión boxing y operaciones de conversión unboxing
-
-```Csharp
-int i = 123;
-object o = i; // Boxing
-int j = (int)o; // Unboxing
-```
-
----
-## Dynamic
-Cuando creamos una variable debemos indicar el tipo de variable que va a ser, o podemos utilizar la palabra clave var, la cual se convertirá en tiempo de compilación en el tipo de variable - la cual denominamos variable implícita -
-
-En el caso de las variables dinámicas, en vez de determinar su valor en tiempo de compilación se determina durante el tiempo de ejecución, o runtime.
-
-Cuando el compilador pasa por la variable lo que hace es convertir en tipo en un tipo Object en la gran mayoría de los casos. 
-
-Lo que quiere decir que cada vez que le asignamos un valor, cambiará también el tipo de variable que es el objeto, podemos verlo utilizando la siguiente línea de código:
-```Csharp
-// Se inicializa tipo int
-dynamic variableDinamica = 1;
-// Se le asigna tipo string
-variableDinamica = "test";
-
-// Para obtener el tipo de la variable
-variableDinamica.GetType().ToString();
-```
-
----
-## Enumerador
-
-Una enumeración es un conjunto de constantes enteras que tienen asociado un nombre para cada valor.
-
-El objetivo fundamental de implementar una enumeración es facilitar la legibilidad de un programa.
-Supongamos que necesitamos almacenar en un juego de cartas el tipo de carta actual (oro, basto, copa o espada), podemos definir una variable entera y almacenar un 1 si es oro, un 2 si es basto y así sucesivamente.
-Luego mediante if podemos analizar el valor de esa variable y proceder de acuerdo al valor existente.
-
-```Csharp
-public enum EnumeradorCartas {
-    oro,
-    basto,
-    copa,
-    espada
-}
-```
-
----
 ## Atributos
 Los atributos proporcionan un método eficaz para asociar metadatos, o información declarativa, con código (ensamblados, tipos, métodos, propiedades, etc.). Después de asociar un atributo con una entidad de programa, se puede consultar el atributo en tiempo de ejecución mediante la utilización de una técnica denominada reflexión.
 
@@ -796,33 +1097,26 @@ Lo que el operador yield realiza es pausar la ejecución de la iteración y devu
 
 - `yield` nos puede dar mejoras en el rendimiento y el uso de la ram lo cual siempre es importante.
 - Una vez nos acostumbramos a utilizarlo, podemos ver que es muy útil y muy potente, pero desafortunadamente no es muy común
+
 ```Csharp
-public class Coche
+public class EnumerablePersonalizado<T> : IEnumerable<T>
 {
-    public IEnumerable<string> FiltrarCochesGetNombresYield(List<Coche> coches)
+    public T[] collection;
+
+    public EnumerablePersonalizado(int maxIndex)
     {
-        foreach (Coche coche in coches)
+        collection = new T[maxIndex];
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        for (int i = 0; i < collection.Length; i++)
         {
-            if (coche.Marca == MarcaCcohe.Opel)
-            {
-                yield return coche.Modelo;
-            }
+            yield return collection[i];
         }
     }
-}
 
-List<Coche> coches = new List<Coche>()
-{
-    new Coche(MarcaCcohe.Audi, "A3"),
-    new Coche(MarcaCcohe.Audi, "A5"),
-    new Coche(MarcaCcohe.Opel, "Vectra"),
-    new Coche(MarcaCcohe.Opel, "Astra"),
-};
-
-
-foreach (string modelo in FiltrarCochesGetNombresYield(coches))
-{
-    Console.WriteLine($"El modelo del cohce es {modelo}");
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }
 ```
 
@@ -898,6 +1192,110 @@ public static void ExportEventCaller(ExportObject export)
 
 ExportAPI.ExportEvent += LoadEventCall;
 // LoadEventCall es el metodo que se va a ejecutar
+```
+
+## Delegados como Parametros
+El uso de delegamos como parametros permite una mayor flexibilidad a la hora de realizar procesos de automatizacion de codigo.  
+Por ejemplo la TPL es una libreria para ejecutar fragmentos de codigoe creando un hilo, pues los metodos que contiene para tal fin funcionan con la clase `Action` y `Func<>` para ejecutar el fragmento que el usuario desee y poder automatizar todo el proceso de manejo y creacion de threads
+
+### Action
+La clase `Action` recibe un delegado de tipo void como parametro, eso quiere decir que solo ejecuta el metodo que se le pasa, pero no devuelve ningun resultado.
+
+```Csharp
+public static class ClaseAction
+{
+    public static void Run(Action action)
+    {
+        action?.Invoke();
+    }
+}
+
+public void string Imprimir(string texto)
+{
+    Console.WriteLine(texto);
+}
+
+// Pasamos un metodo existente mas arriba por parametro
+ClaseAction.Run(() => Imprimir("envio por action"));
+
+// Creamos nosotros mismos nuestro codigo inicializando el delegado en el parametro del metodo
+ClaseAction.Run(() =>
+{
+    Console.WriteLine("envio por action");
+});
+```
+
+```Csharp
+public static class ClaseExpression
+{
+    public static void Run<T1>(this T1 arg, Action<T1> action)
+    {
+        _ = action ?? throw new ArgumentNullException($"{nameof(action)} esta null");
+        action.Invoke(arg);
+    }
+}
+
+var persona = new Persona
+{
+    Nombre = "Hola",
+    Apellido = "Adios"
+};
+persona.Run(x => Imprimir(x.Apellido + x.Nombre));
+persona.Run(x =>
+{
+    Console.WriteLine(x.Nombre + x.Apellido);
+});
+```
+
+### Func
+La clase `Func` hace lo mismo que la `Action` con la diferencia de que esta si que permite la devolucion de un resultado en la ejecucion del metodo delegado.
+
+```Csharp
+public static class ClaseFunc
+{
+    public static TResult Run<TResult>(Func<TResult> action)
+    {
+        _ = action ?? throw new ArgumentNullException($"{nameof(action)} esta null");
+        return action.Invoke();
+    }
+}
+
+public static string Imprimir(string texto)
+{
+    Console.WriteLine(texto);
+    return texto;
+}
+
+var resultado = ClaseFunc.Run(() => Imprimir("metodo creado"));
+var resultado2 = ClaseFunc.Run(() =>
+{
+    var str = "metodo lambda";
+    Console.WriteLine(str);
+    return str;
+});
+```
+
+```Csharp
+public static class ClaseExpression
+{
+    public static TResult Run<T1, TResult>(Func<T1, TResult> action, T1 argument)
+    {
+        _ = action ?? throw new ArgumentNullException($"{nameof(action)} esta null");
+        return action.Invoke(argument);
+    }
+}
+
+var persona = new Persona
+{
+    Nombre = "Hola",
+    Apellido = "Adios"
+};
+var resultado = ClaseExpression.Run(x => Imprimir(x.Apellido + x.Nombre), persona);
+var resultado2 = ClaseExpression.Run(x =>
+{
+    Console.WriteLine(x.Nombre + x.Apellido);
+    return x.Nombre + x.Apellido;
+}, persona);
 ```
 
 ---
@@ -1194,6 +1592,7 @@ La programacion asincrona se realiza cuando se quieren evitar bloqueos en el hil
 Por ejemplo, en una interfaz Desktop, si se usa el patron en las operaciones costosas, la interfaz no se bloqueará mientras se ejecutan las instrucciones.  
 En una aplicacion web como `ASP.NET` usar el patron hara que se puedan recibir mas peticiones mientras las peticiones anteriores estan en espera de que termine el proceso que ocupa tiempo, como por ejemplo, una consulta a BBDD.
 
+---
 ## Async & Await
 El núcleo de la programación asincrónica son los objetos `Task` y `Task<T>`, que modelan las operaciones asincrónicas. Son compatibles con las palabras clave `async` y `await`. El modelo es bastante sencillo en la mayoría de los casos:
 
@@ -1222,6 +1621,7 @@ Muchos equipos y estaciones de trabajo personales tienen varios núcleos de CPU 
 
 Por ejemplo, imaginemos que tenemos una aplicacion que requiere de realizar 3 consultas para obtener datos diferentes de una BBDD, aprovechandonos del multithreading, podemos hacer uso de la clase Parallel para realizar esas consultas de forma paralelizada y reducir los tiempos.
 
+---
 ## Parallel
 La clase estatica `Parallel` contiene los metodos `For`, `ForEach` e `Invoke` y se utiliza para hacer procesamiento multihilo de manera automatizada, su uso principal consta en el tratamiento de objetos como `Listas` o `Arrays` y la ejecucion de metodos en paralelo.
 
@@ -1276,7 +1676,9 @@ Parallel.ForEach(collection, (item, state, index) =>
 # LINQ
 Linq es una API orientada al uso de consultas a diferentes tipos de contenido, como objetos, entidades, XML, etc. De esta manera se resume en una sintaxis sencilla y fácil de leer, tratar y mantener el tratamiento de diferentes tipos de datos.
 
-## From
+---
+## Sintaxis de consulta
+### From
 ```Csharp
 var cust = new List<Customer>();
 //queryAllCustomers is an IEnumerable<Customer>
@@ -1284,7 +1686,7 @@ from cust in customers
 select cust;
 ```
 
-## Join
+### Join
 ```Csharp
 from category in categories
 join prod in products on category.ID equals prod.CategoryID
@@ -1304,7 +1706,7 @@ category => category.ID,
 });
 ```
 
-## Let
+### Let
 ```Csharp
 
 from sentence in strings
@@ -1317,13 +1719,13 @@ where w[0] == 'a' || w[0] == 'e'
 select word;
 ```
 
-## Where
+### Where
 ```Csharp
 from prod in products
 where prod.Name == "Producto 2"
 select prod;
 ```                                                                                                                                                       
-## Group by
+### Group by
 ```Csharp
 from product in products
 group product by new
@@ -1348,7 +1750,7 @@ products.GroupBy(product => new
 });
 ```
 
-## Order by
+### Order by
 ```Csharp
 from product in products
 orderby product.CategoryID ascending
@@ -1362,47 +1764,121 @@ select product;
 products.OrderByDescending(product => product.CategoryID);
 ```
 
+---
+## Evaluacion/Ejecucion de Consulta
 Para poder tratar las consultas, la api de LINQ devuelve objetos del tipo `IEnumerable<>` o `IQueryable<>`.  
 Hay diferentes formas de leer los datos, por un lado mediante un `foreach` se pueden iterar un `IEnumerable` y por otro lado, hay metodos que convierten los datos a una coleccion directamente.
 
-## ToList
+### ToList
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).ToList();
 ```
 
-## ToArray
+### ToArray
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).ToArray();
 ```
 
-## ToDictionary
+### ToDictionary
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).ToDictionary(key => key.CategoryID, value => value.Name);
 ```
 
-## ToLookup
+### ToLookup
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).ToLookup(key => key.CategoryID, value => value.Name);
 ```
 
-## Count
+### Count
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).Count()
  ```
 
-## FirstOrDefault
+### FirstOrDefault
 ```Csharp
 (from prod in products
 where prod.Name == "Producto 2"
 select prod).FirstOrDefault()
  ```
+
+---
+## Metodos de Extension
+En `Linq` mediante el uso de la interfaz `IEnumerable<T>` se pueden realizar metodos de extension para ampliar y personalizar la libreria linq para realizar filtros o guardar el objeto en una lista personalizada
+
+### Tratamiento de Consultas personalizadas
+```Csharp
+public static class ExtensionLinq
+{
+    public static IEnumerable<Coche> FiltrarPorAudi(this IEnumerable<Coche> coches)
+    {
+        foreach (Coche coche in coches)
+        {
+            if (coche?.Marca == MarcaCoche.Audi)
+            {
+                yield return coche;
+            }
+        }
+    }
+}
+```
+
+### Ejecucion de Consultas Personalizadas
+```Csharp
+public static class ExtensionLinq
+{
+    public static ListaPersonalizada<T> ToListaPersonalizada<T>(this IEnumerable<T> coches)
+    {
+        var listaNueva = new ListaPersonalizada<T>();
+        foreach (var coche in coches)
+        {
+            listaNueva.Add(coche);
+        }
+        return listaNueva;
+    }
+}
+```
+
+---
+## Arboles de Expresion
+Los árboles de expresiones son estructuras de datos que definen código. Se basan en las mismas estructuras que usa un compilador para analizar el código y generar el resultado compilado. A medida que vaya leyendo este tutorial, observará cierta similitud entre los árboles de expresiones y los tipos usados en las API de Roslyn para compilar analizadores y correcciones de código. (Los analizadores y las correcciones de código son paquetes de NuGet que realizan un análisis estático en código y pueden sugerir posibles correcciones para un desarrollador). Los conceptos son similares y el resultado final es una estructura de datos que permite examinar el código fuente de forma significativa. En cambio, los árboles de expresiones se basan en un conjunto de clases y API totalmente diferente a las API de Roslyn.
+
+Para la creacion y asignacion de una variable que sume 2 numeros, se crearia el siguiente arbol de expresion:
+
+- Instrucción de declaración de variable con asignación (var sum = 1 + 2;)
+    - Declaración de tipo de variable implícita (var sum)
+        - Palabra clave var implícita (var)
+        - Declaración de nombre de variable (sum)
+    - Operador de asignación (=)
+    - Expresión binaria de suma (1 + 2)
+        - Operando izquierdo (1)
+        - Operador de suma (+)
+        - Operando derecho (2)
+
+Podemos devolver el cuerpo de la funcion pasada como un string.  
+Por ejemplo, un uso muy elevado que se le da a los arboles de expresion es con `EntityFramework` para la conversion de objetos `IQueryable<>` a una consulta `SQL`
+```Csharp
+public static class ClaseExpression
+{
+    public static string WhereToString<T>(T argumento, Expression<Func<T, bool>> expression)
+    {
+        return $"WHERE {expression.Body.ToString().Replace("==", "=")}";
+    }
+}
+
+var persona = new Persona
+{
+    Nombre = "Hola",
+    Apellido = "Adios"
+};
+var expresion = ClaseExpression.WhereToString(persona, x => x.Nombre == x.Apellido);
+```
