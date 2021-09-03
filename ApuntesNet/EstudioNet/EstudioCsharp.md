@@ -1194,6 +1194,65 @@ ExportAPI.ExportEvent += LoadEventCall;
 // LoadEventCall es el metodo que se va a ejecutar
 ```
 
+## Delegados como Parametros
+El uso de delegamos como parametros permite una mayor flexibilidad a la hora de realizar procesos de automatizacion de codigo.  
+Por ejemplo la TPL es una libreria para ejecutar fragmentos de codigoe creando un hilo, pues los metodos que contiene para tal fin funcionan con la clase `Action` y `Func<>` para ejecutar el fragmento que el usuario desee y poder automatizar todo el proceso de manejo y creacion de threads
+
+### Action
+La clase `Action` recibe un delegado de tipo void como parametro, eso quiere decir que solo ejecuta el metodo que se le pasa, pero no devuelve ningun resultado.
+
+```Csharp
+public static class ClaseAction
+{
+    public static void Run(Action action)
+    {
+        action?.Invoke();
+    }
+}
+
+public void string Imprimir(string texto)
+{
+    Console.WriteLine(texto);
+}
+
+// Pasamos un metodo existente mas arriba por parametro
+ClaseAction.Run(() => Imprimir("envio por action"));
+
+// Creamos nosotros mismos nuestro codigo inicializando el delegado en el parametro del metodo
+ClaseAction.Run(() =>
+{
+    Console.WriteLine("envio por action");
+});
+```
+
+### Func
+La clase `Func` hace lo mismo que la `Action` con la diferencia de que esta si que permite la devolucion de un resultado en la ejecucion del metodo delegado.
+
+```Csharp
+public static class ClaseFunc
+{
+    public static TResult Run<TResult>(Func<TResult> action)
+    {
+        _ = action ?? throw new ArgumentNullException($"{nameof(action)} esta null");
+        return action.Invoke();
+    }
+}
+
+public static string Imprimir(string texto)
+{
+    Console.WriteLine(texto);
+    return texto;
+}
+
+var resultado = ClaseFunc.Run(() => Imprimir("metodo creado"));
+var resultado2 = ClaseFunc.Run(() =>
+{
+    var str = "metodo lambda";
+    Console.WriteLine(str);
+    return str;
+});
+```
+
 ---
 ## Codigo no Administrado
 El codigo no administrado es un tipo de codigo al que no puede acceder el `Garbage Collector` para realizar el proceso de limpieza de memoria, por tanto hay que hacerlo manualmente.  
