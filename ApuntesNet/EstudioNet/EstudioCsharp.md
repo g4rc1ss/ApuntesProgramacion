@@ -746,27 +746,6 @@ public string propiedadDos {
 ```
 
 ----
-## Delegados
-Un delegate es un tipo de referencia que puede utilizarse para encapsular un método con nombre o anónimo.
-
-Imaginemos que podemos crear un método, almacenarlo en un objeto y pasarlo como parámetro de una función, pues en eso consiste.
-```Csharp
-
-internal void MetodoDelegado(List<string> coleccion, Action<string> delegado)
-{
-    foreach (var item in coleccion)
-    {
-        delegado?.Invoke(item);
-    }
-}
-
-clase.MetodoDelegado(new List<string>() { "Hola", "Adios" }, (x) =>
-{
-    Console.WriteLine(x.Contains("Ho"));
-});
-```
-
----
 ## Herencia
 La herencia significa que se pueden crear nuevas clases partiendo de clases existentes, que tendrá todas los atributos, propiedades y los métodos de su 'superclass' o 'clase padre' y además se le podrán añadir otros atributos, propiedades y métodos propios.
 
@@ -1194,11 +1173,52 @@ ExportAPI.ExportEvent += LoadEventCall;
 // LoadEventCall es el metodo que se va a ejecutar
 ```
 
-## Delegados como Parametros
+---
+## Delegados
+Un delegate es un tipo de referencia que puede utilizarse para encapsular un método con nombre o anónimo.
+
+```Csharp
+ private static void Imprimir(object objeto)
+{
+    Console.WriteLine(objeto);
+}
+private static string Retorna(string objeto)
+{
+    return objeto;
+}
+private static TResult RetornoMensaje<TSource, TResult>(TSource objeto)
+{
+    return (TResult)(object)objeto;
+}
+delegate void DelegadoNormal(string texto);
+delegate void DelegadoGeneric<in T>(T objeto);
+delegate string DelegadoRetorna(string textp);
+delegate TResult DelegadoGenericCompleto<in TSource, out TResult>(TSource objeto);
+
+// Como usarlos
+var delegadoNormal = new DelegadoNormal(Imprimir);
+delegadoNormal("Hola, soy el delegado normal");
+
+var persona = new Persona
+{
+    Nombre = "Ralph",
+    Apellido = "Simpson"
+};
+var delegadoGeneric = new DelegadoGeneric<Persona>(Imprimir);
+delegadoGeneric(persona);
+
+var delegadoRetorna = new DelegadoRetorna(Retorna);
+delegadoRetorna("Este es el mensaje que vamos a devolver");
+
+var delegadoGenericoCompleto = new DelegadoGenericCompleto<Persona, Persona>(RetornoMensaje<Persona, Persona>);
+var respuesta = delegadoGenericoCompleto(persona);
+```
+
+### Delegados como Parametros
 El uso de delegamos como parametros permite una mayor flexibilidad a la hora de realizar procesos de automatizacion de codigo.  
 Por ejemplo la TPL es una libreria para ejecutar fragmentos de codigoe creando un hilo, pues los metodos que contiene para tal fin funcionan con la clase `Action` y `Func<>` para ejecutar el fragmento que el usuario desee y poder automatizar todo el proceso de manejo y creacion de threads
 
-### Action
+#### Action
 La clase `Action` recibe un delegado de tipo void como parametro, eso quiere decir que solo ejecuta el metodo que se le pasa, pero no devuelve ningun resultado.
 
 ```Csharp
@@ -1247,7 +1267,7 @@ persona.Run(x =>
 });
 ```
 
-### Func
+#### Func
 La clase `Func` hace lo mismo que la `Action` con la diferencia de que esta si que permite la devolucion de un resultado en la ejecucion del metodo delegado.
 
 ```Csharp
