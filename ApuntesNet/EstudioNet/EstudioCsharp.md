@@ -720,13 +720,79 @@ Un método es un bloque de código que contiene una serie de instrucciones.
 //[access modifier] - [type] - [identifier]
 private void Metodo()
 {
-    _ = Console.WriteLine("");
+    Console.WriteLine("");
 }
 
 private string MetodoConReturn()
 {
     return string.Empty;
 }
+
+private void MetodoConParametros(string texto)
+{
+    Console.WriteLine(texto);
+}
+```
+
+### Paso de parametros
+Los parametros a los metodos se pueden pasar de varias formas y con diferentes modificadores:
+
+#### Modificador params
+El modificador params se utiliza cuando queremos mandar por parametro a un metodo una cantidad muy grande de ellos, los recibe como una lista y los puede leer a traves de un bucle `foreach`
+
+Por ejemplo, supongamos que queremos hacer una verificacion de parametros null, para hacer el metodo reulizable lo hacemos mediante `params`
+```Csharp
+private void MetodoParams(params string[] parametros)
+{
+    foreach (var param in parametros)
+    {
+        Console.WriteLine(param);
+    }
+}
+```
+
+#### Modificadores `in`, `ref`. `out`
+Cuando pasamos parametros a un metodo, internamente se crea un nuevo espacio de memoria para el procesado de dichos parametros.  
+Para aumentar el rendimiento se pueden pasar los valores por referencia, es decir, pasar la direccion de memoria donde de aloja dichos valores, de esta forma el proceso es mas rapido y no consume mas memoria.
+
+Hay tres tipos de modificadores:
+- `ref`: Se indica para pasar el parametro por referencia, hay que tener en cuenta que cuando hacemos esto, se le manda la direccion donde esta alojado el objeto que estamos enviando, por tanto, si el metodo modifica el objeto que recibe, estara modificando el objeto original.
+- `in`: Para evitar el problema del modificador `ref` se ha creado el modificador `in`, este permite enviar el objeto por referencia tambien, pero evitara que se puedan alterar los valores del original.
+- `out`: Con el modificador `out` se evitaria el return del metodo, dentro del metodo se podra almacenar la variable marcada como `out` con el contenido correspondiente y recorger dicha variable desde la llamada al metodo.
+
+```Csharp
+private static void MetodoMoficadores(in string mod1, ref string mod2, out string mod3)
+{
+    Console.WriteLine($"{mod1} - Soy una referencia, pero soy de solo lectura");
+    mod2 = "Sobreescribo lo que habia porque acceso a la referencia";
+    mod3 = "Creo una variable y devuelvo su ref para almacenarla en la llamada externa";
+}
+
+var mod1 = "Soy un valor que se va a pasar por in";
+var mod2 = "Soy un valor que se va a pasar por ref";
+var mod3 = default(string);
+MetodoMoficadores(in mod1, ref mod2, out mod3);
+```
+
+### Metodos de extension
+Los métodos de extensión permiten "agregar" métodos a los tipos existentes sin crear un nuevo tipo derivado, recompilar o modificar de otra manera el tipo original. Los métodos de extensión son métodos estáticos, pero se les llama como si fueran métodos de instancia en el tipo extendido.
+
+El método tiene que ser estático y en el primer parámetro, debemos indicar la palabra clave `this`.
+
+```Csharp
+public static class StringExtensions
+{
+    public static string PrimeraMaysucula(this string fraseInicial)
+    {
+        char primeraLetra = char.ToUpper(fraseInicial[0]);
+        string RestoDeFrase = fraseInicial.Substring(1);
+
+        return primeraLetra + RestoDeFrase;
+    }
+}
+
+//Llamada
+Console.WriteLine("hello world!".PrimeraMaysucula());
 ```
 
 ----
@@ -1832,7 +1898,7 @@ select prod).FirstOrDefault()
  ```
 
 ---
-## Metodos de Extension
+## Extension de Linq
 En `Linq` mediante el uso de la interfaz `IEnumerable<T>` se pueden realizar metodos de extension para ampliar y personalizar la libreria linq para realizar filtros o guardar el objeto en una lista personalizada
 
 ### Tratamiento de Consultas personalizadas
