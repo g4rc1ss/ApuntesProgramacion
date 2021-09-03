@@ -1708,10 +1708,34 @@ Muchos equipos y estaciones de trabajo personales tienen varios núcleos de CPU 
 Por ejemplo, imaginemos que tenemos una aplicacion que requiere de realizar 3 consultas para obtener datos diferentes de una BBDD, aprovechandonos del multithreading, podemos hacer uso de la clase Parallel para realizar esas consultas de forma paralelizada y reducir los tiempos.
 
 ---
-## Parallel
+## Bloqueos y sincronizacion de hilos
+
+
+### Modificador `volatile`
+La palabra clave volatile indica que un campo puede ser modificado por varios subprocesos que se ejecutan al mismo tiempo. El compilador, el sistema de runtime e incluso el hardware pueden reorganizar las lecturas y escrituras en las ubicaciones de memoria por motivos de rendimiento. Los campos que se declaran volatile no están sujetos a estas optimizaciones.
+
+```Csharp
+
+```
+
+### Palabra clave `lock()`
+
+```Csharp
+
+```
+
+---
+## Thread
+
+
+---
+## Task Parallel Library
+La biblioteca TPL (Task Parallel Library, biblioteca de procesamiento paralelo basado en tareas) es un conjunto de API y tipos públicos de los espacios de nombres System.Threading y System.Threading.Tasks. El propósito de la TPL es aumentar la productividad de los desarrolladores simplificando el proceso de agregar paralelismo y simultaneidad a las aplicaciones. La TPL escala el grado de simultaneidad de manera dinámica para usar con mayor eficacia todos los procesadores disponibles. Además, la TPL se encarga de la división del trabajo, la programación de los subprocesos en ThreadPool, la compatibilidad con la cancelación, la administración de los estados y otros detalles de bajo nivel. Al utilizar la TPL, el usuario puede optimizar el rendimiento del código mientras se centra en el trabajo para el que el programa está diseñado.
+
+### Parallel
 La clase estatica `Parallel` contiene los metodos `For`, `ForEach` e `Invoke` y se utiliza para hacer procesamiento multihilo de manera automatizada, su uso principal consta en el tratamiento de objetos como `Listas` o `Arrays` y la ejecucion de metodos en paralelo.
 
-### Parallel Invoke
+#### Parallel Invoke
 Permite la ejecucion paralelizada de un array de delegados
 
 Cuando se ejecuta la instruccion, el metodo Invoke recibe un array de delegados que ejecutaran en un hilo nuevo y esperara a que estos terminen
@@ -1725,7 +1749,7 @@ Parallel.Invoke(
 );
 ```
 
-### Parallel For
+#### Parallel For
 Permite la ejecucion paralelizada de la lectura de una coleccion que implemente `IEnumerable`
 
 ```Csharp
@@ -1741,7 +1765,7 @@ Parallel.For(0, collection.Count, (x, state) =>
     - `int`: que contendrá el número por el que va la iteración
     - `ParallelLoopState`: un objeto que se encargara de gestionar los      estados de los hilos, pudiendo parar la ejecución, etc.
 
-### Parallel ForEach
+#### Parallel ForEach
 El bucle paralelizado ForEach, permite leer una coleccion que implementa `IEnumerable` al igual que el bucle paralelizado For, la diferencia reside en que en ForEach obtienes ya el objeto del indice.
 
 ```Csharp
