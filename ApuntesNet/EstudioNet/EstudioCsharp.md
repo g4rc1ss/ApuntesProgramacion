@@ -1225,6 +1225,28 @@ ClaseAction.Run(() =>
 });
 ```
 
+```Csharp
+public static class ClaseExpression
+{
+    public static void Run<T1>(this T1 arg, Action<T1> action)
+    {
+        _ = action ?? throw new ArgumentNullException($"{nameof(action)} esta null");
+        action.Invoke(arg);
+    }
+}
+
+var persona = new Persona
+{
+    Nombre = "Hola",
+    Apellido = "Adios"
+};
+persona.Run(x => Imprimir(x.Apellido + x.Nombre));
+persona.Run(x =>
+{
+    Console.WriteLine(x.Nombre + x.Apellido);
+});
+```
+
 ### Func
 La clase `Func` hace lo mismo que la `Action` con la diferencia de que esta si que permite la devolucion de un resultado en la ejecucion del metodo delegado.
 
@@ -1251,6 +1273,29 @@ var resultado2 = ClaseFunc.Run(() =>
     Console.WriteLine(str);
     return str;
 });
+```
+
+```Csharp
+public static class ClaseExpression
+{
+    public static TResult Run<T1, TResult>(Func<T1, TResult> action, params T1[] arguments)
+    {
+        _ = action ?? throw new ArgumentNullException($"{nameof(action)} esta null");
+        return action.Invoke(arguments[0]);
+    }
+}
+
+var persona = new Persona
+{
+    Nombre = "Hola",
+    Apellido = "Adios"
+};
+var resultado = ClaseExpression.Run(x => Imprimir(x.Apellido + x.Nombre), persona);
+var resultado2 = ClaseExpression.Run(x =>
+{
+    Console.WriteLine(x.Nombre + x.Apellido);
+    return x.Nombre + x.Apellido;
+}, persona);
 ```
 
 ---
@@ -1806,3 +1851,6 @@ public static class ExtensionLinq
 ---
 ## Arboles de Expresion
 
+```Csharp
+
+```
