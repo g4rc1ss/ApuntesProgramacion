@@ -1694,9 +1694,14 @@ hilo.Start();
 
 ---
 ## ThreadPool
-
+La clase ThreadPool se utiliza para poder reutilizar los hilos y optimizar su uso.  
+Con la clase Thread, cada vez que ejecutamos un metodo `start()` se crea un nuevo hilo para ejecutar la accion correspondiente. Con esta clase lo que se consigue es que si ya existe un hilo creado y este ha terminado su ejecucion, poder reutilizarlo para la ejecucion de otra instruccion, con esto evitamos un consumo extra de registros.
 
 ```Csharp
+ThreadPool.QueueUserWorkItem(x =>
+{
+    Console.WriteLine($"Id Thread: {Thread.CurrentThread.ManagedThreadId}");
+});
 ```
 
 ---
@@ -1704,7 +1709,7 @@ hilo.Start();
 Con el uso de la sincronizacion podremos establecer el orden de ejecucion de los hilos en el procesador para poder tener una mejor gestion sobre estos
 
 ### Join
-El metodo Join correspondiente a una clase `Thread` establece una sincronizacion con los distintos hilos, de forma que cuando se ejecuten, estos se haran en el orden de join establecido
+El metodo Join correspondiente a una clase `Thread` hace que se espere a que termine la ejecucion del hilo antes de seguir con el codigo siguiente.
 
 ```Csharp
 var hilo1 = new Thread(() =>
