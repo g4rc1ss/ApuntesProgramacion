@@ -1672,14 +1672,135 @@ var leerAtributosDePropiedades = from propiedad in typeof(ClaseReflexion).GetPro
                                  select atributo;
 ```
 
-# Programación Asincrona
+# MultiThreading
+Muchos equipos y estaciones de trabajo personales tienen varios núcleos de CPU que permiten ejecutar múltiples subprocesos simultáneamente. Para aprovecharse del hardware, se puede paralelizar el código para distribuir el trabajo entre dichos núcleos.
+
+Por ejemplo, imaginemos que tenemos una aplicacion que requiere de realizar 3 consultas para obtener datos diferentes de una BBDD, aprovechandonos del multithreading, podemos hacer uso de la clase Parallel para realizar esas consultas de forma paralelizada y reducir los tiempos.
+
+---
+## Thread
+Con la clase Thread se pueden crear multiples hilos para poder ejecutar tareas a traves de subprocesos. Esta clase permite obtener el paralelismo de los datos.
+
+```Csharp
+var hilo = new Thread(() =>
+{
+    for (int i = 0; i < 5; i++)
+    {
+        Console.WriteLine($"Hilo {i}");
+    }
+});
+hilo.Start();
+```
+
+---
+## ThreadPool
+
+
+```Csharp
+```
+
+---
+## Sincronizacion de hilos
+Con el uso de la sincronizacion podremos establecer el orden de ejecucion de los hilos en el procesador para poder tener una mejor gestion sobre estos
+
+### Join
+El metodo Join correspondiente a una clase `Thread` establece una sincronizacion con los distintos hilos, de forma que cuando se ejecuten, estos se haran en el orden de join establecido
+
+```Csharp
+var hilo1 = new Thread(() =>
+{
+    for (int i = 0; i < 5; i++)
+    {
+        Console.WriteLine($"Hilo 1 {i}");
+    }
+});
+hilo1.Start();
+hilo1.Join();
+
+var hilo2 = new Thread(() => {
+    for (int i = 0; i < 5; i++)
+    {
+        Console.WriteLine($"Hilo 2 {i}");
+    }
+});
+hilo2.Start();
+hilo2.Join();
+
+Thread.Sleep(1000);
+```
+
+### volatile
+La palabra clave volatile indica que un campo puede ser modificado por varios subprocesos que se ejecutan al mismo tiempo. El compilador, el sistema de runtime e incluso el hardware pueden reorganizar las lecturas y escrituras en las ubicaciones de memoria por motivos de rendimiento. Los campos que se declaran volatile no están sujetos a estas optimizaciones.
+
+```Csharp
+
+```
+
+---
+## Bloqueos de hilos
+Consiste en bloquear un hilo para que, cuando un hilo esta ejecutando la tarea correspondiente no se pueda manipular dicha ejecucion a traves de otros hilos que estan en ejecucion.
+
+### lock()
+El uso del metodo `lock` se usa para indicar a los subprocesos que han de esperar a que acabe el hilo que esta en ejecucion dentro del bloque de instruccion.  
+Para poder hacer uso de `lock`, se tiene que crear un objeto instaciado de la clase `object` y agregarlo como parametro
+
+```Csharp
+class CuentaBancaria
+{
+    private object bloqueoAgregarCantidad = new object();
+    private object bloqueoQuitarCantidad = new object();
+    private int cantidad;
+
+    public int Cantidad {
+        get {
+            return cantidad;
+        }
+        set {
+            cantidad = value;
+        }
+    }
+
+    public CuentaBancaria(int cantidad)
+    {
+        Cantidad = cantidad;
+    }
+    public void QuitarCantidad(int dinero)
+    {
+        lock (bloqueoQuitarCantidad)
+        {
+            Cantidad -= dinero;
+        }
+    }
+    public void AgregarCantidad(int dinero)
+    {
+        lock (bloqueoAgregarCantidad)
+        {
+            Cantidad += dinero;
+        }
+    }
+}
+
+// Codigo que ejecuta
+var cuentaBancaria = new CuentaBancaria(10000);
+new Thread(() => cuentaBancaria.AgregarCantidad(500)).Start();
+new Thread(() => cuentaBancaria.QuitarCantidad(400)).Start();
+new Thread(() => cuentaBancaria.AgregarCantidad(300)).Start();
+new Thread(() => cuentaBancaria.QuitarCantidad(200)).Start();
+
+Console.WriteLine(cuentaBancaria.Cantidad);
+```
+
+# Task Parallel Library
+La biblioteca TPL (Task Parallel Library, biblioteca de procesamiento paralelo basado en tareas) es un conjunto de API y tipos públicos de los espacios de nombres System.Threading y System.Threading.Tasks. El propósito de la TPL es aumentar la productividad de los desarrolladores simplificando el proceso de agregar paralelismo y simultaneidad a las aplicaciones. La TPL escala el grado de simultaneidad de manera dinámica para usar con mayor eficacia todos los procesadores disponibles. Además, la TPL se encarga de la división del trabajo, la programación de los subprocesos en ThreadPool, la compatibilidad con la cancelación, la administración de los estados y otros detalles de bajo nivel. Al utilizar la TPL, el usuario puede optimizar el rendimiento del código mientras se centra en el trabajo para el que el programa está diseñado.
+
+## Programación Asincrona
 La programacion asincrona se realiza cuando se quieren evitar bloqueos en el hilo principal de la aplicación, cuando se realiza una operacion que requiere tiempo de procesamiento, el hilo sobre el que se esta ejecutando se bloquea hasta que termine, eso causa que la aplicacion no responda a mas operaciones.
 
 Por ejemplo, en una interfaz Desktop, si se usa el patron en las operaciones costosas, la interfaz no se bloqueará mientras se ejecutan las instrucciones.  
 En una aplicacion web como `ASP.NET` usar el patron hara que se puedan recibir mas peticiones mientras las peticiones anteriores estan en espera de que termine el proceso que ocupa tiempo, como por ejemplo, una consulta a BBDD.
 
 ---
-## Async & Await
+### Async & Await
 El núcleo de la programación asincrónica son los objetos `Task` y `Task<T>`, que modelan las operaciones asincrónicas. Son compatibles con las palabras clave `async` y `await`. El modelo es bastante sencillo en la mayoría de los casos:
 
 - Para el código enlazado a E/S, espera una operación que devuelva `Task` o `Task<T>` dentro de un método async.
@@ -1702,40 +1823,11 @@ public async Task MetodoAsync()
 }
 ```
 
-# MultiThreading
-Muchos equipos y estaciones de trabajo personales tienen varios núcleos de CPU que permiten ejecutar múltiples subprocesos simultáneamente. Para aprovecharse del hardware, se puede paralelizar el código para distribuir el trabajo entre dichos núcleos.
 
-Por ejemplo, imaginemos que tenemos una aplicacion que requiere de realizar 3 consultas para obtener datos diferentes de una BBDD, aprovechandonos del multithreading, podemos hacer uso de la clase Parallel para realizar esas consultas de forma paralelizada y reducir los tiempos.
-
----
-## Bloqueos y sincronizacion de hilos
-
-
-### Modificador `volatile`
-La palabra clave volatile indica que un campo puede ser modificado por varios subprocesos que se ejecutan al mismo tiempo. El compilador, el sistema de runtime e incluso el hardware pueden reorganizar las lecturas y escrituras en las ubicaciones de memoria por motivos de rendimiento. Los campos que se declaran volatile no están sujetos a estas optimizaciones.
-
-```Csharp
-
-```
-
-### Palabra clave `lock()`
-
-```Csharp
-
-```
-
----
-## Thread
-
-
----
-## Task Parallel Library
-La biblioteca TPL (Task Parallel Library, biblioteca de procesamiento paralelo basado en tareas) es un conjunto de API y tipos públicos de los espacios de nombres System.Threading y System.Threading.Tasks. El propósito de la TPL es aumentar la productividad de los desarrolladores simplificando el proceso de agregar paralelismo y simultaneidad a las aplicaciones. La TPL escala el grado de simultaneidad de manera dinámica para usar con mayor eficacia todos los procesadores disponibles. Además, la TPL se encarga de la división del trabajo, la programación de los subprocesos en ThreadPool, la compatibilidad con la cancelación, la administración de los estados y otros detalles de bajo nivel. Al utilizar la TPL, el usuario puede optimizar el rendimiento del código mientras se centra en el trabajo para el que el programa está diseñado.
-
-### Parallel
+## Parallel
 La clase estatica `Parallel` contiene los metodos `For`, `ForEach` e `Invoke` y se utiliza para hacer procesamiento multihilo de manera automatizada, su uso principal consta en el tratamiento de objetos como `Listas` o `Arrays` y la ejecucion de metodos en paralelo.
 
-#### Parallel Invoke
+### Parallel Invoke
 Permite la ejecucion paralelizada de un array de delegados
 
 Cuando se ejecuta la instruccion, el metodo Invoke recibe un array de delegados que ejecutaran en un hilo nuevo y esperara a que estos terminen
@@ -1749,7 +1841,7 @@ Parallel.Invoke(
 );
 ```
 
-#### Parallel For
+### Parallel For
 Permite la ejecucion paralelizada de la lectura de una coleccion que implemente `IEnumerable`
 
 ```Csharp
@@ -1765,7 +1857,7 @@ Parallel.For(0, collection.Count, (x, state) =>
     - `int`: que contendrá el número por el que va la iteración
     - `ParallelLoopState`: un objeto que se encargara de gestionar los      estados de los hilos, pudiendo parar la ejecución, etc.
 
-#### Parallel ForEach
+### Parallel ForEach
 El bucle paralelizado ForEach, permite leer una coleccion que implementa `IEnumerable` al igual que el bucle paralelizado For, la diferencia reside en que en ForEach obtienes ya el objeto del indice.
 
 ```Csharp
