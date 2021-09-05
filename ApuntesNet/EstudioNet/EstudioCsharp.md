@@ -720,13 +720,79 @@ Un método es un bloque de código que contiene una serie de instrucciones.
 //[access modifier] - [type] - [identifier]
 private void Metodo()
 {
-    _ = Console.WriteLine("");
+    Console.WriteLine("");
 }
 
 private string MetodoConReturn()
 {
     return string.Empty;
 }
+
+private void MetodoConParametros(string texto)
+{
+    Console.WriteLine(texto);
+}
+```
+
+### Paso de parametros
+Los parametros a los metodos se pueden pasar de varias formas y con diferentes modificadores:
+
+#### Modificador params
+El modificador params se utiliza cuando queremos mandar por parametro a un metodo una cantidad muy grande de ellos, los recibe como una lista y los puede leer a traves de un bucle `foreach`
+
+Por ejemplo, supongamos que queremos hacer una verificacion de parametros null, para hacer el metodo reulizable lo hacemos mediante `params`
+```Csharp
+private void MetodoParams(params string[] parametros)
+{
+    foreach (var param in parametros)
+    {
+        Console.WriteLine(param);
+    }
+}
+```
+
+#### Modificadores `in`, `ref`. `out`
+Cuando pasamos parametros a un metodo, internamente se crea un nuevo espacio de memoria para el procesado de dichos parametros.  
+Para aumentar el rendimiento se pueden pasar los valores por referencia, es decir, pasar la direccion de memoria donde de aloja dichos valores, de esta forma el proceso es mas rapido y no consume mas memoria.
+
+Hay tres tipos de modificadores:
+- `ref`: Se indica para pasar el parametro por referencia, hay que tener en cuenta que cuando hacemos esto, se le manda la direccion donde esta alojado el objeto que estamos enviando, por tanto, si el metodo modifica el objeto que recibe, estara modificando el objeto original.
+- `in`: Para evitar el problema del modificador `ref` se ha creado el modificador `in`, este permite enviar el objeto por referencia tambien, pero evitara que se puedan alterar los valores del original.
+- `out`: Con el modificador `out` se evitaria el return del metodo, dentro del metodo se podra almacenar la variable marcada como `out` con el contenido correspondiente y recorger dicha variable desde la llamada al metodo.
+
+```Csharp
+private static void MetodoMoficadores(in string mod1, ref string mod2, out string mod3)
+{
+    Console.WriteLine($"{mod1} - Soy una referencia, pero soy de solo lectura");
+    mod2 = "Sobreescribo lo que habia porque acceso a la referencia";
+    mod3 = "Creo una variable y devuelvo su ref para almacenarla en la llamada externa";
+}
+
+var mod1 = "Soy un valor que se va a pasar por in";
+var mod2 = "Soy un valor que se va a pasar por ref";
+var mod3 = default(string);
+MetodoMoficadores(in mod1, ref mod2, out mod3);
+```
+
+### Metodos de extension
+Los métodos de extensión permiten "agregar" métodos a los tipos existentes sin crear un nuevo tipo derivado, recompilar o modificar de otra manera el tipo original. Los métodos de extensión son métodos estáticos, pero se les llama como si fueran métodos de instancia en el tipo extendido.
+
+El método tiene que ser estático y en el primer parámetro, debemos indicar la palabra clave `this`.
+
+```Csharp
+public static class StringExtensions
+{
+    public static string PrimeraMaysucula(this string fraseInicial)
+    {
+        char primeraLetra = char.ToUpper(fraseInicial[0]);
+        string RestoDeFrase = fraseInicial.Substring(1);
+
+        return primeraLetra + RestoDeFrase;
+    }
+}
+
+//Llamada
+Console.WriteLine("hello world!".PrimeraMaysucula());
 ```
 
 ----
@@ -1606,14 +1672,134 @@ var leerAtributosDePropiedades = from propiedad in typeof(ClaseReflexion).GetPro
                                  select atributo;
 ```
 
-# Programación Asincrona
+# MultiThreading
+Muchos equipos y estaciones de trabajo personales tienen varios núcleos de CPU que permiten ejecutar múltiples subprocesos simultáneamente. Para aprovecharse del hardware, se puede paralelizar el código para distribuir el trabajo entre dichos núcleos.
+
+Por ejemplo, imaginemos que tenemos una aplicacion que requiere de realizar 3 consultas para obtener datos diferentes de una BBDD, aprovechandonos del multithreading, podemos hacer uso de la clase Parallel para realizar esas consultas de forma paralelizada y reducir los tiempos.
+
+---
+## Thread
+Con la clase Thread se pueden crear multiples hilos para poder ejecutar tareas a traves de subprocesos. Esta clase permite obtener el paralelismo de los datos.
+
+```Csharp
+var hilo = new Thread(() =>
+{
+    for (int i = 0; i < 5; i++)
+    {
+        Console.WriteLine($"Hilo {i}");
+    }
+});
+hilo.Start();
+```
+
+---
+## ThreadPool
+La clase ThreadPool se utiliza para poder reutilizar los hilos y optimizar su uso.  
+Con la clase Thread, cada vez que ejecutamos un metodo `start()` se crea un nuevo hilo para ejecutar la accion correspondiente. Con esta clase lo que se consigue es que si ya existe un hilo creado y este ha terminado su ejecucion, poder reutilizarlo para la ejecucion de otra instruccion, con esto evitamos un consumo extra de registros.
+
+```Csharp
+ThreadPool.QueueUserWorkItem(x =>
+{
+    Console.WriteLine($"Id Thread: {Thread.CurrentThread.ManagedThreadId}");
+});
+```
+
+---
+## Sincronizacion de hilos
+Con el uso de la sincronizacion podremos establecer el orden de ejecucion de los hilos en el procesador para poder tener una mejor gestion sobre estos
+
+### Join
+El metodo Join correspondiente a una clase `Thread` hace que se espere a que termine la ejecucion del hilo antes de seguir con el codigo siguiente.
+
+```Csharp
+var hilo1 = new Thread(() =>
+{
+    for (int i = 0; i < 5; i++)
+    {
+        Console.WriteLine($"Hilo 1 {i}");
+    }
+});
+hilo1.Start();
+hilo1.Join();
+
+var hilo2 = new Thread(() => {
+    for (int i = 0; i < 5; i++)
+    {
+        Console.WriteLine($"Hilo 2 {i}");
+    }
+});
+hilo2.Start();
+hilo2.Join();
+
+Thread.Sleep(1000);
+```
+
+---
+## Bloqueos de hilos
+Consiste en bloquear un hilo para que, cuando un hilo esta ejecutando la tarea correspondiente no se pueda manipular dicha ejecucion a traves de otros hilos que estan en ejecucion.
+
+### lock()
+El uso del metodo `lock` se usa para indicar a los subprocesos que han de esperar a que acabe el hilo que esta en ejecucion dentro del bloque de instruccion.  
+Para poder hacer uso de `lock`, se tiene que crear un objeto instaciado de la clase `object` y agregarlo como parametro.
+
+En el siguiente codigo, si lo probamos se podra apreciar que siempre se obtiene el mismo resultado, puesto que cada vez que se hace la operacion de suma o resta se realiza el bloqueo, si probamos a quitar la instruccion `lock` Y lo ejecutamos, cada vez se mostrará un resultado diferente, a eso se le denomina `condicion de carrera`
+```Csharp
+class CuentaBancaria
+{
+    private object bloqueoAgregarCantidad = new object();
+    private object bloqueoQuitarCantidad = new object();
+    private int cantidad;
+
+    public int Cantidad {
+        get {
+            return cantidad;
+        }
+        set {
+            cantidad = value;
+        }
+    }
+
+    public CuentaBancaria(int cantidad)
+    {
+        Cantidad = cantidad;
+    }
+    public void QuitarCantidad(int dinero)
+    {
+        lock (bloqueoQuitarCantidad)
+        {
+            Cantidad -= dinero;
+        }
+    }
+    public void AgregarCantidad(int dinero)
+    {
+        lock (bloqueoAgregarCantidad)
+        {
+            Cantidad += dinero;
+        }
+    }
+}
+
+// Codigo que ejecuta
+var cuentaBancaria = new CuentaBancaria(10000);
+new Thread(() => cuentaBancaria.AgregarCantidad(500)).Start();
+new Thread(() => cuentaBancaria.QuitarCantidad(400)).Start();
+new Thread(() => cuentaBancaria.AgregarCantidad(300)).Start();
+new Thread(() => cuentaBancaria.QuitarCantidad(200)).Start();
+
+Console.WriteLine(cuentaBancaria.Cantidad);
+```
+
+# Task Parallel Library
+La biblioteca TPL (Task Parallel Library, biblioteca de procesamiento paralelo basado en tareas) es un conjunto de API y tipos públicos de los espacios de nombres System.Threading y System.Threading.Tasks. El propósito de la TPL es aumentar la productividad de los desarrolladores simplificando el proceso de agregar paralelismo y simultaneidad a las aplicaciones. La TPL escala el grado de simultaneidad de manera dinámica para usar con mayor eficacia todos los procesadores disponibles. Además, la TPL se encarga de la división del trabajo, la programación de los subprocesos en ThreadPool, la compatibilidad con la cancelación, la administración de los estados y otros detalles de bajo nivel. Al utilizar la TPL, el usuario puede optimizar el rendimiento del código mientras se centra en el trabajo para el que el programa está diseñado.
+
+## Programación Asincrona
 La programacion asincrona se realiza cuando se quieren evitar bloqueos en el hilo principal de la aplicación, cuando se realiza una operacion que requiere tiempo de procesamiento, el hilo sobre el que se esta ejecutando se bloquea hasta que termine, eso causa que la aplicacion no responda a mas operaciones.
 
 Por ejemplo, en una interfaz Desktop, si se usa el patron en las operaciones costosas, la interfaz no se bloqueará mientras se ejecutan las instrucciones.  
 En una aplicacion web como `ASP.NET` usar el patron hara que se puedan recibir mas peticiones mientras las peticiones anteriores estan en espera de que termine el proceso que ocupa tiempo, como por ejemplo, una consulta a BBDD.
 
 ---
-## Async & Await
+### Async & Await
 El núcleo de la programación asincrónica son los objetos `Task` y `Task<T>`, que modelan las operaciones asincrónicas. Son compatibles con las palabras clave `async` y `await`. El modelo es bastante sencillo en la mayoría de los casos:
 
 - Para el código enlazado a E/S, espera una operación que devuelva `Task` o `Task<T>` dentro de un método async.
@@ -1636,12 +1822,7 @@ public async Task MetodoAsync()
 }
 ```
 
-# MultiThreading
-Muchos equipos y estaciones de trabajo personales tienen varios núcleos de CPU que permiten ejecutar múltiples subprocesos simultáneamente. Para aprovecharse del hardware, se puede paralelizar el código para distribuir el trabajo entre dichos núcleos.
 
-Por ejemplo, imaginemos que tenemos una aplicacion que requiere de realizar 3 consultas para obtener datos diferentes de una BBDD, aprovechandonos del multithreading, podemos hacer uso de la clase Parallel para realizar esas consultas de forma paralelizada y reducir los tiempos.
-
----
 ## Parallel
 La clase estatica `Parallel` contiene los metodos `For`, `ForEach` e `Invoke` y se utiliza para hacer procesamiento multihilo de manera automatizada, su uso principal consta en el tratamiento de objetos como `Listas` o `Arrays` y la ejecucion de metodos en paralelo.
 
@@ -1744,6 +1925,8 @@ select word;
 from prod in products
 where prod.Name == "Producto 2"
 select prod;
+
+products.Where(prod => prod.Name == "Producto 2");
 ```                                                                                                                                                       
 ### Group by
 ```Csharp
@@ -1775,7 +1958,6 @@ products.GroupBy(product => new
 from product in products
 orderby product.CategoryID ascending
 select product;
-
 products.OrderBy(product => product.CategoryID);
 
 from product in products
@@ -1832,7 +2014,7 @@ select prod).FirstOrDefault()
  ```
 
 ---
-## Metodos de Extension
+## Extension de Linq
 En `Linq` mediante el uso de la interfaz `IEnumerable<T>` se pueden realizar metodos de extension para ampliar y personalizar la libreria linq para realizar filtros o guardar el objeto en una lista personalizada
 
 ### Tratamiento de Consultas personalizadas
@@ -1870,7 +2052,7 @@ public static class ExtensionLinq
 
 ---
 ## Arboles de Expresion
-Los árboles de expresiones son estructuras de datos que definen código. Se basan en las mismas estructuras que usa un compilador para analizar el código y generar el resultado compilado. A medida que vaya leyendo este tutorial, observará cierta similitud entre los árboles de expresiones y los tipos usados en las API de Roslyn para compilar analizadores y correcciones de código. (Los analizadores y las correcciones de código son paquetes de NuGet que realizan un análisis estático en código y pueden sugerir posibles correcciones para un desarrollador). Los conceptos son similares y el resultado final es una estructura de datos que permite examinar el código fuente de forma significativa. En cambio, los árboles de expresiones se basan en un conjunto de clases y API totalmente diferente a las API de Roslyn.
+Los árboles de expresiones son estructuras de datos que definen código. Se basan en las mismas estructuras que usa un compilador para analizar el código y generar el resultado compilado. Hay cierta similitud entre los árboles de expresiones y los tipos usados en las API de Roslyn para compilar analizadores y correcciones de código. (Los analizadores y las correcciones de código son paquetes de NuGet que realizan un análisis estático en código y pueden sugerir posibles correcciones). Los conceptos son similares y el resultado final es una estructura de datos que permite examinar el código fuente de forma significativa. En cambio, los árboles de expresiones se basan en un conjunto de clases y API totalmente diferentes a las de Roslyn.
 
 Para la creacion y asignacion de una variable que sume 2 numeros, se crearia el siguiente arbol de expresion:
 
