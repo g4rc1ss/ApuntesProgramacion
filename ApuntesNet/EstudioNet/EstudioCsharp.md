@@ -1734,13 +1734,6 @@ hilo2.Join();
 Thread.Sleep(1000);
 ```
 
-### volatile
-La palabra clave volatile indica que un campo puede ser modificado por varios subprocesos que se ejecutan al mismo tiempo. El compilador, el sistema de runtime e incluso el hardware pueden reorganizar las lecturas y escrituras en las ubicaciones de memoria por motivos de rendimiento. Los campos que se declaran volatile no están sujetos a estas optimizaciones.
-
-```Csharp
-
-```
-
 ---
 ## Bloqueos de hilos
 Consiste en bloquear un hilo para que, cuando un hilo esta ejecutando la tarea correspondiente no se pueda manipular dicha ejecucion a traves de otros hilos que estan en ejecucion.
@@ -1931,6 +1924,8 @@ select word;
 from prod in products
 where prod.Name == "Producto 2"
 select prod;
+
+products.Where(prod => prod.Name == "Producto 2");
 ```                                                                                                                                                       
 ### Group by
 ```Csharp
@@ -1962,7 +1957,6 @@ products.GroupBy(product => new
 from product in products
 orderby product.CategoryID ascending
 select product;
-
 products.OrderBy(product => product.CategoryID);
 
 from product in products
