@@ -1,0 +1,15 @@
+{
+  "name": "expressjs",
+  "version": "1.0.0",
+  "description": "Prueba de concepto de un proyecto en NodeJS",
+  "main": "src\\01_Frontend\\index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/g4rc1ss/ApuntesProgramacion/tree/master/ApuntesNodeJS/ApuntesNodeJS/Web/ExpressJS"
+  },
+  "author": "Asier",
+  "license": "ISC"
+}
