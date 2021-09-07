@@ -1,86 +1,3 @@
-1. [Estructura del código](#estructura-del-código)
-
-	 1. [Declaración de variables](#declaración-de-variables)
-
-	 1. [Convertir tipos](#convertir-tipos)
-
-	 1. [Sentencias de flujo](#sentencias-de-flujo)
-
-	 1. [Operador ternario](#operador-ternario)
-
-	 1. [Bucles](#bucles)
-
-1. [Cadenas](#cadenas)
-
-	 1. [String](#string)
-
-		 1. [Literales](#literales)
-
-		 1. [Interpolacion de Cadenas](#interpolacion-de-cadenas)
-
-		 1. [Métodos de string](#métodos-de-string)
-
-1. [Colecciones](#colecciones)
-
-	 1. [Listas](#listas)
-
-		 1. [Métodos de listas](#métodos-de-listas)
-
-	 1. [Diccionarios](#diccionarios)
-
-		 1. [Métodos de diccionarios](#métodos-de-diccionarios)
-
-	 1. [Tuplas](#tuplas)
-
-1. [Programación Orientada a Objetos](#programación-orientada-a-objetos)
-
-	 1. [Class](#class)
-
-	 1. [Abstract Class](#abstract-class)
-
-	 1. [Metodos](#metodos)
-
-	 1. [Metodos estaticos](#metodos-estaticos)
-
-	 1. [Encapsulamiento](#encapsulamiento)
-
-	 1. [Herencia](#herencia)
-
-1. [Conceptos Avanzados](#conceptos-avanzados)
-
-	 1. [Liberacion de Memoria](#liberacion-de-memoria)
-
-	 1. [Enumerador](#enumerador)
-
-	 1. [Codigo no Administrado](#codigo-no-administrado)
-
-		 1. [Ctypes para cargar dll nativas](#ctypes-para-cargar-dll-nativas)
-
-1. [Tratamiento de Excepciones](#tratamiento-de-excepciones)
-
-	 1. [Excepciones](#excepciones)
-
-		 1. [Capurando las excepciones](#capurando-las-excepciones)
-
-		 1. [Provocando una excepcion](#provocando-una-excepcion)
-
-		 1. [Creando excepciones propias](#creando-excepciones-propias)
-
-1. [MultiThreading & Multiprocessing](#multithreading--multiprocessing)
-
-	 1. [Multithreading](#multithreading)
-
-		 1. [Thread](#thread)
-
-		 1. [ThreadPoolExecutor](#threadpoolexecutor)
-
-	 1. [Multiprocessing](#multiprocessing)
-
-		 1. [ProcessPoolExecutor](#processpoolexecutor)
-
-1. [Comprension de Listas](#comprension-de-listas)
-
-
 # Estructura del código
 
 ```Python
@@ -547,7 +464,6 @@ if __name__ == "__main__":
     main()
 ```
 
----
 # Comprension de Listas
 La comprensión de listas, es una funcionalidad que nos permite crear listas avanzadas en una misma línea de código.  
 Son muy utiles para realizar filtrados de listas, por ejemplo, obtenemos una consulta de la BBDD y queremos obtener un dato especifico de la lista recibida, se puede usar la compresion de listas para realizar el filtro.

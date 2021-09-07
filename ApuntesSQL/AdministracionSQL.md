@@ -1,26 +1,3 @@
-1. [Create DB](#create-db)
-
-1. [Drop DB](#drop-db)
-
-1. [Backup DB](#backup-db)
-
-1. [Create Table](#create-table)
-
-	 1. [Create Table AS](#create-table-as)
-
-	 1. [Constraints](#constraints)
-
-		 1. [Ejemplos de los diferentes Constraints](#ejemplos-de-los-diferentes-constraints)
-
-1. [Drop Table](#drop-table)
-
-1. [Alter Table](#alter-table)
-
-1. [Vistas](#vistas)
-
-1. [Tipos de datos](#tipos-de-datos)
-
-
 # Create DB
 Sentencia `SQL` para crear una Base de Datos nueva.
 
