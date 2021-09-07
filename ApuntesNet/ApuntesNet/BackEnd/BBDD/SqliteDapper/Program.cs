@@ -1,9 +1,5 @@
-﻿
-using System;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using SqliteDapper.Dam;
 using SqliteDapper.Database;
 
@@ -14,10 +10,10 @@ namespace SqliteDapper {
                 if (!File.Exists(Helper.DATABASE_NAME)) {
                     await new DapperExecute().CreateDatabase();
                 }
-                SelectData.SelectDataQuery();
                 InsertData.InsertDataQuery();
                 UpdateData.UpdateDataQuery();
                 DeleteData.DeleteDataQuery();
+                SelectData.SelectDataQuery();
 
 
             } finally {

@@ -17,23 +17,26 @@ namespace SqliteDapper.Database {
         internal async Task CreateDatabase() {
             File.WriteAllBytes(Helper.DATABASE_NAME, Array.Empty<byte>());
             using (var connection = GetConnection()) {
-                connection.Open();
-                var createUsuario = @"CREATE TABLE Usuario(" +
-                                        "Id         TEXT     NOT NULL," +
-                                        "Nombre     TEXT    NOT NULL," +
-                                        "IdPueblo   TEXT     NOT NULL," +
-                                        "CONSTRAINT PK_Usuario PRIMARY KEY (Id)," +
-                                        "CONSTRAINT FK_pueblo FOREIGN KEY (IdPueblo) REFERENCES Pueblo(Id));";
-                var createPueblo = @"CREATE TABLE Pueblo(" +
-                                        "Id         TEXT     NOT NULL," +
-                                        "Nombre     TEXT    NOT NULL," +
-                                        "CONSTRAINT PK_Pueblo PRIMARY KEY (Id))";
+                var createUsuario = @"CREATE TABLE Usuario(
+                                        Id         TEXT     NOT NULL,
+                                        Nombre     TEXT    NOT NULL,
+                                        IdPueblo   TEXT     NOT NULL,
+                                        CONSTRAINT PK_Usuario PRIMARY KEY (Id),
+                                        CONSTRAINT FK_pueblo FOREIGN KEY (IdPueblo)
+                                        REFERENCES Pueblo(Id)
+                                        ON DELETE CASCADE
+                                        ON UPDATE CASCADE);";
+
+                var createPueblo = @"CREATE TABLE Pueblo(
+                                        Id         TEXT     NOT NULL,
+                                        Nombre     TEXT    NOT NULL,
+                                        CONSTRAINT PK_Pueblo PRIMARY KEY (Id))";
 
 
                 await connection.ExecuteAsync(createPueblo);
                 await connection.ExecuteAsync(createUsuario);
 
-                foreach (var item in Enumerable.Range(1, 100)) {
+                foreach (var item in Enumerable.Range(1, 5)) {
                     var insertIntoPueblo = new StringBuilder();
                     var insertIntoUsuario = new StringBuilder();
 
@@ -46,7 +49,6 @@ namespace SqliteDapper.Database {
                     var result = await connection.ExecuteAsync(insertIntoPueblo.ToString());
                     await connection.ExecuteAsync(insertIntoUsuario.ToString());
                 }
-                connection.Close();
             }
         }
     }

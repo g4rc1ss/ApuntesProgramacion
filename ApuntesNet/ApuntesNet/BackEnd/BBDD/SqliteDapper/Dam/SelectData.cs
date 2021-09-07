@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Dapper;
 using SqliteDapper.Database;
 using SqliteDapper.Database.Sqlite;
@@ -30,13 +28,18 @@ namespace SqliteDapper.Dam {
                 sqlUsuarioJoin.AppendLine($"FROM {nameof(Usuario)} as user");
                 sqlUsuarioJoin.AppendLine($"INNER JOIN {nameof(Pueblo)} as village ON user.IdPueblo = village.Id");
                 var respuestaJoin = connection.QueryMultiple(sqlUsuarioJoin.ToString());
-                var usuario = respuestaJoin.Read<Usuario, Pueblo, Usuario>((user, village) => {
+                var usuarios = respuestaJoin.Read<Usuario, Pueblo, Usuario>((user, village) => {
                     return new Usuario {
                         IdUsuario = user.IdUsuario,
                         NombreUsuario = user.NombreUsuario,
                         FKPueblo = village
                     };
                 }, $"{nameof(Pueblo.IdPueblo)}");
+
+                foreach (var user in usuarios) {
+                    Console.WriteLine($"Usuario - {user.IdUsuario}_{user.NombreUsuario}");
+                    Console.WriteLine($"Pueblo - {user.FKPueblo.IdPueblo}_{user.FKPueblo.NombrePueblo}");
+                }
             }
         }
     }
