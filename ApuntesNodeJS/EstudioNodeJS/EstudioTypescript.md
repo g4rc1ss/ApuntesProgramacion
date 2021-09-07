@@ -1,16 +1,3 @@
-1. [Estructura del código](#estructura-del-código)
-
-	 1. [Declaración de variables](#declaración-de-variables)
-
-1. [Programación Orientada a Objetos](#programación-orientada-a-objetos)
-
-	 1. [Metodos](#metodos)
-
-	 1. [Interface](#interface)
-
-	 1. [Type](#type)
-
-
 # Estructura del código
 
 ```Typescript
