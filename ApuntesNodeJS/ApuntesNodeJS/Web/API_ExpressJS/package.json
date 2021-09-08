@@ -2,9 +2,11 @@
   "name": "garciss.expressjs",
   "version": "1.0.0",
   "description": "Prueba de concepto de un proyecto en NodeJS",
-  "main": "src\\01_Frontend\\index.ts",
+  "main": "bin\\index.js",
   "scripts": {
-    "start": "tsc src\\01_Frontend\\index.ts"
+    "start": "tsc .\\src\\index.ts --out bin && node .\\bin\\index.js",
+    "reinstall": "yarn remove-node-modules && yarn install",
+    "remove-node-modules": "npx rimraf node_modules **/node_modules"
   },
   "repository": {
     "type": "git",
