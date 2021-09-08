@@ -4,7 +4,7 @@
   "description": "Prueba de concepto de un proyecto en NodeJS",
   "main": "src\\index.ts",
   "scripts": {
-    "start": "tsc .\\src\\index.ts --outDir bin && node .\\bin\\index.js",
+    "start": "tsc --project tsconfig.json && node .\\bin\\index.js",
     "reinstall": "yarn remove-node-modules && yarn install",
     "remove-node-modules": "npx rimraf node_modules **/node_modules"
   },

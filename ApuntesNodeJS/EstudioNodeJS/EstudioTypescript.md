@@ -16,25 +16,7 @@ npm install typescript
 yarn add typescript
 ```
 
-## Configurar package.json
-`package.json` es donde se va a indicar todo lo relacionado con el proyecto como las dependencias, nombre del proyecto, archivo principal, intrucciones para iniciarlo, etc.
-
-Para configurar automatizar los procesos de ejecucion del proyecto, hay una seccion dentro del archivo llamada `scripts` donde indicaremos: `"nombre": "comando o archivo to execute"`.
-
-Un ejemplo de scripts para typescript podria ser el siguiente:
-```json
-"scripts": {
-    "start": "tsc .\\src\\index.ts --outDir bin && node .\\bin\\index.js",
-    "reinstall": "yarn remove-node-modules && yarn install",
-    "remove-node-modules": "npx rimraf node_modules **/node_modules"
-}
-```
-
-## Typescript en VS Code
-Para mi VS Code es de los mejores editores de codigo, despues de los IDE especificos para cada lenguaje.
-
-Podemos configurar la compilacion y ejecucion del codigo directamente mediante el uso de tasks y el launch de Visual Studio Code, junto con un archivo de configuracion propio de typescript.
-
+## Configurar
 Primero creamos el archivo de typescript y lo llamamos `tsconfig.json`
 ```JSON
 {
@@ -50,6 +32,24 @@ Primero creamos el archivo de typescript y lo llamamos `tsconfig.json`
     ]
 }
 ```
+
+`package.json` es donde se va a indicar todo lo relacionado con el proyecto como las dependencias, nombre del proyecto, archivo principal, intrucciones para iniciarlo, etc.
+
+Para configurar automatizar los procesos de ejecucion del proyecto, hay una seccion dentro del archivo llamada `scripts` donde indicaremos: `"nombre": "comando o archivo to execute"`.
+
+Un ejemplo de scripts para typescript podria ser el siguiente:
+```json
+"scripts": {
+    "start": "tsc --project tsconfig.json && node .\\bin\\index.js",
+    "reinstall": "yarn remove-node-modules && yarn install",
+    "remove-node-modules": "npx rimraf node_modules **/node_modules"
+}
+```
+
+## Typescript en VS Code
+Para mi VS Code es de los mejores editores de codigo, despues de los IDE especificos para cada lenguaje.
+
+Podemos configurar la compilacion y ejecucion del codigo directamente mediante el uso de tasks y el launch de Visual Studio Code, junto con un archivo de configuracion propio de typescript.
 
 Ahora creamos el archivo `tasks.json`
 ```JSON
