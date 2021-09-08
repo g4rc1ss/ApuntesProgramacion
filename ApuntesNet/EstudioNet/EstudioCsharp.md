@@ -263,6 +263,21 @@ stringBuilder.Replace("Hola", "Adios");
 var cadenaCompleta = stringBuilder.ToString();
 ```
 
+---
+## Expresiones Regulares
+Las expresiones regulares proporcionan un método eficaz y flexible para procesar texto. La notación extensa de coincidencia de patrones de expresiones regulares permite analizar rápidamente grandes cantidades de texto para:
+
+- Buscar patrones concretos de caracteres.
+- Validar el texto para garantizar que coincide con un patrón predefinido (como una dirección de correo electrónico).
+- Extraer, editar, reemplazar o eliminar subcadenas de texto.
+- Agregar cadenas extraídas en una colección para generar un informe.
+
+Para muchas aplicaciones que usan cadenas o analizan grandes bloques de texto, las expresiones regulares son una herramienta indispensable.
+
+```Csharp
+
+```
+
 # Colecciones
 Las colecciones proporcionan una manera más flexible de trabajar con grupos de objetos. A diferencia de las matrices, el grupo de objetos con el que trabaja puede aumentar y reducirse de manera dinámica a medida que cambian las necesidades de la aplicación
 
