@@ -1,3 +1,94 @@
+# Introducción
+Typescript es un lenguaje creado para poder proporcionar una serie de caracteristicas de las que carece el lenguaje Javascript como, por ejemplo, el tipado estatico.
+
+Typescript es una lenguaje que se ha de compilar a Javascript, no es un lenguaje que pueda ser interpretado por los navegadores
+
+Creamos el proyecto:
+```powershell
+npm init
+```
+
+## Instalar modulo typescript
+Para usar typescript tenemos que instalarlo como si de una dependencia se tratase, por tanto:
+
+```powershell
+npm install typescript
+yarn add typescript
+```
+
+## Configurar package.json
+`package.json` es donde se va a indicar todo lo relacionado con el proyecto como las dependencias, nombre del proyecto, archivo principal, intrucciones para iniciarlo, etc.
+
+Para configurar automatizar los procesos de ejecucion del proyecto, hay una seccion dentro del archivo llamada `scripts` donde indicaremos: `"nombre": "comando o archivo to execute"`.
+
+Un ejemplo de scripts para typescript podria ser el siguiente:
+```json
+"scripts": {
+    "start": "tsc .\\src\\index.ts --outDir bin && node .\\bin\\index.js",
+    "reinstall": "yarn remove-node-modules && yarn install",
+    "remove-node-modules": "npx rimraf node_modules **/node_modules"
+}
+```
+
+## Typescript en VS Code
+Para mi VS Code es de los mejores editores de codigo, despues de los IDE especificos para cada lenguaje.
+
+Podemos configurar la compilacion y ejecucion del codigo directamente mediante el uso de tasks y el launch de Visual Studio Code, junto con un archivo de configuracion propio de typescript.
+
+Primero creamos el archivo de typescript y lo llamamos `tsconfig.json`
+```JSON
+{
+    "compilerOptions": {
+        // directorio donde se van a compilar en .js
+        "outDir": "bin",
+        // Indicamos que queremos que se pueda depurar los typescript
+        "sourceMap": true
+    },
+    "include": [
+        // ruta donde se almacenan los typescript
+        "src/**/*"
+    ]
+}
+```
+
+Ahora creamos el archivo `tasks.json`
+```JSON
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "typescript",
+			"tsconfig": "../tsconfig.json",
+			"option": "watch",
+			"problemMatcher": [
+				"$tsc-watch"
+			],
+			"group": "build",
+			"label": "tsc: build"
+		}
+	]
+}
+```
+Creamos el archivo `launch.json`
+```JSON
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/bin/index.js",
+            "preLaunchTask": "tsc: build",
+            "outFiles": [
+                "${workspaceFolder}/**/*.js",
+                "!**/node_modules/**"
+            ]
+        }
+    ]
+}
+```
+
 # Estructura del código
 
 ```Typescript
