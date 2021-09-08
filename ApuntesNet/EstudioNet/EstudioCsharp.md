@@ -1480,6 +1480,39 @@ En la tabla siguiente se muestran los operadores e instrucciones que pueden func
 
 Mas informacion sobre codigo no seguro: [enlace](https://docs.microsoft.com/es-es/dotnet/csharp/language-reference/unsafe-code)
 
+#### Stackalloc
+La expresión stackalloc asigna un bloque de memoria en la pila. Un bloque de memoria asignado a la pila creado durante la ejecución del método se descarta automáticamente cuando se devuelva dicho método. No puede liberar explícitamente memoria asignada con stackalloc. Un bloque de memoria asignada a la pila no está sujeto a la recolección de elementos no utilizados y no tiene que fijarse con una instrucción fixed.
+
+Puede asignar el resultado de una expresión `stackalloc` a una variable de uno de los siguientes tipos
+
+- A partir de C# 7.2, `System.Span<T>` o `System.ReadOnlySpan<T>`, como se muestra en el ejemplo siguiente
+```Csharp
+int length = 3;
+Span<int> numbers = stackalloc int[length];
+for (var i = 0; i < length; i++)
+{
+    numbers[i] = i;
+}
+
+// Con condicionales
+int length = 1000;
+Span<byte> buffer = length <= 1024 ? stackalloc byte[length] : new byte[length];
+```
+
+- Un tipo de puntero, como se muestra en el ejemplo siguiente
+```Csharp
+unsafe
+{
+    int length = 3;
+    int* numbers = stackalloc int[length];
+    for (var i = 0; i < length; i++)
+    {
+        numbers[i] = i;
+    }
+}
+```
+El uso de stackalloc habilita automáticamente las características de detección de saturación del búfer en el entorno Common Language Runtime (CLR). Si se detecta saturación del búfer, se finaliza el proceso lo antes posible para minimizar el riesgo de que se ejecute código malintencionado.
+
 ---
 ## Liberacion de Memoria
 La liberacion de memoria en .Net consiste en marcar ciertos objetos como "liberados", quiere decir, que son objetos que ya no se van a volver a usar y que quiere liberar el recurso que se esta usando o cerrar el proceso.
