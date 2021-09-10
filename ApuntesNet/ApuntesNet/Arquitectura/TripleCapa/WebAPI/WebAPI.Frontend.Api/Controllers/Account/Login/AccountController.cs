@@ -26,7 +26,7 @@ namespace WebAPI.Frontend.Api.Controllers.Account.Login {
             return CrearRespuesta(resp);
         }
         private async Task<bool> LoginAsync(CredentialsLogin credentials) {
-            var resp = await accountAction.InicioSesion(credentials.Username, credentials.Password, false);
+            var resp = await accountAction.InicioSesionAsync(credentials.Username, credentials.Password, false);
             return resp;
         }
 
@@ -37,7 +37,7 @@ namespace WebAPI.Frontend.Api.Controllers.Account.Login {
             return CrearRespuesta(resp);
         }
         private async Task<bool> LogoutAsync() {
-            var resp = await accountAction.CerrarSesion();
+            var resp = await accountAction.CerrarSesionAsync();
             return resp;
         }
 
@@ -48,7 +48,7 @@ namespace WebAPI.Frontend.Api.Controllers.Account.Login {
             return CrearRespuesta(resp);
         }
         private async Task<bool> CreateUserAsync(CreateAccountData createAccountData) {
-            var resp = await accountAction.CrearCuentaUsuario(createAccountData);
+            var resp = await accountAction.CrearCuentaUsuarioAsync(createAccountData);
             return resp;
         }
     }

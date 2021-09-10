@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DesktopUI.Backend.Data.DataAccessManager.BaseDam;
 using DesktopUI.Backend.Data.DataAccessManager.Interfaces;
 using DesktopUI.Backend.Data.Database;
@@ -10,20 +11,20 @@ namespace DesktopUI.Backend.Data.DataAccessManager {
         public UserDam(IDbContextFactory<ContextoSqlServer> dbContextFactory) : base(dbContextFactory) {
         }
 
-        public List<Usuario> GetAllUsers() {
+        public async Task<List<Usuario>> GetAllUsersAsync() {
             using (var context = contexto.CreateDbContext()) {
-                return (from user in context.Usuarios
+                return await (from user in context.Usuarios
                         orderby user.Id
-                        select user).ToList();
+                        select user).ToListAsync();
             }
         }
 
-        public List<Usuario> GetAllUsersWithEdad(int edad) {
+        public async Task<List<Usuario>> GetAllUsersWithEdadAsync(int edad) {
             using (var context = contexto.CreateDbContext()) {
-                return (from user in context.Usuarios
+                return await (from user in context.Usuarios
                         where user.Edad == edad
                         orderby user.Id
-                        select user).ToList();
+                        select user).ToListAsync();
             }
         }
     }

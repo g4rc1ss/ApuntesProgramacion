@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using WebAPI.Backend.Business.BusinessManager.IdentityManager.Interfaces;
 using WebAPI.Backend.Data.DataAccessManager.Interfaces;
@@ -13,25 +14,25 @@ namespace WebAPI.Backend.Business.BusinessManager.IdentityManager {
             this.userDam = userDam;
         }
 
-        public bool Login(string username, string password, bool rememberMe) {
-            var resp = userDam.LogInAsync(username, password, rememberMe).Result;
+        public async Task<bool> LoginAsync(string username, string password, bool rememberMe) {
+            var resp = await userDam.LogInAsync(username, password, rememberMe);
             if (resp is null || !resp.Succeeded) {
-                logger.LogInformation($"Nombre de usuario {username} o contraseña incorrecta ***", nameof(Login));
+                logger.LogInformation($"Nombre de usuario {username} o contraseña incorrecta ***", nameof(LoginAsync));
                 return false;
             }
             return true;
         }
 
-        public bool Logout() {
-            var resp = userDam.LogoutAsync().Result;
+        public async Task<bool> LogoutAsync() {
+            var resp = await userDam.LogoutAsync();
             if (!resp) {
-                logger.LogInformation("Error al Cerrar la sesion", nameof(Logout));
+                logger.LogInformation("Error al Cerrar la sesion", nameof(LogoutAsync));
                 return false;
             }
             return true;
         }
 
-        public bool CreateUserAccount(CreateAccountData createAccountData) {
+        public async Task<bool> CreateUserAccountAsync(CreateAccountData createAccountData) {
             var user = new User() {
                 UserName = createAccountData?.UserName,
                 NormalizedUserName = createAccountData?.NormalizedUserName,
@@ -39,16 +40,16 @@ namespace WebAPI.Backend.Business.BusinessManager.IdentityManager {
                 PhoneNumber = createAccountData?.PhoneNumber,
                 SecurityStamp = new Guid().ToString()
             };
-            var respUser = userDam.CreateUserAsync(user, createAccountData?.Password).Result;
-            var respRole = userDam.CreateUserRoleAsync(user, "Usuario").Result;
+            var respUser = await userDam.CreateUserAsync(user, createAccountData?.Password);
+            var respRole = await userDam.CreateUserRoleAsync(user, "Usuario");
 
             if (respUser is not null && respRole is not null && respUser.Succeeded && respRole.Succeeded) {
-                var resp = Login(createAccountData?.UserName, createAccountData?.Password, false);
+                var resp = await LoginAsync(createAccountData?.UserName, createAccountData?.Password, false);
                 return resp;
             } else {
-                var deleteToRevertOperation = userDam.DeleteUserAsync(user).Result;
+                var deleteToRevertOperation = await userDam.DeleteUserAsync(user);
                 logger.LogInformation($"usuario creado? {respUser?.Succeeded} \n , logger" +
-                    $"usuario insertado Rol? {respRole?.Succeeded}", nameof(CreateUserAccount));
+                    $"usuario insertado Rol? {respRole?.Succeeded}", nameof(CreateUserAccountAsync));
                 return false;
             }
         }

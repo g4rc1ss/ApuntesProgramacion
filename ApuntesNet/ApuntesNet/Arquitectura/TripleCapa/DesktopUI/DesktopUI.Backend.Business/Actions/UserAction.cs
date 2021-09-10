@@ -13,13 +13,11 @@ namespace DesktopUI.Backend.Business.Actions {
         }
 
         public Task<List<Usuario>> GetAllUsers() {
-            return Task.Run(() => {
-                try {
-                    return userManager.GetListaUsuarios();
-                } catch (Exception) {
-                    return new List<Usuario>();
-                }
-            });
+            try {
+                return userManager.GetListaUsuariosAsync();
+            } catch (Exception) {
+                return Task.FromResult(new List<Usuario>());
+            }
         }
     }
 }

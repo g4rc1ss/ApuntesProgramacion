@@ -15,37 +15,31 @@ namespace WebAPI.Backend.Business.Actions.Account {
             this.applicationUserManager = applicationUserManager;
         }
 
-        public Task<bool> InicioSesion(string username, string password, bool rememberMe) {
-            return Task.Run(() => {
-                try {
-                    return applicationUserManager.Login(username, password, rememberMe);
-                } catch (Exception) {
-                    logger.LogInformation(nameof(InicioSesion));
-                    return false;
-                }
-            });
+        public Task<bool> InicioSesionAsync(string username, string password, bool rememberMe) {
+            try {
+                return applicationUserManager.LoginAsync(username, password, rememberMe);
+            } catch (Exception) {
+                logger.LogInformation(nameof(InicioSesionAsync));
+                return Task.FromResult(false);
+            }
         }
 
-        public Task<bool> CerrarSesion() {
-            return Task.Run(() => {
-                try {
-                    return applicationUserManager.Logout();
-                } catch (Exception) {
-                    logger.LogInformation(nameof(CerrarSesion));
-                    return false;
-                }
-            });
+        public Task<bool> CerrarSesionAsync() {
+            try {
+                return applicationUserManager.LogoutAsync();
+            } catch (Exception) {
+                logger.LogInformation(nameof(CerrarSesionAsync));
+                return Task.FromResult(false);
+            }
         }
 
-        public Task<bool> CrearCuentaUsuario(CreateAccountData createAccountData) {
-            return Task.Run(() => {
-                try {
-                    return applicationUserManager.CreateUserAccount(createAccountData);
-                } catch (Exception) {
-                    logger.LogInformation(nameof(CrearCuentaUsuario));
-                    return false;
-                }
-            });
+        public Task<bool> CrearCuentaUsuarioAsync(CreateAccountData createAccountData) {
+            try {
+                return applicationUserManager.CreateUserAccountAsync(createAccountData);
+            } catch (Exception) {
+                logger.LogInformation(nameof(CrearCuentaUsuarioAsync));
+                return Task.FromResult(false);
+            }
         }
     }
 }
