@@ -1,4 +1,5 @@
-﻿using BenchmarkDotNet.Attributes;
+﻿using System.Threading.Tasks;
+using BenchmarkDotNet.Attributes;
 using DesktopUI.Backend.Business.Manager;
 using DesktopUI.Backend.Data.DataAccessManager.Interfaces;
 using DesktopUI.SimulateDataForTesting;
@@ -17,8 +18,8 @@ namespace DesktopUI.Benchmarks.BenchmarkManager {
         }
 
         [Benchmark]
-        public void GetListaUsuarios() {
-            UserManager.GetListaUsuarios();
+        public async Task GetListaUsuariosAsync() {
+            await UserManager.GetListaUsuariosAsync();
         }
     }
 }

@@ -20,17 +20,17 @@ namespace WebApi.Benchmarks.BenchmarkManager {
 
         [Benchmark]
         public void Login() {
-            applicationUserManager.Login(string.Empty, string.Empty, false);
+            applicationUserManager.LoginAsync(string.Empty, string.Empty, false);
         }
 
         [Benchmark]
         public void CreateUser() {
-            applicationUserManager.CreateUserAccount(It.IsAny<CreateAccountData>());
+            applicationUserManager.CreateUserAccountAsync(It.IsAny<CreateAccountData>());
         }
 
         [Benchmark]
         public void Logout() {
-            applicationUserManager.Logout();
+            applicationUserManager.LogoutAsync();
         }
     }
 }

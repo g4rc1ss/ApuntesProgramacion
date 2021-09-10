@@ -1,7 +1,9 @@
-﻿namespace WebAPI.Backend.Business.BusinessManager.IdentityManager.Interfaces {
+﻿using System.Threading.Tasks;
+
+namespace WebAPI.Backend.Business.BusinessManager.IdentityManager.Interfaces {
     public interface IApplicationUserManager {
-        bool CreateUserAccount(CreateAccountData createAccountData);
-        bool Login(string username, string password, bool rememberMe);
-        bool Logout();
+        Task<bool> CreateUserAccountAsync(CreateAccountData createAccountData);
+        Task<bool> LoginAsync(string username, string password, bool rememberMe);
+        Task<bool> LogoutAsync();
     }
 }

@@ -20,10 +20,16 @@ namespace AsyncAwait {
 
                 if (ejecutarSincronico.StartsWith("s")) {
                     Console.WriteLine("Ejemplo de codigo NO asincrono");
-                    asincronia.LlamadaAwaitMetodo();
+                    asincronia.LlamadaMetodo();
                 } else {
-                    Console.WriteLine("Ejemplo de codigo asincrono");
-                    _ = asincronia.LlamadaAwaitMetodoAsync();
+                    Console.WriteLine("Ejemplo de codigo asincrono enlazado a CPU");
+                    _ = asincronia.CpuAsync();
+
+                    Console.WriteLine("Ejemplo de codido asincrono E/S");
+                    _ = asincronia.ESAsync();
+
+                    Console.WriteLine("Ejemplo de codido asincrono en bucles foreach");
+                    _ = asincronia.ExecuteIEnumerableAsync();
                 }
             }
         }

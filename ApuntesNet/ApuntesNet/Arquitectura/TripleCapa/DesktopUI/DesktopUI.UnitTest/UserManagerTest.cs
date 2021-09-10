@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using DesktopUI.Backend.Business.Manager;
 using DesktopUI.Backend.Data.DataAccessManager.Interfaces;
 using DesktopUI.SimulateDataForTesting;
@@ -26,15 +27,15 @@ namespace DesktopUI.UnitTest {
         }
 
         [TestMethod]
-        public void GetAllUsersOk() {
-            var resultado = userManagerOk.GetListaUsuarios();
+        public async Task GetAllUsersOkAsync() {
+            var resultado = await userManagerOk.GetListaUsuariosAsync();
 
             Assert.IsTrue(resultado.Count == 4);
         }
 
         [TestMethod]
-        public void GetAllUsersNull() {
-            var resultado = userManagerNull.GetListaUsuarios();
+        public async Task GetAllUsersNullAsync() {
+            var resultado = await userManagerNull.GetListaUsuariosAsync();
 
             Assert.IsTrue(resultado is null || resultado.Count == 0);
         }
