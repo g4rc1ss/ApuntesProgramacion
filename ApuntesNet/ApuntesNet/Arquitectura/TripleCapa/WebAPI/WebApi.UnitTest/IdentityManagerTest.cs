@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -28,43 +29,43 @@ namespace WebApi.UnitTest {
         }
 
         [TestMethod]
-        public void LoginOk() {
-            var resultado = applicationUserManagerOk.Login("", "", false);
+        public async Task LoginOkAsync() {
+            var resultado = await applicationUserManagerOk.LoginAsync("", "", false);
 
             Assert.IsTrue(resultado);
         }
 
         [TestMethod]
-        public void CreateAccountOk() {
-            var resultado = applicationUserManagerOk.CreateUserAccount(It.IsAny<CreateAccountData>());
+        public async Task CreateAccountOkAsync() {
+            var resultado = await applicationUserManagerOk.CreateUserAccountAsync(It.IsAny<CreateAccountData>());
 
             Assert.IsTrue(resultado);
         }
 
         [TestMethod]
-        public void LogoutOk() {
-            var resultado = applicationUserManagerOk.Logout();
+        public async Task LogoutOkAsync() {
+            var resultado = await applicationUserManagerOk.LogoutAsync();
 
             Assert.IsTrue(resultado);
         }
 
         [TestMethod]
-        public void LoginNull() {
-            var resultado = applicationUserManagerNull.Login("", "", false);
+        public async Task LoginNullAsync() {
+            var resultado = await applicationUserManagerNull.LoginAsync("", "", false);
 
             Assert.IsTrue(resultado == false);
         }
 
         [TestMethod]
-        public void CreateAccountNull() {
-            var resultado = applicationUserManagerNull.CreateUserAccount(It.IsAny<CreateAccountData>());
+        public async Task CreateAccountNullAsync() {
+            var resultado = await applicationUserManagerNull.CreateUserAccountAsync(It.IsAny<CreateAccountData>());
 
             Assert.IsTrue(resultado == false);
         }
 
         [TestMethod]
-        public void LogoutNull() {
-            var resultado = applicationUserManagerNull.Logout();
+        public async Task LogoutNullAsync() {
+            var resultado = await applicationUserManagerNull.LogoutAsync();
 
             Assert.IsTrue(resultado == false);
         }

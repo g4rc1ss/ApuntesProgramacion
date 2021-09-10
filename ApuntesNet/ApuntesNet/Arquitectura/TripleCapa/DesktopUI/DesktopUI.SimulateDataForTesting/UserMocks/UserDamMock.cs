@@ -27,14 +27,14 @@ namespace DesktopUI.SimulateDataForTesting.UserMocks {
         }
 
         private void InitializeOKData() {
-            MockUserDam.Setup(x => x.GetAllUsersAsync()).Returns(FakeUserReturnOkData.ReturnOfGetAllUsers);
-            MockUserDam.Setup(x => x.GetAllUsersWithEdadAsync(It.IsAny<int>())).Returns(FakeUserReturnOkData.ReturnOfGetAllUsersWithEdad);
+            MockUserDam.Setup(x => x.GetAllUsersAsync()).ReturnsAsync(FakeUserReturnOkData.ReturnOfGetAllUsers);
+            MockUserDam.Setup(x => x.GetAllUsersWithEdadAsync(It.IsAny<int>())).ReturnsAsync(FakeUserReturnOkData.ReturnOfGetAllUsersWithEdad);
 
         }
 
         private void InitializeNullData() {
-            MockUserDam.Setup(x => x.GetAllUsersAsync()).Returns(FakeUserReturnNullData.ReturnOfGetAllUsers);
-            MockUserDam.Setup(x => x.GetAllUsersWithEdadAsync(It.IsAny<int>())).Returns(FakeUserReturnNullData.ReturnOfGetAllUsersWithEdad);
+            MockUserDam.Setup(x => x.GetAllUsersAsync()).ReturnsAsync(FakeUserReturnNullData.ReturnOfGetAllUsers);
+            MockUserDam.Setup(x => x.GetAllUsersWithEdadAsync(It.IsAny<int>())).ReturnsAsync(FakeUserReturnNullData.ReturnOfGetAllUsersWithEdad);
         }
     }
 }
