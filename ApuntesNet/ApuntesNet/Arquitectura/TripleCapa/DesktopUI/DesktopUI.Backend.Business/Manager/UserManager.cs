@@ -12,18 +12,13 @@ namespace DesktopUI.Backend.Business.Manager {
             this.userDam = userDam;
         }
 
-        public List<Usuario> GetListaUsuarios() {
-            var listaUsuarios = default(List<Usuario>);
-            var listaUsuariosConEdad = default(List<Usuario>);
+        public async Task<List<Usuario>> GetListaUsuariosAsync() {
+            var listaUsuarios = Task.Run(() => userDam.GetAllUsersAsync());
+            var listaUsuariosConEdad = Task.Run(() => userDam.GetAllUsersWithEdadAsync(12));
 
-            Parallel.Invoke(
-                () => {
-                    listaUsuarios = userDam.GetAllUsers();
-                },
-                () => {
-                    listaUsuariosConEdad = userDam.GetAllUsersWithEdad(12);
-                });
-            var response = listaUsuarios?.Concat(listaUsuariosConEdad).ToList();
+            await Task.WhenAll(listaUsuarios, listaUsuariosConEdad);
+
+            var response = listaUsuarios?.Result?.Concat(listaUsuariosConEdad?.Result).ToList();
             return response;
         }
     }
