@@ -6,9 +6,9 @@
     <session-factory>
         <!-- JDBC Database connection settings -->
         <property name="connection.driver_class">org.mariadb.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mariadb://localhost:3306/filmoteca?useSSL=false</property>
-        <property name="connection.username">hibernate</property>
-        <property name="connection.password">hibernate</property>
+        <property name="connection.url">jdbc:mariadb://localhost:3306/apuntesjava</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">123456</property>
         <!-- JDBC connection pool settings ... using built-in test pool -->
         <property name="connection.pool_size">1</property>
         <!-- Select our SQL dialect -->

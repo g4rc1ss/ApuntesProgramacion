@@ -35,7 +35,7 @@ public class EjecucionBBDD_Base {
     public ArrayList<String> getTotalDirectores() {
         try {
             String sqlQuery = "SELECT CONCAT(direc.Nombre, ' ', direc.Apellidos) AS Director\n" +
-                    "FROM peliculas.Director AS direc\n";
+                    "FROM apuntesjava.director AS direc\n";
             ResultSet respuesta = connection.createStatement().executeQuery(sqlQuery);
             ArrayList<String> listaDirectores = new ArrayList();
             for (; respuesta.next(); )

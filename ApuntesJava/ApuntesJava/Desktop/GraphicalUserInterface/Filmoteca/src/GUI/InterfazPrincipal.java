@@ -39,11 +39,6 @@ public class InterfazPrincipal extends JFrame {
         titulo.setEditable(false);
         add(titulo);
 
-        director = new JTextField();
-        director.setBounds(180, 115, 100, 25);
-        director.setEditable(false);
-        add(director);
-
         pais = new JTextField();
         pais.setBounds(330, 115, 100, 25);
         pais.setEditable(false);
@@ -73,7 +68,6 @@ public class InterfazPrincipal extends JFrame {
             if (respuestaConsulta == null)
                 System.exit(-1);
             titulo.setText(respuestaConsulta.getString("Titulo"));
-            director.setText(respuestaConsulta.getString("Director"));
             pais.setText(respuestaConsulta.getString("Pais"));
             duracion.setText(String.valueOf(respuestaConsulta.getDouble("Duracion")));
             genero.setText(respuestaConsulta.getString("Genero"));
