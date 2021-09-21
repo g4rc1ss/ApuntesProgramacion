@@ -9,8 +9,8 @@ class SelectData
         mysqli_select_db($connection, "Peliculas");
 
         $query = "select p.Titulo, d.Nombre, d.Apellidos 
-        from director d 
-        inner join pelicula p on p.DirectorId = d.Id;";
+        from `apuntesphp`.`director` d 
+        inner join `apuntesphp`.`pelicula` p on p.DirectorId = d.Id;";
         $this->listaConsultada = mysqli_query($connection, $query);
     }
 

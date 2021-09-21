@@ -5,12 +5,12 @@ include_once "ConsultasMySql\\UpdateData.php";
 include_once "ConsultasMySql\\InsertData.php";
 include_once "ConsultasMySql\\DeleteData.php";
 
-$connection = mysqli_connect("localhost", "root", "1234");
+$connection = mysqli_connect("localhost", "root", "123456");
 new CreateData($connection);
 $objectSelect = new SelectData($connection);
 $consultaSelect = $objectSelect->get_listaConsultada();
-new UpdateData($connection);
 new InsertData($connection);
+new UpdateData($connection);
 new DeleteData($connection);
 ?>
 
@@ -48,9 +48,9 @@ new DeleteData($connection);
 
         <?php foreach ($consultaSelect as $consulta) : ?>
             <tr>
-                <td><?php echo $consulta['Titulo'];?></td>
-                <td><?php echo $consulta['Nombre'];?></td>
-                <td><?php echo $consulta['Apellidos'];?></td>
+                <td><?php echo $consulta['Titulo']; ?></td>
+                <td><?php echo $consulta['Nombre']; ?></td>
+                <td><?php echo $consulta['Apellidos']; ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
@@ -60,7 +60,7 @@ new DeleteData($connection);
 </html>
 
 <?php
-$sqlQuery = "DROP DATABASE IF EXISTS `peliculas`;\n";
+$sqlQuery = "DROP DATABASE IF EXISTS `apuntesphp`;\n";
 mysqli_query($connection, $sqlQuery);
 
 $connection->close();
