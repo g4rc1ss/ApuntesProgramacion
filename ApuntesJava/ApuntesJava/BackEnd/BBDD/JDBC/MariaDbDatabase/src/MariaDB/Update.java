@@ -1,41 +1,37 @@
 package MariaDB;
 
+import MariaDB.base.Inicializar;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Update {
+public class Update extends Inicializar {
+
+    public Update() {
+        super();
+    }
+
     public void updateExecute() {
-
-        String dep = "40";
-        String subida = "100";
-
         try {
-            Class.forName("com.mysql.jdbc.Driver");// Cargar el driver
-            // Establecemos la conexion con la BD
-            Connection conexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost/Ceinmark", "root", "root");
-
-            String sql = String.format("UPDATE empleados SET salario = salario + %s WHERE dept_no => %s",
-                    subida, dep);
+            var sql = "UPDATE `apuntesjava`.`Empleado` SET Salario = Salario + ? WHERE Salario < 2500";
 
             System.out.println(sql);
 
-            Statement sentencia = conexion.createStatement();
-            int filas = sentencia.executeUpdate(sql);
+            var sentencia = connection.prepareStatement(sql);
+            sentencia.setDouble(1, 100);
+            int filas = sentencia.executeUpdate();
             System.out.printf("Empleados modificados: %d %n", filas);
 
-            sentencia.close(); // Cerrar Statement
-            conexion.close(); // Cerrar conexi�n
+            sentencia.close();
+            connection.close();
 
-        } catch (ClassNotFoundException cn) {
-            cn.printStackTrace();
         } catch (SQLException e) {
             if (e.getErrorCode() == 1062)
                 System.out.println("CLAVE PRIMARIA DUPLICADA");
             else if (e.getErrorCode() == 1452)
-                System.out.println("CLAVE AJENA " + dep + " NO EXISTE");
+                System.out.println("CLAVE AJENA NO EXISTE");
 
             else {
                 System.out.println("HA OCURRIDO UNA EXCEPCI�N:");

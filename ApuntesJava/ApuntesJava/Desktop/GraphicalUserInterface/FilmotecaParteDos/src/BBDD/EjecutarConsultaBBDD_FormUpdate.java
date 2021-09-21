@@ -15,7 +15,7 @@ public class EjecutarConsultaBBDD_FormUpdate extends EjecucionBBDD_Base {
     public ArrayList<String> getTitleOfPeliculas() {
         try {
             String sqlQuery = "SELECT Titulo\n" +
-                    "FROM peliculas.Pelicula\n";
+                    "FROM apuntesjava.pelicula\n";
             ResultSet respuesta = connection.createStatement().executeQuery(sqlQuery);
             ArrayList<String> listaTitulosPeliculas = new ArrayList();
             for (; respuesta.next(); )
@@ -33,7 +33,7 @@ public class EjecutarConsultaBBDD_FormUpdate extends EjecucionBBDD_Base {
                 return null;
 
             String sqlQuery = "SELECT *\n" +
-                    "FROM peliculas.Pelicula\n" +
+                    "FROM apuntesjava.pelicula\n" +
                     "WHERE Titulo = '" + tituloPelicula + "'";
             ResultSet respuesta = connection.createStatement().executeQuery(sqlQuery);
             return respuesta.next() ? respuesta : null;
@@ -49,7 +49,7 @@ public class EjecutarConsultaBBDD_FormUpdate extends EjecucionBBDD_Base {
                 return null;
 
             String sqlQuery = "SELECT *\n" +
-                    "FROM peliculas.director\n" +
+                    "FROM apuntesjava.director\n" +
                     "WHERE Nombre = '" + nombreDirector.split(" ")[0] + "'" + "&& Apellidos = '" + nombreDirector.split(" ")[1] + "'";
             ResultSet respuesta = connection.createStatement().executeQuery(sqlQuery);
             return respuesta.next() ? respuesta : null;
@@ -65,10 +65,10 @@ public class EjecutarConsultaBBDD_FormUpdate extends EjecucionBBDD_Base {
         try {
             String sqlQuery;
             if (tabla == NombreTable.pelicula) {
-                sqlQuery = "INSERT INTO peliculas.pelicula(Titulo, DirectorId, Pais, Duracion, Genero) " +
+                sqlQuery = "INSERT INTO apuntesjava.pelicula(Titulo, DirectorId, Pais, Duracion, Genero) " +
                         "VALUES('" + titulo_Nombre + "'," + indexDirector + ", '" + pais + "'," + duracion + ", '" + genero_Apellidos + "')";
             } else if (tabla == NombreTable.director) {
-                sqlQuery = "INSERT INTO peliculas.director(Nombre, Apellidos) VALUES ('" + titulo_Nombre + "', '" + genero_Apellidos + "');";
+                sqlQuery = "INSERT INTO apuntesjava.director(Nombre, Apellidos) VALUES ('" + titulo_Nombre + "', '" + genero_Apellidos + "');";
             } else
                 return -1;
             return connection.createStatement().executeUpdate(sqlQuery);
@@ -85,7 +85,7 @@ public class EjecutarConsultaBBDD_FormUpdate extends EjecucionBBDD_Base {
         try {
             StringBuilder sqlQuery = new StringBuilder();
             if (tabla == NombreTable.pelicula) {
-                sqlQuery.append(" UPDATE peliculas.pelicula SET");
+                sqlQuery.append(" UPDATE apuntesjava.pelicula SET");
                 sqlQuery.append(" Titulo = '" + (titulo_Nombre.isEmpty() ? "" : titulo_Nombre) + "',");
                 sqlQuery.append(" Genero = '" + (genero_Apellidos.isEmpty() ? "" :  genero_Apellidos) + "',");
                 sqlQuery.append(" Duracion = " + duracion + ",");
@@ -94,7 +94,7 @@ public class EjecutarConsultaBBDD_FormUpdate extends EjecucionBBDD_Base {
                 sqlQuery.append(" WHERE Id = (SELECT Id WHERE Titulo = '" + titulo_Nombre_Origen + "');");
 
             } else if (tabla == NombreTable.director) {
-                sqlQuery.append(" UPDATE peliculas.director SET");
+                sqlQuery.append(" UPDATE apuntesjava.director SET");
                 sqlQuery.append(" Nombre = '" + (titulo_Nombre.isEmpty() ? "" : titulo_Nombre) + "',");
                 sqlQuery.append(" Apellidos = '" + (genero_Apellidos.isEmpty() ? "" : genero_Apellidos) + "'");
                 sqlQuery.append(" WHERE Id = (SELECT Id WHERE Nombre = '" + titulo_Nombre_Origen + "' && Apellidos = '" + apellidos_Origen + "');");
@@ -111,19 +111,19 @@ public class EjecutarConsultaBBDD_FormUpdate extends EjecucionBBDD_Base {
         try {
             StringBuilder sqlQuery = new StringBuilder();
             if (tabla == NombreTable.pelicula) {
-                sqlQuery.append(" DELETE FROM peliculas.pelicula");
+                sqlQuery.append(" DELETE FROM apuntesjava.pelicula");
                 sqlQuery.append(" WHERE Id = (SELECT Id WHERE Titulo = '" + titulo_Nombre + "');");
 
             } else if (tabla == NombreTable.director) {
                 ResultSet respuesta = connection.createStatement().executeQuery(
-                        "SELECT Id from peliculas.director where Nombre = '" + titulo_Nombre + "' AND Apellidos = '" + genero_Apellidos + "'"
+                        "SELECT Id from apuntesjava.director where Nombre = '" + titulo_Nombre + "' AND Apellidos = '" + genero_Apellidos + "'"
                 );
                 respuesta.next();
                 int id = respuesta.getInt("Id");
 
-                sqlQuery.append(" DELETE FROM peliculas.director");
+                sqlQuery.append(" DELETE FROM apuntesjava.director");
                 // Condicionamos para controlar que no se puede borrar un director si esta asignado a una pelicula
-                sqlQuery.append(" WHERE Id = " + id + " AND 1 > (SELECT COUNT(*) FROM peliculas.pelicula WHERE DirectorId = " + id + ")");
+                sqlQuery.append(" WHERE Id = " + id + " AND 1 > (SELECT COUNT(*) FROM apuntesjava.pelicula WHERE DirectorId = " + id + ")");
             } else
                 return -1;
             return connection.createStatement().executeUpdate(sqlQuery.toString());

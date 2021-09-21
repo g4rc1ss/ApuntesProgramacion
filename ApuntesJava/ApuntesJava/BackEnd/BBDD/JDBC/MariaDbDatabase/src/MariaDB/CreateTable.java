@@ -1,27 +1,25 @@
 package MariaDB;
 
+import MariaDB.base.Inicializar;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class CreateTable {
-	public void createTableExecute() throws ClassNotFoundException, SQLException {
-		
-		//cargamos la base de datos indicando el driver
-		Class.forName("com.mysql.jdbc.Driver");
-		//Generamos la conexion
-		Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/EXAMEN_AD" + "?&useSSL=false", "ceinmark", "ceinmark");
-		
+public class CreateTable extends Inicializar {
+
+	public CreateTable() {
+		super();
+	}
+
+	public void createTableExecute() throws ClassNotFoundException, SQLException{
 		//creamos la sentencia
-		Statement statement = conexion.createStatement();
-		
-		//Escribimos la consulta
-		String consulta = "SELECT * FROM AlumnoCeinmark;";
+		Statement statement = connection.createStatement();
 		
 		//ejecutamos la consulta
 		statement.executeQuery(
-				"CREATE TABLE `datosPrueba`.`Empleado` (" +
+				"CREATE TABLE IF NOT EXISTS `apuntesjava`.`Empleado` (" +
 				"`ID`         INT             NOT NULL    AUTO_INCREMENT," +
 				"`Nombre`     VARCHAR(45)                 NULL," +
 				"`Apellidos`  VARCHAR(45)                 NULL," +

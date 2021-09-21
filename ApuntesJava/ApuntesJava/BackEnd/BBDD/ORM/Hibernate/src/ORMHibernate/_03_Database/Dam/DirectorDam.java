@@ -27,7 +27,7 @@ public class DirectorDam extends DataAccessManager {
     public List getAllDirectorOrderBy() {
         try (var context = super.getContextFactory()) {
             return (List<Director>) context.createQuery(
-                    "From Director D" +
+                    "From Director D " +
                             "ORDER BY D.id DESC").getResultList();
         }
     }
@@ -35,8 +35,8 @@ public class DirectorDam extends DataAccessManager {
     public List getAllDirectorGroupByName() {
         try (var context = super.getContextFactory()) {
             return (List<Director>) context.createQuery(
-                    "From Director D" +
-                            "GROUP BY D.nombre DESC").getResultList();
+                    "From Director D " +
+                            "GROUP BY D.nombre").getResultList();
         }
     }
 

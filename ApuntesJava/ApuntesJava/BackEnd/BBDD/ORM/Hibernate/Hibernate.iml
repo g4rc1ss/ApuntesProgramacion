@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="org.hibernate:hibernate-agroal:5.4.19.Final" level="project" />
+    <orderEntry type="library" exported="" name="org.mariadb.jdbc:mariadb-java-client:2.6.0" level="project" />
   </component>
 </module>

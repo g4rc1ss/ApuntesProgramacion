@@ -3,7 +3,7 @@ package ORMHibernate._03_Database.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Director")
+@Table(name = "director")
 public class Director {
     public Director() {
 

@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="org.mariadb.jdbc:mariadb-java-client:2.6.0" type="repository">
-    <properties maven-id="org.mariadb.jdbc:mariadb-java-client:RELEASE" />
+    <properties maven-id="org.mariadb.jdbc:mariadb-java-client:LATEST" />
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/mariadb/jdbc/mariadb-java-client/3.0.1-beta/mariadb-java-client-3.0.1-beta.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/mariadb/jdbc/mariadb-java-client/3.0.2-rc/mariadb-java-client-3.0.2-rc.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

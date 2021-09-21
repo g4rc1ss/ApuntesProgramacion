@@ -21,7 +21,7 @@ public class SeedPrincipal extends DataAccessManager {
 
     public boolean isCreateDatabaseWithContent() {
         try (var context = super.getContextFactory()) {
-            var query = (ArrayList<Long>) context.createQuery("SELECT Count(d) From Director d").getResultList();
+            var query = (ArrayList<Long>) context.createQuery("SELECT Count(id) From Director").getResultList();
             var count = query.get(0).longValue();
             return count > 0;
         }
