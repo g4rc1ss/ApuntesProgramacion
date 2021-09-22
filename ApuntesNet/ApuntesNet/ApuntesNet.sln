@@ -162,11 +162,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqliteDapper", "BackEnd\BBD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Algoritmos", "Algoritmos", "{092D883B-8021-4EA1-8996-CF11B1AE0BAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusquedaBinaria", "BackEnd\Algoritmos\BusquedaBinaria\BusquedaBinaria.csproj", "{B5191F93-91B8-4868-9BA3-379937F4130C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusquedaBinaria", "BackEnd\Algoritmos\BusquedaBinaria\BusquedaBinaria.csproj", "{B5191F93-91B8-4868-9BA3-379937F4130C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArbolBinario", "BackEnd\Algoritmos\ArbolBinario\ArbolBinario.csproj", "{45E04271-1DEC-476F-82BD-89F2D472C324}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArbolBinario", "BackEnd\Algoritmos\ArbolBinario\ArbolBinario.csproj", "{45E04271-1DEC-476F-82BD-89F2D472C324}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Memorization", "BackEnd\Algoritmos\Memorization\Memorization.csproj", "{FD1F9A9C-65AB-4FEC-90C9-970261048A21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Memorization", "BackEnd\Algoritmos\Memorization\Memorization.csproj", "{FD1F9A9C-65AB-4FEC-90C9-970261048A21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContadorPalabrasString", "BackEnd\Algoritmos\ContadorPalabrasString\ContadorPalabrasString.csproj", "{22FA5EB7-CE86-402E-B058-FEE8521BF50D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalisisAperturaCierreSimbolos", "BackEnd\Algoritmos\AnalisisAperturaCierreSimbolos\AnalisisAperturaCierreSimbolos.csproj", "{A4353037-464C-4F4D-9AB7-D599FC410ED4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CifradoCesarAritmeticaModular", "BackEnd\Algoritmos\CifradoCesarAritmeticaModular\CifradoCesarAritmeticaModular.csproj", "{5BA252CD-357F-4089-B820-311DC931303E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -370,6 +376,18 @@ Global
 		{FD1F9A9C-65AB-4FEC-90C9-970261048A21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD1F9A9C-65AB-4FEC-90C9-970261048A21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD1F9A9C-65AB-4FEC-90C9-970261048A21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22FA5EB7-CE86-402E-B058-FEE8521BF50D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22FA5EB7-CE86-402E-B058-FEE8521BF50D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22FA5EB7-CE86-402E-B058-FEE8521BF50D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22FA5EB7-CE86-402E-B058-FEE8521BF50D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4353037-464C-4F4D-9AB7-D599FC410ED4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4353037-464C-4F4D-9AB7-D599FC410ED4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4353037-464C-4F4D-9AB7-D599FC410ED4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4353037-464C-4F4D-9AB7-D599FC410ED4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BA252CD-357F-4089-B820-311DC931303E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BA252CD-357F-4089-B820-311DC931303E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BA252CD-357F-4089-B820-311DC931303E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BA252CD-357F-4089-B820-311DC931303E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -451,6 +469,9 @@ Global
 		{B5191F93-91B8-4868-9BA3-379937F4130C} = {092D883B-8021-4EA1-8996-CF11B1AE0BAB}
 		{45E04271-1DEC-476F-82BD-89F2D472C324} = {092D883B-8021-4EA1-8996-CF11B1AE0BAB}
 		{FD1F9A9C-65AB-4FEC-90C9-970261048A21} = {092D883B-8021-4EA1-8996-CF11B1AE0BAB}
+		{22FA5EB7-CE86-402E-B058-FEE8521BF50D} = {092D883B-8021-4EA1-8996-CF11B1AE0BAB}
+		{A4353037-464C-4F4D-9AB7-D599FC410ED4} = {092D883B-8021-4EA1-8996-CF11B1AE0BAB}
+		{5BA252CD-357F-4089-B820-311DC931303E} = {092D883B-8021-4EA1-8996-CF11B1AE0BAB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E490D0C8-C5A7-4F24-8A9B-CE1635508778}
