@@ -22,8 +22,7 @@
             "runtimeExecutable": "npm",
             "runtimeArgs": [
                 "run", "start", "debug"
-            ],
-            "port": 5828
+            ]
         }
     ]
 }

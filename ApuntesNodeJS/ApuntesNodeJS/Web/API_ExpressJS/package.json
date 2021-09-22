@@ -5,8 +5,9 @@
   "main": "src\\index.ts",
   "scripts": {
     "start": "tsc --project tsconfig.json && node .\\bin\\index.js",
-    "reinstall": "yarn remove-node-modules && yarn install",
-    "remove-node-modules": "npx rimraf node_modules **/node_modules"
+    "reinstall": "npm run remove-node-modules && npm install",
+    "remove-node-modules": "npx rimraf node_modules **/node_modules",
+    "serve": "nodemon .\\src\\index.ts"
   },
   "repository": {
     "type": "git",
