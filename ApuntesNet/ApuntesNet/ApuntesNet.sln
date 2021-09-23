@@ -168,11 +168,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArbolBinario", "BackEnd\Alg
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Memorization", "BackEnd\Algoritmos\Memorization\Memorization.csproj", "{FD1F9A9C-65AB-4FEC-90C9-970261048A21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContadorPalabrasString", "BackEnd\Algoritmos\ContadorPalabrasString\ContadorPalabrasString.csproj", "{22FA5EB7-CE86-402E-B058-FEE8521BF50D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContadorPalabrasString", "BackEnd\Algoritmos\ContadorPalabrasString\ContadorPalabrasString.csproj", "{22FA5EB7-CE86-402E-B058-FEE8521BF50D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalisisAperturaCierreSimbolos", "BackEnd\Algoritmos\AnalisisAperturaCierreSimbolos\AnalisisAperturaCierreSimbolos.csproj", "{A4353037-464C-4F4D-9AB7-D599FC410ED4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnalisisAperturaCierreSimbolos", "BackEnd\Algoritmos\AnalisisAperturaCierreSimbolos\AnalisisAperturaCierreSimbolos.csproj", "{A4353037-464C-4F4D-9AB7-D599FC410ED4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CifradoCesarAritmeticaModular", "BackEnd\Algoritmos\CifradoCesarAritmeticaModular\CifradoCesarAritmeticaModular.csproj", "{5BA252CD-357F-4089-B820-311DC931303E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CifradoCesarAritmeticaModular", "BackEnd\Algoritmos\CifradoCesarAritmeticaModular\CifradoCesarAritmeticaModular.csproj", "{5BA252CD-357F-4089-B820-311DC931303E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CifradoMaquinaEnigma", "BackEnd\Algoritmos\CifradoMaquinaEnigma\CifradoMaquinaEnigma.csproj", "{16667804-15B0-41ED-8A52-A09EF62ED8D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -388,6 +390,10 @@ Global
 		{5BA252CD-357F-4089-B820-311DC931303E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BA252CD-357F-4089-B820-311DC931303E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BA252CD-357F-4089-B820-311DC931303E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16667804-15B0-41ED-8A52-A09EF62ED8D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16667804-15B0-41ED-8A52-A09EF62ED8D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16667804-15B0-41ED-8A52-A09EF62ED8D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16667804-15B0-41ED-8A52-A09EF62ED8D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -472,6 +478,7 @@ Global
 		{22FA5EB7-CE86-402E-B058-FEE8521BF50D} = {092D883B-8021-4EA1-8996-CF11B1AE0BAB}
 		{A4353037-464C-4F4D-9AB7-D599FC410ED4} = {092D883B-8021-4EA1-8996-CF11B1AE0BAB}
 		{5BA252CD-357F-4089-B820-311DC931303E} = {092D883B-8021-4EA1-8996-CF11B1AE0BAB}
+		{16667804-15B0-41ED-8A52-A09EF62ED8D0} = {092D883B-8021-4EA1-8996-CF11B1AE0BAB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E490D0C8-C5A7-4F24-8A9B-CE1635508778}
