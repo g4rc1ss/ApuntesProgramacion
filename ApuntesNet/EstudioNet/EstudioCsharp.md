@@ -148,14 +148,36 @@ foreach (var item in new List<string>())
 ## Operadores
 El lenguaje C# proporciona una serie de operadores en la sintaxis del codigo para realizar operaciones como comprobacion de nulos, condiciones, etc.
 
-### Ternario o ?:
+### Relacionales
+| Operador | Descripcion |
+| -------- | ----------- |
+| `==` | El operador de igualdad `==` devuelve `true` si sus operandos son iguales; en caso contrario, devuelve `false`. |
+| `!=` |  |
+| `<` | El operador `<` devuelve `true` si el operando izquierdo es menor que el derecho; en caso contrario, devuelve `false`. |
+| `>` | El operador `>` devuelve `true` si el operando izquierdo es mayor que el derecho; en caso contrario, devuelve `false`. |
+| `<=` | El operador `<=` devuelve `true` si el operando izquierdo es menor o igual que el derecho; en caso contrario, devuelve `false`. |
+| `>=` | El operador `>=` devuelve `true` si el operando izquierdo es mayor o igual que el derecho; en caso contrario, devuelve `false`. |
+
+### Alias en using
+Cuando importamos un namespace, podemos asignar un alias para identificarlo como si de una variable se tratara.  
+Para acceder a una clase que contiene un alias, se usara el operador `::`  
+Para acceder al namespace de .Net de forma exclusiva, se usara el alias `global`
+
+```Csharp
+using aliasUsing = System;
+
+aliasUsing::Console.WriteLine();
+global::System.Console.WriteLine();
+```
+
+### Ternario o `?:`
 Se realiza la comprobacion de un `bool` y se agregan dos simbolos, el `?` cuando se cumple la condicion y los `:` si no se cumple dicha condicion
 ```Csharp
 "x".StartsWith('d') ? "Empieza por d" : "Pues no, no empieza por d";
 
 ```
 
-### Condicional NULL de acceso a miembros o ?. ?[]
+### Condicional NULL de acceso a miembros o `?.` `?[]`
 El uso de `?.` o `?[0]` Se usa para comprobar si el contenido es null y si es asi, se va "arrastrando" el null, osea que en este caso, si `lista` es null, no se comprobaria `.count` y se devolveria null.
 ````Csharp
 var lista = default(List<string>);
@@ -163,7 +185,7 @@ lista?.Count;
 lista?[0];
 ````
 
-### Uso combinado NULL o ?? ??=
+### Uso combinado NULL o `??` `??=`
 Es un operador utilizar para la comprobacion de null, si lo es, se devolvera el operando derecho y sino, el operando izquierdo.
 ```Csharp
 var array = lista ?? new List<string>();
@@ -209,6 +231,10 @@ class ClaseConOperadores
 }
 ````
 
+### Implicit Operator
+
+
+### Explicit Operator
 
 ----
 ## Enumerador
