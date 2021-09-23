@@ -82,8 +82,10 @@ variableDinamica = "test";
 variableDinamica.GetType().ToString();
 ```
 
-----
-## Sentencias de flujo
+---
+## Instrucciones de toma de decisiones
+### Condicionales
+#### if-else
 ```Csharp
 if (true)
 {
@@ -94,7 +96,10 @@ else if (true)
 else
 {
 }
+```
 
+#### switch
+```Csharp
 switch (opt)
 {
     case var option when option.Equals(Opt.Adios):
@@ -106,20 +111,60 @@ switch (opt)
 }
 ```
 
+### Iteracion
+#### while
+
+```Csharp
+while (true)
+{
+}
+```
+
+#### do while
+
+```Csharp
+do
+{
+} while (true);
+```
+
+#### for
+
+```Csharp
+for (int i = 0; i < 90; i++)
+{
+}
+```
+
+#### foreach
+
+```Csharp
+foreach (var item in new List<string>())
+{
+}
+```
+
 ---
-## Operador ternario
+## Operadores
+El lenguaje C# proporciona una serie de operadores en la sintaxis del codigo para realizar operaciones como comprobacion de nulos, condiciones, etc.
+
+### Ternario o ?:
+Se realiza la comprobacion de un `bool` y se agregan dos simbolos, el `?` cuando se cumple la condicion y los `:` si no se cumple dicha condicion
+```Csharp
+"x".StartsWith('d') ? "Empieza por d" : "Pues no, no empieza por d";
+
+```
+
+### Condicional NULL de acceso a miembros o ?. ?[]
 ````Csharp
-"x".StartsWith('d') ? "Empieza por D" : "Pues no, no empieza por d";
-lista?.Count; lista[0]?.Trim();
+lista?.Count; 
+lista?[0];
 lista ?? new List<string>();
 ````
-
-- En el operador ternario se realiza la comprobacion de un `bool` y se agregan dos simbolos, el `?` cuando se cumple la condicion y los `:` si no se cumple dicha condicion
-- El uso de `?.` o `[0]?` Se usa para comprobar si el contenido es null y si es asi, se va "arrastrando" el null, osea que en este caso, si `lista` es null, no se comprobaria `.count` y se devolveria null
+El uso de `?.` o `?[0]` Se usa para comprobar si el contenido es null y si es asi, se va "arrastrando" el null, osea que en este caso, si `lista` es null, no se comprobaria `.count` y se devolveria null
 - El uso de `??` es una comprobacion resumida de un operador ternario para comprobar null, la instruccion es que si `list` es null, se ejecute `new List<string>`
 
----
-## Sobreescribir Operadores
+### Sobreescribir Operadores
 Un tipo definido por el usuario puede sobrecargar un operador de C# predefinido. Es decir, un tipo puede proporcionar la implementación personalizada de una operación cuando uno o los dos operandos son de ese tipo
 ````Csharp
 class ClaseConOperadores
@@ -158,26 +203,6 @@ class ClaseConOperadores
 
 
 ----
-## Bucles
-```Csharp
-while (true)
-{
-}
-
-do
-{
-} while (true);
-
-for (int i = 0; i < 90; i++)
-{
-}
-
-foreach (var item in new List<string>())
-{
-}
-```
-
----
 ## Enumerador
 Una enumeración es un conjunto de constantes enteras que tienen asociado un nombre para cada valor.
 
