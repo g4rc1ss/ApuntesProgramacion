@@ -156,13 +156,21 @@ Se realiza la comprobacion de un `bool` y se agregan dos simbolos, el `?` cuando
 ```
 
 ### Condicional NULL de acceso a miembros o ?. ?[]
+El uso de `?.` o `?[0]` Se usa para comprobar si el contenido es null y si es asi, se va "arrastrando" el null, osea que en este caso, si `lista` es null, no se comprobaria `.count` y se devolveria null.
 ````Csharp
+var lista = default(List<string>);
 lista?.Count; 
 lista?[0];
-lista ?? new List<string>();
 ````
-El uso de `?.` o `?[0]` Se usa para comprobar si el contenido es null y si es asi, se va "arrastrando" el null, osea que en este caso, si `lista` es null, no se comprobaria `.count` y se devolveria null
-- El uso de `??` es una comprobacion resumida de un operador ternario para comprobar null, la instruccion es que si `list` es null, se ejecute `new List<string>`
+
+### Uso combinado NULL o ?? ??=
+Es un operador utilizar para la comprobacion de null, si lo es, se devolvera el operando derecho y sino, el operando izquierdo.
+```Csharp
+var array = lista ?? new List<string>();
+lista ??= new List<string>();
+```
+- En el primer ejemplo, se comprobara si `lista` es `null` y si lo es, se agregara un `new List<string>()` en la variable `array` y si no, se asignara la variable `lista`.
+- En el segundo ejemplo, se comprobara si `lista` es `null`, si es asi, seguira normal y sino, se asignara a la variable lista un `new List<string>()`.
 
 ### Sobreescribir Operadores
 Un tipo definido por el usuario puede sobrecargar un operador de C# predefinido. Es decir, un tipo puede proporcionar la implementación personalizada de una operación cuando uno o los dos operandos son de ese tipo
