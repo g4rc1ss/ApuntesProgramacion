@@ -232,9 +232,97 @@ class ClaseConOperadores
 ````
 
 ### Implicit Operator
+Para hacer una conversion implicita, basta con que en la clase desde la que queremos convertir, definimos un operador estatico para ello.
 
+En una operacion de conversion implicita se realiza una asignacion teniendo en el operando izquierdo la clase que contiene el operador y en el operando derecho la clase de la que se va a convertir.
+```Csharp
+internal class ClaseParaConvertir
+{
+    public string Id { get; set; }
+    public string Propiedad { get; set; }
+
+    public ClaseParaConvertir()
+    {
+    }
+
+    public ClaseParaConvertir(string id, string propiedad)
+    {
+        Id = id;
+        Propiedad = propiedad;
+    }
+}
+
+internal class ClaseConvertidaImplicita
+{
+    public string Id { get; set; }
+
+    public ClaseConvertidaImplicita(string id)
+    {
+        Id = id;
+    }
+
+    public static implicit operator ClaseConvertidaImplicita(ClaseParaConvertir clase)
+    {
+        return new ClaseConvertidaImplicita(clase.Id);
+    }
+}
+
+// Codigo que ejecutamos
+var convirtiendo = new ClaseParaConvertir()
+{
+    Id = "2345678987654",
+    Propiedad = "hbfohsgbvyoduuvhduyovbxovgdvugfbvyfud"
+};
+
+ClaseConvertidaImplicita conversionImplicita = convirtiendo;
+```
 
 ### Explicit Operator
+Para hacer una conversion explicita, simplemente agregamos un operador estatico para ello.
+
+En las operaciones de conversion explicitas se debe indicar mediante el casteo el tipo del a clase a la que queremos convertir.
+```Csharp
+internal class ClaseParaConvertir
+{
+    public string Id { get; set; }
+    public string Propiedad { get; set; }
+
+    public ClaseParaConvertir()
+    {
+    }
+
+    public ClaseParaConvertir(string id, string propiedad)
+    {
+        Id = id;
+        Propiedad = propiedad;
+    }
+}
+
+internal class ClaseConvertidaExplicita
+{
+    public string Id { get; set; }
+
+    public ClaseConvertidaExplicita(string id)
+    {
+        Id = id;
+    }
+
+    public static explicit operator ClaseConvertidaExplicita(ClaseParaConvertir clase)
+    {
+        return new ClaseConvertidaExplicita(clase.Id);
+    }
+}
+
+
+// Codigo a ejecutar
+var convirtiendo = new ClaseParaConvertir()
+{
+    Id = "2345678987654",
+    Propiedad = "hbfohsgbvyoduuvhduyovbxovgdvugfbvyfud"
+};
+
+var conversionExplicita = (ClaseConvertidaExplicita)convirtiendo;
+```
 
 ----
 ## Enumerador
