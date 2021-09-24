@@ -12,3 +12,16 @@ services:
     command: --init-file /data/application/initMysql.sql
     volumes: 
       - .docker/bbdd/initMysql.sql:/data/application/initMysql.sql
+
+  mongodb_apuntesnet:
+    container_name: mongodb_apuntesnet
+    image: mongo
+    restart: always
+    ports:
+      - 27017-27019:27017-27019
+    environment:
+      MONGO_INITDB_DATABASE: apuntesnet
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    volumes:
+      - .docker/bbdd/initMongoDB.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
