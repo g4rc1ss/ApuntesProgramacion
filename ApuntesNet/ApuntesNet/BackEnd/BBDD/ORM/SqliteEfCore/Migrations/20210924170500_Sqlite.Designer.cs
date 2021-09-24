@@ -9,7 +9,7 @@ using SqliteEfCore.Database;
 namespace SqliteEfCore.Migrations
 {
     [DbContext(typeof(ContextoSqlite))]
-    [Migration("20210806224520_Sqlite")]
+    [Migration("20210924170500_Sqlite")]
     partial class Sqlite
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,9 +47,25 @@ namespace SqliteEfCore.Migrations
                     b.Property<string>("Nombre")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("PuebloId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("PuebloId");
+
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("SqliteEfCore.Database.Sqlite.Usuario", b =>
+                {
+                    b.HasOne("SqliteEfCore.Database.Sqlite.Pueblo", "PuebloIdNavigation")
+                        .WithMany()
+                        .HasForeignKey("PuebloId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PuebloIdNavigation");
                 });
 #pragma warning restore 612, 618
         }

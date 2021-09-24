@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SqliteEfCore.Database.Sqlite;
+using SqliteEfCore.Database.DTO;
 
 namespace SqliteEfCore.Database {
     public partial class ContextoSqlite {

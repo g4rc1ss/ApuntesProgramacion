@@ -1,26 +1,16 @@
-﻿using System.IO;
-using SqliteEfCore.Core;
+﻿using SqliteEfCore.Core;
 
-namespace ParallelQueries.Console.Presentacion {
+namespace SqliteEfCore {
     internal class Program {
-        private const string NOMBRE_BBDD = "BBDD_Local.db";
         private static void Main() {
-            try {
-                if (!File.Exists(NOMBRE_BBDD)) {
-                    EjecutarQueries.CrearBaseDeDatos();
-                }
+            EjecutarQueries.CrearBaseDeDatos();
 
-                var allUsers = EjecutarQueries.CargarUsuarios();
-                foreach (var user in allUsers) {
-                    System.Console.WriteLine($"{user.Name} - {user.Edad}");
-                }
-
-                var allPueblos = EjecutarQueries.CargarPueblos();
-                foreach (var pueblo in allPueblos) {
-                    System.Console.WriteLine($"{pueblo.Nombre}");
-                }
-            } finally {
-                File.Delete(NOMBRE_BBDD);
+            EjecutarQueries.InsertData();
+            EjecutarQueries.UpdateData();
+            EjecutarQueries.DeleteData();
+            var allUsers = EjecutarQueries.SelectData();
+            foreach (var user in allUsers) {
+                System.Console.WriteLine($"Nombre {user.Name} - Edad {user.Edad} - Pueblo {user.Pueblo.Nombre}");
             }
         }
     }

@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SqliteEfCore.Database.Sqlite;
+﻿using System;
+using System.IO;
+using Microsoft.EntityFrameworkCore;
+using SqliteEfCore.Database.DTO;
 
 namespace SqliteEfCore.Database {
     public partial class ContextoSqlite : DbContext {
+        private const string NOMBRE_BBDD = "BBDD_Local.db";
 
         public ContextoSqlite() {
 
@@ -18,25 +21,28 @@ namespace SqliteEfCore.Database {
         }
 
         public void CreateDatabase() {
-            if (!Database.CanConnect()) {
-                Database.Migrate();
+            if (File.Exists(NOMBRE_BBDD)) {
+                File.Delete(NOMBRE_BBDD);
+            }
 
-                using (var seed = new ContextoSqlite()) {
-                    for (var x = 0; x < 200; x++) {
-                        seed.Add(new Usuario() {
-                            Nombre = "Seeds",
-                            Edad = 22
-                        });
-                    }
+            Database.Migrate();
 
-                    for (var x = 0; x < 200; x++) {
-                        seed.Add(new Pueblo() {
-                            Nombre = $"Pueblo {x + 1}"
-                        });
-                    }
-
-                    seed.SaveChanges();
+            using (var seed = new ContextoSqlite()) {
+                for (var x = 0; x < 10; x++) {
+                    seed.Pueblos.Add(new Pueblo() {
+                        Nombre = $"Pueblo {x + 1}"
+                    });
                 }
+
+                for (var x = 0; x < 10; x++) {
+                    seed.Usuarios.Add(new Usuario() {
+                        PuebloId = x + 1,
+                        Nombre = "Seeds",
+                        Edad = new Random().Next(100)
+                    });
+                }
+
+                seed.SaveChanges();
             }
         }
     }
