@@ -20,7 +20,6 @@ services:
     ports:
       - 27017-27019:27017-27019
     environment:
-      MONGO_INITDB_DATABASE: apuntesnet
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: 123456
     volumes:
