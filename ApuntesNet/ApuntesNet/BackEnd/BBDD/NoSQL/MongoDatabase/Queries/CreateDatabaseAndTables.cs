@@ -5,7 +5,8 @@ namespace MongoDatabase {
     internal class CreateDatabaseAndTables {
         internal static void CreateDatabase(string connectionString) {
             var mongoClient = new MongoClient(connectionString);
-            mongoClient.GetDatabase("ApuntesNet");
+            var apuntesNet = mongoClient.GetDatabase("ApuntesNet");
+            var lista = mongoClient.ListDatabaseNames();
         }
 
         internal static void CreateTables(string connectionString) {
