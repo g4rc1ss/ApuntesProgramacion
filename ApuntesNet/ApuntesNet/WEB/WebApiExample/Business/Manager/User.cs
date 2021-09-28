@@ -12,9 +12,9 @@ namespace WebApiExample.Business.Manager {
 
         public static implicit operator User(UserDatabase userDatabase) {
             return new User {
-                Id = userDatabase.Id,
+                Id = userDatabase.UserID.ToString(),
                 Nombre = userDatabase.Nombre,
-                Apellidos = userDatabase.Apellido
+                Apellidos = userDatabase.Apellidos
             };
         }
     }

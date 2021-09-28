@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace WebApiExample.Databsae.DTO {
     public class UserDatabase {
-        public string Id { get; set; }
+        public Guid UserID { get; set; }
         public string Nombre { get; set; }
-        public string Apellido { get; set; }
+        public string Apellidos { get; set; }
     }
 }

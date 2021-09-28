@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Dapper;
 using WebApiExample.Databsae.DTO;
 
 namespace WebApiExample.Databsae.Queries {
@@ -13,13 +12,9 @@ namespace WebApiExample.Databsae.Queries {
         }
 
         public async Task<IEnumerable<UserDatabase>> GetAllUsers() {
-            return new List<UserDatabase>() {
-                new UserDatabase {
-                    Id = Guid.NewGuid().ToString(),
-                    Nombre = "nombre prueba",
-                    Apellido = "Apellido prueba"
-                }
-            };
+            using(var connection = _dapperConfig.GetConnection()) {
+                return await connection.QueryAsync<UserDatabase>("SELECT * FROM [PruebasConceptoWebApuntesNet].dbo.USUARIO");
+            }
         }
     }
 }
