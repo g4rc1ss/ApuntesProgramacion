@@ -1,4 +1,4 @@
-﻿Dada una estructura jerarquica como podria ser la estructura de una empresa
+﻿    Dada una estructura jerarquica como podria ser la estructura de una empresa
 Se quiere un algoritmo que si se introducen dos empleados se devuelva quien es superior en comun que tienen.
 
 
