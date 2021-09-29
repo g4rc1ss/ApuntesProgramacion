@@ -8,8 +8,6 @@
 
 import re
 
-from Code import pyperclip
-
 LETRAS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 #################################################
@@ -62,7 +60,6 @@ def main():
     mensaje = input('Mensaje > ')
     texto = cifrar(mensaje)
     print('\n',texto)
-    pyperclip.copy(texto)
 
 
 inicio = list(inicio) # inicio se actualiza con cada caracter
@@ -165,12 +162,6 @@ def cifrar_caracter(letra):
         letra = aplicar_clavijero(letra)
         
         return letra
-    
-                
-def descifrar(texto):
-        # cifrar y descifrar son la misma operación
-        return cifrar(texto)
-    
                 
 def cifrar(texto):  
         texto = eliminar_puntuacion(texto).upper()
