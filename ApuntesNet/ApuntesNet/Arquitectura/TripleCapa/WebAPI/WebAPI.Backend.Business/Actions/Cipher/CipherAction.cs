@@ -14,15 +14,13 @@ namespace WebAPI.Backend.Business.Actions.Cipher {
             this.cipherManager = cipherManager;
         }
 
-        public Task<string> CifrarTexto(string textoCifrar) {
-            return Task.Run(() => {
-                try {
-                    return cipherManager.CifrarText(textoCifrar);
-                } catch (Exception) {
-                    logger.LogInformation(nameof(CifrarTexto));
-                    return string.Empty;
-                }
-            });
+        public string CifrarTexto(string textoCifrar) {
+            try {
+                return cipherManager.CifrarText(textoCifrar);
+            } catch (Exception) {
+                logger.LogInformation(nameof(CifrarTexto));
+                return string.Empty;
+            }
         }
     }
 }

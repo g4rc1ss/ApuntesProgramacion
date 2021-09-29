@@ -24,3 +24,14 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: 123456
     volumes:
       - .docker/bbdd/initMongoDB.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+  
+  # USUARIO PARA CONECTAR ES: SA
+  sqlserver_apuntesnet:
+    container_name: sqlserver_apuntesnet
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    restart: always
+    ports:
+      - 1433:1433
+    environment:
+      SA_PASSWORD: Apuntes@Net!
+      ACCEPT_EULA: Y
