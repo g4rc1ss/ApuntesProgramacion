@@ -14,11 +14,11 @@ namespace WebAPI.Frontend.Api.Controllers.Cipher {
         [ResponseCache(Duration = 4320)]
         [HttpGet]
         [Route("api/cifrarText")]
-        public async Task<ContentResult> CifrarAsync([FromBody] Texto text) {
-            _ = new Texto {
-                Text = await cipherAction.CifrarTexto(text.Text)
+        public IActionResult CifrarAsync([FromBody] Texto text) {
+            var textoCifrado = new Texto {
+                Text = cipherAction.CifrarTexto(text.Text)
             };
-            return CrearRespuesta(text);
+            return CrearRespuesta(textoCifrado);
         }
     }
 

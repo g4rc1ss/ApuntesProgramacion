@@ -13,16 +13,8 @@ namespace WebAPI.Frontend.Api.Controllers {
         /// <param name="respuesta"> Recibe un objeto, lo interpreta y crea una salida en formato JSON</param>
         /// <returns></returns>
         protected ContentResult CrearRespuesta(object respuesta) {
-            var data = new Dictionary<string, object>();
-            var resp = respuesta.GetType().GetProperties();
-            foreach (var i in resp) {
-                if (i.Name != null && i.GetValue(respuesta) != null) {
-                    data.Add(i.Name, i.GetValue(respuesta));
-                }
-            }
-
             return Content(
-                $"{JsonConvert.SerializeObject(data.Count < 1 ? respuesta : data)}",
+                $"{JsonConvert.SerializeObject(respuesta)}",
                 "aplication/JSON",
                 Encoding.UTF8
             );

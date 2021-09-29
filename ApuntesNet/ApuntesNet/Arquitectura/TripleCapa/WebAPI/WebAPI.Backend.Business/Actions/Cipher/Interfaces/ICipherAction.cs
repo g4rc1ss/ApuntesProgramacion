@@ -2,6 +2,6 @@
 
 namespace WebAPI.Backend.Business.Actions.Cipher.Interfaces {
     public interface ICipherAction {
-        Task<string> CifrarTexto(string textoCifrar);
+        string CifrarTexto(string textoCifrar);
     }
 }

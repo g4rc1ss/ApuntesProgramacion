@@ -1,0 +1,20 @@
+﻿@model MvcExample.Models.UserViewModel
+
+@{
+    Layout = null;
+}
+
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+    </tr>
+    @foreach (var item in Model.Usuarios)
+    {
+        <tr>
+            <td>@item.Nombre</td>
+            <td>@item.Apellidos</td>
+        </tr>
+    }
+
+</table>
