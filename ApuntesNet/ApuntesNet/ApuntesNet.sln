@@ -22,9 +22,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{2BAD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{38CF5FB2-3D50-4B13-8314-F700B05383F3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01_Frontend", "01_Frontend", "{306EA200-0CA3-41E0-8877-91656BF05BD2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01_API", "01_API", "{306EA200-0CA3-41E0-8877-91656BF05BD2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Backend", "02_Backend", "{29F32913-F040-4AEB-BF75-D13AAA8271AC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Business", "02_Business", "{29F32913-F040-4AEB-BF75-D13AAA8271AC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04_Utilities", "04_Utilities", "{7AFBCA32-61FE-4B1D-A377-29FDED10441C}"
 EndProject
@@ -120,7 +120,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.Backend.Business"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.Migrations", "Arquitectura\TripleCapa\DesktopUI\DesktopUI.Migrations\DesktopUI.Migrations.csproj", "{A9BBC14E-9FE7-4DD6-B9F9-FCC359D2C034}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.Frontend.Api", "Arquitectura\TripleCapa\WebAPI\WebAPI.Frontend.Api\WebAPI.Frontend.Api.csproj", "{6DAE3C98-F8D6-40E8-8008-03F1166F547A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.Backend.Api", "Arquitectura\TripleCapa\WebAPI\WebAPI.Frontend.Api\WebAPI.Backend.Api.csproj", "{6DAE3C98-F8D6-40E8-8008-03F1166F547A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.Backend.Business", "Arquitectura\TripleCapa\WebAPI\WebAPI.Backend.Business\WebAPI.Backend.Business.csproj", "{9928A4AD-F5DE-492F-A528-FFC268139B93}"
 EndProject
@@ -158,7 +158,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TresEnRaya", "Desktop\Gui\T
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dapper", "Dapper", "{CC4E5E2F-BBB9-4765-9E79-9971FD11621D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqliteDapper", "BackEnd\BBDD\SqliteDapper\SqliteDapper.csproj", "{52346C0F-E777-4DFE-B735-B52CC67AD8D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqliteDapper", "BackEnd\BBDD\SqliteDapper\SqliteDapper.csproj", "{52346C0F-E777-4DFE-B735-B52CC67AD8D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebAssembly", "WEB\BlazorWebAssembly\BlazorWebAssembly.csproj", "{7F11C688-F073-4861-A822-C3C6E0ABE325}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -350,6 +352,10 @@ Global
 		{52346C0F-E777-4DFE-B735-B52CC67AD8D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52346C0F-E777-4DFE-B735-B52CC67AD8D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52346C0F-E777-4DFE-B735-B52CC67AD8D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F11C688-F073-4861-A822-C3C6E0ABE325}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F11C688-F073-4861-A822-C3C6E0ABE325}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F11C688-F073-4861-A822-C3C6E0ABE325}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F11C688-F073-4861-A822-C3C6E0ABE325}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -427,6 +433,7 @@ Global
 		{8A1D2E77-6610-4148-8892-58057B688E4D} = {0668E463-2FB9-4D83-8FD5-BABAF6E85BDB}
 		{CC4E5E2F-BBB9-4765-9E79-9971FD11621D} = {9F482526-4BE5-432B-867D-12DB99E95A74}
 		{52346C0F-E777-4DFE-B735-B52CC67AD8D1} = {CC4E5E2F-BBB9-4765-9E79-9971FD11621D}
+		{7F11C688-F073-4861-A822-C3C6E0ABE325} = {1DA159C8-90C4-4281-BD8E-514EF1B0CF3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E490D0C8-C5A7-4F24-8A9B-CE1635508778}
