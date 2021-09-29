@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using WebApiExample.Business.Manager;
+using WebApiExample.Shared.DTO.Request;
 
 namespace WebApiExample.Business.Action {
     public class ActionUsers : IActionUsers {
@@ -20,6 +21,15 @@ namespace WebApiExample.Business.Action {
             } catch (Exception ex) {
                 _logger.LogError(ex.Message);
                 return new List<User>();
+            }
+        }
+
+        public async Task<bool> InsertUser(UserRequest userRequest) {
+            try {
+                return await _userManager.InsertUser(userRequest);
+            } catch (Exception ex) {
+                _logger.LogError(ex.Message);
+                return false;
             }
         }
     }

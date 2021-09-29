@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApiExample.Database.DTO;
+using WebApiExample.Shared.DTO.Request;
 
 namespace WebApiExample.Business.Manager {
     public class User {
@@ -15,6 +16,13 @@ namespace WebApiExample.Business.Manager {
                 Id = userDatabase.UserID.ToString(),
                 Nombre = userDatabase.Nombre,
                 Apellidos = userDatabase.Apellidos
+            };
+        }
+
+        public static implicit operator User(UserRequest userRequest) {
+            return new User {
+                Nombre = userRequest.Nombre,
+                Apellidos = userRequest.Apellido
             };
         }
     }

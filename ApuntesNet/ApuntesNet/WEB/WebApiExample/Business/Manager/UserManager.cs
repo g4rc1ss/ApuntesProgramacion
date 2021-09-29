@@ -16,5 +16,9 @@ namespace WebApiExample.Business.Manager {
             var response = await _usersDatabase.GetAllUsers();
             return response.Select(x => (User)x).ToList();
         }
+
+        public async Task<bool> InsertUser(User userRequest) {
+            return await _usersDatabase.InsertUser(userRequest);
+        }
     }
 }
