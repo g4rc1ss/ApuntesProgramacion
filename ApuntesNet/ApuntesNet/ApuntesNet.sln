@@ -158,8 +158,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dapper", "Dapper", "{CC4E5E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqliteDapper", "BackEnd\BBDD\SqliteDapper\SqliteDapper.csproj", "{52346C0F-E777-4DFE-B735-B52CC67AD8D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebAssembly", "WEB\BlazorWebAssembly\BlazorWebAssembly.csproj", "{7F11C688-F073-4861-A822-C3C6E0ABE325}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Algoritmos", "Algoritmos", "{092D883B-8021-4EA1-8996-CF11B1AE0BAB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusquedaBinaria", "BackEnd\Algoritmos\BusquedaBinaria\BusquedaBinaria.csproj", "{B5191F93-91B8-4868-9BA3-379937F4130C}"
@@ -176,9 +174,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CifradoCesarAritmeticaModul
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CifradoMaquinaEnigma", "BackEnd\Algoritmos\CifradoMaquinaEnigma\CifradoMaquinaEnigma.csproj", "{16667804-15B0-41ED-8A52-A09EF62ED8D0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebAssembly", "WEB\BlazorWebAssembly\BlazorWebAssembly.csproj", "{F7595692-10A4-40AD-B72B-8F9EC10293D8}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.Backend.Api", "Arquitectura\TripleCapa\WebAPI\WebAPI.Backend.Api\WebAPI.Backend.Api.csproj", "{FCAE0307-C9E1-42FF-BE69-49CE75044697}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebAssembly", "WEB\BlazorWebAssembly\BlazorWebAssembly.csproj", "{1A377462-B935-4A99-9ADC-7845FB7EA31E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -394,14 +392,14 @@ Global
 		{16667804-15B0-41ED-8A52-A09EF62ED8D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16667804-15B0-41ED-8A52-A09EF62ED8D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16667804-15B0-41ED-8A52-A09EF62ED8D0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F7595692-10A4-40AD-B72B-8F9EC10293D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F7595692-10A4-40AD-B72B-8F9EC10293D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F7595692-10A4-40AD-B72B-8F9EC10293D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F7595692-10A4-40AD-B72B-8F9EC10293D8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FCAE0307-C9E1-42FF-BE69-49CE75044697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FCAE0307-C9E1-42FF-BE69-49CE75044697}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCAE0307-C9E1-42FF-BE69-49CE75044697}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCAE0307-C9E1-42FF-BE69-49CE75044697}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A377462-B935-4A99-9ADC-7845FB7EA31E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A377462-B935-4A99-9ADC-7845FB7EA31E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A377462-B935-4A99-9ADC-7845FB7EA31E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A377462-B935-4A99-9ADC-7845FB7EA31E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -486,8 +484,8 @@ Global
 		{A4353037-464C-4F4D-9AB7-D599FC410ED4} = {092D883B-8021-4EA1-8996-CF11B1AE0BAB}
 		{5BA252CD-357F-4089-B820-311DC931303E} = {092D883B-8021-4EA1-8996-CF11B1AE0BAB}
 		{16667804-15B0-41ED-8A52-A09EF62ED8D0} = {092D883B-8021-4EA1-8996-CF11B1AE0BAB}
-		{F7595692-10A4-40AD-B72B-8F9EC10293D8} = {1DA159C8-90C4-4281-BD8E-514EF1B0CF3E}
 		{FCAE0307-C9E1-42FF-BE69-49CE75044697} = {306EA200-0CA3-41E0-8877-91656BF05BD2}
+		{1A377462-B935-4A99-9ADC-7845FB7EA31E} = {1DA159C8-90C4-4281-BD8E-514EF1B0CF3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E490D0C8-C5A7-4F24-8A9B-CE1635508778}
