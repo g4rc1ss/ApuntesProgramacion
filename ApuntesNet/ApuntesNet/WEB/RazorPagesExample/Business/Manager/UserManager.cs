@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApiExample.Database.Queries;
+using RazorPagesExample.Database.Queries;
 
-namespace WebApiExample.Business.Manager {
+namespace RazorPagesExample.Business.Manager {
     public class UserManager : IUserManager {
         private readonly IUsersDatabase _usersDatabase;
 
@@ -12,9 +12,9 @@ namespace WebApiExample.Business.Manager {
             _usersDatabase = usersDatabase;
         }
 
-        public async Task<List<User>> GetAllUser() {
+        public async Task<IEnumerable<User>> GetAllUser() {
             var response = await _usersDatabase.GetAllUsers();
-            return response.Select(x => (User)x).ToList();
+            return response.Select(x => (User)x);
         }
     }
 }

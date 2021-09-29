@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 using System.IO;
 using Newtonsoft.Json.Linq;
 
-namespace WebApiExample.Databsae {
+namespace WebApiExample.Database {
     public class DapperConfig : IDapperConfig {
         private readonly string _connectionString;
 

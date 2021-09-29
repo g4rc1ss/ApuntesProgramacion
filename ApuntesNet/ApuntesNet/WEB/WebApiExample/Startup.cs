@@ -5,10 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Dapper;
-using WebApiExample.Databsae;
 using WebApiExample.Business.Action;
 using WebApiExample.Business.Manager;
-using WebApiExample.Databsae.Queries;
+using WebApiExample.Database.Queries;
+using WebApiExample.Database;
 
 namespace WebApiExample {
     public class Startup {

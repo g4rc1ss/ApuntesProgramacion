@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dapper;
-using WebApiExample.Databsae.DTO;
+using WebApiExample.Database.DTO;
 
-namespace WebApiExample.Databsae.Queries {
+namespace WebApiExample.Database.Queries {
     public class UsersDatabase : IUsersDatabase {
         private readonly IDapperConfig _dapperConfig;
 
@@ -12,7 +12,7 @@ namespace WebApiExample.Databsae.Queries {
         }
 
         public async Task<IEnumerable<UserDatabase>> GetAllUsers() {
-            using(var connection = _dapperConfig.GetConnection()) {
+            using (var connection = _dapperConfig.GetConnection()) {
                 return await connection.QueryAsync<UserDatabase>("SELECT * FROM [PruebasConceptoWebApuntesNet].dbo.USUARIO");
             }
         }

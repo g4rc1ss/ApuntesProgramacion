@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace WebApiExample.Databsae {
+namespace WebApiExample.Database {
     public interface IDapperConfig {
         IDbConnection GetConnection();
     }

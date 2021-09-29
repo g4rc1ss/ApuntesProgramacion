@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebApiExample.Databsae.DTO;
+using WebApiExample.Database.DTO;
 
-namespace WebApiExample.Databsae.Queries {
+namespace WebApiExample.Database.Queries {
     public interface IUsersDatabase {
         Task<IEnumerable<UserDatabase>> GetAllUsers();
     }

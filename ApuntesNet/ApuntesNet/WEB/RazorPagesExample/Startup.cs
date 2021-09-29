@@ -1,8 +1,11 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RazorPagesExample.Business.Action;
+using RazorPagesExample.Business.Manager;
+using RazorPagesExample.Database.Queries;
 
 namespace RazorPagesExample {
     public class Startup {
@@ -15,6 +18,10 @@ namespace RazorPagesExample {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
             services.AddRazorPages();
+
+            services.AddScoped<IUserAction, UserAction>();
+            services.AddScoped<IUserManager, UserManager>();
+            services.AddScoped<IUsersDatabase, UsersDatabase>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
