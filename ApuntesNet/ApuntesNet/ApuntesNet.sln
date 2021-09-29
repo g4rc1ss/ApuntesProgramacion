@@ -160,6 +160,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dapper", "Dapper", "{CC4E5E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqliteDapper", "BackEnd\BBDD\SqliteDapper\SqliteDapper.csproj", "{52346C0F-E777-4DFE-B735-B52CC67AD8D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebAssembly", "WEB\BlazorWebAssembly\BlazorWebAssembly.csproj", "{7F11C688-F073-4861-A822-C3C6E0ABE325}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -350,6 +352,10 @@ Global
 		{52346C0F-E777-4DFE-B735-B52CC67AD8D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52346C0F-E777-4DFE-B735-B52CC67AD8D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52346C0F-E777-4DFE-B735-B52CC67AD8D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F11C688-F073-4861-A822-C3C6E0ABE325}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F11C688-F073-4861-A822-C3C6E0ABE325}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F11C688-F073-4861-A822-C3C6E0ABE325}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F11C688-F073-4861-A822-C3C6E0ABE325}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -427,6 +433,7 @@ Global
 		{8A1D2E77-6610-4148-8892-58057B688E4D} = {0668E463-2FB9-4D83-8FD5-BABAF6E85BDB}
 		{CC4E5E2F-BBB9-4765-9E79-9971FD11621D} = {9F482526-4BE5-432B-867D-12DB99E95A74}
 		{52346C0F-E777-4DFE-B735-B52CC67AD8D1} = {CC4E5E2F-BBB9-4765-9E79-9971FD11621D}
+		{7F11C688-F073-4861-A822-C3C6E0ABE325} = {1DA159C8-90C4-4281-BD8E-514EF1B0CF3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E490D0C8-C5A7-4F24-8A9B-CE1635508778}

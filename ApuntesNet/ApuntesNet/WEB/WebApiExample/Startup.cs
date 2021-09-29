@@ -25,6 +25,11 @@ namespace WebApiExample {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApiExample", Version = "v1" });
             });
 
+            // Cuando se van a realizar solicitudes sobre el mismo origen, por ejemplo, ejecutando una app Blazor se requiere permitirlo mediante una policita de configuracion
+            services.AddCors(option => {
+                option.AddPolicy("open", builder => builder.AllowAnyOrigin().AllowAnyHeader());
+            });
+
             services.AddDataProtection();
             services.AddSingleton<IDapperConfig, DapperConfig>();
             services.AddScoped<IActionUsers, ActionUsers>();
@@ -38,6 +43,7 @@ namespace WebApiExample {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApiExample v1"));
+                app.UseCors("open");
             }
 
             app.UseHttpsRedirection();
