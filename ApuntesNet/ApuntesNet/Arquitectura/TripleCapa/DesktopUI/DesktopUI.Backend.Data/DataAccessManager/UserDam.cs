@@ -14,17 +14,17 @@ namespace DesktopUI.Backend.Data.DataAccessManager {
         public async Task<List<Usuario>> GetAllUsersAsync() {
             using (var context = contexto.CreateDbContext()) {
                 return await (from user in context.Usuarios
-                        orderby user.Id
-                        select user).ToListAsync();
+                              orderby user.Id
+                              select user).ToListAsync();
             }
         }
 
         public async Task<List<Usuario>> GetAllUsersWithEdadAsync(int edad) {
             using (var context = contexto.CreateDbContext()) {
                 return await (from user in context.Usuarios
-                        where user.Edad == edad
-                        orderby user.Id
-                        select user).ToListAsync();
+                              where user.Edad == edad
+                              orderby user.Id
+                              select user).ToListAsync();
             }
         }
     }
