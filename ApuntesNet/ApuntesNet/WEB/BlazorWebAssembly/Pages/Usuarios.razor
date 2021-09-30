@@ -1,0 +1,44 @@
+﻿@page "/usuarios"
+@inject HttpClient http
+@using Newtonsoft.Json
+
+<h3>Usuarios</h3>
+
+@if (_userResponse == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var usuarios in _userResponse)
+            {
+                <tr>
+                    <td>
+                        @usuarios.Nombre
+                    </td>
+                    <td>
+                        @usuarios.Apellidos
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<UserResponse> _userResponse;
+    protected override async Task OnInitializedAsync()
+    {
+        _userResponse = await http.GetFromJsonAsync<List<UserResponse>>("User/users");
+        //var response = await http.GetStringAsync("User/users");
+        //_userResponse = JsonConvert.DeserializeObject<List<UserResponse>>(response);
+    }
+}

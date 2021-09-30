@@ -1,8 +1,11 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MvcExample.Business.Action;
+using MvcExample.Business.Manager;
+using MvcExample.Database.Queries;
 
 namespace MvcExample {
     public class Startup {
@@ -15,6 +18,10 @@ namespace MvcExample {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
             services.AddControllersWithViews();
+
+            services.AddScoped<IUserAction, UserAction>();
+            services.AddScoped<IUserManager, UserManager>();
+            services.AddScoped<IUsersDatabase, UsersDatabase>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
