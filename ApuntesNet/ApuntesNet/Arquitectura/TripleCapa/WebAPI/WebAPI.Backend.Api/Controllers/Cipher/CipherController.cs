@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebAPI.Backend.Business.Actions.Cipher.Interfaces;
 
 namespace WebAPI.Frontend.Api.Controllers.Cipher {

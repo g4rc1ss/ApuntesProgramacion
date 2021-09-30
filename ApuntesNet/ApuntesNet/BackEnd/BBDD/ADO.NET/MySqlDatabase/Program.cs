@@ -2,7 +2,7 @@
 
 namespace MySqlDatabase {
     internal class Program {
-        const string CONNECTION_STRING = "server=localhost;user=root;database=apuntesnet;port=3306;password=123456";
+        private const string CONNECTION_STRING = "server=localhost;user=root;database=apuntesnet;port=3306;password=123456";
 
         private static void Main() {
             _ = new CreateDatabaseAndTables(CONNECTION_STRING);

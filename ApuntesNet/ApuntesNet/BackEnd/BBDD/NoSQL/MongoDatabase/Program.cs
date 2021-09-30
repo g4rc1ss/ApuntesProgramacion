@@ -2,7 +2,7 @@
 
 namespace MongoDatabase {
     internal class Program {
-        const string CONNECTION_STRING = "mongodb://root:123456@localhost:27017/";
+        private const string CONNECTION_STRING = "mongodb://root:123456@localhost:27017/";
         private static void Main(string[] args) {
             CreateDatabaseAndTables.CreateDatabase(CONNECTION_STRING);
             CreateDatabaseAndTables.CreateTables(CONNECTION_STRING);

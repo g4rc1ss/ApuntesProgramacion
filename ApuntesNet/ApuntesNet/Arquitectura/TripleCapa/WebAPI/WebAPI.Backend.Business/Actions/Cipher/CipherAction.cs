@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using WebAPI.Backend.Business.Actions.Cipher.Interfaces;
 using WebAPI.Backend.Business.BusinessManager.CipherManager.Interfaces;

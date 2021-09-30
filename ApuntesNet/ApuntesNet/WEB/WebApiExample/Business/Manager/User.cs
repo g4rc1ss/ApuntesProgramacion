@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebApiExample.Database.DTO;
+﻿using WebApiExample.Database.DTO;
 using WebApiExample.Shared.DTO.Request;
 
 namespace WebApiExample.Business.Manager {

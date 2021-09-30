@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebApiExample.Business.Manager;
 
 namespace WebApiExample.Database.DTO {
