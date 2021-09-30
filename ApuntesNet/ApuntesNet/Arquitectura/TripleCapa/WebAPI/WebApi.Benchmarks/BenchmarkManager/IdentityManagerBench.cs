@@ -1,4 +1,5 @@
-﻿using BenchmarkDotNet.Attributes;
+﻿using System.Threading.Tasks;
+using BenchmarkDotNet.Attributes;
 using Microsoft.Extensions.Logging;
 using Moq;
 using WebApi.SimulateDataForTesting;
@@ -19,18 +20,18 @@ namespace WebApi.Benchmarks.BenchmarkManager {
         }
 
         [Benchmark]
-        public void Login() {
-            applicationUserManager.LoginAsync(string.Empty, string.Empty, false);
+        public async Task LoginAsync() {
+            await applicationUserManager.LoginAsync(string.Empty, string.Empty, false);
         }
 
         [Benchmark]
-        public void CreateUser() {
-            applicationUserManager.CreateUserAccountAsync(It.IsAny<CreateAccountData>());
+        public async Task CreateUserAsync() {
+            await applicationUserManager.CreateUserAccountAsync(It.IsAny<CreateAccountData>());
         }
 
         [Benchmark]
-        public void Logout() {
-            applicationUserManager.LogoutAsync();
+        public async Task LogoutAsync() {
+            await applicationUserManager.LogoutAsync();
         }
     }
 }
