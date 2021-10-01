@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace WebAPI.Frontend.Api.Controllers {
-    public class BaseApiController : ControllerBase {
+    public class BaseApiController : Controller {
 
         /// <summary>
         /// Creamos la respuesta para que nos devuelva los datos en formato JSON
