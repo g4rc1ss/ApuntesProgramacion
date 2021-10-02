@@ -3,7 +3,7 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Frontend.Api.Controllers {
-    public class InicioController : BaseApiController {
+    public class InicioController : Controller {
 
         [HttpGet]
         [Route("")]
