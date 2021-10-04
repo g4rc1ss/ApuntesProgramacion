@@ -17,7 +17,7 @@ namespace DesktopUI.Frontend {
 
         private static IHostBuilder CreateHostBuilder(string[] args) {
             return new HostBuilder()
-                .UseEnvironment(System.Environment.GetEnvironmentVariable("WPF_ENVIRONMENT") ?? "Production")
+                .UseEnvironment(System.Environment.GetEnvironmentVariable("DESKTOP_ENVIRONMENT") ?? "Production")
                 .ConfigureAppConfiguration((hostContext, configBuilder) => {
                     _ = configBuilder.AddJsonFile("appsettings.json");
                     _ = configBuilder.AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true);

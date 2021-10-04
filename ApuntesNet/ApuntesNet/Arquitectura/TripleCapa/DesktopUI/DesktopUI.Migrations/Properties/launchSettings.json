@@ -3,7 +3,7 @@
     "Migrations.Debug": {
       "commandName": "Project",
       "environmentVariables": {
-        "CONSOLE_ENVIRONMENT": "Development"
+        "DESKTOP_ENVIRONMENT": "Development"
       }
     },
     "Migrations.Production": {
