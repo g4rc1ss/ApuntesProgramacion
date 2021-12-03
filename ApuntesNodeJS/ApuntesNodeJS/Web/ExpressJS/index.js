@@ -119,9 +119,9 @@ app.delete('/borrarUsuario', (request, response) => {
 
 // conexion Base de Datos
 let MongoClient = mongodb.MongoClient;
-
 MongoClient.connect(
-    "mongodb://localhost:27017/",
+    "mongodb+srv://agarciab:Bilbo2018!@pruebarapida.ym6bw.mongodb.net/Proyecto3?retryWrites=true&w=majority",
+    //"mongodb://localhost:27017/",
     function (err, client) {
         if (err !== undefined) {
             console.log("hey", err);
