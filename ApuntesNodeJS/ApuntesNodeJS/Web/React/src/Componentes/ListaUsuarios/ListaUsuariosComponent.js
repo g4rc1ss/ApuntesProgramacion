@@ -3,6 +3,10 @@ import { useEffect } from 'react';
 import './ListaUsuariosComponent.css';
 import EditarUsuariosModal from '../EditarUsuarios/EditarUsuariosModal';
 
+// https://icons.getbootstrap.com/
+import * as Icon from 'react-bootstrap-icons';
+
+
 function ListaUsuariosComponent() {
     const [usuario, setUsuario] = useState([]);
     //const [isOpen, setIsOpen] = useState(false);
@@ -39,10 +43,18 @@ function ListaUsuariosComponent() {
                                     <td class="text-center">{usuario.Apellido}</td>
                                     <td class="text-center">{usuario.FechaUltimaEntrada}</td>
                                     <td class="text-center">{usuario.FechaUltimaSalida}</td>
-                                    <td class="text-center">{usuario.EstaEnOficina.toString()}</td>
+                                    <td class="text-center">
+                                        {
+                                            usuario.EstaEnOficina ? <Icon.CheckCircle color="green" /> : <Icon.XCircle color="red" />
+                                        }
+                                    </td>
                                     <td>
-                                        <button onClick={() => editarUsuario(usuario._id)} class="btn btn-primary">Editar</button>
-                                        <button onClick={() => borrarUsuario(usuario._id)} class="btn btn-danger">Eliminar</button>
+                                        <button onClick={() => editarUsuario(usuario._id)} class="btn btn-primary">
+                                            <Icon.PencilFill />
+                                        </button>
+                                        <button onClick={() => borrarUsuario(usuario._id)} class="btn btn-danger">
+                                            <Icon.Trash />
+                                        </button>
                                     </td>
                                 </tr>
                             );
@@ -72,7 +84,7 @@ function borrarUsuario(idUsuario) {
         .then(response => response.json())
         .then(respuesta => respuesta)
 
-        alert("Se ha eliminado el trabajador correctamente");
+    alert("Se ha eliminado el trabajador correctamente");
     //recargamos la pagina
     window.location.href = "/listaUsuarios";
 }
