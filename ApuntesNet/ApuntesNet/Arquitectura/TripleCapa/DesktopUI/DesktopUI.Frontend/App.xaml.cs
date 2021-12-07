@@ -1,6 +1,8 @@
-﻿using System.Windows;
+﻿using System.Data;
+using System.Windows;
 using DesktopUI.Backend.Business;
 using DesktopUI.Backend.Data;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
