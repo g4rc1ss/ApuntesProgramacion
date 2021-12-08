@@ -1,15 +1,14 @@
-﻿using MongoDatabase.Queries;
+﻿using System.Threading.Tasks;
+using MongoDatabase.Queries;
 
 namespace MongoDatabase {
     internal class Program {
-        private const string CONNECTION_STRING = "mongodb://root:123456@localhost:27017/";
-        private static void Main(string[] args) {
-            CreateDatabaseAndTables.CreateDatabase(CONNECTION_STRING);
-            CreateDatabaseAndTables.CreateTables(CONNECTION_STRING);
-            InsertData.Insert(CONNECTION_STRING);
-            UpdateData.Update(CONNECTION_STRING);
-            DeleteData.Delete(CONNECTION_STRING);
-            SelectData.Select(CONNECTION_STRING);
+        private static async Task Main(string[] args) {
+            await CreateDatabaseAndCollections.CreateCollection();
+            await InsertData.Insert();
+            await UpdateData.Update();
+            await DeleteData.Delete();
+            await SelectData.Select();
         }
     }
 }
