@@ -3,7 +3,7 @@
     "DesktopUI.Frontend": {
       "commandName": "Project",
       "environmentVariables": {
-        "WPF_ENVIRONMENT": "Development"
+        "DESKTOP_ENVIRONMENT": "Development"
       },
       "sqlDebugging": false
     }

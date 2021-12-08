@@ -19,5 +19,13 @@ namespace DesktopUI.Backend.Business.Actions {
                 return Task.FromResult(new List<Usuario>());
             }
         }
+
+        public Task<List<Usuario>> GetAllUsersWithDapper() {
+            try {
+                return userManager.GetListaUsuariosWithDapperAsync();
+            } catch (Exception) {
+                return Task.FromResult(new List<Usuario>());
+            }
+        }
     }
 }

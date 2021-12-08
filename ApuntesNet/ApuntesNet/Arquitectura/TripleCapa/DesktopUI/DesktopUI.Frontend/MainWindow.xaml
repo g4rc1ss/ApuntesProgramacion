@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DesktopUI.Frontend"
         mc:Ignorable="d"
-        Title="MainWindow" Height="433" Width="561">
+        Title="MainWindow" Height="433" Width="584">
     <Canvas>
-        <Button Content="Cargar Table BBDD" Canvas.Left="152" RenderTransformOrigin="-3.833,-7.802" Height="40" Width="256" Click="CargarBBDD" Canvas.Top="10"/>
+        <Button Content="Cargar Table BBDD con EF Core" Canvas.Left="24" RenderTransformOrigin="-3.833,-7.802" Height="40" Width="256" Click="CargarBBDD" Canvas.Top="17"/>
         <DataGrid x:Name="DataGrid_Table" Canvas.Top="70" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nombre" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Edad" Binding="{Binding Edad}"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Button Content="Cargar Table BBDD con Dapper" Canvas.Left="295" RenderTransformOrigin="-3.833,-7.802" Height="40" Width="256" Click="CargarBBDD_WithDapper" Canvas.Top="17"/>
     </Canvas>
 </Window>

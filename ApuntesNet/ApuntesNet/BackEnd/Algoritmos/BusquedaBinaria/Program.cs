@@ -74,7 +74,7 @@ namespace BusquedaBinaria {
             return false;
         }
 
-        static int iteracionesRecursivas = 0;
+        private static int iteracionesRecursivas = 0;
         private static bool BuscarValorRecurviso(in List<int> arrayOrdenado, long numero, int left, int right) {
             iteracionesRecursivas++;
             var mitad = (right + left) / 2;

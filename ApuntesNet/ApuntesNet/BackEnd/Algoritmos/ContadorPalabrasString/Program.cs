@@ -55,7 +55,7 @@ namespace ContadorPalabrasString {
             var diccionarioPalabras = new Dictionary<string, int>();
             long iteraciones = 0;
 
-            for (int i = 0; i < cadenaArray.Length; i++) {
+            for (var i = 0; i < cadenaArray.Length; i++) {
                 if (!diccionarioPalabras.ContainsKey(cadenaArray[i])) {
                     diccionarioPalabras.Add(cadenaArray[i], 0);
                 }

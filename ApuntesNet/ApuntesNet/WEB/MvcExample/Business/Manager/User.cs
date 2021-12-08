@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MvcExample.Database.DTO;
+﻿using MvcExample.Database.DTO;
 
 namespace MvcExample.Business.Manager {
     public class User {

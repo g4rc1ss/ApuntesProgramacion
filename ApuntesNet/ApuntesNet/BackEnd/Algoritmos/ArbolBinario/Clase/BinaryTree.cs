@@ -39,14 +39,16 @@ namespace ArbolBinario.Clase {
 
             if (root.Left is not null) {
                 var listaLeft = GetPathOfValue(root.Left, valueToSearch);
-                if (listaLeft.Contains(valueToSearch))
+                if (listaLeft.Contains(valueToSearch)) {
                     listaValor.AddRange(listaLeft);
+                }
             }
 
             if (root.Right is not null) {
                 var listaRight = GetPathOfValue(root.Right, valueToSearch);
-                if (listaRight.Contains(valueToSearch))
+                if (listaRight.Contains(valueToSearch)) {
                     listaValor.AddRange(listaRight);
+                }
             }
 
             return listaValor;

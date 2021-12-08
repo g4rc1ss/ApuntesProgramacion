@@ -8,7 +8,7 @@ namespace ArbolBinario {
             var path5 = arbolParaPrueba.GetPathOfValue(5);
             var path4 = arbolParaPrueba.GetPathOfValue(4);
 
-            for (int i = 0; i < (path4.Count < path5.Count ? path4.Count : path5.Count); i++) {
+            for (var i = 0; i < (path4.Count < path5.Count ? path4.Count : path5.Count); i++) {
                 if (path4[i] != path5[i]) {
                     Console.WriteLine($"El superior en comun es {path4[i - 1]}");
                     break;

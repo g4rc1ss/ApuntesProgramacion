@@ -21,5 +21,15 @@ namespace DesktopUI.Backend.Business.Manager {
             var response = listaUsuarios?.Result?.Concat(listaUsuariosConEdad?.Result).ToList();
             return response;
         }
+
+        public async Task<List<Usuario>> GetListaUsuariosWithDapperAsync() {
+            var listaUsuarios = Task.Run(() => userDam.GetAllUsersWithDapperAsync());
+            var listaUsuariosConEdad = Task.Run(() => userDam.GetAllUsersWithEdadWithDapperAsync(12));
+
+            await Task.WhenAll(listaUsuarios, listaUsuariosConEdad);
+
+            var response = listaUsuarios.Result?.Concat(listaUsuariosConEdad.Result).ToList();
+            return response;
+        }
     }
 }
