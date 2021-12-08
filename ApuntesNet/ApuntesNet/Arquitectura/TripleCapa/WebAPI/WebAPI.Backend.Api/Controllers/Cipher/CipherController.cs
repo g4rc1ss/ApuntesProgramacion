@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebAPI.Backend.Business.Actions.Cipher.Interfaces;
 
 namespace WebAPI.Frontend.Api.Controllers.Cipher {
     [ApiController]
-    public class CipherController : BaseApiController {
+    [Route("api/[controller]")]
+    public class CipherController : Controller {
         private readonly ICipherAction cipherAction;
 
         public CipherController(ICipherAction cipherAction) {
@@ -12,13 +12,12 @@ namespace WebAPI.Frontend.Api.Controllers.Cipher {
         }
 
         [ResponseCache(Duration = 4320)]
-        [HttpGet]
-        [Route("api/cifrarText")]
-        public IActionResult CifrarAsync([FromBody] Texto text) {
+        [HttpGet("cifrartext/{texto}")]
+        public Texto Cifrar(string texto) {
             var textoCifrado = new Texto {
-                Text = cipherAction.CifrarTexto(text.Text)
+                Text = cipherAction.CifrarTexto(texto)
             };
-            return CrearRespuesta(textoCifrado);
+            return textoCifrado;
         }
     }
 

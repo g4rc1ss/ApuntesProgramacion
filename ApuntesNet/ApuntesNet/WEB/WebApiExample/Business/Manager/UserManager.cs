@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApiExample.Database.Queries;
@@ -15,6 +14,10 @@ namespace WebApiExample.Business.Manager {
         public async Task<List<User>> GetAllUser() {
             var response = await _usersDatabase.GetAllUsers();
             return response.Select(x => (User)x).ToList();
+        }
+
+        public async Task<bool> InsertUser(User userRequest) {
+            return await _usersDatabase.InsertUser(userRequest);
         }
     }
 }

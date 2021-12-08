@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using WebAPI.Backend.Business;
 using WebAPI.Backend.Data;
 using WebAPI.Backend.Data.Database.Identity;
@@ -24,6 +25,13 @@ namespace WebAPI.Frontend.Api {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
             _ = services.AddControllers();
+
+            _ = services.AddSwaggerGen(swagger => {
+                swagger.SwaggerDoc("v1", new OpenApiInfo {
+                    Title = nameof(WebAPI),
+                    Version = "v1"
+                });
+            });
 
             _ = services.AddIdentity<User, Role>(options => {
                 options.Password.RequiredLength = 8;
@@ -57,6 +65,8 @@ namespace WebAPI.Frontend.Api {
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
             if (env.IsDevelopment()) {
                 _ = app.UseDeveloperExceptionPage();
+                _ = app.UseSwagger();
+                _ = app.UseSwaggerUI(swagger => swagger.SwaggerEndpoint("/swagger/v1/swagger.json", $"{nameof(WebAPI)} v1"));
             }
 
             _ = app.UseHttpsRedirection();

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using RazorPagesExample.Database.DTO;
+﻿using RazorPagesExample.Database.DTO;
 
 namespace RazorPagesExample.Business.Manager {
     public class User {

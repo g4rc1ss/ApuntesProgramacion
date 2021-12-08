@@ -6,7 +6,7 @@ using WebAPI.Frontend.Api.Clases.Login;
 
 namespace WebAPI.Frontend.Api.Controllers.Account.Login {
     [ApiController]
-    public class AccountController : BaseApiController {
+    public class AccountController : Controller {
         private readonly IAccountAction accountAction;
         public AccountController(IAccountAction accountAction) {
             this.accountAction = accountAction;
@@ -17,13 +17,13 @@ namespace WebAPI.Frontend.Api.Controllers.Account.Login {
         /// </summary>
         /// <param name="credentials"></param>
         /// <returns>se retorna un objeto ContentResult, que es un objeto ya formado
-        /// automaticamente por el metodo CrearRespuesta() que devuelve los datos en formato
+        /// automaticamente por el metodo ) ue devuelve los datos en formato
         /// JSON</returns>
         [HttpPost]
         [Route("api/login")]
-        public async Task<ContentResult> Login([FromBody] CredentialsLogin credentials) {
+        public async Task<bool> Login([FromBody] CredentialsLogin credentials) {
             var resp = await LoginAsync(credentials);
-            return CrearRespuesta(resp);
+            return resp;
         }
         private async Task<bool> LoginAsync(CredentialsLogin credentials) {
             var resp = await accountAction.InicioSesionAsync(credentials.Username, credentials.Password, false);
@@ -32,9 +32,9 @@ namespace WebAPI.Frontend.Api.Controllers.Account.Login {
 
         [HttpPost]
         [Route("api/logout")]
-        public async Task<ContentResult> Logout() {
+        public async Task<bool> Logout() {
             var resp = await LogoutAsync();
-            return CrearRespuesta(resp);
+            return resp;
         }
         private async Task<bool> LogoutAsync() {
             var resp = await accountAction.CerrarSesionAsync();
@@ -43,9 +43,9 @@ namespace WebAPI.Frontend.Api.Controllers.Account.Login {
 
         [HttpPost]
         [Route("api/createAccount")]
-        public async Task<ContentResult> CreateUser([FromBody] CreateAccountData createAccountData) {
+        public async Task<bool> CreateUser([FromBody] CreateAccountData createAccountData) {
             var resp = await CreateUserAsync(createAccountData);
-            return CrearRespuesta(resp);
+            return resp;
         }
         private async Task<bool> CreateUserAsync(CreateAccountData createAccountData) {
             var resp = await accountAction.CrearCuentaUsuarioAsync(createAccountData);

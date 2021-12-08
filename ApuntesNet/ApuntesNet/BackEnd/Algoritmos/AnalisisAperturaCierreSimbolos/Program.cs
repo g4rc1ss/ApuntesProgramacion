@@ -5,7 +5,7 @@ namespace AnalisisAperturaCierreSimbolos {
     internal class Program {
         private const string PRUEBA1 = "[[[{{()}}]]]";
         private const string PRUEBA2 = "[[[{{(}]]]";
-        private static Dictionary<char, char> simbolosAperturaCierre = new() {
+        private static readonly Dictionary<char, char> simbolosAperturaCierre = new() {
             { '(', ')' },
             { '{', '}' },
             { '[', ']' }
