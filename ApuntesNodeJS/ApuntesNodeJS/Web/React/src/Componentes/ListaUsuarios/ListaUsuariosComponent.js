@@ -84,7 +84,7 @@ function borrarUsuario(idUsuario) {
         .then(response => response.json())
         .then(respuesta => respuesta)
 
-    alert("Se ha eliminado el trabajador correctamente");
+    //alert("Se ha eliminado el trabajador correctamente");
     //recargamos la pagina
     window.location.href = "/listaUsuarios";
 }

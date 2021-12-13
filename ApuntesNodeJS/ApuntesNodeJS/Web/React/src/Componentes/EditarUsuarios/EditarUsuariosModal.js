@@ -83,7 +83,7 @@ async function saveChanges(idUsuario, nombre, apellido, dni) {
         },
         body: JSON.stringify({ Id: idUsuario, Nombre: nombre, Apellido: apellido, DNI: dni })
     })
-    alert("Se han guardado los datos correctamente");
+    //alert("Se han guardado los datos correctamente");
     window.location.href = "/listaUsuarios";
 }
 

@@ -48,7 +48,7 @@ async function añadirUsuarioFetch(nombreUsuario, apellidoUsuario, dniUsuario) {
     })
     let respuesta = await response.json();
     console.log(respuesta)
-    alert("Se ha añadido correctamente");
+    //alert("Se ha añadido correctamente");
   }
 
 export default AñadirUsuarios;
