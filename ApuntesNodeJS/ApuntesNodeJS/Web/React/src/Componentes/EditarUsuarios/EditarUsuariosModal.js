@@ -30,7 +30,7 @@ function EditarUsuariosModal(props) {
 
     useEffect(() => {
         async function fetchData() {
-            let datosUsuario = await obtenerDatosUsuario(params.idUsuario);
+            let datosUsuario = await obtenerDatosUsuario(props.idUsuario);
             setNombre(datosUsuario.Nombre);
             setApellido(datosUsuario.Apellido);
             setDni(datosUsuario.DNI);
@@ -73,25 +73,25 @@ function EditarUsuariosModal(props) {
             </Modal>
         </>
     );
+
+    async function saveChanges(idUsuario, nombre, apellido, dni) {
+        let response = await fetch(`http://localhost:55434/actualizarUsuario`, {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ Id: idUsuario, Nombre: nombre, Apellido: apellido, DNI: dni })
+        })
+        //alert("Se han guardado los datos correctamente");
+        window.location.href = "/listaUsuarios";
+    }
+
+    async function obtenerDatosUsuario(idUsuario) {
+        let response = await fetch(`http://localhost:55434/listaUsuarios?id=${idUsuario}`);
+        let respuesta = await response.json();
+        return respuesta[0];
+    }
+
+
 }
-
-async function saveChanges(idUsuario, nombre, apellido, dni) {
-    let response = await fetch(`http://localhost:55434/actualizarUsuario`, {
-        method: 'PUT',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ Id: idUsuario, Nombre: nombre, Apellido: apellido, DNI: dni })
-    })
-    //alert("Se han guardado los datos correctamente");
-    window.location.href = "/listaUsuarios";
-}
-
-async function obtenerDatosUsuario(idUsuario) {
-    let response = await fetch(`http://localhost:55434/listaUsuarios?id=${idUsuario}`);
-    let respuesta = await response.json();
-    return respuesta[0];
-}
-
-
 export default EditarUsuariosModal;

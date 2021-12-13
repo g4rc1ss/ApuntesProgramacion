@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { Navigate } from 'react-router-dom'
 import './ListaUsuariosComponent.css';
+
 import EditarUsuariosModal from '../EditarUsuarios/EditarUsuariosModal';
 
 // https://icons.getbootstrap.com/
@@ -9,7 +11,6 @@ import * as Icon from 'react-bootstrap-icons';
 
 function ListaUsuariosComponent() {
     const [usuario, setUsuario] = useState([]);
-    //const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -17,7 +18,7 @@ function ListaUsuariosComponent() {
             setUsuario(listaUsuarios);
         }
         fetchData();
-    }, [])
+    }, [usuario])
 
     return (
         <div>
@@ -64,33 +65,32 @@ function ListaUsuariosComponent() {
             </table>
         </div>
     );
+
+    function getListaUsuarios() {
+        let response = fetch(`http://localhost:55434/listaUsuarios`)
+            .then(response => response.json())
+            .then(respuesta => respuesta)
+        return response;
+    }
+
+    function borrarUsuario(idUsuario) {
+        fetch(`http://localhost:55434/borrarUsuario`, {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ Id: idUsuario })
+        })
+            .then(response => response.json())
+            .then(respuesta => respuesta);
+        // Insertamos en el usuario para ejecutar el UseEffect y que se actualice la tabla
+        setUsuario(usuario)
+    }
+
+    function editarUsuario(dni) {
+        return <EditarUsuariosModal idUsuario={dni} showModal={true} />
+        //window.location.href = `/editarUsuarios/${dni}`;
+    }
+
 }
-
-function getListaUsuarios() {
-    let response = fetch(`http://localhost:55434/listaUsuarios`)
-        .then(response => response.json())
-        .then(respuesta => respuesta)
-    return response;
-}
-
-function borrarUsuario(idUsuario) {
-    fetch(`http://localhost:55434/borrarUsuario`, {
-        method: 'DELETE',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ Id: idUsuario })
-    })
-        .then(response => response.json())
-        .then(respuesta => respuesta)
-
-    //alert("Se ha eliminado el trabajador correctamente");
-    //recargamos la pagina
-    window.location.href = "/listaUsuarios";
-}
-
-function editarUsuario(dni) {
-    window.location.href = `/editarUsuarios/${dni}`;
-}
-
 export default ListaUsuariosComponent;
