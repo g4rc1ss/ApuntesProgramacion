@@ -5,6 +5,7 @@ import {
     Routes,
     Route
 } from "react-router-dom";
+import NavBarComponent from "./NavBar/NavBarComponent";
 import RegistroEntradaSalidaComponent from './RegistroEntradaSalida/RegistrarEntradaSalidaComponent';
 import ListaUsuariosComponent from './ListaUsuarios/ListaUsuariosComponent';
 import AñadirUsuarios from './AñadirUsuarios/AñadirUsuarios';
@@ -14,6 +15,7 @@ function App() {
     return (
         <div className="App">
             <Router>
+                <NavBarComponent />
                 <Routes>
                     <Route path="/" element={<RegistroEntradaSalidaComponent />} />
                     <Route path="/listaUsuarios" element={<ListaUsuariosComponent />} />
