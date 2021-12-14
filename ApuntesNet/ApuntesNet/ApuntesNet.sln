@@ -109,19 +109,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.Backend.Business"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.Migrations", "Arquitectura\TripleCapa\DesktopUI.Migrations\DesktopUI.Migrations.csproj", "{A9BBC14E-9FE7-4DD6-B9F9-FCC359D2C034}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.Backend.Business", "Arquitectura\CleanArchitecture\WebAPI.Backend.Business\WebAPI.Backend.Business.csproj", "{9928A4AD-F5DE-492F-A528-FFC268139B93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.ApplicationCore.NegocioEjemplo", "Arquitectura\CleanArchitecture\CleanArchitecture.ApplicationCore.NegocioEjemplo\CleanArchitecture.ApplicationCore.NegocioEjemplo.csproj", "{9928A4AD-F5DE-492F-A528-FFC268139B93}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.Backend.Data", "Arquitectura\CleanArchitecture\WebAPI.Backend.Data\WebAPI.Backend.Data.csproj", "{CD862FDE-8BAC-4241-B7C2-629163214D03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.ApplicationCore.DataEjemplo", "Arquitectura\CleanArchitecture\CleanArchitecture.ApplicationCore.DataEjemplo\CleanArchitecture.ApplicationCore.DataEjemplo.csproj", "{CD862FDE-8BAC-4241-B7C2-629163214D03}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.Migrations", "Arquitectura\CleanArchitecture\WebAPI.Migrations\WebAPI.Migrations.csproj", "{BB71E44D-085D-4E47-903F-AE8B920758F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Infraestructure.Migrations", "Arquitectura\CleanArchitecture\CleanArchitecture.Infraestructure.Migrations\CleanArchitecture.Infraestructure.Migrations.csproj", "{BB71E44D-085D-4E47-903F-AE8B920758F4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03_Testing", "03_Testing", "{2FCA628B-7FDF-4E28-B00B-DB3A7A8607EA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.UnitTest", "Arquitectura\CleanArchitecture\WebApi.UnitTest\WebApi.UnitTest.csproj", "{08232099-B959-4366-8307-4B8871FC34FA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Benchmarks", "Arquitectura\CleanArchitecture\WebApi.Benchmarks\WebApi.Benchmarks.csproj", "{D53129F0-F449-47E5-9C88-A5BB9057853B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.SimulateDataForTesting", "Arquitectura\CleanArchitecture\WebApi.SimulateDataForTesting\WebApi.SimulateDataForTesting.csproj", "{AA0FE98E-25D8-4564-9DD4-216C5C0936CE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.Benchmarks", "Arquitectura\TripleCapa\DesktopUI.Benchmarks\DesktopUI.Benchmarks.csproj", "{74B5C170-537E-43C3-B078-428AF81B05CA}"
 EndProject
@@ -157,7 +151,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnalisisAperturaCierreSimbo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CifradoCesarAritmeticaModular", "BackEnd\Algoritmos\CifradoCesarAritmeticaModular\CifradoCesarAritmeticaModular.csproj", "{5BA252CD-357F-4089-B820-311DC931303E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.Backend.Api", "Arquitectura\CleanArchitecture\WebAPI.Backend.Api\WebAPI.Backend.Api.csproj", "{FCAE0307-C9E1-42FF-BE69-49CE75044697}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Presentacion.Ejemplo", "Arquitectura\CleanArchitecture\CleanArchitecture.Presentacion.Ejemplo\CleanArchitecture.Presentacion.Ejemplo.csproj", "{FCAE0307-C9E1-42FF-BE69-49CE75044697}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebAssembly", "WEB\BlazorWebAssembly\BlazorWebAssembly.csproj", "{1A377462-B935-4A99-9ADC-7845FB7EA31E}"
 EndProject
@@ -297,18 +291,6 @@ Global
 		{BB71E44D-085D-4E47-903F-AE8B920758F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB71E44D-085D-4E47-903F-AE8B920758F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB71E44D-085D-4E47-903F-AE8B920758F4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{08232099-B959-4366-8307-4B8871FC34FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{08232099-B959-4366-8307-4B8871FC34FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{08232099-B959-4366-8307-4B8871FC34FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{08232099-B959-4366-8307-4B8871FC34FA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D53129F0-F449-47E5-9C88-A5BB9057853B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D53129F0-F449-47E5-9C88-A5BB9057853B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D53129F0-F449-47E5-9C88-A5BB9057853B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D53129F0-F449-47E5-9C88-A5BB9057853B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA0FE98E-25D8-4564-9DD4-216C5C0936CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA0FE98E-25D8-4564-9DD4-216C5C0936CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA0FE98E-25D8-4564-9DD4-216C5C0936CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA0FE98E-25D8-4564-9DD4-216C5C0936CE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{74B5C170-537E-43C3-B078-428AF81B05CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{74B5C170-537E-43C3-B078-428AF81B05CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74B5C170-537E-43C3-B078-428AF81B05CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -452,9 +434,6 @@ Global
 		{CD862FDE-8BAC-4241-B7C2-629163214D03} = {29F32913-F040-4AEB-BF75-D13AAA8271AC}
 		{BB71E44D-085D-4E47-903F-AE8B920758F4} = {7AFBCA32-61FE-4B1D-A377-29FDED10441C}
 		{2FCA628B-7FDF-4E28-B00B-DB3A7A8607EA} = {C48CFD31-AFBA-4D77-9957-CA63C539E714}
-		{08232099-B959-4366-8307-4B8871FC34FA} = {CA75AFB9-EDF2-43BA-82E5-84DECA3B3FFB}
-		{D53129F0-F449-47E5-9C88-A5BB9057853B} = {CA75AFB9-EDF2-43BA-82E5-84DECA3B3FFB}
-		{AA0FE98E-25D8-4564-9DD4-216C5C0936CE} = {CA75AFB9-EDF2-43BA-82E5-84DECA3B3FFB}
 		{74B5C170-537E-43C3-B078-428AF81B05CA} = {2FCA628B-7FDF-4E28-B00B-DB3A7A8607EA}
 		{F4E7C87A-6D40-4893-8FA1-DD33C0AE26EF} = {2FCA628B-7FDF-4E28-B00B-DB3A7A8607EA}
 		{9EE6C52C-C90C-4EB5-B4F2-80AE2D12A9A0} = {2FCA628B-7FDF-4E28-B00B-DB3A7A8607EA}
