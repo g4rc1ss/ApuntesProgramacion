@@ -2,20 +2,18 @@ import { useState } from 'react'
 import './EditarUsuariosComponent.css';
 import { useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { useParams } from 'react-router';
 
 
 function EditarUsuariosModal(props) {
-    let params = useParams();
-
     const [nombre, setNombre] = useState("");
     const [apellido, setApellido] = useState("");
     const [dni, setDni] = useState("");
 
     const [show, setShow] = useState(props.showModal);
+    
     const handleClose = function () {
         setShow(false);
-        window.location.href = "/listaUsuarios";
+        props.onCloseModal();
     }
 
     function cambiarNombre(event) {
@@ -66,7 +64,7 @@ function EditarUsuariosModal(props) {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => saveChanges(params.idUsuario, nombre, apellido, dni)}>
+                    <Button variant="primary" onClick={() => saveChanges(props.idUsuario, nombre, apellido, dni)}>
                         Save Changes
                     </Button>
                 </Modal.Footer>
@@ -82,8 +80,7 @@ function EditarUsuariosModal(props) {
             },
             body: JSON.stringify({ Id: idUsuario, Nombre: nombre, Apellido: apellido, DNI: dni })
         })
-        //alert("Se han guardado los datos correctamente");
-        window.location.href = "/listaUsuarios";
+        handleClose();
     }
 
     async function obtenerDatosUsuario(idUsuario) {

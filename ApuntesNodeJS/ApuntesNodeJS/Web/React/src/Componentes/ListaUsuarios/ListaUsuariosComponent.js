@@ -11,6 +11,8 @@ import * as Icon from 'react-bootstrap-icons';
 
 function ListaUsuariosComponent() {
     const [usuario, setUsuario] = useState([]);
+    const [refresh, setRefresh] = useState({});
+    const [datosModal, setDatosModal] = useState({ id: "", show: false })
 
     useEffect(() => {
         async function fetchData() {
@@ -18,7 +20,7 @@ function ListaUsuariosComponent() {
             setUsuario(listaUsuarios);
         }
         fetchData();
-    }, [usuario])
+    }, [refresh])
 
     return (
         <div>
@@ -63,6 +65,13 @@ function ListaUsuariosComponent() {
                     }
                 </tbody>
             </table>
+            {
+                datosModal.show
+                    ? <EditarUsuariosModal idUsuario={datosModal.id} showModal={true} onCloseModal={function () {
+                        setRefresh({});
+                        setDatosModal({ id: "", show: false })
+                    }} /> : <></>
+            }
         </div>
     );
 
@@ -85,11 +94,14 @@ function ListaUsuariosComponent() {
             .then(respuesta => respuesta);
         // Insertamos en el usuario para ejecutar el UseEffect y que se actualice la tabla
         setUsuario(usuario)
+        setRefresh({})
     }
 
-    function editarUsuario(dni) {
-        return <EditarUsuariosModal idUsuario={dni} showModal={true} />
-        //window.location.href = `/editarUsuarios/${dni}`;
+    function editarUsuario(idUsuario) {
+        setDatosModal({
+            id: idUsuario,
+            show: true
+        });
     }
 
 }

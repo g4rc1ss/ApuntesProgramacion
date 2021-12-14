@@ -20,7 +20,6 @@ function App() {
                     <Route path="/" element={<RegistroEntradaSalidaComponent />} />
                     <Route path="/listaUsuarios" element={<ListaUsuariosComponent />} />
                     <Route path="/crearUsuarios" element={<AñadirUsuarios />} />
-                    <Route path="/editarUsuarios/:idUsuario" element={<EditarUsuariosModal showModal={true} />} />
                 </Routes>
             </Router>
         </div>
