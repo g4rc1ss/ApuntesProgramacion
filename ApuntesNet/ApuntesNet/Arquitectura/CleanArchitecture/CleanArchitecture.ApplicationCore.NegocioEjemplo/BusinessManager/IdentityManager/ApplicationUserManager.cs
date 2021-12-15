@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using Microsoft.Extensions.Logging;
 using WebAPI.Backend.Business.BusinessManager.IdentityManager.Interfaces;
-using WebAPI.Backend.Data.DataAccessManager.Interfaces;
 using WebAPI.Backend.Data.Database.Identity;
 
 namespace WebAPI.Backend.Business.BusinessManager.IdentityManager {

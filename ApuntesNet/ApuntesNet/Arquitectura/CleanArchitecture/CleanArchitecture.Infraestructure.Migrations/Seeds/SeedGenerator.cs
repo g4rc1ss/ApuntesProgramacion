@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using CleanArchitecture.Infraestructure.DatabaseConfig;
 using Microsoft.AspNetCore.Identity;
-using WebAPI.Backend.Data;
 using WebAPI.Backend.Data.Database.Identity;
 
 namespace WebAPI.Migrations.Seeds {

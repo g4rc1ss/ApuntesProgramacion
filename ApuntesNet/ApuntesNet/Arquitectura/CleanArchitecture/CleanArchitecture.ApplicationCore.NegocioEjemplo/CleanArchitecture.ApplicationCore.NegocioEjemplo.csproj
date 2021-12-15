@@ -5,6 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+    <ProjectReference Include="..\CleanArchitecture.ApplicationCore.Dominio\CleanArchitecture.ApplicationCore.Dominio.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.ApplicationCore.InterfacesEjemplo\CleanArchitecture.ApplicationCore.InterfacesEjemplo.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.ApplicationCore.Shared\CleanArchitecture.ApplicationCore.Shared.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.Infraestructure.InfraestructureHelper\CleanArchitecture.Infraestructure.InfraestructureHelper.csproj" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,6 @@
-﻿namespace WebAPI.Backend.Data.DataAccessManager.DamBase {
+﻿using CleanArchitecture.Infraestructure.DatabaseConfig;
+
+namespace CleanArchitecture.ApplicationCore.DataEjemplo.DataAccessManager.DamBase {
     public abstract class DataAccessManagerBase {
         protected readonly WebApiPruebaContext webApiPruebaContext;
 

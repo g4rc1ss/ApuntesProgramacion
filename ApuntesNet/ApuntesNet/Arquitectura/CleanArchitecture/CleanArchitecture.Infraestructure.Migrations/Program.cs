@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CleanArchitecture.ApplicationCore.Dominio.EntidadesDatabase.Identity;
+using CleanArchitecture.Infraestructure.DatabaseConfig;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using WebAPI.Backend.Data;
-using WebAPI.Backend.Data.Database.Identity;
 
 namespace WebAPI.Migrations {
     internal class Program {

@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
+using CleanArchitecture.ApplicationCore.Dominio.EntidadesDatabase.Identity;
 using Microsoft.AspNetCore.Identity;
-using WebAPI.Backend.Data.Database.Identity;
 
-namespace WebAPI.Backend.Data.DataAccessManager.Interfaces {
+namespace CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data {
     public interface IUserDam {
         Task<IdentityResult> CreateUserAsync(User user, string password);
         Task<IdentityResult> CreateUserRoleAsync(User user, string role);

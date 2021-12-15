@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using WebAPI.Backend.Data;
+using CleanArchitecture.Infraestructure.DatabaseConfig;
 
 namespace WebAPI.Migrations {
 

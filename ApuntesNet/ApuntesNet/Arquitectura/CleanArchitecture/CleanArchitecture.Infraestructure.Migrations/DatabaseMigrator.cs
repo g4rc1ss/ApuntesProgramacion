@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
+using CleanArchitecture.Infraestructure.DatabaseConfig;
 using Microsoft.EntityFrameworkCore;
-using WebAPI.Backend.Data;
 
 namespace WebAPI.Migrations {
     /// <summary>

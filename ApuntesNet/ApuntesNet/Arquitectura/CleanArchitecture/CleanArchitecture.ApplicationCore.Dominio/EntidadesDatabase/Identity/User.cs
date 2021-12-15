@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace WebAPI.Backend.Data.Database.Identity {
+namespace CleanArchitecture.ApplicationCore.Dominio.EntidadesDatabase.Identity {
     public class User : IdentityUser<int> {
     }
 }

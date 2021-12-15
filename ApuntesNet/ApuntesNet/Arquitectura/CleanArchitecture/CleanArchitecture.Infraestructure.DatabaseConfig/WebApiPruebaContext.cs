@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CleanArchitecture.ApplicationCore.Dominio.EntidadesDatabase.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using WebAPI.Backend.Data.Database.Identity;
 
-namespace WebAPI.Backend.Data {
+namespace CleanArchitecture.Infraestructure.DatabaseConfig {
     public class WebApiPruebaContext : IdentityDbContext<User, Role, int> {
 
         public virtual DbSet<User> User { get; set; }
