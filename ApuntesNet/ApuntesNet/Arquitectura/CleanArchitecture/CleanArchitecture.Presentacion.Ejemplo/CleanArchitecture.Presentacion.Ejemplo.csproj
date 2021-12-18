@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CleanArchitecture.ApplicationCore.DataEjemplo\CleanArchitecture.ApplicationCore.DataEjemplo.csproj" />
     <ProjectReference Include="..\CleanArchitecture.ApplicationCore.InterfacesEjemplo\CleanArchitecture.ApplicationCore.InterfacesEjemplo.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.ApplicationCore.NegocioEjemplo\CleanArchitecture.ApplicationCore.NegocioEjemplo.csproj" />
     <ProjectReference Include="..\CleanArchitecture.ApplicationCore.Shared\CleanArchitecture.ApplicationCore.Shared.csproj" />
     <ProjectReference Include="..\CleanArchitecture.Infraestructure.DatabaseConfig\CleanArchitecture.Infraestructure.DatabaseConfig.csproj" />
   </ItemGroup>

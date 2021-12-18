@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace CleanArchitecture.ApplicationCore.NegocioEjemplo;
 
 public static class ServiceCollectionExtensions {
-    public static IServiceCollection AddNegocio(this IServiceCollection services) {
+    public static IServiceCollection AddCapaNegocio(this IServiceCollection services) {
 
         var tipos = (from type in Assembly.GetExecutingAssembly().GetTypes()
                      where type.Name.Contains("Negocio") && type.IsClass
