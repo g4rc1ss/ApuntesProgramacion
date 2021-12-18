@@ -2,23 +2,23 @@
 using CleanArchitecture.Infraestructure.DatabaseConfig;
 using Microsoft.EntityFrameworkCore;
 
-namespace WebAPI.Migrations {
-    /// <summary>
-    /// Clase para instancias los contextos de los que hay que ejecutar las migraciones para crearlos
-    /// </summary>
-    public class DatabaseMigrator {
-        private readonly WebApiPruebaContext webApiPruebaContext;
+namespace CleanArchitecture.Infraestructure.Migrations;
 
-        public DatabaseMigrator(WebApiPruebaContext webApiPruebaContext) {
-            this.webApiPruebaContext = webApiPruebaContext;
-        }
+/// <summary>
+/// Clase para instancias los contextos de los que hay que ejecutar las migraciones para crearlos
+/// </summary>
+public class DatabaseMigrator {
+    private readonly EjemploContext webApiPruebaContext;
 
-        public Task Migrate() {
-            return webApiPruebaContext.Database.MigrateAsync();
-        }
+    public DatabaseMigrator(EjemploContext webApiPruebaContext) {
+        this.webApiPruebaContext = webApiPruebaContext;
+    }
 
-        public Task DeleteDatabase() {
-            return webApiPruebaContext.Database.EnsureDeletedAsync();
-        }
+    public Task Migrate() {
+        return webApiPruebaContext.Database.MigrateAsync();
+    }
+
+    public Task DeleteDatabase() {
+        return webApiPruebaContext.Database.EnsureDeletedAsync();
     }
 }

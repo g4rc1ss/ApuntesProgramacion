@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using CleanArchitecture.Infraestructure.DatabaseConfig;
 
-namespace WebAPI.Migrations {
-    public interface IDataSeed {
-        Task Seed(WebApiPruebaContext context, CancellationToken cancellationToken = default);
-    }
+namespace CleanArchitecture.Infraestructure.Migrations;
+
+public interface IDataSeed {
+    Task Seed(EjemploContext context, CancellationToken cancellationToken = default);
 }

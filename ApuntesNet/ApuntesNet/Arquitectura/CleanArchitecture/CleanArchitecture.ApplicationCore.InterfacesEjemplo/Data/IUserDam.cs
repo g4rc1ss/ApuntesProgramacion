@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using CleanArchitecture.ApplicationCore.Dominio.EntidadesDatabase.Identity;
+using CleanArchitecture.ApplicationCore.Shared.Peticiones.Responses.User.Usuarios;
 using Microsoft.AspNetCore.Identity;
 
 namespace CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data {
@@ -9,5 +11,6 @@ namespace CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data {
         Task<IdentityResult> DeleteUserAsync(User user);
         Task<SignInResult> LogInAsync(string user, string password, bool rememberMe);
         Task<bool> LogoutAsync();
+        Task<List<UserResponse>> GetListUsers();
     }
 }

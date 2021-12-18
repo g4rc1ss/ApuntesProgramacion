@@ -4,16 +4,16 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Infraestructure.DatabaseConfig {
-    public class WebApiPruebaContext : IdentityDbContext<User, Role, int> {
+    public class EjemploContext : IdentityDbContext<User, Role, int> {
 
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Role> Role { get; set; }
 
-        public WebApiPruebaContext() {
+        public EjemploContext() {
 
         }
 
-        public WebApiPruebaContext(DbContextOptions<WebApiPruebaContext> contextOptions) : base(contextOptions) {
+        public EjemploContext(DbContextOptions<EjemploContext> contextOptions) : base(contextOptions) {
 
         }
 
