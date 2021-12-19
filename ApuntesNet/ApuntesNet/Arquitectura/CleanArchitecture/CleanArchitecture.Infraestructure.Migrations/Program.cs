@@ -30,11 +30,12 @@ internal class Program {
                 //Debugger.Launch();
                 // La instruccion de abajo se usa cuando hay configuracion inicial, sino se hace como aqui
                 // Se utiliza el "OnConfiguring()" correspondiente al contexto
-                services.AddDbContext<EjemploContext>(options => {
+                services.AddDbContextFactory<EjemploContext>(options => {
                     options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(EjemploContext)), sql => {
                         sql.MigrationsAssembly(typeof(Program).Assembly.FullName);
                     });
                 });
+                services.AddScoped(p => p.GetRequiredService<IDbContextFactory<EjemploContext>>().CreateDbContext());
 
                 services.AddIdentityCore<User>()
                         .AddRoles<Role>()

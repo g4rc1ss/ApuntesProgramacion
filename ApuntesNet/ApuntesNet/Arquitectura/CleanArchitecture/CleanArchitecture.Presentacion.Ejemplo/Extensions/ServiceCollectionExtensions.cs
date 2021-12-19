@@ -2,9 +2,7 @@
 using CleanArchitecture.ApplicationCore.Dominio.EntidadesDatabase.Identity;
 using CleanArchitecture.ApplicationCore.NegocioEjemplo;
 using CleanArchitecture.Infraestructure.DatabaseConfig;
-using CleanArchitecture.Infraestructure.DatabaseConfig.DbConnectionExtension;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Presentacion.Ejemplo.Extensions;
 
@@ -19,12 +17,7 @@ internal static class ServiceCollectionExtensions {
         .AddRoles<Role>()
         .AddEntityFrameworkStores<EjemploContext>();
 
-        services.AddDbContextFactory<EjemploContext>(options => {
-            options.UseSqlServer(configuration.GetConnectionString(nameof(EjemploContext)));
-        });
-        services.AddScoped(p => p.BuildServiceProvider().GetRequiredService<IDbContextFactory<EjemploContext>>().CreateDbContext());
-        services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>(service => 
-            new DbConnectionFactory(() => service.GetRequiredService<EjemploContext>().Database.GetDbConnection()));
+        services.AddDatabaseConfig(configuration);
         services.AddCapaNegocio();
         services.AddCapaDatos();
 

@@ -8,17 +8,17 @@ namespace CleanArchitecture.Infraestructure.Migrations;
 /// Clase para instancias los contextos de los que hay que ejecutar las migraciones para crearlos
 /// </summary>
 public class DatabaseMigrator {
-    private readonly EjemploContext webApiPruebaContext;
+    private readonly EjemploContext _ejemploContext;
 
     public DatabaseMigrator(EjemploContext webApiPruebaContext) {
-        this.webApiPruebaContext = webApiPruebaContext;
+        _ejemploContext = webApiPruebaContext;
     }
 
     public Task Migrate() {
-        return webApiPruebaContext.Database.MigrateAsync();
+        return _ejemploContext.Database.MigrateAsync();
     }
 
     public Task DeleteDatabase() {
-        return webApiPruebaContext.Database.EnsureDeletedAsync();
+        return _ejemploContext.Database.EnsureDeletedAsync();
     }
 }
