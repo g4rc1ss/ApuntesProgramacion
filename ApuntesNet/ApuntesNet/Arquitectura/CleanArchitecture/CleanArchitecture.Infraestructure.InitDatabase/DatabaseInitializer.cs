@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CleanArchitecture.Infraestructure.DatabaseConfig;
 
-namespace CleanArchitecture.Infraestructure.Migrations;
+namespace CleanArchitecture.Infraestructure.InitDatabase;
 
 // Clase que invoka a una interfaz, que esta esta vinculada a un Seed.
 // Con esta clase nos encargamos de inicializar la BBDD siempre con los datos que queramos

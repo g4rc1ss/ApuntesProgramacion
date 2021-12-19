@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace CleanArchitecture.Infraestructure.Migrations;
+namespace CleanArchitecture.Infraestructure.InitDatabase;
 
 public class MigrationService : IHostedService {
     private readonly IServiceProvider _serviceProvider;
@@ -12,6 +12,7 @@ public class MigrationService : IHostedService {
     public MigrationService(IServiceProvider serviceProvider) {
         _serviceProvider = serviceProvider;
     }
+
     public async Task StartAsync(CancellationToken cancellationToken) {
         using (var scope = _serviceProvider.CreateScope()) {
             var migrator = scope.ServiceProvider.GetRequiredService<DatabaseMigrator>();

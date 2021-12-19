@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace CleanArchitecture.Infraestructure.Migrations.Migrations
+namespace CleanArchitecture.Infraestructure.InitDatabase.Migrations
 {
     [DbContext(typeof(EjemploContext))]
     partial class EjemploContextModelSnapshot : ModelSnapshot

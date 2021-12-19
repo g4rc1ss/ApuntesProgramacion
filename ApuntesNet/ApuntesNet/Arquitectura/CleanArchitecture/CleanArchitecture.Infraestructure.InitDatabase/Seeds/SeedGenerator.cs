@@ -5,7 +5,7 @@ using CleanArchitecture.ApplicationCore.Dominio.EntidadesDatabase.Identity;
 using CleanArchitecture.Infraestructure.DatabaseConfig;
 using Microsoft.AspNetCore.Identity;
 
-namespace CleanArchitecture.Infraestructure.Migrations.Seeds;
+namespace CleanArchitecture.Infraestructure.InitDatabase.Seeds;
 
 public class SeedGenerator : IDataSeed {
     private readonly UserManager<User> userManager;

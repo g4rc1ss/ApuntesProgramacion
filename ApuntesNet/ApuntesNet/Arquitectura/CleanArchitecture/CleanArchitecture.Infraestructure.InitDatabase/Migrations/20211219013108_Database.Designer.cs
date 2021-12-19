@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace CleanArchitecture.Infraestructure.Migrations.Migrations
+namespace CleanArchitecture.Infraestructure.InitDatabase.Migrations
 {
     [DbContext(typeof(EjemploContext))]
-    [Migration("20211219001340_Database")]
+    [Migration("20211219013108_Database")]
     partial class Database
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

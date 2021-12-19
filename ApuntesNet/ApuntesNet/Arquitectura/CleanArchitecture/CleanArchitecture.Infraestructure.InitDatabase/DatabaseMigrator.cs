@@ -2,7 +2,7 @@
 using CleanArchitecture.Infraestructure.DatabaseConfig;
 using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitecture.Infraestructure.Migrations;
+namespace CleanArchitecture.Infraestructure.InitDatabase;
 
 /// <summary>
 /// Clase para instancias los contextos de los que hay que ejecutar las migraciones para crearlos
@@ -14,11 +14,11 @@ public class DatabaseMigrator {
         _ejemploContext = webApiPruebaContext;
     }
 
-    public Task Migrate() {
-        return _ejemploContext.Database.MigrateAsync();
+    public async Task Migrate() {
+        await _ejemploContext.Database.MigrateAsync();
     }
 
-    public Task DeleteDatabase() {
-        return _ejemploContext.Database.EnsureDeletedAsync();
+    public async Task DeleteDatabase() {
+        await _ejemploContext.Database.EnsureDeletedAsync();
     }
 }
