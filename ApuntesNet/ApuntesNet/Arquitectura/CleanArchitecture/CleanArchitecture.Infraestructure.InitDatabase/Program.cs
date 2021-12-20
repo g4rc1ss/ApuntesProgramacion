@@ -1,58 +1,44 @@
 ﻿using CleanArchitecture.ApplicationCore.Dominio.EntidadesDatabase.Identity;
 using CleanArchitecture.Infraestructure.DatabaseConfig;
+using CleanArchitecture.Infraestructure.InitDatabase;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace CleanArchitecture.Infraestructure.InitDatabase;
+var builder = Host.CreateDefaultBuilder(args);
 
-internal class Program {
-    private static void Main(string[] args) {
-        CreateHostBuilder(args).Build().RunAsync();
-    }
+builder.ConfigureLogging((hostContext, log) => {
+    log.AddConfiguration(hostContext.Configuration);
+    log.AddConsole();
+});
 
-    public static IHostBuilder CreateHostBuilder(string[] args) {
-        return new HostBuilder()
-            .UseEnvironment("Development")
-            .ConfigureAppConfiguration((hostContext, configBuilder) => {
-                configBuilder.AddJsonFile("appsettings.json");
-                configBuilder.AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true);
-            })
-            .ConfigureLogging((ctx, l) => {
-                l.AddConfiguration(ctx.Configuration);
-                l.AddConsole();
-            })
-            .ConfigureServices((hostContext, services) => {
-                services.AddOptions();
+builder.ConfigureServices((hostContext, services) => {
+    services.AddOptions();
+    services.AddDbContextFactory<EjemploContext>(options => {
+        options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(EjemploContext)), sql => {
+            sql.MigrationsAssembly(typeof(Program).Assembly.FullName);
+        });
+    });
+    services.AddScoped(p => p.GetRequiredService<IDbContextFactory<EjemploContext>>().CreateDbContext());
 
-                //Debugger.Launch();
-                // La instruccion de abajo se usa cuando hay configuracion inicial, sino se hace como aqui
-                // Se utiliza el "OnConfiguring()" correspondiente al contexto
-                services.AddDbContextFactory<EjemploContext>(options => {
-                    options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(EjemploContext)), sql => {
-                        sql.MigrationsAssembly(typeof(Program).Assembly.FullName);
-                    });
-                });
-                services.AddScoped(p => p.GetRequiredService<IDbContextFactory<EjemploContext>>().CreateDbContext());
+    services.AddIdentity<User, Role>()
+        .AddEntityFrameworkStores<EjemploContext>();
 
-                services.AddIdentityCore<User>()
-                        .AddRoles<Role>()
-                        .AddEntityFrameworkStores<EjemploContext>();
+    services.AddTransient<DatabaseMigrator>();
+    services.AddTransient<DatabaseInitializer>();
+    services.AddTransient<MigrationService>();
 
-                // Agregamos el tipo de clase DatabaseMigrator para crear la bbdd a traves de las migraciones y contextos
-                services.AddTransient<DatabaseMigrator>();
+    services.Scan(scan => scan.FromAssemblyOf<DatabaseInitializer>()
+    .AddClasses(@class => @class.AssignableTo<IDataSeed>())
+    .As<IDataSeed>()
+    .WithTransientLifetime());
+});
 
-                //// Creamos unas clases para incializar la base de datos con datos una vez creada.
-                services.AddTransient<DatabaseInitializer>();
-                //// Scaneamos y ejecutamos el Seed correspondiente para inicializar la BBDD
-                services.Scan(scan => scan.FromAssemblyOf<DatabaseInitializer>()
-                .AddClasses(@class => @class.AssignableTo<IDataSeed>())
-                .As<IDataSeed>()
-                .WithTransientLifetime());
+var app = builder.Build();
 
-                services.AddHostedService<MigrationService>();
-            });
-    }
-}
+var migrations = app.Services.GetRequiredService<MigrationService>();
+
+await migrations.StartAsync(CancellationToken.None);

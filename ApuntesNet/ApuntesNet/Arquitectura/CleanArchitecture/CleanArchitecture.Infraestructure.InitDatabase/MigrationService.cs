@@ -14,15 +14,16 @@ public class MigrationService : IHostedService {
     }
 
     public async Task StartAsync(CancellationToken cancellationToken) {
-        using (var scope = _serviceProvider.CreateScope()) {
-            var migrator = scope.ServiceProvider.GetRequiredService<DatabaseMigrator>();
-            var initializer = scope.ServiceProvider.GetRequiredService<DatabaseInitializer>();
+        using var scope = _serviceProvider.CreateScope();
+        var migrator = scope.ServiceProvider.GetRequiredService<DatabaseMigrator>();
+        var initializer = scope.ServiceProvider.GetRequiredService<DatabaseInitializer>();
 
-            await migrator.DeleteDatabase();
+        await migrator.DeleteDatabase();
 
-            await migrator.Migrate();
-            await initializer.Initialize(cancellationToken);
-        }
+        await migrator.Migrate();
+        await initializer.Initialize(cancellationToken);
+
+        
     }
 
     public Task StopAsync(CancellationToken cancellationToken) {

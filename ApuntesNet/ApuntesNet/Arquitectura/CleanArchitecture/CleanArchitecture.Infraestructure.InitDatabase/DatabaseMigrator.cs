@@ -10,15 +10,15 @@ namespace CleanArchitecture.Infraestructure.InitDatabase;
 public class DatabaseMigrator {
     private readonly EjemploContext _ejemploContext;
 
-    public DatabaseMigrator(EjemploContext webApiPruebaContext) {
-        _ejemploContext = webApiPruebaContext;
+    public DatabaseMigrator(EjemploContext ejemploContext) {
+        _ejemploContext = ejemploContext;
     }
 
-    public async Task Migrate() {
-        await _ejemploContext.Database.MigrateAsync();
+    public Task Migrate() {
+        return _ejemploContext.Database.MigrateAsync();
     }
 
-    public async Task DeleteDatabase() {
-        await _ejemploContext.Database.EnsureDeletedAsync();
+    public Task DeleteDatabase() {
+        return _ejemploContext.Database.EnsureDeletedAsync();
     }
 }
