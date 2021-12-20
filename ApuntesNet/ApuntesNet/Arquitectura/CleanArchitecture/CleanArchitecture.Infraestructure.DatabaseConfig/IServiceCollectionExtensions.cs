@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Infraestructure.DatabaseConfig.DbConnectionExtension;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +12,7 @@ namespace CleanArchitecture.Infraestructure.DatabaseConfig {
             });
             services.AddScoped(p => p.GetRequiredService<IDbContextFactory<EjemploContext>>().CreateDbContext());
             services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>(service =>
-                new DbConnectionFactory(() => service.GetRequiredService<EjemploContext>().Database.GetDbConnection()));
+                new DbConnectionFactory(() => new SqlConnection(configuration.GetConnectionString(nameof(EjemploContext)))));
 
             return services;
         }

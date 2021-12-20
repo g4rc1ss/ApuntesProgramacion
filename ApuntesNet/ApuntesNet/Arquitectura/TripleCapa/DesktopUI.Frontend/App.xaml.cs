@@ -14,7 +14,7 @@ namespace DesktopUI.Frontend {
     /// </summary>
     public partial class App : Application {
         protected override void OnStartup(StartupEventArgs e) {
-            _ = CreateHostBuilder(e.Args).Build().RunAsync();
+            CreateHostBuilder(e.Args).Build();
         }
 
         private static IHostBuilder CreateHostBuilder(string[] args) {
