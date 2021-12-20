@@ -3,12 +3,12 @@ using CleanArchitecture.ApplicationCore.Shared.Peticiones.Responses.User.Usuario
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CleanArchitecture.Presentacion.Ejemplo.Pages {
+namespace CleanArchitecture.Presentacion.Ejemplo.Pages.Models {
     public class IndexModel : PageModel {
         private readonly ILogger<IndexModel> _logger;
         private readonly IUserNegocio _userNegocio;
 
-        internal List<UserResponse> Users { get; set; }
+        internal List<UserResponse> UsersResponse { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, IUserNegocio userNegocio) {
             _logger = logger;
@@ -16,7 +16,7 @@ namespace CleanArchitecture.Presentacion.Ejemplo.Pages {
         }
 
         public async Task<IActionResult> OnGetAsync() {
-            Users = await _userNegocio.GetListaUsuarios();
+            UsersResponse = await _userNegocio.GetListaUsuarios();
             return Page();
         }
     }

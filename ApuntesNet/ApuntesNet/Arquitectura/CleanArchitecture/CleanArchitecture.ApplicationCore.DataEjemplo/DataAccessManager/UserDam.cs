@@ -53,9 +53,11 @@ public class UserDam : IUserDam {
         using var context = _contextFactory.CreateDbContext();
         return await (from user in context.User
                       select new UserResponse {
+                          Id = user.Id,
                           NombreUsuario = user.UserName,
                           Nombre = user.NormalizedUserName,
-                          Email = user.Email
+                          Email = user.Email,
+                          TieneDobleFactor = user.TwoFactorEnabled
                       }).ToListAsync();
     }
 }

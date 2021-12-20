@@ -187,7 +187,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Presentac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Infraestructure.DatabaseConfig", "Arquitectura\CleanArchitecture\CleanArchitecture.Infraestructure.DatabaseConfig\CleanArchitecture.Infraestructure.DatabaseConfig.csproj", "{064637A7-ADE7-4297-BFB5-FDAF0F956970}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Infraestructure.InitDatabase", "Arquitectura\CleanArchitecture\CleanArchitecture.Infraestructure.InitDatabase\CleanArchitecture.Infraestructure.InitDatabase.csproj", "{4685D154-FF1E-4355-960A-EB9CC9E47427}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Infraestructure.InitDatabase", "Arquitectura\CleanArchitecture\CleanArchitecture.Infraestructure.InitDatabase\CleanArchitecture.Infraestructure.InitDatabase.csproj", "{4685D154-FF1E-4355-960A-EB9CC9E47427}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
