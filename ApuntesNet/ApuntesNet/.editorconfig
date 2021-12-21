@@ -141,11 +141,11 @@ csharp_space_after_semicolon_in_for_statement=true
 csharp_space_before_comma=false
 csharp_space_before_dot=false
 csharp_space_before_semicolon_in_for_statement=false
-csharp_using_directive_placement=outside_namespace:suggestion
-csharp_prefer_simple_using_statement=true:silent
-csharp_style_namespace_declarations=block_scoped:suggestion
-csharp_style_expression_bodied_lambdas=true:suggestion
-csharp_style_expression_bodied_local_functions=false:suggestion
+csharp_using_directive_placement=outside_namespace:silent
+csharp_prefer_simple_using_statement=true:suggestion
+csharp_style_namespace_declarations=block_scoped:silent
+csharp_style_expression_bodied_lambdas=true:silent
+csharp_style_expression_bodied_local_functions=false:silent
 ###############################
 # VB Coding Conventions       #
 ###############################
