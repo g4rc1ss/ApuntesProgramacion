@@ -3,16 +3,21 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace RsaCipherExample.Textos {
-    public class RsaDecryptText {
-        public void DescifrarRSA() {
-            try {
+namespace RsaCipherExample.Textos
+{
+    public class RsaDecryptText
+    {
+        public void DescifrarRSA()
+        {
+            try
+            {
                 Console.WriteLine("Escribe el texto a descifrar");
                 //Obtenemos un array de bytes del texto a cifrar
                 var textoDescifrarBytes = Encoding.UTF8.GetBytes(Console.ReadLine());
 
                 // Instanciamos el algorimo asimétrico RSA
-                using (var rsaCrypt = RSA.Create()) {
+                using (var rsaCrypt = RSA.Create())
+                {
                     // Establecemos la longitud de la clave que queremos usar
                     rsaCrypt.KeySize = 4096;
                     rsaCrypt.ImportRSAPublicKey(File.ReadAllBytes("public.key"), out var publicKey);
@@ -24,7 +29,9 @@ namespace RsaCipherExample.Textos {
                     Console.WriteLine("----------------------------------- \n Mensaje encriptado:");
                     Console.WriteLine(Encoding.UTF8.GetString(mensajeDescifrado));
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 Console.WriteLine(e.Message);
             }
         }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SqliteEfCore.Database.DTO {
-    public class Usuario {
+namespace SqliteEfCore.Database.DTO
+{
+    public class Usuario
+    {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int PuebloId { get; set; }

@@ -1,6 +1,9 @@
-﻿namespace ActiveDirectory.ActiveDirectory {
-    internal class AD {
-        public AD() {
+﻿namespace ActiveDirectory.ActiveDirectory
+{
+    internal class AD
+    {
+        public AD()
+        {
 
             //Console.WriteLine("Teclea tu usuario de dominio");
             //var user = Console.ReadLine();

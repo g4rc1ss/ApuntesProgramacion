@@ -5,10 +5,14 @@ using Dapper;
 using SqliteDapper.Database;
 using SqliteDapper.Database.Sqlite;
 
-namespace SqliteDapper.Dam {
-    internal class SelectData {
-        internal static void SelectDataQuery() {
-            using (var connection = DapperExecute.GetConnection()) {
+namespace SqliteDapper.Dam
+{
+    internal class SelectData
+    {
+        internal static void SelectDataQuery()
+        {
+            using (var connection = DapperExecute.GetConnection())
+            {
                 var sqlUsuario = @$"SELECT Id as {nameof(Usuario.IdUsuario)},
                                     Nombre as {nameof(Usuario.NombreUsuario)}
                                     FROM {nameof(Usuario)} WHERE Id = 'IdUsuario1'";
@@ -28,15 +32,18 @@ namespace SqliteDapper.Dam {
                 sqlUsuarioJoin.AppendLine($"FROM {nameof(Usuario)} as user");
                 sqlUsuarioJoin.AppendLine($"INNER JOIN {nameof(Pueblo)} as village ON user.IdPueblo = village.Id");
                 var respuestaJoin = connection.QueryMultiple(sqlUsuarioJoin.ToString());
-                var usuarios = respuestaJoin.Read<Usuario, Pueblo, Usuario>((user, village) => {
-                    return new Usuario {
+                var usuarios = respuestaJoin.Read<Usuario, Pueblo, Usuario>((user, village) =>
+                {
+                    return new Usuario
+                    {
                         IdUsuario = user.IdUsuario,
                         NombreUsuario = user.NombreUsuario,
                         FKPueblo = village
                     };
                 }, $"{nameof(Pueblo.IdPueblo)}");
 
-                foreach (var user in usuarios) {
+                foreach (var user in usuarios)
+                {
                     Console.WriteLine($"Usuario - {user.IdUsuario}_{user.NombreUsuario}");
                     Console.WriteLine($"Pueblo - {user.FKPueblo.IdPueblo}_{user.FKPueblo.NombrePueblo}");
                 }

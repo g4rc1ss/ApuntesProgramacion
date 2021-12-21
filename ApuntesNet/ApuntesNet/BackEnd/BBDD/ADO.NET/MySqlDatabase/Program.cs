@@ -1,10 +1,13 @@
 ﻿using MySqlDatabase.MySQL;
 
-namespace MySqlDatabase {
-    internal class Program {
+namespace MySqlDatabase
+{
+    internal class Program
+    {
         private const string CONNECTION_STRING = "server=localhost;user=root;database=apuntesnet;port=3306;password=123456";
 
-        private static void Main() {
+        private static void Main()
+        {
             _ = new CreateDatabaseAndTables(CONNECTION_STRING);
             _ = new InsertMysql(CONNECTION_STRING);
             _ = new UpdateMysql(CONNECTION_STRING);

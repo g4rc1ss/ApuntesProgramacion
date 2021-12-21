@@ -3,9 +3,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace ArchivosTexto.ClaseFile {
-    internal class ReadFile {
-        public ReadFile(string nombreArchivoText, string nombreArchivoTextAsync, string nombreArchivoBytes, string nombreArchivoAllLines) {
+namespace ArchivosTexto.ClaseFile
+{
+    internal class ReadFile
+    {
+        public ReadFile(string nombreArchivoText, string nombreArchivoTextAsync, string nombreArchivoBytes, string nombreArchivoAllLines)
+        {
             var textoArchivoText = File.ReadAllText(nombreArchivoText);
             var textoArchivoTextAsync = File.ReadAllTextAsync(nombreArchivoTextAsync);
             var textoArchivoBytes = File.ReadAllBytes(nombreArchivoBytes);
@@ -17,13 +20,15 @@ namespace ArchivosTexto.ClaseFile {
 
             Console.WriteLine($"{nameof(textoArchivoBytes)}: {Encoding.UTF8.GetString(textoArchivoBytes)}\n \n");
 
-            foreach (var texto in textoArchivoLines) {
+            foreach (var texto in textoArchivoLines)
+            {
                 string[] textoArchivoAllLines;
                 Console.WriteLine($"{nameof(textoArchivoAllLines)}: {texto}");
             }
             Console.WriteLine("\n \n");
 
-            foreach (var texto in textoArchivoLines) {
+            foreach (var texto in textoArchivoLines)
+            {
                 Console.WriteLine($"{nameof(textoArchivoLines)}: {texto}\n \n");
             }
         }

@@ -1,9 +1,12 @@
 ﻿using PluginAPI;
 using PluginAPI.ExportAPI;
 
-namespace PluginDeEjemplo {
-    public class PluginEjemplo : IPlugin {
-        public PluginEjemplo() {
+namespace PluginDeEjemplo
+{
+    public class PluginEjemplo : IPlugin
+    {
+        public PluginEjemplo()
+        {
         }
 
         public string Name => "Enviar Correo";
@@ -14,7 +17,8 @@ namespace PluginDeEjemplo {
 
         public ExportInterface ExportInterface { get; private set; }
 
-        public void Execute() {
+        public void Execute()
+        {
             ExportInterface = new ExportInterface(new MainWindow().Content, false);
         }
     }

@@ -2,13 +2,17 @@
 using System.Threading;
 using ShellProgressBar;
 
-namespace ConsoleDesign.ProgressBar {
+namespace ConsoleDesign.ProgressBar
+{
     //Importamos el modulo NuGet "ShellProgressBar"
-    public class BarrasDeProgreso {
-        public static void BarraProgreso() {
+    public class BarrasDeProgreso
+    {
+        public static void BarraProgreso()
+        {
             const int TOTALTICKS = 30;
 
-            var options = new ProgressBarOptions {
+            var options = new ProgressBarOptions
+            {
                 //Caracter a poner de la barra, por ejemplo un # o un █ 
                 ProgressCharacter = '#',
                 //
@@ -30,16 +34,20 @@ namespace ConsoleDesign.ProgressBar {
              * Console.Color -> Indicas el color que va a tener la barra de progreso
              * ProgressBarOptions option -> explicado arriba
              */
-            using (var pbar = new ShellProgressBar.ProgressBar(TOTALTICKS, "Initial message", options)) {
-                for (var x = 0; x < TOTALTICKS; x++) {
+            using (var pbar = new ShellProgressBar.ProgressBar(TOTALTICKS, "Initial message", options))
+            {
+                for (var x = 0; x < TOTALTICKS; x++)
+                {
                     //suma +1 el progreso
                     pbar.Tick();
                     //Para apreciar, pero dentro de este bucle va el codigo
                     Thread.Sleep(100);
                 }
             }
-            using (var pbar = new ShellProgressBar.ProgressBar(TOTALTICKS, "Initial message", ConsoleColor.Gray)) {
-                for (var x = 0; x < TOTALTICKS; x++) {
+            using (var pbar = new ShellProgressBar.ProgressBar(TOTALTICKS, "Initial message", ConsoleColor.Gray))
+            {
+                for (var x = 0; x < TOTALTICKS; x++)
+                {
                     //suma +1 el progreso
                     pbar.Tick();
                     //Para apreciar, pero dentro de este bucle va el codigo

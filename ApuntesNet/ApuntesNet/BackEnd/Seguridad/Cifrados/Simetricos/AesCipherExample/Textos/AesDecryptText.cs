@@ -3,12 +3,16 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace AesCipherExample.Textos {
-    public class AesDecryptText {
+namespace AesCipherExample.Textos
+{
+    public class AesDecryptText
+    {
         private readonly string archivoAES_TXT = "archivo.txt";
 
-        public void DescifrarAES() {
-            try {
+        public void DescifrarAES()
+        {
+            try
+            {
                 Console.WriteLine("Escribe el texto a descifrar");
                 //Obtenemos un array de bytes del texto a cifrar
                 var textoCifrado = Encoding.UTF8.GetBytes(Console.ReadLine());
@@ -17,8 +21,10 @@ namespace AesCipherExample.Textos {
                 var contraseña = Console.ReadLine();
 
                 var textoDescifrado = default(string);
-                using (HashAlgorithm hash = SHA256.Create()) {
-                    using (var aesAlg = Aes.Create()) {
+                using (HashAlgorithm hash = SHA256.Create())
+                {
+                    using (var aesAlg = Aes.Create())
+                    {
                         aesAlg.Key = hash.ComputeHash(Encoding.UTF8.GetBytes(contraseña));
 
                         // Create a decryptor to perform the stream transform.
@@ -26,7 +32,8 @@ namespace AesCipherExample.Textos {
                         // Create the streams used for decryption.
                         using (var msDecrypt = new MemoryStream(textoCifrado))
                         using (var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
-                        using (var srDecrypt = new StreamReader(csDecrypt)) {
+                        using (var srDecrypt = new StreamReader(csDecrypt))
+                        {
                             // Read the decrypted bytes from the decrypting stream
                             // and place them in a string.
                             textoDescifrado = srDecrypt.ReadToEnd();
@@ -36,7 +43,9 @@ namespace AesCipherExample.Textos {
 
                 File.Delete(archivoAES_TXT);
                 Console.WriteLine(textoDescifrado);
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.StackTrace);
             }
         }

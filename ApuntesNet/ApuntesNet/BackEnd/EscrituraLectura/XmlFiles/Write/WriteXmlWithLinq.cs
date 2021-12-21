@@ -1,8 +1,11 @@
 ﻿using System.Xml.Linq;
 
-namespace XmlFiles.Write {
-    internal class WriteXmlWithLinq {
-        public WriteXmlWithLinq(string nombreArchivo) {
+namespace XmlFiles.Write
+{
+    internal class WriteXmlWithLinq
+    {
+        public WriteXmlWithLinq(string nombreArchivo)
+        {
             var empresa = new XElement("empresa",
                 new XElement("empleado",
                         new XAttribute("id", "1"),

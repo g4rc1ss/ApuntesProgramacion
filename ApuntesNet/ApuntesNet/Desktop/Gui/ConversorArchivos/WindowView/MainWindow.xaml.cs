@@ -3,12 +3,15 @@ using System.Windows;
 using ConversorArchivos.Actions.Interfaces;
 using Winforms = System.Windows.Forms;
 
-namespace ConversorArchivos.WindowView {
+namespace ConversorArchivos.WindowView
+{
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window {
-        private readonly List<string> extensiones = new() {
+    public partial class MainWindow : Window
+    {
+        private readonly List<string> extensiones = new()
+        {
             "pdf",
             "doc",
             "docx",
@@ -16,22 +19,27 @@ namespace ConversorArchivos.WindowView {
             "txt"
         };
         private readonly IConvertirAction convertirAction;
-        public MainWindow(IConvertirAction convertirAction) {
+        public MainWindow(IConvertirAction convertirAction)
+        {
             this.convertirAction = convertirAction;
             InitializeComponent();
             Inicializar();
         }
 
-        private void Inicializar() {
-            foreach (var extension in extensiones) {
+        private void Inicializar()
+        {
+            foreach (var extension in extensiones)
+            {
                 ExtensionesA.Items.Add(extension);
                 ExtensionesDe.Items.Add(extension);
             }
         }
 
-        private void Buscar(object sender, RoutedEventArgs e) {
+        private void Buscar(object sender, RoutedEventArgs e)
+        {
             Winforms.FolderBrowserDialog ruta = new();
-            if (ruta.ShowDialog() != Winforms::DialogResult.OK) {
+            if (ruta.ShowDialog() != Winforms::DialogResult.OK)
+            {
                 MessageBox.Show("No se ha podido obtener la ruta correctamente", "", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -39,7 +47,8 @@ namespace ConversorArchivos.WindowView {
 
         }
 
-        private async void Empezar(object sender, RoutedEventArgs e) {
+        private async void Empezar(object sender, RoutedEventArgs e)
+        {
             await convertirAction.ConvertTo(RutaCarpetaArchivosConvertir.Text, ExtensionesDe.SelectedItem.ToString(), ExtensionesA.SelectedItem.ToString());
 
             MessageBox.Show("Conversion terminada");

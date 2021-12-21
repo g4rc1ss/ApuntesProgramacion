@@ -3,10 +3,14 @@ using Dapper;
 using SqliteDapper.Database;
 using SqliteDapper.Database.Sqlite;
 
-namespace SqliteDapper.Dam {
-    internal class UpdateData {
-        internal static void UpdateDataQuery() {
-            using (var connection = DapperExecute.GetConnection()) {
+namespace SqliteDapper.Dam
+{
+    internal class UpdateData
+    {
+        internal static void UpdateDataQuery()
+        {
+            using (var connection = DapperExecute.GetConnection())
+            {
                 var updatePueblo = @$"UPDATE {nameof(Pueblo)}
                                           SET Id = '{Guid.NewGuid()}'
                                           WHERE Id = 'IdPueblo1'";

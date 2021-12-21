@@ -1,7 +1,10 @@
 ﻿using System;
-namespace ConsoleDesign.Colores {
-    public class Colores {
-        public static void PintamosColores() {
+namespace ConsoleDesign.Colores
+{
+    public class Colores
+    {
+        public static void PintamosColores()
+        {
             Console.WriteLine($"{Console.ForegroundColor = ConsoleColor.DarkYellow} Esto es AMARILLO\n");
             Console.WriteLine($"{Console.ForegroundColor = ConsoleColor.Cyan} AZUL\n");
             Console.WriteLine($"{Console.ForegroundColor = ConsoleColor.Red} ROJO");

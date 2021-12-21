@@ -3,19 +3,24 @@ using AplicacionToExtender.Database.DatabaseEntities;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 
-namespace AplicacionToExtender.Database {
-    internal class PluginsContext : DbContext {
+namespace AplicacionToExtender.Database
+{
+    internal class PluginsContext : DbContext
+    {
 
         public DbSet<Plugin> Plugins { get; set; }
 
-        public PluginsContext() {
+        public PluginsContext()
+        {
 
         }
 
-        public PluginsContext(DbContextOptions<PluginsContext> options) : base(options) {
+        public PluginsContext(DbContextOptions<PluginsContext> options) : base(options)
+        {
 
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
 
 #if DEBUG
             optionsBuilder.UseLoggerFactory(
@@ -24,7 +29,8 @@ namespace AplicacionToExtender.Database {
                 })
             );
 #endif
-            if (!optionsBuilder.IsConfigured) {
+            if (!optionsBuilder.IsConfigured)
+            {
                 var cadenasDeConexion = JObject.Parse(File.ReadAllText("appsettings.json"));
                 optionsBuilder.UseSqlite(
                     (string)cadenasDeConexion["ConnectionStrings"][nameof(PluginsContext)]
