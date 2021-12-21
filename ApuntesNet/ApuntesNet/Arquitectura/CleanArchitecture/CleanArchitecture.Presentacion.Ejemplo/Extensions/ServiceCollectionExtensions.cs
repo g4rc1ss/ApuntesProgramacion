@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CleanArchitecture.Presentacion.Ejemplo.Extensions;
 
-internal static class ServiceCollectionExtensions {
-    internal static IServiceCollection AddAppConfiguration(this IServiceCollection services, IConfiguration configuration) {
-        services.AddIdentity<User, Role>(options => {
+internal static class ServiceCollectionExtensions
+{
+    internal static IServiceCollection AddAppConfiguration(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddIdentity<User, Role>(options =>
+        {
             options.Password.RequiredLength = 8;
             options.Password.RequireUppercase = false;
             options.Password.RequireLowercase = false;

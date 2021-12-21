@@ -2,6 +2,7 @@
 
 namespace CleanArchitecture.Infraestructure.DatabaseConfig.DbConnectionExtension;
 
-public interface IDbConnectionFactory {
+public interface IDbConnectionFactory
+{
     DbConnection CreateDbConnection();
 }

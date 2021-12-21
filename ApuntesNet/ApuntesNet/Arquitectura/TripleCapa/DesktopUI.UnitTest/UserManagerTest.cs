@@ -7,10 +7,12 @@ using DesktopUI.SimulateDataForTesting.UserMocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace DesktopUI.UnitTest {
+namespace DesktopUI.UnitTest
+{
 
     [TestClass]
-    public class UserManagerTest {
+    public class UserManagerTest
+    {
         private static UserManager userManagerOk;
         private static UserManager userManagerNull;
 
@@ -18,8 +20,10 @@ namespace DesktopUI.UnitTest {
         private static Mock<IUserDam> MockUserDamNull => new UserDamMock(FakePossibilities.NullData).MockUserDam;
 
         [ClassInitialize]
-        public static void Inicializar(TestContext testContext) {
-            if (testContext is null) {
+        public static void Inicializar(TestContext testContext)
+        {
+            if (testContext is null)
+            {
                 throw new ArgumentNullException(nameof(testContext));
             }
             userManagerOk = new UserManager(MockUserDamOK.Object);
@@ -27,14 +31,16 @@ namespace DesktopUI.UnitTest {
         }
 
         [TestMethod]
-        public async Task GetAllUsersOkAsync() {
+        public async Task GetAllUsersOkAsync()
+        {
             var resultado = await userManagerOk.GetListaUsuariosAsync();
 
             Assert.IsTrue(resultado.Count == 4);
         }
 
         [TestMethod]
-        public async Task GetAllUsersNullAsync() {
+        public async Task GetAllUsersNullAsync()
+        {
             var resultado = await userManagerNull.GetListaUsuariosAsync();
 
             Assert.IsTrue(resultado is null || resultado.Count == 0);

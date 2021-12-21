@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using MvcExample.Database.DTO;
+﻿using MvcExample.Database.DTO;
 
-namespace MvcExample.Database.Queries {
-    public class UsersDatabase : IUsersDatabase {
+namespace MvcExample.Database.Queries
+{
+    public class UsersDatabase : IUsersDatabase
+    {
 
-        public async Task<IEnumerable<UserDatabase>> GetAllUsers() {
+        public async Task<IEnumerable<UserDatabase>> GetAllUsers()
+        {
             // Aqui ejecutamos una query a BBDD
             // Suponemos que se realiza
             return new List<UserDatabase> {

@@ -1,8 +1,11 @@
 ﻿using System.Xml;
 
-namespace XmlFiles.Write {
-    internal class WriteXmlFile {
-        public WriteXmlFile(string nombreArchivo) {
+namespace XmlFiles.Write
+{
+    internal class WriteXmlFile
+    {
+        public WriteXmlFile(string nombreArchivo)
+        {
             var document = new XmlDocument();
 
             var xmlDeclaration = document.CreateXmlDeclaration("1.0", "UTF-8", null);
@@ -12,7 +15,8 @@ namespace XmlFiles.Write {
             var empresa = document.CreateElement(string.Empty, "empresa", string.Empty);
             document.AppendChild(empresa);
 
-            for (var x = 1; x < 4; x++) {
+            for (var x = 1; x < 4; x++)
+            {
                 var empleado = document.CreateElement(string.Empty, "empleado", string.Empty);
                 empleado.SetAttribute("id", $"{x}");
                 empresa.AppendChild(empleado);

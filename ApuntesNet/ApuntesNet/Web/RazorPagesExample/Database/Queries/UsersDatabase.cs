@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using RazorPagesExample.Database.DTO;
+﻿using RazorPagesExample.Database.DTO;
 
-namespace RazorPagesExample.Database.Queries {
-    public class UsersDatabase : IUsersDatabase {
+namespace RazorPagesExample.Database.Queries
+{
+    public class UsersDatabase : IUsersDatabase
+    {
 
-        public async Task<IEnumerable<UserDatabase>> GetAllUsers() {
+        public async Task<IEnumerable<UserDatabase>> GetAllUsers()
+        {
             // Aqui ejecutamos una query a BBDD
             // Suponemos que se realiza
             return new List<UserDatabase> {

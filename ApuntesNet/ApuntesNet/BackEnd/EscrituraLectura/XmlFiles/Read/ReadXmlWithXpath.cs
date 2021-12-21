@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Xml.XPath;
 
-namespace XmlFiles.Read {
-    internal class ReadXmlWithXpath {
-        public ReadXmlWithXpath(string nombreArchivo) {
+namespace XmlFiles.Read
+{
+    internal class ReadXmlWithXpath
+    {
+        public ReadXmlWithXpath(string nombreArchivo)
+        {
             var document = new XPathDocument(nombreArchivo);
             var navigator = document.CreateNavigator();
 
@@ -13,7 +16,8 @@ namespace XmlFiles.Read {
 
             var nodesText = nodesNavigator.SelectDescendants(XPathNodeType.Element, false);
 
-            while (nodesText.MoveNext()) {
+            while (nodesText.MoveNext())
+            {
                 Console.WriteLine($"{nodesText.Current.Name} : {nodesText.Current.Value}");
             }
         }

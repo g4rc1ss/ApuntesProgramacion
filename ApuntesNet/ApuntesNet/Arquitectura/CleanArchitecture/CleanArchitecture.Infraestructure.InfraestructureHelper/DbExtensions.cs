@@ -1,7 +1,9 @@
 ﻿using System;
 
-namespace CleanArchitecture.Infraestructure.InfraestructureHelper {
-    public static class DbExtensions {
+namespace CleanArchitecture.Infraestructure.InfraestructureHelper
+{
+    public static class DbExtensions
+    {
         /// <summary>
         /// Esta funcion requiere que el siguiente codigo este en el OnModelCreating del contexto a utilizar
         ///     modelBuilder.HasDbFunction(() => DbExtensions.JsonValue(string.Empty, string.Empty))
@@ -10,7 +12,8 @@ namespace CleanArchitecture.Infraestructure.InfraestructureHelper {
         /// <param name="source"></param>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static string JsonValue(string source, string path) {
+        public static string JsonValue(string source, string path)
+        {
             throw new NotImplementedException();
         }
     }

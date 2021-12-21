@@ -9,12 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 
-builder.Services.AddSwaggerGen(c => {
+builder.Services.AddSwaggerGen(c =>
+{
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApiExample", Version = "v1" });
 });
 
 // Cuando se van a realizar solicitudes sobre el mismo origen, por ejemplo, ejecutando una app Blazor se requiere permitirlo mediante una policita de configuracion
-builder.Services.AddCors(option => {
+builder.Services.AddCors(option =>
+{
     option.AddPolicy("open", builder => builder.AllowAnyOrigin().AllowAnyHeader());
 });
 
@@ -28,12 +30,15 @@ builder.Services.AddScoped<IUsersDatabase, UsersDatabase>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment()) {
+if (app.Environment.IsDevelopment())
+{
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApiExample v1"));
     app.UseCors("open");
-} else {
+}
+else
+{
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
@@ -45,7 +50,8 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints => {
+app.UseEndpoints(endpoints =>
+{
     endpoints.MapControllers();
 });
 

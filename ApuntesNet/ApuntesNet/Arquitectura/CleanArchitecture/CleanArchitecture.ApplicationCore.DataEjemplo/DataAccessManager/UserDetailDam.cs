@@ -3,20 +3,22 @@ using System.Threading.Tasks;
 using CleanArchitecture.ApplicationCore.Dominio.Negocio.Filtros.UserDetail;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using CleanArchitecture.ApplicationCore.Shared.Peticiones.Responses.User.Usuarios;
-using CleanArchitecture.Infraestructure.DatabaseConfig;
 using CleanArchitecture.Infraestructure.DatabaseConfig.DbConnectionExtension;
 using Dapper;
-using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitecture.ApplicationCore.DataEjemplo.DataAccessManager {
-    public class UserDetailDam : IUserDetailDam {
+namespace CleanArchitecture.ApplicationCore.DataEjemplo.DataAccessManager
+{
+    public class UserDetailDam : IUserDetailDam
+    {
         private readonly IDbConnectionFactory _factoryEjemplo;
 
-        public UserDetailDam(IDbConnectionFactory factoryEjemplo) {
+        public UserDetailDam(IDbConnectionFactory factoryEjemplo)
+        {
             _factoryEjemplo = factoryEjemplo;
         }
 
-        public async Task<UserResponse> GetUser(FiltroUser filtro) {
+        public async Task<UserResponse> GetUser(FiltroUser filtro)
+        {
             using var connection = _factoryEjemplo.CreateDbConnection();
 
             return (await connection.QueryAsync<UserResponse>(@$"

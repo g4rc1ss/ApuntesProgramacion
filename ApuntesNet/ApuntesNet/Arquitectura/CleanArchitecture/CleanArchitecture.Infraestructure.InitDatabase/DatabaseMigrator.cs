@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using CleanArchitecture.Infraestructure.DatabaseConfig;
+﻿using CleanArchitecture.Infraestructure.DatabaseConfig;
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Infraestructure.InitDatabase;
@@ -7,18 +6,22 @@ namespace CleanArchitecture.Infraestructure.InitDatabase;
 /// <summary>
 /// Clase para instancias los contextos de los que hay que ejecutar las migraciones para crearlos
 /// </summary>
-public class DatabaseMigrator {
+public class DatabaseMigrator
+{
     private readonly EjemploContext _ejemploContext;
 
-    public DatabaseMigrator(EjemploContext ejemploContext) {
+    public DatabaseMigrator(EjemploContext ejemploContext)
+    {
         _ejemploContext = ejemploContext;
     }
 
-    public Task Migrate() {
+    public Task Migrate()
+    {
         return _ejemploContext.Database.MigrateAsync();
     }
 
-    public Task DeleteDatabase() {
+    public Task DeleteDatabase()
+    {
         return _ejemploContext.Database.EnsureDeletedAsync();
     }
 }

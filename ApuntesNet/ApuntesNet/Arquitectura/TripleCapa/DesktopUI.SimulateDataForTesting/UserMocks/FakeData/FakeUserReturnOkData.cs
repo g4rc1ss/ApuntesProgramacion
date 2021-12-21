@@ -2,8 +2,10 @@
 using DesktopUI.Backend.Data.Database;
 using Newtonsoft.Json;
 
-namespace DesktopUI.SimulateDataForTesting.UserMocks.FakeData {
-    internal static class FakeUserReturnOkData {
+namespace DesktopUI.SimulateDataForTesting.UserMocks.FakeData
+{
+    internal static class FakeUserReturnOkData
+    {
         public static List<Usuario> ReturnOfGetAllUsersWithEdad => JsonConvert.DeserializeObject<List<Usuario>>(@"
         [   
             {

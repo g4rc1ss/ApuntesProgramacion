@@ -1,5 +1,7 @@
-﻿namespace CleanArchitecture.ApplicationCore.Shared.Peticiones.Responses.User.Usuarios {
-    public class UserResponse {
+﻿namespace CleanArchitecture.ApplicationCore.Shared.Peticiones.Responses.User.Usuarios
+{
+    public class UserResponse
+    {
         public int Id { get; set; }
         public string NombreUsuario { get; set; }
         public string Nombre { get; set; }

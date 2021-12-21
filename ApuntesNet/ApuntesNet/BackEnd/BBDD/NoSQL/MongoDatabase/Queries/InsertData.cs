@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MongoDatabase.Document;
 using MongoDB.Bson;
-using MongoDB.Driver;
 
-namespace MongoDatabase.Queries {
-    internal static class InsertData {
-        public static async Task Insert() {
+namespace MongoDatabase.Queries
+{
+    internal static class InsertData
+    {
+        public static async Task Insert()
+        {
             var persona = new List<Persona> {
                 new Persona {
                     Id = new ObjectId(),

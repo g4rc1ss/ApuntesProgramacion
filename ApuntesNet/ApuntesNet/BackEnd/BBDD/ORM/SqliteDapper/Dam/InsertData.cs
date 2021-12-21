@@ -4,10 +4,14 @@ using Dapper;
 using SqliteDapper.Database;
 using SqliteDapper.Database.Sqlite;
 
-namespace SqliteDapper.Dam {
-    internal class InsertData {
-        internal static void InsertDataQuery() {
-            using (var connection = DapperExecute.GetConnection()) {
+namespace SqliteDapper.Dam
+{
+    internal class InsertData
+    {
+        internal static void InsertDataQuery()
+        {
+            using (var connection = DapperExecute.GetConnection())
+            {
                 var insertIntoPueblo = new StringBuilder();
                 var guidPueblo = Guid.NewGuid();
                 insertIntoPueblo.AppendLine($"insert into {nameof(Pueblo)} (id, nombre)");

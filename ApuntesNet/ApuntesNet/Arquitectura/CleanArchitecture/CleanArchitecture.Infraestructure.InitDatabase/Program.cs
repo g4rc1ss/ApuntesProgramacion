@@ -9,15 +9,19 @@ using Microsoft.Extensions.Logging;
 
 var builder = Host.CreateDefaultBuilder(args);
 
-builder.ConfigureLogging((hostContext, log) => {
+builder.ConfigureLogging((hostContext, log) =>
+{
     log.AddConfiguration(hostContext.Configuration);
     log.AddConsole();
 });
 
-builder.ConfigureServices((hostContext, services) => {
+builder.ConfigureServices((hostContext, services) =>
+{
     services.AddOptions();
-    services.AddDbContextFactory<EjemploContext>(options => {
-        options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(EjemploContext)), sql => {
+    services.AddDbContextFactory<EjemploContext>(options =>
+    {
+        options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(EjemploContext)), sql =>
+        {
             sql.MigrationsAssembly(typeof(Program).Assembly.FullName);
         });
     });

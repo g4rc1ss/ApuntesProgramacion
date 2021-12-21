@@ -2,9 +2,12 @@
 using System.Diagnostics;
 using Memorization.Clase;
 
-namespace Memorization {
-    internal class Program {
-        private static void Main(string[] args) {
+namespace Memorization
+{
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
             var stopWatch = new Stopwatch();
 
             stopWatch.Start();
@@ -25,12 +28,14 @@ namespace Memorization {
                 $"EL TIEMPO DE {nameof(CalcularFibConMemoizacion)} es: {tiempoFuncionMemoizacion}");
         }
 
-        private static long CalcularFibonacci(long numero) {
+        private static long CalcularFibonacci(long numero)
+        {
             Console.WriteLine($"Calculando el fib de {numero}");
             return numero > 1 ? CalcularFibonacci(numero - 1) + CalcularFibonacci(numero - 2) : numero;
         }
 
-        private static long CalcularFibConMemoizacion(long numero) {
+        private static long CalcularFibConMemoizacion(long numero)
+        {
             Console.WriteLine($"Calculando el fib de {numero}");
             return numero > 1
                 ? Memoizacion<long, long>.AddMemoizacion(CalcularFibConMemoizacion, numero - 1) + Memoizacion<long, long>.AddMemoizacion(CalcularFibConMemoizacion, numero - 2)

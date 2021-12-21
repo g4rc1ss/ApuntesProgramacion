@@ -4,20 +4,27 @@ using System.Linq;
 using SqliteEfCore.Core.Modelos;
 using SqliteEfCore.Database;
 
-namespace SqliteEfCore.Core {
-    public class EjecutarQueries {
-        public static bool CrearBaseDeDatos() {
-            using (var contexto = new ContextoSqlite()) {
+namespace SqliteEfCore.Core
+{
+    public class EjecutarQueries
+    {
+        public static bool CrearBaseDeDatos()
+        {
+            using (var contexto = new ContextoSqlite())
+            {
                 contexto.CreateDatabase();
-                if (contexto.Database.CanConnect()) {
+                if (contexto.Database.CanConnect())
+                {
                     return true;
                 }
             }
             return false;
         }
 
-        internal static void UpdateData() {
-            using (var context = new ContextoSqlite()) {
+        internal static void UpdateData()
+        {
+            using (var context = new ContextoSqlite())
+            {
                 var usuario = (from user in context.Usuarios
                                where user.PuebloIdNavigation.Id == 4
                                select user).FirstOrDefault();
@@ -27,8 +34,10 @@ namespace SqliteEfCore.Core {
             }
         }
 
-        internal static void DeleteData() {
-            using (var context = new ContextoSqlite()) {
+        internal static void DeleteData()
+        {
+            using (var context = new ContextoSqlite())
+            {
                 var usuarios = (from user in context.Usuarios
                                 where user.Edad < 22
                                 select user).ToList();
@@ -37,14 +46,18 @@ namespace SqliteEfCore.Core {
             }
         }
 
-        public static List<User> SelectData() {
-            using (var context = new ContextoSqlite()) {
+        public static List<User> SelectData()
+        {
+            using (var context = new ContextoSqlite())
+            {
                 var users = (from usuario in context.Usuarios
                              join pueblo in context.Pueblos on usuario.PuebloId equals pueblo.Id
-                             select new User {
+                             select new User
+                             {
                                  Name = usuario.Nombre,
                                  Edad = usuario.Edad,
-                                 Pueblo = new Pueblo {
+                                 Pueblo = new Pueblo
+                                 {
                                      Nombre = pueblo.Nombre
                                  }
                              }).ToList();
@@ -52,13 +65,17 @@ namespace SqliteEfCore.Core {
             }
         }
 
-        internal static void InsertData() {
-            using (var context = new ContextoSqlite()) {
-                var pueblo = context.Pueblos.Add(new Database.DTO.Pueblo {
+        internal static void InsertData()
+        {
+            using (var context = new ContextoSqlite())
+            {
+                var pueblo = context.Pueblos.Add(new Database.DTO.Pueblo
+                {
                     Nombre = "Soria"
                 });
 
-                context.Usuarios.Add(new Database.DTO.Usuario {
+                context.Usuarios.Add(new Database.DTO.Usuario
+                {
                     Nombre = "Nombre del usuario",
                     Edad = 10,
                     FechaHoy = DateTime.Now,

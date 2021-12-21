@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Threading;
 
-namespace ConexionesSocket {
-    internal class Program {
-        private static void Main() {
+namespace ConexionesSocket
+{
+    internal class Program
+    {
+        private static void Main()
+        {
             // -------- Peticion de conexion tipo cliente -------- \\
             ConexionSocket.ConsultarPuertosAbiertos.EscanerPuertos();
 

@@ -3,21 +3,26 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitecture.Infraestructure.DatabaseConfig {
-    public class EjemploContext : IdentityDbContext<User, Role, int> {
+namespace CleanArchitecture.Infraestructure.DatabaseConfig
+{
+    public class EjemploContext : IdentityDbContext<User, Role, int>
+    {
 
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Role> Role { get; set; }
 
-        public EjemploContext() {
+        public EjemploContext()
+        {
 
         }
 
-        public EjemploContext(DbContextOptions<EjemploContext> contextOptions) : base(contextOptions) {
+        public EjemploContext(DbContextOptions<EjemploContext> contextOptions) : base(contextOptions)
+        {
 
         }
 
-        protected override void OnModelCreating(ModelBuilder builder) {
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
             base.OnModelCreating(builder);
 
             // Cambio de nombre de las tablas de identity

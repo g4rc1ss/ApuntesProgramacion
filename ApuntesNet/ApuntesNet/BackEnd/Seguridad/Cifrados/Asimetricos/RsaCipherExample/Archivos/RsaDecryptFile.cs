@@ -3,15 +3,20 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace RsaCipherExample.Archivos {
-    public class RsaDecryptFile {
+namespace RsaCipherExample.Archivos
+{
+    public class RsaDecryptFile
+    {
         private readonly string archivoRSA_TXT = "archivoRSA.txt";
         private readonly string archivoRSA_CRYPT = "archivoRSA.crypt";
 
-        public void DescifrarRSA() {
-            try {
+        public void DescifrarRSA()
+        {
+            try
+            {
                 // Instanciamos el algorimo asimétrico RSA
-                using (var rsaCrypt = RSA.Create()) {
+                using (var rsaCrypt = RSA.Create())
+                {
                     // Establecemos la longitud de la clave que queremos usar
                     rsaCrypt.KeySize = 4096;
 
@@ -22,7 +27,8 @@ namespace RsaCipherExample.Archivos {
                     var mensajeDescifrado = rsaCrypt.Decrypt(File.ReadAllBytes(archivoRSA_CRYPT), RSAEncryptionPadding.Pkcs1);
                     var mensajeOriginal = Encoding.Default.GetString(mensajeDescifrado);
 
-                    using (var archivoEscritura = File.CreateText(archivoRSA_TXT)) {
+                    using (var archivoEscritura = File.CreateText(archivoRSA_TXT))
+                    {
                         archivoEscritura.Write(mensajeOriginal);
                     }
 
@@ -30,7 +36,9 @@ namespace RsaCipherExample.Archivos {
                     Console.WriteLine("----------------------------------- \n Mensaje desencriptado:");
                     Console.WriteLine(mensajeOriginal);
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 Console.WriteLine(e.Message);
             }
         }

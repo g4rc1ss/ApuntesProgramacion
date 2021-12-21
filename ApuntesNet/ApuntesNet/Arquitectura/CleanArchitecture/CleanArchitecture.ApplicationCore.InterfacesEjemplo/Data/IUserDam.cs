@@ -4,8 +4,10 @@ using CleanArchitecture.ApplicationCore.Dominio.EntidadesDatabase.Identity;
 using CleanArchitecture.ApplicationCore.Shared.Peticiones.Responses.User.Usuarios;
 using Microsoft.AspNetCore.Identity;
 
-namespace CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data {
-    public interface IUserDam {
+namespace CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data
+{
+    public interface IUserDam
+    {
         Task<IdentityResult> CreateUserAsync(User user, string password);
         Task<IdentityResult> CreateUserRoleAsync(User user, string role);
         Task<IdentityResult> DeleteUserAsync(User user);

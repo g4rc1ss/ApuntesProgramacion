@@ -3,8 +3,10 @@ using ArchivosTexto.ClaseBinary;
 using ArchivosTexto.ClaseFile;
 using ArchivosTexto.ClaseStream;
 
-namespace ArchivosTexto {
-    internal class Program {
+namespace ArchivosTexto
+{
+    internal class Program
+    {
 
         private const string NOMBRE_ARCHIVO_BINARY = "ArchivoBinario.bin";
         private const string NOMBRE_ARCHIVO_BINARY_DESTINO = "ArchivoBinarioDestino.bin";
@@ -18,7 +20,8 @@ namespace ArchivosTexto {
         private const string NOMBRE_ARCHIVO_STREAM = "ArchivoStream.bin";
 
 
-        private static void Main() {
+        private static void Main()
+        {
             Console.WriteLine("USANDO CLASE BINARY");
             _ = new EscribirBinario(NOMBRE_ARCHIVO_BINARY);
             _ = new LeerBinario(NOMBRE_ARCHIVO_BINARY);

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace CleanArchitecture.ApplicationCore.Dominio.EntidadesDatabase.Identity {
-    public class UserLogin : IdentityUserLogin<int> {
+namespace CleanArchitecture.ApplicationCore.Dominio.EntidadesDatabase.Identity
+{
+    public class UserLogin : IdentityUserLogin<int>
+    {
 
     }
 }

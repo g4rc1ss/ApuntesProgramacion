@@ -5,7 +5,8 @@ using CleanArchitecture.ApplicationCore.Shared.Peticiones.Responses.User.Usuario
 
 namespace CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManager;
 
-public interface IUserNegocio {
+public interface IUserNegocio
+{
     Task<bool> CreateUserAccountAsync(CreateAccountData createAccountData);
     Task<List<UserResponse>> GetListaUsuarios();
     Task<bool> LoginAsync(string username, string password, bool rememberMe);

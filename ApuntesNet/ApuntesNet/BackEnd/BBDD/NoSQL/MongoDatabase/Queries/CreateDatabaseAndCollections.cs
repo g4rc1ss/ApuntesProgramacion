@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-using System.Linq;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using MongoDB.Driver;
-using MongoDatabase.Document;
 
 namespace MongoDatabase.Queries
 {

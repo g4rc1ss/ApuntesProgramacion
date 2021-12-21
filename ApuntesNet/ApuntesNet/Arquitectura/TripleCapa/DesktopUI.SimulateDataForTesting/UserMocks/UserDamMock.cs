@@ -2,13 +2,17 @@
 using DesktopUI.SimulateDataForTesting.UserMocks.FakeData;
 using Moq;
 
-namespace DesktopUI.SimulateDataForTesting.UserMocks {
-    public class UserDamMock {
+namespace DesktopUI.SimulateDataForTesting.UserMocks
+{
+    public class UserDamMock
+    {
         public Mock<IUserDam> MockUserDam { get; set; }
 
-        public UserDamMock(FakePossibilities possibilities) {
+        public UserDamMock(FakePossibilities possibilities)
+        {
             MockUserDam = new Mock<IUserDam>();
-            switch (possibilities) {
+            switch (possibilities)
+            {
                 case FakePossibilities.unknown:
                     break;
                 case FakePossibilities.OK:
@@ -26,13 +30,15 @@ namespace DesktopUI.SimulateDataForTesting.UserMocks {
             }
         }
 
-        private void InitializeOKData() {
+        private void InitializeOKData()
+        {
             MockUserDam.Setup(x => x.GetAllUsersAsync()).ReturnsAsync(FakeUserReturnOkData.ReturnOfGetAllUsers);
             MockUserDam.Setup(x => x.GetAllUsersWithEdadAsync(It.IsAny<int>())).ReturnsAsync(FakeUserReturnOkData.ReturnOfGetAllUsersWithEdad);
 
         }
 
-        private void InitializeNullData() {
+        private void InitializeNullData()
+        {
             MockUserDam.Setup(x => x.GetAllUsersAsync()).ReturnsAsync(FakeUserReturnNullData.ReturnOfGetAllUsers);
             MockUserDam.Setup(x => x.GetAllUsersWithEdadAsync(It.IsAny<int>())).ReturnsAsync(FakeUserReturnNullData.ReturnOfGetAllUsersWithEdad);
         }

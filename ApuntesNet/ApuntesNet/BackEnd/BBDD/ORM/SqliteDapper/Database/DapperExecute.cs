@@ -8,15 +8,20 @@ using Dapper;
 using Microsoft.Data.Sqlite;
 using SqliteDapper.Database.Sqlite;
 
-namespace SqliteDapper.Database {
-    internal class DapperExecute {
-        internal static IDbConnection GetConnection() {
+namespace SqliteDapper.Database
+{
+    internal class DapperExecute
+    {
+        internal static IDbConnection GetConnection()
+        {
             return new SqliteConnection(Helper.DatabaseURL);
         }
 
-        internal async Task CreateDatabase() {
+        internal async Task CreateDatabase()
+        {
             File.WriteAllBytes(Helper.DATABASE_NAME, Array.Empty<byte>());
-            using (var connection = GetConnection()) {
+            using (var connection = GetConnection())
+            {
                 var createUsuario = @"CREATE TABLE Usuario(
                                         Id         TEXT     NOT NULL,
                                         Nombre     TEXT    NOT NULL,
@@ -36,7 +41,8 @@ namespace SqliteDapper.Database {
                 await connection.ExecuteAsync(createPueblo);
                 await connection.ExecuteAsync(createUsuario);
 
-                foreach (var item in Enumerable.Range(1, 5)) {
+                foreach (var item in Enumerable.Range(1, 5))
+                {
                     var insertIntoPueblo = new StringBuilder();
                     var insertIntoUsuario = new StringBuilder();
 

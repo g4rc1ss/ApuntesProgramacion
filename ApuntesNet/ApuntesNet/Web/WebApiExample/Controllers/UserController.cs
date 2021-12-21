@@ -1,29 +1,31 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebApiExample.Business.Action;
 using WebApiExample.Shared.DTO.Request;
 using WebApiExample.Shared.DTO.Response;
 
-namespace WebApiExample.Controllers {
+namespace WebApiExample.Controllers
+{
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : Controller {
+    public class UserController : Controller
+    {
         private readonly IActionUsers _actionUser;
 
-        public UserController(IActionUsers actionUser) {
+        public UserController(IActionUsers actionUser)
+        {
             _actionUser = actionUser;
         }
 
         [HttpGet("users")]
-        public async Task<List<UserResponse>> Get() {
+        public async Task<List<UserResponse>> Get()
+        {
             var response = await _actionUser.GetAllUsersAsync();
             return response.Select(x => (UserResponse)x).ToList();
         }
 
         [HttpPost("insertar-user")]
-        public async Task<bool> InsertUser(UserRequest userRequest) {
+        public async Task<bool> InsertUser(UserRequest userRequest)
+        {
             return await _actionUser.InsertUser(userRequest);
         }
     }

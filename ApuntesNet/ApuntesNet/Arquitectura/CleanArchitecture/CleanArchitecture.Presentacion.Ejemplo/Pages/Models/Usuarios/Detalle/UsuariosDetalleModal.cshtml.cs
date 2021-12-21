@@ -5,8 +5,10 @@ using CleanArchitecture.ApplicationCore.Shared.Peticiones.Responses.User.Usuario
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CleanArchitecture.Presentacion.Ejemplo.Pages.Models.Usuarios.Detalle {
-    public class UsuariosDetalleModal : PageModel {
+namespace CleanArchitecture.Presentacion.Ejemplo.Pages.Models.Usuarios.Detalle
+{
+    public class UsuariosDetalleModal : PageModel
+    {
         private readonly IUserDetailNegocio _userDetail;
 
         [BindProperty(SupportsGet = true)]
@@ -14,12 +16,15 @@ namespace CleanArchitecture.Presentacion.Ejemplo.Pages.Models.Usuarios.Detalle {
 
         public UserResponse UserResponse { get; set; }
 
-        public UsuariosDetalleModal(IUserDetailNegocio userDetail) {
+        public UsuariosDetalleModal(IUserDetailNegocio userDetail)
+        {
             _userDetail = userDetail;
         }
 
-        public async Task<IActionResult> OnGet() {
-            var filtro = new FiltroUser {
+        public async Task<IActionResult> OnGet()
+        {
+            var filtro = new FiltroUser
+            {
                 IdUsuario = UserRequest.IdUsuario
             };
             UserResponse = await _userDetail.GetUser(filtro);
