@@ -2,15 +2,20 @@
 using System.Net;               //   Paso 1
 using System.Net.Sockets;       //   Paso 1
 
-namespace ConexionesSocket.ConexionSocket.ClienteServidor {
-    public class Servidor {
+namespace ConexionesSocket.ConexionSocket.ClienteServidor
+{
+    public class Servidor
+    {
 
-        public static void Conectar() {
-            using (var miPrimerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)) {
+        public static void Conectar()
+        {
+            using (var miPrimerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
+            {
                 // paso 2 - creamos el socket
                 var miDireccion = new IPEndPoint(IPAddress.Parse("0.0.0.0"), 1234);
                 //paso 3 -IPAddress.Any significa que va a escuchar al cliente en toda la red 
-                try {
+                try
+                {
                     // paso 4
                     miPrimerSocket.Bind(miDireccion); // Asociamos el socket a miDireccion
                     miPrimerSocket.Listen(1); // Lo ponemos a escucha
@@ -26,7 +31,9 @@ namespace ConexionesSocket.ConexionSocket.ClienteServidor {
                     cerrarlo je*/
                     miPrimerSocket.Close(); //Luego lo cerramos
 
-                } catch (Exception error) {
+                }
+                catch (Exception error)
+                {
                     Console.WriteLine("Error: {0}", error.ToString());
                 }
             }

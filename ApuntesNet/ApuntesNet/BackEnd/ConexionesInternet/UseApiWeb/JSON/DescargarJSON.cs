@@ -3,10 +3,13 @@ using System.IO;
 using System.Net;
 using Newtonsoft.Json;
 
-namespace UseApiWeb.JSON {
-    public class DescargarJSON {
+namespace UseApiWeb.JSON
+{
+    public class DescargarJSON
+    {
 
-        public static void DescargarRequestJSON() {
+        public static void DescargarRequestJSON()
+        {
 
             var host = Dns.GetHostEntry("google.es");
             var ip = host.AddressList[0].ToString();
@@ -18,7 +21,8 @@ namespace UseApiWeb.JSON {
             // Obtengo un stream para escribir la informacion descargada
             using (var stream = response.GetResponseStream())
             // Cargo el Stream para leerlo
-            using (var reader = new StreamReader(stream)) {
+            using (var reader = new StreamReader(stream))
+            {
                 // leemos el JSON
                 var leerConsultaWebJson = reader.ReadToEnd();
                 // Convertimos los datos del JSON en un objeto de clase <leerJSON>

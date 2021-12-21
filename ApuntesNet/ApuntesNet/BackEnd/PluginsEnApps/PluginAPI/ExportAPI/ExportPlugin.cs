@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 
-namespace PluginAPI.ExportAPI {
-    public class ExportPlugin {
+namespace PluginAPI.ExportAPI
+{
+    public class ExportPlugin
+    {
         public List<object> ExportItems { get; }
 
-        public ExportPlugin() {
+        public ExportPlugin()
+        {
             ExportItems = new List<object>();
         }
     }

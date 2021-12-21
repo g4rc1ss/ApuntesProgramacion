@@ -3,13 +3,17 @@ using System.IO;
 using XmlFiles.Read;
 using XmlFiles.Write;
 
-namespace XmlFiles {
-    internal class Program {
+namespace XmlFiles
+{
+    internal class Program
+    {
         private const string NOMBRE_ARCHIVO_XML = "archivo.xml";
         private const string NOMBRE_ARCHIVO_XML_LINQ = "archivoLinq.xml";
 
-        private static void Main() {
-            try {
+        private static void Main()
+        {
+            try
+            {
                 _ = new WriteXmlFile(NOMBRE_ARCHIVO_XML);
                 Console.WriteLine("Archivo XML Creado");
 
@@ -26,7 +30,9 @@ namespace XmlFiles {
                 Console.WriteLine("\n--------------------------------------------------------------------\n");
                 _ = new ReadXmlWithXpath(NOMBRE_ARCHIVO_XML);
 
-            } finally {
+            }
+            finally
+            {
                 Console.WriteLine("\n--------------------------------------------------------------------\n");
                 Console.WriteLine("XML FINAL");
                 Console.WriteLine(File.ReadAllText(NOMBRE_ARCHIVO_XML));

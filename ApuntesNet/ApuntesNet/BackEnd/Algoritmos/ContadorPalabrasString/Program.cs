@@ -5,9 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace ContadorPalabrasString {
-    internal class Program {
-        private static void Main(string[] args) {
+namespace ContadorPalabrasString
+{
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
             var stopWatch = new Stopwatch();
             var stringToCount = GenerarStringToCount();
 
@@ -29,14 +32,19 @@ namespace ContadorPalabrasString {
                 $"Se han realizado {totalIteracionesCuadratico} iteraciones.");
         }
 
-        private static long ContadorTradicionalPalabras(string[] cadenaArray) {
+        private static long ContadorTradicionalPalabras(string[] cadenaArray)
+        {
             long iteraciones = 0;
             var palabrasEvaluadas = new List<string>();
-            for (var i = 0; i < cadenaArray.Length; i++) {
-                if (!palabrasEvaluadas.Contains(cadenaArray[i])) {
+            for (var i = 0; i < cadenaArray.Length; i++)
+            {
+                if (!palabrasEvaluadas.Contains(cadenaArray[i]))
+                {
                     var repeticionPalabra = 0;
-                    for (var x = i; x < cadenaArray.Length; x++) {
-                        if (cadenaArray[i] == cadenaArray[x]) {
+                    for (var x = i; x < cadenaArray.Length; x++)
+                    {
+                        if (cadenaArray[i] == cadenaArray[x])
+                        {
                             repeticionPalabra++;
                         }
                         iteraciones++;
@@ -51,12 +59,15 @@ namespace ContadorPalabrasString {
             return iteraciones;
         }
 
-        private static long ContadorPalabras(string[] cadenaArray) {
+        private static long ContadorPalabras(string[] cadenaArray)
+        {
             var diccionarioPalabras = new Dictionary<string, int>();
             long iteraciones = 0;
 
-            for (var i = 0; i < cadenaArray.Length; i++) {
-                if (!diccionarioPalabras.ContainsKey(cadenaArray[i])) {
+            for (var i = 0; i < cadenaArray.Length; i++)
+            {
+                if (!diccionarioPalabras.ContainsKey(cadenaArray[i]))
+                {
                     diccionarioPalabras.Add(cadenaArray[i], 0);
                 }
                 diccionarioPalabras[cadenaArray[i]]++;
@@ -66,25 +77,30 @@ namespace ContadorPalabrasString {
             return iteraciones;
         }
 
-        private static void PrintDictionary(Dictionary<string, int> diccionario) {
-            foreach (var item in diccionario) {
+        private static void PrintDictionary(Dictionary<string, int> diccionario)
+        {
+            foreach (var item in diccionario)
+            {
                 Console.WriteLine($"La palabra: {item.Key} \n" +
                     $"repeticiones: {item.Value}\n" +
                     $"-----------------------------------------------------------------");
             }
         }
 
-        private static string GenerarStringToCount() {
+        private static string GenerarStringToCount()
+        {
             var cadena = "Hola, este es un mensaje para hacer la prueba de contador de palabras.\n" +
                 "lo suyo es usar palabras que se repitan un poco para ver como funciona el metodo que vamos a realizar.";
             var cadenaToReturn = new StringBuilder();
-            foreach (var item in Enumerable.Range(0, 100_000)) {
+            foreach (var item in Enumerable.Range(0, 100_000))
+            {
                 cadenaToReturn.Append(cadena);
             }
             return cadenaToReturn.ToString();
         }
 
-        private static string[] CleanAndConvertString(string stringToCount) {
+        private static string[] CleanAndConvertString(string stringToCount)
+        {
             var replace = Regex.Replace(stringToCount, @"[,.]*", string.Empty);
             return Regex.Split(replace, @"\W");
         }

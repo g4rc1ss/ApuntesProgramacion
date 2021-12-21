@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CifradoCesarAritmeticaModular {
-    internal class Program {
+namespace CifradoCesarAritmeticaModular
+{
+    internal class Program
+    {
         private const int NUM_SUSTITUCION = 5;
-        private static readonly List<char> letrasSustitucion = new() {
+        private static readonly List<char> letrasSustitucion = new()
+        {
             'A',
             'B',
             'C',
@@ -34,7 +37,8 @@ namespace CifradoCesarAritmeticaModular {
             'Z'
         };
 
-        private static void Main(string[] args) {
+        private static void Main(string[] args)
+        {
             var frase = "Hola esta es la frase que va a ser encriptada con cifrado cesar abcdefghijklmnopqrstuvwxyz";
             Console.WriteLine(frase);
 
@@ -46,37 +50,49 @@ namespace CifradoCesarAritmeticaModular {
         }
 
 
-        private static string CifrarFraseCesar(string frase) {
+        private static string CifrarFraseCesar(string frase)
+        {
             frase = frase.ToUpper();
             var cifrarFrase = new StringBuilder();
-            for (var i = 0; i < frase.Length; i++) {
-                if (letrasSustitucion.Contains(frase[i])) {
+            for (var i = 0; i < frase.Length; i++)
+            {
+                if (letrasSustitucion.Contains(frase[i]))
+                {
                     var letraToAdd = (letrasSustitucion.IndexOf(frase[i]) + NUM_SUSTITUCION) % letrasSustitucion.Count;
                     cifrarFrase.Append(letrasSustitucion[letraToAdd]);
-                } else {
+                }
+                else
+                {
                     cifrarFrase.Append(frase[i]);
                 }
             }
             return cifrarFrase.ToString();
         }
 
-        private static string DescifrarFrase(string frase) {
+        private static string DescifrarFrase(string frase)
+        {
             frase = frase.ToUpper();
             var descifrarFrase = new StringBuilder();
-            for (var i = 0; i < frase.Length; i++) {
-                if (letrasSustitucion.Contains(frase[i])) {
+            for (var i = 0; i < frase.Length; i++)
+            {
+                if (letrasSustitucion.Contains(frase[i]))
+                {
                     var diccionarioDescifrados = CrearDiccionarioDescifrado(NUM_SUSTITUCION);
                     descifrarFrase.Append(diccionarioDescifrados[frase[i]]);
-                } else {
+                }
+                else
+                {
                     descifrarFrase.Append(frase[i]);
                 }
             }
             return descifrarFrase.ToString();
         }
 
-        private static Dictionary<char, char> CrearDiccionarioDescifrado(int clave) {
+        private static Dictionary<char, char> CrearDiccionarioDescifrado(int clave)
+        {
             var diccionario = new Dictionary<char, char>();
-            for (var i = 0; i < letrasSustitucion.Count; i++) {
+            for (var i = 0; i < letrasSustitucion.Count; i++)
+            {
                 var index = i - clave;
                 var valor = index < 0 ? letrasSustitucion.Count - Math.Abs(index) : index;
                 diccionario.Add(letrasSustitucion[i], letrasSustitucion[valor]);

@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CleanArchitecture.ApplicationCore.DataEjemplo\CleanArchitecture.ApplicationCore.DataEjemplo.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.ApplicationCore.InterfacesEjemplo\CleanArchitecture.ApplicationCore.InterfacesEjemplo.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.ApplicationCore.NegocioEjemplo\CleanArchitecture.ApplicationCore.NegocioEjemplo.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.ApplicationCore.Shared\CleanArchitecture.ApplicationCore.Shared.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.Infraestructure.DatabaseConfig\CleanArchitecture.Infraestructure.DatabaseConfig.csproj" />
+  </ItemGroup>
+
+</Project>

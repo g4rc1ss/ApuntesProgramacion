@@ -2,9 +2,12 @@
 using System.Linq;
 using System.Xml.Linq;
 
-namespace XmlFiles.Read {
-    internal class ReadXmlWithLinq {
-        public ReadXmlWithLinq(string nombreArchivo) {
+namespace XmlFiles.Read
+{
+    internal class ReadXmlWithLinq
+    {
+        public ReadXmlWithLinq(string nombreArchivo)
+        {
             var document = XElement.Load(nombreArchivo);
 
             // document.Descendants("empleado") - Se buscan todos los elementos con el nombre que se le pasa, en este caso "empleado"
@@ -14,7 +17,8 @@ namespace XmlFiles.Read {
                                   where item.Attribute("id").Value == "1" && item.Element("nombre").Value == "Empleado 1"
                                   select item).ToList();
 
-            foreach (var item in buscarEmpleado) {
+            foreach (var item in buscarEmpleado)
+            {
                 Console.WriteLine($"{item}");
             }
         }

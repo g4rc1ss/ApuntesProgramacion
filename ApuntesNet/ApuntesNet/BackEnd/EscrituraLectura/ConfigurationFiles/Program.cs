@@ -2,9 +2,12 @@
 using ConfigurationFiles.JsonConfigFile;
 using ConfigurationFiles.XmlConfigFile;
 
-namespace ConfigurationFiles {
-    internal class Program {
-        private static void Main() {
+namespace ConfigurationFiles
+{
+    internal class Program
+    {
+        private static void Main()
+        {
             // Usamos un archivo de configuracion
             var localizacionArchivoAppConfig = new UsarAppConfig();
             localizacionArchivoAppConfig.ArchivosConfiguracion();
