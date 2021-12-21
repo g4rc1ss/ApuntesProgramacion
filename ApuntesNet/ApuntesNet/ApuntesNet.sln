@@ -6,7 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BackEnd", "BackEnd", "{261E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{8FC77051-A10F-47B7-99C0-44F9EA5ABABE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WEB", "WEB", "{1DA159C8-90C4-4281-BD8E-514EF1B0CF3E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{1DA159C8-90C4-4281-BD8E-514EF1B0CF3E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleDesign", "Desktop\ConsoleDesign\ConsoleDesign.csproj", "{4B99397C-0463-40DF-8151-71339EB054C5}"
 EndProject
@@ -87,11 +87,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseEmail", "BackEnd\Conexio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseApiWeb", "BackEnd\ConexionesInternet\UseApiWeb\UseApiWeb.csproj", "{C94056E5-1799-4AFF-AC05-8A033F08EE0A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorPagesExample", "WEB\RazorPagesExample\RazorPagesExample.csproj", "{7AB52B58-EA61-49E3-BE69-0814DA21AF66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorPagesExample", "Web\RazorPagesExample\RazorPagesExample.csproj", "{7AB52B58-EA61-49E3-BE69-0814DA21AF66}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcExample", "WEB\MvcExample\MvcExample.csproj", "{91DB6DD4-EE4B-4780-87C4-AB63C8C469E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcExample", "Web\MvcExample\MvcExample.csproj", "{91DB6DD4-EE4B-4780-87C4-AB63C8C469E4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiExample", "WEB\WebApiExample\WebApiExample.csproj", "{9BA2F5E7-CFEC-4671-8043-3C159EDEB3ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiExample", "Web\WebApiExample\WebApiExample.csproj", "{9BA2F5E7-CFEC-4671-8043-3C159EDEB3ED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TripleCapa", "TripleCapa", "{C48CFD31-AFBA-4D77-9957-CA63C539E714}"
 EndProject
@@ -149,7 +149,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnalisisAperturaCierreSimbo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CifradoCesarAritmeticaModular", "BackEnd\Algoritmos\CifradoCesarAritmeticaModular\CifradoCesarAritmeticaModular.csproj", "{5BA252CD-357F-4089-B820-311DC931303E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebAssembly", "WEB\BlazorWebAssembly\BlazorWebAssembly.csproj", "{1A377462-B935-4A99-9ADC-7845FB7EA31E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebAssembly", "Web\BlazorWebAssembly\BlazorWebAssembly.csproj", "{1A377462-B935-4A99-9ADC-7845FB7EA31E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NoSQL", "NoSQL", "{A282EE7D-DCD5-4A74-ACAC-C202DC956DBF}"
 EndProject
