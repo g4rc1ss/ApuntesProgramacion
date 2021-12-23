@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Infraestructure.DatabaseConfig.DbConnectionExtension;
+﻿using CleanArchitecture.Infraestructure.DbConnectionExtension.DependencyInjection;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,8 +15,7 @@ namespace CleanArchitecture.Infraestructure.DatabaseConfig
                 options.UseSqlServer(configuration.GetConnectionString(nameof(EjemploContext)));
             });
             services.AddScoped(p => p.GetRequiredService<IDbContextFactory<EjemploContext>>().CreateDbContext());
-            services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>(service =>
-                new DbConnectionFactory(() => new SqlConnection(configuration.GetConnectionString(nameof(EjemploContext)))));
+            services.AddDbConnectionFactory(() => new SqlConnection(configuration.GetConnectionString(nameof(EjemploContext))));
 
             return services;
         }
