@@ -188,6 +188,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Infraestr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Infraestructure.InitDatabase", "Arquitectura\CleanArchitecture\CleanArchitecture.Infraestructure.InitDatabase\CleanArchitecture.Infraestructure.InitDatabase.csproj", "{4685D154-FF1E-4355-960A-EB9CC9E47427}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Infraestructure.DbConnectionExtension", "Arquitectura\CleanArchitecture\CleanArchitecture.Infraestructure.DbConnectionExtension\CleanArchitecture.Infraestructure.DbConnectionExtension.csproj", "{38E1AB7E-9730-4DC1-AA90-F9848B8AADF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -414,6 +416,10 @@ Global
 		{4685D154-FF1E-4355-960A-EB9CC9E47427}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4685D154-FF1E-4355-960A-EB9CC9E47427}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4685D154-FF1E-4355-960A-EB9CC9E47427}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38E1AB7E-9730-4DC1-AA90-F9848B8AADF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38E1AB7E-9730-4DC1-AA90-F9848B8AADF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38E1AB7E-9730-4DC1-AA90-F9848B8AADF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38E1AB7E-9730-4DC1-AA90-F9848B8AADF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -505,6 +511,7 @@ Global
 		{CD3F6FCA-BF1A-4188-A11C-731D4151E5D9} = {306EA200-0CA3-41E0-8877-91656BF05BD2}
 		{064637A7-ADE7-4297-BFB5-FDAF0F956970} = {7AFBCA32-61FE-4B1D-A377-29FDED10441C}
 		{4685D154-FF1E-4355-960A-EB9CC9E47427} = {7AFBCA32-61FE-4B1D-A377-29FDED10441C}
+		{38E1AB7E-9730-4DC1-AA90-F9848B8AADF8} = {7AFBCA32-61FE-4B1D-A377-29FDED10441C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E490D0C8-C5A7-4F24-8A9B-CE1635508778}
