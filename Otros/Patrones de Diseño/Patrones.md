@@ -16,13 +16,16 @@ Los patrones están explicados de la siguiente forma:
 - **Estructura** La relación entre las clases
 
 
----
-## Patrones Creacionales
+## Tipos de Patrones
 
+Los patrones varian en el uso que se les da y para que estan destinados, por eso se pueden clasificar por propositos.
 
----
-## Patrones Estructurales
+- [**Patrones creacionales**](TiposPatrones/PatronesCreacionales.md) proporcionan formas de creacion de objetos y permiten la reutilización de codigo existente.
+    - []()
+    - []()
+    - []()
+    - []()
+    - []()
 
-
----
-## Patrones de Comportamiento
+- [**Patrones estructurales**](TiposPatrones/PatronesEstructurales.md) explican formas de linkar objetos y clases en estructuras mas grandes manteniendo la flexibilidad y la eficiencia de la estructura.
+- [**Patrones de comportamiento**](TiposPatrones/PatronesComportamiento.md) tratan con algoritmos y asignacion de responsabilidades entre objetos.
