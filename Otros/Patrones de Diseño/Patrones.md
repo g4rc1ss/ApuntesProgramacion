@@ -48,3 +48,8 @@ Los patrones varian en el uso que se les da y para que estan destinados, por eso
     - [Strategy](TiposPatrones/PatronesComportamiento.md#Strategy)
     - [Template Method](TiposPatrones/PatronesComportamiento.md#Template-Method)
     - [Visitor](TiposPatrones/PatronesComportamiento.md#Visitor)
+
+
+
+
+La mayor parte de la info esta cogida de la web: [Refactoring Guru](https://refactoring.guru/es/design-patterns)
