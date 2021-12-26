@@ -92,7 +92,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcExample", "Web\MvcExampl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiExample", "Web\WebApiExample\WebApiExample.csproj", "{9BA2F5E7-CFEC-4671-8043-3C159EDEB3ED}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TripleCapa", "TripleCapa", "{C48CFD31-AFBA-4D77-9957-CA63C539E714}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NCapas", "NCapas", "{C48CFD31-AFBA-4D77-9957-CA63C539E714}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01_Frontend", "01_Frontend", "{1C268634-14F8-415D-A284-373225B9AC0D}"
 EndProject
@@ -100,13 +100,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Backend", "02_Backend", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04_Utilities", "04_Utilities", "{B1723657-343A-4FCA-90A5-6B9FE50038A3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.Frontend", "Arquitectura\TripleCapa\DesktopUI.Frontend\DesktopUI.Frontend.csproj", "{907AB616-9C48-4CE3-8E80-E8BCEFEB7D2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.Frontend", "Arquitectura\NCapas\DesktopUI.Frontend\DesktopUI.Frontend.csproj", "{907AB616-9C48-4CE3-8E80-E8BCEFEB7D2F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.Backend.Data", "Arquitectura\TripleCapa\DesktopUI.Backend.Data\DesktopUI.Backend.Data.csproj", "{A3EA5555-524D-4DDB-A304-140A5989B2A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.Backend.Data", "Arquitectura\NCapas\DesktopUI.Backend.Data\DesktopUI.Backend.Data.csproj", "{A3EA5555-524D-4DDB-A304-140A5989B2A0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.Backend.Business", "Arquitectura\TripleCapa\DesktopUI.Backend.Business\DesktopUI.Backend.Business.csproj", "{B0C1AF23-A897-4957-9429-FBB6FFA7940C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.Backend.Business", "Arquitectura\NCapas\DesktopUI.Backend.Business\DesktopUI.Backend.Business.csproj", "{B0C1AF23-A897-4957-9429-FBB6FFA7940C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.Migrations", "Arquitectura\TripleCapa\DesktopUI.Migrations\DesktopUI.Migrations.csproj", "{A9BBC14E-9FE7-4DD6-B9F9-FCC359D2C034}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.Migrations", "Arquitectura\NCapas\DesktopUI.Migrations\DesktopUI.Migrations.csproj", "{A9BBC14E-9FE7-4DD6-B9F9-FCC359D2C034}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.ApplicationCore.NegocioEjemplo", "Arquitectura\CleanArchitecture\CleanArchitecture.ApplicationCore.NegocioEjemplo\CleanArchitecture.ApplicationCore.NegocioEjemplo.csproj", "{9928A4AD-F5DE-492F-A528-FFC268139B93}"
 EndProject
@@ -114,11 +114,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Applicati
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03_Testing", "03_Testing", "{2FCA628B-7FDF-4E28-B00B-DB3A7A8607EA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.Benchmarks", "Arquitectura\TripleCapa\DesktopUI.Benchmarks\DesktopUI.Benchmarks.csproj", "{74B5C170-537E-43C3-B078-428AF81B05CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.Benchmarks", "Arquitectura\NCapas\DesktopUI.Benchmarks\DesktopUI.Benchmarks.csproj", "{74B5C170-537E-43C3-B078-428AF81B05CA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.SimulateDataForTesting", "Arquitectura\TripleCapa\DesktopUI.SimulateDataForTesting\DesktopUI.SimulateDataForTesting.csproj", "{F4E7C87A-6D40-4893-8FA1-DD33C0AE26EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.SimulateDataForTesting", "Arquitectura\NCapas\DesktopUI.SimulateDataForTesting\DesktopUI.SimulateDataForTesting.csproj", "{F4E7C87A-6D40-4893-8FA1-DD33C0AE26EF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.UnitTest", "Arquitectura\TripleCapa\DesktopUI.UnitTest\DesktopUI.UnitTest.csproj", "{9EE6C52C-C90C-4EB5-B4F2-80AE2D12A9A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.UnitTest", "Arquitectura\NCapas\DesktopUI.UnitTest\DesktopUI.UnitTest.csproj", "{9EE6C52C-C90C-4EB5-B4F2-80AE2D12A9A0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1erEjecicio", "Desktop\Gui\1erEjecicio\1erEjecicio.csproj", "{D15EC266-7AE3-487A-A969-23797FA85E24}"
 EndProject
@@ -192,7 +192,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Infraestr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Patrones", "Patrones", "{42B45F15-0F7F-4DBF-B8D1-A4100028B6AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Builder", "BackEnd\Patrones\Builder\Builder.csproj", "{CB0505C6-1545-497B-90BA-DFC62E297436}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Builder", "BackEnd\Patrones\Builder\Builder.csproj", "{CB0505C6-1545-497B-90BA-DFC62E297436}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
