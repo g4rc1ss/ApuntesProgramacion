@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using CleanArchitecture.ApplicationCore.Dominio.Negocio.Filtros.UserDetail;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using CleanArchitecture.ApplicationCore.Shared.Peticiones.Responses.User.Usuarios;
-using CleanArchitecture.Infraestructure.DatabaseConfig.DbConnectionExtension;
 using Dapper;
 
 namespace CleanArchitecture.ApplicationCore.DataEjemplo.DataAccessManager
