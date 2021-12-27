@@ -34,7 +34,7 @@
                                     foreach (var usuario in Model.UsersResponse)
                                     {
                                         <tr onclick="cargarModal('@Url.Page("/Models/Usuarios/Detalle/UsuariosDetalleModal",
-                                        new CleanArchitecture.ApplicationCore.Shared.Peticiones.Request.Users.UserDetail.UserDetailRequest
+                                        new CleanArchitecture.Shared.Peticiones.Request.Users.UserDetail.UserDetailRequest
                                         {
                                             IdUsuario = usuario.Id,
                                         })')">

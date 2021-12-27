@@ -8,7 +8,6 @@
   <ItemGroup>
     <ProjectReference Include="..\CleanArchitecture.Dominio\CleanArchitecture.Dominio.csproj" />
     <ProjectReference Include="..\CleanArchitecture.ApplicationCore.InterfacesEjemplo\CleanArchitecture.ApplicationCore.InterfacesEjemplo.csproj" />
-    <ProjectReference Include="..\CleanArchitecture.Infraestructure.DatabaseConfig\CleanArchitecture.Infraestructure.DatabaseConfig.csproj" />
   </ItemGroup>
 
 </Project>

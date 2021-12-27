@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using CleanArchitecture.ApplicationCore.Dominio.EntidadesDatabase.Identity;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManager;
+using CleanArchitecture.Dominio.EntidadesDatabase.Identity;
 using CleanArchitecture.Dominio.Negocio.UsersDto;
 using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
 using Microsoft.Extensions.Logging;
@@ -71,6 +72,11 @@ public class UserNegocio : IUserNegocio
 
     public async Task<List<UserResponse>> GetListaUsuarios()
     {
+        await Parallel.ForEachAsync(Enumerable.Range(0, 10), async (number, token) =>
+        {
+            await userDam.GetListUsers();
+        });
+
         return await userDam.GetListUsers();
     }
 }

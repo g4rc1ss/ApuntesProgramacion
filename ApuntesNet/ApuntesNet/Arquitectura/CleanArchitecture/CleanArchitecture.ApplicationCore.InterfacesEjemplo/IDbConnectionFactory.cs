@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 
-namespace CleanArchitecture.Infraestructure.DbConnectionExtension.Factory;
+namespace CleanArchitecture.ApplicationCore.InterfacesEjemplo;
 
 public interface IDbConnectionFactory
 {

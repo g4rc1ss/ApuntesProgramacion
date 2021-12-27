@@ -1,8 +1,9 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using CleanArchitecture.ApplicationCore.InterfacesEjemplo;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
+using CleanArchitecture.Dominio;
 using CleanArchitecture.Dominio.Negocio.Filtros.UserDetail;
-using CleanArchitecture.Infraestructure.DatabaseConfig.DbConnectionExtension;
 using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
 using Dapper;
 
@@ -10,9 +11,9 @@ namespace CleanArchitecture.ApplicationCore.DataEjemplo.DataAccessManager
 {
     public class UserDetailDam : IUserDetailDam
     {
-        private readonly IDbConnectionFactory _factoryEjemplo;
+        private readonly IDbConnectionFactory<EjemploContext> _factoryEjemplo;
 
-        public UserDetailDam(IDbConnectionFactory factoryEjemplo)
+        public UserDetailDam(IDbConnectionFactory<EjemploContext> factoryEjemplo)
         {
             _factoryEjemplo = factoryEjemplo;
         }
