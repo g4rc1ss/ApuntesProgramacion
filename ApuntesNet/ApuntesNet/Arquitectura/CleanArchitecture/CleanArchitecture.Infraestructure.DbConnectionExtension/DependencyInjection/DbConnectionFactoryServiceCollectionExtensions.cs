@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Common;
+using CleanArchitecture.ApplicationCore.InterfacesEjemplo;
 using CleanArchitecture.Infraestructure.DbConnectionExtension.Factory;
 using Microsoft.Extensions.DependencyInjection;
 

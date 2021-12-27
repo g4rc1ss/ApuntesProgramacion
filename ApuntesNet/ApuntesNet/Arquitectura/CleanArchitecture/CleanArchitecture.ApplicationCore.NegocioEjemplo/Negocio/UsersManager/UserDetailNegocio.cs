@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using CleanArchitecture.ApplicationCore.Dominio.Negocio.Filtros.UserDetail;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManager;
-using CleanArchitecture.ApplicationCore.Shared.Peticiones.Responses.User.Usuarios;
+using CleanArchitecture.Dominio.Negocio.Filtros.UserDetail;
+using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
 
 namespace CleanArchitecture.ApplicationCore.NegocioEjemplo.Negocio.UsersManager
 {

@@ -5,9 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanArchitecture.ApplicationCore.Dominio\CleanArchitecture.ApplicationCore.Dominio.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.Dominio\CleanArchitecture.Dominio.csproj" />
     <ProjectReference Include="..\CleanArchitecture.ApplicationCore.InterfacesEjemplo\CleanArchitecture.ApplicationCore.InterfacesEjemplo.csproj" />
-    <ProjectReference Include="..\CleanArchitecture.ApplicationCore.Shared\CleanArchitecture.ApplicationCore.Shared.csproj" />
-    <ProjectReference Include="..\CleanArchitecture.Infraestructure.InfraestructureHelper\CleanArchitecture.Infraestructure.InfraestructureHelper.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.Shared\CleanArchitecture.Shared.csproj" />
   </ItemGroup>
 </Project>

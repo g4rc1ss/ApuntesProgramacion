@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Common;
+using CleanArchitecture.ApplicationCore.InterfacesEjemplo;
 
 namespace CleanArchitecture.Infraestructure.DbConnectionExtension.Factory;
 

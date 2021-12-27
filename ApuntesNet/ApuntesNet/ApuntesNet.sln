@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gui", "Gui", "{0668E463-2FB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{2BAD429E-8340-4392-8BE0-CFBE712E7623}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentacion", "Presentacion", "{306EA200-0CA3-41E0-8877-91656BF05BD2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{306EA200-0CA3-41E0-8877-91656BF05BD2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApplicationCore", "ApplicationCore", "{29F32913-F040-4AEB-BF75-D13AAA8271AC}"
 EndProject
@@ -176,13 +176,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ejemplo", "Ejemplo", "{22C3
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.ApplicationCore.InterfacesEjemplo", "Arquitectura\CleanArchitecture\CleanArchitecture.ApplicationCore.InterfacesEjemplo\CleanArchitecture.ApplicationCore.InterfacesEjemplo.csproj", "{7E5C5C27-D314-4DAC-90EC-72B64A6275C6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.ApplicationCore.Dominio", "Arquitectura\CleanArchitecture\CleanArchitecture.ApplicationCore.Dominio\CleanArchitecture.ApplicationCore.Dominio.csproj", "{BF2D0F46-E09E-4828-B92E-9EC39C11FE2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Dominio", "Arquitectura\CleanArchitecture\CleanArchitecture.Dominio\CleanArchitecture.Dominio.csproj", "{BF2D0F46-E09E-4828-B92E-9EC39C11FE2C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.ApplicationCore.Shared", "Arquitectura\CleanArchitecture\CleanArchitecture.ApplicationCore.Shared\CleanArchitecture.ApplicationCore.Shared.csproj", "{7ED94495-328E-4F52-8520-8A359500A1C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Shared", "Arquitectura\CleanArchitecture\CleanArchitecture.Shared\CleanArchitecture.Shared.csproj", "{7ED94495-328E-4F52-8520-8A359500A1C9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Infraestructure.InfraestructureHelper", "Arquitectura\CleanArchitecture\CleanArchitecture.Infraestructure.InfraestructureHelper\CleanArchitecture.Infraestructure.InfraestructureHelper.csproj", "{DF6230CC-47F2-4712-9201-A5F3407519DF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Presentacion.Ejemplo", "Arquitectura\CleanArchitecture\CleanArchitecture.Presentacion.Ejemplo\CleanArchitecture.Presentacion.Ejemplo.csproj", "{CD3F6FCA-BF1A-4188-A11C-731D4151E5D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Ejemplo", "Arquitectura\CleanArchitecture\CleanArchitecture.Ejemplo\CleanArchitecture.Ejemplo.csproj", "{CD3F6FCA-BF1A-4188-A11C-731D4151E5D9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Infraestructure.DatabaseConfig", "Arquitectura\CleanArchitecture\CleanArchitecture.Infraestructure.DatabaseConfig\CleanArchitecture.Infraestructure.DatabaseConfig.csproj", "{064637A7-ADE7-4297-BFB5-FDAF0F956970}"
 EndProject
@@ -645,10 +645,10 @@ Global
 		{410697DD-26B8-480A-A800-2E0F57F20067} = {29F32913-F040-4AEB-BF75-D13AAA8271AC}
 		{22C3F482-D1F6-4DD9-9825-F80DEE7EF08D} = {410697DD-26B8-480A-A800-2E0F57F20067}
 		{7E5C5C27-D314-4DAC-90EC-72B64A6275C6} = {22C3F482-D1F6-4DD9-9825-F80DEE7EF08D}
-		{BF2D0F46-E09E-4828-B92E-9EC39C11FE2C} = {29F32913-F040-4AEB-BF75-D13AAA8271AC}
-		{7ED94495-328E-4F52-8520-8A359500A1C9} = {29F32913-F040-4AEB-BF75-D13AAA8271AC}
+		{BF2D0F46-E09E-4828-B92E-9EC39C11FE2C} = {306EA200-0CA3-41E0-8877-91656BF05BD2}
+		{7ED94495-328E-4F52-8520-8A359500A1C9} = {40886EA2-2EB5-4D16-BBFB-7DD4D585DD39}
 		{DF6230CC-47F2-4712-9201-A5F3407519DF} = {7AFBCA32-61FE-4B1D-A377-29FDED10441C}
-		{CD3F6FCA-BF1A-4188-A11C-731D4151E5D9} = {306EA200-0CA3-41E0-8877-91656BF05BD2}
+		{CD3F6FCA-BF1A-4188-A11C-731D4151E5D9} = {40886EA2-2EB5-4D16-BBFB-7DD4D585DD39}
 		{064637A7-ADE7-4297-BFB5-FDAF0F956970} = {7AFBCA32-61FE-4B1D-A377-29FDED10441C}
 		{4685D154-FF1E-4355-960A-EB9CC9E47427} = {7AFBCA32-61FE-4B1D-A377-29FDED10441C}
 		{38E1AB7E-9730-4DC1-AA90-F9848B8AADF8} = {7AFBCA32-61FE-4B1D-A377-29FDED10441C}

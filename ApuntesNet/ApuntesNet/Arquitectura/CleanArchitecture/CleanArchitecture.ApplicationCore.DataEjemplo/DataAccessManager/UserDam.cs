@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CleanArchitecture.ApplicationCore.Dominio.EntidadesDatabase.Identity;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
-using CleanArchitecture.ApplicationCore.Shared.Peticiones.Responses.User.Usuarios;
-using CleanArchitecture.Infraestructure.DatabaseConfig;
+using CleanArchitecture.Dominio.Database;
+using CleanArchitecture.Dominio.Database.Entities.Identity;
+using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
