@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.ApplicationCore.Shared.Peticiones.Responses.User.Usuarios
+﻿namespace CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios
 {
     public class UserResponse
     {

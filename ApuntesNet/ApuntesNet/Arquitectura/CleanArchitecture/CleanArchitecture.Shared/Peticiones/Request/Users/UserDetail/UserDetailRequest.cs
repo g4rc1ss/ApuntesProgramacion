@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.ApplicationCore.Shared.Peticiones.Request.Users.UserDetail
+﻿namespace CleanArchitecture.Shared.Peticiones.Request.Users.UserDetail
 {
     public class UserDetailRequest
     {

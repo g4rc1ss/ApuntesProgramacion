@@ -1,10 +1,10 @@
 ﻿using CleanArchitecture.ApplicationCore.DataEjemplo;
-using CleanArchitecture.ApplicationCore.Dominio.EntidadesDatabase.Identity;
 using CleanArchitecture.ApplicationCore.NegocioEjemplo;
+using CleanArchitecture.Dominio.EntidadesDatabase.Identity;
 using CleanArchitecture.Infraestructure.DatabaseConfig;
 using Microsoft.AspNetCore.Identity;
 
-namespace CleanArchitecture.Presentacion.Ejemplo.Extensions;
+namespace CleanArchitecture.Ejemplo.Extensions;
 
 internal static class ServiceCollectionExtensions
 {

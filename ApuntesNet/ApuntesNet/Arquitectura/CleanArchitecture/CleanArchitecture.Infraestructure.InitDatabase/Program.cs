@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.ApplicationCore.Dominio.EntidadesDatabase.Identity;
+﻿using CleanArchitecture.Dominio.EntidadesDatabase.Identity;
 using CleanArchitecture.Infraestructure.DatabaseConfig;
 using CleanArchitecture.Infraestructure.InitDatabase;
 using Microsoft.EntityFrameworkCore;

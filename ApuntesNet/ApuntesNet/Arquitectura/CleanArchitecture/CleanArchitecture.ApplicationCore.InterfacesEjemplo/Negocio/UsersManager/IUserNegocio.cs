@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CleanArchitecture.ApplicationCore.Dominio.Negocio.UsersDto;
-using CleanArchitecture.ApplicationCore.Shared.Peticiones.Responses.User.Usuarios;
+using CleanArchitecture.Dominio.Negocio.UsersDto;
+using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
 
 namespace CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManager;
 

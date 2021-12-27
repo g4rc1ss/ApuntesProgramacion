@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Presentacion.Ejemplo.Extensions;
+﻿using CleanArchitecture.Ejemplo.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
