@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
-using CleanArchitecture.Dominio;
+using CleanArchitecture.Dominio.Database;
 using CleanArchitecture.Dominio.Negocio.Filtros.UserDetail;
 using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
 using Dapper;

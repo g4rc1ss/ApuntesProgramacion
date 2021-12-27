@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Dominio;
+﻿using CleanArchitecture.Dominio.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Infraestructure.InitDatabase;
