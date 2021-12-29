@@ -2,14 +2,14 @@
 using System.Threading.Tasks;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
-using CleanArchitecture.Dominio.Database;
 using CleanArchitecture.Dominio.Negocio.Filtros.UserDetail;
+using CleanArchitecture.Infraestructure.DatabaseConfig;
 using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
 using Dapper;
 
-namespace CleanArchitecture.ApplicationCore.DataEjemplo.DataAccessManager
+namespace CleanArchitecture.Infraestructure.DataEjemplo.DataAccessManager
 {
-    public class UserDetailDam : IUserDetailDam
+    internal class UserDetailDam : IUserDetailDam
     {
         private readonly IDbConnectionFactory<EjemploContext> _factoryEjemplo;
 

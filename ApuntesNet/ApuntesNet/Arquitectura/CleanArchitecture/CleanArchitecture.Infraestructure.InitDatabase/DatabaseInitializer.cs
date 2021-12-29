@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Dominio.Database;
+﻿using CleanArchitecture.Infraestructure.DatabaseConfig;
 
 namespace CleanArchitecture.Infraestructure.InitDatabase;
 

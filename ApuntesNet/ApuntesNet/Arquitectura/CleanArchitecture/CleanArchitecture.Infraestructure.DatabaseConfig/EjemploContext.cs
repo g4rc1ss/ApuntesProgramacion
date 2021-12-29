@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitecture.Dominio.Database;
+namespace CleanArchitecture.Infraestructure.DatabaseConfig;
 
 public class EjemploContext : IdentityDbContext<User, Role, int>
 {

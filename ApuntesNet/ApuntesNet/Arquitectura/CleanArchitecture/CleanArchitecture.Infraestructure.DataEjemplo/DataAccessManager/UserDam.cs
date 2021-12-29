@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
-using CleanArchitecture.Dominio.Database;
 using CleanArchitecture.Dominio.Database.Entities.Identity;
+using CleanArchitecture.Infraestructure.DatabaseConfig;
 using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitecture.ApplicationCore.DataEjemplo.DataAccessManager;
+namespace CleanArchitecture.Infraestructure.DataEjemplo.DataAccessManager;
 
-public class UserDam : IUserDam
+internal class UserDam : IUserDam
 {
     private readonly IDbContextFactory<EjemploContext> _contextFactory;
     private readonly SignInManager<User> _signInManager;

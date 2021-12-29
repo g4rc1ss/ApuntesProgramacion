@@ -11,10 +11,11 @@ using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.ApplicationCore.NegocioEjemplo.Negocio.UsersManager;
 
-public class UserNegocio : IUserNegocio
+internal class UserNegocio : IUserNegocio
 {
     private readonly ILogger<UserNegocio> logger;
     private readonly IUserDam userDam;
+    
     public UserNegocio(ILogger<UserNegocio> logger, IUserDam userDam)
     {
         this.logger = logger;
