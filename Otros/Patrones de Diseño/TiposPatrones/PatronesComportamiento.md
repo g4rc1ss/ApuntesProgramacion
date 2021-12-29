@@ -1,7 +1,7 @@
 # Patrones de Comportamiento
 
 ## Chain of Responsability
-También llamado: **Adaptador**
+También llamado: ****
 
 ### Proposito
 
@@ -17,11 +17,11 @@ También llamado: **Adaptador**
 
 ### Estructura
 
-![XML](../img/PatronEstructural/Adapter/AdapterEstructura1.png)
+![XML](../img/PatronComportamiento/ChainOfResponsability/ChainOfResponsabilityEstructura.png)
 
 
 ## Command
-También llamado: **Adaptador**
+También llamado: ****
 
 ### Proposito
 
@@ -37,10 +37,10 @@ También llamado: **Adaptador**
 
 ### Estructura
 
-![XML](../img/PatronEstructural/Adapter/AdapterEstructura1.png)
+![XML](../img/PatronComportamiento/Command/CommandEstructura.png)
 
 ## Iterator
-También llamado: **Adaptador**
+También llamado: ****
 
 ### Proposito
 
@@ -56,10 +56,10 @@ También llamado: **Adaptador**
 
 ### Estructura
 
-![XML](../img/PatronEstructural/Adapter/AdapterEstructura1.png)
+![XML](../img/PatronComportamiento/Iterator/IteratorEstructura.png)
 
 ## Mediator
-También llamado: **Adaptador**
+También llamado: ****
 
 ### Proposito
 
@@ -75,10 +75,10 @@ También llamado: **Adaptador**
 
 ### Estructura
 
-![XML](../img/PatronEstructural/Adapter/AdapterEstructura1.png)
+![XML](../img/PatronComportamiento/Mediator/MediatorEstructura.png)
 
 ## Memento
-También llamado: **Adaptador**
+También llamado: ****
 
 ### Proposito
 
@@ -94,10 +94,10 @@ También llamado: **Adaptador**
 
 ### Estructura
 
-![XML](../img/PatronEstructural/Adapter/AdapterEstructura1.png)
+![XML](../img/PatronComportamiento/Memento/MementoEstructura.png)
 
 ## Observer
-También llamado: **Adaptador**
+También llamado: ****
 
 ### Proposito
 
@@ -113,10 +113,10 @@ También llamado: **Adaptador**
 
 ### Estructura
 
-![XML](../img/PatronEstructural/Adapter/AdapterEstructura1.png)
+![XML](../img/PatronComportamiento/Observer/ObserverEstructura.png)
 
 ## State
-También llamado: **Adaptador**
+También llamado: ****
 
 ### Proposito
 
@@ -132,10 +132,10 @@ También llamado: **Adaptador**
 
 ### Estructura
 
-![XML](../img/PatronEstructural/Adapter/AdapterEstructura1.png)
+![XML](../img/PatronComportamiento/State/StateEstructura.png)
 
 ## Strategy
-También llamado: **Adaptador**
+También llamado: ****
 
 ### Proposito
 
@@ -151,10 +151,10 @@ También llamado: **Adaptador**
 
 ### Estructura
 
-![XML](../img/PatronEstructural/Adapter/AdapterEstructura1.png)
+![XML](../img/PatronComportamiento/Strategy/StrategyEstructura.png)
 
 ## Template Method
-También llamado: **Adaptador**
+También llamado: ****
 
 ### Proposito
 
@@ -170,10 +170,10 @@ También llamado: **Adaptador**
 
 ### Estructura
 
-![XML](../img/PatronEstructural/Adapter/AdapterEstructura1.png)
+![XML](../img/PatronComportamiento/Method/MethodEstructura.png)
 
 ## Visitor
-También llamado: **Adaptador**
+También llamado: ****
 
 ### Proposito
 
@@ -189,4 +189,4 @@ También llamado: **Adaptador**
 
 ### Estructura
 
-![XML](../img/PatronEstructural/Adapter/AdapterEstructura1.png)
+![XML](../img/PatronComportamiento/Visitor/VisitorEstructura.png)
