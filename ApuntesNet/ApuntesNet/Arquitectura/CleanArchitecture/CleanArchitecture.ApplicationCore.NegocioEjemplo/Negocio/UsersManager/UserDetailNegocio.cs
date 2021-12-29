@@ -7,7 +7,7 @@ using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
 
 namespace CleanArchitecture.ApplicationCore.NegocioEjemplo.Negocio.UsersManager
 {
-    public class UserDetailNegocio : IUserDetailNegocio
+    internal class UserDetailNegocio : IUserDetailNegocio
     {
         private readonly IUserDetailDam _userDetailDam;
 

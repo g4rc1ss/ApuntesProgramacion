@@ -1,5 +1,5 @@
-﻿using CleanArchitecture.Dominio.Database;
-using CleanArchitecture.Dominio.Database.Entities.Identity;
+﻿using CleanArchitecture.Dominio.Database.Entities.Identity;
+using CleanArchitecture.Infraestructure.DatabaseConfig;
 using Microsoft.AspNetCore.Identity;
 
 namespace CleanArchitecture.Infraestructure.InitDatabase.Seeds;

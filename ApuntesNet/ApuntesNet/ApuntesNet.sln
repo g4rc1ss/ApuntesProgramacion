@@ -110,7 +110,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI.Migrations", "Arq
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.ApplicationCore.NegocioEjemplo", "Arquitectura\CleanArchitecture\CleanArchitecture.ApplicationCore.NegocioEjemplo\CleanArchitecture.ApplicationCore.NegocioEjemplo.csproj", "{9928A4AD-F5DE-492F-A528-FFC268139B93}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.ApplicationCore.DataEjemplo", "Arquitectura\CleanArchitecture\CleanArchitecture.ApplicationCore.DataEjemplo\CleanArchitecture.ApplicationCore.DataEjemplo.csproj", "{CD862FDE-8BAC-4241-B7C2-629163214D03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Infraestructure.DataEjemplo", "Arquitectura\CleanArchitecture\CleanArchitecture.Infraestructure.DataEjemplo\CleanArchitecture.Infraestructure.DataEjemplo.csproj", "{CD862FDE-8BAC-4241-B7C2-629163214D03}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03_Testing", "03_Testing", "{2FCA628B-7FDF-4E28-B00B-DB3A7A8607EA}"
 EndProject
@@ -196,51 +196,51 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Builder", "BackEnd\Patrones
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Creacionales", "Creacionales", "{66423642-BC56-4F7E-A6CA-67DEC7B8258C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactoryMethod", "BackEnd\Patrones\FactoryMethod\FactoryMethod.csproj", "{4EE9CE92-C798-4071-A070-83DE05682D15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FactoryMethod", "BackEnd\Patrones\FactoryMethod\FactoryMethod.csproj", "{4EE9CE92-C798-4071-A070-83DE05682D15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbstractMethod", "BackEnd\Patrones\AbstractMethod\AbstractMethod.csproj", "{4E4EC3CB-9CC5-488D-B269-5C76881E64A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbstractMethod", "BackEnd\Patrones\AbstractMethod\AbstractMethod.csproj", "{4E4EC3CB-9CC5-488D-B269-5C76881E64A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prototype", "BackEnd\Patrones\Prototype\Prototype.csproj", "{255C5DF4-9D19-417B-A4E6-0A6226F81AE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prototype", "BackEnd\Patrones\Prototype\Prototype.csproj", "{255C5DF4-9D19-417B-A4E6-0A6226F81AE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Singleton", "BackEnd\Patrones\Singleton\Singleton.csproj", "{2DE7AD75-6D09-4902-80E0-506FA23FE0A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Singleton", "BackEnd\Patrones\Singleton\Singleton.csproj", "{2DE7AD75-6D09-4902-80E0-506FA23FE0A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adapter", "BackEnd\Patrones\Adapter\Adapter.csproj", "{992D8663-8887-4F15-992B-C8B3607E2B37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adapter", "BackEnd\Patrones\Adapter\Adapter.csproj", "{992D8663-8887-4F15-992B-C8B3607E2B37}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Estructurales", "Estructurales", "{88ED9280-930F-4D04-A698-8B173FA65365}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bridge", "BackEnd\Patrones\Bridge\Bridge.csproj", "{BAA43A6D-6557-4C7D-ADD8-A8045759B3DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bridge", "BackEnd\Patrones\Bridge\Bridge.csproj", "{BAA43A6D-6557-4C7D-ADD8-A8045759B3DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Composite", "BackEnd\Patrones\Composite\Composite.csproj", "{25CCD1EC-AF8D-426C-B0A6-A4FA30D1BACC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Composite", "BackEnd\Patrones\Composite\Composite.csproj", "{25CCD1EC-AF8D-426C-B0A6-A4FA30D1BACC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Decorator", "BackEnd\Patrones\Decorator\Decorator.csproj", "{B7C99DE3-ED4C-4B7F-BDD4-45C2865D7FCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Decorator", "BackEnd\Patrones\Decorator\Decorator.csproj", "{B7C99DE3-ED4C-4B7F-BDD4-45C2865D7FCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facade", "BackEnd\Patrones\Facade\Facade.csproj", "{7DC1D8DD-F149-4693-A97E-C72D72D9423E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Facade", "BackEnd\Patrones\Facade\Facade.csproj", "{7DC1D8DD-F149-4693-A97E-C72D72D9423E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flyweight", "BackEnd\Patrones\Flyweight\Flyweight.csproj", "{EC51F170-D562-4903-8D38-356C3EEF44DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flyweight", "BackEnd\Patrones\Flyweight\Flyweight.csproj", "{EC51F170-D562-4903-8D38-356C3EEF44DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proxy", "BackEnd\Patrones\Proxy\Proxy.csproj", "{AD59C18C-E32E-4C5B-B954-C78C41A606B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Proxy", "BackEnd\Patrones\Proxy\Proxy.csproj", "{AD59C18C-E32E-4C5B-B954-C78C41A606B5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Comportamiento", "Comportamiento", "{6BD469A3-F994-4045-BD0C-470EAD035AEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChainOfResponsability", "BackEnd\Patrones\ChainOfResponsability\ChainOfResponsability.csproj", "{C792A988-7426-4612-9A83-E5746D8134EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChainOfResponsability", "BackEnd\Patrones\ChainOfResponsability\ChainOfResponsability.csproj", "{C792A988-7426-4612-9A83-E5746D8134EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Command", "BackEnd\Patrones\Command\Command.csproj", "{101DE40B-F5C7-4487-8894-2E328194A782}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Command", "BackEnd\Patrones\Command\Command.csproj", "{101DE40B-F5C7-4487-8894-2E328194A782}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iterator", "BackEnd\Patrones\Iterator\Iterator.csproj", "{96E4B63E-F3FE-488E-B3DA-71DDD50D5A63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Iterator", "BackEnd\Patrones\Iterator\Iterator.csproj", "{96E4B63E-F3FE-488E-B3DA-71DDD50D5A63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mediator", "BackEnd\Patrones\Mediator\Mediator.csproj", "{5FF6DCF0-86D6-48C0-AE9F-E3E9F22B977C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mediator", "BackEnd\Patrones\Mediator\Mediator.csproj", "{5FF6DCF0-86D6-48C0-AE9F-E3E9F22B977C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Memento", "BackEnd\Patrones\Memento\Memento.csproj", "{14C3ACC3-2A25-4D59-BBEB-75C03411FA49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Memento", "BackEnd\Patrones\Memento\Memento.csproj", "{14C3ACC3-2A25-4D59-BBEB-75C03411FA49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Observer", "BackEnd\Patrones\Observer\Observer.csproj", "{F1734FDA-B89D-4B28-847F-2AE16362C772}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Observer", "BackEnd\Patrones\Observer\Observer.csproj", "{F1734FDA-B89D-4B28-847F-2AE16362C772}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "State", "BackEnd\Patrones\State\State.csproj", "{6A3B7BC1-D1D1-48D8-BABE-FC20C6EDD7EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "State", "BackEnd\Patrones\State\State.csproj", "{6A3B7BC1-D1D1-48D8-BABE-FC20C6EDD7EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Strategy", "BackEnd\Patrones\Strategy\Strategy.csproj", "{912AF436-0A5E-431D-8169-801F03FCFC40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Strategy", "BackEnd\Patrones\Strategy\Strategy.csproj", "{912AF436-0A5E-431D-8169-801F03FCFC40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemplateMethod", "BackEnd\Patrones\TemplateMethod\TemplateMethod.csproj", "{850F7AB7-E844-4BAF-BA97-3075E715DD0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemplateMethod", "BackEnd\Patrones\TemplateMethod\TemplateMethod.csproj", "{850F7AB7-E844-4BAF-BA97-3075E715DD0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visitor", "BackEnd\Patrones\Visitor\Visitor.csproj", "{66F02877-EFD1-4831-9CD0-BEC06FB2DC80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Visitor", "BackEnd\Patrones\Visitor\Visitor.csproj", "{66F02877-EFD1-4831-9CD0-BEC06FB2DC80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -612,7 +612,7 @@ Global
 		{B0C1AF23-A897-4957-9429-FBB6FFA7940C} = {144CFA8A-5D58-486F-A7EA-C0C64A8F84C7}
 		{A9BBC14E-9FE7-4DD6-B9F9-FCC359D2C034} = {B1723657-343A-4FCA-90A5-6B9FE50038A3}
 		{9928A4AD-F5DE-492F-A528-FFC268139B93} = {1CBAB118-5174-4D07-A6B3-B3DA0EA76D66}
-		{CD862FDE-8BAC-4241-B7C2-629163214D03} = {1CBAB118-5174-4D07-A6B3-B3DA0EA76D66}
+		{CD862FDE-8BAC-4241-B7C2-629163214D03} = {7AFBCA32-61FE-4B1D-A377-29FDED10441C}
 		{2FCA628B-7FDF-4E28-B00B-DB3A7A8607EA} = {C48CFD31-AFBA-4D77-9957-CA63C539E714}
 		{74B5C170-537E-43C3-B078-428AF81B05CA} = {2FCA628B-7FDF-4E28-B00B-DB3A7A8607EA}
 		{F4E7C87A-6D40-4893-8FA1-DD33C0AE26EF} = {2FCA628B-7FDF-4E28-B00B-DB3A7A8607EA}

@@ -1,5 +1,4 @@
-﻿using CleanArchitecture.Dominio.Database;
-using CleanArchitecture.Infraestructure.DbConnectionExtension.DependencyInjection;
+﻿using CleanArchitecture.Infraestructure.DbConnectionExtension.DependencyInjection;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
