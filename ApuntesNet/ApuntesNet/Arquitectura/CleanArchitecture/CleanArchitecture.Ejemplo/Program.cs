@@ -1,10 +1,12 @@
 ﻿using CleanArchitecture.Ejemplo.Extensions;
+using CleanArchitecture.Ejemplo.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddAppConfiguration(builder.Configuration);
+builder.Services.AddScoped<EjemploMiddleware>();
 
 var app = builder.Build();
 
@@ -22,6 +24,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseMiddleware<EjemploMiddleware>();
 
 app.MapRazorPages();
 
