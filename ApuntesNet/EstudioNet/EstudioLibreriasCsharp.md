@@ -1,4 +1,4 @@
-# DependencyInjection
+# Dependency Injection
 La inversión de dependencias es un principio que describe un conjunto de técnicas destinadas a disminuir el acoplamiento entre los componentes de una aplicación. Es uno de los principios SOLID más populares y utilizados en la creación de aplicaciones, frameworks y componentes por las ventajas que aporta a las mismas.
 
 La inversión de dependencias suele también conocerse como inversión de control. En inglés, los términos más frecuentemente utilizados son "dependency inversion", abreviado como "DI", e "inversion of control" o simplemente "IoC".
@@ -264,10 +264,18 @@ app.MapRazorPages();
 await app.RunAsync();
 ```
 
-# ApplicationBuilder
+# Middleware
+Un Middleware es una clase que permite manipular una peticion o respuesta HTTP
 
+El proceso de ejecución de un Middleware se realiza cuando llega la `Request`, se pasan por los distintos Middlewares hasta ejecutar el proceso principal de la peticion y cuando este proceso devuelve el response, se pasa por los Middleare en sentido opuesto hasta que salga la peticion hacia el usuario.
 
-## Middleware
+IMAGEN
+
+Cabe destacar que el orden es importante, ya que como he indicado se van ejecutando uno detrás de otro. 
+
+Hay que tener en cuenta, que podemos crear un middleware que en ciertas condiciones nos crea una respuesta directamente, esta acción lo que haría sería evitar que los middleware que vienen después no se ejecuten. 
+
+### Crear un Middleware
 
 ```Csharp
 
