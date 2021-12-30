@@ -276,9 +276,57 @@ Cabe destacar que el orden es importante, ya que como he indicado se van ejecuta
 Hay que tener en cuenta, que podemos crear un middleware que en ciertas condiciones nos crea una respuesta directamente, esta acción lo que haría sería evitar que los middleware que vienen después no se ejecuten. 
 
 ### Crear un Middleware
+Para crear un Middleware necesitamos implementar la interfaz `IMiddleware` que nos creara el metodo `Task InvokeAsync(HttpContext context, RequestDelegate next)`
+1. Implementamos la dependencia `ILogger`, puesto que vamos a registrar por logs las respuestas que se reciben de la aplicación.
+
+1. La función `InvokeAsync` recibe el `HttpContext` y el `RequestDelegate`
+    1. El `HttpContext` contiene todos los datos de la peticion, tanto el `Request` como el `Response` entre otras cosas.
+    1. El `RequestDelegate` contiene el siguiente middleware a ejecutar, si no hay ningun Middleware mas, se pasará a ejecutar el proceso principal de la petición
+
+1. La ejecución del Middleware funciona de la sigueinte forma.
+    1. Ejecutamos codigo antes de la ejecucion del proceso principal y el resto de Middlewares.
+    1. Ejecutamos la función `await next(context);`. Este delegado pasa al sigueinte Middleware sucesivamente hasta el proceso principal de la petición(la lógica de negocio).
+    1. Cuando el proceso del delegado anterior termina su ejecución, nos llega el **contexto** con la `response` y a partir de aquí se ejecuta el codigo que queremos realizar despues de la petición.  
+    Una vez finalizada la función se iran pasando a los anteriores Middlewares hasta que se devuelva la petición al usuario que solicito la Request.
 
 ```Csharp
+public class EjemploMiddleware : IMiddleware
+{
+    private readonly ILogger<EjemploMiddleware> _logger;
 
+    public EjemploMiddleware(ILogger<EjemploMiddleware> logger)
+    {
+        _logger = logger;
+    }
+
+    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+    {
+        // Lo que se ejecuta antes de la resolucion de la request
+        using var memoryStream = new MemoryStream();
+        var original = context.Response.Body;
+
+        context.Response.Body = memoryStream;
+        _logger.LogInformation($"Request Path {context.Request.Path.Value}");
+
+        // La llamada a la siguiente ejecucion correspondiente del Middleware hasta que se resuelva la Request
+        await next(context);
+
+        // Lo que se ejecuta despues de la resolucion de la request
+        memoryStream.Seek(0, SeekOrigin.Begin);
+        var data = await new StreamReader(context.Response.Body).ReadToEndAsync();
+        memoryStream.Seek(0, SeekOrigin.Begin);
+
+        _logger.LogInformation($"Datos del Response {data}");
+        await memoryStream.CopyToAsync(original);
+        context.Response.Body = original;
+    }
+}
+```
+Para implementar el `Middleware`
+
+```csharp
+builder.Services.AddScoped<EjemploMiddleware>();
+app.UseMiddleware<EjemploMiddleware>();
 ```
 
 # EntityFramework Core
