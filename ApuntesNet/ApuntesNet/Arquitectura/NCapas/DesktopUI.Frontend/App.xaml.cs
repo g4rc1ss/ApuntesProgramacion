@@ -15,35 +15,34 @@ namespace DesktopUI.Frontend
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            CreateHostBuilder(e.Args).Build();
-        }
+            var builder = Host.CreateDefaultBuilder(e.Args);
 
-        private static IHostBuilder CreateHostBuilder(string[] args)
-        {
-            return new HostBuilder()
-                .UseEnvironment(System.Environment.GetEnvironmentVariable("DESKTOP_ENVIRONMENT") ?? "Production")
-                .ConfigureAppConfiguration((hostContext, configBuilder) =>
+            builder.UseEnvironment(System.Environment.GetEnvironmentVariable("DESKTOP_ENVIRONMENT") ?? "Production");
+
+            builder.ConfigureAppConfiguration((hostContext, configBuilder) =>
+            {
+                configBuilder.AddJsonFile("appsettings.json");
+                configBuilder.AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true);
+            });
+
+            builder.ConfigureServices((hostContext, services) =>
+            {
+                services.AddOptions();
+
+                services.AddFrontend();
+                services.AddBackendBusiness();
+                services.AddBackendData();
+
+                services.AddDbContextFactory<ContextoSqlServer>(options =>
                 {
-                    _ = configBuilder.AddJsonFile("appsettings.json");
-                    _ = configBuilder.AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true);
-                })
-                .ConfigureServices((hostContext, services) =>
-                {
-                    _ = services.AddOptions();
-
-                    _ = services.AddFrontend();
-                    _ = services.AddBackendBusiness();
-                    _ = services.AddBackendData();
-
-                    _ = services.AddDbContextFactory<ContextoSqlServer>(options =>
-                    {
-                        options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(ContextoSqlServer)));
-                    });
-                    _ = services.AddScoped(p => p.GetRequiredService<IDbContextFactory<ContextoSqlServer>>().CreateDbContext());
-
-                    var presentation = services.BuildServiceProvider().GetRequiredService<MainWindow>();
-                    presentation.Show();
+                    options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(ContextoSqlServer)));
                 });
+                services.AddScoped(p => p.GetRequiredService<IDbContextFactory<ContextoSqlServer>>().CreateDbContext());
+
+            });
+            var app = builder.Build();
+
+            app.Services.GetRequiredService<MainWindow>().Show();
         }
     }
 }

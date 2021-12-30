@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace DesktopUI.Frontend
 {
@@ -8,11 +6,7 @@ namespace DesktopUI.Frontend
     {
         public static IServiceCollection AddFrontend(this IServiceCollection services)
         {
-            foreach (var managerType in Assembly.GetExecutingAssembly().GetTypes()
-                                                                        .Where(x => x.Name.Contains("Window")))
-            {
-                _ = services.AddScoped(managerType);
-            }
+            services.AddTransient<MainWindow>();
 
             return services;
         }
