@@ -26,7 +26,7 @@ Para lograr esto, crearemos una interfaz Manejador que permite tratar las petici
 
 ### Estructura
 
-![](../img/PatronComportamiento/ChainOfResponsability/ChainOfResponsabilityEstructura.png)
+![image](https://user-images.githubusercontent.com/28193994/147789203-afc143d5-a4ea-4648-a12d-5522768cce1e.png)
 
 
 ## Command
@@ -61,7 +61,7 @@ La configuración de los ConcreteCommands y del Receiver se establecera mediante
 
 ### Estructura
 
-![](../img/PatronComportamiento/Command/CommandEstructura.png)
+![image](https://user-images.githubusercontent.com/28193994/147789220-024e32c5-f30a-42cc-bc42-312cce3f0519.png)
 
 ## Interpreter
 También llamado: **Interprete**
@@ -91,7 +91,7 @@ Además puede existir un contexto común a todas las expresiones que defina cier
 
 ### Estructura
 
-![](../img/PatronComportamiento/Interpreter/InterpreterEstructura.png)
+![image](https://user-images.githubusercontent.com/28193994/147789237-ed1f80d4-6aba-4c9c-9df9-a463c83e9a8d.png)
 
 ## Iterator
 También llamado: **Iterador**  
@@ -122,7 +122,7 @@ Para crear objetos Iterator utilizaremos otra interfaz llamada Aggregate, que se
 
 ### Estructura
 
-![](../img/PatronComportamiento/Iterator/IteratorEstructura.png)
+![image](https://user-images.githubusercontent.com/28193994/147789249-70671cbc-adb6-4875-8c34-3fd9e6dc107a.png)
 
 ## Mediator
 También llamado: **Mediador, Intermediary, Controller**  
@@ -156,7 +156,7 @@ El siguiente paso es definir la interfaz de los integrantes del sistema, la cual
 
 ### Estructura
 
-![](../img/PatronComportamiento/Mediator/MediatorEstructura.png)
+![image](https://user-images.githubusercontent.com/28193994/147789257-7fcbff3c-79f9-4cb0-88ad-c15b3e270cd6.png)
 
 ## Memento
 También llamado: **Snapshot**
@@ -181,10 +181,10 @@ Un memento es un objeto que almacena una instantánea del estado interno de otro
 ### Estructura
 
 Implementación basada en clases anidadas
-![](../img/PatronComportamiento/Memento/MementoEstructura1.png)
+![image](https://user-images.githubusercontent.com/28193994/147789271-b374b76f-ce63-435d-9586-7bb83ec3403c.png)
 
 Implementación con una encapsulación más estricta
-![](../img/PatronComportamiento/Memento/MementoEstructura3.png)
+![image](https://user-images.githubusercontent.com/28193994/147789278-8ac85aab-42c6-4380-90c0-6abdbd8e11d8.png)
 
 ## Observer
 También llamado: **Listener**  
@@ -207,7 +207,7 @@ Que el objeto del cual dependen los demás (observado) tenga un listado de ellos
 
 ### Estructura
 
-![](../img/PatronComportamiento/Observer/ObserverEstructura.png)
+![image](https://user-images.githubusercontent.com/28193994/147789450-600abca4-0dd2-4b9d-ad6f-62472bebcbc6.png)
 
 ## State
 También llamado: **Estado**
@@ -232,7 +232,7 @@ Esta estructura puede resultar similar al patrón Strategy, pero hay una diferen
 
 ### Estructura
 
-![](../img/PatronComportamiento/State/StateEstructura.png)
+![image](https://user-images.githubusercontent.com/28193994/147789311-70d836a5-61e3-43a0-83a5-4a0688cb6cbd.png)
 
 ## Strategy
 También llamado: **Estrategia**
@@ -260,7 +260,7 @@ De esta forma, el contexto se vuelve independiente de las estrategias concretas,
 
 ### Estructura
 
-![](../img/PatronComportamiento/Strategy/StrategyEstructura.png)
+![image](https://user-images.githubusercontent.com/28193994/147789326-451312a6-26a7-414a-871a-c8c388b941f8.png)
 
 ## Template Method
 También llamado: **Metodo Plantilla**
@@ -283,7 +283,7 @@ El patrón Template Method sugiere que dividas un algoritmo en una serie de paso
 
 ### Estructura
 
-![](../img/PatronComportamiento/TemplateMethod/TemplateMethodEstructura.png)
+![image](https://user-images.githubusercontent.com/28193994/147789341-e9351ed0-da74-4a06-ad69-a7fc2dd7345c.png)
 
 ## Visitor
 También llamado: **Visitante**
@@ -313,4 +313,4 @@ El patrón Visitor sugiere que coloques el nuevo comportamiento en una clase sep
 
 ### Estructura
 
-![](../img/PatronComportamiento/Visitor/VisitorEstructura.png)
+![image](https://user-images.githubusercontent.com/28193994/147789350-ee611007-e2a2-4d43-9828-511b99fa4635.png)
