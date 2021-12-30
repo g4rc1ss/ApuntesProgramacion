@@ -194,6 +194,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Patrones", "Patrones", "{42
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Builder", "BackEnd\Patrones\Builder\Builder.csproj", "{CB0505C6-1545-497B-90BA-DFC62E297436}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalApiExample", "Web\MinimalApiExample\MinimalApiExample.csproj", "{A30C98CA-7EF5-49C0-8053-B013F1491BEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -428,6 +430,10 @@ Global
 		{CB0505C6-1545-497B-90BA-DFC62E297436}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB0505C6-1545-497B-90BA-DFC62E297436}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB0505C6-1545-497B-90BA-DFC62E297436}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A30C98CA-7EF5-49C0-8053-B013F1491BEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A30C98CA-7EF5-49C0-8053-B013F1491BEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A30C98CA-7EF5-49C0-8053-B013F1491BEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A30C98CA-7EF5-49C0-8053-B013F1491BEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -522,6 +528,7 @@ Global
 		{38E1AB7E-9730-4DC1-AA90-F9848B8AADF8} = {7AFBCA32-61FE-4B1D-A377-29FDED10441C}
 		{42B45F15-0F7F-4DBF-B8D1-A4100028B6AF} = {261ED94F-5197-460B-9B6F-C3E0802193F7}
 		{CB0505C6-1545-497B-90BA-DFC62E297436} = {42B45F15-0F7F-4DBF-B8D1-A4100028B6AF}
+		{A30C98CA-7EF5-49C0-8053-B013F1491BEC} = {1DA159C8-90C4-4281-BD8E-514EF1B0CF3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E490D0C8-C5A7-4F24-8A9B-CE1635508778}
