@@ -23,19 +23,19 @@ Al final te ves obligado a repetir codigo o tener que agregar condicionales extr
 
 La solución es implementar un nivel de abstraccion creando una `interface Transporte`, las clases de transporte `Camion`, `Barco`, `Avion` por ejemplo y estas deberan de implementar la interface `Transporte`.
 
-![transporte](../img/PatronCreacional/FactoryMethod/FactoryMethod1.png)
+![image](https://user-images.githubusercontent.com/28193994/147788737-2b125613-939e-40c9-a029-0a58f382343c.png)
 
 Una clase abstracta o interface `MedioTransporte` y tendra un metodo para crear un transporte y creamos subclases que sean referentes a `Tierra`, `Agua`, `Aire`. 
 
 En el medio de transporte por tierra se pueden usar Camiones, trenes, etc.  
 Entonces lo que se hace es crear un metodo de factoria que devuelva un `Transporte`(clase abstracta o interface) y ahi es donde se realizara la logica de devolver una instancia de la clase `Camion` o `Tren` o la correspondiente.
 
-![transporte](../img/PatronCreacional/FactoryMethod/FactoryMethod2.png)
+![image](https://user-images.githubusercontent.com/28193994/147788760-bf326659-9199-4cf6-9037-fd47bdeb02be.png)
 
 
 ### Estructura
 
-![transporte](../img/PatronCreacional/FactoryMethod/FactoryMethod3.png)
+![image](https://user-images.githubusercontent.com/28193994/147788771-8914e463-31ee-48aa-8e3e-5775586901eb.png)
 
 
 ---
@@ -133,7 +133,7 @@ public class MainClient {
 
 ### Estructura
 
-![](../img/PatronCreacional/AbstractMethod/AbstractMethod1.png)
+![image](https://user-images.githubusercontent.com/28193994/147788794-42ab7799-31da-43c0-89a2-14fa9c4a7619.png)
 
 ---
 ## Builder
@@ -254,7 +254,7 @@ De esta manera, la forma de crear la query es mucho mas clara por los nombres de
 
 ### Estructura
 
-![](../img/PatronCreacional/Builder/BuilderEstructura.jpg)
+![image](https://user-images.githubusercontent.com/28193994/147788813-274ff133-b0c5-4f46-bb4d-fbef70e4a585.png)
 
 ---
 ## Prototype
@@ -280,7 +280,7 @@ Un objeto que soporta la clonación se denomina prototipo. Cuando tus objetos ti
 
 ### Estructura
 
-![](../img/PatronCreacional/Prototype/PrototypeEstructura.png)
+![image](https://user-images.githubusercontent.com/28193994/147788832-0ceebe0f-b55f-466f-9bd3-35fb080a7dc6.png)
 
 ---
 ## Singleton
@@ -307,4 +307,4 @@ Un ejemplo de un patron Singleton, podria ser la implementacion de una Caché, p
 
 ### Estructura
 
-![](../img/PatronCreacional/Singleton/SingletonEstructura.png)
+![image](https://user-images.githubusercontent.com/28193994/147788845-31e1fb20-c822-43ce-acb7-3ae4122a5fcd.png)
