@@ -330,29 +330,11 @@ public class EjemploMiddleware : IMiddleware
     }
 }
 ```
-Para implementar el `Middleware`
+Para implementarlo
+1. Agregamos la clase al contenedor de dependencias para poder usar dependencias como `ILogger`, etc.
+1. Usando el objeto `app` que contiene la instancia de `WebApplication` ejecutamos el metodo `UseMiddleware<EjemploMiddleware>();` para registrarlo en el proceso de la Request.
 
 ```csharp
 builder.Services.AddScoped<EjemploMiddleware>();
 app.UseMiddleware<EjemploMiddleware>();
 ```
-
-# EntityFramework Core
-
-
-## 
-
-```Csharp
-
-```
-
-# Dapper
-
-
-##
-
-```Csharp
-
-```
-
-#
