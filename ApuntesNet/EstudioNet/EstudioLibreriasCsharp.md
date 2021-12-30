@@ -286,7 +286,7 @@ Para crear un Middleware necesitamos implementar la interfaz `IMiddleware` que n
 1. La ejecución del Middleware funciona de la sigueinte forma.
     1. Ejecutamos codigo antes de la ejecucion del proceso principal y el resto de Middlewares.
     1. Ejecutamos la función `await next(context);`. Este delegado pasa al sigueinte Middleware sucesivamente hasta el proceso principal de la petición(la lógica de negocio).
-    1. Cuando el proceso del delegado anterior termina su ejecución, nos llega el **contexto** con la `response` y a partir de aquí se ejecuta el codigo que queremos realizar despues de la petición.  
+    1. Cuando el proceso del delegado anterior termina, se ejecuta el codigo que queremos realizar despues de la petición.  
     Una vez finalizada la función se iran pasando a los anteriores Middlewares hasta que se devuelva la petición al usuario que solicito la Request.
 
 ```Csharp
