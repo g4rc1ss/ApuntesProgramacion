@@ -269,7 +269,7 @@ Un Middleware es una clase que permite manipular una peticion o respuesta HTTP
 
 El proceso de ejecución de un Middleware se realiza cuando llega la `Request`, se pasan por los distintos Middlewares hasta ejecutar el proceso principal de la peticion y cuando este proceso devuelve el response, se pasa por los Middleare en sentido opuesto hasta que salga la peticion hacia el usuario.
 
-IMAGEN
+![request-delegate-pipeline](https://user-images.githubusercontent.com/28193994/147764426-dc4f7b40-d447-4a79-8281-67a92cdaceee.png)
 
 Cabe destacar que el orden es importante, ya que como he indicado se van ejecutando uno detrás de otro. 
 
