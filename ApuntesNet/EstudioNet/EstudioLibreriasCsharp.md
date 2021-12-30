@@ -338,3 +338,38 @@ Para implementarlo
 builder.Services.AddScoped<EjemploMiddleware>();
 app.UseMiddleware<EjemploMiddleware>();
 ```
+
+# Entity Framework Core
+
+
+## 
+
+
+
+# Dapper
+
+
+## 
+
+
+
+# User Secrets
+
+
+## 
+
+
+
+# IDataProtectionProvider
+
+
+##
+
+
+
+# IOptions
+
+
+##
+
+
