@@ -21,7 +21,7 @@ Los patrones están explicados de la siguiente forma:
 Los patrones varian en el uso que se les da y para que estan destinados, por eso se pueden clasificar por propositos.
 
 - [**Patrones creacionales**](TiposPatrones/PatronesCreacionales.md) proporcionan formas de creacion de objetos y permiten la reutilización de codigo existente.
-    - [Factory Method](TiposPatrones/PatronesCreacionales.md#Factory-Method)
+    - [Factory Method](./TiposPatrones/PatronesCreacionales.md#Factory-Method)
     - [Abstract Method](TiposPatrones/PatronesCreacionales.md#Abstract-Method)
     - [Builder](TiposPatrones/PatronesCreacionales.md#Builder)
     - [Prototype](TiposPatrones/PatronesCreacionales.md#Prototype)
