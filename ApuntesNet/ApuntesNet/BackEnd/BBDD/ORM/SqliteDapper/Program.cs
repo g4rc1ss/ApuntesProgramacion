@@ -15,10 +15,10 @@ namespace SqliteDapper
                 {
                     await new DapperExecute().CreateDatabase();
                 }
-                InsertData.InsertDataQuery();
-                UpdateData.UpdateDataQuery();
-                DeleteData.DeleteDataQuery();
-                SelectData.SelectDataQuery();
+                await InsertData.InsertDataQueryAsync();
+                await UpdateData.UpdateDataQueryAsync();
+                await DeleteData.DeleteDataQueryAsync();
+                await SelectData.SelectDataQueryAsync();
 
 
             }

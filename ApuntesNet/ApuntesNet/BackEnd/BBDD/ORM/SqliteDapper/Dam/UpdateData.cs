@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Dapper;
 using SqliteDapper.Database;
 using SqliteDapper.Database.Sqlite;
@@ -7,22 +8,27 @@ namespace SqliteDapper.Dam
 {
     internal class UpdateData
     {
-        internal static void UpdateDataQuery()
+        internal static async Task UpdateDataQueryAsync()
         {
-            using (var connection = DapperExecute.GetConnection())
+            using var connection = DapperExecute.GetConnection();
+            
+            var updatePueblo = @$"UPDATE {nameof(Pueblo)}
+                                          SET Id = '{Guid.NewGuid()}'
+                                          WHERE Id = @idPueblo";
+            var nChangesPueblo = await connection.ExecuteAsync(updatePueblo, new
             {
-                var updatePueblo = @$"UPDATE {nameof(Pueblo)}
-                                          SET Id = '{Guid.NewGuid()}'
-                                          WHERE Id = 'IdPueblo1'";
-                var nChangesPueblo = connection.Execute(updatePueblo);
+                idPueblo = "IdPueblo1",
+            });
 
-                var updateUsuario = @$"UPDATE {nameof(Usuario)}
+            var updateUsuario = @$"UPDATE {nameof(Usuario)}
                                           SET Id = '{Guid.NewGuid()}'
-                                          WHERE Id = 'IdUsuario1'";
-                var nChangesUsuario = connection.Execute(updateUsuario.ToString());
+                                          WHERE Id = @idUsuario";
+            var nChangesUsuario = await connection.ExecuteAsync(updateUsuario.ToString(), new
+            {
+                idUsuario = "IdUsuario1",
+            });
 
-                Console.WriteLine($"Actualizado {nChangesPueblo + nChangesUsuario} registros");
-            }
+            Console.WriteLine($"Actualizado {nChangesPueblo + nChangesUsuario} registros");
         }
     }
 }
