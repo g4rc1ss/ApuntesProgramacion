@@ -13,27 +13,21 @@ namespace SqliteDapper.Dam
         {
             using var connection = DapperExecute.GetConnection();
             
-            var insertIntoPueblo = new StringBuilder();
-            var guidPueblo = Guid.NewGuid();
-            insertIntoPueblo.AppendLine($"insert into {nameof(Pueblo)} (id, nombre)");
-            insertIntoPueblo.AppendLine($"values (@guidPueblo, @NombrePueblo)");
-            var nChangesPueblo = await connection.ExecuteAsync(insertIntoPueblo.ToString(), new
-            {
-                guidPueblo,
-                NombrePueblo = "Albacete"
-            });
+            var insert = @$"
+insert into {nameof(Pueblo)} (id, nombre)
+values (@guidPueblo, @NombrePueblo);
 
-            var insertIntoUsuario = new StringBuilder();
-            insertIntoUsuario.AppendLine($"insert into {nameof(Usuario)} (id, nombre, idpueblo)");
-            insertIntoUsuario.AppendLine($"VALUES (@guidUsuario, @nombreUsuario, @guidPueblo)");
-            var nChangesUsuario = await connection.ExecuteAsync(insertIntoUsuario.ToString(), new
+insert into {nameof(Usuario)} (id, nombre, idpueblo)
+VALUES (@guidUsuario, @nombreUsuario, @guidPueblo);";
+            var nChanges = await connection.ExecuteAsync(insert, new
             {
+                guidPueblo = Guid.NewGuid(),
+                NombrePueblo = "Albacete",
                 guidUsuario = Guid.NewGuid(),
                 nombreUsuario = "garciss",
-                guidPueblo
             });
 
-            Console.WriteLine($"Agregado {nChangesPueblo + nChangesUsuario} registros");
+            Console.WriteLine($"Agregado {nChanges} registros");
         }
     }
 }
