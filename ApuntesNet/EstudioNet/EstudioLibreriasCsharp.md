@@ -499,7 +499,7 @@ var nChangesPueblo = await connection.ExecuteAsync(insertIntoPueblo, new
 });
 ```
 
-### Insert varias queries
+#### Insert varias queries
 Para insertar varias queries con dapper, simplemente debemos separar las `INSERT INTO` con `;` y mandar la sql en la funcion de `ExecuteAsync()`
 
 ```Csharp
@@ -644,8 +644,89 @@ _protector.Unprotect(values.personalProfile.Email)
 ```
 
 # IOptions
+La implementacion del *Options Pattern* nos aporta poder encapsular y separar la lógica de la configuracion de la aplicacion del resto de componentes.
 
+Para poder hacer uso de este servicio, necesitaremos instalar `Microsoft.Extensions.Options`.
 
-##
+Para implementar el patron Options tenemos que agregarlo con el objeto `IConfiguration` en la inyeccion de dependencias.
 
+Llamamos al metodo `Configure` pasandole una clase sobre la que mapeara la configuracion contenida en la section indicada.
+```Csharp
+builder.services.Configure<T>(Configuration.GetSection("seccion"));
+```
 
+**Los beneficios que nos aporta este patron son:**
+1. Utilizarlo, nos fuerza a tener nuestra configuración **fuertemente tipada** y así, evitar errores.
+1. Cuando revisamos código, o simplemente lo leemos después de un tiempo, es mucho más sencillo de entender si nuestro tipo de configuración se llama `IOptions<T>`, así sabemos de dónde viene.
+
+Si, por ejemplo, necesitamos hacer uso de validaciones o algun proceso de verificación de datos podemos usar el metodo `PostConfiguration` despues de usar el metodo `Configure<T>`.
+
+```Csharp
+builder.services.Configure<T>(Configuration.GetSection("seccion"));
+builder.services.PostConfigure<T>(configuration =>
+{
+    if ( string.IsNullOrWhiteSpace(configuration.property))
+    {
+        throw new ApplicationException("");
+    }
+});
+```
+
+## Cuando usar los patrones
+La elección entre las diferentes interfaces del patrón `IOptions` dependerá de tu caso de uso, puesto que estos varían segun sus tiempos de vida.
+
+- `IOptions` si no vas a cambiar la configuración.
+
+- `IOptionsSnapshot` si vas a cambiar la configuración.
+
+- `IOptionsMonitor` si necesitas cambiar la configuración constantemente o detectas que ese cambio puede pasar en el medio de un proceso.
+
+### IOptions
+Con esta opcion, nuestra configuracio se crea en el contenedor de dependencias como singleton, por lo que si la modificamos, no se podra visualizar dicho cambio.
+
+```Csharp
+private readonly T _configuracionCreada;
+
+public Clase(IOptions<T> configuracionCreada)
+{
+    _configuracionCreada = configuracionCreada.Value;
+}
+```
+
+### IOptionsSnapshot
+Si implementamos esta interfaz, se creara una instancia del objeto correspondiente una vez por Request(**scoped**) la cual va a ser inmutable.
+
+La ventaja principal es que nos permite cambiar el valor de la configuracion en tiempo de ejecución, de esta forma, no hará falta hacer un despliegue para ello.
+
+IMAGEEEEEEEEEEEEENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+
+La forma de acceder es la misma, pero implementando esta interfaz
+
+```Csharp
+private readonly T _configuracionCreada;
+
+public Clase(IOptionsSnapshot<T> configuracionCreada)
+{
+    _configuracionCreada = configuracionCreada.Value;
+}
+```
+
+### IOptionsMonitor
+`IOptionsMonitor<T>` se inyecta en nuestro servicio como `Singleton` y funciona de una manera especial, ya que en vez de acceder a .Value para acceder a T como hacíamos anteriormente, ahora realizamos `.CurrentValue` el cual nos devuelve el valor en el momento.
+
+Esto quiere decir que si cambias el valor a mitad de la request o mitad de un proceso, este obtendrá el valor actualizado:
+
+IMAGEEEEEEEEENNNNNNNNNNNNNNNNNNNNNN
+
+La forma de acceder es un tanto diferente:
+```Csharp
+private readonly IOptionsMonitor<T> _configuracionCreada;
+
+public Clase(IOptionsMonitor<T> configuracionCreada)
+{
+    _configuracionCreada = configuracionCreada;
+}
+
+// Para acceder a la informacion:
+_configuracionCreada.CurrentValue.Property
+```
