@@ -391,7 +391,7 @@ Dapper tiene la opcion de realizar la ejecucion de las consultas de forma `sincr
 ### SELECT
 Hay varias funciones para realizar consultas con Dapper.
 
-### QueryFirstOrDefault<>
+#### QueryFirstOrDefault<>
 Cuando queremos realizar una consulta que solamente va a devolver una fila, ejecutamos el metodo `QueryFirstOrDefault`, que nos devolvera una instancia del objeto mapeado que solicitamos
 
 ```Csharp
@@ -401,7 +401,7 @@ await con.QueryFirstOrDefaultAsync<T?>($"SELECT * FROM {TableName} where UserId 
 });
 ```
 
-### Query<>
+#### Query<>
 Cuando queremos obtener una lista de objetos mapeados de una query, usamos el metodo `QueryAsync` y este nos devolvera un objeto `IEnumerable<T>` que podremos iterar, mapear a un `List`, etc.
 
 ```Csharp
@@ -411,7 +411,7 @@ await con.QueryAsync<T>($"SELECT * FROM {TableName} where UserId = @userId", new
 });
 ```
 
-### Consultas relacionadas
+#### Consultas relacionadas
 Cuando queremos ejecutar consultas relacionadas, queremos mapear objetos completos, por ejemplo, un usuario pertenece a un municipio y tenemos una clase `Usuario` y una clase `Pueblo`,
 
 La entidad usuario es la siguiente:
@@ -459,7 +459,7 @@ var respuestaPueblo = await connection.QueryAsync<Usuario, Pueblo, Usuario>(sqlP
 }, splitOn: $"{nameof(Pueblo.IdPueblo)}");
 ```
 
-### QueryMultiple
+#### QueryMultiple
 A veces para obtener una serie de datos, necesitamos realizar varias consultas diferentes. Para ello dapper permite la ejecucion de varias queries juntas en orden.
 
 1. Creamos la `sql` con las diferentes queries, para separarlas se pone el `;` al finalizar la query correspondiente.
