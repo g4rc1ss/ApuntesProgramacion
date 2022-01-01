@@ -110,7 +110,10 @@ public class ClaseDI
 }
 ```
 
-## DI en Console Application
+## Implementar DI en proyectos
+La inyeccion de dependencias se puede implementar en todos los tipos de proyectos actuales de .Net
+
+### Console Application
 1. Necesitamos crear un Objeto `IHostBuilder`, Microsoft tiene por defecto una factoria base que te devuelve dicho objeto, y es el metodo `Host.CreateDefaultBuider(args)`.
 
 2. Agregamos la configuracion de logging, eso hace que cuando se use el objeto `ILogger` se pinte con dicha configuración.
@@ -156,7 +159,7 @@ await migrations.StartAsync(CancellationToken.None);
 
 ```
 
-## DI en Desktop Application
+### Desktop Application
 1. Necesitamos crear un Objeto `IHostBuilder`, Microsoft tiene por defecto una factoria base que te devuelve dicho objeto, y es el metodo `Host.CreateDefaultBuider(args)`.
 
 1. Agregamos la configuracion para indicar el `Environment` en el que estamos, muy util para realizar ciertas acciones segun si estamos en `Development` o `Production`
@@ -219,7 +222,7 @@ public partial class App : Application
 }
 ```
 
-## DI en Web Application
+### Web Application
 1. Necesitamos crear un Objeto `WebApplicationBuilder`, Microsoft tiene por defecto una factoria base que te devuelve dicho objeto, y es el metodo `WebApplication.CreateBuilder(args)`.
 
 1. Agregamos la configuracion de servicios al contenedor de dependencias.  
@@ -391,7 +394,7 @@ Dapper tiene la opcion de realizar la ejecucion de las consultas de forma `sincr
 ### SELECT
 Hay varias funciones para realizar consultas con Dapper.
 
-### QueryFirstOrDefault<>
+#### QueryFirstOrDefault<>
 Cuando queremos realizar una consulta que solamente va a devolver una fila, ejecutamos el metodo `QueryFirstOrDefault`, que nos devolvera una instancia del objeto mapeado que solicitamos
 
 ```Csharp
@@ -401,7 +404,7 @@ await con.QueryFirstOrDefaultAsync<T?>($"SELECT * FROM {TableName} where UserId 
 });
 ```
 
-### Query<>
+#### Query<>
 Cuando queremos obtener una lista de objetos mapeados de una query, usamos el metodo `QueryAsync` y este nos devolvera un objeto `IEnumerable<T>` que podremos iterar, mapear a un `List`, etc.
 
 ```Csharp
@@ -411,7 +414,7 @@ await con.QueryAsync<T>($"SELECT * FROM {TableName} where UserId = @userId", new
 });
 ```
 
-### Consultas relacionadas
+#### Consultas relacionadas
 Cuando queremos ejecutar consultas relacionadas, queremos mapear objetos completos, por ejemplo, un usuario pertenece a un municipio y tenemos una clase `Usuario` y una clase `Pueblo`,
 
 La entidad usuario es la siguiente:
@@ -459,7 +462,7 @@ var respuestaPueblo = await connection.QueryAsync<Usuario, Pueblo, Usuario>(sqlP
 }, splitOn: $"{nameof(Pueblo.IdPueblo)}");
 ```
 
-### QueryMultiple
+#### QueryMultiple
 A veces para obtener una serie de datos, necesitamos realizar varias consultas diferentes. Para ello dapper permite la ejecucion de varias queries juntas en orden.
 
 1. Creamos la `sql` con las diferentes queries, para separarlas se pone el `;` al finalizar la query correspondiente.
@@ -499,7 +502,7 @@ var nChangesPueblo = await connection.ExecuteAsync(insertIntoPueblo, new
 });
 ```
 
-### Insert varias queries
+#### Insert varias queries
 Para insertar varias queries con dapper, simplemente debemos separar las `INSERT INTO` con `;` y mandar la sql en la funcion de `ExecuteAsync()`
 
 ```Csharp
@@ -554,10 +557,18 @@ Console.WriteLine($"Borrado {nChangesUsuario} registros");
 ```
 
 # User Secrets
+Los **User secrets** son datos especificos que contienen datos como contraseñas, claves de API, cadenas de conexion, etc. Por lo que necesitamos tenerlas fuera del repositorio y de compartirlas con otros desarrolladores.
 
+## Secret Manager
+Una vez creado el proyecto principal, el que contiene los archivos de configuración, le damos al click derecho sobre el proyecto y buscamos la opción `Manage User Secrets`.
 
-## 
+Esta opción generará un elemento `<userSecretsId>` en el `.csproj` del proyecto y se almacenara ese id en el programa.  
+A su vez el programa creará un archivo llamado **secrets.json** que estará ubicado fuera del proyecto. Por defecto se ubica en:
+- Windows `%APPDATA%\microsoft\UserSecrets\<userSecretsId>\secrets.json`
+- Mac `~/.microsoft/usersecrets/<userSecretsId>/secrets.json`
+- Linux `~/.microsoft/usersecrets/<userSecretsId>/secrets.json`
 
+Para poder acceder a dicho archivo, se podra hacer desde el objeto `IConfiguration` con la configuracion por defecto.
 
 
 # IDataProtectionProvider
@@ -636,8 +647,89 @@ _protector.Unprotect(values.personalProfile.Email)
 ```
 
 # IOptions
+La implementacion del *Options Pattern* nos aporta poder encapsular y separar la lógica de la configuracion de la aplicacion del resto de componentes.
 
+Para poder hacer uso de este servicio, necesitaremos instalar `Microsoft.Extensions.Options`.
 
-##
+Para implementar el patron Options tenemos que agregarlo con el objeto `IConfiguration` en la inyeccion de dependencias.
 
+Llamamos al metodo `Configure` pasandole una clase sobre la que mapeara la configuracion contenida en la section indicada.
+```Csharp
+builder.services.Configure<T>(Configuration.GetSection("seccion"));
+```
 
+**Los beneficios que nos aporta este patron son:**
+1. Utilizarlo, nos fuerza a tener nuestra configuración **fuertemente tipada** y así, evitar errores.
+1. Cuando revisamos código, o simplemente lo leemos después de un tiempo, es mucho más sencillo de entender si nuestro tipo de configuración se llama `IOptions<T>`, así sabemos de dónde viene.
+
+Si, por ejemplo, necesitamos hacer uso de validaciones o algun proceso de verificación de datos podemos usar el metodo `PostConfiguration` despues de usar el metodo `Configure<T>`.
+
+```Csharp
+builder.services.Configure<T>(Configuration.GetSection("seccion"));
+builder.services.PostConfigure<T>(configuration =>
+{
+    if ( string.IsNullOrWhiteSpace(configuration.property))
+    {
+        throw new ApplicationException("");
+    }
+});
+```
+
+## Cuando usar los patrones
+La elección entre las diferentes interfaces del patrón `IOptions` dependerá de tu caso de uso, puesto que estos varían segun sus tiempos de vida.
+
+- `IOptions` si no vas a cambiar la configuración.
+
+- `IOptionsSnapshot` si vas a cambiar la configuración.
+
+- `IOptionsMonitor` si necesitas cambiar la configuración constantemente o detectas que ese cambio puede pasar en el medio de un proceso.
+
+### IOptions
+Con esta opcion, nuestra configuracio se crea en el contenedor de dependencias como singleton, por lo que si la modificamos, no se podra visualizar dicho cambio.
+
+```Csharp
+private readonly T _configuracionCreada;
+
+public Clase(IOptions<T> configuracionCreada)
+{
+    _configuracionCreada = configuracionCreada.Value;
+}
+```
+
+### IOptionsSnapshot
+Si implementamos esta interfaz, se creara una instancia del objeto correspondiente una vez por Request(**scoped**) la cual va a ser inmutable.
+
+La ventaja principal es que nos permite cambiar el valor de la configuracion en tiempo de ejecución, de esta forma, no hará falta hacer un despliegue para ello.
+
+![image](https://user-images.githubusercontent.com/28193994/147843223-464ee4fe-16a2-40e0-9e4d-a58a81640a94.png)
+
+La forma de acceder es la misma, pero implementando esta interfaz
+
+```Csharp
+private readonly T _configuracionCreada;
+
+public Clase(IOptionsSnapshot<T> configuracionCreada)
+{
+    _configuracionCreada = configuracionCreada.Value;
+}
+```
+
+### IOptionsMonitor
+`IOptionsMonitor<T>` se inyecta en nuestro servicio como `Singleton` y funciona de una manera especial, ya que en vez de acceder a .Value para acceder a T como hacíamos anteriormente, ahora realizamos `.CurrentValue` el cual nos devuelve el valor en el momento.
+
+Esto quiere decir que si cambias el valor a mitad de la request o mitad de un proceso, este obtendrá el valor actualizado:
+
+![image](https://user-images.githubusercontent.com/28193994/147843227-51c7f8c0-55cf-4897-a434-da23cf136f40.png)
+
+La forma de acceder es un tanto diferente:
+```Csharp
+private readonly IOptionsMonitor<T> _configuracionCreada;
+
+public Clase(IOptionsMonitor<T> configuracionCreada)
+{
+    _configuracionCreada = configuracionCreada;
+}
+
+// Para acceder a la informacion:
+_configuracionCreada.CurrentValue.Property
+```
