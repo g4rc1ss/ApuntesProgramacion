@@ -110,7 +110,10 @@ public class ClaseDI
 }
 ```
 
-## DI en Console Application
+## Implementar DI en proyectos
+La inyeccion de dependencias se puede implementar en todos los tipos de proyectos actuales de .Net
+
+### Console Application
 1. Necesitamos crear un Objeto `IHostBuilder`, Microsoft tiene por defecto una factoria base que te devuelve dicho objeto, y es el metodo `Host.CreateDefaultBuider(args)`.
 
 2. Agregamos la configuracion de logging, eso hace que cuando se use el objeto `ILogger` se pinte con dicha configuración.
@@ -156,7 +159,7 @@ await migrations.StartAsync(CancellationToken.None);
 
 ```
 
-## DI en Desktop Application
+### Desktop Application
 1. Necesitamos crear un Objeto `IHostBuilder`, Microsoft tiene por defecto una factoria base que te devuelve dicho objeto, y es el metodo `Host.CreateDefaultBuider(args)`.
 
 1. Agregamos la configuracion para indicar el `Environment` en el que estamos, muy util para realizar ciertas acciones segun si estamos en `Development` o `Production`
@@ -219,7 +222,7 @@ public partial class App : Application
 }
 ```
 
-## DI en Web Application
+### Web Application
 1. Necesitamos crear un Objeto `WebApplicationBuilder`, Microsoft tiene por defecto una factoria base que te devuelve dicho objeto, y es el metodo `WebApplication.CreateBuilder(args)`.
 
 1. Agregamos la configuracion de servicios al contenedor de dependencias.  
@@ -698,7 +701,7 @@ Si implementamos esta interfaz, se creara una instancia del objeto correspondien
 
 La ventaja principal es que nos permite cambiar el valor de la configuracion en tiempo de ejecución, de esta forma, no hará falta hacer un despliegue para ello.
 
-IMAGEEEEEEEEEEEEENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+![image](https://user-images.githubusercontent.com/28193994/147843223-464ee4fe-16a2-40e0-9e4d-a58a81640a94.png)
 
 La forma de acceder es la misma, pero implementando esta interfaz
 
@@ -716,7 +719,7 @@ public Clase(IOptionsSnapshot<T> configuracionCreada)
 
 Esto quiere decir que si cambias el valor a mitad de la request o mitad de un proceso, este obtendrá el valor actualizado:
 
-IMAGEEEEEEEEENNNNNNNNNNNNNNNNNNNNNN
+![image](https://user-images.githubusercontent.com/28193994/147843227-51c7f8c0-55cf-4897-a434-da23cf136f40.png)
 
 La forma de acceder es un tanto diferente:
 ```Csharp
