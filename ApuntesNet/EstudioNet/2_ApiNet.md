@@ -141,7 +141,7 @@ Muchos equipos y estaciones de trabajo personales tienen varios núcleos de CPU 
 
 Por ejemplo, imaginemos que tenemos una aplicacion que requiere de realizar 3 consultas para obtener datos diferentes de una BBDD, aprovechandonos del multithreading, podemos hacer uso de la clase Parallel para realizar esas consultas de forma paralelizada y reducir los tiempos.
 
----
+
 ## Thread
 Con la clase Thread se pueden crear multiples hilos para poder ejecutar tareas a traves de subprocesos. Esta clase permite obtener el paralelismo de los datos.
 
@@ -156,7 +156,7 @@ var hilo = new Thread(() =>
 hilo.Start();
 ```
 
----
+
 ## ThreadPool
 La clase ThreadPool se utiliza para poder reutilizar los hilos y optimizar su uso.  
 Con la clase Thread, cada vez que ejecutamos un metodo `start()` se crea un nuevo hilo para ejecutar la accion correspondiente. Con esta clase lo que se consigue es que si ya existe un hilo creado y este ha terminado su ejecucion, poder reutilizarlo para la ejecucion de otra instruccion, con esto evitamos un consumo extra de registros.
@@ -168,7 +168,7 @@ ThreadPool.QueueUserWorkItem(x =>
 });
 ```
 
----
+
 ## Sincronizacion de hilos
 Con el uso de la sincronizacion podremos establecer el orden de ejecucion de los hilos en el procesador para poder tener una mejor gestion sobre estos
 
@@ -198,7 +198,7 @@ hilo2.Join();
 Thread.Sleep(1000);
 ```
 
----
+
 ## Bloqueos de hilos
 Consiste en bloquear un hilo para que, cuando un hilo esta ejecutando la tarea correspondiente no se pueda manipular dicha ejecucion a traves de otros hilos que estan en ejecucion.
 
@@ -262,7 +262,7 @@ La programacion asincrona se realiza cuando se quieren evitar bloqueos en el hil
 Por ejemplo, en una interfaz Desktop, si se usa el patron en las operaciones costosas, la interfaz no se bloqueará mientras se ejecutan las instrucciones.  
 En una aplicacion web como `ASP.NET` usar el patron hara que se puedan recibir mas peticiones mientras las peticiones anteriores estan en espera de que termine el proceso que ocupa tiempo, como por ejemplo, una consulta a BBDD.
 
----
+
 ### Async & Await
 El núcleo de la programación asincrónica son los objetos `Task` y `Task<T>`, que modelan las operaciones asincrónicas. Son compatibles con las palabras clave `async` y `await`. El modelo es bastante sencillo en la mayoría de los casos:
 
@@ -341,7 +341,7 @@ Parallel.ForEach(collection, (item, state, index) =>
 # LINQ
 Linq es una API orientada al uso de consultas a diferentes tipos de contenido, como objetos, entidades, XML, etc. De esta manera se resume en una sintaxis sencilla y fácil de leer, tratar y mantener el tratamiento de diferentes tipos de datos.
 
----
+
 ## Sintaxis de consulta
 ### From
 ```Csharp
@@ -430,7 +430,7 @@ select product;
 products.OrderByDescending(product => product.CategoryID);
 ```
 
----
+
 ## Evaluacion/Ejecucion de Consulta
 Para poder tratar las consultas, la api de LINQ devuelve objetos del tipo `IEnumerable<>` o `IQueryable<>`.  
 Hay diferentes formas de leer los datos, por un lado mediante un `foreach` se pueden iterar un `IEnumerable` y por otro lado, hay metodos que convierten los datos a una coleccion directamente.
@@ -477,7 +477,7 @@ where prod.Name == "Producto 2"
 select prod).FirstOrDefault()
  ```
 
----
+
 ## Extension de Linq
 En `Linq` mediante el uso de la interfaz `IEnumerable<T>` se pueden realizar metodos de extension para ampliar y personalizar la libreria linq para realizar filtros o guardar el objeto en una lista personalizada
 
@@ -514,7 +514,7 @@ public static class ExtensionLinq
 }
 ```
 
----
+
 ## Arboles de Expresion
 Los árboles de expresiones son estructuras de datos que definen código. Se basan en las mismas estructuras que usa un compilador para analizar el código y generar el resultado compilado. Hay cierta similitud entre los árboles de expresiones y los tipos usados en las API de Roslyn para compilar analizadores y correcciones de código. (Los analizadores y las correcciones de código son paquetes de NuGet que realizan un análisis estático en código y pueden sugerir posibles correcciones). Los conceptos son similares y el resultado final es una estructura de datos que permite examinar el código fuente de forma significativa. En cambio, los árboles de expresiones se basan en un conjunto de clases y API totalmente diferentes a las de Roslyn.
 

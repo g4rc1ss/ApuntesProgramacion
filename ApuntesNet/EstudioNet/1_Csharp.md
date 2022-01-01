@@ -22,7 +22,7 @@ namespace ProgramNamespace
 
 - ``Main(string[] args)`` -> el método main es el método principal de donde parte la aplicación siempre, no puede haber dos main en el mismo proyecto
 
----
+
 ## Declaración de variables
 ```Csharp
 string a = "hoa";
@@ -35,7 +35,7 @@ const int CONSTANTE = 2;
 - `var` Se usa para no tener que indicar el tipo de la variable, lo detecta automaticamente
 - `const` Se usa para establecer un valor que no puede ser modificado
 
----
+
 ## Tipos Nullables
 Los tipos primitivos no pueden ser `null` por defecto, no obstante, si se requiere de hacer uso de null en dichos tipos, se pueden definir de la siguiente forma.
 ```Csharp
@@ -43,7 +43,7 @@ int? numero = null;
 Nullable<int> = null;
 ```
 
----
+
 ## Convertir tipos
 Para convertir a otros tipos se puede hacer uso de la clase estatica `Convert` como el ejemplo de arriba
 ```Csharp
@@ -51,7 +51,7 @@ Convert.ToInt32(2.0); // 2
 Convert.ToBoolean(1); // true
 ```
 
----
+
 ## Boxing y Unboxing
 Todos los tipos de C# directa o indirectamente se derivan del tipo de clase object, y object es la clase base definitiva de todos los tipos. Los valores de tipos de referencia se tratan como objetos mediante la visualización de los valores como tipo object.
 
@@ -63,7 +63,7 @@ object o = i; // Boxing
 int j = (int)o; // Unboxing
 ```
 
----
+
 ## Dynamic
 Cuando creamos una variable debemos indicar el tipo de variable que va a ser, o podemos utilizar la palabra clave var, la cual se convertirá en tiempo de compilación en el tipo de variable - la cual denominamos variable implícita -
 
@@ -82,7 +82,7 @@ variableDinamica = "test";
 variableDinamica.GetType().ToString();
 ```
 
----
+
 ## Instrucciones de toma de decisiones
 ### Condicionales
 #### if-else
@@ -144,7 +144,7 @@ foreach (var item in new List<string>())
 }
 ```
 
----
+
 ## Operadores
 El lenguaje C# proporciona una serie de operadores en la sintaxis del codigo para realizar operaciones como comprobacion de nulos, condiciones, etc.
 
@@ -324,7 +324,7 @@ var convirtiendo = new ClaseParaConvertir()
 var conversionExplicita = (ClaseConvertidaExplicita)convirtiendo;
 ```
 
-----
+
 ## Enumerador
 Una enumeración es un conjunto de constantes enteras que tienen asociado un nombre para cada valor.
 
@@ -394,7 +394,7 @@ var cadenaCompare = cadena.CompareTo("Hola, yo me llamo Ralph");
 var cadenaSubString = cadena.Substring(3, 5);
 ```
 
----
+
 ## StringBuilder
 StringBuilder es una clase de cadena mutable. Mutabilidad significa que una vez creada una instancia de la clase, se puede modificar anexando, quitando, reemplazando o insertando caracteres. 
 
@@ -410,7 +410,7 @@ stringBuilder.Replace("Hola", "Adios");
 var cadenaCompleta = stringBuilder.ToString();
 ```
 
----
+
 ## Expresiones Regulares
 Las expresiones regulares proporcionan un método eficaz y flexible para procesar texto. La notación extensa de coincidencia de patrones de expresiones regulares permite analizar rápidamente grandes cantidades de texto para:
 
@@ -436,7 +436,7 @@ Console.WriteLine(telefonoRegex);
 # Colecciones
 Las colecciones proporcionan una manera más flexible de trabajar con grupos de objetos. A diferencia de las matrices, el grupo de objetos con el que trabaja puede aumentar y reducirse de manera dinámica a medida que cambian las necesidades de la aplicación
 
----
+
 ## Listas
 
 Una lista es un tipo de colección ordenada(un array)
@@ -462,7 +462,7 @@ lista.Remove("me llamo Ralph");
 lista.Reverse();
 ```
 
----
+
 ## Diccionarios
 
 Una clase de Diccionario es una estructura de datos que representa una colección de 
@@ -495,7 +495,7 @@ diccionario.TryGetValue("Key", out string valor);
 
 ```
 
-----
+
 ## Tuplas
 Una tupla es una estructura de datos que contiene una secuencia de elementos de diferentes tipos, esta estructura es de solo lectura, por tanto se usa para almacenar objetos que no van a ser modificados después.
 
@@ -508,7 +508,7 @@ tupla.Item3;
 tupla.Item4;
 ```
 
-----
+
 ## Tablas Hash
 Representa una colección de pares de clave y valor que se organizan por código hash de la clave
 
@@ -533,7 +533,7 @@ tablaHash.Clear();
 tablaHash["Key"];
 ```
 
-----
+
 ## Pilas
 El Stack es una coleccion LIFO(Last in, First Out) sin tamaño fijo de los objetos indicados.
 
@@ -562,7 +562,7 @@ pila.ToArray();
 pila.Contains("objeto");
 ```
 
-----
+
 ## Colas
 La Queue es una coleccion FIFO(First In, First Out).
 
@@ -592,7 +592,7 @@ cola.ToArray();
 cola.Contains("objeto");
 ```
 
----
+
 ## Implementar la Interfaz IEnumerable
 `IEnumerable<T>` es la interfaz base para las colecciones, como listas, diccionarios, etc.  
 Tiene un metodo que ha de ser implementado llamado `GetEnumerator` que devolvera un objeto de tipo `IEnumerator<T>`.  
@@ -673,7 +673,7 @@ public class EnumeradorEnumerablePersonalizado<T> : IEnumerator<T>
 }
 ```
 
----
+
 ## Implementar IList
 Si se quiere realizar un tipo de lista ordenada personalizado se debera de implementar la interfaz `IList<T>`.  
 Las listas requieren que sean dinamicas, por tanto se implementara el metodo `Add()`, que se pueda acceder a ellas mediante un `index[]`, que se puedan limpiar, etc.
@@ -739,7 +739,7 @@ public class ListaPersonalizada<T> : IList<T>
 }
 ```
 
----
+
 ## Implementar IDictionary
 `IDictionary<TKey, TValue>` es una interfaz base que se utiliza para las colecciones con pares clave-valor.  
 Las claves tienes que ser unicas y los valores pueden ser `null` o repetidos.
@@ -867,7 +867,7 @@ public class Customer
 }
 ```
 
----
+
 ## Static Class
 
 La instruccion `static` se usa cuando se quiere el acceso a un metodo o propiedad sin que tenga que ser instanciada la clase.
@@ -883,7 +883,7 @@ public static class A
     }
 }
 ```
----
+
 ## Metodos
 Un método es un bloque de código que contiene una serie de instrucciones.
 ```Csharp
@@ -965,7 +965,7 @@ public static class StringExtensions
 Console.WriteLine("hello world!".PrimeraMaysucula());
 ```
 
-----
+
 ## Propiedades
 Las propiedades se comportan como campos cuando se obtiene acceso a ellas. Pero, a diferencia de los
 campos, las propiedades se implementan con descriptores de acceso que definen las instrucciones que se
@@ -981,7 +981,7 @@ public string propiedadDos {
 }
 ```
 
-----
+
 ## Herencia
 La herencia significa que se pueden crear nuevas clases partiendo de clases existentes, que tendrá todas los atributos, propiedades y los métodos de su 'superclass' o 'clase padre' y además se le podrán añadir otros atributos, propiedades y métodos propios.
 
@@ -991,7 +991,7 @@ public class Clase : SuperClase
 }
 ```
 
----
+
 ## Abstract Class
 
 No se pueden crear instancias de una clase abstracta. 
@@ -1012,7 +1012,7 @@ internal class B : A
 }
 ```
 
-----
+
 ## Sealed Class
 El modificador `sealed` se usa para sellar una clase y que esta no pueda ser heredada.
 
@@ -1024,7 +1024,7 @@ sealed class SealedClass
 
 ``` 
 
----
+
 ## Interface
 Las interfaces, como las clases, definen un conjunto de propiedades, métodos y eventos. Pero de forma contraria a las clases, las interfaces no proporcionan implementación.
 
@@ -1051,7 +1051,7 @@ public class PruebaInterfazImplícita : IMiInterfaz
 }
 ```
 
----
+
 ## Polimorfismo
 Es la capacidad que tiene una clase en convertirse en un nuevo objeto sin cambiar su esencia y luego volver al objeto origina de donde salió.
 
@@ -1137,7 +1137,7 @@ static void Main(string[] args)
 }
 ```
 
----
+
 ## Covarianza y Contravarianza
 La covarianza y la contravarianza habilitan la conversión de referencias implícita de tipos de matriz, tipos de delegado y argumentos de tipo genérico. La covarianza conserva la compatibilidad de asignaciones y la contravarianza la invierte.
 
@@ -1271,8 +1271,6 @@ public enum Enumerador
 }
 ```
 
----
-
 ## Indizadores
 Permiten crear una clase, un struct o una interfaz con un "indice" al que se accederá a traves del objeto instanciado de la clase, no hace falta acceder a la matriz como tal.
 ```Csharp
@@ -1306,8 +1304,6 @@ public static void Main(string[] args)
         Console.WriteLine(objetoIndice[x]);
 }
 ```
-
----
 
 ## Yield
 Lo que el operador yield realiza es pausar la ejecución de la iteración y devuelve el valor al método que realiza la llamada para que este continúe con su ejecución y cuando termine volverá al siguiente punto del iterador.
@@ -1554,8 +1550,6 @@ var resultado2 = ClaseExpression.Run(x =>
     return x.Nombre + x.Apellido;
 }, persona);
 ```
-
----
 
 ## Codigo no Administrado
 El codigo no administrado es un tipo de codigo al que no puede acceder el `Garbage Collector` para realizar el proceso de limpieza de memoria, por tanto hay que hacerlo manualmente.  
