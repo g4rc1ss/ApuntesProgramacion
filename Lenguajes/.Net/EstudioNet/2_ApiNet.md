@@ -19,6 +19,71 @@ Este tipo implementa la interfaz `IDisposable`. Cuando haya terminado de utiliza
 
 Cuando desechamos un objeto Stream, se vacían los datos almacenados en búfer y se llama al metodo `Flush`. `Dispose` también libera los recursos del sistema operativo, como los identificadores de archivos, las conexiones de red o la memoria usada para cualquier almacenamiento en búfer interno.
 
+## MemoryStream
+Esta clase a menudo es usada para lidiar con bytes viniendo de otros lugares, por ejemplo un archivo o una ubicación de red, sin bloquear la fuente. Por ejemplo, puedes leer el contenido entero de un archivo en un `MemoryStream`, el cual bloquea y desbloquea el archivo inmediatamente y trabajamos con esta instancia directamente.
+
+Gracias a que implementa la clase Stream, podemos cargar la `MemoryStream` y usar otras clases existentes como `StreamReader`, etc.
+```Csharp
+using var streamEscrito = new MemoryStream();
+
+int buffer;
+while ((buffer = streamEscrito.ReadByte()) >= 0)
+{
+    Console.Write(Convert.ToChar(buffer));
+}
+```
+
+### Lectura
+Podemos leer mediante los metodos de la propia clase `MemoryStream`
+```Csharp
+using var streamEscrito = new MemoryStream();
+
+int buffer;
+while ((buffer = streamEscrito.ReadByte()) >= 0)
+{
+    Console.Write(Convert.ToChar(buffer));
+}
+```
+
+### Escritura
+Podemos escribir mediante los metodos de la propia clase `MemoryStream`
+```Csharp
+byte[] firstString = new UnicodeEncoding().GetBytes("Texto a convertir en bytes");
+byte[] secondString = new UnicodeEncoding().GetBytes("Texto a agregar");
+
+var memoryStream = new MemoryStream();
+
+memoryStream.Write(firstString, 0, firstString.Length);
+
+foreach (var item in secondString)
+{
+    memoryStream.WriteByte(item);
+}
+```
+
+### Copia
+```Csharp
+using var memoryStream = new MemoryStream();
+
+await streamEscrito.CopyToAsync(memoryStream);
+```
+
+### Uso en otras clases derivadas
+Podemos hacer uso de otras clases derivadas de `Stream` para tratar el objeto `MemoryStream`
+
+```Csharp
+using var memoryStream = new MemoryStream();
+using var streamWriter = new StreamWriter(memoryStream);
+
+await streamWriter.WriteLineAsync("Hola, me llamo Ralph");
+
+memoryStream.Seek(0, SeekOrigin.Begin);
+var reader = new StreamReader(memoryStream);
+Console.WriteLine(await reader.ReadToEndAsync());
+
+streamWriter.Flush();
+```
+
 ## Archivos de texto
 Clases que interactuan con archivos de texto fisicamente
 
@@ -160,55 +225,32 @@ await writeFile.WriteAsync(textoEscribir);
 ### Archivos JSON
 
 
-### Archivos XML
-
-
-## MemoryStream
-Esta clase a menudo es usada para lidiar con bytes viniendo de otros lugares, por ejemplo un archivo o una ubicación de red, sin bloquear la fuente. Por ejemplo, puedes leer el contenido entero de un archivo en un `MemoryStream`, el cual bloquea y desbloquea el archivo inmediatamente y trabajamos con esta instancia directamente.
-
-Gracias a que implementa la clase Stream, podemos cargar la `MemoryStream` y usar otras clases existentes como `StreamReader`, etc.
+#### Lectura
 ```Csharp
-using var streamEscrito = new MemoryStream();
+using var jsonStream = File.Open("ruta.json", FileMode.Open, FileAccess.Read);
+var localizacion = await JsonSerializer.DeserializeAsync<ClaseParaJSON>(jsonStream);
+```
 
-int buffer;
-while ((buffer = streamEscrito.ReadByte()) >= 0)
+#### Escritura
+```Csharp
+var crearJSON = new ClaseParaJSON()
 {
-    Console.Write(Convert.ToChar(buffer));
-}
+    Ruta = "archivo.txt"
+};
+using var jsonStream = File.OpenWrite("ruta.json");
+await JsonSerializer.SerializeAsync(jsonStream, json);
 ```
 
-### Lectura
-Podemos leer mediante los metodos de la propia clase `MemoryStream`
-```Csharp
-using var streamEscrito = new MemoryStream();
+### XML
 
-int buffer;
-while ((buffer = streamEscrito.ReadByte()) >= 0)
-{
-    Console.Write(Convert.ToChar(buffer));
-}
-```
 
-### Escritura
-Podemos escribir mediante los metodos de la propia clase `MemoryStream`
-```Csharp
-byte[] firstString = new UnicodeEncoding().GetBytes("Texto a convertir en bytes");
-byte[] secondString = new UnicodeEncoding().GetBytes("Texto a agregar");
-
-var memoryStream = new MemoryStream();
-
-memoryStream.Write(firstString, 0, firstString.Length);
-
-foreach (var item in secondString)
-{
-    memoryStream.WriteByte(item);
-}
-```
-
-### Copia
+#### Documentos XML
 ```Csharp
 ```
 
+#### XML con Linq
+```Csharp
+```
 
 # Serializacion
 La serialización es el proceso de convertir un objeto en una secuencia de bytes para almacenarlo o transmitirlo a la memoria, a una base de datos o a un archivo. Su propósito principal es guardar el estado de un objeto para poder volver a crearlo cuando sea necesario. El proceso inverso se denomina deserialización.
@@ -238,20 +280,14 @@ La serialización de JSON serializa las propiedades públicas de un objeto en un
 
 #### Serializar JSON
 ```Csharp
-static void Main(string[] args)
-{
-    var serializacion = new ClaseSerializacion("Nombre", "Apellido", "cuentaaaa bancariaaaa");
-    var serializado = System.Text.Json.JsonSerializer.Serialize(serializacion);
-}
+var serializacion = new ClaseSerializacion("Nombre", "Apellido", "cuentaaaa bancariaaaa");
+var serializado = System.Text.Json.JsonSerializer.Serialize(serializacion);
 ```
 
 #### Deserializar JSON
 ```Csharp
-static void Main(string[] args)
-{
-    const string JSON = @"{""Nombre"":""Nombre"",""Apellidos"":""Apellido""}";
-    var deserializado = System.Text.Json.JsonSerializer.Deserialize<ClaseSerializacion>(JSON);
-}
+const string JSON = @"{""Nombre"":""Nombre"",""Apellidos"":""Apellido""}";
+var deserializado = System.Text.Json.JsonSerializer.Deserialize<ClaseSerializacion>(JSON);
 ```
 
 ### Archivo XML
