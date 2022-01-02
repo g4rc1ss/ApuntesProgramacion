@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using SqliteDapper.Database;
@@ -25,9 +26,9 @@ namespace SqliteDapper.Dam
 
             #region Query normal
 
-            var sqlPueblo = @$"SELECT Id as {nameof(Pueblo.IdPueblo)},
-                                    Nombre as {nameof(Pueblo.NombrePueblo)}
-                                    FROM {nameof(Pueblo)}";
+            var sqlPueblo = @$"SELECT Id as {nameof(Pueblo.IdPueblo)}
+                                    ,Nombre as {nameof(Pueblo.NombrePueblo)}
+                                FROM {nameof(Pueblo)}";
             var respuestaPueblo = await connection.QueryAsync<Pueblo>(sqlPueblo);
             #endregion
 
@@ -41,7 +42,7 @@ SELECT user.Id as {nameof(Usuario.IdUsuario)}
 FROM {nameof(Usuario)} as user
 INNER JOIN {nameof(Pueblo)} as village ON user.IdPueblo = village.Id
 WHERE user.Id = @idUsuario";
-            var respuestaJoin = await connection.QueryAsync<Usuario, Pueblo, Usuario>(sqlPueblo, (user, pueblo) =>
+            var respuestaJoin = await connection.QueryAsync<Usuario, Pueblo, Usuario>(sqlUsuarioJoin, (user, pueblo) =>
             {
                 user.FKPueblo = pueblo;
                 return user;
@@ -60,6 +61,32 @@ WHERE user.Id = @idUsuario";
             #endregion
 
             #region Query Multiple
+            var sqlMultipleUserPueblo = $@"
+SELECT Id as {nameof(Usuario.IdUsuario)}
+    ,Nombre as {nameof(Usuario.NombreUsuario)}
+FROM Usuario
+ORDER BY Id;
+
+SELECT Id as {nameof(Pueblo.IdPueblo)}
+    ,Nombre as {nameof(Pueblo.NombrePueblo)}
+FROM Pueblo
+ORDER BY Id;
+";
+            var queryMultiple = await connection.QueryMultipleAsync(sqlMultipleUserPueblo);
+            var users = await queryMultiple.ReadAsync<Usuario>();
+            var villages = await queryMultiple.ReadAsync<Pueblo>();
+
+            users.Select((x) =>
+            {
+                Console.WriteLine(x.IdUsuario);
+                return x;
+            }).ToList();
+
+            villages.Select((x) =>
+            {
+                Console.WriteLine(x.IdPueblo);
+                return x;
+            }).ToList();
 
             #endregion
 

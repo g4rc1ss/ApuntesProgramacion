@@ -12,7 +12,9 @@ namespace SqliteDapper.Dam
         {
             using var connection = DapperExecute.GetConnection();
             
-            var deleteUsuario = @$"DELETE FROM {nameof(Usuario)} WHERE Id = @idUsuario";
+            var deleteUsuario = @$"
+DELETE FROM {nameof(Usuario)} 
+WHERE Id = @idUsuario";
             var nChangesUsuario = await connection.ExecuteAsync(deleteUsuario.ToString(), new
             {
                 idUsuario = "IdUsuario2"
