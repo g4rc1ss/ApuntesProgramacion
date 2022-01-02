@@ -244,6 +244,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Visitor", "BackEnd\Patrones
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinimalApiExample", "Web\MinimalApiExample\MinimalApiExample.csproj", "{A30C98CA-7EF5-49C0-8053-B013F1491BEC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnMemoria", "BackEnd\EscrituraLectura\EnMemoria\EnMemoria.csproj", "{DEFC05A3-C647-4858-A7D0-C712FCA50DF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -566,6 +568,10 @@ Global
 		{A30C98CA-7EF5-49C0-8053-B013F1491BEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A30C98CA-7EF5-49C0-8053-B013F1491BEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A30C98CA-7EF5-49C0-8053-B013F1491BEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEFC05A3-C647-4858-A7D0-C712FCA50DF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEFC05A3-C647-4858-A7D0-C712FCA50DF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEFC05A3-C647-4858-A7D0-C712FCA50DF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEFC05A3-C647-4858-A7D0-C712FCA50DF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -685,6 +691,7 @@ Global
 		{850F7AB7-E844-4BAF-BA97-3075E715DD0F} = {6BD469A3-F994-4045-BD0C-470EAD035AEA}
 		{66F02877-EFD1-4831-9CD0-BEC06FB2DC80} = {6BD469A3-F994-4045-BD0C-470EAD035AEA}
 		{A30C98CA-7EF5-49C0-8053-B013F1491BEC} = {1DA159C8-90C4-4281-BD8E-514EF1B0CF3E}
+		{DEFC05A3-C647-4858-A7D0-C712FCA50DF5} = {DB77C912-4342-4B9D-93B3-21824168953D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E490D0C8-C5A7-4F24-8A9B-CE1635508778}
