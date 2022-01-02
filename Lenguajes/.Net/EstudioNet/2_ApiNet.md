@@ -1,5 +1,175 @@
-# Escritura & Lectura
-## Serializacion
+# Escritura Lectura
+Conjunto de clases y formas de trabajar con metodos **Input/Output**.
+
+## Stream
+Stream es una clase abstracta para todos los flujos. Un flujo es una secuencia de bytes como, por ejemplo, un archivo, un dispositivo de entrada/salida o un socket TCP/IP. La clase `Stream` y sus derivadas proporcionan una vista genérica de estos diferentes tipos de entrada.
+
+Las secuencias comprenden tres operaciones fundamentales:
+- Puede leer desde secuencias. La lectura es la transferencia de datos desde una secuencia a una estructura de datos, como una matriz de bytes.
+- Puede escribir en secuencias. La escritura es la transferencia de datos de una estructura de datos a una secuencia.
+- Los flujos pueden admitir búsquedas. La búsqueda hace referencia a la consulta y modificación de la posición actual dentro de una secuencia. La funcionalidad de búsqueda depende del tipo de almacenamiento de respaldo que tenga una secuencia. Por ejemplo, las secuencias de red no tienen un concepto unificado de una posición actual y, por lo general, no admiten la búsqueda.
+
+Algunas de las secuencias más utilizadas que heredan de Stream son `FileStream` , y `MemoryStream` .
+
+Puede consultar una secuencia mediante las propiedades `CanRead`, `CanWrite` y `CanSeek` de la clase Stream.
+
+Los metodos `Read` y `Write` leen y escriben datos en una variedad de formatos. En el caso de las secuencias que admiten la búsqueda, usamos los metodos `Seek` y `SetLength` y las propiedades `Position` y `Length` para consultar y modificar la posición y la longitud de la secuencia respectivamente.
+
+Este tipo implementa la interfaz `IDisposable`. Cuando haya terminado de utilizar el tipo, debemos desecharlo directa o indirectamente.
+
+Cuando desechamos un objeto Stream, se vacían los datos almacenados en búfer y se llama al metodo `Flush`. `Dispose` también libera los recursos del sistema operativo, como los identificadores de archivos, las conexiones de red o la memoria usada para cualquier almacenamiento en búfer interno.
+
+## Archivos de texto
+Clases que interactuan con archivos de texto fisicamente
+
+### Binary
+Clase que debe recibir un objeto `Stream` y se utiliza para la lectura y escritura de archivos tratando el contenido directamente como binario con tipos primitivos.
+
+#### Lectura
+```Csharp
+// Apertura del archivo `ArchivoBinario.bin` en modo lectura:
+// Muestra la información tal cual está escrita en el archivo binario:
+using (var fs = new FileStream(nombreArchivo, FileMode.Open, FileAccess.Read))
+{
+    Console.Write(Environment.NewLine);
+    // Lectura y conversión de los datos binarios en el tipo de 
+    // correspondiente:
+
+    // Posiciona el cursor desde se iniciara la lectura del 
+    // archivo `ArchivoBinario`:
+    fs.Position = 0;
+    using (var br = new BinaryReader(fs))
+    {
+        Console.WriteLine(br.ReadDecimal());
+        Console.WriteLine(br.ReadString());
+        Console.WriteLine(br.ReadString());
+        Console.WriteLine(br.ReadChar());
+    }
+}
+```
+
+#### Escritura
+```Csharp
+// Crea objeto `FileStream` para referenciar un archivo binario -ArchivoBinario.bin-:
+// Escritura sobre el archivo binario `ArchivoBinario.bin` usando un 
+// objeto de la clase `BinaryWriter`:
+using (var fs = new FileStream(nombreArchivo, FileMode.Create, FileAccess.Write))
+{
+    using (var bw = new BinaryWriter(fs))
+    {
+        // Escritura de datos de naturaleza primitiva:
+        bw.Write(1.0M);
+        bw.Write("Este es el texto que se esta");
+        bw.Write('\n');
+        bw.Write("escribiendo con la Clase Binary de .NET");
+    }
+}
+Console.WriteLine($"Los datos han sido escritos en el archivo `{nombreArchivo}`.");
+```
+
+#### Copia
+```Csharp
+using var readBinaryFile = new BinaryReader(File.OpenRead(nombreArchivoFuente));
+using var writeBinaryFile = new BinaryWriter(File.OpenWrite(nombreArchivoDestino));
+for (byte data; readBinaryFile.PeekChar() != -1;)
+{
+    data = readBinaryFile.ReadByte();
+    writeBinaryFile.Write(data);
+}
+```
+
+### File
+La clase File se usa para operaciones típicas como copiar, mover, cambiar el nombre, crear, abrir, eliminar y anexar a un único archivo cada vez
+
+#### Create
+```Csharp
+using var file = File.Create(archivo);
+```
+
+#### Delete
+```Csharp
+File.Delete(archivo);
+```
+
+#### Lectura
+1. `ReadAllTextAsync`: Abre de forma asincrona un archivo de texto, lee todo el texto del archivo y, a continuación, cierra el archivo.
+1. `ReadAllBytesAsync`: Abre de forma asincrona un archivo binario, lee su contenido, lo introduce en una matriz de bytes y, a continuación, cierra el archivo.
+1. `ReadAllLinesAsync`: Abre de forma asincrona un archivo de texto, lee todas sus líneas y, a continuación, cierra el archivo.
+
+```Csharp
+await File.ReadAllTextAsync(nombreArchivoTextAsync);
+await File.ReadAllBytesAsync(nombreArchivoBytes);
+await File.ReadAllLinesAsync(nombreArchivoAllLines);
+```
+
+#### Escritura
+1. `WriteAllTextAsync`: Crea de forma asincrona un archivo nuevo, escribe en él la cadena especificada y, a continuación, lo cierra. Si el archivo de destino ya existe, se sobrescribe.
+1. `WriteAllBytesAsync`: Crea de forma asincrona un archivo nuevo, escribe en él la matriz de bytes especificada y, a continuación, lo cierra. Si el archivo de destino ya existe, se sobrescribe.
+1. `WriteAllLinesAsync`: Crea de forma asincrona un archivo nuevo, escribe en él las líneas especificadas y, a continuación, lo cierra.
+
+```Csharp
+await File.WriteAllTextAsync(nombreArchivoTextAsync, textoEscribir);
+await File.WriteAllBytesAsync(nombreArchivoBytes, Encoding.UTF8.GetBytes(textoEscribir));
+await File.WriteAllLinesAsync(nombreArchivoAllLines, textoEscribir.Split('\n'));
+```
+
+#### Copia
+```Csharp
+File.Copy(nombreArchivoOrigen, nombreArchivoDestino);
+```
+
+### Stream en archivos
+Para leer y escribir archivos `Stream` se suelen usar las clases `StreamReader` y `StreamWritter`
+
+#### Lectura
+1. `ReadToEndAsync`: Lee de forma asincrónica todos los caracteres desde la posición actual hasta el final de la secuencia y los devuelve como una cadena.
+1. `ReadAsync`: Lee de forma asincrónica un número máximo de caracteres especificado en la secuencia actual y escribe los datos en un búfer, comenzando en el índice especificado.
+1. `ReadBlockAsync`: Lee de forma asincrónica un número máximo de caracteres especificado en la secuencia actual y escribe los datos en un búfer, comenzando en el índice especificado.
+
+```Csharp
+using (var readFile = new StreamReader(nombreArchivo))
+{
+    await readFile.ReadToEndAsync();
+}
+
+using (var readFile = new StreamReader(nombreArchivo))
+{
+    while (readFile.Peek() >= 1)
+    {
+        await (char)readFile.ReadAsync()
+    }
+}
+
+using (var readFile = new StreamReader(nombreArchivo))
+{
+    var buffer = new char[5];
+    while (!readFile.EndOfStream)
+    {
+        var lenght = await readFile.ReadBlockAsync(buffer, 0, buffer.Length);
+        Console.WriteLine(new string(buffer, 0, lenght));
+    }
+}
+```
+
+#### Escritura
+```Csharp
+using var writeFile = new StreamWriter(nombreArchivo);
+await writeFile.WriteAsync(textoEscribir);
+```
+
+### Archivos JSON
+
+
+### Archivos XML
+
+
+## MemoryStream
+
+
+```Csharp
+```
+
+# Serializacion
 La serialización es el proceso de convertir un objeto en una secuencia de bytes para almacenarlo o transmitirlo a la memoria, a una base de datos o a un archivo. Su propósito principal es guardar el estado de un objeto para poder volver a crearlo cuando sea necesario. El proceso inverso se denomina deserialización.
 
 ```Csharp
@@ -264,7 +434,7 @@ En una aplicacion web como `ASP.NET` usar el patron hara que se puedan recibir m
 
 
 ### Async & Await
-El núcleo de la programación asincrónica son los objetos `Task` y `Task<T>`, que modelan las operaciones asincrónicas. Son compatibles con las palabras clave `async` y `await`. El modelo es bastante sencillo en la mayoría de los casos:
+El núcleo de la programación asincrona son los objetos `Task` y `Task<T>`, que modelan las operaciones asincronas. Son compatibles con las palabras clave `async` y `await`. El modelo es bastante sencillo en la mayoría de los casos:
 
 - Para el código enlazado a E/S, espera una operación que devuelva `Task` o `Task<T>` dentro de un método async.
 - Para el código enlazado a la CPU, espera una operación que se inicia en un subproceso en segundo plano con el método `Task.Run`.
