@@ -1,19 +1,17 @@
 ﻿using System;
 using System.IO;
+using System.Text.Json;
+using System.Threading.Tasks;
 using JsonFiles.JSON;
-using Newtonsoft.Json;
 
 namespace JsonFiles.Write
 {
     public class JsonWriteSerialization
     {
-        public static void UsingJSON(ClaseParaJSON json)
+        public static async Task UsingJSONAsync(ClaseParaJSON json)
         {
-
-            var jsonEscritura = JsonConvert.SerializeObject(json);
-            Console.WriteLine("JSON serializado:");
-            Console.WriteLine(jsonEscritura);
-            File.WriteAllText("ruta.json", jsonEscritura);
+            using var jsonStream = File.OpenWrite("ruta.json");
+            await JsonSerializer.SerializeAsync(jsonStream, json);
         }
     }
 }
