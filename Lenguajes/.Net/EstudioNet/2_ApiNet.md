@@ -222,28 +222,50 @@ using var writeFile = new StreamWriter(nombreArchivo);
 await writeFile.WriteAsync(textoEscribir);
 ```
 
-### Archivos JSON
-JSON es un acrónimo de JavaScript Object Notation.
 
+## Serializacion
+La serialización es el proceso de convertir el estado de un objeto en un formato que se pueda almacenar o transportar. Este proceso permite almacenar y transferir datos.
+
+- La serialización binaria preserva la fidelidad de tipo, lo que es útil para conservar el estado de un objeto entre distintas invocaciones de una aplicación. Por ejemplo, puede compartir un objeto entre distintas aplicaciones si lo serializa en el Portapapeles.
+
+- La serialización XML solo serializa propiedades y campos públicos y no preserva la fidelidad de tipo. Esto es útil si se desea proporcionar o utilizar los datos sin restringir la aplicación que utiliza los datos. Dado que XML es un estándar abierto, es una opción atractiva para compartir los datos por el web.
+
+- La serialización de JSON solo serializa propiedades públicas y no preserva la fidelidad de tipo.
+
+### Serializacion JSON
 Actualmente se ha convertido en un estándar ampliamente utilizado para el intercambio de información entre sistemas.
 
-#### Lectura
-```Csharp
-using var jsonStream = File.Open("ruta.json", FileMode.Open, FileAccess.Read);
-var localizacion = await JsonSerializer.DeserializeAsync<ClaseParaJSON>(jsonStream);
-```
+#### Json con Stream
+1. Instanciamos el objeto que vamos a serializar
+1. Usamos la clase `JsonSerializer` para guardar el contenido del objeto en un stream que debemos de enviar, por ejemplo podemos enviarle un `StreamFile`
+1. Deserializamos leyendo el stream correspondiente y mapeando en contenido JSON en un objeto nuevo del tipo indicado.
 
-#### Escritura
 ```Csharp
 var crearJSON = new ClaseParaJSON()
 {
     Ruta = "archivo.txt"
 };
-using var jsonStream = File.OpenWrite("ruta.json");
 await JsonSerializer.SerializeAsync(jsonStream, json);
+
+var localizacion = await JsonSerializer.DeserializeAsync<ClaseParaJSON>(jsonStream);
 ```
 
-### XML
+#### Json con objetos
+1. Creamos el objeto a mapear
+1. Serializamos el objeto, lo que nos devolvera un `string` con el contenido del json
+1. Suponiendo un JSON en memoria ya, con ese formato
+1. Deserializamos el contenido json en un objeto del tipo que le pasamos.
+
+```Csharp
+var serializacion = new ClaseSerializacion("Nombre", "Apellido", "cuentaaaa bancariaaaa");
+var serializado = JsonSerializer.Serialize(serializacion);
+
+
+const string JSON = @"{""Nombre"":""Nombre"",""Apellidos"":""Apellido""}";
+var deserializado = JsonSerializer.Deserialize<ClaseSerializacion>(JSON);
+```
+
+### Serializacion XML
 Los archivos XML (Extensible Markup Language) son un meta lenguaje que sirve para almacenar datos y facilitar su transmisión entre diferentes tecnologías sin afectar su estructura original.
 
 #### XML Document
@@ -336,66 +358,22 @@ select item;
 empresa.Save(nombreArchivo);
 ```
 
-# Serializacion
-La serialización es el proceso de convertir un objeto en una secuencia de bytes para almacenarlo o transmitirlo a la memoria, a una base de datos o a un archivo. Su propósito principal es guardar el estado de un objeto para poder volver a crearlo cuando sea necesario. El proceso inverso se denomina deserialización.
+#### XML Serializando objetos con Streams
+1. Creamos un objeto de la clase a serializar
+1. Creamos una instancia de `XmlSerializer` al que le tenemos que pasar el tipo que se va a serializar
+1. Invocamos el metodo `Serialize` enviandole un objeto `Stream`, por ejemplo, le podemos mandar un `File.Open()` y el objeto a serializar.
 
-```Csharp
-public class ClaseSerializacion
-{
-    public string Nombre { get; set; }
-    public string Apellidos { get; set; }
-    private string CuentaBancaria { get; set; }
-
-    public ClaseSerializacion()
-    {
-    }
-
-    public ClaseSerializacion(string nombre, string apellidos, string cuentaBancaria)
-    {
-        Nombre = nombre ?? throw new ArgumentNullException(nameof(nombre));
-        Apellidos = apellidos ?? throw new ArgumentNullException(nameof(apellidos));
-        CuentaBancaria = cuentaBancaria ?? throw new ArgumentNullException(nameof(cuentaBancaria));
-    }
-}
-```
-
-### Archivo JSON
-La serialización de JSON serializa las propiedades públicas de un objeto en una cadena, una matriz de bytes, etc.
-
-#### Serializar JSON
 ```Csharp
 var serializacion = new ClaseSerializacion("Nombre", "Apellido", "cuentaaaa bancariaaaa");
-var serializado = System.Text.Json.JsonSerializer.Serialize(serializacion);
+var xmlSerializer = new XmlSerializer(typeof(ClaseSerializacion));
+xmlSerializer.Serialize(streamObject, serializacion);
 ```
 
-#### Deserializar JSON
+1. Creamos una instancia de `XmlSerializer` al que le tenemos que pasar el tipo que se va a serializar
+1. Invocamos el metodo `Deserialize` enviandole un objeto `Stream`, por ejemplo, le podemos mandar un `File.Open()` y nos devolvera una instancia del tipo indicado anteriormente.
 ```Csharp
-const string JSON = @"{""Nombre"":""Nombre"",""Apellidos"":""Apellido""}";
-var deserializado = System.Text.Json.JsonSerializer.Deserialize<ClaseSerializacion>(JSON);
-```
-
-### Archivo XML
-La serialización XML serializa las propiedades y los campos públicos de un objeto o los parámetros y valores devueltos de los métodos en una secuencia XML que se ajusta a un documento específico del lenguaje de definición de esquema XML (XSD). La serialización XML produce clases fuertemente tipadas cuyas propiedades y campos públicos se convierten a XML.
-
-#### Serializar XML
-```Csharp
-static void Main(string[] args)
-{
-    var serializacion = new ClaseSerializacion("Nombre", "Apellido", "cuentaaaa bancariaaaa");
-    var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(ClaseSerializacion));
-    using var file = System.IO.File.Create("Archivo.xml");
-    xmlSerializer.Serialize(file, serializacion);
-}
-```
-
-#### Deserializar XML
-```Csharp
-static void Main(string[] args)
-{
-    var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(ClaseSerializacion));
-    using var file = System.IO.File.OpenRead("Archivo.xml");
-    var objetoDeserializado = xmlSerializer.Deserialize(file);
-}
+var xmlSerializer = new XmlSerializer(typeof(ClaseSerializacion));
+var objetoDeserializado = xmlSerializer.Deserialize(streamObject);
 ```
 
 # Reflexion
