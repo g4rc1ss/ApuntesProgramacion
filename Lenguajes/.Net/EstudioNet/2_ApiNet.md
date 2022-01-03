@@ -906,9 +906,12 @@ for(int i = 0; i<10; i++)
 ```
 Si corremos el comando netstat en la máquina servidor veremos que no está tan bien.
 
+![image](https://user-images.githubusercontent.com/28193994/147914625-ec00502a-a8ca-4216-88c0-e183e87fd3d5.png)
+
+
 Como podemos ver un montón de conexiones siguen abiertas pero nuestra aplicación ha terminado. esto es porque la conexión ha sido cerrada en un lado (el código) pero el server sigue teniendo la conexión abierta por cierto tiempo por si hay algun delay o algo en en el proceso. 
 
-IMAGEENN.
+![image](https://user-images.githubusercontent.com/28193994/147914590-f0ea6873-5148-4f4e-8059-5e6104cd2e01.png)
 
 Además tenemos un número máximo de sockets que podemos crear por lo que tampoco solucionaría mucho. (recordemos un socket por cada `using` que utilizamos)
 
