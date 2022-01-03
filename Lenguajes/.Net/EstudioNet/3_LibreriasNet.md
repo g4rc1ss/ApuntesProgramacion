@@ -1,3 +1,18 @@
+# User Secrets
+Los **User secrets** son datos especificos que contienen datos como contraseñas, claves de API, cadenas de conexion, etc. Por lo que necesitamos tenerlas fuera del repositorio y de compartirlas con otros desarrolladores.
+
+## Secret Manager
+Una vez creado el proyecto principal, el que contiene los archivos de configuración, le damos al click derecho sobre el proyecto y buscamos la opción `Manage User Secrets`.
+
+Esta opción generará un elemento `<userSecretsId>` en el `.csproj` del proyecto y se almacenara ese id en el programa.  
+A su vez el programa creará un archivo llamado **secrets.json** que estará ubicado fuera del proyecto. Por defecto se ubica en:
+- Windows `%APPDATA%\microsoft\UserSecrets\<userSecretsId>\secrets.json`
+- Mac `~/.microsoft/usersecrets/<userSecretsId>/secrets.json`
+- Linux `~/.microsoft/usersecrets/<userSecretsId>/secrets.json`
+
+Para poder acceder a dicho archivo, se podra hacer desde el objeto `IConfiguration` con la configuracion por defecto.
+
+
 # Dependency Injection
 La inversión de dependencias es un principio que describe un conjunto de técnicas destinadas a disminuir el acoplamiento entre los componentes de una aplicación. Es uno de los principios SOLID más populares y utilizados en la creación de aplicaciones, frameworks y componentes por las ventajas que aporta a las mismas.
 
@@ -275,6 +290,172 @@ app.MapRazorPages();
 await app.RunAsync();
 ```
 
+
+# IOptions
+La implementacion del *Options Pattern* nos aporta poder encapsular y separar la lógica de la configuracion de la aplicacion del resto de componentes.
+
+Para poder hacer uso de este servicio, necesitaremos instalar `Microsoft.Extensions.Options`.
+
+Para implementar el patron Options tenemos que agregarlo con el objeto `IConfiguration` en la inyeccion de dependencias.
+
+Llamamos al metodo `Configure` pasandole una clase sobre la que mapeara la configuracion contenida en la section indicada.
+```Csharp
+builder.services.Configure<T>(Configuration.GetSection("seccion"));
+```
+
+**Los beneficios que nos aporta este patron son:**
+1. Utilizarlo, nos fuerza a tener nuestra configuración **fuertemente tipada** y así, evitar errores.
+1. Cuando revisamos código, o simplemente lo leemos después de un tiempo, es mucho más sencillo de entender si nuestro tipo de configuración se llama `IOptions<T>`, así sabemos de dónde viene.
+
+Si, por ejemplo, necesitamos hacer uso de validaciones o algun proceso de verificación de datos podemos usar el metodo `PostConfiguration` despues de usar el metodo `Configure<T>`.
+
+```Csharp
+builder.services.Configure<T>(Configuration.GetSection("seccion"));
+builder.services.PostConfigure<T>(configuration =>
+{
+    if ( string.IsNullOrWhiteSpace(configuration.property))
+    {
+        throw new ApplicationException("");
+    }
+});
+```
+
+## Cuando usar los patrones
+La elección entre las diferentes interfaces del patrón `IOptions` dependerá de tu caso de uso, puesto que estos varían segun sus tiempos de vida.
+
+- `IOptions` si no vas a cambiar la configuración.
+
+- `IOptionsSnapshot` si vas a cambiar la configuración.
+
+- `IOptionsMonitor` si necesitas cambiar la configuración constantemente o detectas que ese cambio puede pasar en el medio de un proceso.
+
+### IOptions
+Con esta opcion, nuestra configuracio se crea en el contenedor de dependencias como singleton, por lo que si la modificamos, no se podra visualizar dicho cambio.
+
+```Csharp
+private readonly T _configuracionCreada;
+
+public Clase(IOptions<T> configuracionCreada)
+{
+    _configuracionCreada = configuracionCreada.Value;
+}
+```
+
+### IOptionsSnapshot
+Si implementamos esta interfaz, se creara una instancia del objeto correspondiente una vez por Request(**scoped**) la cual va a ser inmutable.
+
+La ventaja principal es que nos permite cambiar el valor de la configuracion en tiempo de ejecución, de esta forma, no hará falta hacer un despliegue para ello.
+
+![image](https://user-images.githubusercontent.com/28193994/147843223-464ee4fe-16a2-40e0-9e4d-a58a81640a94.png)
+
+La forma de acceder es la misma, pero implementando esta interfaz
+
+```Csharp
+private readonly T _configuracionCreada;
+
+public Clase(IOptionsSnapshot<T> configuracionCreada)
+{
+    _configuracionCreada = configuracionCreada.Value;
+}
+```
+
+### IOptionsMonitor
+`IOptionsMonitor<T>` se inyecta en nuestro servicio como `Singleton` y funciona de una manera especial, ya que en vez de acceder a .Value para acceder a T como hacíamos anteriormente, ahora realizamos `.CurrentValue` el cual nos devuelve el valor en el momento.
+
+Esto quiere decir que si cambias el valor a mitad de la request o mitad de un proceso, este obtendrá el valor actualizado:
+
+![image](https://user-images.githubusercontent.com/28193994/147843227-51c7f8c0-55cf-4897-a434-da23cf136f40.png)
+
+La forma de acceder es un tanto diferente:
+```Csharp
+private readonly IOptionsMonitor<T> _configuracionCreada;
+
+public Clase(IOptionsMonitor<T> configuracionCreada)
+{
+    _configuracionCreada = configuracionCreada;
+}
+
+// Para acceder a la informacion:
+_configuracionCreada.CurrentValue.Property
+```
+
+
+# IDataProtectionProvider
+Es importante mantener la informacion sensible protegida, por si se diera el caso de una filtracion de datos o similares, es fundamental tener dichos datos encriptados.
+
+Microsoft provee de una implementacion que se llama `IDataProtectionProvider`.
+
+Este sistema de cifrado usa unas claves ubicadas en `%LOCALAPPDATA%\ASP.NET\DataProtection-Keys` generadas por el propio programa. [Mas info](https://docs.microsoft.com/es-es/aspnet/core/security/data-protection/configuration/default-settings?view=aspnetcore-6.0)
+
+El algoritmo utiliza las claves ubicadas fisicamente con un `purpose` que tendremos que pasar para proteger y desproteger. El motivo de esto es que si, por ejemplo, tenemos un elemento protegido con el `purpose` *"identificador 1"* y tratamos de desprotegerlo con una instancia de `purpose` *"identificador 2"*, no deberia de ser capaz de realizar la accion.
+
+Los `purpose` no estan pensados para estar en `vaults` ni nada por el estilo, se pueden hardcodear sin problema.
+
+## Implementar por Inyeccion de dependencias
+Para poder hacer uso de este servicio, necesitamos implementar en la inyeccion de dependencias el servicio:
+```Csharp
+builder.Services.AddDataProtection();
+```
+
+Una vez registrado, realizamos la inyeccion de dependencia en el contructor y creamos el "*protector*"
+
+## Implementar en entornos no compatibles con DI
+Para poder usar este servicio en un entorno no compatible con la inyeccion de dependencias necesitamos usar el paquete `Microsoft.AspNetCore.DataProtectorExtensions` para obtener el tipo `DataProtectionProvider`.
+
+Para instanciar `DataProtectionProvider` necesitamos mandarle un objeto `DirectoryInfo` que debe de contener el path donde se ubican las claves criptograficas a usar.
+
+```Csharp
+// Get the path to %LOCALAPPDATA%\myapp-keys
+var destFolder = Path.Combine(
+    System.Environment.GetEnvironmentVariable("LOCALAPPDATA"),
+    "myapp-keys");
+
+// Instantiate the data protection system at this folder
+var dataProtectionProvider = DataProtectionProvider.Create(
+    new DirectoryInfo(destFolder));
+
+var protector = dataProtectionProvider.CreateProtector("Program.No-DI");
+Console.Write("Enter input: ");
+var input = Console.ReadLine();
+
+// Protect the payload
+var protectedPayload = protector.Protect(input);
+Console.WriteLine($"Protect returned: {protectedPayload}");
+
+// Unprotect the payload
+var unprotectedPayload = protector.Unprotect(protectedPayload);
+Console.WriteLine($"Unprotect returned: {unprotectedPayload}");
+```
+
+## Proteger la información
+Para crear el protector tenemos que mandarle un `purpose`, este parametro por convencion suele ser el namespace y el nombre de tipo del componente.
+```Csharp
+public class PutPersonalProfile
+{
+    private readonly IDataProtector _protector;
+
+    public PutPersonalProfile(IDataProtectionProvider protectorProvider)
+    {
+        _protector = protectorProvider.CreateProtector("purpose");
+    }
+}
+```
+
+### Proteger
+Una vez tenemos una instancia de `IDataProtector` debemos de realizar la funcion de cifrado.
+
+```Csharp
+_protector.Protect(profileDto.Email);
+```
+
+### Desproteger
+Cuando necesitamos descifrar debemos de hacer los mismos pasos y usar el metodo `Unprotect()`
+
+```Csharp
+_protector.Unprotect(values.personalProfile.Email)
+```
+
+
 # Middleware
 Un Middleware es una clase que permite manipular una peticion o respuesta HTTP
 
@@ -341,6 +522,198 @@ Para implementarlo
 builder.Services.AddScoped<EjemploMiddleware>();
 app.UseMiddleware<EjemploMiddleware>();
 ```
+
+
+# Dapper
+Es un Micro-ORM(Object Relational Mapper) creado por `Stackoverflow` encargado de ejecutar queries SQL y devolver el resultado mapeado en un objeto.
+
+## **Caracteristicas de Dapper**
+Las caracteristicas principales de Dapper son.
+
+- **Consulta y Mapeo**: Dapper en concreto se centra en hacer un mapeo rápido y preciso de nuestros objetos, además los parámetros de las queries están parametrizados, con lo que evitaremos inyección SQL. 
+- **Rendimiento**: Dapper es el rey de los ORM en términos de rendimiento, para conseguir esto, extiende la interfaz `IDbConnection`, lo que implica que es un poco más cercano “al core” del lenguaje, y nos da beneficios de rendimiento. Dapper tiene en su página de [GitHub](https://github.com/DapperLib/Dapper#performance) una lista con el rendimiento comparado con otros ORM.
+- **Api muy sencilla**:  El objetivo de dapper es hacer un par de funcionalidades y hacerlas todas muy bien. La api, nos provee de tres tipos de métodos.
+    - Métodos que mapean tipos concretos.
+    - Métodos que mapean tipos dinámicos.
+    - Métodos para ejecutar comandos, como por ejemplo insert o delete;
+
+- **Cualquier Base de Datos**: Al trabajar directamente con `IDbConnection`, permite utilizar las librerias de conexion de otras bases de datos, como MySQL, SqlServer, Postgres, etc.
+
+## Dependency Injection with Dapper
+Dapper extiende directamente de la interfaz `IDbConnection`, por tanto para mandar el objeto de conexion mediante Inyeccion de dependencias, se debera de usar dicha interfaz.
+
+```Csharp
+services.AddScoped<IDbConnection>(service => new SqlConnection(configuration.GetConnectionString("Database")));
+```
+
+## Ejecución de Consultas
+Dapper tiene la opcion de realizar la ejecucion de las consultas de forma `sincrona` y `asincrona`
+
+### SELECT
+Hay varias funciones para realizar consultas con Dapper.
+
+#### QueryFirstOrDefault<>
+Cuando queremos realizar una consulta que solamente va a devolver una fila, ejecutamos el metodo `QueryFirstOrDefault`, que nos devolvera una instancia del objeto mapeado que solicitamos
+
+```Csharp
+await con.QueryFirstOrDefaultAsync<T?>($"SELECT * FROM {TableName} where UserId = @userId", new
+{
+    userId = userId
+});
+```
+
+#### Query<>
+Cuando queremos obtener una lista de objetos mapeados de una query, usamos el metodo `QueryAsync` y este nos devolvera un objeto `IEnumerable<T>` que podremos iterar, mapear a un `List`, etc.
+
+```Csharp
+await con.QueryAsync<T>($"SELECT * FROM {TableName} where UserId = @userId", new
+{
+    userId = userId
+});
+```
+
+#### Consultas relacionadas
+Cuando queremos ejecutar consultas relacionadas, queremos mapear objetos completos, por ejemplo, un usuario pertenece a un municipio y tenemos una clase `Usuario` y una clase `Pueblo`,
+
+La entidad usuario es la siguiente:
+
+```Csharp
+public class Usuario
+{
+    public string IdUsuario { get; set; }
+    public string NombreUsuario { get; set; }
+
+    public Pueblo FKPueblo { get; set; }
+}
+
+internal class Pueblo
+{
+    internal string IdPueblo { get; set; }
+    internal string NombrePueblo { get; set; }
+}
+```
+
+Por tanto queremos realizar la siguiente consulta para obtener un listado de usuarios, con el correspondiente pueblo tendremos que realizar nosotros mismos el mapeo.
+
+1. Creamos la query SQL en orden, primero deberemos de seleccionar lo correspondiente a un objeto todos los parametros y despues el siguiente, en este caso, primero los parametros de usuario y despues los del pueblo correspondiente al usuario
+1. La funcion `Query<T1, T2, TResult>` se le pasan los parametros de los objetos que tiene que crear y por ultimo el objeto resultante, en este caso, primero indicamos la clase `Usuario`, despues `Pueblo` y por ultimo indicamos que el objeto a devolver es `Usuario`
+    1. En el primer parametro indicamos el mapeo a realizar y donde tenemos que ubicar los diferentes objetos
+    1. En el segundo parametro le pasamos un objeto para la query parametrizada, de esta forma evitamos ataques SQL Injection
+    1. En el parametro llamado `splitOn` tenemos que indicar el objeto a partir del cual debemos separar los objetos a crear, en este caso indicamos que cada vez que se encuentre el nombre "IdPueblo" se debe de mapear el siguiente objeto.  
+    Tener en cuenta que en el caso de que haya mas objetos a mapear, se deberan separar por comas `,`, por ejemplo `IdPueblo,OtroId`
+
+```Csharp
+var sqlPueblo = @$"SELECT user.Id as {nameof(Usuario.IdUsuario)}
+                    ,user.Nombre as {nameof(Usuario.NombreUsuario)}
+                    ,village.Id as {nameof(Pueblo.IdPueblo)}
+                    ,village.Nombre as {nameof(Pueblo.NombrePueblo)}
+                FROM {nameof(Usuario)} as user
+                INNER JOIN {nameof(Pueblo)} as village ON user.IdPueblo = village.Id
+                WHERE user.Id = @idUsuario";
+var respuestaPueblo = await connection.QueryAsync<Usuario, Pueblo, Usuario>(sqlPueblo, (user, pueblo) =>
+{
+    user.FKPueblo = pueblo;
+    return user;
+}, new
+{
+    idUsuario = "IdUsuario3"
+}, splitOn: $"{nameof(Pueblo.IdPueblo)}");
+```
+
+#### QueryMultiple
+A veces para obtener una serie de datos, necesitamos realizar varias consultas diferentes. Para ello dapper permite la ejecucion de varias queries juntas en orden.
+
+1. Creamos la `sql` con las diferentes queries, para separarlas se pone el `;` al finalizar la query correspondiente.
+1. Ejecutamos el metodo `QueryMultiple` con la SQL
+1. Obtenemos los resultados de dicha query de forma ordenada.  
+Si primero realizamos una Select sobre los usuarios, debemos de ejecutar el metodo `Read<>` de usuarios y asi sucesivamente.
+
+```Csharp
+var sqlMultipleUserPueblo = $@"
+SELECT Id as {nameof(Usuario.IdUsuario)}
+    ,Nombre as {nameof(Usuario.NombreUsuario)}
+FROM Usuario
+ORDER BY Id;
+
+SELECT Id as {nameof(Pueblo.IdPueblo)}
+    ,Nombre as {nameof(Pueblo.NombrePueblo)}
+FROM Pueblo
+ORDER BY Id;
+";
+var queryMultiple = await connection.QueryMultipleAsync(sqlMultipleUserPueblo);
+var users = await queryMultiple.ReadAsync<Usuario>();
+var villages = await queryMultiple.ReadAsync<Pueblo>();
+```
+
+### INSERT
+Para insertar un registro nuevo en la Base de Datos con Dapper, se deberá de crear la sql correspondiente y ejecutar la función `ExecuteAsync` que devolvera el numero de registros modificados.
+
+```Csharp
+var guidPueblo = Guid.NewGuid();
+var insertIntoPueblo = @$"
+insert into {nameof(Pueblo)} (id, nombre)
+values (@guidPueblo, @NombrePueblo)";
+var nChangesPueblo = await connection.ExecuteAsync(insertIntoPueblo, new
+{
+    guidPueblo,
+    NombrePueblo = "Albacete"
+});
+```
+
+#### Insert varias queries
+Para insertar varias queries con dapper, simplemente debemos separar las `INSERT INTO` con `;` y mandar la sql en la funcion de `ExecuteAsync()`
+
+```Csharp
+var insert = @$"
+insert into {nameof(Pueblo)} (id, nombre)
+values (@guidPueblo, @NombrePueblo);
+
+insert into {nameof(Usuario)} (id, nombre, idpueblo)
+VALUES (@guidUsuario, @nombreUsuario, @guidPueblo);";
+
+var nChanges = await connection.ExecuteAsync(insert, new
+{
+    guidPueblo = Guid.NewGuid(),
+    NombrePueblo = "Albacete",
+    guidUsuario = Guid.NewGuid(),
+    nombreUsuario = "garciss",
+});
+```
+
+### UPDATE
+Para actualizar registros de la base de datos con `Dapper` ejecutamos igualmente `ExecuteAsync()`
+
+```Csharp
+var updatePueblo = @$"
+UPDATE {nameof(Pueblo)}
+SET Id = '{Guid.NewGuid()}'
+WHERE Id = @idPueblo;
+
+UPDATE {nameof(Usuario)}
+SET Id = '{Guid.NewGuid()}'
+WHERE Id = @idUsuario";
+var nChanges = await connection.ExecuteAsync(updatePueblo, new
+{
+    idPueblo = "IdPueblo1",
+    idUsuario = "IdUsuario1",
+});
+```
+
+### DELETE
+Para borrar registros de la base de datos con `Dapper` ejecutamos igualmente `ExecuteAsync()`
+
+```Csharp
+var deleteUsuario = @$"
+DELETE FROM {nameof(Usuario)} 
+WHERE Id = @idUsuario";
+var nChangesUsuario = await connection.ExecuteAsync(deleteUsuario.ToString(), new
+{
+    idUsuario = "IdUsuario2"
+});
+
+Console.WriteLine($"Borrado {nChangesUsuario} registros");
+```
+
 
 # Entity Framework Core
 Es un ORM(Object Relational Mapper) creado por `Microsoft` encargado de crear las queries SQL para la Base de datos y mapear los resultados.
@@ -670,8 +1043,6 @@ select new ChatDao
 ```
 
 ### Guardado
-
-
 1. **INSERT**: Usamos el metodo `DbSet.Add` para agregar instancias nuevas de las clases de entidad.
 1. **UPDATE**: EF detecta automáticamente los cambios hechos en una entidad existente de la que hace seguimiento. Por tanto, obtenemos el registro a actualizar y modificamos el objeto.
 1. **DELETE**: Usamos el método `DbSet.Remove` para eliminar las instancias de las clases de entidad.
@@ -709,370 +1080,3 @@ await context.SaveChangesAsync();
 ```
 
 
-# Dapper
-Es un Micro-ORM(Object Relational Mapper) creado por `Stackoverflow` encargado de ejecutar queries SQL y devolver el resultado mapeado en un objeto.
-
-## **Caracteristicas de Dapper**
-Las caracteristicas principales de Dapper son.
-
-- **Consulta y Mapeo**: Dapper en concreto se centra en hacer un mapeo rápido y preciso de nuestros objetos, además los parámetros de las queries están parametrizados, con lo que evitaremos inyección SQL. 
-- **Rendimiento**: Dapper es el rey de los ORM en términos de rendimiento, para conseguir esto, extiende la interfaz `IDbConnection`, lo que implica que es un poco más cercano “al core” del lenguaje, y nos da beneficios de rendimiento. Dapper tiene en su página de [GitHub](https://github.com/DapperLib/Dapper#performance) una lista con el rendimiento comparado con otros ORM.
-- **Api muy sencilla**:  El objetivo de dapper es hacer un par de funcionalidades y hacerlas todas muy bien. La api, nos provee de tres tipos de métodos.
-    - Métodos que mapean tipos concretos.
-    - Métodos que mapean tipos dinámicos.
-    - Métodos para ejecutar comandos, como por ejemplo insert o delete;
-
-- **Cualquier Base de Datos**: Al trabajar directamente con `IDbConnection`, permite utilizar las librerias de conexion de otras bases de datos, como MySQL, SqlServer, Postgres, etc.
-
-## Dependency Injection with Dapper
-Dapper extiende directamente de la interfaz `IDbConnection`, por tanto para mandar el objeto de conexion mediante Inyeccion de dependencias, se debera de usar dicha interfaz.
-
-```Csharp
-services.AddScoped<IDbConnection>(service => new SqlConnection(configuration.GetConnectionString("Database")));
-```
-
-## Ejecución de Consultas
-Dapper tiene la opcion de realizar la ejecucion de las consultas de forma `sincrona` y `asincrona`
-
-### SELECT
-Hay varias funciones para realizar consultas con Dapper.
-
-#### QueryFirstOrDefault<>
-Cuando queremos realizar una consulta que solamente va a devolver una fila, ejecutamos el metodo `QueryFirstOrDefault`, que nos devolvera una instancia del objeto mapeado que solicitamos
-
-```Csharp
-await con.QueryFirstOrDefaultAsync<T?>($"SELECT * FROM {TableName} where UserId = @userId", new
-{
-    userId = userId
-});
-```
-
-#### Query<>
-Cuando queremos obtener una lista de objetos mapeados de una query, usamos el metodo `QueryAsync` y este nos devolvera un objeto `IEnumerable<T>` que podremos iterar, mapear a un `List`, etc.
-
-```Csharp
-await con.QueryAsync<T>($"SELECT * FROM {TableName} where UserId = @userId", new
-{
-    userId = userId
-});
-```
-
-#### Consultas relacionadas
-Cuando queremos ejecutar consultas relacionadas, queremos mapear objetos completos, por ejemplo, un usuario pertenece a un municipio y tenemos una clase `Usuario` y una clase `Pueblo`,
-
-La entidad usuario es la siguiente:
-
-```Csharp
-public class Usuario
-{
-    public string IdUsuario { get; set; }
-    public string NombreUsuario { get; set; }
-
-    public Pueblo FKPueblo { get; set; }
-}
-
-internal class Pueblo
-{
-    internal string IdPueblo { get; set; }
-    internal string NombrePueblo { get; set; }
-}
-```
-
-Por tanto queremos realizar la siguiente consulta para obtener un listado de usuarios, con el correspondiente pueblo tendremos que realizar nosotros mismos el mapeo.
-
-1. Creamos la query SQL en orden, primero deberemos de seleccionar lo correspondiente a un objeto todos los parametros y despues el siguiente, en este caso, primero los parametros de usuario y despues los del pueblo correspondiente al usuario
-1. La funcion `Query<T1, T2, TResult>` se le pasan los parametros de los objetos que tiene que crear y por ultimo el objeto resultante, en este caso, primero indicamos la clase `Usuario`, despues `Pueblo` y por ultimo indicamos que el objeto a devolver es `Usuario`
-    1. En el primer parametro indicamos el mapeo a realizar y donde tenemos que ubicar los diferentes objetos
-    1. En el segundo parametro le pasamos un objeto para la query parametrizada, de esta forma evitamos ataques SQL Injection
-    1. En el parametro llamado `splitOn` tenemos que indicar el objeto a partir del cual debemos separar los objetos a crear, en este caso indicamos que cada vez que se encuentre el nombre "IdPueblo" se debe de mapear el siguiente objeto.  
-    Tener en cuenta que en el caso de que haya mas objetos a mapear, se deberan separar por comas `,`, por ejemplo `IdPueblo,OtroId`
-
-```Csharp
-var sqlPueblo = @$"SELECT user.Id as {nameof(Usuario.IdUsuario)}
-                    ,user.Nombre as {nameof(Usuario.NombreUsuario)}
-                    ,village.Id as {nameof(Pueblo.IdPueblo)}
-                    ,village.Nombre as {nameof(Pueblo.NombrePueblo)}
-                FROM {nameof(Usuario)} as user
-                INNER JOIN {nameof(Pueblo)} as village ON user.IdPueblo = village.Id
-                WHERE user.Id = @idUsuario";
-var respuestaPueblo = await connection.QueryAsync<Usuario, Pueblo, Usuario>(sqlPueblo, (user, pueblo) =>
-{
-    user.FKPueblo = pueblo;
-    return user;
-}, new
-{
-    idUsuario = "IdUsuario3"
-}, splitOn: $"{nameof(Pueblo.IdPueblo)}");
-```
-
-#### QueryMultiple
-A veces para obtener una serie de datos, necesitamos realizar varias consultas diferentes. Para ello dapper permite la ejecucion de varias queries juntas en orden.
-
-1. Creamos la `sql` con las diferentes queries, para separarlas se pone el `;` al finalizar la query correspondiente.
-1. Ejecutamos el metodo `QueryMultiple` con la SQL
-1. Obtenemos los resultados de dicha query de forma ordenada.  
-Si primero realizamos una Select sobre los usuarios, debemos de ejecutar el metodo `Read<>` de usuarios y asi sucesivamente.
-
-```Csharp
-var sqlMultipleUserPueblo = $@"
-SELECT Id as {nameof(Usuario.IdUsuario)}
-    ,Nombre as {nameof(Usuario.NombreUsuario)}
-FROM Usuario
-ORDER BY Id;
-
-SELECT Id as {nameof(Pueblo.IdPueblo)}
-    ,Nombre as {nameof(Pueblo.NombrePueblo)}
-FROM Pueblo
-ORDER BY Id;
-";
-var queryMultiple = await connection.QueryMultipleAsync(sqlMultipleUserPueblo);
-var users = await queryMultiple.ReadAsync<Usuario>();
-var villages = await queryMultiple.ReadAsync<Pueblo>();
-```
-
-### INSERT
-Para insertar un registro nuevo en la Base de Datos con Dapper, se deberá de crear la sql correspondiente y ejecutar la función `ExecuteAsync` que devolvera el numero de registros modificados.
-
-```Csharp
-var guidPueblo = Guid.NewGuid();
-var insertIntoPueblo = @$"
-insert into {nameof(Pueblo)} (id, nombre)
-values (@guidPueblo, @NombrePueblo)";
-var nChangesPueblo = await connection.ExecuteAsync(insertIntoPueblo, new
-{
-    guidPueblo,
-    NombrePueblo = "Albacete"
-});
-```
-
-#### Insert varias queries
-Para insertar varias queries con dapper, simplemente debemos separar las `INSERT INTO` con `;` y mandar la sql en la funcion de `ExecuteAsync()`
-
-```Csharp
-var insert = @$"
-insert into {nameof(Pueblo)} (id, nombre)
-values (@guidPueblo, @NombrePueblo);
-
-insert into {nameof(Usuario)} (id, nombre, idpueblo)
-VALUES (@guidUsuario, @nombreUsuario, @guidPueblo);";
-
-var nChanges = await connection.ExecuteAsync(insert, new
-{
-    guidPueblo = Guid.NewGuid(),
-    NombrePueblo = "Albacete",
-    guidUsuario = Guid.NewGuid(),
-    nombreUsuario = "garciss",
-});
-```
-
-### UPDATE
-Para actualizar registros de la base de datos con `Dapper` ejecutamos igualmente `ExecuteAsync()`
-
-```Csharp
-var updatePueblo = @$"
-UPDATE {nameof(Pueblo)}
-SET Id = '{Guid.NewGuid()}'
-WHERE Id = @idPueblo;
-
-UPDATE {nameof(Usuario)}
-SET Id = '{Guid.NewGuid()}'
-WHERE Id = @idUsuario";
-var nChanges = await connection.ExecuteAsync(updatePueblo, new
-{
-    idPueblo = "IdPueblo1",
-    idUsuario = "IdUsuario1",
-});
-```
-
-### DELETE
-Para borrar registros de la base de datos con `Dapper` ejecutamos igualmente `ExecuteAsync()`
-
-```Csharp
-var deleteUsuario = @$"
-DELETE FROM {nameof(Usuario)} 
-WHERE Id = @idUsuario";
-var nChangesUsuario = await connection.ExecuteAsync(deleteUsuario.ToString(), new
-{
-    idUsuario = "IdUsuario2"
-});
-
-Console.WriteLine($"Borrado {nChangesUsuario} registros");
-```
-
-# User Secrets
-Los **User secrets** son datos especificos que contienen datos como contraseñas, claves de API, cadenas de conexion, etc. Por lo que necesitamos tenerlas fuera del repositorio y de compartirlas con otros desarrolladores.
-
-## Secret Manager
-Una vez creado el proyecto principal, el que contiene los archivos de configuración, le damos al click derecho sobre el proyecto y buscamos la opción `Manage User Secrets`.
-
-Esta opción generará un elemento `<userSecretsId>` en el `.csproj` del proyecto y se almacenara ese id en el programa.  
-A su vez el programa creará un archivo llamado **secrets.json** que estará ubicado fuera del proyecto. Por defecto se ubica en:
-- Windows `%APPDATA%\microsoft\UserSecrets\<userSecretsId>\secrets.json`
-- Mac `~/.microsoft/usersecrets/<userSecretsId>/secrets.json`
-- Linux `~/.microsoft/usersecrets/<userSecretsId>/secrets.json`
-
-Para poder acceder a dicho archivo, se podra hacer desde el objeto `IConfiguration` con la configuracion por defecto.
-
-
-# IDataProtectionProvider
-Es importante mantener la informacion sensible protegida, por si se diera el caso de una filtracion de datos o similares, es fundamental tener dichos datos encriptados.
-
-Microsoft provee de una implementacion que se llama `IDataProtectionProvider`.
-
-Este sistema de cifrado usa unas claves ubicadas en `%LOCALAPPDATA%\ASP.NET\DataProtection-Keys` generadas por el propio programa. [Mas info](https://docs.microsoft.com/es-es/aspnet/core/security/data-protection/configuration/default-settings?view=aspnetcore-6.0)
-
-El algoritmo utiliza las claves ubicadas fisicamente con un `purpose` que tendremos que pasar para proteger y desproteger. El motivo de esto es que si, por ejemplo, tenemos un elemento protegido con el `purpose` *"identificador 1"* y tratamos de desprotegerlo con una instancia de `purpose` *"identificador 2"*, no deberia de ser capaz de realizar la accion.
-
-Los `purpose` no estan pensados para estar en `vaults` ni nada por el estilo, se pueden hardcodear sin problema.
-
-## Implementar por Inyeccion de dependencias
-Para poder hacer uso de este servicio, necesitamos implementar en la inyeccion de dependencias el servicio:
-```Csharp
-builder.Services.AddDataProtection();
-```
-
-Una vez registrado, realizamos la inyeccion de dependencia en el contructor y creamos el "*protector*"
-
-## Implementar en entornos no compatibles con DI
-Para poder usar este servicio en un entorno no compatible con la inyeccion de dependencias necesitamos usar el paquete `Microsoft.AspNetCore.DataProtectorExtensions` para obtener el tipo `DataProtectionProvider`.
-
-Para instanciar `DataProtectionProvider` necesitamos mandarle un objeto `DirectoryInfo` que debe de contener el path donde se ubican las claves criptograficas a usar.
-
-```Csharp
-// Get the path to %LOCALAPPDATA%\myapp-keys
-var destFolder = Path.Combine(
-    System.Environment.GetEnvironmentVariable("LOCALAPPDATA"),
-    "myapp-keys");
-
-// Instantiate the data protection system at this folder
-var dataProtectionProvider = DataProtectionProvider.Create(
-    new DirectoryInfo(destFolder));
-
-var protector = dataProtectionProvider.CreateProtector("Program.No-DI");
-Console.Write("Enter input: ");
-var input = Console.ReadLine();
-
-// Protect the payload
-var protectedPayload = protector.Protect(input);
-Console.WriteLine($"Protect returned: {protectedPayload}");
-
-// Unprotect the payload
-var unprotectedPayload = protector.Unprotect(protectedPayload);
-Console.WriteLine($"Unprotect returned: {unprotectedPayload}");
-```
-
-## Proteger la información
-Para crear el protector tenemos que mandarle un `purpose`, este parametro por convencion suele ser el namespace y el nombre de tipo del componente.
-```Csharp
-public class PutPersonalProfile
-{
-    private readonly IDataProtector _protector;
-
-    public PutPersonalProfile(IDataProtectionProvider protectorProvider)
-    {
-        _protector = protectorProvider.CreateProtector("purpose");
-    }
-}
-```
-
-### Proteger
-Una vez tenemos una instancia de `IDataProtector` debemos de realizar la funcion de cifrado.
-
-```Csharp
-_protector.Protect(profileDto.Email);
-```
-
-### Desproteger
-Cuando necesitamos descifrar debemos de hacer los mismos pasos y usar el metodo `Unprotect()`
-
-```Csharp
-_protector.Unprotect(values.personalProfile.Email)
-```
-
-# IOptions
-La implementacion del *Options Pattern* nos aporta poder encapsular y separar la lógica de la configuracion de la aplicacion del resto de componentes.
-
-Para poder hacer uso de este servicio, necesitaremos instalar `Microsoft.Extensions.Options`.
-
-Para implementar el patron Options tenemos que agregarlo con el objeto `IConfiguration` en la inyeccion de dependencias.
-
-Llamamos al metodo `Configure` pasandole una clase sobre la que mapeara la configuracion contenida en la section indicada.
-```Csharp
-builder.services.Configure<T>(Configuration.GetSection("seccion"));
-```
-
-**Los beneficios que nos aporta este patron son:**
-1. Utilizarlo, nos fuerza a tener nuestra configuración **fuertemente tipada** y así, evitar errores.
-1. Cuando revisamos código, o simplemente lo leemos después de un tiempo, es mucho más sencillo de entender si nuestro tipo de configuración se llama `IOptions<T>`, así sabemos de dónde viene.
-
-Si, por ejemplo, necesitamos hacer uso de validaciones o algun proceso de verificación de datos podemos usar el metodo `PostConfiguration` despues de usar el metodo `Configure<T>`.
-
-```Csharp
-builder.services.Configure<T>(Configuration.GetSection("seccion"));
-builder.services.PostConfigure<T>(configuration =>
-{
-    if ( string.IsNullOrWhiteSpace(configuration.property))
-    {
-        throw new ApplicationException("");
-    }
-});
-```
-
-## Cuando usar los patrones
-La elección entre las diferentes interfaces del patrón `IOptions` dependerá de tu caso de uso, puesto que estos varían segun sus tiempos de vida.
-
-- `IOptions` si no vas a cambiar la configuración.
-
-- `IOptionsSnapshot` si vas a cambiar la configuración.
-
-- `IOptionsMonitor` si necesitas cambiar la configuración constantemente o detectas que ese cambio puede pasar en el medio de un proceso.
-
-### IOptions
-Con esta opcion, nuestra configuracio se crea en el contenedor de dependencias como singleton, por lo que si la modificamos, no se podra visualizar dicho cambio.
-
-```Csharp
-private readonly T _configuracionCreada;
-
-public Clase(IOptions<T> configuracionCreada)
-{
-    _configuracionCreada = configuracionCreada.Value;
-}
-```
-
-### IOptionsSnapshot
-Si implementamos esta interfaz, se creara una instancia del objeto correspondiente una vez por Request(**scoped**) la cual va a ser inmutable.
-
-La ventaja principal es que nos permite cambiar el valor de la configuracion en tiempo de ejecución, de esta forma, no hará falta hacer un despliegue para ello.
-
-![image](https://user-images.githubusercontent.com/28193994/147843223-464ee4fe-16a2-40e0-9e4d-a58a81640a94.png)
-
-La forma de acceder es la misma, pero implementando esta interfaz
-
-```Csharp
-private readonly T _configuracionCreada;
-
-public Clase(IOptionsSnapshot<T> configuracionCreada)
-{
-    _configuracionCreada = configuracionCreada.Value;
-}
-```
-
-### IOptionsMonitor
-`IOptionsMonitor<T>` se inyecta en nuestro servicio como `Singleton` y funciona de una manera especial, ya que en vez de acceder a .Value para acceder a T como hacíamos anteriormente, ahora realizamos `.CurrentValue` el cual nos devuelve el valor en el momento.
-
-Esto quiere decir que si cambias el valor a mitad de la request o mitad de un proceso, este obtendrá el valor actualizado:
-
-![image](https://user-images.githubusercontent.com/28193994/147843227-51c7f8c0-55cf-4897-a434-da23cf136f40.png)
-
-La forma de acceder es un tanto diferente:
-```Csharp
-private readonly IOptionsMonitor<T> _configuracionCreada;
-
-public Clase(IOptionsMonitor<T> configuracionCreada)
-{
-    _configuracionCreada = configuracionCreada;
-}
-
-// Para acceder a la informacion:
-_configuracionCreada.CurrentValue.Property
-```
