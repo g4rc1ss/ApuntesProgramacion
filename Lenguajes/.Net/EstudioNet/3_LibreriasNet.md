@@ -293,6 +293,12 @@ await app.RunAsync();
 
 # Utilizar Cache
 
+![image](https://user-images.githubusercontent.com/28193994/147925007-39b74663-47b8-41dc-bf44-b1d37fca5661.png)
+![image](https://user-images.githubusercontent.com/28193994/147925017-27db6cff-4b28-435e-b043-72481313180d.png)
+![image](https://user-images.githubusercontent.com/28193994/147925027-8ea4f4ed-ebf9-4d09-821a-245db6f0de70.png)
+![image](https://user-images.githubusercontent.com/28193994/147925040-20524416-e224-4852-b8f1-ecd0083c5725.png)
+![image](https://user-images.githubusercontent.com/28193994/147925051-2c9fffb8-4f6b-4da2-b952-29218ac292fb.png)
+![image](https://user-images.githubusercontent.com/28193994/147925063-4ebea3b2-3197-492d-ad7b-40ac7ed4dc65.png)
 
 ## IMemoryCache
 
