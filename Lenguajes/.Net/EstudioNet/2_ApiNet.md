@@ -882,6 +882,82 @@ var xmlSerializer = new XmlSerializer(typeof(ClaseSerializacion));
 var objetoDeserializado = xmlSerializer.Deserialize(streamObject);
 ```
 
+# Uso de Internet
+Conjunto de clases para establecer conexiones con internet con `.Net` como llamadas a API Rest, etc.
+
+## HttpClient
+`HttpClient` es una clase que proporciona .Net para hacer llamadas a traves del protocolo `http`.
+
+Cuando realizamos un **Request** y recibimos una **Response**, este, nos indicará un `HttpStatusCode` el cual es muy util para saber si el resultado esta correctamente.
+
+Para ver los codigos de estado, podemos acceder [aqui](https://es.wikipedia.org/wiki/Anexo:C%C3%B3digos_de_estado_HTTP)
+
+**Importante**  
+Para este caso de uso y la explicación del problema de utilizar HttpClient dentro de un bloque using vamos a volver a nuestro caso anterior donde consultamos el código de respuesta de netmentor. 
+
+Pero esta vez, vamos a ponerlo en un bucle que lo ejecuta 10 veces.
+```Csharp
+for(int i = 0; i<10; i++)
+{
+    using var client = new HttpClient();
+    var result = await client.GetAsync("https://www.netmentor.es");
+    Console.WriteLine(result.StatusCode);
+}
+```
+Si corremos el comando netstat en la máquina servidor veremos que no está tan bien.
+
+Como podemos ver un montón de conexiones siguen abiertas pero nuestra aplicación ha terminado. esto es porque la conexión ha sido cerrada en un lado (el código) pero el server sigue teniendo la conexión abierta por cierto tiempo por si hay algun delay o algo en en el proceso. 
+
+IMAGEENN.
+
+Además tenemos un número máximo de sockets que podemos crear por lo que tampoco solucionaría mucho. (recordemos un socket por cada `using` que utilizamos)
+
+La solución en este caso es utilizar una única instancia de HttpClient para la aplicación completa, así podemos reducir el número de sockets.
+
+ 
+
+Lo que quiere decir que si vamos a utilizar inyeccion de dependencias debemos añadir la dependencia como singleton, aunque no es la mejor opción, ya que tendremos problemas con el DNS.
+
+ 
+
+La solución mas común es incluirlo como static y finalmente no utilzes la funcionalidad de dispose. De esta forma lo que estamos haciendo es compartir el mismo socket 
+
+```Csharp
+for(int i = 0; i<10; i++)
+{
+    var result = await Client.GetAsync("https://www.netmentor.es");
+    Console.WriteLine(result.StatusCode);
+}
+```
+
+### Configurar Headers
+
+
+### Solicitud GET
+
+
+### Solicitud POST
+
+
+### Solicitud PUT
+
+
+### Solicitud DELETE
+
+
+### HttpClient con Dependency Injection
+
+
+### HttpClientFactory
+
+```Csharp
+```
+
+#### IHttpClientFactory con Dependency Injection
+```Csharp
+```
+
+
 # Reflexion
 `Reflection` proporciona objetos (de tipo `Type`) que describen los ensamblados, módulos y tipos. Puedes usar reflexión para crear dinámicamente una instancia de un tipo, enlazar el tipo a un objeto existente u obtener el tipo desde un objeto existente e invocar sus métodos, o acceder a sus campos y propiedades. Si usas atributos en el código, la reflexión le permite acceder a ellos.
 
