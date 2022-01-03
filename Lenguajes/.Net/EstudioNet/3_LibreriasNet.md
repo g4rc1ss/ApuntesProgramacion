@@ -291,6 +291,19 @@ await app.RunAsync();
 ```
 
 
+# Utilizar Cache
+
+
+## IMemoryCache
+
+
+
+## IDistributedCache
+
+
+
+
+
 # IOptions
 La implementacion del *Options Pattern* nos aporta poder encapsular y separar la lógica de la configuracion de la aplicacion del resto de componentes.
 
@@ -1079,4 +1092,6 @@ context.RemoveRange(usuarios);
 await context.SaveChangesAsync();
 ```
 
+
+# Identity
 
