@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using JsonFiles.JSON;
 using JsonFiles.Read;
 using JsonFiles.Write;
@@ -7,7 +8,7 @@ namespace JsonFiles
 {
     internal class Program
     {
-        private static void Main()
+        private static async Task Main()
         {
             // Creamos un archivo JSON para indicar la ruta
             var crearJSON = new ClaseParaJSON()
@@ -16,9 +17,9 @@ namespace JsonFiles
             };
 
             // Usamos JSON
-            JsonWriteSerialization.UsingJSON(crearJSON);
+            await JsonWriteSerialization.UsingJSONAsync(crearJSON);
             Console.WriteLine("\n-------------------------------------------------------------\n");
-            JsonReadDeserialize.UsingJSON();
+            await JsonReadDeserialize.UsingJSONAsync();
         }
     }
 }
