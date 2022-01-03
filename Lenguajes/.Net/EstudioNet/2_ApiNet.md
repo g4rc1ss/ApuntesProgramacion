@@ -1011,7 +1011,7 @@ La implementación actual de `IHttpClientFactory` implementa `IHttpMessageHandle
 
 > Las instancias de HttpClient insertadas mediante DI se pueden eliminar de forma segura, porque el elemento `HttpMessageHandler` asociado lo administra la factory.
 
-IMAGEEN
+![image](https://user-images.githubusercontent.com/28193994/147922775-8ca43a43-bdab-409c-914f-a435bb7ae356.png)
 
 1. Registramos la dependencia con un identificador, que usaremos para reultilizar las instancias
 1. Importamos la dependencia y creamos el cliente en base al identificador.
