@@ -1032,6 +1032,33 @@ dotnet ef migrations remove
 Remove-Migration
 ```
 
+##### Configurando las relaciones en las entidades
+Cuando queremos hacer la base de datos a traves de `Code First` debemos de configurar las relaciones de las tablas y los navegadores de forma manual en las clases de entidades.
+
+Por un lado tenemos los campos de claves foraneas, que son las columnas que, mediante un campo(id generalmente) se relacionan con otras tablas. Dependiendo de la relacion que tengan las tablas, la Clave Foranea se movera a una tabla u otra:
+- `1:1`: Cualquiera de las dos debe de tener la clave foranea 
+- `1:N`: La clave foranea se traslada en el sentido de la N
+- `N:M`: Estas relaciones generan una nueva tabla que contiene las dos claves foraneas de las tablas que relaciona.
+
+
+Esto trasladado a entidades de EF Core:
+
+- 1:1
+```Csharp
+
+```
+
+- 1:N
+```Csharp
+
+```
+
+- N:M
+```Csharp
+
+```
+
+
 #### Database First
 Cuando preferimos crear la base de datos manualmente o ya la tenemos creada, por ejemplo, porque implementamos EF core en un proyecto que ya estaba creado, podemos hacer uso de un comando que nos crea todas las entidades con sus relaciones y el contexto ya configurado.
 
