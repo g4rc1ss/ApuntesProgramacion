@@ -4,22 +4,23 @@ texto se almacena como una colección secuencial de solo lectura de
 objetos Char.
 
 ## Métodos de string
+1. `Replace`: Devuelve una cadena en la que se reemplazan los caracteres introducidos, el primero es el valor a cambiar y el segundo parametro el nuevo valor
+1. `Split`: Devuelve un Array con la cadena separada dividiéndola cada vez que encuentre el char enviado, por defecto sera el símbolo '-'
+1. `IndexOf`: Devuelve el indice donde se encuentra el caracter indicado
+1. `CompareTo`: Compara el string con otro objeto, como por ejemplo, otra cadena
+1. `SubString`: Devuelve los caracteres entre una posicion de indice y otra, si no se indica la otra se devolvera la cadena desde el indice inicial
+
 ```csharp
 var cadena = "Hola, yo me llamo Ralph, que tal estamos?";
 
-// Devuelve una cadena en la que se reemplazan los caracteres introducidos, el primero es el valor a cambiar y el segundo parametro el nuevo valor
 var cadenaReplace = cadena.Replace(',', '\n');
 
-// Devuelve un Array con la cadena separada dividiéndola cada vez que encuentre el char enviado, por defecto sera el símbolo '-'
 var cadenaSplit = cadena.Split('m');
 
-// Devuelve el indice donde se encuentra el caracter indicado
 var cadenaIndex = cadena.IndexOf('m');
 
-// Compara el string con otro objeto, como por ejemplo, otra cadena
 var cadenaCompare = cadena.CompareTo("Hola, yo me llamo Ralph");
 
-// Devuelve los caracteres entre una posicion de indice y otra, si no se indica la otra se devolvera la cadena desde el indice inicial
 var cadenaSubString = cadena.Substring(3, 5);
 ```
 
@@ -94,23 +95,23 @@ Las colecciones proporcionan una manera más flexible de trabajar con grupos de 
 Una lista es un tipo de colección ordenada(un array)
 
 ### Métodos de listas
+1. `Add`: Agrega al ultimo elemento de la lista el objeto que se le pasa por parametro
+1. `IndexOf`: Devuelve la posicion de la lista donde se ubica el objeto a buscar
+1. `Insert`: Insertas en la posicion 1 el objeto que se quiere, si hay elementos en dicha posicion se mueven hacia la derecha, por tanto el de la 1 pasaria a la posicion 2
+1. `Remove`: Eliminar de la lista el objeto indicado
+1. `Reverse`: Ordenas la lista al contra
 
 ```Csharp
 var lista = new List<string>() { "Hola" };
 
-// Agrega al ultimo elemento de la lista el objeto que se le pasa por parametro
 lista.Add("me llamo Ralph");
 
-// Devuelve la posicion de la lista donde se ubica el objeto a buscar
 lista.IndexOf("Hola");
 
-// Insertas en la posicion 1 el objeto que se quiere, si hay elementos en dicha posicion se mueven hacia la derecha, por tanto el de la 1 pasaria a la posicion 2
 lista.Insert(1, "jajajajaja");
 
-// Eliminar de la lista el objeto indicado
 lista.Remove("me llamo Ralph");
 
-// Ordenas la lista al contra
 lista.Reverse();
 ```
 
@@ -122,6 +123,11 @@ claves y valores de pares de datos. La clave es idéntica en un par clave-valor 
 tener como máximo un valor en el diccionario
 
 ### Métodos de diccionarios
+1. `Keys`: Devuelve una lista con las claves del diccionario
+1. `Values`: Devuelve una lista con los valores del diccionario
+1. `ContainsKey`: Devuelve un bool indicando si la clave existe en el diccionario
+1. `Remove`: Elimina la Key del diccionario y por tanto, los valores asociados a la misma
+1. `TryGetValue`: Metodo para obtener el valor asociado a la clave indicada
 
 ```Csharp
 var diccionario = new Dictionary<string, string>()
@@ -130,19 +136,14 @@ var diccionario = new Dictionary<string, string>()
     {"Key", "Value" }
 };
 
-// Devuelve una lista con las claves del diccionario
 Dictionary<string, string>.KeyCollection claves = diccionario.Keys;
 
-// Devuelve una lista con los valores del diccionario
 Dictionary<string, string>.ValueCollection valores = diccionario.Values;
 
-// Devuelve un bool indicando si la clave existe en el diccionario
 diccionario.ContainsKey("Clave");
 
-// Elimina la Key del diccionario y por tanto, los valores asociados a la misma
 diccionario.Remove("Key");
 
-// Metodo para obtener el valor asociado a la clave indicada
 diccionario.TryGetValue("Key", out string valor);
 
 ```
@@ -165,23 +166,23 @@ tupla.Item4;
 Representa una colección de pares de clave y valor que se organizan por código hash de la clave
 
 ### Métodos de tablas hash
+1. `Add`: Agrega un nuevo elemento con el par clave-valor
+1. `Remove`: Elimina la Clave y el valor asociado a la misma
+1. `ContainsKey`: Devuelve un bool para saber si contiene la clave
+1. `Clear`: Limpia todos los elementos de la tabla
+1. `["key"]`: Para acceder al valor asociado a la clave mediante el inidizador
 
 ```Csharp
 var tablaHash = new Hashtable();
 
-// Agrega un nuevo elemento con el par clave-valor
 tablaHash.Add("Key", "Value");
 
-// Elimina la Clave y el valor asociado a la misma
 tablaHash.Remove("Key");
 
-// Devuelve un bool para saber si contiene la clave
 tablaHash.ContainsKey("Key");
 
-// Limpia todos los elementos de la tabla
 tablaHash.Clear();
 
-// Para acceder al valor asociado a la clave mediante el inidizador
 tablaHash["Key"];
 ```
 
@@ -192,23 +193,24 @@ El Stack es una coleccion LIFO(Last in, First Out) sin tamaño fijo de los objet
 Al usar la forma de almacenamiento LIFO, en la coleccion se trabaja todo el rato sobre los primeros elementos, osea que cuando agregas un elemento nuevo por ejemplo, no se guardaria en el ultimo indice, sino que se almacenaria en el indice 0, al principio de la coleccion.
 
 ### Métodos de pilas
+1. `Push`: Agrega un nuevo elemento en la parte superior de Stack<T>
+1. `Pop`: Elimina un elemento de la parte superior
+1. `Peek`: Devuelve un eleemnto de la parte superior
+1. `Clear`: Limpia todos los elementos de la coleccion
+1. `ToArray`: Convierte la pila en un array del tipo indicado
+1. `Contains`: Comprueba si exite el item que le pasamos por parametro
+
 ```Csharp
 var pila = new Stack<string>();
-pila.Push("prueba de push");
 
-// Agrega un nuevo elemento en la parte superior de Stack<T>
 pila.Push("Elemento");
 
-// Elimina un elemento de la parte superior
 pila.Pop();
 
-// Devuelve un eleemnto de la parte superior
 pila.Peek();
 
-// Limpia todos los elementos de la coleccion
 pila.Clear();
 
-// Convierte la pila en un array del tipo indicado
 pila.ToArray();
 
 pila.Contains("objeto");
@@ -221,26 +223,26 @@ La Queue es una coleccion FIFO(First In, First Out).
 Al usar la forma de almacenamiento FIFO, a la hora de agregar elementos se tendran que ir agregando al final de la coleccion y a la hora de trabajar con ellos, se iran extrayendo del mas antiguo al mas nuevo, por tanto, se accedera a los primeros.
 
 ### Métodos de colas
+1. `Enqueue`: Agrega un nuevo elemento al final de la coleccion
+1. `Dequeue`: Elimina el elemento mas antiguo, por tanto el primer elemento de la coleccion
+1. `Peek`: Devuelve el elemento mas antiguo de la coleccion
+1. `Clear`: Limpia todos los elementos de la coleccion
+1. `ToArray`: Convierte la cola en un array del tipo indicado
+1. `Contains`: Comprobamos si la coleccion contiene un objeto especifico
+
 ```Csharp
 var cola = new Queue<string>();
-cola.Enqueue("prueba de push");
 
-// Agrega un nuevo elemento al final de la coleccion
 cola.Enqueue("Elemento");
 
-// Elimina el elemento mas antiguo, por tanto el primer elemento de la coleccion
 cola.Dequeue();
 
-// Devuelve el elemento mas antiguo de la coleccion
 cola.Peek();
 
-// Limpia todos los elementos de la coleccion
 cola.Clear();
 
-// Convierte la cola en un array del tipo indicado
 cola.ToArray();
 
-// Comprobamos si la coleccion contiene un objeto especifico
 cola.Contains("objeto");
 ```
 
