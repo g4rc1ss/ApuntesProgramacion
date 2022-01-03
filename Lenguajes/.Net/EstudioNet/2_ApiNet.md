@@ -893,73 +893,156 @@ Cuando realizamos un **Request** y recibimos una **Response**, este, nos indicar
 Para ver los codigos de estado, podemos acceder [aqui](https://es.wikipedia.org/wiki/Anexo:C%C3%B3digos_de_estado_HTTP)
 
 **Importante**  
-Para este caso de uso y la explicación del problema de utilizar HttpClient dentro de un bloque using vamos a volver a nuestro caso anterior donde consultamos el código de respuesta de netmentor. 
+Hacer uso de `HttpClient` dentro de un bloque `using` puede ocasionar problemas porque cuando se invoca el metodo `Dispose` no se cierra la conexion directamente, sino que el servidor suele dejarla como en *espera* durante un tiempo, por tanto, los sockets se pueden ir ocupando y llegar un punto en el cual no haya sockets disponibles en la aplicacion para funcionar. 
 
-Pero esta vez, vamos a ponerlo en un bucle que lo ejecuta 10 veces.
+En el siguiente ejemplo hacemos un bucle de 10 conexiones con el using y ejecutamos un comando `netstat` en el servidor para comprobar las conexiones establecidas y si nos fijamos, las conexiones no se cierran.
 ```Csharp
 for(int i = 0; i<10; i++)
 {
     using var client = new HttpClient();
-    var result = await client.GetAsync("https://www.netmentor.es");
+    var result = await client.GetAsync("url a consultar");
     Console.WriteLine(result.StatusCode);
 }
 ```
-Si corremos el comando netstat en la máquina servidor veremos que no está tan bien.
-
 ![image](https://user-images.githubusercontent.com/28193994/147914625-ec00502a-a8ca-4216-88c0-e183e87fd3d5.png)
 
-
-Como podemos ver un montón de conexiones siguen abiertas pero nuestra aplicación ha terminado. esto es porque la conexión ha sido cerrada en un lado (el código) pero el server sigue teniendo la conexión abierta por cierto tiempo por si hay algun delay o algo en en el proceso. 
+El protocolo TCP/IP funciona de la siguiente manera.
 
 ![image](https://user-images.githubusercontent.com/28193994/147914590-f0ea6873-5148-4f4e-8059-5e6104cd2e01.png)
 
-Además tenemos un número máximo de sockets que podemos crear por lo que tampoco solucionaría mucho. (recordemos un socket por cada `using` que utilizamos)
 
-La solución en este caso es utilizar una única instancia de HttpClient para la aplicación completa, así podemos reducir el número de sockets.
+La solución mas común es incluirlo como static y no hacer uso de dispose. De esta forma lo que estamos haciendo es compartir el mismo socket para todas las conexiones.
 
- 
-
-Lo que quiere decir que si vamos a utilizar inyeccion de dependencias debemos añadir la dependencia como singleton, aunque no es la mejor opción, ya que tendremos problemas con el DNS.
-
- 
-
-La solución mas común es incluirlo como static y finalmente no utilzes la funcionalidad de dispose. De esta forma lo que estamos haciendo es compartir el mismo socket 
-
-```Csharp
-for(int i = 0; i<10; i++)
-{
-    var result = await Client.GetAsync("https://www.netmentor.es");
-    Console.WriteLine(result.StatusCode);
-}
-```
+Una solucion, sobretodo para Dependency Injection, es usar la clase `HttpClientFactory` que hay nas abajo explicada,
 
 ### Configurar Headers
 
 
 ### Solicitud GET
+Formas de consultar datos por **GET** a un API
 
+Cabe destacar que las solicitudes `GET` se envian los datos de consulta a traves de `QueryString` y se puede configurar de la siguiente forma.
+
+```Csharp
+var url = new UriBuilder(urlBase);
+var parametersQueryString = HttpUtility.ParseQueryString(url.Query);
+parametersQueryString.Add(parametro.Key, parametro.Value?.ToString());
+
+url.Query = parametersQueryString.ToString();
+url.ToString();
+```
+
+#### GetStringAsync
+```Csharp
+await httpClient.GetStringAsync(urlFinal);
+```
+
+#### GetFromJsonAsync
+```Csharp
+await httpClient.GetFromJsonAsync<ClaseDeserializar>(urlFinal);
+```
 
 ### Solicitud POST
+Metodos para envio de datos por **POST** a un API.
 
+#### PostAsync
+1. `StringContent`: Creamos el contenido que vamos a hacer post.
+    1. `content`: contenido a enviar en formato string.
+    1. `encoding`: tipo de codificacion con la que esta escrita la peticion, por ejemplo, `UTF8Encoding.UTF8`
+    1. `mediaType`: el tipo de datos que contiene la peticion, por ejemplo, `application/json`.
+
+```Csharp
+HttpClient httpClient = new HttpClient();
+var content = new StringContent("string con el contenido", encoding, "tipo de envio");
+
+await httpClient.PostAsync($"url", content);
+```
+
+#### PostAsJsonAsync
+```Csharp
+await Http.PostAsJsonAsync<TipoSerializar>("url", objetoToSerializar); 
+```
 
 ### Solicitud PUT
+Metodos de enviar datos para actualizar por **PUT** en un API
 
+#### PutAsync
+1. `StringContent`: Creamos el contenido que vamos a hacer post.
+    1. `content`: contenido a enviar en formato string.
+    1. `encoding`: tipo de codificacion con la que esta escrita la peticion, por ejemplo, `UTF8Encoding.UTF8`
+    1. `mediaType`: el tipo de datos que contiene la peticion, por ejemplo, `application/json`.
+
+```Csharp
+HttpClient httpClient = new HttpClient();
+var content = new StringContent("string con el contenido", encoding, "tipo de envio");
+
+await httpClient.PutAsync($"url", content);
+```
+
+#### PustAsJsonAsync
+```Csharp
+await Http.PutAsJsonAsync<TipoSerializar>("url", objetoToSerializar); 
+```
 
 ### Solicitud DELETE
+Metodos solicitar el borrado de algun dato por **DELETE** a un API
 
+#### DeleteAsync
+```Csharp
+await httpClient.DeleteAsync($"url");
+```
 
 ### HttpClient con Dependency Injection
+Podemos configurar parametros en el objeto HttpClient para inyectarlo como dependencia y centrarnos solamente en realizar la peticion que necesitamos.
 
+**Importante**  
+Este metodo no es recomendable usarlo por el problema de los sockets comentado anteriormente.
+
+```Csharp
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:44326/api/") });
+```
 
 ### HttpClientFactory
+La implementación actual de `IHttpClientFactory` implementa `IHttpMessageHandlerFactory` y proporciona las siguientes ventajas.
 
+- Proporciona una ubicación central para denominar y configurar instancias de HttpClient.
+- HttpClient ya posee el concepto de controladores de delegación, que se pueden vincular entre sí para las solicitudes HTTP salientes.
+- Administrar la duración de `HttpMessageHandler` para evitar los problemas mencionados y los que se pueden producir al administrar las duraciones de HttpClient.
+
+> Las instancias de HttpClient insertadas mediante DI se pueden eliminar de forma segura, porque el elemento `HttpMessageHandler` asociado lo administra la factory.
+
+IMAGEEN
+
+1. Registramos la dependencia con un identificador, que usaremos para reultilizar las instancias
+1. Importamos la dependencia y creamos el cliente en base al identificador.
 ```Csharp
+services.AddHttpClient("Nombre identificador", httpClient =>
+{
+    httpClient.BaseAddress = new Uri("url");
+});
+
+private readonly HttpClient _httpClient;
+public DispensacionConsultaNegocio(IHttpClientFactory httpClientFactory)
+{
+    _httpClient = httpClientFactory.CreateClient("Nombre identificador");
+}
 ```
 
-#### IHttpClientFactory con Dependency Injection
+1. En vez de registrar el serivicio de la forma convencional, podemos registrarlo con `AddHttpClient<>`.
+1. Inyectamos la dependencia directamente importante la clase `HttpClient`
 ```Csharp
-```
+services.AddHttpClient<IServicio, Servicio>(httpClient =>
+{
+    httpClient.BaseAddress = new Uri("url");
+});
 
+private readonly HttpClient _httpClient;
+
+public DispensacionConsultaNegocio(HttpClient httpClient)
+{
+    _httpClient = httpClient;
+}
+```
 
 # Reflexion
 `Reflection` proporciona objetos (de tipo `Type`) que describen los ensamblados, módulos y tipos. Puedes usar reflexión para crear dinámicamente una instancia de un tipo, enlazar el tipo a un objeto existente u obtener el tipo desde un objeto existente e invocar sus métodos, o acceder a sus campos y propiedades. Si usas atributos en el código, la reflexión le permite acceder a ellos.
