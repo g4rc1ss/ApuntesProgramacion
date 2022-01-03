@@ -1043,20 +1043,159 @@ Por un lado tenemos los campos de claves foraneas, que son las columnas que, med
 
 Esto trasladado a entidades de EF Core:
 
-- 1:1
-```Csharp
+- **1:1** Suponiendo dos tablas, una tabla **Propiedad** y otra tabla **PropiedadDetalle**, 1 propiedad contiene 1 Detalle y un detalle de propiedad es 1 propiedad. En este caso es una tabla partida en 2, para dismunuir de columnas, la tabla **Propiedad** contiene la información mas requerida y la de **PropiedadDetalle** lo menos. La relacion se realiza de la siguiente forma
 
-```
+    - Indicamos los campos de la entidad
+    - Señalamos las claves foraneas, en este caso tiene una relacion con **PropiedadDetalleId**
+    - Creamos los navegadores
+    ```Csharp
+    public class Propiedad 
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public string Id { get; set; }
+        public string Nombre { get; set; }
 
-- 1:N
-```Csharp
+        [Column(TypeName = "decimal(20, 2)")]
+        public decimal SuperficieMedida { get; set; }
+        public int NBanos { get; set; }
+        public int NHabitaciones { get; set; }
+        public int NGarajes { get; set; }
 
-```
+        [Column(TypeName = "decimal(20, 2)")]
+        public decimal PrecioPropiedad { get; set; }
 
-- N:M
-```Csharp
+        // Claves Foraneas
+        public string PropiedadDetalleId { get; set; }
 
-```
+        // Navegadores
+        public PropiedadDetalle PropiedadDetalleNavigation { get; set; }
+    }
+    ```
+    - Creamos los campos de PropiedadDetalle
+    ```Csharp
+    public class PropiedadDetalle 
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public string Id { get; set; }
+        public string DescripcionPropiedad { get; set; }
+        public bool Balcon { get; set; }
+        public bool Internet { get; set; }
+        public bool Domotica { get; set; }
+        public bool AireAcondicionado { get; set; }
+        public bool Terraza { get; set; }
+        public bool Jardin { get; set; }
+        public bool Calefaccion { get; set; }
+        public DateTime CreateDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
+    }
+    ```
+
+- **1:N** Suponiendo una tabla llamada **PropiedadDetalle** y otra llamada **Imagen**, 1 propiedad puede contener 1 o varias Imagenes y 1 imagen solo puede pertenecer a 1 propiedad. En esta relación la clave foranea se mueve en direccion a la N, por tanto, `Imagen` contendra la clave de `PropiedadDetalle`
+
+    - Indicamos los campos de Entidad
+    - En la clase de `PropiedadDetalle` creamos un objeto Navegador, porque aunque no tenga una clave Foranea, una Propiedad tiene una coleccion de Imagenes y se puede agregar en EF Core esta relacion, de esta forma, cuando se haga una consulta, el framework mapeara la lista de imagenes si queremos.
+    ```Csharp
+    public class PropiedadDetalle 
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public string Id { get; set; }
+        public string DescripcionPropiedad { get; set; }
+        public bool Balcon { get; set; }
+        public bool Internet { get; set; }
+        public bool Domotica { get; set; }
+        public bool AireAcondicionado { get; set; }
+        public bool Terraza { get; set; }
+        public bool Jardin { get; set; }
+        public bool Calefaccion { get; set; }
+        public DateTime CreateDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
+
+        // Claves Foraneas
+        public string TipoPropiedadId { get; set; }
+
+        // Navegadores
+        public IEnumerable<Imagen> ImagenesPropiedadDetalleNavigation { get; set; }
+    }
+    ```
+    - Indicamos la clave foranea en la Entidad `Imagen`
+    - Creamos un objeto navigation para poder acceder directamente a la propiedad en una query a `PropiedadDetalle`
+    ```Csharp
+    public class Imagen 
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public string Id { get; set; }
+        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        public byte[] Img { get; set; }
+
+        //Claves Foraneas
+        public string PropiedadDetalleId { get; set; }
+
+        // Navegadores
+        public PropiedadDetalle PropiedadDetalleNavigation { get; set; }
+    }
+    ```
+
+- **N:M** Suponiendo dos tablas, una **Propiedad** y otra **Usuario**, queremos hacer que un usuario pueda establecer como favorito una propiedad, por tanto 1 usuario puede establecer 1 o varias propiedades como favorito y una propiedad puede tener 1 o varios usuarios de favoritos, por tanto tenemos una relacion N:M. Como hemos dicho arriba, la relacion N:M generan tabla, por tanto la tabla `Favorito`.
+
+    - La entidad `Propiedad` contiene un objeto navegacion para poder obtener una lista de los usuarios que tienen marcada esa propiedad como favorito, pero no tiene ninguna clave foranea
+    ```Csharp
+    public class Propiedad 
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public string Id { get; set; }
+        public string Nombre { get; set; }
+
+        [Column(TypeName = "decimal(20, 2)")]
+        public decimal SuperficieMedida { get; set; }
+        public int NBanos { get; set; }
+        public int NHabitaciones { get; set; }
+        public int NGarajes { get; set; }
+
+        [Column(TypeName = "decimal(20, 2)")]
+        public decimal PrecioPropiedad { get; set; }
+
+        // Claves Foraneas
+        public string PropiedadDetalleId { get; set; }
+
+        // Navegadores
+        public ICollection<Favorito> FavoriteNavigation { get; set; }
+    }
+    ```
+    - La clase usuario agregamos un objeto Navigation para poder obtener la lista de propiedades marcadas como favorito por 1 usuario, pero este no tiene la clave foranea
+    ```Csharp
+    public class User : IdentityUser<int> 
+    {
+        //Navigation
+        public ICollection<Favorito> FavoritePropertyNavigation { get; set; }
+    }
+    ```
+    - Como las relaciones N:M generan tabla, tenemos la tabla Favorito, que contiene las claves Foraneas de UserId y PropiedadId, que estas dos conjuntas son la key principal.
+    - Tambien asignamos los navegadores para, teniendo un registro de favorito, poder buscar el Usuario y la Propiedad vinculada.
+    ```Csharp
+    public class Favorito 
+    {
+        public int UserId { get; set; }
+        public string PropiedadId { get; set; }
+
+        // Navegadores
+        public User UserNavigation { get; set; }
+        public Propiedad PropiedadNavigation { get; set; }
+    }
+    ```
+    - En este caso, en el `ModelBuilder` habra que indicar que la tabla Favoritos contiene las 2 key, con la key principal, para ello ponemos lo siguiente
+    ```Csharp
+    builder.Entity<Favorito>()
+        .HasKey(fav => new {
+            fav.UserId,
+            fav.PropiedadId
+        });
+    ```
 
 
 #### Database First
