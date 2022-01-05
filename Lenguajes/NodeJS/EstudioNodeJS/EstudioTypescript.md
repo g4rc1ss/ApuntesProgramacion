@@ -1,7 +1,7 @@
 # Introducción
-Typescript es un lenguaje creado para poder proporcionar una serie de caracteristicas de las que carece el lenguaje Javascript como, por ejemplo, el tipado estatico.
+Typescript es un lenguaje creado para poder proporcionar una serie de caracteristicas de las que carece el lenguaje Javascript como, por ejemplo, el tipado.
 
-Typescript es una lenguaje que se ha de compilar a Javascript, no es un lenguaje que pueda ser interpretado por los navegadores
+Typescript es una lenguaje que se ha de transpilar a Javascript, no es un lenguaje que pueda ser interpretado por los navegadores
 
 Creamos el proyecto:
 ```powershell
@@ -13,27 +13,25 @@ Para usar typescript tenemos que instalarlo como si de una dependencia se tratas
 
 ```powershell
 npm install typescript
-yarn add typescript
 ```
 
 ## Configurar
-Primero creamos el archivo de typescript y lo llamamos `tsconfig.json`
-```JSON
-{
-    "compilerOptions": {
-        // directorio donde se van a compilar en .js
-        "outDir": "bin",
-        // Indicamos que queremos que se pueda depurar los typescript
-        "sourceMap": true
-    },
-    "include": [
-        // ruta donde se almacenan los typescript
-        "src/**/*"
-    ]
+**package.json** es donde se va a indicar todo lo relacionado con el proyecto como las dependencias, nombre del proyecto, archivo principal, intrucciones para iniciarlo, etc.
+
+Abrimos el archivo **package.json** y agregamos la siguiente opcion
+```javascript
+"scripts": {
+    "tsc": "tsc"
 }
 ```
+Ejecutamos el siguiente comando
+```powershell
+npm run tsc -- --init
+```
 
-`package.json` es donde se va a indicar todo lo relacionado con el proyecto como las dependencias, nombre del proyecto, archivo principal, intrucciones para iniciarlo, etc.
+Gracias a este comando, inicializamos un archivo llamado **tsconfig.json**, este archivo se encarga de la configuracion de este lenguaje. Donde se va a compilar, establecer restricciones, etc. Por el momento descomentamos la linea `OutDir`, que es donde se ubicarán los archivos transpilados a **JS**.
+
+IMAGEEEENNNNN
 
 Para configurar automatizar los procesos de ejecucion del proyecto, hay una seccion dentro del archivo llamada `scripts` donde indicaremos: `"nombre": "comando o archivo to execute"`.
 
