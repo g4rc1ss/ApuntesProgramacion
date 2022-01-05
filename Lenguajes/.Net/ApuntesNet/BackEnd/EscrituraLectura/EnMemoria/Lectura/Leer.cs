@@ -2,7 +2,7 @@
 {
     internal class Leer
     {
-        internal async Task Read(MemoryStream streamEscrito)
+        internal static async Task Read(MemoryStream streamEscrito)
         {
             streamEscrito.Seek(0, SeekOrigin.Begin);
 
