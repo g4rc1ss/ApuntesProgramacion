@@ -1,5 +1,5 @@
-﻿using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManager;
-using CleanArchitecture.Dominio.Negocio.Filtros.UserDetail;
+﻿using CleanArchitecture.ApplicationCore.Domain.Negocio.Filtros.UserDetail;
+using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManager;
 using CleanArchitecture.Shared.Peticiones.Request.Users.UserDetail;
 using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
 using Microsoft.AspNetCore.Mvc;
