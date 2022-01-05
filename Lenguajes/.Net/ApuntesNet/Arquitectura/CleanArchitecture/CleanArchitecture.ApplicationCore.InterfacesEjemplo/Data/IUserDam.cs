@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CleanArchitecture.Dominio.Database.Entities.Identity;
+using CleanArchitecture.ApplicationCore.Domain.Database.Entities.Identity;
 using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
 using Microsoft.AspNetCore.Identity;
 

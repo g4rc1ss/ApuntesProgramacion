@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CleanArchitecture.ApplicationCore.Domain.Negocio.UsersDto;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManager;
 using CleanArchitecture.Dominio.Database.Entities.Identity;
-using CleanArchitecture.Dominio.Negocio.UsersDto;
 using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
 using Microsoft.Extensions.Logging;
 

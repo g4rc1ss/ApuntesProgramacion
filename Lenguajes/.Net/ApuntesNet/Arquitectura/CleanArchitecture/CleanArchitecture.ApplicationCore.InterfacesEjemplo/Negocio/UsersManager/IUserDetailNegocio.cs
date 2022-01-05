@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using CleanArchitecture.Dominio.Negocio.Filtros.UserDetail;
+using CleanArchitecture.ApplicationCore.Domain.Negocio.Filtros.UserDetail;
 using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
 
 namespace CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManager

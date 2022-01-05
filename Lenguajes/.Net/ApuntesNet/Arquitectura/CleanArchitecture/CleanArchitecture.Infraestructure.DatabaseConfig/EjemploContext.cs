@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Dominio.Database.Entities.Identity;
+﻿using CleanArchitecture.ApplicationCore.Domain.Database.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanArchitecture.Dominio\CleanArchitecture.Dominio.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.Dominio\CleanArchitecture.ApplicationCore.Domain.csproj" />
     <ProjectReference Include="..\CleanArchitecture.Infraestructure.DatabaseConfig\CleanArchitecture.Infraestructure.DatabaseConfig.csproj" />
   </ItemGroup>
 
