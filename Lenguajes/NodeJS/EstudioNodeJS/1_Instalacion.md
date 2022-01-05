@@ -67,7 +67,7 @@ Depurar Typescript con Visual Studio Code se puede hacer de varias formas.
 
 1. Ejecutando el comando correspondiente, por ejemplo con la configuracion anterior, `npm run dev`
 1. Accediendo al archivo `package.json`, justo encima de donde pone **scripts** hay una opcion generada por VsCode que se llama **Debug**, le damos y nos aparecera un menu, seleccionamos la opcion que queremos ejecutar y listo.
-1. En el editor, en el panel izquierdo, seleccionamos la opcion llamada `Run and Debug`ICONO, le damos a `create launch.json`, no seleccionamos nada, queremos una configuracion vacia y luego, dentro del archivo, le damos a `ctrl + espace` y seleccionamos `Run npm start` para que genere la plantilla. Al final deberia de quedar de la siguiente forma.
+1. En el editor, en el panel izquierdo, seleccionamos la opcion llamada `Run and Debug`![image](https://user-images.githubusercontent.com/28193994/148217474-15390367-2897-4452-ae7e-8906920921c1.png), le damos a `create launch.json`, no seleccionamos nada, queremos una configuracion vacia y luego, dentro del archivo, le damos a `ctrl + espace` y seleccionamos `Run npm start` para que genere la plantilla. Al final deberia de quedar de la siguiente forma.
     ```json
     "configurations": [
         {
