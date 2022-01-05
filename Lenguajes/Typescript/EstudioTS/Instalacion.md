@@ -85,3 +85,43 @@ Depurar Typescript con Visual Studio Code se puede hacer de varias formas.
         }
     ]
     ```
+
+
+# Express
+Si hemos ejecutado los pasos anteriores, simplemente tenemos que agregar las siguientes dependencias.
+```powershell
+npm install express
+npm --save-dev @types/express
+```
+
+Para comprobar que funciona, nos vamos al `app.ts` y agregamos el siguiente codigo.
+
+```Typescript
+import express = require('express')
+
+const port: number = 3000;
+const app: express.Application = express();
+
+app.use(express.json)
+
+app.listen(port, function () {
+    console.log(`Corriendo en el puerto ${port}`);
+})
+
+app.get('/', function (request, response) {
+    response.send('Holaaaaaaaa, prueba con Typescrit');
+})
+```
+
+# React
+Para crear la template en React con typescript podemos hacer uso de un comando que crea directamente la Template
+
+```powershell
+npx create-react-app typescript-react --template typescript
+```
+
+Si tenemos un proyecto ya escrito en Javascript y queremos pasarlo a Typescript, podemos instalar las siguientes dependencias
+
+```powershell
+npm install --save typescript @types/node @types/react @types/react-dom @types/jest
+```
