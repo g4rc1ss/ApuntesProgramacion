@@ -1,0 +1,26 @@
+{
+  "name": "typescript_express",
+  "version": "1.0.0",
+  "description": "Proyecto usando el api Express, con typescript",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install && npm run tsc",
+    "tsc": "tsc",
+    "dev": "ts-node-dev --respawn --transpile-only ./app/app.ts",
+    "prod": "tsc && node ./build/app.js",
+    "reinstall": "npm run remove-node-modules && npm install",
+    "clean": "npx rimraf node_modules **/node_modules && npx rimraf ./build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "typescript": "^4.5.4"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "ts-node-dev": "^1.1.8"
+  }
+}
