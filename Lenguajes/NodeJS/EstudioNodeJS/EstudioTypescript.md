@@ -31,7 +31,7 @@ npm run tsc -- --init
 
 Gracias a este comando, inicializamos un archivo llamado **tsconfig.json**, este archivo se encarga de la configuracion de este lenguaje. Donde se va a compilar, establecer restricciones, etc. Por el momento descomentamos la linea `OutDir`, que es donde se ubicarán los archivos transpilados a **JS**.
 
-IMAGEEEENNNNN
+![image](https://user-images.githubusercontent.com/28193994/148195995-55dc6d74-eb72-4b98-9942-289cb8522309.png)
 
 Para configurar automatizar los procesos de ejecucion del proyecto, hay una seccion dentro del archivo llamada `scripts` donde indicaremos: `"nombre": "comando o archivo to execute"`.
 
