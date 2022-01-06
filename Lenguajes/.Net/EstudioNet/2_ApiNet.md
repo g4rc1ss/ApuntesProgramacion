@@ -1541,7 +1541,7 @@ public class EnumeratorPersonalizadoWhere<T> : IEnumerable<T>, IEnumerator<T>
 }
 ```
 
-### Consulta personalizada con Yield
+#### Consulta personalizada con Yield
 Gracias al uso de yield podemos ahorrarnos el lastre de crear una clase personalizada para iteracion
 
 1. Creamos el metodo de extension de `IEnumerable` y recibimos los parametros correspondientes para realizar la consulta
