@@ -1246,28 +1246,57 @@ El núcleo de la programación asincrona son los objetos `Task` y `Task<T>`, que
 
 La palabra clave `await` es donde ocurre la magia. Genera control para el autor de la llamada del método que ha realizado `await`, y permite una interfaz de usuario con capacidad de respuesta o un servicio flexible.
 
-```Csharp
-public async Task MetodoAsync()
-{
-    // Para operaciones E/S
-    var stringData = await _httpClient.GetStringAsync(URL);
+Su funcionamiento consiste en lo siguiente.
 
-    // Para operaciones enlazadas a la CPU
-    await Task.Run(() => 
-    {
-        // Ejecucion de codigo costoso en tiempo
-        Thread.Sleep(10000)
-    });
-}
-```
-
+1. Hilos en el IOCP
+1. Estamos esperando a una operacion asincrona, por ejemplo, lectura de un fichero de disco. Se pasa el thread al **IOCP**(threads que se mantienen a la espera), se inicia la operacion I/O, se crea la maquina de estados y se retorna un objeto `Task` a nuestro codigo.
+1. Se espera a que termine la operacion I/O.
+1. Se señala el IOCP.
+1. El IOCP hace un callback para enviar la respuesta, se añade el resultado a la maquina de estados y se ejecuta el `TrySetResult`, se marcara la tarea como `Completed` y obtendremos el resultado solicitado en nuestro codigo. 
 ![image](https://user-images.githubusercontent.com/28193994/148436299-fba37b44-9af8-49ab-b4c5-cff9f7cc15d0.png)
+
+El codigo que se genera de forma invisible al usuario cada vez que realizamos la palabra clave `await` es una maquina de estados:
 ![image](https://user-images.githubusercontent.com/28193994/148436740-b6122a02-0060-4b94-ac9d-910212f560a1.png)
+
+Si el codigo anterior lo decompilamos en una herramienta como dotPeek de **Jetbrains**.
+
 ![image](https://user-images.githubusercontent.com/28193994/148436771-c2447a23-3dc3-495b-ace8-6c132ff7f47f.png)
+
+Lo que hace este codigo es a fin de cuentas es comprobar si la tarea a terminado, si no es asi, esperar a que la operacion asincrona acabe. En el momento que lo haga, obtendra y retornara el resultado.
 ![image](https://user-images.githubusercontent.com/28193994/148436792-93f06ce6-19ca-46e3-8133-bce475b26f4a.png)
 
-Async Eliding
 
+#### Async Eliding
+Visto el codigo anterior, aparte de darnos cuenta de que la magia no existe, se ve que, aunque el uso de await nos da mas escalabilidad, requiere de mas proceso a lo tonto, al final, para nosotros solo es una palabra, ¿no?.
+
+Generalmente cuando creamos una operacion asincrona, es asincrona hasta lo mas profundo de nuestro codigo, esto no es algo malo, pero hay que tener en cuenta que si en ese codigo se usan, por ejemplo, 5 await, se van a crear 5 maquinas de estado para el control de ese await y muchas veces, hacemos un await con un return. Eso provoca un procesamiento innecesario.
+
+No siempre es posible, pero usando el siguiente codigo de ejemplo, podriamos evitar este problema.
+
+- Creamos una maquina de estados para la ejecucion de `MetodoConAwait()`, cuando se llame al metodo, se creara otra maquina de estamos para la ejecucion de `Task.Delay`
+- Creamos una maquina de estados para la ejecucion de `MetodoSinAwait()`, este metodo llamara a `Task.Delay` y la maquina de estados controlara su ejecucion.
+
+Es importante saber analizar esto, puesto que en el caso de `result1` estamos generando 2 maquinas de estado cuando en el caso de `result2` estamos generando 1 y si ejecutamos el codigo veremos que ambas hacen exactamente el mismo resultado. Por tanto en el primer caso estamso generando codigo innecesario
+
+```Csharp
+public static async Task MetodoQueEjecuta()
+{
+    await MetodoConAwait();
+
+    await MetodoSinAwait();
+}
+
+
+public static async Task MetodoConAwait()
+{
+    await Task.Delay(100000);
+}
+
+public static Task MetodoSinAwait()
+{
+    return Task.Delay(100000);
+}
+```
 
 ## Parallel
 La clase estatica `Parallel` contiene los metodos `For`, `ForEach` e `Invoke` y se utiliza para hacer procesamiento multihilo de manera automatizada, su uso principal consta en el tratamiento de objetos como `Listas` o `Arrays` y la ejecucion de metodos en paralelo.
