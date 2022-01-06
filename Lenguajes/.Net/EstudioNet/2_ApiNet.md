@@ -253,8 +253,6 @@ Tiene un metodo que ha de ser implementado llamado `GetEnumerator` que devolvera
 
 Se puede usar la palabra clave `yield` para ir moviendonos al siguiente registro de la lista o implementando dicha interfaz en una clase para poder ir moviendonos a los siguientes elementos.
 
-Para ver el ejemplo con `yield`, [pincha aqui ](#yield)
-
 ```Csharp
 public class EnumerablePersonalizado<T> : IEnumerable<T>
 {
@@ -1458,36 +1456,124 @@ select prod).FirstOrDefault()
 ## Extension de Linq
 En `Linq` mediante el uso de la interfaz `IEnumerable<T>` se pueden realizar metodos de extension para ampliar y personalizar la libreria linq para realizar filtros o guardar el objeto en una lista personalizada
 
-### Tratamiento de Consultas personalizadas
+### Creacion de consultas personalizadas
+Formas de extender la clase `IEnumerable` para crear consultas personalizadas en Linq.
+
+#### Consulta personalizada con Iterator
+1. Creamos el metodo de extension sobre la interfaz `IEnumerable<T>` y recibimos una funcion que recibe un parametro `T` y devolvera un `bool`
+1. Retornamos una instacia de nuestra clase, que implementará la interfaz `IEnumerator<T>`
 ```Csharp
-public static class ExtensionLinq
+public static IEnumerable<T> WherePersonalizado<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
 {
-    public static IEnumerable<Coche> FiltrarPorAudi(this IEnumerable<Coche> coches)
+    return new EnumeratorPersonalizadoWhere<T>(enumerable, predicate);
+}
+```
+
+1. Creamos una clase que tiene que implementar `IEnumerable` e `IEnumerator<T>`
+    - `IEnumerable` es implementada, puesto que tenemos que devolver un IEnumerable para que se pueda tratar como **Linq** cuando devolvamos la instancia.
+    - `IEnumerator` es implementada para que la instancia pueda sea iterable. Cuando se intenta acceder al siguiente elemento mediante un bucle, llama al metodo `MoveNext()`, es donde habra que realizar la tarea asignada a la nuestra instancia.
+```Csharp
+public class EnumeratorPersonalizadoWhere<T> : IEnumerable<T>, IEnumerator<T>
+{
+    private readonly Func<T, bool> _predicate;
+    private readonly IEnumerable<T> _enumerable;
+    private IEnumerator<T>? _enumerator;
+    private int caso;
+
+    public T Current { get; }
+
+    object IEnumerator.Current => Current;
+
+    public EnumeratorPersonalizadoWhere(IEnumerable<T> enumerable, Func<T, bool> predicate)
     {
-        foreach (Coche coche in coches)
+        _predicate = predicate;
+        _enumerable = enumerable;
+        caso = 1;
+    }
+
+    public bool MoveNext()
+    {
+        switch (caso)
         {
-            if (coche?.Marca == MarcaCoche.Audi)
-            {
-                yield return coche;
-            }
+            case 1:
+                _enumerator = _enumerable.GetEnumerator();
+                caso = 2;
+                goto case 2;
+                break;
+            case 2:
+                while (_enumerator.MoveNext())
+                {
+                    var item = _enumerator.Current;
+                    if (_predicate(item))
+                    {
+                        return true;
+                    }
+                }
+
+                Dispose();
+                break;
+        }
+
+        return false;
+    }
+
+    public void Reset()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Dispose()
+    {
+        if (_enumerator == null) return;
+        _enumerator.Dispose();
+        _enumerator = null;
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        return this;
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+}
+```
+
+### Consulta personalizada con Yield
+Gracias al uso de yield podemos ahorrarnos el lastre de crear una clase personalizada para iteracion
+
+1. Creamos el metodo de extension de `IEnumerable` y recibimos los parametros correspondientes para realizar la consulta
+1. Creamos un bucle foreach del enumerable que recibimos para poder resolver el resto de iterators.
+1. Realizamos el proceso de la consulta que necestiamos
+1. Usamos la instruccion `yield return` para devolver lo que necesitamos.
+```Csharp
+public static IEnumerable<T> WherePersonalizadoYield<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
+{
+    foreach (var item in enumerable)
+    {
+        if (predicate(item))
+        {
+            yield return item;
         }
     }
 }
 ```
 
-### Ejecucion de Consultas Personalizadas
+### Crear ejecucion personalizada de la consulta
+Para resolver una consulta **linq** debemos de iterarlo, por ejemplo, creando un bucle foreach. De esta forma se resuelve la consulta.
+
 ```Csharp
-public static class ExtensionLinq
+public static List<T> ToListPersonalizada<T>(this IEnumerable<T> enumerable)
 {
-    public static ListaPersonalizada<T> ToListaPersonalizada<T>(this IEnumerable<T> coches)
+    var lista = new List<T>();
+    foreach (var item in enumerable)
     {
-        var listaNueva = new ListaPersonalizada<T>();
-        foreach (var coche in coches)
-        {
-            listaNueva.Add(coche);
-        }
-        return listaNueva;
+        lista.Add(item);
     }
+
+    return lista;
 }
 ```
 
