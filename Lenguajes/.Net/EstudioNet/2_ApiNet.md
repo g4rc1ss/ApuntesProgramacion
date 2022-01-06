@@ -1261,6 +1261,13 @@ public async Task MetodoAsync()
 }
 ```
 
+![image](https://user-images.githubusercontent.com/28193994/148436299-fba37b44-9af8-49ab-b4c5-cff9f7cc15d0.png)
+![image](https://user-images.githubusercontent.com/28193994/148436740-b6122a02-0060-4b94-ac9d-910212f560a1.png)
+![image](https://user-images.githubusercontent.com/28193994/148436771-c2447a23-3dc3-495b-ace8-6c132ff7f47f.png)
+![image](https://user-images.githubusercontent.com/28193994/148436792-93f06ce6-19ca-46e3-8133-bce475b26f4a.png)
+
+Async Eliding
+
 
 ## Parallel
 La clase estatica `Parallel` contiene los metodos `For`, `ForEach` e `Invoke` y se utiliza para hacer procesamiento multihilo de manera automatizada, su uso principal consta en el tratamiento de objetos como `Listas` o `Arrays` y la ejecucion de metodos en paralelo.
