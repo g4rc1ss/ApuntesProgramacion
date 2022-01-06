@@ -1255,16 +1255,103 @@ Su funcionamiento consiste en lo siguiente.
 1. El IOCP hace un callback para enviar la respuesta, se añade el resultado a la maquina de estados y se ejecuta el `TrySetResult`, se marcara la tarea como `Completed` y obtendremos el resultado solicitado en nuestro codigo. 
 ![image](https://user-images.githubusercontent.com/28193994/148436299-fba37b44-9af8-49ab-b4c5-cff9f7cc15d0.png)
 
-El codigo que se genera de forma invisible al usuario cada vez que realizamos la palabra clave `await` es una maquina de estados:
-![image](https://user-images.githubusercontent.com/28193994/148436740-b6122a02-0060-4b94-ac9d-910212f560a1.png)
+Cuando ejecutamos la instruccion await, se nos genera codigo de bajo nivel de forma invisible, que crea y ejecuta una maquina de estados que se encarga de comprobar si la tarea fue ejecutada.
 
-Si el codigo anterior lo decompilamos en una herramienta como dotPeek de **Jetbrains**.
+Un codigo que nosotros hacemos tan sencillo como lo siguiente:
+```Csharp
+private static async Task<string> GetWebData()
+{
+    BeforeTaskCreation();
+    var task = new HttpClient().GetStringAsync(new Uri("https://www.google.es"));
+    AfterTaskCreation();
+    var result = await task;
+    AfterAwaitTask(result);
+    return result;
+}
+```
+Genera el siguiente resultado.
 
-![image](https://user-images.githubusercontent.com/28193994/148436771-c2447a23-3dc3-495b-ace8-6c132ff7f47f.png)
+1. Crea una estructura que implementa una interface `IAsyncStateMachine`
+1. Declara variables para la maquina de estados
+1. Declara el metodo MoveNext(), cuando se ejecuta el `default` lo que hace es ejecutar la funcion asincrona que queriamos y va obteniendo el awaiter, si no es completada, ira cambiando el estado y sera llamado de nuevo mas adelante hasta que sea completo, cuando eso pase, se acabará la ejecucion del switch y se retornará el resultado que queremos.
 
-Lo que hace este codigo es a fin de cuentas es comprobar si la tarea a terminado, si no es asi, esperar a que la operacion asincrona acabe. En el momento que lo haga, obtendra y retornara el resultado.
-![image](https://user-images.githubusercontent.com/28193994/148436792-93f06ce6-19ca-46e3-8133-bce475b26f4a.png)
+```Csharp
+private struct AsyncStateMachine : IAsyncStateMachine
+{
+    public int CurrentState;
+    public AsyncTaskMethodBuilder<string> Builder;
+    public Task<string> Task;
+    public string Result;
+    private TaskAwaiter<string> awaiter;
 
+    void IAsyncStateMachine.MoveNext()
+    {
+        string currentResult = null;
+        try
+        {
+            bool flag = true;
+            TaskAwaiter<string> awaiter;
+            switch (this.CurrentState)
+            {
+                case -3:
+                    goto label_6;
+                case 0:
+                    awaiter = this.awaiter;
+                    this.awaiter = new TaskAwaiter<string>();
+                    this.CurrentState = -1;
+                    break;
+                default:
+                    this.Task = new HttpClient().GetStringAsync(new Uri("https://www.google.es"));
+                    awaiter = this.Task.GetAwaiter();
+                    if (!awaiter.IsCompleted)
+                    {
+                        this.CurrentState = 0;
+                        this.awaiter = awaiter;
+                        this.Builder.AwaitUnsafeOnCompleted<TaskAwaiter<string>, AsyncStateMachine>(ref awaiter, ref this);
+                        flag = false;
+                        return;
+                    }
+                    break;
+            }
+            string result = awaiter.GetResult();
+            awaiter = new TaskAwaiter<string>();
+            this.Result = result;
+            currentResult = this.Result;
+        }
+        catch (Exception ex)
+        {
+            this.CurrentState = -2;
+            this.Builder.SetException(ex);
+            return;
+        }
+
+    label_6:
+        this.CurrentState = -2;
+        this.Builder.SetResult(currentResult);
+    }
+
+    void IAsyncStateMachine.SetStateMachine(IAsyncStateMachine param0)
+    {
+        this.Builder.SetStateMachine(param0);
+    }
+}
+```
+
+1. Creamos una instancia de la estructura de maquina de estado.
+1. Creamos una instancia de `AsyncTaskMethodBuilder`
+1. Indica que el estado es -1
+1. Inicia la maquina de estados
+1. Retorna el resultado
+```Csharp
+private static Task<string> GetWebData()
+{
+    AsyncStateMachine stateMachine = new AsyncStateMachine();
+    stateMachine.Builder = AsyncTaskMethodBuilder<string>.Create();
+    stateMachine.CurrentState = -1;
+    stateMachine.Builder.Start<AsyncStateMachine>(ref stateMachine);
+    return stateMachine.Builder.Task;
+}
+```
 
 #### Async Eliding
 Visto el codigo anterior, aparte de darnos cuenta de que la magia no existe, se ve que, aunque el uso de await nos da mas escalabilidad, requiere de mas proceso a lo tonto, al final, para nosotros solo es una palabra, ¿no?.
