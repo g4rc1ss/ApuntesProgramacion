@@ -246,7 +246,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Initializers", "Initializer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.UnitTest", "Arquitectura\CleanArchitecture\CleanArchitecture.UnitTest\CleanArchitecture.UnitTest.csproj", "{B074E96B-6F09-4ADD-AA37-51A98AE603E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.IntegrationTest", "Arquitectura\CleanArchitecture\CleanArchitecture.IntegrationTest\CleanArchitecture.IntegrationTest.csproj", "{263FD46B-6510-4FE8-AAA1-DA867B701A97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.IntegrationTest", "Arquitectura\CleanArchitecture\CleanArchitecture.IntegrationTest\CleanArchitecture.IntegrationTest.csproj", "{263FD46B-6510-4FE8-AAA1-DA867B701A97}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Onion", "Onion", "{7093A21B-32A8-4752-B95E-6821B8C5DE31}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hexagonal", "Hexagonal", "{D57D8B53-5D0C-4800-B2B4-8DDAB6447F30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -699,6 +703,8 @@ Global
 		{46433E2B-20F7-4B4C-A71E-6B2D866A36E9} = {7AFBCA32-61FE-4B1D-A377-29FDED10441C}
 		{B074E96B-6F09-4ADD-AA37-51A98AE603E9} = {CA75AFB9-EDF2-43BA-82E5-84DECA3B3FFB}
 		{263FD46B-6510-4FE8-AAA1-DA867B701A97} = {CA75AFB9-EDF2-43BA-82E5-84DECA3B3FFB}
+		{7093A21B-32A8-4752-B95E-6821B8C5DE31} = {BC12B1CE-3F9C-453D-8081-6149009ACA62}
+		{D57D8B53-5D0C-4800-B2B4-8DDAB6447F30} = {BC12B1CE-3F9C-453D-8081-6149009ACA62}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E490D0C8-C5A7-4F24-8A9B-CE1635508778}
