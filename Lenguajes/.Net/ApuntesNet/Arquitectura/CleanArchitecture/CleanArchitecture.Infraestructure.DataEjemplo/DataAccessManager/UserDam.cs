@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CleanArchitecture.ApplicationCore.Domain.Database.Entities.Identity;
+using CleanArchitecture.ApplicationCore.Domain.Negocio.UsersDto;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using CleanArchitecture.Infraestructure.DatabaseConfig;
+using CleanArchitecture.Infraestructure.DataEjemplo.Mappers.UserMapper;
 using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -26,9 +28,9 @@ internal class UserDam : IUserDam
         _contextFactory = contextFactory;
     }
 
-    public async Task<SignInResult> LogInAsync(string user, string password, bool rememberMe)
+    public async Task<bool> LogInAsync(string user, string password, bool rememberMe)
     {
-        return await _signInManager.PasswordSignInAsync(user, password, rememberMe, false);
+        return (await _signInManager.PasswordSignInAsync(user, password, rememberMe, false)).Succeeded;
     }
 
     public async Task<bool> LogoutAsync()
@@ -44,19 +46,22 @@ internal class UserDam : IUserDam
         }
     }
 
-    public async Task<IdentityResult> CreateUserAsync(User user, string password)
+    public async Task<bool> CreateUserAsync(UserData userData, string password)
     {
-        return await _userManager.CreateAsync(user, password);
+        var user = UserDamMapper.GetUserFromUserData(userData);
+        return (await _userManager.CreateAsync(user, password)).Succeeded;
     }
 
-    public async Task<IdentityResult> CreateUserRoleAsync(User user, string role)
+    public async Task<bool> CreateUserRoleAsync(UserData userData, string role)
     {
-        return await _userManager.AddToRoleAsync(user, role);
+        var user = UserDamMapper.GetUserFromUserData(userData);
+        return (await _userManager.AddToRoleAsync(user, role)).Succeeded;
     }
 
-    public async Task<IdentityResult> DeleteUserAsync(User user)
+    public async Task<bool> DeleteUserAsync(UserData userData)
     {
-        return await _userManager.DeleteAsync(user);
+        var user = UserDamMapper.GetUserFromUserData(userData);
+        return (await _userManager.DeleteAsync(user)).Succeeded;
     }
 
     public async Task<List<UserResponse>> GetListUsers()
