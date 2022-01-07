@@ -1,5 +1,6 @@
-﻿using CleanArchitecture.Dominio.Database.Entities.Identity;
+﻿using CleanArchitecture.ApplicationCore.Domain.Database.Entities.Identity;
 using CleanArchitecture.Infraestructure.DatabaseConfig;
+using CleanArchitecture.Infraestructure.DatabaseConfig.Identity;
 using CleanArchitecture.Infraestructure.InitDatabase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

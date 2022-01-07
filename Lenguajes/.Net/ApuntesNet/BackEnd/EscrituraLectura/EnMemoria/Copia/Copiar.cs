@@ -6,7 +6,7 @@ internal class Copiar
     {
     }
 
-    internal async Task Copy(MemoryStream streamEscrito)
+    internal static async Task Copy(MemoryStream streamEscrito)
     {
         using var memoryStream = new MemoryStream();
 

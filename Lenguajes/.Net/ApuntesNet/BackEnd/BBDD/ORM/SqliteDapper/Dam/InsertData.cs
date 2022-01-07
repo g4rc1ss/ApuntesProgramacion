@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using SqliteDapper.Database;
@@ -12,7 +11,7 @@ namespace SqliteDapper.Dam
         internal static async Task InsertDataQueryAsync()
         {
             using var connection = DapperExecute.GetConnection();
-            
+
             var insert = @$"
 insert into {nameof(Pueblo)} (id, nombre)
 values (@guidPueblo, @NombrePueblo);
