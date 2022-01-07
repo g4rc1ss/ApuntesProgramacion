@@ -3,38 +3,36 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using DesktopUI.Backend.Data.DataAccessManager.BaseDam;
 using DesktopUI.Backend.Data.DataAccessManager.Interfaces;
 using DesktopUI.Backend.Data.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace DesktopUI.Backend.Data.DataAccessManager
 {
-    public class UserDam : DataAccessLayer, IUserDam
+    public class UserDam : IUserDam
     {
-        public UserDam(IDbContextFactory<ContextoSqlServer> dbContextFactory) : base(dbContextFactory)
+        private readonly IDbContextFactory<ContextoSqlServer> _dbContext;
+
+        public UserDam(IDbContextFactory<ContextoSqlServer> dbContext)
         {
+            _dbContext = dbContext;
         }
 
         public async Task<List<Usuario>> GetAllUsersAsync()
         {
-            using (var context = contexto.CreateDbContext())
-            {
-                return await (from user in context.Usuarios
-                              orderby user.Id
-                              select user).ToListAsync();
-            }
+            using var context = _dbContext.CreateDbContext();
+            return await (from user in context.Usuarios
+                          orderby user.Id
+                          select user).ToListAsync();
         }
 
         public async Task<List<Usuario>> GetAllUsersWithEdadAsync(int edad)
         {
-            using (var context = contexto.CreateDbContext())
-            {
-                return await (from user in context.Usuarios
-                              where user.Edad == edad
-                              orderby user.Id
-                              select user).ToListAsync();
-            }
+            using var context = _dbContext.CreateDbContext();
+            return await (from user in context.Usuarios
+                          where user.Edad == edad
+                          orderby user.Id
+                          select user).ToListAsync();
         }
 
         public async Task<List<Usuario>> GetAllUsersWithDapperAsync()
@@ -43,10 +41,8 @@ namespace DesktopUI.Backend.Data.DataAccessManager
 SELECT [u].[Id], [u].[Edad], [u].[FechaHoy], [u].[Nombre]
 FROM PruebasConceptoWebApuntesNet.dbo.Usuarios AS [u]
 ORDER BY [u].[Id]";
-            using (var connection = contexto.CreateDbContext().Database.GetDbConnection())
-            {
-                return (await connection.QueryAsync<Usuario>(sql)).AsList();
-            }
+            using var connection = _dbContext.CreateDbContext().Database.GetDbConnection();
+            return (await connection.QueryAsync<Usuario>(sql)).AsList();
         }
 
         public async Task<List<Usuario>> GetAllUsersWithEdadWithDapperAsync(int edad)
@@ -56,10 +52,8 @@ SELECT [u].[Id], [u].[Edad], [u].[FechaHoy], [u].[Nombre]
 FROM [Usuarios] AS [u]
 WHERE [u].[Edad] = {edad}
 ORDER BY [u].[Id]";
-            using (var connection = contexto.CreateDbContext().Database.GetDbConnection())
-            {
-                return (await connection.QueryAsync<Usuario>(sql)).AsList();
-            }
+            using var connection = _dbContext.CreateDbContext().Database.GetDbConnection();
+            return (await connection.QueryAsync<Usuario>(sql)).AsList();
         }
     }
 }

@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CleanArchitecture.ApplicationCore.Domain.Negocio.UsersDto;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManager;
-using CleanArchitecture.Dominio.Database.Entities.Identity;
-using CleanArchitecture.Dominio.Negocio.UsersDto;
 using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
 using Microsoft.Extensions.Logging;
 
@@ -15,7 +14,7 @@ internal class UserNegocio : IUserNegocio
 {
     private readonly ILogger<UserNegocio> logger;
     private readonly IUserDam userDam;
-    
+
     public UserNegocio(ILogger<UserNegocio> logger, IUserDam userDam)
     {
         this.logger = logger;
@@ -25,12 +24,11 @@ internal class UserNegocio : IUserNegocio
     public async Task<bool> LoginAsync(string username, string password, bool rememberMe)
     {
         var resp = await userDam.LogInAsync(username, password, rememberMe);
-        if (resp is null || !resp.Succeeded)
+        if (!resp)
         {
             logger.LogInformation($"Nombre de usuario {username} o contraseña incorrecta ***", nameof(LoginAsync));
-            return false;
         }
-        return true;
+        return resp;
     }
 
     public async Task<bool> LogoutAsync()
@@ -46,7 +44,7 @@ internal class UserNegocio : IUserNegocio
 
     public async Task<bool> CreateUserAccountAsync(CreateAccountData createAccountData)
     {
-        var user = new User()
+        var user = new UserData()
         {
             UserName = createAccountData?.UserName,
             NormalizedUserName = createAccountData?.NormalizedUserName,
@@ -57,18 +55,14 @@ internal class UserNegocio : IUserNegocio
         var respUser = await userDam.CreateUserAsync(user, createAccountData?.Password);
         var respRole = await userDam.CreateUserRoleAsync(user, "Usuario");
 
-        if (respUser is not null && respRole is not null && respUser.Succeeded && respRole.Succeeded)
-        {
-            var resp = await LoginAsync(createAccountData?.UserName, createAccountData?.Password, false);
-            return resp;
-        }
-        else
+        if (!(respUser && respRole))
         {
             var deleteToRevertOperation = await userDam.DeleteUserAsync(user);
-            logger.LogInformation($"usuario creado? {respUser?.Succeeded} \n , logger" +
-                $"usuario insertado Rol? {respRole?.Succeeded}", nameof(CreateUserAccountAsync));
+            logger.LogInformation($"usuario creado? {respUser} \n , logger" +
+                $"usuario insertado Rol? {respRole}", nameof(CreateUserAccountAsync));
             return false;
         }
+        return await LoginAsync(createAccountData?.UserName, createAccountData?.Password, false);
     }
 
     public async Task<List<UserResponse>> GetListaUsuarios()

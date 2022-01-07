@@ -11,7 +11,7 @@ namespace SqliteDapper.Dam
         internal static async Task DeleteDataQueryAsync()
         {
             using var connection = DapperExecute.GetConnection();
-            
+
             var deleteUsuario = @$"
 DELETE FROM {nameof(Usuario)} 
 WHERE Id = @idUsuario";
