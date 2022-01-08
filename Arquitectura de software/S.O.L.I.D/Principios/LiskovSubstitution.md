@@ -71,4 +71,4 @@ public interface IAlmacenamiento
 }
 ```
 
-Mi consejo para evitar este tipo de situaciones es que cuando estés desarrollando  y quieras hacer una clase, pienses en su implementación o en cómo podrías extraerlo en una interfaz en caso de que algún día quieras cambiar.  
+Para evitar este tipo de situaciones es que cuando estés desarrollando  y quieras hacer una clase, pienses en su implementación o en cómo podrías extraerlo en una interfaz en caso de que algún día quieras cambiar.
