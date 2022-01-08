@@ -4,8 +4,14 @@ SOLID es un acrónimo acuñado por *Robert C.Martin* en el cual se representan l
 
 Los cinco principios de SOLID para el diseño de aplicaciones de software son: 
 
-- S – [Single Responsability Principle (SRP)](./Principios/1-SingleResponsability.md)
-- O – [Open/Closed Principle (OCP)](./Principios/2-OpenClosed.md)
-- L – [Liskov Substitution Principle (LSP) ](./Principios/3-LiskovSubstitution.md)
-- I – [Interface Segretation Principle (ISP) ](./Principios/4-InterfaceSegregation.md)
-- D – [Dependency Inversion Principle (DIP) ](./Principios/5-DependencyInversion.md)
+- S – [Single Responsability Principle (SRP)](./Principios/SingleResponsability.md)
+- O – [Open/Closed Principle (OCP)](./Principios/OpenClosed.md)
+- L – [Liskov Substitution Principle (LSP) ](./Principios/LiskovSubstitution.md)
+- I – [Interface Segretation Principle (ISP) ](./Principios/InterfaceSegregation.md)
+- D – [Dependency Inversion Principle (DIP) ](./Principios/DependencyInversion.md)
+
+
+---
+La mayor parte de la informacion ha sido recogido de [Netmentor](https://netmentor.es)
+
+- [SOLID](https://www.netmentor.es/curso/principios-solid)
