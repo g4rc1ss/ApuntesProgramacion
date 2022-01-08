@@ -1,5 +1,5 @@
 ﻿using HexagonalArchitecture.Application.Dto;
-using HexagonalArchitecture.Application.Ports.UserPort;
+using HexagonalArchitecture.Application.Ports.UserPort.UserDb;
 
 namespace HexagonalArchitecture.DB.UserDb
 {

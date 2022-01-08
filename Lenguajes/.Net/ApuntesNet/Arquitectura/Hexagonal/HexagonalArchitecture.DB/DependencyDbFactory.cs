@@ -1,12 +1,13 @@
-﻿using HexagonalArchitecture.DB.UserDb;
+﻿using HexagonalArchitecture.Application.Ports.UserPort.UserDb;
+using HexagonalArchitecture.DB.UserDb;
 
 namespace HexagonalArchitecture.DB
 {
     public class DependencyDbFactory
     {
-        public static ClaseSimuloBaseDeDatos GetSimulacionBaseDatos()
+        public static IClaseSimuloBaseDeDatos GetSimulacionBaseDatos()
         {
-            return new();
+            return new ClaseSimuloBaseDeDatos();
         }
     }
 }

@@ -1,13 +1,14 @@
 ﻿using HexagonalArchitecture.Application.Business.UserManager;
-using HexagonalArchitecture.Application.Ports.UserPort;
+using HexagonalArchitecture.Application.Ports.UserPort.UserDb;
+using HexagonalArchitecture.Application.Ports.UserPort.UserManager;
 
 namespace HexagonalArchitecture.Application
 {
     public class DependencyApplicationFactory
     {
-        public static UserManager GetUserManager(IClaseSimuloBaseDeDatos claseSimulacion)
+        public static IUserManager GetUserManager(IClaseSimuloBaseDeDatos claseSimulacion)
         {
-            return new(claseSimulacion);
+            return new UserManager(claseSimulacion);
         }
     }
 }
