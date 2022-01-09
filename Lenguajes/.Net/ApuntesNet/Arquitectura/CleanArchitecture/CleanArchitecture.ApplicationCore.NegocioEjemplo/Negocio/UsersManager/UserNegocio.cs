@@ -67,11 +67,13 @@ internal class UserNegocio : IUserNegocio
 
     public async Task<List<UserResponse>> GetListaUsuarios()
     {
-        await Parallel.ForEachAsync(Enumerable.Range(0, 10), async (number, token) =>
-        {
-            await userDam.GetListUsers();
-        });
+        var tareas = new List<Task>();
 
+        foreach (var item in Enumerable.Range(0, 10))
+        {
+            tareas.Add(userDam.GetListUsers());
+        }
+        await Task.WhenAll(tareas);
         return await userDam.GetListUsers();
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CleanArchitecture.ApplicationCore.Domain.Negocio.Filtros.UserDetail;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
@@ -18,11 +19,13 @@ namespace CleanArchitecture.ApplicationCore.NegocioEjemplo.Negocio.UsersManager
 
         public async Task<UserResponse> GetUser(FiltroUser filtro)
         {
-            await _userDetailDam.GetUser(filtro);
-            await Parallel.ForEachAsync(Enumerable.Range(0, 10), async (value, token) =>
+            var tareas = new List<Task>();
+
+            foreach (var item in Enumerable.Range(0, 10))
             {
-                await _userDetailDam.GetUser(filtro);
-            });
+                tareas.Add(_userDetailDam.GetUser(filtro));
+            }
+            await Task.WhenAll(tareas);
             return await _userDetailDam.GetUser(filtro);
         }
     }

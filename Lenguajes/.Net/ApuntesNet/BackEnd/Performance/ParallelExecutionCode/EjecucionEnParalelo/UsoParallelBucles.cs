@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ParallelExecutionCode.EjecucionEnParalelo
@@ -60,6 +61,15 @@ namespace ParallelExecutionCode.EjecucionEnParalelo
             });
 
             Parallel.ForEach(listas, MetodoParaForEach);
+        }
+
+        public async Task BucleForEachAsync()
+        {
+            await Parallel.ForEachAsync(Enumerable.Range(0, 10), async (value, token) =>
+            {
+                await Task.Delay(2000);
+                Console.WriteLine($"ForEachAsync NOMBRE  --  {value}");
+            });
         }
 
         private void MetodoParaFor(int i)
