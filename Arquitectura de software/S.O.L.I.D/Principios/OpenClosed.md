@@ -42,9 +42,50 @@ public class DatabaseLogger : Logging
 ## Uso de Patron Composite
 La forma más recomendable y que suele dar lugar a menos errores es utilizar un patrón composite, el cual nos permite cambiar el funcionamiento en tiempo de ejecución.
 
-1. Declaramos la interface `ILogger` con los metodos a implementar.
-1. Tenemos la clase que queremos extender, que en este caso es `Logging`
-1. Cremaos la clase nueva añadiendo la funcionalidad que necesitamos, en este caso la clase `DatabaseLogger`.
+Nuestra clase `Logging` es la siguiente(sin la palabra clave virtual).
+```Csharp
+public class Logging
+{
+    public void Info(string message)
+    {
+        Log.Information(message);
+    }
+    public void Error(string message, Exception e)
+    {
+        Log.Error(e, message);
+    }
+    public void Fatal(string message, Exception e)
+    {
+        Log.Fatal(e, message);
+    }
+}
+```
+
+Lo que debemos hacer es crear una nueva clase, la cual contiene una propiedad del tipo de nuestra clase original Logging que inicializamos en el constructor (deberíamos inyectarla) y como vemos creamos métodos que se llaman igual que los métodos de la clase original, sustituyendo el funcionamiento del que deseamos cambiar.
+```Csharp
+public class DatabaseLogger  
+{
+    private readonly LogRepository logRepo;
+    private readonly Logging loggingOriginal;
+    public DatabaseLogger()
+    {
+        logRepo = new LogRepository();
+        loggingOriginal = new Logging();
+    }
+
+    public void Info(string message) => loggingOriginal.Info(message);
+    
+    public void Error(string message, Exception e) => loggingOriginal.Error(message, e);
+    
+    public void Fatal(string message, Exception e)
+    {
+        logRepo.AlmacenarError(message, e);
+        loggingOriginal.Fatal(message, e);
+    }
+}
+```
+
+La forma óptima de asegurarnos que estas clases van a contener todos los métodos que necesitamos es obligando a ambas clases a implementar una interfaz.
 ```Csharp
 public interface ILogger
 {
@@ -52,17 +93,13 @@ public interface ILogger
     void Error(string message, Exception e);
     void Fatal(string message, Exception e);
 }
-
-public class Logging : ILogger
-{
-    //Resto del codigo
-}
-
 public class DatabaseLogger  : ILogger
 {
     //Resto del código
 }
+public class Logging : ILogger
+{
+    //resto del código
+}
 ```
-Cabe destacar que para que esto funcione, nuestro codigo deberia de recibir la interface y no la clase como tal.
-
-De esta forma, en la clase donde necesitamos esta extension, recibiremos la interfaz y la implementacion se hará en el paso anterior o en la inyeccion de  dependencias.
+Y ahora en nuestra clase principal podemos cambiar el código para que inyecte la interfaz ILogger y utilizando inyección de dependencias  decidiremos si esa interfaz será referencia a  Logging o DatabaseLogger.
