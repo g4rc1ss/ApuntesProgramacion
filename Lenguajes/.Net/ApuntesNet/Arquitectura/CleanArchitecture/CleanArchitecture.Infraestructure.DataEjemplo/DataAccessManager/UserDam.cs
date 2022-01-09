@@ -67,6 +67,7 @@ internal class UserDam : IUserDam
     public async Task<List<UserResponse>> GetListUsers()
     {
         using var context = _contextFactory.CreateDbContext();
+        await Task.Delay(1000);
         return await (from user in context.User
                       select new UserResponse
                       {

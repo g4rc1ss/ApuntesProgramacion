@@ -67,6 +67,11 @@ namespace TaskManagement.Tareas
             });
             Console.WriteLine(await tarea);
         }
+
+        public static async Task Esperando()
+        {
+            await Task.Delay(9000);
+        }
         private static string Task2async()
         {
             return "mensaje";

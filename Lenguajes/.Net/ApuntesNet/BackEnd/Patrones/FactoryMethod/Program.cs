@@ -1,2 +1,9 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using FactoryMethod;
+
+var baseDeDatos = Factory.GetAlmacenamientoBaseDatos();
+baseDeDatos.Guardar("entidad BBDD");
+
+var file = Factory.GetAlmacenamientoFile();
+file.Guardar("Entidad File");
+
+Console.ReadKey();

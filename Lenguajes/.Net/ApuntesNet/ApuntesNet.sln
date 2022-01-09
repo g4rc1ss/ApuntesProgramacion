@@ -256,7 +256,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Business", "02_Business"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03_Data", "03_Data", "{DAF4878B-1DA9-4A8F-9435-86220A5876AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexagonalArchitecture.UI", "Arquitectura\Hexagonal\HexagonalArchitecture.UI\HexagonalArchitecture.UI.csproj", "{2E730D65-C90D-4B1F-9F62-058E8D80DEC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HexagonalArchitecture.UI", "Arquitectura\Hexagonal\HexagonalArchitecture.UI\HexagonalArchitecture.UI.csproj", "{2E730D65-C90D-4B1F-9F62-058E8D80DEC4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A28A1C22-6B8E-4797-BE58-FF077FE35521}"
 EndProject
@@ -264,23 +264,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E228A903-9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{29A95FEF-1CE1-44EF-842E-66694C184E3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexagonalArchitecture.Application", "Arquitectura\Hexagonal\HexagonalArchitecture.Application\HexagonalArchitecture.Application.csproj", "{E4A7F1DA-1AD6-4E31-BCC7-D1E4BAB72FF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HexagonalArchitecture.Application", "Arquitectura\Hexagonal\HexagonalArchitecture.Application\HexagonalArchitecture.Application.csproj", "{E4A7F1DA-1AD6-4E31-BCC7-D1E4BAB72FF4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapters", "Adapters", "{FF1E8BA8-2B7C-4973-BD23-C0D2F437F81B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexagonalArchitecture.DB", "Arquitectura\Hexagonal\HexagonalArchitecture.DB\HexagonalArchitecture.DB.csproj", "{B35D461F-6905-4993-A41E-073A55C8BA83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HexagonalArchitecture.DB", "Arquitectura\Hexagonal\HexagonalArchitecture.DB\HexagonalArchitecture.DB.csproj", "{B35D461F-6905-4993-A41E-073A55C8BA83}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{127E9E2B-1C3D-4CCD-9785-3027053AE79F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{23369A5C-5D87-4DB6-8188-EBF462B62699}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnionArchitecture.UserInterface", "Arquitectura\Onion\OnionArchitecture.UserInterface\OnionArchitecture.UserInterface.csproj", "{E3551E18-CCFF-42B7-B471-00D39304BAB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnionArchitecture.UserInterface", "Arquitectura\Onion\OnionArchitecture.UserInterface\OnionArchitecture.UserInterface.csproj", "{E3551E18-CCFF-42B7-B471-00D39304BAB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnionArchitecture.Database", "Arquitectura\Onion\OnionArchitecture.Database\OnionArchitecture.Database.csproj", "{C0C4BFE3-E733-4670-B0EF-997DEB26E21E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnionArchitecture.Database", "Arquitectura\Onion\OnionArchitecture.Database\OnionArchitecture.Database.csproj", "{C0C4BFE3-E733-4670-B0EF-997DEB26E21E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnionArchitecture.ApplicationServices", "Arquitectura\Onion\OnionArchitecture.ApplicationServices\OnionArchitecture.ApplicationServices.csproj", "{17857EDD-ED42-4F99-B1A4-BEF2CD9E7CE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnionArchitecture.ApplicationServices", "Arquitectura\Onion\OnionArchitecture.ApplicationServices\OnionArchitecture.ApplicationServices.csproj", "{17857EDD-ED42-4F99-B1A4-BEF2CD9E7CE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnionArchitecture.Domain.Interfaces", "Arquitectura\Onion\OnionArchitecture.Domain.Interfaces\OnionArchitecture.Domain.Interfaces.csproj", "{05AD768F-4212-48DA-9085-56BDA2684FC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnionArchitecture.Domain.Interfaces", "Arquitectura\Onion\OnionArchitecture.Domain.Interfaces\OnionArchitecture.Domain.Interfaces.csproj", "{05AD768F-4212-48DA-9085-56BDA2684FC7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infraestructura", "Infraestructura", "{8F3EE9A4-D379-4232-A649-5B144F573043}"
 EndProject
@@ -288,7 +288,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{C8
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{DA7CC331-2753-48FF-973B-4FA8BBF161A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnionArchitecture.Domain.Models", "Arquitectura\Onion\OnionArchitecture.Domain.Models\OnionArchitecture.Domain.Models.csproj", "{798C4F9D-AAA2-42A0-86B1-E5B60FC954F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnionArchitecture.Domain.Models", "Arquitectura\Onion\OnionArchitecture.Domain.Models\OnionArchitecture.Domain.Models.csproj", "{798C4F9D-AAA2-42A0-86B1-E5B60FC954F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmarking", "BackEnd\Performance\Benchmarking\Benchmarking.csproj", "{D5E67CF9-F45A-4218-8EEB-5FF3857001F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -652,6 +654,10 @@ Global
 		{798C4F9D-AAA2-42A0-86B1-E5B60FC954F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{798C4F9D-AAA2-42A0-86B1-E5B60FC954F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{798C4F9D-AAA2-42A0-86B1-E5B60FC954F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5E67CF9-F45A-4218-8EEB-5FF3857001F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5E67CF9-F45A-4218-8EEB-5FF3857001F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5E67CF9-F45A-4218-8EEB-5FF3857001F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5E67CF9-F45A-4218-8EEB-5FF3857001F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -794,6 +800,7 @@ Global
 		{C8268103-DF24-4707-B3D6-8D381CE7B3F5} = {127E9E2B-1C3D-4CCD-9785-3027053AE79F}
 		{DA7CC331-2753-48FF-973B-4FA8BBF161A2} = {127E9E2B-1C3D-4CCD-9785-3027053AE79F}
 		{798C4F9D-AAA2-42A0-86B1-E5B60FC954F4} = {DA7CC331-2753-48FF-973B-4FA8BBF161A2}
+		{D5E67CF9-F45A-4218-8EEB-5FF3857001F9} = {62AE01BE-B705-4CFE-BB94-4EFA8AD5D640}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E490D0C8-C5A7-4F24-8A9B-CE1635508778}
