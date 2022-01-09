@@ -1,4 +1,6 @@
-﻿namespace Bridge
+﻿using Bridge.Implementacion;
+
+namespace Bridge
 {
     // You can extend the Abstraction without changing the Implementation
     // classes.

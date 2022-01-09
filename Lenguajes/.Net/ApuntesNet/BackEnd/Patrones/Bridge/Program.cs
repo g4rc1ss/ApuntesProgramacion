@@ -1,11 +1,13 @@
 ﻿using Bridge;
+using Bridge.Implementacion;
 
 var client = new Client();
 
 Abstraction abstraction;
-// The client code should be able to work with any pre-configured
-// abstraction-implementation combination.
+// Recibimos o creamos una clase de abstraccion con la implementacion correspondiente
 abstraction = new Abstraction(new ConcreteImplementationA());
+
+// El cliente sin saber cual es la instancia que recibe, la utiliza.
 client.ClientCode(abstraction);
 
 Console.WriteLine();

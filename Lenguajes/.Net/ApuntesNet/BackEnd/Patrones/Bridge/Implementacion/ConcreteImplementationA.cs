@@ -1,4 +1,4 @@
-﻿namespace Bridge
+﻿namespace Bridge.Implementacion
 {
     // Each Concrete Implementation corresponds to a specific platform and
     // implements the Implementation interface using that platform's API.

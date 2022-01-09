@@ -1,4 +1,4 @@
-﻿namespace Bridge
+﻿namespace Bridge.Implementacion
 {
     internal class ConcreteImplementationB : IImplementation
     {
