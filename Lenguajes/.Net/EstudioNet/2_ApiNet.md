@@ -1428,12 +1428,67 @@ Parallel.ForEach(collection, (item, state, index) =>
         $"Manipulacion de estado de los hilos {state.LowestBreakIteration} \n" +
         $"Indice en el que estamos posicionados actualmente - {index}");
 });
+
+await Parallel.ForEachAsync(Enumerable.Range(0, 10), async (value, token) =>
+{
+    await Task.Delay(2000);
+    Console.WriteLine($"ForEachAsync NOMBRE  --  {value}");
+});
 ```
 - El primer parámetro se envía el objeto que queremos leer, un List<string> por ejemplo
 - El segundo parámetro va la lambda que puede recibir dos parámetros
     - `obj` Contendrá un objeto del tipo de la lista y solo 1 elemento de dicha lista, es lo mismo que si a un array le hacemos un objetoArray[x] con un for normal.
     - `ParallelLoopState` Un objeto que se encargara de gestionar los estados de los hilos, pudiendo parar la ejecución, etc.
     - `index` Una propiedad que devuelve en que indice de la coleccion estamos.
+
+## Paralelizacion
+Las operaciones **asincronas** estan centrads en usar un mismo hilo para la ejecucion de operaciones **E/S**, de esta manera permite mayor **escalabilidad**.
+
+Las operaciones **Parallel** estan mas centradas en usan multiples hilos, puesto que tienen que realizar procesamiento enlazado a la **cpu**.
+
+### Ejemplos de uso de tipos de paralizacion
+- Si queremos realizar varias consultas a base de datos de forma simultanea podemos hacer uso de las operaciones asincronas directamente.
+    ```Csharp
+        public async Task<List<UserResponse>> GetListUsers()
+        {
+            using var context = _contextFactory.CreateDbContext();
+            await Task.Delay(1000);
+            return await (from user in context.User
+                        select new UserResponse
+                        {
+                            Id = user.Id,
+                            NombreUsuario = user.UserName,
+                            Nombre = user.NormalizedUserName,
+                            Email = user.Email,
+                            TieneDobleFactor = user.TwoFactorEnabled
+                        }).ToListAsync();
+        }
+
+    ```
+    - Suponiendo la ejecucion de multiples queries
+        - Creamos una lista de tareas
+        - Ejecutamos las tareas y las agregamos en la lista
+        - Esperamos el resultado de las queries
+    ```Csharp
+        var tareas = new List<Task>();
+
+        foreach (var item in Enumerable.Range(0, 10))
+        {
+            tareas.Add(userDam.GetListUsers());
+        }
+        await Task.WhenAll(tareas);
+    ```
+
+- Si queremos realiza operaciones costosas, por ejemplo, deserializar varios objetos grandes en memoria, leer estructuras de datos muy complejas, calculos muy grandes, debemos de usar el paralelismo por cpu.
+    - Suponiendo que queremos calcular el coseno de una lista de elementos.  
+    Si son pocos elementos no hace falta, pero si son una cantidad elevada, se podria considerar una carga bastante elevada a la cpu.
+    ```Csharp
+    Parallel.For(0, itemList.Count(), (i) =>
+    {
+        itemList[i] += (int)Math.Cos(i);
+    });
+    ```
+
 
 
 # LINQ
