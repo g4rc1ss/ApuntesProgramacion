@@ -1488,6 +1488,7 @@ Las operaciones **Parallel** estan mas centradas en usan multiples hilos, puesto
         itemList[i] += (int)Math.Cos(i);
     });
     ```
+    ![image](https://user-images.githubusercontent.com/28193994/148693892-581d79e0-1e8f-409b-bcee-d3fa3bad1a19.png)
 
 
 
