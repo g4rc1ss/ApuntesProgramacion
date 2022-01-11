@@ -125,6 +125,29 @@ public class ClaseDI
 }
 ```
 
+#### CreateScope
+Cuando queremos resolver dependencias del tipo `Scope`, por ejemplo, en una aplicacion de consola que implementamos un `DbContext` o queremos crear nuestro scope como tal, hay una metodo que nos ayuda con ello.
+```Csharp
+public class ClaseDI
+{
+    private readonly IServiceProvider _serviceProvider;
+
+    public ClaseDI(IServiceProvider serviceProvider)
+    {
+        _serviceProvider = serviceProvider;
+    }
+
+    private async Task MetodoEjecutaDependencia()
+    {
+        using(var service = _serviceProvider.CreateScope())
+        {
+            var userAction = service.ServiceProvider.GetRequiredService<IUserAction>();
+            var respUsuarios = await userAction.GetAllUsers();
+        }
+    }
+}
+```
+
 ## Implementar DI en proyectos
 La inyeccion de dependencias se puede implementar en todos los tipos de proyectos actuales de .Net
 
