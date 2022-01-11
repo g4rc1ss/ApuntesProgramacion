@@ -8,11 +8,12 @@ Console.WriteLine(summary.ToString());
 
 
 /**
- * |                      Method |     Mean |    Error |   StdDev |
- * |---------------------------- |---------:|---------:|---------:|
- * |   ExecuteWithMultiThreading |  2.008 s | 0.0049 s | 0.0046 s |
- * |            ExecuteWithAsync |  2.008 s | 0.0045 s | 0.0042 s |
- * | ExecuteWithOtherMethodAsync |  2.009 s | 0.0043 s | 0.0040 s |
- * |  ExecuteWithOtherMethodSync | 10.046 s | 0.0122 s | 0.0114 s |
+ * 
+ * |                          Method |     Mean |    Error |   StdDev |
+ * |-------------------------------- |---------:|---------:|---------:|
+ * |        ExecuteWithParallelAsync |  2.008 s | 0.0051 s | 0.0047 s |
+ * |            ExecuteWithTaskAsync |  2.009 s | 0.0048 s | 0.0045 s |
+ * | ExecuteAsyncWithAwaitSecuential | 10.041 s | 0.0114 s | 0.0107 s |
+ * |        ExecuteWithAsyncBlocking | 10.040 s | 0.0167 s | 0.0157 s |
  * 
  */

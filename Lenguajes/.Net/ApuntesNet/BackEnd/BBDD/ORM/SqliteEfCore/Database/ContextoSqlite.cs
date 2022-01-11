@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SqliteEfCore.Database.DTO;
 
 namespace SqliteEfCore.Database
@@ -24,6 +25,10 @@ namespace SqliteEfCore.Database
             {
                 optionsBuilder.UseSqlite("Data Source=BBDD_Local.db");
             }
+            optionsBuilder.UseLoggerFactory(LoggerFactory.Create(builder =>
+            {
+                builder.AddConsole();
+            }));
         }
 
         public void CreateDatabase()
