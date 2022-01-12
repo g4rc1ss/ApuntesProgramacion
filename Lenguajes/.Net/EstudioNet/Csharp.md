@@ -1,5 +1,4 @@
 # Estructura del código
-
 ```Csharp
 using System;
 
@@ -143,7 +142,6 @@ foreach (var item in new List<string>())
 {
 }
 ```
-
 
 ## Operadores
 El lenguaje C# proporciona una serie de operadores en la sintaxis del codigo para realizar operaciones como comprobacion de nulos, condiciones, etc.
