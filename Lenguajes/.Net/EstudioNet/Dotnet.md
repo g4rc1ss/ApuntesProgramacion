@@ -24,19 +24,19 @@ Tambien se puede compilar para MacOs y Linux, pero son archivos sin extension
 
 Las publicaciones se van a hacer desde el Visual Studio:
 
-![SeleccionPublish](Capturas/1-SeleccionPublish.PNG)
+![1-SeleccionPublish](https://user-images.githubusercontent.com/28193994/149130935-2625d9cd-1347-4bca-a1cf-6e55f054d6e1.PNG)
 
 Hacemos Click derecho en el proyecto principal de la solucion y le damos al boton Publish...
 
-![ConfigurarCarpetaExtraccion](Capturas/2-ConfigurarCarpetaExtraccion.PNG)
+![2-ConfigurarCarpetaExtraccion](https://user-images.githubusercontent.com/28193994/149130945-324b564b-ba96-41e0-b0bb-58dbb3c2001e.PNG)
 
 Dandole a **Browse** seleccionamos la carpeta donde vamos a extraer los binarios, una vez seleccionado le damos al boton **Create Profile**.
 
-![PantallaConfigPlatform](Capturas/3-PantallaConfigPlatform.PNG)
+![3-PantallaConfigPlatform](https://user-images.githubusercontent.com/28193994/149130972-c02b2878-bb5c-46db-9195-4cde3ddbf0fc.PNG)
 
 Al darle a **Create Profile** nos aparecera esta venta, para configurar las opciones de compilacion le daremos a "edit"
 
-![PantallaConfigProfile](Capturas/4-PantallaConfigProfile.PNG)
+![4-PantallaConfigProfile](https://user-images.githubusercontent.com/28193994/149130987-f048c4bc-e32c-4360-96f1-77268b543b4a.PNG)
 
 Cuando le demos a **edit** nos aparecera esta ventana
 - `Configuration:` Seleccionamos si queremos publicar modo **Debug** o modo **Release**
@@ -47,13 +47,13 @@ Cuando le demos a **edit** nos aparecera esta ventana
 
 - `Target Runtime:` Seleccionamos el sistema operativo y la arquitectura de este.
 
-![SelectModoCompilacion](Capturas/5-SelectModoCompilacion.PNG)
+![5-SelectModoCompilacion](https://user-images.githubusercontent.com/28193994/149130995-df3a92c3-8c26-4443-9330-64fb21620171.PNG)
 
 - `Framework Dependent:` Compila solo los archivos necesarios de librerias, clases etc creadas por el usuario, las librerias del **Framework** no se crearan como **.dll** porque depende de que este instalado
 
 - `Self-contained:` Compila todas las librerias que usa el programa, se usa para no requerir de tener .net instalado en el equipo, por tanto aqui se crearan todas las **.dll** del framework
 
-![SeleccionarSO](Capturas/6-SeleccionarSO.PNG)
+![6-SeleccionarSO](https://user-images.githubusercontent.com/28193994/149131012-66215368-068f-41d9-944d-fb45bf93f35a.PNG)
 
 En esta opcion seleccionamos los diferentes sistemas operativos a los que ira destinada la aplicacion y la compilara en consecuencia.
 
@@ -62,6 +62,6 @@ La opción **Portable** crea un `.dll` y para ejecutarlo se usara el comando
 dotnet nombrePrograma.dll
 ````
 
-![ResultadoCompilacion](Capturas/7-ResultadoCompilacion.PNG)
+![7-ResultadoCompilacion](https://user-images.githubusercontent.com/28193994/149131047-05cbe168-e6e1-4fdf-888e-a4a9d609dc38.PNG)
 
 En la parte **Output** se mostrarán los resultados de la compilacion y extraccion de los archivos necesarios.
