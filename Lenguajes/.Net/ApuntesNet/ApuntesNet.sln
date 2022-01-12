@@ -166,7 +166,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interfaces", "Interfaces", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.ApplicationCore.InterfacesEjemplo", "Arquitectura\CleanArchitecture\CleanArchitecture.ApplicationCore.InterfacesEjemplo\CleanArchitecture.ApplicationCore.InterfacesEjemplo.csproj", "{7E5C5C27-D314-4DAC-90EC-72B64A6275C6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.ApplicationCore.Domain", "Arquitectura\CleanArchitecture\CleanArchitecture.Dominio\CleanArchitecture.ApplicationCore.Domain.csproj", "{BF2D0F46-E09E-4828-B92E-9EC39C11FE2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.ApplicationCore.Domain", "Arquitectura\CleanArchitecture\CleanArchitecture.ApplicationCore.Domain\CleanArchitecture.ApplicationCore.Domain.csproj", "{BF2D0F46-E09E-4828-B92E-9EC39C11FE2C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Shared", "Arquitectura\CleanArchitecture\CleanArchitecture.Shared\CleanArchitecture.Shared.csproj", "{7ED94495-328E-4F52-8520-8A359500A1C9}"
 EndProject
