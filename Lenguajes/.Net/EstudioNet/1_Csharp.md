@@ -14,11 +14,8 @@ namespace ProgramNamespace
 }
 ```
 - ``using`` -> Para importar librerías y módulos
-
 - ``namespace`` -> indica la ubicación del programa
-
 - ``class`` -> Creamos una clase, que es un modulo que se usa para declarar objetos y tratarlos añadiendo funciones.
-
 - ``Main(string[] args)`` -> el método main es el método principal de donde parte la aplicación siempre, no puede haber dos main en el mismo proyecto
 
 
