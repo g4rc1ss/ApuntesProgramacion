@@ -342,9 +342,9 @@ public enum EnumeradorCartas {
 ```
 
 # Programación Orientada a Objetos
+La programación orientada a objetos (Object Oriented Programming, OOP) es un modelo de programación que organiza el diseño de software en torno a datos u objetos, en lugar de funciones y lógica. Un objeto se puede definir como un campo de datos que tiene atributos y comportamiento únicos.
 
-## Class
-
+## Clases
 Una clase es una estructura de datos que combina estados (campos) y acciones (métodos y otros miembros de función) en una sola unidad. 
 
 De una clase se pueden hacer instancias de objetos para usar sus metodos, propiedades, etc. Y de esta forma, poder reutilizar codigo.
@@ -360,8 +360,7 @@ public class Customer
 ```
 
 
-## Static Class
-
+## Clases Estaticas
 La instruccion `static` se usa cuando se quiere el acceso a un metodo o propiedad sin que tenga que ser instanciada la clase.
 
 Las clases estaticas estan bien usarlas cuando los datos almacenados no requieren de ser unicos o la clase no requiere de almacenar datos en si.
@@ -484,8 +483,7 @@ public class Clase : SuperClase
 ```
 
 
-## Abstract Class
-
+## Clases Abstractas
 No se pueden crear instancias de una clase abstracta. 
 
 La finalidad de una clase abstracta es ser una clase de la cual se hereda y te da la posibilidad de tener metodos base completamente funcionales y metodos abstractos, estos ultimos son metodos que han de ser "declarados" en la clase abstracta y sobreescritos en la clase que herede de la abstracta.
@@ -676,14 +674,13 @@ IEqualityComparer<ClaseBase> claseComparar = new Comparar();
 IEqualityComparer<ClaseHijo> contravariante = claseComparar;
 ```
 
-# Tratamiento de Excepciones
 
-## Excepciones
+# Tratamiento de Excepciones
 Una excepción es cualquier condición de error o comportamiento inesperado que encuentra un programa en ejecución. 
 
 Las excepciones pueden iniciarse debido a un error en el código propio o en el código al que se llama (por ejemplo, una biblioteca compartida), a recursos del sistema operativo no disponibles, a condiciones inesperadas que encuentra el runtime (por ejemplo, imposibilidad de comprobar el código), etc.
 
-### Capurando las excepciones
+## Capurando las excepciones
 ```Csharp
 try
 {
@@ -703,7 +700,7 @@ finally
 }
 ```
 
-### Provocando una excepcion
+## Provocando una excepcion
 ```Csharp
 public static void Main(string[] args)
 {
@@ -711,7 +708,7 @@ public static void Main(string[] args)
 }
 ```
 
-### Creando excepciones propias
+## Creando excepciones propias
 ```Csharp
 class MyException : Exception
 {
@@ -733,8 +730,8 @@ class MyException : Exception
 }
 ```
 
-# Conceptos Avanzados
 
+# Conceptos Avanzados
 ## Atributos
 Los atributos proporcionan un método eficaz para asociar metadatos, o información declarativa, con código (ensamblados, tipos, métodos, propiedades, etc.). Después de asociar un atributo con una entidad de programa, se puede consultar el atributo en tiempo de ejecución mediante la utilización de una técnica denominada reflexión.
 
@@ -897,329 +894,4 @@ public static void ExportEventCaller(ExportObject export)
 
 ExportAPI.ExportEvent += LoadEventCall;
 // LoadEventCall es el metodo que se va a ejecutar
-```
-
-## Delegados
-Un delegate es un tipo de referencia que puede utilizarse para encapsular un método con nombre o anónimo.
-
-```Csharp
- private static void Imprimir(object objeto)
-{
-    Console.WriteLine(objeto);
-}
-private static string Retorna(string objeto)
-{
-    return objeto;
-}
-private static TResult RetornoMensaje<TSource, TResult>(TSource objeto)
-{
-    return (TResult)(object)objeto;
-}
-delegate void DelegadoNormal(string texto);
-delegate void DelegadoGeneric<in T>(T objeto);
-delegate string DelegadoRetorna(string textp);
-delegate TResult DelegadoGenericCompleto<in TSource, out TResult>(TSource objeto);
-
-// Como usarlos
-var delegadoNormal = new DelegadoNormal(Imprimir);
-delegadoNormal("Hola, soy el delegado normal");
-
-var persona = new Persona
-{
-    Nombre = "Ralph",
-    Apellido = "Simpson"
-};
-var delegadoGeneric = new DelegadoGeneric<Persona>(Imprimir);
-delegadoGeneric(persona);
-
-var delegadoRetorna = new DelegadoRetorna(Retorna);
-delegadoRetorna("Este es el mensaje que vamos a devolver");
-
-var delegadoGenericoCompleto = new DelegadoGenericCompleto<Persona, Persona>(RetornoMensaje<Persona, Persona>);
-var respuesta = delegadoGenericoCompleto(persona);
-```
-
-### Delegados como Parametros
-El uso de delegamos como parametros permite una mayor flexibilidad a la hora de realizar procesos de automatizacion de codigo.  
-Por ejemplo la TPL es una libreria para ejecutar fragmentos de codigoe creando un hilo, pues los metodos que contiene para tal fin funcionan con la clase `Action` y `Func<>` para ejecutar el fragmento que el usuario desee y poder automatizar todo el proceso de manejo y creacion de threads
-
-#### Action
-La clase `Action` recibe un delegado de tipo void como parametro, eso quiere decir que solo ejecuta el metodo que se le pasa, pero no devuelve ningun resultado.
-
-```Csharp
-public static class ClaseAction
-{
-    public static void Run(Action action)
-    {
-        action?.Invoke();
-    }
-}
-
-public void string Imprimir(string texto)
-{
-    Console.WriteLine(texto);
-}
-
-// Pasamos un metodo existente mas arriba por parametro
-ClaseAction.Run(() => Imprimir("envio por action"));
-
-// Creamos nosotros mismos nuestro codigo inicializando el delegado en el parametro del metodo
-ClaseAction.Run(() =>
-{
-    Console.WriteLine("envio por action");
-});
-```
-
-```Csharp
-public static class ClaseExpression
-{
-    public static void Run<T1>(this T1 arg, Action<T1> action)
-    {
-        _ = action ?? throw new ArgumentNullException($"{nameof(action)} esta null");
-        action.Invoke(arg);
-    }
-}
-
-var persona = new Persona
-{
-    Nombre = "Hola",
-    Apellido = "Adios"
-};
-persona.Run(x => Imprimir(x.Apellido + x.Nombre));
-persona.Run(x =>
-{
-    Console.WriteLine(x.Nombre + x.Apellido);
-});
-```
-
-#### Func
-La clase `Func` hace lo mismo que la `Action` con la diferencia de que esta si que permite la devolucion de un resultado en la ejecucion del metodo delegado.
-
-```Csharp
-public static class ClaseFunc
-{
-    public static TResult Run<TResult>(Func<TResult> action)
-    {
-        _ = action ?? throw new ArgumentNullException($"{nameof(action)} esta null");
-        return action.Invoke();
-    }
-}
-
-public static string Imprimir(string texto)
-{
-    Console.WriteLine(texto);
-    return texto;
-}
-
-var resultado = ClaseFunc.Run(() => Imprimir("metodo creado"));
-var resultado2 = ClaseFunc.Run(() =>
-{
-    var str = "metodo lambda";
-    Console.WriteLine(str);
-    return str;
-});
-```
-
-```Csharp
-public static class ClaseExpression
-{
-    public static TResult Run<T1, TResult>(Func<T1, TResult> action, T1 argument)
-    {
-        _ = action ?? throw new ArgumentNullException($"{nameof(action)} esta null");
-        return action.Invoke(argument);
-    }
-}
-
-var persona = new Persona
-{
-    Nombre = "Hola",
-    Apellido = "Adios"
-};
-var resultado = ClaseExpression.Run(x => Imprimir(x.Apellido + x.Nombre), persona);
-var resultado2 = ClaseExpression.Run(x =>
-{
-    Console.WriteLine(x.Nombre + x.Apellido);
-    return x.Nombre + x.Apellido;
-}, persona);
-```
-
-## Codigo no Administrado
-El codigo no administrado es un tipo de codigo al que no puede acceder el `Garbage Collector` para realizar el proceso de limpieza de memoria, por tanto hay que hacerlo manualmente.  
-Para eliminar los recursos no administrados se suele hacer uso de la interfaz `IDisposable` o el uso de destructores explicado en la seccion [Liberación de memoria](#liberacion-de-memoria)
-
-### P/Invoke 
-Es una tecnologia que permite hacer uso de librerias compiladas de forma nativa con lenguajes como `Rust`, `Cpp`, etc.  
-De esta forma permite realizar interoperabilidad con librerias de los diferentes sitemas como Windows, por ejemplo se puede hacer uso de esto para ejecutar librerias como el diseño de las GUi nativas.
-
-```rust
-#[no_mangle]
-pub extern fn add_numbers(number1: i32, number2: i32) -> i32 {
-    println!("Hola con Rust");
-    number1 + number2
-}
-
-/*
-> cargo new lib
-> cd lib
-Creamos el archivo lib.rs
-Editamos el archivo cargo.toml y agregamos:
-    [lib]
-    name="libreriaEjemploRust"
-    crate-type = ["dylib"]
-> cargo build
-```
-
-```Csharp
-[DllImport("libreriaEjemploRust.dll")]
-private static extern int add_numbers(int number1, int number2);
-
-public static void Main(string[] args)
-{
-    int suma = add_numbers(1, 2);
-    Console.WriteLine(suma);
-}
-```
-
-### Codigo inseguro
-La mayor parte del código de C# que se escribe es "código seguro comprobable". El código seguro comprobable significa que las herramientas de .NET pueden comprobar que el código es seguro. En general, el código seguro no accede directamente a la memoria mediante punteros. Tampoco asigna memoria sin procesar. En su lugar, crea objetos administrados.
-
-Este modo es un tipo de [Codigo no Administrado](#codigo-no-administrado) puesto que a este codigo no acceden las herramientas de .Net para liberar el especio de memoria que ocupan por ejemplo.
-
-El código no seguro tiene las propiedades siguientes:
-
-- Los métodos, tipos y bloques de código se pueden definir como no seguros.
-- En algunos casos, el código no seguro puede aumentar el rendimiento de la aplicación al eliminar las comprobaciones de límites de matriz.
-- El código no seguro es necesario al llamar a funciones nativas que requieren punteros.
-- El código no seguro presenta riesgos para la seguridad y la estabilidad.
-- El código que contenga bloques no seguros deberá compilarse con la opción del compilador AllowUnsafeBlocks.
-
-#### Punteros
-- `int* p`: p es un puntero a un entero.
-- `int** p`: p es un puntero a un puntero a un entero.
-- `int*[] p`: p es una matriz unidimensional de punteros a enteros.
-- `char* p`: p es un puntero a un valor char.
-- `void* p`: p es un puntero a un tipo desconocido.
-
-```Csharp
-unsafe
-{
-    int[] numeroParaFixed = new int[5] { 3000, 2000, 1, 2, 3 };
-    // La instrucción fixed evita que el recolector de elementos no utilizados reubique una variable móvil.
-    fixed (int* variable = &numeroParaFixed[0])
-    {
-        int* numero = variable;
-        Console.WriteLine(*numero);
-
-        *numero += 2;
-        Console.WriteLine(*numero);
-
-        *numero += 2;
-        Console.WriteLine(*numero);
-
-        *numero += 2;
-        Console.WriteLine(*numero);
-    }
-}
-```
-
-En la tabla siguiente se muestran los operadores e instrucciones que pueden funcionar en punteros en un contexto no seguro:
-
-| Operador/Instrucción | Usar |
-| -------------------- | ---- |
-| *  | Realiza el direccionamiento indirecto del puntero. |
-| -> |	Obtiene acceso a un miembro de un struct a través de un puntero. |
-| [] | Indiza un puntero. |
-| &  | Obtiene la dirección de una variable. |
-| ++ y -- |	Incrementa y disminuye los punteros. |
-| + y - | Realiza aritmética con punteros. |
-| ==, !=, <, >, <= y >= | Compara los punteros. |
-| stackalloc | Asigna memoria en la pila. |
-| Instrucción fixed | Fija provisionalmente una variable para que pueda encontrarse su dirección. |
-
-Mas informacion sobre codigo no seguro: [enlace](https://docs.microsoft.com/es-es/dotnet/csharp/language-reference/unsafe-code)
-
-#### Stackalloc
-La expresión stackalloc asigna un bloque de memoria en la pila. Un bloque de memoria asignado a la pila creado durante la ejecución del método se descarta automáticamente cuando se devuelva dicho método. No puede liberar explícitamente memoria asignada con stackalloc. Un bloque de memoria asignada a la pila no está sujeto a la recolección de elementos no utilizados y no tiene que fijarse con una instrucción fixed.
-
-Puede asignar el resultado de una expresión `stackalloc` a una variable de uno de los siguientes tipos
-
-- A partir de C# 7.2, `System.Span<T>` o `System.ReadOnlySpan<T>`, como se muestra en el ejemplo siguiente
-```Csharp
-int length = 3;
-Span<int> numbers = stackalloc int[length];
-for (var i = 0; i < length; i++)
-{
-    numbers[i] = i;
-}
-
-// Con condicionales
-int length = 1000;
-Span<byte> buffer = length <= 1024 ? stackalloc byte[length] : new byte[length];
-```
-
-- Un tipo de puntero, como se muestra en el ejemplo siguiente
-```Csharp
-unsafe
-{
-    int length = 3;
-    int* numbers = stackalloc int[length];
-    for (var i = 0; i < length; i++)
-    {
-        numbers[i] = i;
-    }
-}
-```
-El uso de stackalloc habilita automáticamente las características de detección de saturación del búfer en el entorno Common Language Runtime (CLR). Si se detecta saturación del búfer, se finaliza el proceso lo antes posible para minimizar el riesgo de que se ejecute código malintencionado.
-
-## Liberacion de Memoria
-La liberacion de memoria en .Net consiste en marcar ciertos objetos como "liberados", quiere decir, que son objetos que ya no se van a volver a usar y que quiere liberar el recurso que se esta usando o cerrar el proceso.
-
-Para dicha liberacion se ha de implementar una interfaz, que se llama `IDisposable` y tambien se suele hacer uso de los llamado Destructores.
-
-El método Dispose se implementa para liberar recursos de la clase donde se implementa, sobretodo se usa para gestión de código no administrado como usos como conexiones a BBDD, Streams, etc.
-
-```Csharp
-public void Dispose()
-{
-    this.Dispose(true);
-    GC.SuppressFinalize(this);
-}
-
-protected virtual void Dispose(bool disposing)
-{
-    if (disposing)
-    {
-        // Liberamos los recursos
-        // En un clase como stream por ejemplo, aqui se ejecutaria el metodo Close()
-    }
-}
-```
-
-En todas las clases que tengan implementada la interfaz `IDisposable` se puede usar la instruccion `using` para liberar los recursos automaticamente cuando se acaba la sentencia.
-
-```Csharp
-using (var objeto = File.Create(""))
-{
-    objeto.ToString();
-}
-
-using var @object = File.Create("");
-```
-
-Los finalizadores (también denominados destructores) se usan para realizar cualquier limpieza final necesaria cuando el recolector de basura va a liberar el objeto de memoria
-
-- Los finalizadores no se pueden definir en struct. Solo se usan con clases.
-- Una clase solo puede tener un finalizador.
-- Los finalizadores no se pueden heredar ni sobrecargar.
-- No se puede llamar a los finalizadores. Se invocan automáticamente.
-- Un finalizador no permite modificadores ni tiene parámetros.
-
-```Csharp
-internal class Program
-{
-    ~Program()
-    {
-        // Instrucciones para la limpieza de recursos
-    }
-}
 ```
