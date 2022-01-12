@@ -558,7 +558,7 @@ public static class ClaseAction
     }
 }
 
-public void string Imprimir(string texto)
+public void Imprimir(string texto)
 {
     Console.WriteLine(texto);
 }
@@ -1288,7 +1288,6 @@ ThreadPool.QueueUserWorkItem(x =>
 });
 ```
 
-
 ## Sincronizacion de hilos
 Con el uso de la sincronizacion podremos establecer el orden de ejecucion de los hilos en el procesador para poder tener una mejor gestion sobre estos
 
@@ -1317,7 +1316,6 @@ hilo2.Join();
 
 Thread.Sleep(1000);
 ```
-
 
 ## Bloqueos de hilos
 Consiste en bloquear un hilo para que, cuando un hilo esta ejecutando la tarea correspondiente no se pueda manipular dicha ejecucion a traves de otros hilos que estan en ejecucion.
@@ -1373,6 +1371,7 @@ new Thread(() => cuentaBancaria.QuitarCantidad(200)).Start();
 Console.WriteLine(cuentaBancaria.Cantidad);
 ```
 
+
 # Task Parallel Library
 La biblioteca TPL (Task Parallel Library, biblioteca de procesamiento paralelo basado en tareas) es un conjunto de API y tipos públicos de los espacios de nombres System.Threading y System.Threading.Tasks. El propósito de la TPL es aumentar la productividad de los desarrolladores simplificando el proceso de agregar paralelismo y simultaneidad a las aplicaciones. La TPL escala el grado de simultaneidad de manera dinámica para usar con mayor eficacia todos los procesadores disponibles. Además, la TPL se encarga de la división del trabajo, la programación de los subprocesos en ThreadPool, la compatibilidad con la cancelación, la administración de los estados y otros detalles de bajo nivel. Al utilizar la TPL, el usuario puede optimizar el rendimiento del código mientras se centra en el trabajo para el que el programa está diseñado.
 
@@ -1381,7 +1380,6 @@ La programacion asincrona se realiza cuando se quieren evitar bloqueos en el hil
 
 Por ejemplo, en una interfaz Desktop, si se usa el patron en las operaciones costosas, la interfaz no se bloqueará mientras se ejecutan las instrucciones.  
 En una aplicacion web como `ASP.NET` usar el patron hara que se puedan recibir mas peticiones mientras las peticiones anteriores estan en espera de que termine el proceso que ocupa tiempo, como por ejemplo, una consulta a BBDD.
-
 
 ### Async & Await
 El núcleo de la programación asincrona son los objetos `Task` y `Task<T>`, que modelan las operaciones asincronas. Son compatibles con las palabras clave `async` y `await`. El modelo es bastante sencillo en la mayoría de los casos:
@@ -1636,6 +1634,7 @@ Las operaciones **Parallel** estan mas centradas en usan multiples hilos, puesto
     ![image](https://user-images.githubusercontent.com/28193994/148693892-581d79e0-1e8f-409b-bcee-d3fa3bad1a19.png)
 
 
+
 # Gestion de Memoria
 ## Codigo no Administrado
 El codigo no administrado es un tipo de codigo al que no puede acceder el `Garbage Collector` para realizar el proceso de limpieza de memoria, por tanto hay que hacerlo manualmente.  
@@ -1797,7 +1796,7 @@ using (var objeto = File.Create(""))
     objeto.ToString();
 }
 
-using var @object = File.Create("");
+using var objeto = File.Create("");
 ```
 
 Los finalizadores (también denominados destructores) se usan para realizar cualquier limpieza final necesaria cuando el recolector de basura va a liberar el objeto de memoria
@@ -1821,7 +1820,6 @@ internal class Program
 
 # LINQ
 Linq es una API orientada al uso de consultas a diferentes tipos de contenido, como objetos, entidades, XML, etc. De esta manera se resume en una sintaxis sencilla y fácil de leer, tratar y mantener el tratamiento de diferentes tipos de datos.
-
 
 ## Sintaxis de consulta
 ### From
@@ -1872,7 +1870,8 @@ where prod.Name == "Producto 2"
 select prod;
 
 products.Where(prod => prod.Name == "Producto 2");
-```                                                                                                                                                       
+```
+
 ### Group by
 ```Csharp
 from product in products
@@ -1910,7 +1909,6 @@ orderby product.CategoryID descending
 select product;
 products.OrderByDescending(product => product.CategoryID);
 ```
-
 
 ## Evaluacion/Ejecucion de Consulta
 Para poder tratar las consultas, la api de LINQ devuelve objetos del tipo `IEnumerable<>` o `IQueryable<>`.  
@@ -1957,7 +1955,6 @@ select prod).Count()
 where prod.Name == "Producto 2"
 select prod).FirstOrDefault()
  ```
-
 
 ## Extension de Linq
 En `Linq` mediante el uso de la interfaz `IEnumerable<T>` se pueden realizar metodos de extension para ampliar y personalizar la libreria linq para realizar filtros o guardar el objeto en una lista personalizada
@@ -2015,11 +2012,9 @@ public class EnumeratorPersonalizadoWhere<T> : IEnumerable<T>, IEnumerator<T>
                         return true;
                     }
                 }
-
                 Dispose();
                 break;
         }
-
         return false;
     }
 
