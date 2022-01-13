@@ -89,9 +89,7 @@ Console.WriteLine(telefonoRegex);
 # Colecciones
 Las colecciones proporcionan una manera más flexible de trabajar con grupos de objetos. A diferencia de las matrices, el grupo de objetos con el que trabaja puede aumentar y reducirse de manera dinámica a medida que cambian las necesidades de la aplicación
 
-
 ## Listas
-
 Una lista es un tipo de colección ordenada(un array)
 
 ### Métodos de listas
@@ -115,9 +113,7 @@ lista.Remove("me llamo Ralph");
 lista.Reverse();
 ```
 
-
 ## Diccionarios
-
 Una clase de Diccionario es una estructura de datos que representa una colección de 
 claves y valores de pares de datos. La clave es idéntica en un par clave-valor y puede 
 tener como máximo un valor en el diccionario
@@ -148,7 +144,6 @@ diccionario.TryGetValue("Key", out string valor);
 
 ```
 
-
 ## Tuplas
 Una tupla es una estructura de datos que contiene una secuencia de elementos de diferentes tipos, esta estructura es de solo lectura, por tanto se usa para almacenar objetos que no van a ser modificados después.
 
@@ -160,7 +155,6 @@ tupla.Item2;
 tupla.Item3;
 tupla.Item4;
 ```
-
 
 ## Tablas Hash
 Representa una colección de pares de clave y valor que se organizan por código hash de la clave
@@ -185,7 +179,6 @@ tablaHash.Clear();
 
 tablaHash["Key"];
 ```
-
 
 ## Pilas
 El Stack es una coleccion LIFO(Last in, First Out) sin tamaño fijo de los objetos indicados.
@@ -216,7 +209,6 @@ pila.ToArray();
 pila.Contains("objeto");
 ```
 
-
 ## Colas
 La Queue es una coleccion FIFO(First In, First Out).
 
@@ -245,7 +237,6 @@ cola.ToArray();
 
 cola.Contains("objeto");
 ```
-
 
 ## Implementar la Interfaz IEnumerable
 `IEnumerable<T>` es la interfaz base para las colecciones, como listas, diccionarios, etc.  
@@ -325,7 +316,6 @@ public class EnumeradorEnumerablePersonalizado<T> : IEnumerator<T>
 }
 ```
 
-
 ## Implementar IList
 Si se quiere realizar un tipo de lista ordenada personalizado se debera de implementar la interfaz `IList<T>`.  
 Las listas requieren que sean dinamicas, por tanto se implementara el metodo `Add()`, que se pueda acceder a ellas mediante un `index[]`, que se puedan limpiar, etc.
@@ -390,7 +380,6 @@ public class ListaPersonalizada<T> : IList<T>
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }
 ```
-
 
 ## Implementar IDictionary
 `IDictionary<TKey, TValue>` es una interfaz base que se utiliza para las colecciones con pares clave-valor.  
@@ -1246,6 +1235,7 @@ Conjunto de `DataColumn` y `DataRow` que reprensenta el concepto de una tabla en
 
 > Cabe decir que las clases `DataSet` y `DataTable` no necesariamente se tienen que utilizar para el acceso a bases de datos, se pueden crear y utilizar para uso normal si, por ejemplo, queremos crear una tabla en memoria por algun motivo. No obstante, habra que valorar eso en cuestiones de rendimiento.
 
+## Microsoft SQL Server
 El procedimiento de una consulta sql con las clases abstractas podria ser el siguiente:
 
 1. Creamos una extension de la clase abstracta `DbConnection` para tener acceso a las llamadas asincronas, recibimos la `sql`, una lista de `DbParameter` para parametrizar la query y el delegado en el que vamos a indicar el proceso de mapeo
@@ -1286,7 +1276,11 @@ public static async Task<IEnumerable<T>> ExecuteSqlQueryAsync<T>(this DbConnecti
 ```
 La forma de ejecutar el codigo anterior seria de la siguiente forma.
 ```Csharp
-var dbConnection = new SqlConnection("");
+var parameters = new List<DbParameter>
+{
+    new SqlParameter($"@NombreParametro", NombreParametro)
+};
+var dbConnection = new SqlConnection("Cadena de conexion");
 dbConnection.ExecuteSqlQueryAsync(sql, parameters,
 result => new
 {
@@ -1750,47 +1744,13 @@ Las operaciones **Parallel** estan mas centradas en usan multiples hilos, puesto
 
 
 # Gestion de Memoria
-## Codigo no Administrado
-El codigo no administrado es un tipo de codigo al que no puede acceder el `Garbage Collector` para realizar el proceso de limpieza de memoria, por tanto hay que hacerlo manualmente.  
-Para eliminar los recursos no administrados se suele hacer uso de la interfaz `IDisposable` o el uso de destructores explicado en la seccion [Liberación de memoria](#liberacion-de-memoria)
 
-### P/Invoke 
-Es una tecnologia que permite hacer uso de librerias compiladas de forma nativa con lenguajes como `Rust`, `Cpp`, etc.  
-De esta forma permite realizar interoperabilidad con librerias de los diferentes sitemas como Windows, por ejemplo se puede hacer uso de esto para ejecutar librerias como el diseño de las GUi nativas.
 
-```rust
-#[no_mangle]
-pub extern fn add_numbers(number1: i32, number2: i32) -> i32 {
-    println!("Hola con Rust");
-    number1 + number2
-}
+## Garbage Collector
 
-/*
-> cargo new lib
-> cd lib
-Creamos el archivo lib.rs
-Editamos el archivo cargo.toml y agregamos:
-    [lib]
-    name="libreriaEjemploRust"
-    crate-type = ["dylib"]
-> cargo build
-```
 
-```Csharp
-[DllImport("libreriaEjemploRust.dll")]
-private static extern int add_numbers(int number1, int number2);
-
-public static void Main(string[] args)
-{
-    int suma = add_numbers(1, 2);
-    Console.WriteLine(suma);
-}
-```
-
-### Codigo inseguro
+## Codigo inseguro (unsafe)
 La mayor parte del código de C# que se escribe es "código seguro comprobable". El código seguro comprobable significa que las herramientas de .NET pueden comprobar que el código es seguro. En general, el código seguro no accede directamente a la memoria mediante punteros. Tampoco asigna memoria sin procesar. En su lugar, crea objetos administrados.
-
-Este modo es un tipo de [Codigo no Administrado](#codigo-no-administrado) puesto que a este codigo no acceden las herramientas de .Net para liberar el especio de memoria que ocupan por ejemplo.
 
 El código no seguro tiene las propiedades siguientes:
 
@@ -1800,7 +1760,7 @@ El código no seguro tiene las propiedades siguientes:
 - El código no seguro presenta riesgos para la seguridad y la estabilidad.
 - El código que contenga bloques no seguros deberá compilarse con la opción del compilador AllowUnsafeBlocks.
 
-#### Punteros
+### Punteros
 - `int* p`: p es un puntero a un entero.
 - `int** p`: p es un puntero a un puntero a un entero.
 - `int*[] p`: p es una matriz unidimensional de punteros a enteros.
@@ -1845,12 +1805,14 @@ En la tabla siguiente se muestran los operadores e instrucciones que pueden func
 
 Mas informacion sobre codigo no seguro: [enlace](https://docs.microsoft.com/es-es/dotnet/csharp/language-reference/unsafe-code)
 
-#### Stackalloc
-La expresión stackalloc asigna un bloque de memoria en la pila. Un bloque de memoria asignado a la pila creado durante la ejecución del método se descarta automáticamente cuando se devuelva dicho método. No puede liberar explícitamente memoria asignada con stackalloc. Un bloque de memoria asignada a la pila no está sujeto a la recolección de elementos no utilizados y no tiene que fijarse con una instrucción fixed.
+## Stackalloc
+La expresión stackalloc asigna un bloque de memoria en la pila(**stack**). 
+
+Un bloque de memoria asignado en el stack creado durante la ejecución del método se descarta automáticamente cuando se devuelva dicho método. No puede liberar explícitamente memoria asignada con stackalloc. 
+
+Un bloque de memoria asignada a la pila no está sujeto a la recolección de elementos no utilizados y no tiene que fijarse con una instrucción fixed.
 
 Puede asignar el resultado de una expresión `stackalloc` a una variable de uno de los siguientes tipos
-
-- A partir de C# 7.2, `System.Span<T>` o `System.ReadOnlySpan<T>`, como se muestra en el ejemplo siguiente
 ```Csharp
 int length = 3;
 Span<int> numbers = stackalloc int[length];
@@ -1864,7 +1826,7 @@ int length = 1000;
 Span<byte> buffer = length <= 1024 ? stackalloc byte[length] : new byte[length];
 ```
 
-- Un tipo de puntero, como se muestra en el ejemplo siguiente
+- Usando punteros.
 ```Csharp
 unsafe
 {
@@ -1876,7 +1838,77 @@ unsafe
     }
 }
 ```
-El uso de stackalloc habilita automáticamente las características de detección de saturación del búfer en el entorno Common Language Runtime (CLR). Si se detecta saturación del búfer, se finaliza el proceso lo antes posible para minimizar el riesgo de que se ejecute código malintencionado.
+> Nota:  
+Como la cantidad de memoria disponible en la pila depende del entorno en el que se ejecuta el código, hay que ser conservador al definir el valor límite real.
+
+> Nota:  
+Tenemos que evitar `stackalloc` dentro de bucles. Asignamos el bloque de memoria fuera y lo usamos dentro del bucle.
+
+El uso de `stackalloc` habilita automáticamente las características de detección de saturación del búfer en el CLR. Si esto sucede, se finaliza el proceso lo antes posible para minimizar el riesgo de que se ejecute código malintencionado.
+
+## Memory & Span
+`Span<T>` y `Memory<T>` son los búferes de datos estructurados que se pueden usar en las canalizaciones. Es decir, están diseñados para que parte de los datos, o todos, se puedan pasar, procesar y modificar de forma eficaz.
+
+Puesto que los búferes se pueden pasar entre las API, y se puede acceder a los buffer desde varios subprocesos, es importante tener en cuenta la duración.
+- **Propiedad**. El propietario de una instancia de búfer es responsable de la administración de la duración, por ejemplo, destruirlo cuando ya no se use. Todos los búferes tienen un único propietario.
+- **Consumo**. El consumidor de una instancia de búfer puede usar la instancia leyendolo y, si se permite, escribiendo. Solo se puede tener un consumidor a la vez, a menos que se proporcione algún mecanismo de sincronización externo. El consumidor no tiene porque ser el propietario.
+- **Concesión**. La concesión es el período durante el cual un componente concreto puede ser el consumidor del búfer.
+
+### Instrucciones de uso - [Rules](https://docs.microsoft.com/es-es/dotnet/standard/memory-and-spans/memory-t-usage-guidelines#usage-guidelines)
+1. Para una API sincrónica, use `Span<T>` en lugar de `Memory<T>` como parámetro, si es posible.
+1. `ReadOnlySpan<T>` o `ReadOnlyMemory<T>` si el búfer debe ser de solo lectura.
+1. Si el método acepta `Memory<T>` y devuelve `void`, no debe usar la instancia de `Memory<T>` después de que se devuelva el método.
+1. Si el método acepta `Memory<T>` y devuelve una clase Task, no debe usar la instancia de `Memory<T>` después de las transiciones de Task a un estado terminal.
+1. Si el constructor acepta `Memory<T>` como un parámetro, se da por sentado que los métodos de instancia del objeto construido son los consumidores de la instancia de `Memory<T>`
+1. Si tiene una propiedad con el tipo `Memory<T>` configurable (o un método de instancia equivalente) en su tipo, se da por sentado que los métodos de instancia de ese objeto son los consumidores de la instancia de `Memory<T>`.
+1. Si tiene una referencia de `IMemoryOwner<T>`, en algún punto, debe eliminarla o transferir su propiedad (pero no ambas cosas).
+1. Si tiene un parámetro `IMemoryOwner<T>` en la superficie de API, implica la aceptación de la propiedad de esa instancia.
+1. Si está encapsulando un método p/invoke sincrónico, la API debe aceptar `Span<T>` como parámetro.
+1.  Si está encapsulando un método p/invoke asincrónico, la API debe aceptar `Memory<T>` como parámetro.
+
+### `Span<T>`
+Es una `estructura por referencia` que se asigna en el **Stack**.
+```Csharp
+var arr = new byte[10];
+Span<byte> bytes = arr; // Implicit cast from T[] to Span<T>
+```
+```Csharp
+Span<byte> bytes = stackalloc byte[2]; // Using C# 7.2 stackalloc support for spans
+bytes[0] = 42;
+bytes[1] = 43;
+Assert.Equal(42, bytes[0]);
+Assert.Equal(43, bytes[1]);
+bytes[2] = 44; // throws IndexOutOfRangeException
+```
+
+
+### `Memory<T>`
+`Memory<T>` es una estructura, por tanto, se intentará ubicar en el **Stack** pero podra contener referencias a objetos y por tanto, ubicarse en el **Heap**.
+
+Las instancias de `Span<T>` solo pueden residir en la Stack y no en el Heap. Esto significa que no puede tener campos de este tipo en clases, estructuras que no sean de tipo ref, variables locales en métodos asincronos o iteradores, etc.
+
+Estas limitaciones no importan en algunas situaciones, por ejemplo, las funciones de procesamiento sincrono y asociadas a cálculo. Sin embargo, la funcionalidad asincrona es otra historia.
+
+En los casos en los que `Span<T>` no sea posible, tenemos este tipo, `Memory<T>`
+
+Podemos crear un tipo `Memory<T>` a partir de una matriz y segmentarlo como lo haría con un Span, pero es un tipo struct (no de tipo referencia) y puede residir en la pila. Cuando queramos realizar el procesamiento de forma sincrona, se puede obtener un tipo `Span<T>` a partir de este
+```Csharp
+static async Task<int> ChecksumReadAsync(Memory<byte> buffer, Stream stream)
+{
+    int bytesRead = await stream.ReadAsync(buffer);
+    return Checksum(buffer.Span.Slice(0, bytesRead));
+    // Or buffer.Slice(0, bytesRead).Span
+}
+static int Checksum(Span<byte> buffer) { ... }
+```
+
+## Estructuras
+
+
+### Estructura ref
+
+
+
 
 ## Liberacion de Memoria
 La liberacion de memoria en .Net consiste en marcar ciertos objetos como "liberados", quiere decir, que son objetos que ya no se van a volver a usar y que quiere liberar el recurso que se esta usando o cerrar el proceso.
@@ -1914,7 +1946,6 @@ using var objeto = File.Create("");
 ```
 
 Los finalizadores (también denominados destructores) se usan para realizar cualquier limpieza final necesaria cuando el recolector de basura va a liberar el objeto de memoria
-
 - Los finalizadores no se pueden definir en struct. Solo se usan con clases.
 - Una clase solo puede tener un finalizador.
 - Los finalizadores no se pueden heredar ni sobrecargar.
@@ -1928,6 +1959,43 @@ internal class Program
     {
         // Instrucciones para la limpieza de recursos
     }
+}
+```
+
+
+# Interoperabilidad
+La interoperabilidad consiste en la capacidad de poder comunicarse con otro software, por ejemplo, hacer uso de liberias nativas del sistema operativo para la GUI, usar librerias desarrolladas en otros lenguajes, etc.
+
+> Las técnicas de interoperabilidad, al ejecutar librerias externas son recursos no administrados y por tanto, el Garbage Collector no va a actuar sobre ellas.
+
+## P/Invoke 
+Es una libreria que permite acceder a estructuras, devoluciones de llamada y funciones de bibliotecas no administradas desde código administrado.
+```rust
+#[no_mangle]
+pub extern fn add_numbers(number1: i32, number2: i32) -> i32 {
+    println!("Hola con Rust");
+    number1 + number2
+}
+
+/*
+> cargo new lib
+> cd lib
+Creamos el archivo lib.rs
+Editamos el archivo cargo.toml y agregamos:
+    [lib]
+    name="libreriaEjemploRust"
+    crate-type = ["dylib"]
+> cargo build
+```
+
+```Csharp
+[DllImport("libreriaEjemploRust.dll")]
+private static extern int add_numbers(int number1, int number2);
+
+public static void Main(string[] args)
+{
+    int suma = add_numbers(1, 2);
+    Console.WriteLine(suma);
 }
 ```
 
