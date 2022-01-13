@@ -1246,11 +1246,59 @@ Conjunto de `DataColumn` y `DataRow` que reprensenta el concepto de una tabla en
 
 > Cabe decir que las clases `DataSet` y `DataTable` no necesariamente se tienen que utilizar para el acceso a bases de datos, se pueden crear y utilizar para uso normal si, por ejemplo, queremos crear una tabla en memoria por algun motivo. No obstante, habra que valorar eso en cuestiones de rendimiento.
 
-## Microsoft SQL Server
+El procedimiento de una consulta sql con las clases abstractas podria ser el siguiente:
 
+1. Creamos una extension de la clase abstracta `DbConnection` para tener acceso a las llamadas asincronas, recibimos la `sql`, una lista de `DbParameter` para parametrizar la query y el delegado en el que vamos a indicar el proceso de mapeo
+1. Indicamos al objeto connection que se desechará al acabar, creamos un `DbCommand`, que sera el encargado de la ejecucion y lectura de la query.
+1. Pasamos la query al `CommandText` e indicamos que es de tipo `text`, esto es debido a que podemos pasarle tipos como el de `StoredProcedure`.
+1. Si tenemos parametros, los agregamos.
+1. Abrimos la conexion de forma asincrona
+1. Ejecutamos la query de forma asincrona
+1. Leemos los resultados de forma asincrona y al agregar a la lista que devolvemos el resultado, lo mapeamos con el delegado que le pasamos.
+```Csharp
+public static async Task<IEnumerable<T>> ExecuteSqlQueryAsync<T>(this DbConnection connection, string sql, IEnumerable<DbParameter> parameters, Func<DbDataReader, T> mapper)
+{
+    using (connection)
+    {
+        using (var connect = connection.CreateCommand())
+        {
+            connect.CommandText = sql;
+            connect.CommandType = System.Data.CommandType.Text;
 
-## Microsoft Excell
+            foreach (var parameter in parameters)
+            {
+                connect.Parameters.Add(parameter);
+            }
+            await connection.OpenAsync();
 
+            using (var rows = await connect.ExecuteReaderAsync())
+            {
+                var entities = new List<T>();
+                while (await rows.ReadAsync())
+                {
+                    entities.Add(mapper(rows));
+                }
+                return entities;
+            }
+        }
+    }
+}
+```
+La forma de ejecutar el codigo anterior seria de la siguiente forma.
+```Csharp
+var dbConnection = new SqlConnection("");
+dbConnection.ExecuteSqlQueryAsync(sql, parameters,
+result => new
+{
+    anonimo1 = new
+    {
+        Nombre = result["NOMBRENEW"] == null ? null : result["NOMBRENEW"].ToString(),
+    },
+    UltimaModificacion = Convert.ToDateTime(result["MODIFIEDON"])
+});
+```
+
+> **Importante**: Hay que hacer uso de las queries parametrizadas para evitar problemas como las Sql Injection.
 
 
 # Reflexion
