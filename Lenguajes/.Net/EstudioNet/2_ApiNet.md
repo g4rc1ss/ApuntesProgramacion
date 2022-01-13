@@ -1903,12 +1903,83 @@ static int Checksum(Span<byte> buffer) { ... }
 ```
 
 ## Estructuras
+Una estructura se usa para almacenar datos por tipo de valor, eso quiere decir que la idea de la estructura es almacenar la instancia en el **stack** y no en el **heap** como las clases, por tanto la instanciacion del objeto se realiza de manera mas optima.
 
+Generalmente las estructuras se utilizan para realizar optimizaciones en el codigo.
+
+Cabe decir que no siempre se almacenan en el **stack**, por ejemplo, si usamos una estructura en un delegado o un campo de un objeto de tipo `class`.
+
+```Csharp
+public struct Coords
+{
+    public Coords(double x, double y)
+    {
+        X = x;
+        Y = y;
+    }
+
+    public double X { get; }
+    public double Y { get; }
+
+    public override string ToString() => $"({X}, {Y})";
+}
+```
+
+### Estructura readonly
+Para poder declarar la estructura como inmutable se puede usar el modificador `readonly`. 
+- Cualquier campo se tiene que declarar como `readonly`.
+- Las propiedades deben de ser de solo lectura. Por tanto solo podran contener los descriptores de acceso `get` e `init`.
+
+```Csharp
+public readonly struct Coords
+{
+    public Coords(double x, double y)
+    {
+        X = x;
+        Y = y;
+    }
+
+    public double X { get; init; }
+    public double Y { get; init; }
+
+    public override string ToString() => $"({X}, {Y})";
+}
+```
 
 ### Estructura ref
+Las instancias de un tipo de estructura `ref` se asignan en el **stack** y no pueden ubicarse en el **Heap**. Para asegurarse de eso, el compilador limita el uso de este tipo a:
 
+- No puede ser el tipo de elemento de una matriz.
+- No puede ser un tipo declarado de un campo de una clase o una estructura que no sea `ref`.
+- No puede implementar interfaces.
+- No se puede aplicar una conversión boxing a `ValueType` ni `Object`.
+- No puede ser un argumento de tipo.
+- No se puede capturar mediante una expresión lambda o una función local.
+- No se puede usar en un método `async`. Aunque se pueden usar en métodos sincronos, como los que devuelven `Task` o `Task<TResult>`.
+- No se puede usar en iteradores.
 
+```Csharp
+public ref struct CustomRef
+{
+    public bool IsValid;
+    public Span<int> Inputs;
+    public Span<int> Outputs;
+}
+```
+Para poder usarse con `readonly`
+```Csharp
+public readonly ref struct ConversionRequest
+{
+    public ConversionRequest(double rate, ReadOnlySpan<double> values)
+    {
+        Rate = rate;
+        Values = values;
+    }
 
+    public double Rate { get; }
+    public ReadOnlySpan<double> Values { get; }
+}
+```
 
 ## Liberacion de Memoria
 La liberacion de memoria en .Net consiste en marcar ciertos objetos como "liberados", quiere decir, que son objetos que ya no se van a volver a usar y que quiere liberar el recurso que se esta usando o cerrar el proceso.
