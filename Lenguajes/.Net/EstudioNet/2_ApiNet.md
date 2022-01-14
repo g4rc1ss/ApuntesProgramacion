@@ -50,15 +50,12 @@ Console.WriteLine($"{saludo} terricola");
 ```
 
 ## StringBuilder
-StringBuilder es una clase de cadena mutable. Mutabilidad significa que una vez creada una instancia de la clase, se puede modificar anexando, quitando, reemplazando o insertando caracteres. 
+**string** es una clase inmutable, eso quiere decir que su valor no puede ser modificado y por tanto, cuando realizamos labores como concatenar, lo que en realidad se hace es crear una cadena nueva con esas dos cadenas juntas.
 
-StringBuilder mantiene un búfer para alojar las modificaciones en la cadena.
-
-Los datos nuevos se anexan al búfer si hay espacio disponible; de lo contrario, se asigna un búfer nuevo y mayor, los datos del búfer original se copian en el nuevo búfer y, a continuación, los nuevos datos se anexan al nuevo búfer.
+**StringBuidler** en cambio permite la mutabilidad de la cadena, por tanto, es posible hacer modificaciones a esta sin ncesidad de crearla de nuevo, dando lugar a mas performance en dependiendo que situaciones.
 
 ```Csharp
 var stringBuilder = new StringBuilder();
-stringBuilder.Append(true);
 stringBuilder.Append("Terminado");
 stringBuilder.Replace("Hola", "Adios");
 var cadenaCompleta = stringBuilder.ToString();
@@ -90,7 +87,7 @@ Console.WriteLine(telefonoRegex);
 Las colecciones proporcionan una manera más flexible de trabajar con grupos de objetos. A diferencia de las matrices, el grupo de objetos con el que trabaja puede aumentar y reducirse de manera dinámica a medida que cambian las necesidades de la aplicación
 
 ## Listas
-Una lista es un tipo de colección ordenada(un array)
+Una lista es un tipo de colección ordenada
 
 ### Métodos de listas
 1. `Add`: Agrega al ultimo elemento de la lista el objeto que se le pasa por parametro
@@ -101,22 +98,17 @@ Una lista es un tipo de colección ordenada(un array)
 
 ```Csharp
 var lista = new List<string>() { "Hola" };
-
 lista.Add("me llamo Ralph");
-
 lista.IndexOf("Hola");
-
 lista.Insert(1, "jajajajaja");
-
 lista.Remove("me llamo Ralph");
-
 lista.Reverse();
 ```
 
 ## Diccionarios
-Una clase de Diccionario es una estructura de datos que representa una colección de 
-claves y valores de pares de datos. La clave es idéntica en un par clave-valor y puede 
-tener como máximo un valor en el diccionario
+Es una estructura de datos que representa una colección de pares clave-valor
+- La clave tiene que ser única.
+- No se soporta la concurrencia o multihilo. Para ello se debe de usar `ConcurrentDictionary<TKey, TValue>`
 
 ### Métodos de diccionarios
 1. `Keys`: Devuelve una lista con las claves del diccionario
@@ -129,19 +121,14 @@ tener como máximo un valor en el diccionario
 var diccionario = new Dictionary<string, string>()
 {
     { "Clave", "Valor" },
-    {"Key", "Value" }
+    { "Key", "Value" }
 };
 
 Dictionary<string, string>.KeyCollection claves = diccionario.Keys;
-
 Dictionary<string, string>.ValueCollection valores = diccionario.Values;
-
 diccionario.ContainsKey("Clave");
-
 diccionario.Remove("Key");
-
 diccionario.TryGetValue("Key", out string valor);
-
 ```
 
 ## Tuplas
@@ -157,7 +144,9 @@ tupla.Item4;
 ```
 
 ## Tablas Hash
-Representa una colección de pares de clave y valor que se organizan por código hash de la clave
+Representa una colección de pares de clave y valor.
+- Reciben tipos `object`, no dispone de genericos
+- Soportan multithreading
 
 ### Métodos de tablas hash
 1. `Add`: Agrega un nuevo elemento con el par clave-valor
@@ -168,51 +157,35 @@ Representa una colección de pares de clave y valor que se organizan por código
 
 ```Csharp
 var tablaHash = new Hashtable();
-
 tablaHash.Add("Key", "Value");
-
 tablaHash.Remove("Key");
-
 tablaHash.ContainsKey("Key");
-
 tablaHash.Clear();
-
 tablaHash["Key"];
 ```
 
 ## Pilas
-El Stack es una coleccion LIFO(Last in, First Out) sin tamaño fijo de los objetos indicados.
-
-Al usar la forma de almacenamiento LIFO, en la coleccion se trabaja todo el rato sobre los primeros elementos, osea que cuando agregas un elemento nuevo por ejemplo, no se guardaria en el ultimo indice, sino que se almacenaria en el indice 0, al principio de la coleccion.
+Coleccion de tipo **LIFO**(Last in, First Out), los elementos mas recientes son los que iremos obteniendo en iteracion.
 
 ### Métodos de pilas
-1. `Push`: Agrega un nuevo elemento en la parte superior de Stack<T>
-1. `Pop`: Elimina un elemento de la parte superior
-1. `Peek`: Devuelve un eleemnto de la parte superior
-1. `Clear`: Limpia todos los elementos de la coleccion
-1. `ToArray`: Convierte la pila en un array del tipo indicado
+1. `Push`: Inserta un elemento al principio de `Stack<T>`
+1. `Pop`: Quita y devuelve el objeto situado al principio
+1. `Peek`: Devuelve el objeto situado al principio de `Stack<T>` sin eliminarlo.
+1. `Clear`: Quita todos los objetos de la coleccion
 1. `Contains`: Comprueba si exite el item que le pasamos por parametro
 
 ```Csharp
 var pila = new Stack<string>();
 
 pila.Push("Elemento");
-
 pila.Pop();
-
 pila.Peek();
-
 pila.Clear();
-
-pila.ToArray();
-
 pila.Contains("objeto");
 ```
 
 ## Colas
-La Queue es una coleccion FIFO(First In, First Out).
-
-Al usar la forma de almacenamiento FIFO, a la hora de agregar elementos se tendran que ir agregando al final de la coleccion y a la hora de trabajar con ellos, se iran extrayendo del mas antiguo al mas nuevo, por tanto, se accedera a los primeros.
+Coleccion de tipo **FIFO**(First in, First out), el primer elemento que insertamos, sera el primero que recogemos al recorrer la coleccion
 
 ### Métodos de colas
 1. `Enqueue`: Agrega un nuevo elemento al final de la coleccion
@@ -224,26 +197,17 @@ Al usar la forma de almacenamiento FIFO, a la hora de agregar elementos se tendr
 
 ```Csharp
 var cola = new Queue<string>();
-
 cola.Enqueue("Elemento");
-
 cola.Dequeue();
-
 cola.Peek();
-
 cola.Clear();
-
 cola.ToArray();
-
 cola.Contains("objeto");
 ```
 
-## Implementar la Interfaz IEnumerable
-`IEnumerable<T>` es la interfaz base para las colecciones, como listas, diccionarios, etc.  
-Tiene un metodo que ha de ser implementado llamado `GetEnumerator` que devolvera un objeto de tipo `IEnumerator<T>`.  
-
-Se puede usar la palabra clave `yield` para ir moviendonos al siguiente registro de la lista o implementando dicha interfaz en una clase para poder ir moviendonos a los siguientes elementos.
-
+## IEnumerable
+Expone un `Enumerator` para hacer un objeto iterable mediante instrucciones como `foreach` o el uso de librerias como `linq`
+- **GetEnumerator**: Es el encargado de vincular el objeto con un enumerador para procesar su iteracion.
 ```Csharp
 public class EnumerablePersonalizado<T> : IEnumerable<T>
 {
@@ -254,72 +218,36 @@ public class EnumerablePersonalizado<T> : IEnumerable<T>
         enumerable = new T[maxIndex];
     }
 
-    public IEnumerator<T> GetEnumerator() => new EnumeradorEnumerablePersonalizado<T>(enumerable);
+    public IEnumerator<T> GetEnumerator() => new EnumeradorPersonalizado<T>(enumerable);
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }
+```
 
-public class EnumeradorEnumerablePersonalizado<T> : IEnumerator<T>
+## IEnumerator
+Implementa el proceso de iteracion de un objeto.
+- **MoveNext**: Donde se ubica la logica de la iteracion, se debe de devolver un true o false para indicar si es posible dicha iteracion
+- **Reset**: Reseteamos el puntero de la interacion a la posicion inicial.
+
+```Csharp
+public class EnumeradorPersonalizado<T> : IEnumerator<T>
 {
-    private T[] collection;
-    private int indiceActual;
-    private T objetoActual;
-    private bool disposedValue = false;
-
-    public EnumeradorEnumerablePersonalizado(T[] collection)
-    {
-        this.collection = collection;
-        indiceActual = -1;
-        objetoActual = default;
-    }
-
-    public T Current { get { return objetoActual; } }
-
-    object IEnumerator.Current { get { return Current; } }
+    public T Current { get; set; }
 
     public bool MoveNext()
     {
-        if (++indiceActual >= collection.Length)
-        {
-            return false;
-        }
-        else
-        {
-            objetoActual = collection[indiceActual];
-        }
-        return true;
+        // code
     }
 
     public void Reset()
     {
-        indiceActual = -1;
-    }
-
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    private void Dispose(bool disposing)
-    {
-        if (!disposedValue)
-        {
-            if (disposing)
-            {
-                collection = null;
-                objetoActual = default;
-            }
-        }
-        disposedValue = true;
+        // code
     }
 }
 ```
 
-## Implementar IList
-Si se quiere realizar un tipo de lista ordenada personalizado se debera de implementar la interfaz `IList<T>`.  
-Las listas requieren que sean dinamicas, por tanto se implementara el metodo `Add()`, que se pueda acceder a ellas mediante un `index[]`, que se puedan limpiar, etc.
-
+## IList
+Representa una coleccion de objetos que se pueden acceder individualmente a traves de un indice.
 ```Csharp
 public class ListaPersonalizada<T> : IList<T>
 {
@@ -329,164 +257,23 @@ public class ListaPersonalizada<T> : IList<T>
     {
         lista = Array.Empty<T>();
     }
-
-    public T this[int index] {
-        get {
-            return lista[index];
-        }
-
-        set {
-            lista[index] = value;
-        }
-    }
-
-    public int Count {
-        get {
-            return lista.Length;
-        }
-    }
-
-    public bool IsReadOnly {
-        get {
-            throw new NotImplementedException();
-        }
-    }
-
-    public void Add(T item)
-    {
-        var listaNueva = new T[lista.Length + 1];
-        for (int i = 0; i < lista.Length; i++)
-        {
-            listaNueva[i] = lista[i];
-        }
-        listaNueva[lista.Length] = item;
-        lista = listaNueva;
-    }
-
-    public void Clear() => throw new NotImplementedException();
-    public bool Contains(T item) => throw new NotImplementedException();
-    public void CopyTo(T[] array, int arrayIndex) => throw new NotImplementedException();
-    public int IndexOf(T item) => throw new NotImplementedException();
-    public void Insert(int index, T item) => throw new NotImplementedException();
-    public bool Remove(T item) => throw new NotImplementedException();
-    public void RemoveAt(int index) => throw new NotImplementedException();
-    public IEnumerator<T> GetEnumerator()
-    {
-        foreach (var item in lista)
-        {
-            yield return item;
-        }
-    }
-    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    // code
 }
 ```
 
-## Implementar IDictionary
-`IDictionary<TKey, TValue>` es una interfaz base que se utiliza para las colecciones con pares clave-valor.  
-Las claves tienes que ser unicas y los valores pueden ser `null` o repetidos.
-
+## IDictionary
+Representa una colección no genérica de pares clave-valor.
+- **DictionaryEntry**: Es una estructura que contiene la llave y el valor correspondiente, cuando leemos y agregamos datos a un diccionario, se usa este objeto
 ```Csharp
 public class DiccionarioPersonalizado<TKey, TValue> : IDictionary<TKey, TValue>
 {
     private DictionaryEntry[] dictionary;
-    private int itemsInUse = 0;
-
+    
     public DiccionarioPersonalizado()
     {
         dictionary = Array.Empty<DictionaryEntry>();
     }
-
-    public TValue this[TKey key] {
-        get {
-            if (TryGetKeyIndex(key, out var index))
-            {
-                return (TValue)dictionary[index].Value;
-            }
-            return default;
-        }
-
-        set {
-            if (TryGetKeyIndex(key, out var index))
-            {
-                dictionary[index].Value = value;
-            }
-            else
-            {
-                Add(key, value);
-            }
-        }
-    }
-
-    public ICollection<TKey> Keys {
-        get {
-            var keys = new TKey[itemsInUse];
-            for (int i = 0; i < itemsInUse; i++)
-                keys[i] = (TKey)dictionary[i].Key;
-            return keys;
-        }
-    }
-
-    public ICollection<TValue> Values {
-        get {
-            var values = new TValue[itemsInUse];
-            for (int i = 0; i < itemsInUse; i++)
-                values[i] = (TValue)dictionary[i].Key;
-            return values;
-        }
-    }
-
-    public int Count {
-        get {
-            throw new NotImplementedException();
-        }
-    }
-
-    public bool IsReadOnly {
-        get {
-            throw new NotImplementedException();
-        }
-    }
-
-    private bool TryGetKeyIndex(object key, out int index)
-    {
-        for (index = 0; index < itemsInUse; index++)
-        {
-            if (dictionary[index].Key.Equals(key))
-                return true;
-        }
-        return false;
-    }
-
-    public void Add(TKey key, TValue value)
-    {
-        var diccionarioNuevo = new DictionaryEntry[itemsInUse + 1];
-        for (int i = 0; i < itemsInUse; i++)
-        {
-            diccionarioNuevo[i].Key = dictionary[i].Key;
-            diccionarioNuevo[i].Value = dictionary[i].Value;
-        }
-        diccionarioNuevo[itemsInUse].Key = key;
-        diccionarioNuevo[itemsInUse].Value = value;
-        dictionary = diccionarioNuevo;
-        itemsInUse++;
-    }
-
-    public void Add(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
-    public void Clear() => throw new NotImplementedException();
-    public bool Contains(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
-    public bool ContainsKey(TKey key) => throw new NotImplementedException();
-    public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex) => throw new NotImplementedException();
-    public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
-    {
-        foreach (var item in dictionary)
-        {
-            yield return new KeyValuePair<TKey, TValue>((TKey)item.Key, (TValue)item.Value);
-        }
-    }
-    public bool Remove(TKey key) => throw new NotImplementedException();
-    public bool Remove(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
-    public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value) => throw new NotImplementedException();
-    IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
+    // code
 }
 ```
 
@@ -495,144 +282,39 @@ public class DiccionarioPersonalizado<TKey, TValue> : IDictionary<TKey, TValue>
 Un delegate es un tipo de referencia que puede utilizarse para encapsular un método con nombre o anónimo.
 
 ```Csharp
- private static void Imprimir(object objeto)
-{
-    Console.WriteLine(objeto);
-}
-private static string Retorna(string objeto)
-{
-    return objeto;
-}
-private static TResult RetornoMensaje<TSource, TResult>(TSource objeto)
-{
-    return (TResult)(object)objeto;
-}
 delegate void DelegadoNormal(string texto);
 delegate void DelegadoGeneric<in T>(T objeto);
 delegate string DelegadoRetorna(string textp);
 delegate TResult DelegadoGenericCompleto<in TSource, out TResult>(TSource objeto);
 
-// Como usarlos
-var delegadoNormal = new DelegadoNormal(Imprimir);
-delegadoNormal("Hola, soy el delegado normal");
-
-var persona = new Persona
-{
-    Nombre = "Ralph",
-    Apellido = "Simpson"
-};
-var delegadoGeneric = new DelegadoGeneric<Persona>(Imprimir);
-delegadoGeneric(persona);
-
-var delegadoRetorna = new DelegadoRetorna(Retorna);
-delegadoRetorna("Este es el mensaje que vamos a devolver");
-
-var delegadoGenericoCompleto = new DelegadoGenericCompleto<Persona, Persona>(RetornoMensaje<Persona, Persona>);
-var respuesta = delegadoGenericoCompleto(persona);
+var ejemplo = new DelegadoNormal(Console.WriteLine);
+ejemplo("Hola, soy el delegado normal");
 ```
 
 ## Delegados como Parametros
-El uso de delegamos como parametros permite una mayor flexibilidad a la hora de realizar procesos de automatizacion de codigo.  
-Por ejemplo la TPL es una libreria para ejecutar fragmentos de codigoe creando un hilo, pues los metodos que contiene para tal fin funcionan con la clase `Action` y `Func<>` para ejecutar el fragmento que el usuario desee y poder automatizar todo el proceso de manejo y creacion de threads
+El uso de delegados como parametros permite agregar flexibilidad a la hora de desarrollar, por ejemplo, una clase que realiza una consulta a base de datos y queremos mapear el resultado. Nosotros realizamos la consulta y el mapeo nos lo puede pasar el usuario, puesto que no tenemos por que saber el nombre de los campos que nos devolverá
 
 ### Action
-La clase `Action` recibe un delegado de tipo void como parametro, eso quiere decir que solo ejecuta el metodo que se le pasa, pero no devuelve ningun resultado.
+Permite ejecutar un delegado siempre que este no retorne nigun resultado.
 
+Si el delegado tiene que recibir parametros, se indicaran a traves de `generics`, por ejemplo, `Action<T1> action` o `Action<string> action`
 ```Csharp
-public static class ClaseAction
-{
-    public static void Run(Action action)
-    {
-        action?.Invoke();
-    }
-}
+public static void Run(Action action) => action();
 
-public void Imprimir(string texto)
-{
-    Console.WriteLine(texto);
-}
-
-// Pasamos un metodo existente mas arriba por parametro
-ClaseAction.Run(() => Imprimir("envio por action"));
-
-// Creamos nosotros mismos nuestro codigo inicializando el delegado en el parametro del metodo
-ClaseAction.Run(() =>
-{
-    Console.WriteLine("envio por action");
-});
-```
-
-```Csharp
-public static class ClaseExpression
-{
-    public static void Run<T1>(this T1 arg, Action<T1> action)
-    {
-        _ = action ?? throw new ArgumentNullException($"{nameof(action)} esta null");
-        action.Invoke(arg);
-    }
-}
-
-var persona = new Persona
-{
-    Nombre = "Hola",
-    Apellido = "Adios"
-};
-persona.Run(x => Imprimir(x.Apellido + x.Nombre));
+persona.Run(x => Imprimir("Soy un action"));
 persona.Run(x =>
 {
-    Console.WriteLine(x.Nombre + x.Apellido);
+    Console.WriteLine("Soy un action");
 });
 ```
 
 ### Func
-La clase `Func` hace lo mismo que la `Action` con la diferencia de que esta si que permite la devolucion de un resultado en la ejecucion del metodo delegado.
-
+Permite devolver un resultado en la ejecucion del delegado.
 ```Csharp
-public static class ClaseFunc
-{
-    public static TResult Run<TResult>(Func<TResult> action)
-    {
-        _ = action ?? throw new ArgumentNullException($"{nameof(action)} esta null");
-        return action.Invoke();
-    }
-}
+public static TResult Run<TResult>(Func<TResult> func) => func();
+public static TResult Run<T1, TResult>(this T1 x, Func<T1, string, TResult> func) => func(x, "");
 
-public static string Imprimir(string texto)
-{
-    Console.WriteLine(texto);
-    return texto;
-}
-
-var resultado = ClaseFunc.Run(() => Imprimir("metodo creado"));
-var resultado2 = ClaseFunc.Run(() =>
-{
-    var str = "metodo lambda";
-    Console.WriteLine(str);
-    return str;
-});
-```
-
-```Csharp
-public static class ClaseExpression
-{
-    public static TResult Run<T1, TResult>(Func<T1, TResult> action, T1 argument)
-    {
-        _ = action ?? throw new ArgumentNullException($"{nameof(action)} esta null");
-        return action.Invoke(argument);
-    }
-}
-
-var persona = new Persona
-{
-    Nombre = "Hola",
-    Apellido = "Adios"
-};
-var resultado = ClaseExpression.Run(x => Imprimir(x.Apellido + x.Nombre), persona);
-var resultado2 = ClaseExpression.Run(x =>
-{
-    Console.WriteLine(x.Nombre + x.Apellido);
-    return x.Nombre + x.Apellido;
-}, persona);
+ClaseFunc.Run(() => string.Empty);
 ```
 
 
@@ -730,16 +412,9 @@ Clase que debe recibir un objeto `Stream` y se utiliza para la lectura y escritu
 
 #### Lectura
 ```Csharp
-// Apertura del archivo `ArchivoBinario.bin` en modo lectura:
-// Muestra la información tal cual está escrita en el archivo binario:
 using (var fs = new FileStream(nombreArchivo, FileMode.Open, FileAccess.Read))
 {
     Console.Write(Environment.NewLine);
-    // Lectura y conversión de los datos binarios en el tipo de 
-    // correspondiente:
-
-    // Posiciona el cursor desde se iniciara la lectura del 
-    // archivo `ArchivoBinario`:
     fs.Position = 0;
     using (var br = new BinaryReader(fs))
     {
@@ -753,14 +428,10 @@ using (var fs = new FileStream(nombreArchivo, FileMode.Open, FileAccess.Read))
 
 #### Escritura
 ```Csharp
-// Crea objeto `FileStream` para referenciar un archivo binario -ArchivoBinario.bin-:
-// Escritura sobre el archivo binario `ArchivoBinario.bin` usando un 
-// objeto de la clase `BinaryWriter`:
 using (var fs = new FileStream(nombreArchivo, FileMode.Create, FileAccess.Write))
 {
     using (var bw = new BinaryWriter(fs))
     {
-        // Escritura de datos de naturaleza primitiva:
         bw.Write(1.0M);
         bw.Write("Este es el texto que se esta");
         bw.Write('\n');
@@ -860,7 +531,6 @@ using var writeFile = new StreamWriter(nombreArchivo);
 await writeFile.WriteAsync(textoEscribir);
 ```
 
-
 ## Serializacion
 La serialización es el proceso de convertir el estado de un objeto en un formato que se pueda almacenar o transportar. Este proceso permite almacenar y transferir datos.
 
@@ -891,7 +561,7 @@ var localizacion = await JsonSerializer.DeserializeAsync<ClaseParaJSON>(jsonStre
 #### Json con objetos
 1. Creamos el objeto a mapear
 1. Serializamos el objeto, lo que nos devolvera un `string` con el contenido del json
-1. Suponiendo un JSON en memoria ya, con ese formato
+1. Suponiendo un JSON en memoria con esos datos
 1. Deserializamos el contenido json en un objeto del tipo que le pasamos.
 
 ```Csharp
@@ -969,10 +639,8 @@ Gracias a la abstraccion de linq, podemos cargar y consultar archivos Linq.
 ```Csharp
 var document = XElement.Load(nombreArchivo);
 
-from item in document.Descendants("empleado")
-where item.Attribute("id").Value == "1"
-    && item.Element("nombre").Value == "Empleado 1"
-select item;
+document.Descendants("empleado")
+    .Where(x => x.Attribute("id").Value == "1" && x.Element("nombre").Value == "empleado");
 ```
 
 ##### Escribir un archivo mediante Linq
@@ -987,12 +655,6 @@ select item;
                         new XAttribute("id", "2"),
                     new XElement("nombre", "empleado 2"),
                     new XElement("status", "activo")),
-
-                new XElement("empleado",
-                        new XAttribute("id", "3"),
-                    new XElement("nombre", "empleado 3"),
-                    new XElement("status", "activo")));
-
 empresa.Save(nombreArchivo);
 ```
 
@@ -1293,6 +955,302 @@ result => new
 ```
 
 > **Importante**: Hay que hacer uso de las queries parametrizadas para evitar problemas como las Sql Injection.
+
+
+# LINQ
+Linq es una API orientada al uso de consultas a diferentes tipos de contenido, como objetos, entidades, XML, etc. De esta manera se resume en una sintaxis sencilla y fácil de leer, tratar y mantener el tratamiento de diferentes tipos de datos.
+
+## Sintaxis de consulta
+### From
+```Csharp
+var cust = new List<Customer>();
+//queryAllCustomers is an IEnumerable<Customer>
+from cust in customers
+select cust;
+```
+
+### Join
+```Csharp
+from category in categories
+join prod in products on category.ID equals prod.CategoryID
+select new
+{
+    ProductName = prod.Name,
+    Category = category.Name
+};
+
+products.Join(categories,
+product => product.CategoryID,
+category => category.ID,
+(product, category) => new
+{
+    ProductName = product.Name,
+    Category = category.Name
+});
+```
+
+### Let
+```Csharp
+
+from sentence in strings
+let words = sentence.Split(' ')
+from word in words
+let w = word.ToLower()
+where w[0] == 'a' || w[0] == 'e'
+    || w[0] == 'i' || w[0] == 'o'
+    || w[0] == 'u'
+select word;
+```
+
+### Where
+```Csharp
+from prod in products
+where prod.Name == "Producto 2"
+select prod;
+
+products.Where(prod => prod.Name == "Producto 2");
+```
+
+### Group by
+```Csharp
+from product in products
+group product by new
+{
+    product.CategoryID,
+    product.Name
+} into prod
+select new
+{
+    idCategoria = prod.Key.CategoryID,
+    nombre = prod.Key.Name
+};
+
+products.GroupBy(product => new
+{
+    product.CategoryID,
+    product.Name
+}).Select(prod => new
+{
+    idCategoria = prod.Key.CategoryID,
+    nombre= prod.Key.Name
+});
+```
+
+### Order by
+```Csharp
+from product in products
+orderby product.CategoryID ascending
+select product;
+products.OrderBy(product => product.CategoryID);
+
+from product in products
+orderby product.CategoryID descending
+select product;
+products.OrderByDescending(product => product.CategoryID);
+```
+
+## Evaluacion/Ejecucion de Consulta
+Para poder tratar las consultas, la api de LINQ devuelve objetos del tipo `IEnumerable<>` o `IQueryable<>`.  
+Hay diferentes formas de leer los datos, por un lado mediante un `foreach` se pueden iterar un `IEnumerable` y por otro lado, hay metodos que convierten los datos a una coleccion directamente.
+
+### ToList
+```Csharp
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).ToList();
+```
+
+### ToArray
+```Csharp
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).ToArray();
+```
+
+### ToDictionary
+```Csharp
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).ToDictionary(key => key.CategoryID, value => value.Name);
+```
+
+### ToLookup
+```Csharp
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).ToLookup(key => key.CategoryID, value => value.Name);
+```
+
+### Count
+```Csharp
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).Count()
+ ```
+
+### FirstOrDefault
+```Csharp
+(from prod in products
+where prod.Name == "Producto 2"
+select prod).FirstOrDefault()
+ ```
+
+## Extension de Linq
+En `Linq` mediante el uso de la interfaz `IEnumerable<T>` se pueden realizar metodos de extension para ampliar y personalizar la libreria linq para realizar filtros o guardar el objeto en una lista personalizada
+
+### Creacion de consultas personalizadas
+Formas de extender la clase `IEnumerable` para crear consultas personalizadas en Linq.
+
+#### Consulta personalizada con Iterator
+1. Creamos el metodo de extension sobre la interfaz `IEnumerable<T>` y recibimos una funcion que recibe un parametro `T` y devolvera un `bool`
+1. Retornamos una instacia de nuestra clase, que implementará la interfaz `IEnumerator<T>`
+```Csharp
+public static IEnumerable<T> WherePersonalizado<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
+{
+    return new EnumeratorPersonalizadoWhere<T>(enumerable, predicate);
+}
+```
+
+1. Creamos una clase que tiene que implementar `IEnumerable` e `IEnumerator<T>`
+    - `IEnumerable` es implementada, puesto que tenemos que devolver un IEnumerable para que se pueda tratar como **Linq** cuando devolvamos la instancia.
+    - `IEnumerator` es implementada para que la instancia pueda sea iterable. Cuando se intenta acceder al siguiente elemento mediante un bucle, llama al metodo `MoveNext()`, es donde habra que realizar la tarea asignada a la nuestra instancia.
+```Csharp
+public class EnumeratorPersonalizadoWhere<T> : IEnumerable<T>, IEnumerator<T>
+{
+    private readonly Func<T, bool> _predicate;
+    private readonly IEnumerable<T> _enumerable;
+    private IEnumerator<T>? _enumerator;
+    private int caso;
+
+    public T Current { get; }
+
+    object IEnumerator.Current => Current;
+
+    public EnumeratorPersonalizadoWhere(IEnumerable<T> enumerable, Func<T, bool> predicate)
+    {
+        _predicate = predicate;
+        _enumerable = enumerable;
+        caso = 1;
+    }
+
+    public bool MoveNext()
+    {
+        switch (caso)
+        {
+            case 1:
+                _enumerator = _enumerable.GetEnumerator();
+                caso = 2;
+                goto case 2;
+                break;
+            case 2:
+                while (_enumerator.MoveNext())
+                {
+                    var item = _enumerator.Current;
+                    if (_predicate(item))
+                    {
+                        return true;
+                    }
+                }
+                Dispose();
+                break;
+        }
+        return false;
+    }
+
+    public void Reset()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Dispose()
+    {
+        if (_enumerator == null) return;
+        _enumerator.Dispose();
+        _enumerator = null;
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        return this;
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+}
+```
+
+#### Consulta personalizada con Yield
+Gracias al uso de yield podemos ahorrarnos el lastre de crear una clase personalizada para iteracion
+
+1. Creamos el metodo de extension de `IEnumerable` y recibimos los parametros correspondientes para realizar la consulta
+1. Creamos un bucle foreach del enumerable que recibimos para poder resolver el resto de iterators.
+1. Realizamos el proceso de la consulta que necestiamos
+1. Usamos la instruccion `yield return` para devolver lo que necesitamos.
+```Csharp
+public static IEnumerable<T> WherePersonalizadoYield<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
+{
+    foreach (var item in enumerable)
+    {
+        if (predicate(item))
+        {
+            yield return item;
+        }
+    }
+}
+```
+
+### Crear ejecucion personalizada de la consulta
+Para resolver una consulta **linq** debemos de iterarlo, por ejemplo, creando un bucle foreach. De esta forma se resuelve la consulta.
+
+```Csharp
+public static List<T> ToListPersonalizada<T>(this IEnumerable<T> enumerable)
+{
+    var lista = new List<T>();
+    foreach (var item in enumerable)
+    {
+        lista.Add(item);
+    }
+
+    return lista;
+}
+```
+
+
+## Arboles de Expresion
+Los árboles de expresiones son estructuras de datos que definen código. Se basan en las mismas estructuras que usa un compilador para analizar el código y generar el resultado compilado. Hay cierta similitud entre los árboles de expresiones y los tipos usados en las API de Roslyn para compilar analizadores y correcciones de código. (Los analizadores y las correcciones de código son paquetes de NuGet que realizan un análisis estático en código y pueden sugerir posibles correcciones). Los conceptos son similares y el resultado final es una estructura de datos que permite examinar el código fuente de forma significativa. En cambio, los árboles de expresiones se basan en un conjunto de clases y API totalmente diferentes a las de Roslyn.
+
+Para la creacion y asignacion de una variable que sume 2 numeros, se crearia el siguiente arbol de expresion:
+
+- Instrucción de declaración de variable con asignación (var sum = 1 + 2;)
+    - Declaración de tipo de variable implícita (var sum)
+        - Palabra clave var implícita (var)
+        - Declaración de nombre de variable (sum)
+    - Operador de asignación (=)
+    - Expresión binaria de suma (1 + 2)
+        - Operando izquierdo (1)
+        - Operador de suma (+)
+        - Operando derecho (2)
+
+Podemos devolver el cuerpo de la funcion pasada como un string.  
+Por ejemplo, un uso muy elevado que se le da a los arboles de expresion es con `EntityFramework` para la conversion de objetos `IQueryable<>` a una consulta `SQL`
+```Csharp
+public static class ClaseExpression
+{
+    public static string WhereToString<T>(T argumento, Expression<Func<T, bool>> expression)
+    {
+        return $"WHERE {expression.Body.ToString().Replace("==", "=")}";
+    }
+}
+
+var persona = new Persona
+{
+    Nombre = "Hola",
+    Apellido = "Adios"
+};
+var expresion = ClaseExpression.WhereToString(persona, x => x.Nombre == x.Apellido);
+```
 
 
 # Reflexion
@@ -2092,300 +2050,4 @@ public static void Main(string[] args)
     int suma = add_numbers(1, 2);
     Console.WriteLine(suma);
 }
-```
-
-
-# LINQ
-Linq es una API orientada al uso de consultas a diferentes tipos de contenido, como objetos, entidades, XML, etc. De esta manera se resume en una sintaxis sencilla y fácil de leer, tratar y mantener el tratamiento de diferentes tipos de datos.
-
-## Sintaxis de consulta
-### From
-```Csharp
-var cust = new List<Customer>();
-//queryAllCustomers is an IEnumerable<Customer>
-from cust in customers
-select cust;
-```
-
-### Join
-```Csharp
-from category in categories
-join prod in products on category.ID equals prod.CategoryID
-select new
-{
-    ProductName = prod.Name,
-    Category = category.Name
-};
-
-products.Join(categories,
-product => product.CategoryID,
-category => category.ID,
-(product, category) => new
-{
-    ProductName = product.Name,
-    Category = category.Name
-});
-```
-
-### Let
-```Csharp
-
-from sentence in strings
-let words = sentence.Split(' ')
-from word in words
-let w = word.ToLower()
-where w[0] == 'a' || w[0] == 'e'
-    || w[0] == 'i' || w[0] == 'o'
-    || w[0] == 'u'
-select word;
-```
-
-### Where
-```Csharp
-from prod in products
-where prod.Name == "Producto 2"
-select prod;
-
-products.Where(prod => prod.Name == "Producto 2");
-```
-
-### Group by
-```Csharp
-from product in products
-group product by new
-{
-    product.CategoryID,
-    product.Name
-} into prod
-select new
-{
-    idCategoria = prod.Key.CategoryID,
-    nombre = prod.Key.Name
-};
-
-products.GroupBy(product => new
-{
-    product.CategoryID,
-    product.Name
-}).Select(prod => new
-{
-    idCategoria = prod.Key.CategoryID,
-    nombre= prod.Key.Name
-});
-```
-
-### Order by
-```Csharp
-from product in products
-orderby product.CategoryID ascending
-select product;
-products.OrderBy(product => product.CategoryID);
-
-from product in products
-orderby product.CategoryID descending
-select product;
-products.OrderByDescending(product => product.CategoryID);
-```
-
-## Evaluacion/Ejecucion de Consulta
-Para poder tratar las consultas, la api de LINQ devuelve objetos del tipo `IEnumerable<>` o `IQueryable<>`.  
-Hay diferentes formas de leer los datos, por un lado mediante un `foreach` se pueden iterar un `IEnumerable` y por otro lado, hay metodos que convierten los datos a una coleccion directamente.
-
-### ToList
-```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).ToList();
-```
-
-### ToArray
-```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).ToArray();
-```
-
-### ToDictionary
-```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).ToDictionary(key => key.CategoryID, value => value.Name);
-```
-
-### ToLookup
-```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).ToLookup(key => key.CategoryID, value => value.Name);
-```
-
-### Count
-```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).Count()
- ```
-
-### FirstOrDefault
-```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).FirstOrDefault()
- ```
-
-## Extension de Linq
-En `Linq` mediante el uso de la interfaz `IEnumerable<T>` se pueden realizar metodos de extension para ampliar y personalizar la libreria linq para realizar filtros o guardar el objeto en una lista personalizada
-
-### Creacion de consultas personalizadas
-Formas de extender la clase `IEnumerable` para crear consultas personalizadas en Linq.
-
-#### Consulta personalizada con Iterator
-1. Creamos el metodo de extension sobre la interfaz `IEnumerable<T>` y recibimos una funcion que recibe un parametro `T` y devolvera un `bool`
-1. Retornamos una instacia de nuestra clase, que implementará la interfaz `IEnumerator<T>`
-```Csharp
-public static IEnumerable<T> WherePersonalizado<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
-{
-    return new EnumeratorPersonalizadoWhere<T>(enumerable, predicate);
-}
-```
-
-1. Creamos una clase que tiene que implementar `IEnumerable` e `IEnumerator<T>`
-    - `IEnumerable` es implementada, puesto que tenemos que devolver un IEnumerable para que se pueda tratar como **Linq** cuando devolvamos la instancia.
-    - `IEnumerator` es implementada para que la instancia pueda sea iterable. Cuando se intenta acceder al siguiente elemento mediante un bucle, llama al metodo `MoveNext()`, es donde habra que realizar la tarea asignada a la nuestra instancia.
-```Csharp
-public class EnumeratorPersonalizadoWhere<T> : IEnumerable<T>, IEnumerator<T>
-{
-    private readonly Func<T, bool> _predicate;
-    private readonly IEnumerable<T> _enumerable;
-    private IEnumerator<T>? _enumerator;
-    private int caso;
-
-    public T Current { get; }
-
-    object IEnumerator.Current => Current;
-
-    public EnumeratorPersonalizadoWhere(IEnumerable<T> enumerable, Func<T, bool> predicate)
-    {
-        _predicate = predicate;
-        _enumerable = enumerable;
-        caso = 1;
-    }
-
-    public bool MoveNext()
-    {
-        switch (caso)
-        {
-            case 1:
-                _enumerator = _enumerable.GetEnumerator();
-                caso = 2;
-                goto case 2;
-                break;
-            case 2:
-                while (_enumerator.MoveNext())
-                {
-                    var item = _enumerator.Current;
-                    if (_predicate(item))
-                    {
-                        return true;
-                    }
-                }
-                Dispose();
-                break;
-        }
-        return false;
-    }
-
-    public void Reset()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Dispose()
-    {
-        if (_enumerator == null) return;
-        _enumerator.Dispose();
-        _enumerator = null;
-    }
-
-    public IEnumerator<T> GetEnumerator()
-    {
-        return this;
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
-}
-```
-
-#### Consulta personalizada con Yield
-Gracias al uso de yield podemos ahorrarnos el lastre de crear una clase personalizada para iteracion
-
-1. Creamos el metodo de extension de `IEnumerable` y recibimos los parametros correspondientes para realizar la consulta
-1. Creamos un bucle foreach del enumerable que recibimos para poder resolver el resto de iterators.
-1. Realizamos el proceso de la consulta que necestiamos
-1. Usamos la instruccion `yield return` para devolver lo que necesitamos.
-```Csharp
-public static IEnumerable<T> WherePersonalizadoYield<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
-{
-    foreach (var item in enumerable)
-    {
-        if (predicate(item))
-        {
-            yield return item;
-        }
-    }
-}
-```
-
-### Crear ejecucion personalizada de la consulta
-Para resolver una consulta **linq** debemos de iterarlo, por ejemplo, creando un bucle foreach. De esta forma se resuelve la consulta.
-
-```Csharp
-public static List<T> ToListPersonalizada<T>(this IEnumerable<T> enumerable)
-{
-    var lista = new List<T>();
-    foreach (var item in enumerable)
-    {
-        lista.Add(item);
-    }
-
-    return lista;
-}
-```
-
-
-## Arboles de Expresion
-Los árboles de expresiones son estructuras de datos que definen código. Se basan en las mismas estructuras que usa un compilador para analizar el código y generar el resultado compilado. Hay cierta similitud entre los árboles de expresiones y los tipos usados en las API de Roslyn para compilar analizadores y correcciones de código. (Los analizadores y las correcciones de código son paquetes de NuGet que realizan un análisis estático en código y pueden sugerir posibles correcciones). Los conceptos son similares y el resultado final es una estructura de datos que permite examinar el código fuente de forma significativa. En cambio, los árboles de expresiones se basan en un conjunto de clases y API totalmente diferentes a las de Roslyn.
-
-Para la creacion y asignacion de una variable que sume 2 numeros, se crearia el siguiente arbol de expresion:
-
-- Instrucción de declaración de variable con asignación (var sum = 1 + 2;)
-    - Declaración de tipo de variable implícita (var sum)
-        - Palabra clave var implícita (var)
-        - Declaración de nombre de variable (sum)
-    - Operador de asignación (=)
-    - Expresión binaria de suma (1 + 2)
-        - Operando izquierdo (1)
-        - Operador de suma (+)
-        - Operando derecho (2)
-
-Podemos devolver el cuerpo de la funcion pasada como un string.  
-Por ejemplo, un uso muy elevado que se le da a los arboles de expresion es con `EntityFramework` para la conversion de objetos `IQueryable<>` a una consulta `SQL`
-```Csharp
-public static class ClaseExpression
-{
-    public static string WhereToString<T>(T argumento, Expression<Func<T, bool>> expression)
-    {
-        return $"WHERE {expression.Body.ToString().Replace("==", "=")}";
-    }
-}
-
-var persona = new Persona
-{
-    Nombre = "Hola",
-    Apellido = "Adios"
-};
-var expresion = ClaseExpression.WhereToString(persona, x => x.Nombre == x.Apellido);
 ```
