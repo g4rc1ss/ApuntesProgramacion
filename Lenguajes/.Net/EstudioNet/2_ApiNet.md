@@ -3,44 +3,29 @@ Una cadena es un objeto de tipo String cuyo valor es texto. Internamente, el
 texto se almacena como una colección secuencial de solo lectura de 
 objetos Char.
 
-## Métodos de string
 1. `Replace`: Devuelve una cadena en la que se reemplazan los caracteres introducidos, el primero es el valor a cambiar y el segundo parametro el nuevo valor
 1. `Split`: Devuelve un Array con la cadena separada dividiéndola cada vez que encuentre el char enviado, por defecto sera el símbolo '-'
 1. `IndexOf`: Devuelve el indice donde se encuentra el caracter indicado
 1. `CompareTo`: Compara el string con otro objeto, como por ejemplo, otra cadena
 1. `SubString`: Devuelve los caracteres entre una posicion de indice y otra, si no se indica la otra se devolvera la cadena desde el indice inicial
 
-```csharp
-var cadena = "Hola, yo me llamo Ralph, que tal estamos?";
-
-var cadenaReplace = cadena.Replace(',', '\n');
-
-var cadenaSplit = cadena.Split('m');
-
-var cadenaIndex = cadena.IndexOf('m');
-
-var cadenaCompare = cadena.CompareTo("Hola, yo me llamo Ralph");
-
-var cadenaSubString = cadena.Substring(3, 5);
-```
-
 ## Literales
 | Secuencia de escape | Nombre de carácter | Codificación Unicode |
 | ------------------- | ------------------ | -------------------- |
-| \\' | Comilla simple | 0x0027
-| \\" | Comilla doble  | 0x0022
-| \\\\ | Barra diagonal inversa | 0x005C
-| \\0 | Null | 0x0000
-| \\a | Alerta | 0x0007
-| \\b | Retroceso | 0x0008
-| \\f | Avance de página | 0x000C
-| \\n | Nueva línea | 0x000A
-| \\r | Retorno de carro | 0x000D
-| \\t | Tabulación horizontal | 0x0009
-| \\U | Secuencia de escape Unicode para pares suplentes. | \\Unnnnnnnn
-| \\u | Secuencia de escape Unicode | \\u0041 = "A"
-| \\v | Tabulación vertical | 0x000B
-| \\x | Secuencia de escape Unicode similar a "\u" | \x0041 o \x41 = "A"
+| `\'` | Comilla simple | 0x0027
+| `\"` | Comilla doble  | 0x0022
+| `\\` | Barra diagonal inversa | 0x005C
+| `\0` | Null | 0x0000
+| `\a` | Alerta | 0x0007
+| `\b` | Retroceso | 0x0008
+| `\f` | Avance de página | 0x000C
+| `\n` | Nueva línea | 0x000A
+| `\r` | Retorno de carro | 0x000D
+| `\t` | Tabulación horizontal | 0x0009
+| `\U` | Secuencia de escape Unicode para pares suplentes. | `\Unnnnnnnn`
+| `\u` | Secuencia de escape Unicode | `\u0041` = "A"
+| `\v` | Tabulación vertical | 0x000B
+| `\x` | Secuencia de escape Unicode similar a "\u" | \x0041 o \x41 = "A"
 
 ## Interpolacion de Cadenas
 La interpolación de cadenas se usa para mejorar la legibilidad y el mantenimiento del código. Se obtienen los mismos resultados que con el método `String.Format`, pero mejora la facilidad de uso y la claridad en línea.
@@ -84,126 +69,49 @@ Console.WriteLine(telefonoRegex);
 ```
 
 # Colecciones
-Las colecciones proporcionan una manera más flexible de trabajar con grupos de objetos. A diferencia de las matrices, el grupo de objetos con el que trabaja puede aumentar y reducirse de manera dinámica a medida que cambian las necesidades de la aplicación
+Todas las colecciones ofrecen métodos para agregar, quitar o buscar elementos.
 
-## Listas
-Una lista es un tipo de colección ordenada
+## Listas (`List<T>`)
+Una lista es un tipo de colección ordenada.
+> Estos objetos no son seguros para subprocesos, para ello es mejor usar `ConcurrentBag<T>`
 
-### Métodos de listas
 1. `Add`: Agrega al ultimo elemento de la lista el objeto que se le pasa por parametro
 1. `IndexOf`: Devuelve la posicion de la lista donde se ubica el objeto a buscar
 1. `Insert`: Insertas en la posicion 1 el objeto que se quiere, si hay elementos en dicha posicion se mueven hacia la derecha, por tanto el de la 1 pasaria a la posicion 2
 1. `Remove`: Eliminar de la lista el objeto indicado
 1. `Reverse`: Ordenas la lista al contra
 
-```Csharp
-var lista = new List<string>() { "Hola" };
-lista.Add("me llamo Ralph");
-lista.IndexOf("Hola");
-lista.Insert(1, "jajajajaja");
-lista.Remove("me llamo Ralph");
-lista.Reverse();
-```
-
-## Diccionarios
+## Diccionario (`Dictionary<TKey, TValue>`)
 Es una estructura de datos que representa una colección de pares clave-valor
-- La clave tiene que ser única.
-- No se soporta la concurrencia o multihilo. Para ello se debe de usar `ConcurrentDictionary<TKey, TValue>`
 
-### Métodos de diccionarios
+> - La clave tiene que ser única.  
+> - No se soporta la concurrencia o multihilo. Para ello se debe de usar `ConcurrentDictionary<TKey, TValue>`
+
 1. `Keys`: Devuelve una lista con las claves del diccionario
 1. `Values`: Devuelve una lista con los valores del diccionario
 1. `ContainsKey`: Devuelve un bool indicando si la clave existe en el diccionario
 1. `Remove`: Elimina la Key del diccionario y por tanto, los valores asociados a la misma
 1. `TryGetValue`: Metodo para obtener el valor asociado a la clave indicada
 
-```Csharp
-var diccionario = new Dictionary<string, string>()
-{
-    { "Clave", "Valor" },
-    { "Key", "Value" }
-};
-
-Dictionary<string, string>.KeyCollection claves = diccionario.Keys;
-Dictionary<string, string>.ValueCollection valores = diccionario.Values;
-diccionario.ContainsKey("Clave");
-diccionario.Remove("Key");
-diccionario.TryGetValue("Key", out string valor);
-```
-
-## Tuplas
-Una tupla es una estructura de datos que contiene una secuencia de elementos de diferentes tipos, esta estructura es de solo lectura, por tanto se usa para almacenar objetos que no van a ser modificados después.
-
-```Csharp
-var tupla = new Tuple<string, bool, int, double>("cadena", false, 500, 578.98);
-
-tupla.Item1;
-tupla.Item2;
-tupla.Item3;
-tupla.Item4;
-```
-
-## Tablas Hash
-Representa una colección de pares de clave y valor.
-- Reciben tipos `object`, no dispone de genericos
-- Soportan multithreading
-
-### Métodos de tablas hash
-1. `Add`: Agrega un nuevo elemento con el par clave-valor
-1. `Remove`: Elimina la Clave y el valor asociado a la misma
-1. `ContainsKey`: Devuelve un bool para saber si contiene la clave
-1. `Clear`: Limpia todos los elementos de la tabla
-1. `["key"]`: Para acceder al valor asociado a la clave mediante el inidizador
-
-```Csharp
-var tablaHash = new Hashtable();
-tablaHash.Add("Key", "Value");
-tablaHash.Remove("Key");
-tablaHash.ContainsKey("Key");
-tablaHash.Clear();
-tablaHash["Key"];
-```
-
-## Pilas
+## Pilas  (`Stack<T>`)
 Coleccion de tipo **LIFO**(Last in, First Out), los elementos mas recientes son los que iremos obteniendo en iteracion.
+> Para crear un Stack seguro para subprocesos, usaremos `ConcurrentStack<T>`
 
-### Métodos de pilas
 1. `Push`: Inserta un elemento al principio de `Stack<T>`
 1. `Pop`: Quita y devuelve el objeto situado al principio
 1. `Peek`: Devuelve el objeto situado al principio de `Stack<T>` sin eliminarlo.
 1. `Clear`: Quita todos los objetos de la coleccion
 1. `Contains`: Comprueba si exite el item que le pasamos por parametro
 
-```Csharp
-var pila = new Stack<string>();
-
-pila.Push("Elemento");
-pila.Pop();
-pila.Peek();
-pila.Clear();
-pila.Contains("objeto");
-```
-
-## Colas
+## Colas  (`Queue<T>`)
 Coleccion de tipo **FIFO**(First in, First out), el primer elemento que insertamos, sera el primero que recogemos al recorrer la coleccion
+> Para crear una Queue segura para subprocesos, usaremos `ConcurrentQueue<T>`
 
-### Métodos de colas
 1. `Enqueue`: Agrega un nuevo elemento al final de la coleccion
 1. `Dequeue`: Elimina el elemento mas antiguo, por tanto el primer elemento de la coleccion
 1. `Peek`: Devuelve el elemento mas antiguo de la coleccion
 1. `Clear`: Limpia todos los elementos de la coleccion
-1. `ToArray`: Convierte la cola en un array del tipo indicado
 1. `Contains`: Comprobamos si la coleccion contiene un objeto especifico
-
-```Csharp
-var cola = new Queue<string>();
-cola.Enqueue("Elemento");
-cola.Dequeue();
-cola.Peek();
-cola.Clear();
-cola.ToArray();
-cola.Contains("objeto");
-```
 
 ## IEnumerable
 Expone un `Enumerator` para hacer un objeto iterable mediante instrucciones como `foreach` o el uso de librerias como `linq`
@@ -243,37 +151,6 @@ public class EnumeradorPersonalizado<T> : IEnumerator<T>
     {
         // code
     }
-}
-```
-
-## IList
-Representa una coleccion de objetos que se pueden acceder individualmente a traves de un indice.
-```Csharp
-public class ListaPersonalizada<T> : IList<T>
-{
-    public T[] lista;
-
-    public ListaPersonalizada()
-    {
-        lista = Array.Empty<T>();
-    }
-    // code
-}
-```
-
-## IDictionary
-Representa una colección no genérica de pares clave-valor.
-- **DictionaryEntry**: Es una estructura que contiene la llave y el valor correspondiente, cuando leemos y agregamos datos a un diccionario, se usa este objeto
-```Csharp
-public class DiccionarioPersonalizado<TKey, TValue> : IDictionary<TKey, TValue>
-{
-    private DictionaryEntry[] dictionary;
-    
-    public DiccionarioPersonalizado()
-    {
-        dictionary = Array.Empty<DictionaryEntry>();
-    }
-    // code
 }
 ```
 
@@ -327,7 +204,7 @@ Stream es una clase abstracta para todos los flujos. Un flujo es una secuencia d
 Las secuencias comprenden tres operaciones fundamentales:
 - Puede leer desde secuencias. La lectura es la transferencia de datos desde una secuencia a una estructura de datos, como una matriz de bytes.
 - Puede escribir en secuencias. La escritura es la transferencia de datos de una estructura de datos a una secuencia.
-- Los flujos pueden admitir búsquedas. La búsqueda hace referencia a la consulta y modificación de la posición actual dentro de una secuencia. La funcionalidad de búsqueda depende del tipo de almacenamiento de respaldo que tenga una secuencia. Por ejemplo, las secuencias de red no tienen un concepto unificado de una posición actual y, por lo general, no admiten la búsqueda.
+- Los flujos pueden admitir búsquedas. La búsqueda hace referencia a la consulta y modificación de la posición actual dentro de una secuencia.
 
 Algunas de las secuencias más utilizadas que heredan de Stream son `FileStream` , y `MemoryStream` .
 
@@ -428,17 +305,10 @@ using (var fs = new FileStream(nombreArchivo, FileMode.Open, FileAccess.Read))
 
 #### Escritura
 ```Csharp
-using (var fs = new FileStream(nombreArchivo, FileMode.Create, FileAccess.Write))
-{
-    using (var bw = new BinaryWriter(fs))
-    {
-        bw.Write(1.0M);
-        bw.Write("Este es el texto que se esta");
-        bw.Write('\n');
-        bw.Write("escribiendo con la Clase Binary de .NET");
-    }
-}
-Console.WriteLine($"Los datos han sido escritos en el archivo `{nombreArchivo}`.");
+using var fs = new FileStream(nombreArchivo, FileMode.Create, FileAccess.Write);
+using var bw = new BinaryWriter(fs);
+bw.Write(1.0M);
+bw.Write("Este es el texto que se esta escribiendo");
 ```
 
 #### Copia
@@ -470,22 +340,10 @@ File.Delete(archivo);
 1. `ReadAllBytesAsync`: Abre de forma asincrona un archivo binario, lee su contenido, lo introduce en una matriz de bytes y, a continuación, cierra el archivo.
 1. `ReadAllLinesAsync`: Abre de forma asincrona un archivo de texto, lee todas sus líneas y, a continuación, cierra el archivo.
 
-```Csharp
-await File.ReadAllTextAsync(nombreArchivoTextAsync);
-await File.ReadAllBytesAsync(nombreArchivoBytes);
-await File.ReadAllLinesAsync(nombreArchivoAllLines);
-```
-
 #### Escritura
 1. `WriteAllTextAsync`: Crea de forma asincrona un archivo nuevo, escribe en él la cadena especificada y, a continuación, lo cierra. Si el archivo de destino ya existe, se sobrescribe.
 1. `WriteAllBytesAsync`: Crea de forma asincrona un archivo nuevo, escribe en él la matriz de bytes especificada y, a continuación, lo cierra. Si el archivo de destino ya existe, se sobrescribe.
 1. `WriteAllLinesAsync`: Crea de forma asincrona un archivo nuevo, escribe en él las líneas especificadas y, a continuación, lo cierra.
-
-```Csharp
-await File.WriteAllTextAsync(nombreArchivoTextAsync, textoEscribir);
-await File.WriteAllBytesAsync(nombreArchivoBytes, Encoding.UTF8.GetBytes(textoEscribir));
-await File.WriteAllLinesAsync(nombreArchivoAllLines, textoEscribir.Split('\n'));
-```
 
 #### Copia
 ```Csharp
@@ -496,7 +354,7 @@ File.Copy(nombreArchivoOrigen, nombreArchivoDestino);
 Para leer y escribir archivos `Stream` se suelen usar las clases `StreamReader` y `StreamWritter`
 
 #### Lectura
-1. `ReadToEndAsync`: Lee de forma asincrónica todos los caracteres desde la posición actual hasta el final de la secuencia y los devuelve como una cadena.
+1. `ReadToEndAsync`: Lee de forma asincrona todos los caracteres desde la posición actual hasta el final de la secuencia y los devuelve como una cadena.
 1. `ReadAsync`: Lee de forma asincrónica un número máximo de caracteres especificado en la secuencia actual y escribe los datos en un búfer, comenzando en el índice especificado.
 1. `ReadBlockAsync`: Lee de forma asincrónica un número máximo de caracteres especificado en la secuencia actual y escribe los datos en un búfer, comenzando en el índice especificado.
 
@@ -534,41 +392,35 @@ await writeFile.WriteAsync(textoEscribir);
 ## Serializacion
 La serialización es el proceso de convertir el estado de un objeto en un formato que se pueda almacenar o transportar. Este proceso permite almacenar y transferir datos.
 
-- La serialización binaria preserva la fidelidad de tipo, lo que es útil para conservar el estado de un objeto entre distintas invocaciones de una aplicación. Por ejemplo, puede compartir un objeto entre distintas aplicaciones si lo serializa en el Portapapeles.
-
-- La serialización XML solo serializa propiedades y campos públicos y no preserva la fidelidad de tipo. Esto es útil si se desea proporcionar o utilizar los datos sin restringir la aplicación que utiliza los datos. Dado que XML es un estándar abierto, es una opción atractiva para compartir los datos por el web.
-
+- La serialización binaria preserva la fidelidad de tipo, lo que es útil para conservar el estado de un objeto, por ejemplo, serializarlo en el Portapapeles.
+- La serialización XML solo serializa propiedades y campos públicos y no preserva la fidelidad de tipo. Dado que XML es un estándar abierto, es una opción atractiva para compartir los datos por la web.
 - La serialización de JSON solo serializa propiedades públicas y no preserva la fidelidad de tipo.
 
 ### Serializacion JSON
 Actualmente se ha convertido en un estándar ampliamente utilizado para el intercambio de información entre sistemas.
 
 #### Json con Stream
-1. Instanciamos el objeto que vamos a serializar
-1. Usamos la clase `JsonSerializer` para guardar el contenido del objeto en un stream que debemos de enviar, por ejemplo podemos enviarle un `StreamFile`
-1. Deserializamos leyendo el stream correspondiente y mapeando en contenido JSON en un objeto nuevo del tipo indicado.
+Lee un objeto stream y lo convierte a texto con formato JSON
 
 ```Csharp
-var crearJSON = new ClaseParaJSON()
-{
-    Ruta = "archivo.txt"
-};
-await JsonSerializer.SerializeAsync(jsonStream, json);
+await JsonSerializer.SerializeAsync(stream, objectToSerialize);
+```
 
-var localizacion = await JsonSerializer.DeserializeAsync<ClaseParaJSON>(jsonStream);
+Lee un JSON obtenido por un objeto Stream y lo devuelve en una instancia del tipo indicado.
+```Csharp
+await JsonSerializer.DeserializeAsync<T>(stream);
 ```
 
 #### Json con objetos
-1. Creamos el objeto a mapear
-1. Serializamos el objeto, lo que nos devolvera un `string` con el contenido del json
-1. Suponiendo un JSON en memoria con esos datos
-1. Deserializamos el contenido json en un objeto del tipo que le pasamos.
+Convierte un objeto a un texto en formato JSON
 
 ```Csharp
 var serializacion = new ClaseSerializacion("Nombre", "Apellido", "cuentaaaa bancariaaaa");
 var serializado = JsonSerializer.Serialize(serializacion);
+```
 
-
+Lee un texto en formato JSON y devuelve una instancia del tipo indicado.
+```Csharp
 const string JSON = @"{""Nombre"":""Nombre"",""Apellidos"":""Apellido""}";
 var deserializado = JsonSerializer.Deserialize<ClaseSerializacion>(JSON);
 ```
@@ -659,18 +511,11 @@ empresa.Save(nombreArchivo);
 ```
 
 #### XML Serializando objetos con Streams
-1. Creamos un objeto de la clase a serializar
-1. Creamos una instancia de `XmlSerializer` al que le tenemos que pasar el tipo que se va a serializar
-1. Invocamos el metodo `Serialize` enviandole un objeto `Stream`, por ejemplo, le podemos mandar un `File.Open()` y el objeto a serializar.
-
 ```Csharp
 var serializacion = new ClaseSerializacion("Nombre", "Apellido", "cuentaaaa bancariaaaa");
 var xmlSerializer = new XmlSerializer(typeof(ClaseSerializacion));
 xmlSerializer.Serialize(streamObject, serializacion);
 ```
-
-1. Creamos una instancia de `XmlSerializer` al que le tenemos que pasar el tipo que se va a serializar
-1. Invocamos el metodo `Deserialize` enviandole un objeto `Stream`, por ejemplo, le podemos mandar un `File.Open()` y nos devolvera una instancia del tipo indicado anteriormente.
 ```Csharp
 var xmlSerializer = new XmlSerializer(typeof(ClaseSerializacion));
 var objetoDeserializado = xmlSerializer.Deserialize(streamObject);
@@ -686,7 +531,7 @@ Cuando realizamos un **Request** y recibimos una **Response**, este, nos indicar
 
 Para ver los codigos de estado, podemos acceder [aqui](https://es.wikipedia.org/wiki/Anexo:C%C3%B3digos_de_estado_HTTP)
 
-**Importante**  
+>**Importante**  
 Hacer uso de `HttpClient` dentro de un bloque `using` puede ocasionar problemas porque cuando se invoca el metodo `Dispose` no se cierra la conexion directamente, sino que el servidor suele dejarla como en *espera* durante un tiempo, por tanto, los sockets se pueden ir ocupando y llegar un punto en el cual no haya sockets disponibles en la aplicacion para funcionar. 
 
 En el siguiente ejemplo hacemos un bucle de 10 conexiones con el using y ejecutamos un comando `netstat` en el servidor para comprobar las conexiones establecidas y si nos fijamos, las conexiones no se cierran.
@@ -704,25 +549,18 @@ El protocolo TCP/IP funciona de la siguiente manera.
 
 ![image](https://user-images.githubusercontent.com/28193994/147914590-f0ea6873-5148-4f4e-8059-5e6104cd2e01.png)
 
-
-La solución mas común es incluirlo como static y no hacer uso de dispose. De esta forma lo que estamos haciendo es compartir el mismo socket para todas las conexiones.
-
 Una solucion, sobretodo para Dependency Injection, es usar la clase `HttpClientFactory` que hay nas abajo explicada,
 
 ### Configurar Headers
 Para crear, eliminar y modificar los headers de una solicitud Http, en el objeto de `HttpClient` debemos acceder a la propiedad `DefaultRequestHeaders` la cual contendra toda la informacion sobre las diferentes cabeceras que se pueden tratar.
 
 ```Csharp
-using var consulta = new HttpClient();
-
-consulta.DefaultRequestHeaders.Accept.Clear();
-
-consulta.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-consulta.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", autenticationToken);
+httpClient.DefaultRequestHeaders.Accept.Clear();
+httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", autenticationToken);
 ```
 
-### Solicitud GET
+### **GET**
 Formas de consultar datos por **GET** a un API
 
 Cabe destacar que las solicitudes `GET` se envian los datos de consulta a traves de `QueryString` y se puede configurar de la siguiente forma.
@@ -738,62 +576,48 @@ url.ToString();
 
 #### GetStringAsync
 ```Csharp
-await httpClient.GetStringAsync(urlFinal);
+httpClient.GetStringAsync(urlFinal);
 ```
 
 #### GetFromJsonAsync
 ```Csharp
-await httpClient.GetFromJsonAsync<ClaseDeserializar>(urlFinal);
+httpClient.GetFromJsonAsync<ClaseDeserializar>(urlFinal);
 ```
 
-### Solicitud POST
+### **POST**
 Metodos para envio de datos por **POST** a un API.
 
 #### PostAsync
-1. `StringContent`: Creamos el contenido que vamos a hacer post.
-    1. `content`: contenido a enviar en formato string.
-    1. `encoding`: tipo de codificacion con la que esta escrita la peticion, por ejemplo, `UTF8Encoding.UTF8`
-    1. `mediaType`: el tipo de datos que contiene la peticion, por ejemplo, `application/json`.
-
 ```Csharp
-HttpClient httpClient = new HttpClient();
-var content = new StringContent("string con el contenido", encoding, "tipo de envio");
-
-await httpClient.PostAsync($"url", content);
+var content = new StringContent("string con el contenido", UTF8Encoding.UTF8, "application/json");
+httpClient.PostAsync($"url", content);
 ```
 
 #### PostAsJsonAsync
 ```Csharp
-await Http.PostAsJsonAsync<TipoSerializar>("url", objetoToSerializar); 
+httpClient.PostAsJsonAsync<TipoSerializar>("url", objetoToSerializar); 
 ```
 
-### Solicitud PUT
+### **PUT**
 Metodos de enviar datos para actualizar por **PUT** en un API
 
 #### PutAsync
-1. `StringContent`: Creamos el contenido que vamos a hacer post.
-    1. `content`: contenido a enviar en formato string.
-    1. `encoding`: tipo de codificacion con la que esta escrita la peticion, por ejemplo, `UTF8Encoding.UTF8`
-    1. `mediaType`: el tipo de datos que contiene la peticion, por ejemplo, `application/json`.
-
 ```Csharp
-HttpClient httpClient = new HttpClient();
-var content = new StringContent("string con el contenido", encoding, "tipo de envio");
-
-await httpClient.PutAsync($"url", content);
+var content = new StringContent("string con el contenido", UTF8Encoding.UTF8, "application/json");
+httpClient.PutAsync($"url", content);
 ```
 
 #### PustAsJsonAsync
 ```Csharp
-await Http.PutAsJsonAsync<TipoSerializar>("url", objetoToSerializar); 
+httpClient.PutAsJsonAsync<TipoSerializar>("url", objetoToSerializar); 
 ```
 
-### Solicitud DELETE
+### **DELETE**
 Metodos solicitar el borrado de algun dato por **DELETE** a un API
 
 #### DeleteAsync
 ```Csharp
-await httpClient.DeleteAsync($"url");
+httpClient.DeleteAsync($"url");
 ```
 
 ### HttpClient con Dependency Injection
