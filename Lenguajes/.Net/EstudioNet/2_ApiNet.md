@@ -1742,22 +1742,19 @@ Las operaciones **Parallel** estan mas centradas en usan multiples hilos, puesto
     ![image](https://user-images.githubusercontent.com/28193994/148693892-581d79e0-1e8f-409b-bcee-d3fa3bad1a19.png)
 
 
-
 # Gestion de Memoria
 La administración de memoria automática es uno de los servicios que proporciona el CLR durante la ejecución. Los programadores no tienen que escribir código para realizar tareas de administración de memoria al programar aplicaciones administradas. La administración automática de la memoria puede eliminar problemas frecuentes, como olvidar liberar un objeto y causar una pérdida de memoria.
 
 ## Garbage Collector
 El recolector de elementos no utilizados administra la asignación y liberación de la memoria de una aplicación.
 
-<font size="4">**Asignar memoria**</font>
-
+### Asignar memoria
 Cuando inciamos la aplicacion, se reserva un espacio para las direcciones de memoria denominado montón administrado, que contiene un puntero a la dirección que se asignará al siguiente objeto. Todos los tipos de referencia se asignan en el montón administrado. Cuando creamos el primer tipo de referencia, se le asigna la memoria base del montón. Cuando creamos el resto de objetos se va asignando memoria en los espacios que siguen inmediatamente despues a la asignacion del ultimo objeto.
 
 La asignación de memoria desde el montón administrado es más rápida que la asignación de memoria no administrada. Como el JIT asigna memoria a los objetos agregando un valor a un puntero, este método es casi tan rápido como la asignación de memoria desde la pila. Además, puesto que los nuevos objetos que se asignan consecutivamente se almacenan uno junto a otro en el montón administrado, la aplicación puede tener un acceso muy rápido a los objetos.
 
 
-<font size="4">**Liberar memoria**</font>
-
+### Liberar memoria
 El **GC** determina cuál es el mejor momento para realizar una recolección basándose en las asignaciones. Cuando lleva a cabo una recolección, libera la memoria de los objetos que no se usan. 
 
 **GC** determina qué objetos ya no se usan examinando las **raíces** de la aplicación. Todas las aplicaciones tienen un conjunto de **raíces**. Cada raíz hace referencia a un objeto del montón, o bien se establece en `null`. Las **raíces** de una aplicación incluyen campos estáticos, variables locales y parámetros de pila de un subproceso y registros de la CPU. El **GC** tiene acceso a la lista de **raíces** activas que **Just-In-Time (JIT)** y el runtime mantienen. Se examinan las **raíces** de la aplicación y, durante este proceso, crea un gráfico que contiene todos los objetos que no se pueden alcanzar. Durante el proceso de recolección, usa una función de copia de memoria para compactar los objetos **alcanzables** en la memoria y libera los bloques de espacios **inalcanzables**. 
@@ -1766,8 +1763,7 @@ Una vez que se ha compactado la memoria de los objetos alcanzables, el **GC** ha
 
 Para mejorar el rendimiento, el tiempo de ejecución asigna memoria a los objetos grandes en un montón aparte. El recolector de elementos no utilizados libera la memoria para los objetos grandes automáticamente. Sin embargo, para no mover objetos grandes en la memoria, dicha memoria no se compacta.
 
-<font size="4">**Generaciones y rendimiento**</font>
-
+### Generaciones y rendimiento
 Para optimizar el rendimiento del recolector de elementos no utilizados, el montón administrado se divide en tres generaciones: **0, 1 y 2**.
 - Es más rápido compactar la memoria de una parte del montón administrado que la de todo el montón.
 - Los objetos más recientes tienen una duración más corta y los objetos antiguos tienen una duración más larga. 
