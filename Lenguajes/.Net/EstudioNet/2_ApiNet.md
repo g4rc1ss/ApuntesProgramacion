@@ -144,12 +144,20 @@ public class EnumeradorPersonalizado<T> : IEnumerator<T>
 
     public bool MoveNext()
     {
-        // code
+        if (++indiceActual >= collection.Length)
+        {
+            return false;
+        }
+        else
+        {
+            objetoActual = collection[indiceActual];
+        }
+        return true;
     }
 
     public void Reset()
     {
-        // code
+        indiceActual = -1;
     }
 }
 ```
@@ -563,7 +571,7 @@ httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", autent
 ### **GET**
 Formas de consultar datos por **GET** a un API
 
-Cabe destacar que las solicitudes `GET` se envian los datos de consulta a traves de `QueryString` y se puede configurar de la siguiente forma.
+Cabe decir que las solicitudes `GET` se envian los datos de consulta a traves de `QueryString` y se puede configurar de la siguiente forma.
 
 ```Csharp
 var url = new UriBuilder(urlBase);
@@ -623,7 +631,7 @@ httpClient.DeleteAsync($"url");
 ### HttpClient con Dependency Injection
 Podemos configurar parametros en el objeto HttpClient para inyectarlo como dependencia y centrarnos solamente en realizar la peticion que necesitamos.
 
-**Importante**  
+> **Importante**  
 Este metodo no es recomendable usarlo por el problema de los sockets comentado anteriormente.
 
 ```Csharp
@@ -653,22 +661,6 @@ private readonly HttpClient _httpClient;
 public DispensacionConsultaNegocio(IHttpClientFactory httpClientFactory)
 {
     _httpClient = httpClientFactory.CreateClient("Nombre identificador");
-}
-```
-
-1. En vez de registrar el serivicio de la forma convencional, podemos registrarlo con `AddHttpClient<>`.
-1. Inyectamos la dependencia directamente importante la clase `HttpClient`
-```Csharp
-services.AddHttpClient<IServicio, Servicio>(httpClient =>
-{
-    httpClient.BaseAddress = new Uri("url");
-});
-
-private readonly HttpClient _httpClient;
-
-public DispensacionConsultaNegocio(HttpClient httpClient)
-{
-    _httpClient = httpClient;
 }
 ```
 
@@ -777,20 +769,28 @@ result => new
     UltimaModificacion = Convert.ToDateTime(result["MODIFIEDON"])
 });
 ```
-
 > **Importante**: Hay que hacer uso de las queries parametrizadas para evitar problemas como las Sql Injection.
 
 
-# LINQ
-Linq es una API orientada al uso de consultas a diferentes tipos de contenido, como objetos, entidades, XML, etc. De esta manera se resume en una sintaxis sencilla y fácil de leer, tratar y mantener el tratamiento de diferentes tipos de datos.
+# LINQ (Language Integrated Query)
+Con el tiempo se han desarrollado diferentes lenguajes para los distintos tipos de orígenes de datos, como `SQL` para las bases de datos relacionales y `XQuery` para XML.
+
+ LINQ simplifica tener que aprender diferentes lenguajes de consulta para trabajar con los datos de varios formatos y orígenes. En una consulta LINQ siempre se trabaja con objetos. Se usan los mismos patrones de codificación básicos para consultar y transformar datos de documentos XML, bases de datos SQL, conjuntos de datos de ADO.NET, colecciones y cualquier otro formato para el que haya disponible un proveedor de LINQ.
+
+ Los objetos compatibles con LINQ tienen que tener implementadas las interfaces `IEnumerable` o `IQueryable`
+
+ - **IQueryable**: Está pensada para que sea implementada por los proveedores de consultas. Esta interfaz esta pensada para ejecutar e interpretar [**árboles de expresion**](#arboles-de-expresion)
 
 ## Sintaxis de consulta
-### From
+La mayoría de las consultas de la documentación introductoria de Language Integrated Query (LINK) se escribe con la sintaxis de consulta declarativa de LINQ. Pero la sintaxis de consulta debe traducirse en llamadas de método para .NET Common Language Runtime (CLR) al compilar el código. Estas llamadas de método invocan los operadores de consulta estándar, que tienen nombres tales como Where, Select, GroupBy, Join, Max y Average. Puede llamarlas directamente con la sintaxis de método en lugar de la sintaxis de consulta.
+
+### Where
 ```Csharp
-var cust = new List<Customer>();
-//queryAllCustomers is an IEnumerable<Customer>
-from cust in customers
-select cust;
+from prod in products
+where prod.Name == "Producto 2"
+select prod;
+
+products.Where(prod => prod.Name == "Producto 2");
 ```
 
 ### Join
@@ -815,7 +815,6 @@ category => category.ID,
 
 ### Let
 ```Csharp
-
 from sentence in strings
 let words = sentence.Split(' ')
 from word in words
@@ -824,15 +823,6 @@ where w[0] == 'a' || w[0] == 'e'
     || w[0] == 'i' || w[0] == 'o'
     || w[0] == 'u'
 select word;
-```
-
-### Where
-```Csharp
-from prod in products
-where prod.Name == "Producto 2"
-select prod;
-
-products.Where(prod => prod.Name == "Producto 2");
 ```
 
 ### Group by
@@ -873,50 +863,52 @@ select product;
 products.OrderByDescending(product => product.CategoryID);
 ```
 
-## Evaluacion/Ejecucion de Consulta
-Para poder tratar las consultas, la api de LINQ devuelve objetos del tipo `IEnumerable<>` o `IQueryable<>`.  
-Hay diferentes formas de leer los datos, por un lado mediante un `foreach` se pueden iterar un `IEnumerable` y por otro lado, hay metodos que convierten los datos a una coleccion directamente.
+## Ejecucion aplazada de consulta
+
+```Csharp
+var query = products.Where(prod => prod.Name == "Producto 2");
+foreach(var prod in query)
+{
+}
+```
+
+## Ejecucion Inmediata de consulta
+Hay varias formas de ejecutar la consulta **Linq**. Uno de ellos seria mediante un bucle `foreach` y otra mediante funciones que extienden directamente de `IEnumerable` que serian los siguientes.
 
 ### ToList
 ```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).ToList();
+products.Where(prod => prod.Name == "Producto 2")
+    .ToList();
 ```
 
 ### ToArray
 ```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).ToArray();
+products.Where(prod => prod.Name == "Producto 2")
+    .ToArray();
 ```
 
 ### ToDictionary
 ```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).ToDictionary(key => key.CategoryID, value => value.Name);
+products.Where(prod => prod.Name == "Producto 2")
+    .ToDictionary(key => key.CategoryID, value => value.Name);
 ```
 
 ### ToLookup
 ```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).ToLookup(key => key.CategoryID, value => value.Name);
+products.Where(prod => prod.Name == "Producto 2")
+    .ToLookup(key => key.CategoryID, value => value.Name);
 ```
 
 ### Count
 ```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).Count()
+products.Where(prod => prod.Name == "Producto 2")
+    .Count()
  ```
 
 ### FirstOrDefault
 ```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).FirstOrDefault()
+products.Where(prod => prod.Name == "Producto 2")
+    .FirstOrDefault()
  ```
 
 ## Extension de Linq
@@ -1040,7 +1032,6 @@ public static List<T> ToListPersonalizada<T>(this IEnumerable<T> enumerable)
     return lista;
 }
 ```
-
 
 ## Arboles de Expresion
 Los árboles de expresiones son estructuras de datos que definen código. Se basan en las mismas estructuras que usa un compilador para analizar el código y generar el resultado compilado. Hay cierta similitud entre los árboles de expresiones y los tipos usados en las API de Roslyn para compilar analizadores y correcciones de código. (Los analizadores y las correcciones de código son paquetes de NuGet que realizan un análisis estático en código y pueden sugerir posibles correcciones). Los conceptos son similares y el resultado final es una estructura de datos que permite examinar el código fuente de forma significativa. En cambio, los árboles de expresiones se basan en un conjunto de clases y API totalmente diferentes a las de Roslyn.
