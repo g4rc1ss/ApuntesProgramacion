@@ -1744,10 +1744,38 @@ Las operaciones **Parallel** estan mas centradas en usan multiples hilos, puesto
 
 
 # Gestion de Memoria
-
+La administración de memoria automática es uno de los servicios que proporciona el CLR durante la ejecución. Los programadores no tienen que escribir código para realizar tareas de administración de memoria al programar aplicaciones administradas. La administración automática de la memoria puede eliminar problemas frecuentes, como olvidar liberar un objeto y causar una pérdida de memoria.
 
 ## Garbage Collector
+El recolector de elementos no utilizados administra la asignación y liberación de la memoria de una aplicación.
 
+<font size="4">**Asignar memoria**</font>
+
+Cuando inciamos la aplicacion, se reserva un espacio para las direcciones de memoria denominado montón administrado, que contiene un puntero a la dirección que se asignará al siguiente objeto. Todos los tipos de referencia se asignan en el montón administrado. Cuando creamos el primer tipo de referencia, se le asigna la memoria base del montón. Cuando creamos el resto de objetos se va asignando memoria en los espacios que siguen inmediatamente despues a la asignacion del ultimo objeto.
+
+La asignación de memoria desde el montón administrado es más rápida que la asignación de memoria no administrada. Como el JIT asigna memoria a los objetos agregando un valor a un puntero, este método es casi tan rápido como la asignación de memoria desde la pila. Además, puesto que los nuevos objetos que se asignan consecutivamente se almacenan uno junto a otro en el montón administrado, la aplicación puede tener un acceso muy rápido a los objetos.
+
+
+<font size="4">**Liberar memoria**</font>
+
+El **GC** determina cuál es el mejor momento para realizar una recolección basándose en las asignaciones. Cuando lleva a cabo una recolección, libera la memoria de los objetos que no se usan. 
+
+**GC** determina qué objetos ya no se usan examinando las **raíces** de la aplicación. Todas las aplicaciones tienen un conjunto de **raíces**. Cada raíz hace referencia a un objeto del montón, o bien se establece en `null`. Las **raíces** de una aplicación incluyen campos estáticos, variables locales y parámetros de pila de un subproceso y registros de la CPU. El **GC** tiene acceso a la lista de **raíces** activas que **Just-In-Time (JIT)** y el runtime mantienen. Se examinan las **raíces** de la aplicación y, durante este proceso, crea un gráfico que contiene todos los objetos que no se pueden alcanzar. Durante el proceso de recolección, usa una función de copia de memoria para compactar los objetos **alcanzables** en la memoria y libera los bloques de espacios **inalcanzables**. 
+
+Una vez que se ha compactado la memoria de los objetos alcanzables, el **GC** hace las correcciones de puntero necesarias para que las raíces de la aplicación señalen a los objetos en sus nuevas ubicaciones. También sitúa el puntero del montón administrado después del último objeto alcanzable. La memoria sólo se compacta si, durante una recolección, se detecta un número significativo de objetos inalcanzables. Si todos los objetos del montón administrado sobreviven a una recolección, no hay necesidad de comprimir la memoria.
+
+Para mejorar el rendimiento, el tiempo de ejecución asigna memoria a los objetos grandes en un montón aparte. El recolector de elementos no utilizados libera la memoria para los objetos grandes automáticamente. Sin embargo, para no mover objetos grandes en la memoria, dicha memoria no se compacta.
+
+<font size="4">**Generaciones y rendimiento**</font>
+
+Para optimizar el rendimiento del recolector de elementos no utilizados, el montón administrado se divide en tres generaciones: **0, 1 y 2**.
+- Es más rápido compactar la memoria de una parte del montón administrado que la de todo el montón.
+- Los objetos más recientes tienen una duración más corta y los objetos antiguos tienen una duración más larga. 
+- Los objetos más recientes suelen estar relacionados unos con otros y la aplicación tiene acceso a ellos más o menos al mismo tiempo.
+
+El **GC** almacena los nuevos objetos en la generación 0. Los objetos que sobreviven a las recolecciones se mueven y se almacenan en las generaciones 1 y 2. Como es más rápido compactar una parte del montón administrado que todo el montón, este esquema permite que el recolector libere la memoria en una generación específica en lugar de para todo el montón.
+
+El **GC** realiza la recolección cuando se llena la generación 0. Si una aplicación trata de crear un nuevo objeto cuando está llena, invoca un proceso de liberacion. Primero examina los objetos de la generación 0. Éste es un enfoque más eficaz, ya que los objetos nuevos suelen tener una duración más corta y se espera que la aplicación no utilice muchos de los objetos de la generación 0 cuando se realice una recolección. Además, una recolección de tan sólo la generación 0 a menudo recupera suficiente memoria para que la aplicación pueda continuar creando nuevos objetos.
 
 ## Codigo inseguro (unsafe)
 La mayor parte del código de C# que se escribe es "código seguro comprobable". El código seguro comprobable significa que las herramientas de .NET pueden comprobar que el código es seguro. En general, el código seguro no accede directamente a la memoria mediante punteros. Tampoco asigna memoria sin procesar. En su lugar, crea objetos administrados.
