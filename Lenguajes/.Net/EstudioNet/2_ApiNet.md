@@ -728,72 +728,71 @@ public static async Task<IEnumerable<T>> ExecuteSqlQueryAsync<T>(this DbConnecti
 {
     using (connection)
     {
-        using (var connect = connection.CreateCommand())
+        using var connect = connection.CreateCommand();
+        connect.CommandText = sql;
+        connect.CommandType = System.Data.CommandType.Text;
+
+        foreach (var parameter in parameters)
         {
-            connect.CommandText = sql;
-            connect.CommandType = System.Data.CommandType.Text;
-
-            foreach (var parameter in parameters)
-            {
-                connect.Parameters.Add(parameter);
-            }
-            await connection.OpenAsync();
-
-            using (var rows = await connect.ExecuteReaderAsync())
-            {
-                var entities = new List<T>();
-                while (await rows.ReadAsync())
-                {
-                    entities.Add(mapper(rows));
-                }
-                return entities;
-            }
+            connect.Parameters.Add(parameter);
         }
+        await connection.OpenAsync();
+
+        using var rows = await connect.ExecuteReaderAsync();
+        var entities = new List<T>();
+        while (await rows.ReadAsync())
+        {
+            entities.Add(mapper(rows));
+        }
+        return entities;
     }
 }
 ```
-La forma de ejecutar el codigo anterior seria de la siguiente forma.
-```Csharp
-var parameters = new List<DbParameter>
-{
-    new SqlParameter($"@NombreParametro", NombreParametro)
-};
-var dbConnection = new SqlConnection("Cadena de conexion");
-dbConnection.ExecuteSqlQueryAsync(sql, parameters,
-result => new
-{
-    anonimo1 = new
-    {
-        Nombre = result["NOMBRENEW"] == null ? null : result["NOMBRENEW"].ToString(),
-    },
-    UltimaModificacion = Convert.ToDateTime(result["MODIFIEDON"])
-});
-```
 > **Importante**: Hay que hacer uso de las queries parametrizadas para evitar problemas como las Sql Injection.
-
 
 # LINQ (Language Integrated Query)
 Con el tiempo se han desarrollado diferentes lenguajes para los distintos tipos de orígenes de datos, como `SQL` para las bases de datos relacionales y `XQuery` para XML.
 
- LINQ simplifica tener que aprender diferentes lenguajes de consulta para trabajar con los datos de varios formatos y orígenes. En una consulta LINQ siempre se trabaja con objetos. Se usan los mismos patrones de codificación básicos para consultar y transformar datos de documentos XML, bases de datos SQL, conjuntos de datos de ADO.NET, colecciones y cualquier otro formato para el que haya disponible un proveedor de LINQ.
+LINQ simplifica tener que aprender diferentes lenguajes de consulta para trabajar con los datos de varios formatos y orígenes. En una consulta LINQ siempre se trabaja con objetos. Se usan los mismos patrones de codificación básicos para consultar y transformar datos de documentos XML, bases de datos SQL, conjuntos de datos de ADO.NET, colecciones y cualquier otro formato para el que haya disponible un proveedor de LINQ.
 
- Los objetos compatibles con LINQ tienen que tener implementadas las interfaces `IEnumerable` o `IQueryable`
+Los objetos compatibles con LINQ tienen que tener implementadas las interfaces `IEnumerable` o `IQueryable`
 
- - **IQueryable**: Está pensada para que sea implementada por los proveedores de consultas. Esta interfaz esta pensada para ejecutar e interpretar [**árboles de expresion**](#arboles-de-expresion)
+- **IQueryable**: Está pensada para que sea implementada por proveedores de consultas. Un uso muy habitual es con `EntityFramework` para traducir las consultas a `SQL`. Esta interfaz esta pensada para ejecutar e interpretar [**árboles de expresion**](https://docs.microsoft.com/es-es/dotnet/csharp/expression-trees-explained#:~:text=Los%20%C3%A1rboles%20de%20expresiones%20son,y%20generar%20el%20resultado%20compilado.&text=Si%20fuera%20a%20analizarlo%20como,el%20%C3%A1rbol%20contiene%20varios%20nodos.)
 
-## Sintaxis de consulta
-La mayoría de las consultas de la documentación introductoria de Language Integrated Query (LINK) se escribe con la sintaxis de consulta declarativa de LINQ. Pero la sintaxis de consulta debe traducirse en llamadas de método para .NET Common Language Runtime (CLR) al compilar el código. Estas llamadas de método invocan los operadores de consulta estándar, que tienen nombres tales como Where, Select, GroupBy, Join, Max y Average. Puede llamarlas directamente con la sintaxis de método en lugar de la sintaxis de consulta.
+## Sintaxis de Linq
+Hay varias formas de hacer uso de esta libreria
+- **Sintaxis de consulta**: Sintaxis de `C#` que es muy parecido visualmente a lenguajes como `SQL`. Internamente el compilador convierte este tipo de consulta a la sintaxis de metodo correspondiente. Es la forma recomendable de uso cuando creamos queries complejas.
+- **Sintaxis de Metodo**: Metodos de extensión de Linq que, por lo general, reciben expresiones para realizar filtros, agrupaciones, ordenaciones, etc.
+
+### Select
+Filtra una secuencia de valores en función de un predicado.
+```Csharp
+from prod in products
+select new ProductoDto
+{
+    Name = prod.Name,
+};
+```
+```Csharp
+products.Select(prod => new ProductoDto
+{
+    Name = prod.Name,
+});
+```
 
 ### Where
+Filtra una secuencia de valores en función de un predicado.
 ```Csharp
 from prod in products
 where prod.Name == "Producto 2"
 select prod;
-
+```
+```Csharp
 products.Where(prod => prod.Name == "Producto 2");
 ```
 
 ### Join
+Establece la correlación de dos secuencias basándose en claves coincidentes
 ```Csharp
 from category in categories
 join prod in products on category.ID equals prod.CategoryID
@@ -802,30 +801,39 @@ select new
     ProductName = prod.Name,
     Category = category.Name
 };
-
+```
+```Csharp
 products.Join(categories,
-product => product.CategoryID,
-category => category.ID,
-(product, category) => new
-{
-    ProductName = product.Name,
-    Category = category.Name
-});
+    product => product.CategoryID,
+    category => category.ID,
+    (product, category) => new
+    {
+        ProductName = product.Name,
+        Category = category.Name
+    });
 ```
 
-### Let
+### Order by
+Ordena de manera ascendente y descendente los elementos de una secuencia.
 ```Csharp
-from sentence in strings
-let words = sentence.Split(' ')
-from word in words
-let w = word.ToLower()
-where w[0] == 'a' || w[0] == 'e'
-    || w[0] == 'i' || w[0] == 'o'
-    || w[0] == 'u'
-select word;
+from product in products
+orderby product.CategoryID ascending
+select product;
+```
+```Csharp
+products.OrderBy(product => product.CategoryID);
+```
+```Csharp
+from product in products
+orderby product.CategoryID descending
+select product;
+```
+```Csharp
+products.OrderByDescending(product => product.CategoryID);
 ```
 
 ### Group by
+Agrupa los elementos de una secuencia.
 ```Csharp
 from product in products
 group product by new
@@ -838,7 +846,8 @@ select new
     idCategoria = prod.Key.CategoryID,
     nombre = prod.Key.Name
 };
-
+```
+```Csharp
 products.GroupBy(product => new
 {
     product.CategoryID,
@@ -850,162 +859,45 @@ products.GroupBy(product => new
 });
 ```
 
-### Order by
+### Let
+Almacenar el resultado de una subexpresión para usarlo en las cláusulas siguientes.
 ```Csharp
-from product in products
-orderby product.CategoryID ascending
-select product;
-products.OrderBy(product => product.CategoryID);
-
-from product in products
-orderby product.CategoryID descending
-select product;
-products.OrderByDescending(product => product.CategoryID);
+from sentence in strings
+let words = sentence.Split(' ')
+from word in words
+let w = word.ToLower()
+where w[0] == 'a' || w[0] == 'e'
+    || w[0] == 'i' || w[0] == 'o'
+    || w[0] == 'u'
+select word;
 ```
 
 ## Ejecucion aplazada de consulta
-
-```Csharp
-var query = products.Where(prod => prod.Name == "Producto 2");
-foreach(var prod in query)
-{
-}
-```
+La ejecución aplazada significa que la operación no se realiza en el punto en el código donde se declara la consulta. La operación se realiza solo cuando se enumera la variable de consulta, por ejemplo, mediante una instrucción `foreach`.
 
 ## Ejecucion Inmediata de consulta
-Hay varias formas de ejecutar la consulta **Linq**. Uno de ellos seria mediante un bucle `foreach` y otra mediante funciones que extienden directamente de `IEnumerable` que serian los siguientes.
+La ejecución inmediata significa que se lee el origen de datos y la operación se realiza en el punto en el código donde se declara la consulta.
 
-### ToList
-```Csharp
-products.Where(prod => prod.Name == "Producto 2")
-    .ToList();
-```
+Algunos metodos que proporciona el api Linq para la ejecucion inmediata son los siguientes:
+- **.ToArray**: Crea una matriz que contiene los resultados.
+- **.ToList**: Fuerza la evaluación inmediata de la consulta y devuelve un `List<T>` que contiene los resultados de la consulta
+- **.ToDictionary**: Crea un objeto `Dictionary<TKey,TValue>` según el selector de claves especificado y las funciones del selector de elementos.
+- **.ToLookup**: Crea un objeto `Lookup<TKey,TElement>` genérico.
+- **.FirstOrDefault**: Devuelve el primer elemento de una secuencia o un valor predeterminado si no se encuentra ningún elemento.
+- **.SingleOrDefault**: Devuelve un único elemento concreto de una secuencia o un valor predeterminado si no se encuentra ese elemento.
+- **.Count**: Devuelve el número de elementos de una secuencia.
 
-### ToArray
-```Csharp
-products.Where(prod => prod.Name == "Producto 2")
-    .ToArray();
-```
+## Personalizar Linq
+Podemos ampliar Linq de forma personalizada creando metodos de extension sobre las interfaces `IEnumerable<T>` e `IQueryable<T>`.
 
-### ToDictionary
-```Csharp
-products.Where(prod => prod.Name == "Producto 2")
-    .ToDictionary(key => key.CategoryID, value => value.Name);
-```
-
-### ToLookup
-```Csharp
-products.Where(prod => prod.Name == "Producto 2")
-    .ToLookup(key => key.CategoryID, value => value.Name);
-```
-
-### Count
-```Csharp
-products.Where(prod => prod.Name == "Producto 2")
-    .Count()
- ```
-
-### FirstOrDefault
-```Csharp
-products.Where(prod => prod.Name == "Producto 2")
-    .FirstOrDefault()
- ```
-
-## Extension de Linq
-En `Linq` mediante el uso de la interfaz `IEnumerable<T>` se pueden realizar metodos de extension para ampliar y personalizar la libreria linq para realizar filtros o guardar el objeto en una lista personalizada
-
-### Creacion de consultas personalizadas
-Formas de extender la clase `IEnumerable` para crear consultas personalizadas en Linq.
-
-#### Consulta personalizada con Iterator
-1. Creamos el metodo de extension sobre la interfaz `IEnumerable<T>` y recibimos una funcion que recibe un parametro `T` y devolvera un `bool`
-1. Retornamos una instacia de nuestra clase, que implementará la interfaz `IEnumerator<T>`
-```Csharp
-public static IEnumerable<T> WherePersonalizado<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
-{
-    return new EnumeratorPersonalizadoWhere<T>(enumerable, predicate);
-}
-```
-
-1. Creamos una clase que tiene que implementar `IEnumerable` e `IEnumerator<T>`
-    - `IEnumerable` es implementada, puesto que tenemos que devolver un IEnumerable para que se pueda tratar como **Linq** cuando devolvamos la instancia.
-    - `IEnumerator` es implementada para que la instancia pueda sea iterable. Cuando se intenta acceder al siguiente elemento mediante un bucle, llama al metodo `MoveNext()`, es donde habra que realizar la tarea asignada a la nuestra instancia.
-```Csharp
-public class EnumeratorPersonalizadoWhere<T> : IEnumerable<T>, IEnumerator<T>
-{
-    private readonly Func<T, bool> _predicate;
-    private readonly IEnumerable<T> _enumerable;
-    private IEnumerator<T>? _enumerator;
-    private int caso;
-
-    public T Current { get; }
-
-    object IEnumerator.Current => Current;
-
-    public EnumeratorPersonalizadoWhere(IEnumerable<T> enumerable, Func<T, bool> predicate)
-    {
-        _predicate = predicate;
-        _enumerable = enumerable;
-        caso = 1;
-    }
-
-    public bool MoveNext()
-    {
-        switch (caso)
-        {
-            case 1:
-                _enumerator = _enumerable.GetEnumerator();
-                caso = 2;
-                goto case 2;
-                break;
-            case 2:
-                while (_enumerator.MoveNext())
-                {
-                    var item = _enumerator.Current;
-                    if (_predicate(item))
-                    {
-                        return true;
-                    }
-                }
-                Dispose();
-                break;
-        }
-        return false;
-    }
-
-    public void Reset()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Dispose()
-    {
-        if (_enumerator == null) return;
-        _enumerator.Dispose();
-        _enumerator = null;
-    }
-
-    public IEnumerator<T> GetEnumerator()
-    {
-        return this;
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
-}
-```
-
-#### Consulta personalizada con Yield
+### Extendiendo consulta sobre `IEnumerable`
 Gracias al uso de yield podemos ahorrarnos el lastre de crear una clase personalizada para iteracion
-
 1. Creamos el metodo de extension de `IEnumerable` y recibimos los parametros correspondientes para realizar la consulta
 1. Creamos un bucle foreach del enumerable que recibimos para poder resolver el resto de iterators.
 1. Realizamos el proceso de la consulta que necestiamos
-1. Usamos la instruccion `yield return` para devolver lo que necesitamos.
+1. Usamos la instruccion `yield return` para devolver el elemento.
 ```Csharp
-public static IEnumerable<T> WherePersonalizadoYield<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
+public static IEnumerable<T> WherePersonalizado<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
 {
     foreach (var item in enumerable)
     {
@@ -1017,9 +909,8 @@ public static IEnumerable<T> WherePersonalizadoYield<T>(this IEnumerable<T> enum
 }
 ```
 
-### Crear ejecucion personalizada de la consulta
+### Extendiendo ejecucion inmediata sobre `IEnumerable`
 Para resolver una consulta **linq** debemos de iterarlo, por ejemplo, creando un bucle foreach. De esta forma se resuelve la consulta.
-
 ```Csharp
 public static List<T> ToListPersonalizada<T>(this IEnumerable<T> enumerable)
 {
@@ -1028,124 +919,31 @@ public static List<T> ToListPersonalizada<T>(this IEnumerable<T> enumerable)
     {
         lista.Add(item);
     }
-
     return lista;
 }
 ```
 
-## Arboles de Expresion
-Los árboles de expresiones son estructuras de datos que definen código. Se basan en las mismas estructuras que usa un compilador para analizar el código y generar el resultado compilado. Hay cierta similitud entre los árboles de expresiones y los tipos usados en las API de Roslyn para compilar analizadores y correcciones de código. (Los analizadores y las correcciones de código son paquetes de NuGet que realizan un análisis estático en código y pueden sugerir posibles correcciones). Los conceptos son similares y el resultado final es una estructura de datos que permite examinar el código fuente de forma significativa. En cambio, los árboles de expresiones se basan en un conjunto de clases y API totalmente diferentes a las de Roslyn.
-
-Para la creacion y asignacion de una variable que sume 2 numeros, se crearia el siguiente arbol de expresion:
-
-- Instrucción de declaración de variable con asignación (var sum = 1 + 2;)
-    - Declaración de tipo de variable implícita (var sum)
-        - Palabra clave var implícita (var)
-        - Declaración de nombre de variable (sum)
-    - Operador de asignación (=)
-    - Expresión binaria de suma (1 + 2)
-        - Operando izquierdo (1)
-        - Operador de suma (+)
-        - Operando derecho (2)
-
-Podemos devolver el cuerpo de la funcion pasada como un string.  
-Por ejemplo, un uso muy elevado que se le da a los arboles de expresion es con `EntityFramework` para la conversion de objetos `IQueryable<>` a una consulta `SQL`
-```Csharp
-public static class ClaseExpression
-{
-    public static string WhereToString<T>(T argumento, Expression<Func<T, bool>> expression)
-    {
-        return $"WHERE {expression.Body.ToString().Replace("==", "=")}";
-    }
-}
-
-var persona = new Persona
-{
-    Nombre = "Hola",
-    Apellido = "Adios"
-};
-var expresion = ClaseExpression.WhereToString(persona, x => x.Nombre == x.Apellido);
-```
-
 
 # Reflexion
-`Reflection` proporciona objetos (de tipo `Type`) que describen los ensamblados, módulos y tipos. Puedes usar reflexión para crear dinámicamente una instancia de un tipo, enlazar el tipo a un objeto existente u obtener el tipo desde un objeto existente e invocar sus métodos, o acceder a sus campos y propiedades. Si usas atributos en el código, la reflexión le permite acceder a ellos.
+Permite obtener información sobre los ensamblados cargados y los tipos definidos dentro de ellos, como clases, interfaces y tipos de valor (es decir, estructuras y enumeraciones). También se puede usar para crear instancias de tipos en tiempo de ejecución, para llamarlas y para acceder a ellas.
 
-```Csharp
-interface IClaseReflexion
-{
-    string Nombre { get; set; }
-}
-
-interface IClaseReflexionDos : IClaseReflexion
-{
-    string Apellidos { get; set; }
-}
-
-public class ClaseReflexion : IClaseReflexionDos
-{
-    [Prueba("Hola", NamedInt = 5000)]
-    public string Nombre { get; set; }
-    public string Apellidos { get; set; }
-    private string CuentaBancaria { get; set; }
-
-
-    public ClaseReflexion()
-    {
-    }
-
-    public ClaseReflexion(string nombre, string apellidos, string cuentaBancaria)
-    {
-        Nombre = nombre ?? throw new ArgumentNullException(nameof(nombre));
-        Apellidos = apellidos ?? throw new ArgumentNullException(nameof(apellidos));
-        CuentaBancaria = cuentaBancaria ?? throw new ArgumentNullException(nameof(cuentaBancaria));
-    }
-}
-
-[AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]
-internal sealed class PruebaAttribute : Attribute
-{
-    // See the attribute guidelines at 
-    //  http://go.microsoft.com/fwlink/?LinkId=85236
-    private readonly string positionalString;
-
-    // This is a positional argument
-    public PruebaAttribute(string positionalString)
-    {
-        this.positionalString = positionalString;
-    }
-
-    public string PositionalString {
-        get { return positionalString; }
-    }
-
-    // This is a named argument
-    public int NamedInt { get; set; }
-}
-
-
-var obtenerTodasInterfaces = from interfaz in Assembly.GetExecutingAssembly().GetTypes()
-                             where interfaz.IsInterface
-                             select interfaz;
-var obtenerClaseImplementaInterface = from clase in Assembly.GetExecutingAssembly().GetTypes()
-                                      where clase.IsClass && clase.GetInterface(nameof(IClaseReflexion)) != null
-                                      select clase;
-var leerAtributosDePropiedades = from propiedad in typeof(ClaseReflexion).GetProperties()
-                                 let atributo = propiedad.GetCustomAttribute<PruebaAttribute>()
-                                 where atributo != null
-                                 select atributo;
-```
+Normalmente, la reflexión se usa para lo siguiente:
+- **Assembly** para definir y cargar ensamblados, cargar módulos enumerados en el manifiesto del ensamblado y buscar un tipo en este ensamblado y crear una instancia a partir de él.
+- **Module** para detectar información, como el ensamblado que contiene el módulo y las clases del módulo. También puede obtener todos los métodos globales u otros métodos específicos no globales definidos en el módulo.
+- **ConstructorInfo** para detectar información, como el nombre, los parámetros, los modificadores de acceso (por ejemplo, public o private) y detalles de implementación (por ejemplo, abstract o virtual) de un constructor. Usar el método `GetConstructors` o `GetConstructor` de un `Type` para invocar un constructor específico.
+- **MethodInfo** para detectar información, como el nombre, el tipo de retorno, los parámetros, los modificadores de acceso (por ejemplo, public o private) y detalles de implementación (por ejemplo, abstract o virtual) de un método. Usar el método `GetMethods` o `GetMethod` de un `Type` para invocar un método específico.
+- **FieldInfo** para detectar información como el nombre, los modificadores de acceso (por ejemplo, public o private) y detalles de la implementación (por ejemplo, static) de un campo, así como para obtener o establecer los valores del campo.
+- **EventInfo** para detectar información, como el nombre, el tipo de datos del controlador de eventos, los atributos personalizados, el tipo declarativo y el tipo reflejado de un evento, y para agregar o quitar controladores de eventos.
+- **PropertyInfo** para detectar información, como el nombre, el tipo de datos, la declaración de tipo, el tipo reflejado y el estado de solo lectura o de escritura de una propiedad, así como para obtener o establecer los valores de la propiedad.
+- **ParameterInfo** para detectar información, como el nombre del parámetro, el tipo de datos, si un parámetro es de entrada o de salida, y la posición del parámetro en una firma de método.
+- **CustomAttributeData** para detectar información sobre atributos personalizados cuando se trabaja en el contexto de solo reflexión de un dominio de aplicación. CustomAttributeData permite examinar los atributos sin crear instancias de ellos. Las clases del espacio de nombres `System.Reflection.Emit` proporcionan una forma especializada de reflexión que permite compilar tipos en tiempo de ejecución.
 
 
 # MultiThreading
 Muchos equipos y estaciones de trabajo personales tienen varios núcleos de CPU que permiten ejecutar múltiples subprocesos simultáneamente. Para aprovecharse del hardware, se puede paralelizar el código para distribuir el trabajo entre dichos núcleos.
 
-Por ejemplo, imaginemos que tenemos una aplicacion que requiere de realizar 3 consultas para obtener datos diferentes de una BBDD, aprovechandonos del multithreading, podemos hacer uso de la clase Parallel para realizar esas consultas de forma paralelizada y reducir los tiempos.
-
-
 ## Thread
-Con la clase Thread se pueden crear multiples hilos para poder ejecutar tareas a traves de subprocesos. Esta clase permite obtener el paralelismo de los datos.
-
+Crea y controla un subproceso para procesar un codigo en otro hilo de ejecucion.
 ```Csharp
 var hilo = new Thread(() =>
 {
@@ -1157,10 +955,10 @@ var hilo = new Thread(() =>
 hilo.Start();
 ```
 
-
 ## ThreadPool
-La clase ThreadPool se utiliza para poder reutilizar los hilos y optimizar su uso.  
-Con la clase Thread, cada vez que ejecutamos un metodo `start()` se crea un nuevo hilo para ejecutar la accion correspondiente. Con esta clase lo que se consigue es que si ya existe un hilo creado y este ha terminado su ejecucion, poder reutilizarlo para la ejecucion de otra instruccion, con esto evitamos un consumo extra de registros.
+Proporciona un grupo de subprocesos que pueden usarse para ejecutar tareas, exponer elementos de trabajo, procesar la E/S asincrona, esperar en nombre de otros subprocesos y procesar temporizadores.
+
+Muchas aplicaciones crean subprocesos que invierten mucho tiempo en el estado inactivo, a la espera de que se produzca un evento. Otros subprocesos pueden entrar en un estado de inactividad que solo se activa periódicamente para sondear un cambio o información de estado de actualización. El grupo de subprocesos permite usar subprocesos de forma más eficaz al proporcionar a la aplicación un grupo de subprocesos de trabajo administrados por el sistema.
 
 ```Csharp
 ThreadPool.QueueUserWorkItem(x =>
@@ -1185,71 +983,25 @@ var hilo1 = new Thread(() =>
 });
 hilo1.Start();
 hilo1.Join();
-
-var hilo2 = new Thread(() => {
-    for (int i = 0; i < 5; i++)
-    {
-        Console.WriteLine($"Hilo 2 {i}");
-    }
-});
-hilo2.Start();
-hilo2.Join();
-
 Thread.Sleep(1000);
 ```
 
-## Bloqueos de hilos
-Consiste en bloquear un hilo para que, cuando un hilo esta ejecutando la tarea correspondiente no se pueda manipular dicha ejecucion a traves de otros hilos que estan en ejecucion.
-
 ### lock()
-El uso del metodo `lock` se usa para indicar a los subprocesos que han de esperar a que acabe el hilo que esta en ejecucion dentro del bloque de instruccion.  
+El uso del metodo `lock` se usa para indicar a los subprocesos que han de esperar a que acabe el hilo que esta en ejecucion dentro del bloque de instruccion.
+
 Para poder hacer uso de `lock`, se tiene que crear un objeto instaciado de la clase `object` y agregarlo como parametro.
 
-En el siguiente codigo, si lo probamos se podra apreciar que siempre se obtiene el mismo resultado, puesto que cada vez que se hace la operacion de suma o resta se realiza el bloqueo, si probamos a quitar la instruccion `lock` Y lo ejecutamos, cada vez se mostrará un resultado diferente, a eso se le denomina `condicion de carrera`
+Cuando ejecutamos codigo externo al que se esta procesando en el nuevo hilo, por ejemplo, creamos varios `Thread` que suman una variable que ambos comparten, puede que los hilos accedan a la vez a modificar dicho valor. A este problema se le llama **condicion de carrera**. Para evitarlo se hace uso de la instruccion `lock`
 ```Csharp
-class CuentaBancaria
+private object bloqueoAgregarCantidad = new object();
+
+public void AgregarCantidad(int dinero)
 {
-    private object bloqueoAgregarCantidad = new object();
-    private object bloqueoQuitarCantidad = new object();
-    private int cantidad;
-
-    public int Cantidad {
-        get {
-            return cantidad;
-        }
-        set {
-            cantidad = value;
-        }
-    }
-
-    public CuentaBancaria(int cantidad)
+    lock (bloqueoAgregarCantidad)
     {
-        Cantidad = cantidad;
-    }
-    public void QuitarCantidad(int dinero)
-    {
-        lock (bloqueoQuitarCantidad)
-        {
-            Cantidad -= dinero;
-        }
-    }
-    public void AgregarCantidad(int dinero)
-    {
-        lock (bloqueoAgregarCantidad)
-        {
-            Cantidad += dinero;
-        }
+        Cantidad += dinero;
     }
 }
-
-// Codigo que ejecuta
-var cuentaBancaria = new CuentaBancaria(10000);
-new Thread(() => cuentaBancaria.AgregarCantidad(500)).Start();
-new Thread(() => cuentaBancaria.QuitarCantidad(400)).Start();
-new Thread(() => cuentaBancaria.AgregarCantidad(300)).Start();
-new Thread(() => cuentaBancaria.QuitarCantidad(200)).Start();
-
-Console.WriteLine(cuentaBancaria.Cantidad);
 ```
 
 
@@ -1473,34 +1225,24 @@ Las operaciones **Parallel** estan mas centradas en usan multiples hilos, puesto
 ### Ejemplos de uso de tipos de paralizacion
 - Si queremos realizar varias consultas a base de datos de forma simultanea podemos hacer uso de las operaciones asincronas directamente.
     ```Csharp
-        public async Task<List<UserResponse>> GetListUsers()
-        {
-            using var context = _contextFactory.CreateDbContext();
-            await Task.Delay(1000);
-            return await (from user in context.User
-                        select new UserResponse
-                        {
-                            Id = user.Id,
-                            NombreUsuario = user.UserName,
-                            Nombre = user.NormalizedUserName,
-                            Email = user.Email,
-                            TieneDobleFactor = user.TwoFactorEnabled
-                        }).ToListAsync();
-        }
-
+    public Task<List<UserResponse>> GetListUsers()
+    {
+        using var context = _contextFactory.CreateDbContext();
+        return context.User.ToListAsync();
+    }
     ```
     - Suponiendo la ejecucion de multiples queries
         - Creamos una lista de tareas
         - Ejecutamos las tareas y las agregamos en la lista
         - Esperamos el resultado de las queries
     ```Csharp
-        var tareas = new List<Task>();
+    var tareas = new List<Task>();
 
-        foreach (var item in Enumerable.Range(0, 10))
-        {
-            tareas.Add(userDam.GetListUsers());
-        }
-        await Task.WhenAll(tareas);
+    foreach (var item in Enumerable.Range(0, 10))
+    {
+        tareas.Add(userDam.GetListUsers());
+    }
+    await Task.WhenAll(tareas);
     ```
 
 - Si queremos realiza operaciones costosas, por ejemplo, deserializar varios objetos grandes en memoria, leer estructuras de datos muy complejas, calculos muy grandes, debemos de usar el paralelismo por cpu.
@@ -1709,15 +1451,8 @@ Cabe decir que no siempre se almacenan en el **stack**, por ejemplo, si usamos u
 ```Csharp
 public struct Coords
 {
-    public Coords(double x, double y)
-    {
-        X = x;
-        Y = y;
-    }
-
     public double X { get; }
     public double Y { get; }
-
     public override string ToString() => $"({X}, {Y})";
 }
 ```
@@ -1730,16 +1465,6 @@ Para poder declarar la estructura como inmutable se puede usar el modificador `r
 ```Csharp
 public readonly struct Coords
 {
-    public Coords(double x, double y)
-    {
-        X = x;
-        Y = y;
-    }
-
-    public double X { get; init; }
-    public double Y { get; init; }
-
-    public override string ToString() => $"({X}, {Y})";
 }
 ```
 
@@ -1809,8 +1534,6 @@ using (var objeto = File.Create(""))
 {
     objeto.ToString();
 }
-
-using var objeto = File.Create("");
 ```
 
 Los finalizadores (también denominados destructores) se usan para realizar cualquier limpieza final necesaria cuando el recolector de basura va a liberar el objeto de memoria
