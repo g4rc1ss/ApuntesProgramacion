@@ -1,7 +1,7 @@
 # Dependency Injection
-La inversión de dependencias es un principio que describe un conjunto de técnicas destinadas a disminuir el acoplamiento entre los componentes de una aplicación. Es uno de los principios SOLID más populares y utilizados en la creación de aplicaciones, frameworks y componentes por las ventajas que aporta a las mismas.
+La inversión de dependencias es un principio que describe un conjunto de técnicas destinadas a disminuir el acoplamiento entre los componentes de una aplicación. 
 
-La inversión de dependencias suele también conocerse como inversión de control. En inglés, los términos más frecuentemente utilizados son "dependency inversion", abreviado como "DI", e "inversion of control" o simplemente "IoC".
+La inversión de dependencias suele también conocerse como inversión de control.
 
 Muy resumidamente, el Principio de Inversión de Dependencias propone evitar las dependencias rígidas entre componentes mediante las siguientes técnicas:
 
@@ -11,7 +11,7 @@ Muy resumidamente, el Principio de Inversión de Dependencias propone evitar las
 ## Tipos de DI
 A la hora de registrar la dependencia, tenemos 3 opciones que difieren en el **tiempo de vida**.
 
-El contenedor mantiene todos los servicios que crea y una vez su tiempo de vida (lifetime) termina, son disposed o liberados para el garbage collector.
+El contenedor mantiene todos los servicios que crea y una vez su tiempo de vida (lifetime) termina, son disposed.
 
 Es importante elegir el tipo de tiempo de vida correctamente, ya que no todos nos darán los mismos resultados.
 
@@ -38,10 +38,7 @@ En otras palabras, cada vez que utilicemos un servicio “Transient” este ser�
 
 ![image](https://user-images.githubusercontent.com/28193994/147787579-3aba78aa-9071-4fa1-9552-a5540b6b3302.png)
 
-Cuando programamos, definir que tipo de `lifetime` vamos a dar a nuestros servicios es importante, pero no solo eso, sino que debemos asegurarnos que nuestros servicios no dependen en otros servicios con tiempos de vida menores que ellos.
-
-Y esto es debido a que así evitaremos errores o funcionamientos extraños durante el tiempo de ejecución.  
-Si mi servicio `Scope` depende de un servicio `Transient`, puede que la dependencia transient, al tener un tiempo de vida menor, sea liberada y el scope pueda ver su proceso alterado o incluso saltar una excepcion.
+Cuando programamos, definir que tipo de `lifetime` vamos a dar a nuestros servicios es importante, pero no solo eso, sino que debemos asegurarnos que nuestros servicios no dependen en otros servicios con tiempos de vida menores que ellos. Esto es debido a que así evitaremos errores o funcionamientos extraños durante el tiempo de ejecución. Si mi servicio `Scope` depende de un servicio `Transient`, puede que la dependencia transient, al tener un tiempo de vida menor, sea liberada y el scope pueda ver su proceso alterado o incluso saltar una excepcion.
 
 ## Formas de uso de DI
 Despues de registrar el servicio que queremos implementar en la inyeccion de dependencias, requerimos de poder hacer uso de el en el resto del codigo.
@@ -62,11 +59,6 @@ public class ClaseDI
     {
         _userAction = userAction;
     }
-
-    private async Task MetodoEjecutaDependencia()
-    {
-        var respUsuarios = await _userAction.GetAllUsers();
-    }
 }
 ```
 
@@ -80,11 +72,6 @@ public class ClaseDI
 {
     [Dependency]
     private readonly IUserAction _userAction;
-
-    private async Task MetodoEjecutaDependencia()
-    {
-        var respUsuarios = await _userAction.GetAllUsers();
-    }
 }
 ```
 
@@ -99,12 +86,7 @@ public class ClaseDI
     public ClaseDI(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
-    }
-
-    private async Task MetodoEjecutaDependencia()
-    {
-        var userAction = _serviceProvider.GetRequiredService<IUserAction>();
-        var respUsuarios = await userAction.GetAllUsers();
+        _serviceProvider.GetRequiredService<IUserAction>();
     }
 }
 ```
@@ -119,159 +101,69 @@ public class ClaseDI
     public ClaseDI(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
-    }
-
-    private async Task MetodoEjecutaDependencia()
-    {
         using(var service = _serviceProvider.CreateScope())
         {
             var userAction = service.ServiceProvider.GetRequiredService<IUserAction>();
-            var respUsuarios = await userAction.GetAllUsers();
         }
     }
 }
 ```
 
 ## Implementar DI en proyectos
+Para implementar solamente la Inyeccion de dependencias se podra usar el siguiente codigo.
+
+1. Instanciamos una clase del tipo `ServiceCollection`
+1. Agregamos las dependencias que necesitamos a la coleccion.
+1. Compilamos la coleccion para poder hacer uso de esas dependencias y obtenermos el `ServiceProvider`
+```Csharp
+var serviceCollection = new ServiceCollection();
+serviceCollection.AddTransient<Interface, Clase>();
+var provider = serviceCollection.BuildServiceProvider();
+```
+
 La inyeccion de dependencias se puede implementar en todos los tipos de proyectos actuales de .Net
 
-### Console Application
-1. Necesitamos crear un Objeto `IHostBuilder`, Microsoft tiene por defecto una factoria base que te devuelve dicho objeto, y es el metodo `Host.CreateDefaultBuider(args)`.
+### Host Generico
+El host es un objeto que encapsula todos los recursos de la aplicación, como:
+- Inserción de dependencias (ID)
+- Registro (logging)
+- Configuración
+- Implementaciones de IHostedService
 
-2. Agregamos la configuracion de logging, eso hace que cuando se use el objeto `ILogger` se pinte con dicha configuración.
+Cuando se inicia un host, se ejecuta el metodo `StartAsync` de los servicios registrados `IHostedService`.
 
-3. Agregamos la configuracion de servicios al contenedor de dependencias.  
-En este apartado agregamos los servicios como la configuracion de la Base de Datos, los servicios de la aplicacion, etc.  
-Como dato **importante**, los servicios de la aplicacion deberan de agregarse con el tipo `Transient`
+La razón principal para incluir todos los recursos interdependientes de la aplicación en un objeto es la administración de la duración: el control sobre el inicio de la aplicación y el apagado estable.
 
-4. Ejecutamos el metodo `Build()`, este metodo se encargará de implementar las configuraciones y devolver un objeto de tipo `IHost` que contendra la configuración anterior y podremos realizar procesos como correr la aplicacion, etc.
-
-5. Después de buildear la aplicación, se pueden hacer dos cosas.
-    1. Ejecutar la aplicacion con un `await app.RunAsync();`, se ejecutara al consola y se quedara escuchando que es lo que se requiere de hacer. Util cuando se quieren realizar procesos cada cierto tiempo, etc.
-    2. Mediante el objeto generado del `Build()`, se puede realizar un `app.Services.GetRequiredService<IClasePuntoDeEntrada>();` y ejecutar el metodo que inicia la aplicacion, por ejemplo, `clasePuntoDeEntrada.Main()`.
-
+1. `CreateDefaultBuilder`: Nos crea un objeto `IHostBuilder` con una configuracion por defecto como la variable de entorno, lectura de los archivos de configuracion(**appsettings**), etc.
+1. **ConfigureLogging** Metodo para indicar el funcionamiento del logging, como el proveedor, la forma de tratar los logs, etc.
+1. **ConfigureAppConfiguration**: Agrega los parametros de configuracion de la aplicacion.
+1. **ConfigureServices**: Agrega servicios al contenedor de dependencias
+1. Creamos el objeto `IHost` para poder ejecutar la aplicacion.
 ```Csharp
-var builder = Host.CreateDefaultBuilder(args);
+var builder = Host.CreateDefaultBuilder(e.Args);
 
 builder.ConfigureLogging((hostContext, log) =>
 {
-    log.AddConfiguration(hostContext.Configuration);
     log.AddConsole();
+});
+
+builder.ConfigureAppConfiguration((hostContext, configBuilder) =>
+{
+    config.AddUserSecrets(Assembly.GetExecutingAssembly());
 });
 
 builder.ConfigureServices((hostContext, services) =>
 {
-    services.AddOptions();
-    services.AddDbContextFactory<EjemploContext>(options =>
-    {
-        options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(EjemploContext)), sql =>
-        {
-            sql.MigrationsAssembly(typeof(Program).Assembly.FullName);
-        });
-    });
-    services.AddTransient(p => p.GetRequiredService<IDbContextFactory<EjemploContext>>().CreateDbContext());
-
-    services.AddTransient<IClasePuntoDeEntrada, ClasePuntoDeEntrada>();
+    services.AddTransient<IUserDam, UserDam>();
 });
-
 var app = builder.Build();
-
-var migrations = app.Services.GetRequiredService<MigrationService>();
-await migrations.StartAsync(CancellationToken.None);
-
 ```
 
-### Desktop Application
-1. Necesitamos crear un Objeto `IHostBuilder`, Microsoft tiene por defecto una factoria base que te devuelve dicho objeto, y es el metodo `Host.CreateDefaultBuider(args)`.
-
-1. Agregamos la configuracion para indicar el `Environment` en el que estamos, muy util para realizar ciertas acciones segun si estamos en `Development` o `Production`
-
-1. Agregamos la configuracion de la aplicacion mediante archivos `JSON` basandonos tambien en el nombre del entorno de ejecucion para cargar un archivo u otro.  
-Generalmente en estos archivos se almacenan los datos de acceso de la base de datos, etc.  
-Para acceder a esta configuracion se debe de implementar el objeto `IConfiguration`.
-
-1. Agregamos la configuracion de servicios al contenedor de dependencias.  
-En este apartado agregamos los servicios como la configuracion de la Base de Datos, los servicios de la aplicacion, etc.  
-Como dato **importante**, los servicios de la aplicacion deberan de agregarse con el tipo `Transient`.
-
-1. Ejecutamos el metodo `Build()`, este metodo se encargará de implementar las configuraciones y devolver un objeto de tipo `IHost` que contendra la configuración anterior y podremos realizar procesos como correr la aplicacion, etc.
-
-1. Mediante el objeto generado del `Build()`, se puede realizar un `app.Services.GetRequiredService<MainWindow>();` y ejecutar el metodo que inicia la aplicacion, por ejemplo, `presentation.Show()`.
-
-```Csharp
-public partial class App : Application
-{
-    protected override void OnStartup(StartupEventArgs e)
-    {
-        var builder = Host.CreateDefaultBuilder(e.Args);
-
-        builder.UseEnvironment(System.Environment.GetEnvironmentVariable("DESKTOP_ENVIRONMENT") ?? "Production");
-
-        builder.ConfigureAppConfiguration((hostContext, configBuilder) =>
-        {
-            configBuilder.AddJsonFile("appsettings.json");
-            configBuilder.AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true);
-        });
-
-        builder.ConfigureServices((hostContext, services) =>
-        {
-            services.AddOptions();
-
-                // services.AddFrontend();
-                services.AddTransient<MainWindow>();
-
-                // services.AddBackendBusiness();
-                // Actions
-                services.AddTransient<IUserAction, UserAction>();
-
-                // Managers
-                services.AddTransient<IUserManager, UserManager>();
-
-                // services.AddBackendData();
-                services.AddTransient<IUserDam, UserDam>();
-
-            services.AddDbContextFactory<ContextoSqlServer>(options =>
-            {
-                options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(ContextoSqlServer)));
-            });
-            services.AddTransient(p => p.GetRequiredService<IDbContextFactory<ContextoSqlServer>>().CreateDbContext());
-
-        });
-        var app = builder.Build();
-
-        app.Services.GetRequiredService<MainWindow>().Show();
-    }
-}
-```
-
-### Web Application
-1. Necesitamos crear un Objeto `WebApplicationBuilder`, Microsoft tiene por defecto una factoria base que te devuelve dicho objeto, y es el metodo `WebApplication.CreateBuilder(args)`.
-
-1. Agregamos la configuracion de servicios al contenedor de dependencias.  
-En este apartado agregamos los servicios como la configuracion de la Base de Datos, los servicios de la aplicacion, etc.  
-    1. Se agrega al contenedor de dependencias las `Paginas de Razor`
-    1. Se agrega al contenedor de dependencias las configuracion ubicada en el objeto `builder.Configuration`.
-
-1. Ejecutamos el metodo `Build()`, este metodo se encargará de implementar las configuraciones y devolver un objeto de tipo `WebApplication` que contendra la configuración anterior y podremos realizar procesos como correr la aplicacion, Middlewares, etc.
-
-1. Miramos si estamos en un entorno distinto al de desarrollo para poder implementar un Middleware de excepciones controladas para que cuando ocurra, se haga un Redirect a una Page y la implementacion `Hsts`.
-
-1. Con el objeto generado del `Build()`, implementamos los Middlewares a usar, en este caso:
-    1. `UseHttpsRedirection`: Middleware que se encarga de revisar si las peticiones van por `HTTP` y realizar un redirect de la misma al protocolo `HTTPS`.
-    1. `UseStaticFiles`: Middleware que se encarga de analizar los archivos estaticos que se requieren y enviarlos con la solicitud de respuesta.
-    1. `UseRouting`: Middleware que analiza la solicitud y revisa los puntos de conexion creados en la aplicacion e intenta encontrar cual es la mejor coincidencia para saber a que Page tiene que enrutar.
-    1. `UseAuthorizacion`: Middleware que se encarga de realizar una comprobación de autorizacion sobre una pagina.  
-    Basicamente verifica si la persona que solicita la conexion tiene los permisos necesarios para visualizar el contenido al que esta solicitando acceso, etc.  
-    **Importante** se tiene que crear despues de `UseRouting o UseEndpoints`, puesto que necesita saber a que ruta se va a acceder, 
-
-1. Mapeamos las paginas Razor para linkarlas con las rutas de acceso, de esta forma cuando nos soliciten una URL, sabremos a que pagina debemos de acceder y por ende, devovler.
-
-1. Ejecutamos la aplicación para empezar a poder recibir y gestionar peticiones.
-
+### Host Web
+Este tipo de host es igual al de arriba, la unica diferencia es que cuando se ejecute el metodo `RunAsync()` sera capaz de procesar peticiones **http**
 ```Csharp
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddAppConfiguration(builder.Configuration);
 
@@ -287,11 +179,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
-
 app.MapRazorPages();
 
 await app.RunAsync();
@@ -318,16 +207,6 @@ Gracias al uso de la cache, podemos evitar tantas llamadas de la siguiente forma
 1. `ExpirationScanFrequency`: Podemos indicar cada cuanto tiempo se debe de escanear cache caducada para ser eliminada de la memoria.
 1. `SizeLimit`: Sirve para indicar el tamaño maximo del almacenamiento en caché
 1. `CompactionPercentage`: Eliminar un porcentaje del contenido cuando se excede el limite de memoria establecido de caché.
-
-```Csharp
-public class MemoryCacheOptions : IOptions<MemoryCacheOptions>
-{
-    public ISystemClock Clock { get; set; }
-    public TimeSpan ExpirationScanFrequency { get; set; }
-    public long? SizeLimit { get; set; }
-    public double CompactionPercentage { get; set; }
-}
-```
 
 ## IMemoryCache
 Agregamos `MemoryCache` a la inyeccion de dependencias.
@@ -420,12 +299,6 @@ public Constructor(IDistributedCache distributedCache)
 - `GetStringAsync`: Obtenemos el objeto serializado en string del servidor.
 - `RefreshAsync`: Actualiza el valor de la cache en funcion de la key que le pasamos y reinicia su tiempo de vida.
 - `RemoveAsync`: Eliminamos el objeto guardado en cache.
-```Csharp
-await _distributedCache.SetStringAsync("identificador", "contenido");
-await _distributedCache.GetStringAsync("identificador");
-await _distributedCache.RefreshAsync("identificador");
-await _distributedCache.RemoveAsync("identificador");
-```
 
 
 # IOptions
@@ -461,22 +334,11 @@ builder.services.PostConfigure<T>(configuration =>
 La elección entre las diferentes interfaces del patrón `IOptions` dependerá de tu caso de uso, puesto que estos varían segun sus tiempos de vida.
 
 - `IOptions` si no vas a cambiar la configuración.
-
 - `IOptionsSnapshot` si vas a cambiar la configuración.
-
 - `IOptionsMonitor` si necesitas cambiar la configuración constantemente o detectas que ese cambio puede pasar en el medio de un proceso.
 
 ### IOptions
 Con esta opcion, nuestra configuracio se crea en el contenedor de dependencias como singleton, por lo que si la modificamos, no se podra visualizar dicho cambio.
-
-```Csharp
-private readonly T _configuracionCreada;
-
-public Clase(IOptions<T> configuracionCreada)
-{
-    _configuracionCreada = configuracionCreada.Value;
-}
-```
 
 ### IOptionsSnapshot
 Si implementamos esta interfaz, se creara una instancia del objeto correspondiente una vez por Request(**scoped**) la cual va a ser inmutable.
@@ -485,36 +347,12 @@ La ventaja principal es que nos permite cambiar el valor de la configuracion en 
 
 ![image](https://user-images.githubusercontent.com/28193994/147843223-464ee4fe-16a2-40e0-9e4d-a58a81640a94.png)
 
-La forma de acceder es la misma, pero implementando esta interfaz
-
-```Csharp
-private readonly T _configuracionCreada;
-
-public Clase(IOptionsSnapshot<T> configuracionCreada)
-{
-    _configuracionCreada = configuracionCreada.Value;
-}
-```
-
 ### IOptionsMonitor
 `IOptionsMonitor<T>` se inyecta en nuestro servicio como `Singleton` y funciona de una manera especial, ya que en vez de acceder a .Value para acceder a T como hacíamos anteriormente, ahora realizamos `.CurrentValue` el cual nos devuelve el valor en el momento.
 
 Esto quiere decir que si cambias el valor a mitad de la request o mitad de un proceso, este obtendrá el valor actualizado:
 
 ![image](https://user-images.githubusercontent.com/28193994/147843227-51c7f8c0-55cf-4897-a434-da23cf136f40.png)
-
-La forma de acceder es un tanto diferente:
-```Csharp
-private readonly IOptionsMonitor<T> _configuracionCreada;
-
-public Clase(IOptionsMonitor<T> configuracionCreada)
-{
-    _configuracionCreada = configuracionCreada;
-}
-
-// Para acceder a la informacion:
-_configuracionCreada.CurrentValue.Property
-```
 
 
 # IDataProtectionProvider
@@ -547,21 +385,7 @@ var destFolder = Path.Combine(
     System.Environment.GetEnvironmentVariable("LOCALAPPDATA"),
     "myapp-keys");
 
-// Instantiate the data protection system at this folder
-var dataProtectionProvider = DataProtectionProvider.Create(
-    new DirectoryInfo(destFolder));
-
-var protector = dataProtectionProvider.CreateProtector("Program.No-DI");
-Console.Write("Enter input: ");
-var input = Console.ReadLine();
-
-// Protect the payload
-var protectedPayload = protector.Protect(input);
-Console.WriteLine($"Protect returned: {protectedPayload}");
-
-// Unprotect the payload
-var unprotectedPayload = protector.Unprotect(protectedPayload);
-Console.WriteLine($"Unprotect returned: {unprotectedPayload}");
+DataProtectionProvider.Create(new DirectoryInfo(destFolder));
 ```
 
 ## Proteger la información
@@ -612,9 +436,9 @@ Para crear un Middleware necesitamos implementar la interfaz `IMiddleware` que n
     1. El `HttpContext` contiene todos los datos de la peticion, tanto el `Request` como el `Response` entre otras cosas.
     1. El `RequestDelegate` contiene el siguiente middleware a ejecutar, si no hay ningun Middleware mas, se pasará a ejecutar el proceso principal de la petición
 
-1. La ejecución del Middleware funciona de la sigueinte forma.
+1. La ejecución del Middleware funciona de la siguiente forma.
     1. Ejecutamos codigo antes de la ejecucion del proceso principal y el resto de Middlewares.
-    1. Ejecutamos la función `await next(context);`. Este delegado pasa al sigueinte Middleware sucesivamente hasta el proceso principal de la petición(la lógica de negocio).
+    1. Ejecutamos la función `await next(context);`. Este delegado pasa al siguiente Middleware sucesivamente hasta el proceso principal de la petición(la lógica de negocio).
     1. Cuando el proceso del delegado anterior termina, se ejecuta el codigo que queremos realizar despues de la petición.  
     Una vez finalizada la función se iran pasando a los anteriores Middlewares hasta que se devuelva la petición al usuario que solicito la Request.
 
