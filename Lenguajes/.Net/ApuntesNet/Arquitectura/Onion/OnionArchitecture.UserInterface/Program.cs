@@ -5,17 +5,10 @@ using OnionArchitecture.Database;
 using OnionArchitecture.Domain.Interfaces.UserInterfaceContracts;
 using OnionArchitecture.UserInterface;
 
-var builder = Host.CreateDefaultBuilder(args);
+var serviceCollection = new ServiceCollection();
+serviceCollection.AddUserIntefaces();
+serviceCollection.AddApplicationService();
+serviceCollection.AddDatabase();
 
-builder.ConfigureServices(services =>
-{
-    services.AddUserIntefaces();
-    services.AddApplicationService();
-    services.AddDatabase();
-});
-
-var app = builder.Build();
-
-var listaUsuariosUI = app.Services.GetRequiredService<IListaUsuarioUI>();
-
-await listaUsuariosUI.PintarListaUsuarios();
+var provider = serviceCollection.BuildServiceProvider();
+provider.GetRequiredService<IListaUsuarioUI>().PintarListaUsuarios();
