@@ -7,7 +7,7 @@ chardet==4.0.0
 charset-normalizer==2.0.4
 click==7.1.2
 colorama==0.4.4
-Django==3.2.10
+Django==3.2.11
 future==0.18.2
 googledrivedownloader==0.4
 idna==3.2
