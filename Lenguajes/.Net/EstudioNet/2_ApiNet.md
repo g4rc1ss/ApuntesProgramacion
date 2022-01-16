@@ -3,44 +3,29 @@ Una cadena es un objeto de tipo String cuyo valor es texto. Internamente, el
 texto se almacena como una colección secuencial de solo lectura de 
 objetos Char.
 
-## Métodos de string
 1. `Replace`: Devuelve una cadena en la que se reemplazan los caracteres introducidos, el primero es el valor a cambiar y el segundo parametro el nuevo valor
 1. `Split`: Devuelve un Array con la cadena separada dividiéndola cada vez que encuentre el char enviado, por defecto sera el símbolo '-'
 1. `IndexOf`: Devuelve el indice donde se encuentra el caracter indicado
 1. `CompareTo`: Compara el string con otro objeto, como por ejemplo, otra cadena
 1. `SubString`: Devuelve los caracteres entre una posicion de indice y otra, si no se indica la otra se devolvera la cadena desde el indice inicial
 
-```csharp
-var cadena = "Hola, yo me llamo Ralph, que tal estamos?";
-
-var cadenaReplace = cadena.Replace(',', '\n');
-
-var cadenaSplit = cadena.Split('m');
-
-var cadenaIndex = cadena.IndexOf('m');
-
-var cadenaCompare = cadena.CompareTo("Hola, yo me llamo Ralph");
-
-var cadenaSubString = cadena.Substring(3, 5);
-```
-
 ## Literales
 | Secuencia de escape | Nombre de carácter | Codificación Unicode |
 | ------------------- | ------------------ | -------------------- |
-| \\' | Comilla simple | 0x0027
-| \\" | Comilla doble  | 0x0022
-| \\\\ | Barra diagonal inversa | 0x005C
-| \\0 | Null | 0x0000
-| \\a | Alerta | 0x0007
-| \\b | Retroceso | 0x0008
-| \\f | Avance de página | 0x000C
-| \\n | Nueva línea | 0x000A
-| \\r | Retorno de carro | 0x000D
-| \\t | Tabulación horizontal | 0x0009
-| \\U | Secuencia de escape Unicode para pares suplentes. | \\Unnnnnnnn
-| \\u | Secuencia de escape Unicode | \\u0041 = "A"
-| \\v | Tabulación vertical | 0x000B
-| \\x | Secuencia de escape Unicode similar a "\u" | \x0041 o \x41 = "A"
+| `\'` | Comilla simple | 0x0027
+| `\"` | Comilla doble  | 0x0022
+| `\\` | Barra diagonal inversa | 0x005C
+| `\0` | Null | 0x0000
+| `\a` | Alerta | 0x0007
+| `\b` | Retroceso | 0x0008
+| `\f` | Avance de página | 0x000C
+| `\n` | Nueva línea | 0x000A
+| `\r` | Retorno de carro | 0x000D
+| `\t` | Tabulación horizontal | 0x0009
+| `\U` | Secuencia de escape Unicode para pares suplentes. | `\Unnnnnnnn`
+| `\u` | Secuencia de escape Unicode | `\u0041` = "A"
+| `\v` | Tabulación vertical | 0x000B
+| `\x` | Secuencia de escape Unicode similar a "\u" | \x0041 o \x41 = "A"
 
 ## Interpolacion de Cadenas
 La interpolación de cadenas se usa para mejorar la legibilidad y el mantenimiento del código. Se obtienen los mismos resultados que con el método `String.Format`, pero mejora la facilidad de uso y la claridad en línea.
@@ -49,22 +34,19 @@ var saludo = "Hola";
 Console.WriteLine($"{saludo} terricola");
 ```
 
-## StringBuilder
-StringBuilder es una clase de cadena mutable. Mutabilidad significa que una vez creada una instancia de la clase, se puede modificar anexando, quitando, reemplazando o insertando caracteres. 
+# StringBuilder
+**string** es una clase inmutable, eso quiere decir que su valor no puede ser modificado y por tanto, cuando realizamos labores como concatenar, lo que en realidad se hace es crear una cadena nueva con esas dos cadenas juntas.
 
-StringBuilder mantiene un búfer para alojar las modificaciones en la cadena.
-
-Los datos nuevos se anexan al búfer si hay espacio disponible; de lo contrario, se asigna un búfer nuevo y mayor, los datos del búfer original se copian en el nuevo búfer y, a continuación, los nuevos datos se anexan al nuevo búfer.
+**StringBuidler** en cambio permite la mutabilidad de la cadena, por tanto, es posible hacer modificaciones a esta sin ncesidad de crearla de nuevo, dando lugar a mas performance en dependiendo que situaciones.
 
 ```Csharp
 var stringBuilder = new StringBuilder();
-stringBuilder.Append(true);
 stringBuilder.Append("Terminado");
 stringBuilder.Replace("Hola", "Adios");
 var cadenaCompleta = stringBuilder.ToString();
 ```
 
-## Expresiones Regulares
+# Expresiones Regulares
 Las expresiones regulares proporcionan un método eficaz y flexible para procesar texto. La notación extensa de coincidencia de patrones de expresiones regulares permite analizar rápidamente grandes cantidades de texto para:
 
 - Buscar patrones concretos de caracteres.
@@ -87,172 +69,53 @@ Console.WriteLine(telefonoRegex);
 ```
 
 # Colecciones
-Las colecciones proporcionan una manera más flexible de trabajar con grupos de objetos. A diferencia de las matrices, el grupo de objetos con el que trabaja puede aumentar y reducirse de manera dinámica a medida que cambian las necesidades de la aplicación
+Todas las colecciones ofrecen métodos para agregar, quitar o buscar elementos.
 
+## Listas (`List<T>`)
+Una lista es un tipo de colección ordenada.
+> Estos objetos no son seguros para subprocesos, para ello es mejor usar `ConcurrentBag<T>`
 
-## Listas
-
-Una lista es un tipo de colección ordenada(un array)
-
-### Métodos de listas
 1. `Add`: Agrega al ultimo elemento de la lista el objeto que se le pasa por parametro
 1. `IndexOf`: Devuelve la posicion de la lista donde se ubica el objeto a buscar
 1. `Insert`: Insertas en la posicion 1 el objeto que se quiere, si hay elementos en dicha posicion se mueven hacia la derecha, por tanto el de la 1 pasaria a la posicion 2
 1. `Remove`: Eliminar de la lista el objeto indicado
 1. `Reverse`: Ordenas la lista al contra
 
-```Csharp
-var lista = new List<string>() { "Hola" };
+## Diccionario (`Dictionary<TKey, TValue>`)
+Es una estructura de datos que representa una colección de pares clave-valor
 
-lista.Add("me llamo Ralph");
+> - La clave tiene que ser única.  
+> - No se soporta la concurrencia o multihilo. Para ello se debe de usar `ConcurrentDictionary<TKey, TValue>`
 
-lista.IndexOf("Hola");
-
-lista.Insert(1, "jajajajaja");
-
-lista.Remove("me llamo Ralph");
-
-lista.Reverse();
-```
-
-
-## Diccionarios
-
-Una clase de Diccionario es una estructura de datos que representa una colección de 
-claves y valores de pares de datos. La clave es idéntica en un par clave-valor y puede 
-tener como máximo un valor en el diccionario
-
-### Métodos de diccionarios
 1. `Keys`: Devuelve una lista con las claves del diccionario
 1. `Values`: Devuelve una lista con los valores del diccionario
 1. `ContainsKey`: Devuelve un bool indicando si la clave existe en el diccionario
 1. `Remove`: Elimina la Key del diccionario y por tanto, los valores asociados a la misma
 1. `TryGetValue`: Metodo para obtener el valor asociado a la clave indicada
 
-```Csharp
-var diccionario = new Dictionary<string, string>()
-{
-    { "Clave", "Valor" },
-    {"Key", "Value" }
-};
+## Pilas  (`Stack<T>`)
+Coleccion de tipo **LIFO**(Last in, First Out), los elementos mas recientes son los que iremos obteniendo en iteracion.
+> Para crear un Stack seguro para subprocesos, usaremos `ConcurrentStack<T>`
 
-Dictionary<string, string>.KeyCollection claves = diccionario.Keys;
-
-Dictionary<string, string>.ValueCollection valores = diccionario.Values;
-
-diccionario.ContainsKey("Clave");
-
-diccionario.Remove("Key");
-
-diccionario.TryGetValue("Key", out string valor);
-
-```
-
-
-## Tuplas
-Una tupla es una estructura de datos que contiene una secuencia de elementos de diferentes tipos, esta estructura es de solo lectura, por tanto se usa para almacenar objetos que no van a ser modificados después.
-
-```Csharp
-var tupla = new Tuple<string, bool, int, double>("cadena", false, 500, 578.98);
-
-tupla.Item1;
-tupla.Item2;
-tupla.Item3;
-tupla.Item4;
-```
-
-
-## Tablas Hash
-Representa una colección de pares de clave y valor que se organizan por código hash de la clave
-
-### Métodos de tablas hash
-1. `Add`: Agrega un nuevo elemento con el par clave-valor
-1. `Remove`: Elimina la Clave y el valor asociado a la misma
-1. `ContainsKey`: Devuelve un bool para saber si contiene la clave
-1. `Clear`: Limpia todos los elementos de la tabla
-1. `["key"]`: Para acceder al valor asociado a la clave mediante el inidizador
-
-```Csharp
-var tablaHash = new Hashtable();
-
-tablaHash.Add("Key", "Value");
-
-tablaHash.Remove("Key");
-
-tablaHash.ContainsKey("Key");
-
-tablaHash.Clear();
-
-tablaHash["Key"];
-```
-
-
-## Pilas
-El Stack es una coleccion LIFO(Last in, First Out) sin tamaño fijo de los objetos indicados.
-
-Al usar la forma de almacenamiento LIFO, en la coleccion se trabaja todo el rato sobre los primeros elementos, osea que cuando agregas un elemento nuevo por ejemplo, no se guardaria en el ultimo indice, sino que se almacenaria en el indice 0, al principio de la coleccion.
-
-### Métodos de pilas
-1. `Push`: Agrega un nuevo elemento en la parte superior de Stack<T>
-1. `Pop`: Elimina un elemento de la parte superior
-1. `Peek`: Devuelve un eleemnto de la parte superior
-1. `Clear`: Limpia todos los elementos de la coleccion
-1. `ToArray`: Convierte la pila en un array del tipo indicado
+1. `Push`: Inserta un elemento al principio de `Stack<T>`
+1. `Pop`: Quita y devuelve el objeto situado al principio
+1. `Peek`: Devuelve el objeto situado al principio de `Stack<T>` sin eliminarlo.
+1. `Clear`: Quita todos los objetos de la coleccion
 1. `Contains`: Comprueba si exite el item que le pasamos por parametro
 
-```Csharp
-var pila = new Stack<string>();
+## Colas  (`Queue<T>`)
+Coleccion de tipo **FIFO**(First in, First out), el primer elemento que insertamos, sera el primero que recogemos al recorrer la coleccion
+> Para crear una Queue segura para subprocesos, usaremos `ConcurrentQueue<T>`
 
-pila.Push("Elemento");
-
-pila.Pop();
-
-pila.Peek();
-
-pila.Clear();
-
-pila.ToArray();
-
-pila.Contains("objeto");
-```
-
-
-## Colas
-La Queue es una coleccion FIFO(First In, First Out).
-
-Al usar la forma de almacenamiento FIFO, a la hora de agregar elementos se tendran que ir agregando al final de la coleccion y a la hora de trabajar con ellos, se iran extrayendo del mas antiguo al mas nuevo, por tanto, se accedera a los primeros.
-
-### Métodos de colas
 1. `Enqueue`: Agrega un nuevo elemento al final de la coleccion
 1. `Dequeue`: Elimina el elemento mas antiguo, por tanto el primer elemento de la coleccion
 1. `Peek`: Devuelve el elemento mas antiguo de la coleccion
 1. `Clear`: Limpia todos los elementos de la coleccion
-1. `ToArray`: Convierte la cola en un array del tipo indicado
 1. `Contains`: Comprobamos si la coleccion contiene un objeto especifico
 
-```Csharp
-var cola = new Queue<string>();
-
-cola.Enqueue("Elemento");
-
-cola.Dequeue();
-
-cola.Peek();
-
-cola.Clear();
-
-cola.ToArray();
-
-cola.Contains("objeto");
-```
-
-
-## Implementar la Interfaz IEnumerable
-`IEnumerable<T>` es la interfaz base para las colecciones, como listas, diccionarios, etc.  
-Tiene un metodo que ha de ser implementado llamado `GetEnumerator` que devolvera un objeto de tipo `IEnumerator<T>`.  
-
-Se puede usar la palabra clave `yield` para ir moviendonos al siguiente registro de la lista o implementando dicha interfaz en una clase para poder ir moviendonos a los siguientes elementos.
-
+## IEnumerable
+Expone un `Enumerator` para hacer un objeto iterable mediante instrucciones como `foreach` o el uso de librerias como `linq`
+- **GetEnumerator**: Es el encargado de vincular el objeto con un enumerador para procesar su iteracion.
 ```Csharp
 public class EnumerablePersonalizado<T> : IEnumerable<T>
 {
@@ -263,28 +126,21 @@ public class EnumerablePersonalizado<T> : IEnumerable<T>
         enumerable = new T[maxIndex];
     }
 
-    public IEnumerator<T> GetEnumerator() => new EnumeradorEnumerablePersonalizado<T>(enumerable);
+    public IEnumerator<T> GetEnumerator() => new EnumeradorPersonalizado<T>(enumerable);
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }
+```
 
-public class EnumeradorEnumerablePersonalizado<T> : IEnumerator<T>
+## IEnumerator
+Implementa el proceso de iteracion de un objeto.
+- **MoveNext**: Donde se ubica la logica de la iteracion, se debe de devolver un true o false para indicar si es posible dicha iteracion
+- **Reset**: Reseteamos el puntero de la interacion a la posicion inicial.
+
+```Csharp
+public class EnumeradorPersonalizado<T> : IEnumerator<T>
 {
-    private T[] collection;
-    private int indiceActual;
-    private T objetoActual;
-    private bool disposedValue = false;
-
-    public EnumeradorEnumerablePersonalizado(T[] collection)
-    {
-        this.collection = collection;
-        indiceActual = -1;
-        objetoActual = default;
-    }
-
-    public T Current { get { return objetoActual; } }
-
-    object IEnumerator.Current { get { return Current; } }
+    public T Current { get; set; }
 
     public bool MoveNext()
     {
@@ -303,201 +159,6 @@ public class EnumeradorEnumerablePersonalizado<T> : IEnumerator<T>
     {
         indiceActual = -1;
     }
-
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    private void Dispose(bool disposing)
-    {
-        if (!disposedValue)
-        {
-            if (disposing)
-            {
-                collection = null;
-                objetoActual = default;
-            }
-        }
-        disposedValue = true;
-    }
-}
-```
-
-
-## Implementar IList
-Si se quiere realizar un tipo de lista ordenada personalizado se debera de implementar la interfaz `IList<T>`.  
-Las listas requieren que sean dinamicas, por tanto se implementara el metodo `Add()`, que se pueda acceder a ellas mediante un `index[]`, que se puedan limpiar, etc.
-
-```Csharp
-public class ListaPersonalizada<T> : IList<T>
-{
-    public T[] lista;
-
-    public ListaPersonalizada()
-    {
-        lista = Array.Empty<T>();
-    }
-
-    public T this[int index] {
-        get {
-            return lista[index];
-        }
-
-        set {
-            lista[index] = value;
-        }
-    }
-
-    public int Count {
-        get {
-            return lista.Length;
-        }
-    }
-
-    public bool IsReadOnly {
-        get {
-            throw new NotImplementedException();
-        }
-    }
-
-    public void Add(T item)
-    {
-        var listaNueva = new T[lista.Length + 1];
-        for (int i = 0; i < lista.Length; i++)
-        {
-            listaNueva[i] = lista[i];
-        }
-        listaNueva[lista.Length] = item;
-        lista = listaNueva;
-    }
-
-    public void Clear() => throw new NotImplementedException();
-    public bool Contains(T item) => throw new NotImplementedException();
-    public void CopyTo(T[] array, int arrayIndex) => throw new NotImplementedException();
-    public int IndexOf(T item) => throw new NotImplementedException();
-    public void Insert(int index, T item) => throw new NotImplementedException();
-    public bool Remove(T item) => throw new NotImplementedException();
-    public void RemoveAt(int index) => throw new NotImplementedException();
-    public IEnumerator<T> GetEnumerator()
-    {
-        foreach (var item in lista)
-        {
-            yield return item;
-        }
-    }
-    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-}
-```
-
-
-## Implementar IDictionary
-`IDictionary<TKey, TValue>` es una interfaz base que se utiliza para las colecciones con pares clave-valor.  
-Las claves tienes que ser unicas y los valores pueden ser `null` o repetidos.
-
-```Csharp
-public class DiccionarioPersonalizado<TKey, TValue> : IDictionary<TKey, TValue>
-{
-    private DictionaryEntry[] dictionary;
-    private int itemsInUse = 0;
-
-    public DiccionarioPersonalizado()
-    {
-        dictionary = Array.Empty<DictionaryEntry>();
-    }
-
-    public TValue this[TKey key] {
-        get {
-            if (TryGetKeyIndex(key, out var index))
-            {
-                return (TValue)dictionary[index].Value;
-            }
-            return default;
-        }
-
-        set {
-            if (TryGetKeyIndex(key, out var index))
-            {
-                dictionary[index].Value = value;
-            }
-            else
-            {
-                Add(key, value);
-            }
-        }
-    }
-
-    public ICollection<TKey> Keys {
-        get {
-            var keys = new TKey[itemsInUse];
-            for (int i = 0; i < itemsInUse; i++)
-                keys[i] = (TKey)dictionary[i].Key;
-            return keys;
-        }
-    }
-
-    public ICollection<TValue> Values {
-        get {
-            var values = new TValue[itemsInUse];
-            for (int i = 0; i < itemsInUse; i++)
-                values[i] = (TValue)dictionary[i].Key;
-            return values;
-        }
-    }
-
-    public int Count {
-        get {
-            throw new NotImplementedException();
-        }
-    }
-
-    public bool IsReadOnly {
-        get {
-            throw new NotImplementedException();
-        }
-    }
-
-    private bool TryGetKeyIndex(object key, out int index)
-    {
-        for (index = 0; index < itemsInUse; index++)
-        {
-            if (dictionary[index].Key.Equals(key))
-                return true;
-        }
-        return false;
-    }
-
-    public void Add(TKey key, TValue value)
-    {
-        var diccionarioNuevo = new DictionaryEntry[itemsInUse + 1];
-        for (int i = 0; i < itemsInUse; i++)
-        {
-            diccionarioNuevo[i].Key = dictionary[i].Key;
-            diccionarioNuevo[i].Value = dictionary[i].Value;
-        }
-        diccionarioNuevo[itemsInUse].Key = key;
-        diccionarioNuevo[itemsInUse].Value = value;
-        dictionary = diccionarioNuevo;
-        itemsInUse++;
-    }
-
-    public void Add(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
-    public void Clear() => throw new NotImplementedException();
-    public bool Contains(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
-    public bool ContainsKey(TKey key) => throw new NotImplementedException();
-    public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex) => throw new NotImplementedException();
-    public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
-    {
-        foreach (var item in dictionary)
-        {
-            yield return new KeyValuePair<TKey, TValue>((TKey)item.Key, (TValue)item.Value);
-        }
-    }
-    public bool Remove(TKey key) => throw new NotImplementedException();
-    public bool Remove(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
-    public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value) => throw new NotImplementedException();
-    IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
 }
 ```
 
@@ -506,144 +167,39 @@ public class DiccionarioPersonalizado<TKey, TValue> : IDictionary<TKey, TValue>
 Un delegate es un tipo de referencia que puede utilizarse para encapsular un método con nombre o anónimo.
 
 ```Csharp
- private static void Imprimir(object objeto)
-{
-    Console.WriteLine(objeto);
-}
-private static string Retorna(string objeto)
-{
-    return objeto;
-}
-private static TResult RetornoMensaje<TSource, TResult>(TSource objeto)
-{
-    return (TResult)(object)objeto;
-}
 delegate void DelegadoNormal(string texto);
 delegate void DelegadoGeneric<in T>(T objeto);
 delegate string DelegadoRetorna(string textp);
 delegate TResult DelegadoGenericCompleto<in TSource, out TResult>(TSource objeto);
 
-// Como usarlos
-var delegadoNormal = new DelegadoNormal(Imprimir);
-delegadoNormal("Hola, soy el delegado normal");
-
-var persona = new Persona
-{
-    Nombre = "Ralph",
-    Apellido = "Simpson"
-};
-var delegadoGeneric = new DelegadoGeneric<Persona>(Imprimir);
-delegadoGeneric(persona);
-
-var delegadoRetorna = new DelegadoRetorna(Retorna);
-delegadoRetorna("Este es el mensaje que vamos a devolver");
-
-var delegadoGenericoCompleto = new DelegadoGenericCompleto<Persona, Persona>(RetornoMensaje<Persona, Persona>);
-var respuesta = delegadoGenericoCompleto(persona);
+var ejemplo = new DelegadoNormal(Console.WriteLine);
+ejemplo("Hola, soy el delegado normal");
 ```
 
 ## Delegados como Parametros
-El uso de delegamos como parametros permite una mayor flexibilidad a la hora de realizar procesos de automatizacion de codigo.  
-Por ejemplo la TPL es una libreria para ejecutar fragmentos de codigoe creando un hilo, pues los metodos que contiene para tal fin funcionan con la clase `Action` y `Func<>` para ejecutar el fragmento que el usuario desee y poder automatizar todo el proceso de manejo y creacion de threads
+El uso de delegados como parametros permite agregar flexibilidad a la hora de desarrollar, por ejemplo, una clase que realiza una consulta a base de datos y queremos mapear el resultado. Nosotros realizamos la consulta y el mapeo nos lo puede pasar el usuario, puesto que no tenemos por que saber el nombre de los campos que nos devolverá
 
 ### Action
-La clase `Action` recibe un delegado de tipo void como parametro, eso quiere decir que solo ejecuta el metodo que se le pasa, pero no devuelve ningun resultado.
+Permite ejecutar un delegado siempre que este no retorne nigun resultado.
 
+Si el delegado tiene que recibir parametros, se indicaran a traves de `generics`, por ejemplo, `Action<T1> action` o `Action<string> action`
 ```Csharp
-public static class ClaseAction
-{
-    public static void Run(Action action)
-    {
-        action?.Invoke();
-    }
-}
+public static void Run(Action action) => action();
 
-public void Imprimir(string texto)
-{
-    Console.WriteLine(texto);
-}
-
-// Pasamos un metodo existente mas arriba por parametro
-ClaseAction.Run(() => Imprimir("envio por action"));
-
-// Creamos nosotros mismos nuestro codigo inicializando el delegado en el parametro del metodo
-ClaseAction.Run(() =>
-{
-    Console.WriteLine("envio por action");
-});
-```
-
-```Csharp
-public static class ClaseExpression
-{
-    public static void Run<T1>(this T1 arg, Action<T1> action)
-    {
-        _ = action ?? throw new ArgumentNullException($"{nameof(action)} esta null");
-        action.Invoke(arg);
-    }
-}
-
-var persona = new Persona
-{
-    Nombre = "Hola",
-    Apellido = "Adios"
-};
-persona.Run(x => Imprimir(x.Apellido + x.Nombre));
+persona.Run(x => Imprimir("Soy un action"));
 persona.Run(x =>
 {
-    Console.WriteLine(x.Nombre + x.Apellido);
+    Console.WriteLine("Soy un action");
 });
 ```
 
 ### Func
-La clase `Func` hace lo mismo que la `Action` con la diferencia de que esta si que permite la devolucion de un resultado en la ejecucion del metodo delegado.
-
+Permite devolver un resultado en la ejecucion del delegado.
 ```Csharp
-public static class ClaseFunc
-{
-    public static TResult Run<TResult>(Func<TResult> action)
-    {
-        _ = action ?? throw new ArgumentNullException($"{nameof(action)} esta null");
-        return action.Invoke();
-    }
-}
+public static TResult Run<TResult>(Func<TResult> func) => func();
+public static TResult Run<T1, TResult>(this T1 x, Func<T1, string, TResult> func) => func(x, "");
 
-public static string Imprimir(string texto)
-{
-    Console.WriteLine(texto);
-    return texto;
-}
-
-var resultado = ClaseFunc.Run(() => Imprimir("metodo creado"));
-var resultado2 = ClaseFunc.Run(() =>
-{
-    var str = "metodo lambda";
-    Console.WriteLine(str);
-    return str;
-});
-```
-
-```Csharp
-public static class ClaseExpression
-{
-    public static TResult Run<T1, TResult>(Func<T1, TResult> action, T1 argument)
-    {
-        _ = action ?? throw new ArgumentNullException($"{nameof(action)} esta null");
-        return action.Invoke(argument);
-    }
-}
-
-var persona = new Persona
-{
-    Nombre = "Hola",
-    Apellido = "Adios"
-};
-var resultado = ClaseExpression.Run(x => Imprimir(x.Apellido + x.Nombre), persona);
-var resultado2 = ClaseExpression.Run(x =>
-{
-    Console.WriteLine(x.Nombre + x.Apellido);
-    return x.Nombre + x.Apellido;
-}, persona);
+ClaseFunc.Run(() => string.Empty);
 ```
 
 
@@ -656,7 +212,7 @@ Stream es una clase abstracta para todos los flujos. Un flujo es una secuencia d
 Las secuencias comprenden tres operaciones fundamentales:
 - Puede leer desde secuencias. La lectura es la transferencia de datos desde una secuencia a una estructura de datos, como una matriz de bytes.
 - Puede escribir en secuencias. La escritura es la transferencia de datos de una estructura de datos a una secuencia.
-- Los flujos pueden admitir búsquedas. La búsqueda hace referencia a la consulta y modificación de la posición actual dentro de una secuencia. La funcionalidad de búsqueda depende del tipo de almacenamiento de respaldo que tenga una secuencia. Por ejemplo, las secuencias de red no tienen un concepto unificado de una posición actual y, por lo general, no admiten la búsqueda.
+- Los flujos pueden admitir búsquedas. La búsqueda hace referencia a la consulta y modificación de la posición actual dentro de una secuencia.
 
 Algunas de las secuencias más utilizadas que heredan de Stream son `FileStream` , y `MemoryStream` .
 
@@ -741,16 +297,9 @@ Clase que debe recibir un objeto `Stream` y se utiliza para la lectura y escritu
 
 #### Lectura
 ```Csharp
-// Apertura del archivo `ArchivoBinario.bin` en modo lectura:
-// Muestra la información tal cual está escrita en el archivo binario:
 using (var fs = new FileStream(nombreArchivo, FileMode.Open, FileAccess.Read))
 {
     Console.Write(Environment.NewLine);
-    // Lectura y conversión de los datos binarios en el tipo de 
-    // correspondiente:
-
-    // Posiciona el cursor desde se iniciara la lectura del 
-    // archivo `ArchivoBinario`:
     fs.Position = 0;
     using (var br = new BinaryReader(fs))
     {
@@ -764,21 +313,10 @@ using (var fs = new FileStream(nombreArchivo, FileMode.Open, FileAccess.Read))
 
 #### Escritura
 ```Csharp
-// Crea objeto `FileStream` para referenciar un archivo binario -ArchivoBinario.bin-:
-// Escritura sobre el archivo binario `ArchivoBinario.bin` usando un 
-// objeto de la clase `BinaryWriter`:
-using (var fs = new FileStream(nombreArchivo, FileMode.Create, FileAccess.Write))
-{
-    using (var bw = new BinaryWriter(fs))
-    {
-        // Escritura de datos de naturaleza primitiva:
-        bw.Write(1.0M);
-        bw.Write("Este es el texto que se esta");
-        bw.Write('\n');
-        bw.Write("escribiendo con la Clase Binary de .NET");
-    }
-}
-Console.WriteLine($"Los datos han sido escritos en el archivo `{nombreArchivo}`.");
+using var fs = new FileStream(nombreArchivo, FileMode.Create, FileAccess.Write);
+using var bw = new BinaryWriter(fs);
+bw.Write(1.0M);
+bw.Write("Este es el texto que se esta escribiendo");
 ```
 
 #### Copia
@@ -810,22 +348,10 @@ File.Delete(archivo);
 1. `ReadAllBytesAsync`: Abre de forma asincrona un archivo binario, lee su contenido, lo introduce en una matriz de bytes y, a continuación, cierra el archivo.
 1. `ReadAllLinesAsync`: Abre de forma asincrona un archivo de texto, lee todas sus líneas y, a continuación, cierra el archivo.
 
-```Csharp
-await File.ReadAllTextAsync(nombreArchivoTextAsync);
-await File.ReadAllBytesAsync(nombreArchivoBytes);
-await File.ReadAllLinesAsync(nombreArchivoAllLines);
-```
-
 #### Escritura
 1. `WriteAllTextAsync`: Crea de forma asincrona un archivo nuevo, escribe en él la cadena especificada y, a continuación, lo cierra. Si el archivo de destino ya existe, se sobrescribe.
 1. `WriteAllBytesAsync`: Crea de forma asincrona un archivo nuevo, escribe en él la matriz de bytes especificada y, a continuación, lo cierra. Si el archivo de destino ya existe, se sobrescribe.
 1. `WriteAllLinesAsync`: Crea de forma asincrona un archivo nuevo, escribe en él las líneas especificadas y, a continuación, lo cierra.
-
-```Csharp
-await File.WriteAllTextAsync(nombreArchivoTextAsync, textoEscribir);
-await File.WriteAllBytesAsync(nombreArchivoBytes, Encoding.UTF8.GetBytes(textoEscribir));
-await File.WriteAllLinesAsync(nombreArchivoAllLines, textoEscribir.Split('\n'));
-```
 
 #### Copia
 ```Csharp
@@ -836,7 +362,7 @@ File.Copy(nombreArchivoOrigen, nombreArchivoDestino);
 Para leer y escribir archivos `Stream` se suelen usar las clases `StreamReader` y `StreamWritter`
 
 #### Lectura
-1. `ReadToEndAsync`: Lee de forma asincrónica todos los caracteres desde la posición actual hasta el final de la secuencia y los devuelve como una cadena.
+1. `ReadToEndAsync`: Lee de forma asincrona todos los caracteres desde la posición actual hasta el final de la secuencia y los devuelve como una cadena.
 1. `ReadAsync`: Lee de forma asincrónica un número máximo de caracteres especificado en la secuencia actual y escribe los datos en un búfer, comenzando en el índice especificado.
 1. `ReadBlockAsync`: Lee de forma asincrónica un número máximo de caracteres especificado en la secuencia actual y escribe los datos en un búfer, comenzando en el índice especificado.
 
@@ -871,45 +397,38 @@ using var writeFile = new StreamWriter(nombreArchivo);
 await writeFile.WriteAsync(textoEscribir);
 ```
 
-
 ## Serializacion
 La serialización es el proceso de convertir el estado de un objeto en un formato que se pueda almacenar o transportar. Este proceso permite almacenar y transferir datos.
 
-- La serialización binaria preserva la fidelidad de tipo, lo que es útil para conservar el estado de un objeto entre distintas invocaciones de una aplicación. Por ejemplo, puede compartir un objeto entre distintas aplicaciones si lo serializa en el Portapapeles.
-
-- La serialización XML solo serializa propiedades y campos públicos y no preserva la fidelidad de tipo. Esto es útil si se desea proporcionar o utilizar los datos sin restringir la aplicación que utiliza los datos. Dado que XML es un estándar abierto, es una opción atractiva para compartir los datos por el web.
-
+- La serialización binaria preserva la fidelidad de tipo, lo que es útil para conservar el estado de un objeto, por ejemplo, serializarlo en el Portapapeles.
+- La serialización XML solo serializa propiedades y campos públicos y no preserva la fidelidad de tipo. Dado que XML es un estándar abierto, es una opción atractiva para compartir los datos por la web.
 - La serialización de JSON solo serializa propiedades públicas y no preserva la fidelidad de tipo.
 
 ### Serializacion JSON
 Actualmente se ha convertido en un estándar ampliamente utilizado para el intercambio de información entre sistemas.
 
 #### Json con Stream
-1. Instanciamos el objeto que vamos a serializar
-1. Usamos la clase `JsonSerializer` para guardar el contenido del objeto en un stream que debemos de enviar, por ejemplo podemos enviarle un `StreamFile`
-1. Deserializamos leyendo el stream correspondiente y mapeando en contenido JSON en un objeto nuevo del tipo indicado.
+Lee un objeto stream y lo convierte a texto con formato JSON
 
 ```Csharp
-var crearJSON = new ClaseParaJSON()
-{
-    Ruta = "archivo.txt"
-};
-await JsonSerializer.SerializeAsync(jsonStream, json);
+await JsonSerializer.SerializeAsync(stream, objectToSerialize);
+```
 
-var localizacion = await JsonSerializer.DeserializeAsync<ClaseParaJSON>(jsonStream);
+Lee un JSON obtenido por un objeto Stream y lo devuelve en una instancia del tipo indicado.
+```Csharp
+await JsonSerializer.DeserializeAsync<T>(stream);
 ```
 
 #### Json con objetos
-1. Creamos el objeto a mapear
-1. Serializamos el objeto, lo que nos devolvera un `string` con el contenido del json
-1. Suponiendo un JSON en memoria ya, con ese formato
-1. Deserializamos el contenido json en un objeto del tipo que le pasamos.
+Convierte un objeto a un texto en formato JSON
 
 ```Csharp
 var serializacion = new ClaseSerializacion("Nombre", "Apellido", "cuentaaaa bancariaaaa");
 var serializado = JsonSerializer.Serialize(serializacion);
+```
 
-
+Lee un texto en formato JSON y devuelve una instancia del tipo indicado.
+```Csharp
 const string JSON = @"{""Nombre"":""Nombre"",""Apellidos"":""Apellido""}";
 var deserializado = JsonSerializer.Deserialize<ClaseSerializacion>(JSON);
 ```
@@ -980,10 +499,8 @@ Gracias a la abstraccion de linq, podemos cargar y consultar archivos Linq.
 ```Csharp
 var document = XElement.Load(nombreArchivo);
 
-from item in document.Descendants("empleado")
-where item.Attribute("id").Value == "1"
-    && item.Element("nombre").Value == "Empleado 1"
-select item;
+document.Descendants("empleado")
+    .Where(x => x.Attribute("id").Value == "1" && x.Element("nombre").Value == "empleado");
 ```
 
 ##### Escribir un archivo mediante Linq
@@ -998,28 +515,15 @@ select item;
                         new XAttribute("id", "2"),
                     new XElement("nombre", "empleado 2"),
                     new XElement("status", "activo")),
-
-                new XElement("empleado",
-                        new XAttribute("id", "3"),
-                    new XElement("nombre", "empleado 3"),
-                    new XElement("status", "activo")));
-
 empresa.Save(nombreArchivo);
 ```
 
 #### XML Serializando objetos con Streams
-1. Creamos un objeto de la clase a serializar
-1. Creamos una instancia de `XmlSerializer` al que le tenemos que pasar el tipo que se va a serializar
-1. Invocamos el metodo `Serialize` enviandole un objeto `Stream`, por ejemplo, le podemos mandar un `File.Open()` y el objeto a serializar.
-
 ```Csharp
 var serializacion = new ClaseSerializacion("Nombre", "Apellido", "cuentaaaa bancariaaaa");
 var xmlSerializer = new XmlSerializer(typeof(ClaseSerializacion));
 xmlSerializer.Serialize(streamObject, serializacion);
 ```
-
-1. Creamos una instancia de `XmlSerializer` al que le tenemos que pasar el tipo que se va a serializar
-1. Invocamos el metodo `Deserialize` enviandole un objeto `Stream`, por ejemplo, le podemos mandar un `File.Open()` y nos devolvera una instancia del tipo indicado anteriormente.
 ```Csharp
 var xmlSerializer = new XmlSerializer(typeof(ClaseSerializacion));
 var objetoDeserializado = xmlSerializer.Deserialize(streamObject);
@@ -1035,7 +539,7 @@ Cuando realizamos un **Request** y recibimos una **Response**, este, nos indicar
 
 Para ver los codigos de estado, podemos acceder [aqui](https://es.wikipedia.org/wiki/Anexo:C%C3%B3digos_de_estado_HTTP)
 
-**Importante**  
+>**Importante**  
 Hacer uso de `HttpClient` dentro de un bloque `using` puede ocasionar problemas porque cuando se invoca el metodo `Dispose` no se cierra la conexion directamente, sino que el servidor suele dejarla como en *espera* durante un tiempo, por tanto, los sockets se pueden ir ocupando y llegar un punto en el cual no haya sockets disponibles en la aplicacion para funcionar. 
 
 En el siguiente ejemplo hacemos un bucle de 10 conexiones con el using y ejecutamos un comando `netstat` en el servidor para comprobar las conexiones establecidas y si nos fijamos, las conexiones no se cierran.
@@ -1053,18 +557,21 @@ El protocolo TCP/IP funciona de la siguiente manera.
 
 ![image](https://user-images.githubusercontent.com/28193994/147914590-f0ea6873-5148-4f4e-8059-5e6104cd2e01.png)
 
-
-La solución mas común es incluirlo como static y no hacer uso de dispose. De esta forma lo que estamos haciendo es compartir el mismo socket para todas las conexiones.
-
 Una solucion, sobretodo para Dependency Injection, es usar la clase `HttpClientFactory` que hay nas abajo explicada,
 
 ### Configurar Headers
+Para crear, eliminar y modificar los headers de una solicitud Http, en el objeto de `HttpClient` debemos acceder a la propiedad `DefaultRequestHeaders` la cual contendra toda la informacion sobre las diferentes cabeceras que se pueden tratar.
 
+```Csharp
+httpClient.DefaultRequestHeaders.Accept.Clear();
+httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", autenticationToken);
+```
 
-### Solicitud GET
+### **GET**
 Formas de consultar datos por **GET** a un API
 
-Cabe destacar que las solicitudes `GET` se envian los datos de consulta a traves de `QueryString` y se puede configurar de la siguiente forma.
+Cabe decir que las solicitudes `GET` se envian los datos de consulta a traves de `QueryString` y se puede configurar de la siguiente forma.
 
 ```Csharp
 var url = new UriBuilder(urlBase);
@@ -1077,68 +584,54 @@ url.ToString();
 
 #### GetStringAsync
 ```Csharp
-await httpClient.GetStringAsync(urlFinal);
+httpClient.GetStringAsync(urlFinal);
 ```
 
 #### GetFromJsonAsync
 ```Csharp
-await httpClient.GetFromJsonAsync<ClaseDeserializar>(urlFinal);
+httpClient.GetFromJsonAsync<ClaseDeserializar>(urlFinal);
 ```
 
-### Solicitud POST
+### **POST**
 Metodos para envio de datos por **POST** a un API.
 
 #### PostAsync
-1. `StringContent`: Creamos el contenido que vamos a hacer post.
-    1. `content`: contenido a enviar en formato string.
-    1. `encoding`: tipo de codificacion con la que esta escrita la peticion, por ejemplo, `UTF8Encoding.UTF8`
-    1. `mediaType`: el tipo de datos que contiene la peticion, por ejemplo, `application/json`.
-
 ```Csharp
-HttpClient httpClient = new HttpClient();
-var content = new StringContent("string con el contenido", encoding, "tipo de envio");
-
-await httpClient.PostAsync($"url", content);
+var content = new StringContent("string con el contenido", UTF8Encoding.UTF8, "application/json");
+httpClient.PostAsync($"url", content);
 ```
 
 #### PostAsJsonAsync
 ```Csharp
-await Http.PostAsJsonAsync<TipoSerializar>("url", objetoToSerializar); 
+httpClient.PostAsJsonAsync<TipoSerializar>("url", objetoToSerializar); 
 ```
 
-### Solicitud PUT
+### **PUT**
 Metodos de enviar datos para actualizar por **PUT** en un API
 
 #### PutAsync
-1. `StringContent`: Creamos el contenido que vamos a hacer post.
-    1. `content`: contenido a enviar en formato string.
-    1. `encoding`: tipo de codificacion con la que esta escrita la peticion, por ejemplo, `UTF8Encoding.UTF8`
-    1. `mediaType`: el tipo de datos que contiene la peticion, por ejemplo, `application/json`.
-
 ```Csharp
-HttpClient httpClient = new HttpClient();
-var content = new StringContent("string con el contenido", encoding, "tipo de envio");
-
-await httpClient.PutAsync($"url", content);
+var content = new StringContent("string con el contenido", UTF8Encoding.UTF8, "application/json");
+httpClient.PutAsync($"url", content);
 ```
 
 #### PustAsJsonAsync
 ```Csharp
-await Http.PutAsJsonAsync<TipoSerializar>("url", objetoToSerializar); 
+httpClient.PutAsJsonAsync<TipoSerializar>("url", objetoToSerializar); 
 ```
 
-### Solicitud DELETE
+### **DELETE**
 Metodos solicitar el borrado de algun dato por **DELETE** a un API
 
 #### DeleteAsync
 ```Csharp
-await httpClient.DeleteAsync($"url");
+httpClient.DeleteAsync($"url");
 ```
 
 ### HttpClient con Dependency Injection
 Podemos configurar parametros en el objeto HttpClient para inyectarlo como dependencia y centrarnos solamente en realizar la peticion que necesitamos.
 
-**Importante**  
+> **Importante**  
 Este metodo no es recomendable usarlo por el problema de los sockets comentado anteriormente.
 
 ```Csharp
@@ -1171,100 +664,286 @@ public DispensacionConsultaNegocio(IHttpClientFactory httpClientFactory)
 }
 ```
 
-1. En vez de registrar el serivicio de la forma convencional, podemos registrarlo con `AddHttpClient<>`.
-1. Inyectamos la dependencia directamente importante la clase `HttpClient`
+
+# Acceso a datos (ADO.NET)
+ADO.NET proporciona acceso coherente a orígenes de datos como SQL Server y XML, así como a orígenes OLE DB y ODBC.
+
+El funcionamiento de ADO.NET se basa esencialmente en utilizar los siguientes componentes:
+- **DataSet**: El componente más importante, puede almacenar datos provenientes de múltiples consultas.
+- **DataReader** Realiza eficientemente lecturas de grandes cantidades de datos que no caben en memoria
+- **DbConnection** Utilizada para conectarse a la base de datos.
+- **DbCommand** Permite especificar las órdenes, generalmente en `SQL`.
+
+Un proveedor de datos debe proporcionar una implementación de Connection, Command, DataAdapter y DataReader.
+
+El modo de funcionamiento típico de ADO.NET es el siguiente:
+- Se crean un objeto `DbConnection` especificando la cadena de conexión.
+- Se crea un objeto `DbCommand` y se indica la Query `SQL`.
+- Se crea un DataSet donde almacenar los datos.
+- Se abre la conexión.
+- Se rellena el DataSet con datos a través del DataAdapter.
+- Se cierra la conexión.
+- Se trabaja con los datos almacenados en el DataSet.
+
+## Interfaz `IDbConnection`
+Representa una conexión abierta a un origen de datos y se implementa mediante proveedores de datos de .NET que acceden a bases de datos relacionales, por ejemplo, `SqlClient`.
+
+## Interfaz `IDbCommand`
+Se utiliza para definir, parametrizar y ejecutar una consulta al origen de datos, por ejemplo, una query SQL a una Sqlite.
+
+Dispone de los siguientes metodos:
+- `ExecuteReader()` Devuelve un `IDataReader` para leer los datos de una consulta, por ejemplo, para una `SELECT`
+- `ExecuteScalar` devuelve un objeto, por ejemplo, para procedimientos almacenados
+- `ExecuteNonQuery` devuelve un `int` para indicar el numero de registros modificados, por tanto se usara para insertar, actualizar y borrar.
+
+## Interfaz `IDataReader`
+Proporciona acceso secuencial de sólo lectura a una fuente de datos, por ejemplo, los datos que nos devuelve la consulta.
+> Utilizar IDataReader deshabilita las operaciones con IDbConnection hasta que esta sea cerrada.
+
+## Clase `DataSet`
+Un DataSet encapsula un conjunto de tablas independientemente de su procedencia y mantiene las relaciones existentes entre estas.
+
+El contenido de un DataSet puede serializarse en formato XML.
+
+## Clase `DataTable`
+Conjunto de `DataColumn` y `DataRow` que reprensenta el concepto de una tabla en memoria. La integridad de los datos se mantienen gracias al uso de objetos que representan restricciones
+
+- `DataColumn` Define el tipo de una columna de una tabla e incluye las restricciones y las relaciones que afectan a la columna.
+- `DataRow` Representa una coleccion de Rows en un `DataTable`, de acuerdo con el esquema definido por los `DataColumn` de la tabla. Además, incluye propiedades para determinar el estado de una fila especifica, por ejemplo, "nuevo, cambiado, borrado, etc".
+
+> Cabe decir que las clases `DataSet` y `DataTable` no necesariamente se tienen que utilizar para el acceso a bases de datos, se pueden crear y utilizar para uso normal si, por ejemplo, queremos crear una tabla en memoria por algun motivo. No obstante, habra que valorar eso en cuestiones de rendimiento.
+
+## Microsoft SQL Server
+El procedimiento de una consulta sql con las clases abstractas podria ser el siguiente:
+
+1. Creamos una extension de la clase abstracta `DbConnection` para tener acceso a las llamadas asincronas, recibimos la `sql`, una lista de `DbParameter` para parametrizar la query y el delegado en el que vamos a indicar el proceso de mapeo
+1. Indicamos al objeto connection que se desechará al acabar, creamos un `DbCommand`, que sera el encargado de la ejecucion y lectura de la query.
+1. Pasamos la query al `CommandText` e indicamos que es de tipo `text`, esto es debido a que podemos pasarle tipos como el de `StoredProcedure`.
+1. Si tenemos parametros, los agregamos.
+1. Abrimos la conexion de forma asincrona
+1. Ejecutamos la query de forma asincrona
+1. Leemos los resultados de forma asincrona y al agregar a la lista que devolvemos el resultado, lo mapeamos con el delegado que le pasamos.
 ```Csharp
-services.AddHttpClient<IServicio, Servicio>(httpClient =>
+public static async Task<IEnumerable<T>> ExecuteSqlQueryAsync<T>(this DbConnection connection, string sql, IEnumerable<DbParameter> parameters, Func<DbDataReader, T> mapper)
 {
-    httpClient.BaseAddress = new Uri("url");
-});
+    using (connection)
+    {
+        using var connect = connection.CreateCommand();
+        connect.CommandText = sql;
+        connect.CommandType = System.Data.CommandType.Text;
 
-private readonly HttpClient _httpClient;
+        foreach (var parameter in parameters)
+        {
+            connect.Parameters.Add(parameter);
+        }
+        await connection.OpenAsync();
 
-public DispensacionConsultaNegocio(HttpClient httpClient)
-{
-    _httpClient = httpClient;
+        using var rows = await connect.ExecuteReaderAsync();
+        var entities = new List<T>();
+        while (await rows.ReadAsync())
+        {
+            entities.Add(mapper(rows));
+        }
+        return entities;
+    }
 }
 ```
+> **Importante**: Hay que hacer uso de las queries parametrizadas para evitar problemas como las Sql Injection.
+
+# LINQ (Language Integrated Query)
+Con el tiempo se han desarrollado diferentes lenguajes para los distintos tipos de orígenes de datos, como `SQL` para las bases de datos relacionales y `XQuery` para XML.
+
+LINQ simplifica tener que aprender diferentes lenguajes de consulta para trabajar con los datos de varios formatos y orígenes. En una consulta LINQ siempre se trabaja con objetos. Se usan los mismos patrones de codificación básicos para consultar y transformar datos de documentos XML, bases de datos SQL, conjuntos de datos de ADO.NET, colecciones y cualquier otro formato para el que haya disponible un proveedor de LINQ.
+
+Los objetos compatibles con LINQ tienen que tener implementadas las interfaces `IEnumerable` o `IQueryable`
+
+- **IQueryable**: Está pensada para que sea implementada por proveedores de consultas. Un uso muy habitual es con `EntityFramework` para traducir las consultas a `SQL`. Esta interfaz esta pensada para ejecutar e interpretar [**árboles de expresion**](https://docs.microsoft.com/es-es/dotnet/csharp/expression-trees-explained#:~:text=Los%20%C3%A1rboles%20de%20expresiones%20son,y%20generar%20el%20resultado%20compilado.&text=Si%20fuera%20a%20analizarlo%20como,el%20%C3%A1rbol%20contiene%20varios%20nodos.)
+
+## Sintaxis de Linq
+Hay varias formas de hacer uso de esta libreria
+- **Sintaxis de consulta**: Sintaxis de `C#` que es muy parecido visualmente a lenguajes como `SQL`. Internamente el compilador convierte este tipo de consulta a la sintaxis de metodo correspondiente. Es la forma recomendable de uso cuando creamos queries complejas.
+- **Sintaxis de Metodo**: Metodos de extensión de Linq que, por lo general, reciben expresiones para realizar filtros, agrupaciones, ordenaciones, etc.
+
+### Select
+Filtra una secuencia de valores en función de un predicado.
+```Csharp
+from prod in products
+select new ProductoDto
+{
+    Name = prod.Name,
+};
+```
+```Csharp
+products.Select(prod => new ProductoDto
+{
+    Name = prod.Name,
+});
+```
+
+### Where
+Filtra una secuencia de valores en función de un predicado.
+```Csharp
+from prod in products
+where prod.Name == "Producto 2"
+select prod;
+```
+```Csharp
+products.Where(prod => prod.Name == "Producto 2");
+```
+
+### Join
+Establece la correlación de dos secuencias basándose en claves coincidentes
+```Csharp
+from category in categories
+join prod in products on category.ID equals prod.CategoryID
+select new
+{
+    ProductName = prod.Name,
+    Category = category.Name
+};
+```
+```Csharp
+products.Join(categories,
+    product => product.CategoryID,
+    category => category.ID,
+    (product, category) => new
+    {
+        ProductName = product.Name,
+        Category = category.Name
+    });
+```
+
+### Order by
+Ordena de manera ascendente y descendente los elementos de una secuencia.
+```Csharp
+from product in products
+orderby product.CategoryID ascending
+select product;
+```
+```Csharp
+products.OrderBy(product => product.CategoryID);
+```
+```Csharp
+from product in products
+orderby product.CategoryID descending
+select product;
+```
+```Csharp
+products.OrderByDescending(product => product.CategoryID);
+```
+
+### Group by
+Agrupa los elementos de una secuencia.
+```Csharp
+from product in products
+group product by new
+{
+    product.CategoryID,
+    product.Name
+} into prod
+select new
+{
+    idCategoria = prod.Key.CategoryID,
+    nombre = prod.Key.Name
+};
+```
+```Csharp
+products.GroupBy(product => new
+{
+    product.CategoryID,
+    product.Name
+}).Select(prod => new
+{
+    idCategoria = prod.Key.CategoryID,
+    nombre= prod.Key.Name
+});
+```
+
+### Let
+Almacenar el resultado de una subexpresión para usarlo en las cláusulas siguientes.
+```Csharp
+from sentence in strings
+let words = sentence.Split(' ')
+from word in words
+let w = word.ToLower()
+where w[0] == 'a' || w[0] == 'e'
+    || w[0] == 'i' || w[0] == 'o'
+    || w[0] == 'u'
+select word;
+```
+
+## Ejecucion aplazada de consulta
+La ejecución aplazada significa que la operación no se realiza en el punto en el código donde se declara la consulta. La operación se realiza solo cuando se enumera la variable de consulta, por ejemplo, mediante una instrucción `foreach`.
+
+## Ejecucion Inmediata de consulta
+La ejecución inmediata significa que se lee el origen de datos y la operación se realiza en el punto en el código donde se declara la consulta.
+
+Algunos metodos que proporciona el api Linq para la ejecucion inmediata son los siguientes:
+- **.ToArray**: Crea una matriz que contiene los resultados.
+- **.ToList**: Fuerza la evaluación inmediata de la consulta y devuelve un `List<T>` que contiene los resultados de la consulta
+- **.ToDictionary**: Crea un objeto `Dictionary<TKey,TValue>` según el selector de claves especificado y las funciones del selector de elementos.
+- **.ToLookup**: Crea un objeto `Lookup<TKey,TElement>` genérico.
+- **.FirstOrDefault**: Devuelve el primer elemento de una secuencia o un valor predeterminado si no se encuentra ningún elemento.
+- **.SingleOrDefault**: Devuelve un único elemento concreto de una secuencia o un valor predeterminado si no se encuentra ese elemento.
+- **.Count**: Devuelve el número de elementos de una secuencia.
+
+## Personalizar Linq
+Podemos ampliar Linq de forma personalizada creando metodos de extension sobre las interfaces `IEnumerable<T>` e `IQueryable<T>`.
+
+### Extendiendo consulta sobre `IEnumerable`
+Gracias al uso de yield podemos ahorrarnos el lastre de crear una clase personalizada para iteracion
+1. Creamos el metodo de extension de `IEnumerable` y recibimos los parametros correspondientes para realizar la consulta
+1. Creamos un bucle foreach del enumerable que recibimos para poder resolver el resto de iterators.
+1. Realizamos el proceso de la consulta que necestiamos
+1. Usamos la instruccion `yield return` para devolver el elemento.
+```Csharp
+public static IEnumerable<T> WherePersonalizado<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
+{
+    foreach (var item in enumerable)
+    {
+        if (predicate(item))
+        {
+            yield return item;
+        }
+    }
+}
+```
+
+### Extendiendo ejecucion inmediata sobre `IEnumerable`
+Para resolver una consulta **linq** debemos de iterarlo, por ejemplo, creando un bucle foreach. De esta forma se resuelve la consulta.
+```Csharp
+public static List<T> ToListPersonalizada<T>(this IEnumerable<T> enumerable)
+{
+    var lista = new List<T>();
+    foreach (var item in enumerable)
+    {
+        lista.Add(item);
+    }
+    return lista;
+}
+```
+
 
 # Reflexion
-`Reflection` proporciona objetos (de tipo `Type`) que describen los ensamblados, módulos y tipos. Puedes usar reflexión para crear dinámicamente una instancia de un tipo, enlazar el tipo a un objeto existente u obtener el tipo desde un objeto existente e invocar sus métodos, o acceder a sus campos y propiedades. Si usas atributos en el código, la reflexión le permite acceder a ellos.
+Permite obtener información sobre los ensamblados cargados y los tipos definidos dentro de ellos, como clases, interfaces y tipos de valor (es decir, estructuras y enumeraciones). También se puede usar para crear instancias de tipos en tiempo de ejecución, para llamarlas y para acceder a ellas.
 
-```Csharp
-interface IClaseReflexion
-{
-    string Nombre { get; set; }
-}
-
-interface IClaseReflexionDos : IClaseReflexion
-{
-    string Apellidos { get; set; }
-}
-
-public class ClaseReflexion : IClaseReflexionDos
-{
-    [Prueba("Hola", NamedInt = 5000)]
-    public string Nombre { get; set; }
-    public string Apellidos { get; set; }
-    private string CuentaBancaria { get; set; }
-
-
-    public ClaseReflexion()
-    {
-    }
-
-    public ClaseReflexion(string nombre, string apellidos, string cuentaBancaria)
-    {
-        Nombre = nombre ?? throw new ArgumentNullException(nameof(nombre));
-        Apellidos = apellidos ?? throw new ArgumentNullException(nameof(apellidos));
-        CuentaBancaria = cuentaBancaria ?? throw new ArgumentNullException(nameof(cuentaBancaria));
-    }
-}
-
-[AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]
-internal sealed class PruebaAttribute : Attribute
-{
-    // See the attribute guidelines at 
-    //  http://go.microsoft.com/fwlink/?LinkId=85236
-    private readonly string positionalString;
-
-    // This is a positional argument
-    public PruebaAttribute(string positionalString)
-    {
-        this.positionalString = positionalString;
-    }
-
-    public string PositionalString {
-        get { return positionalString; }
-    }
-
-    // This is a named argument
-    public int NamedInt { get; set; }
-}
-
-
-var obtenerTodasInterfaces = from interfaz in Assembly.GetExecutingAssembly().GetTypes()
-                             where interfaz.IsInterface
-                             select interfaz;
-var obtenerClaseImplementaInterface = from clase in Assembly.GetExecutingAssembly().GetTypes()
-                                      where clase.IsClass && clase.GetInterface(nameof(IClaseReflexion)) != null
-                                      select clase;
-var leerAtributosDePropiedades = from propiedad in typeof(ClaseReflexion).GetProperties()
-                                 let atributo = propiedad.GetCustomAttribute<PruebaAttribute>()
-                                 where atributo != null
-                                 select atributo;
-```
+Normalmente, la reflexión se usa para lo siguiente:
+- **Assembly** para definir y cargar ensamblados, cargar módulos enumerados en el manifiesto del ensamblado y buscar un tipo en este ensamblado y crear una instancia a partir de él.
+- **Module** para detectar información, como el ensamblado que contiene el módulo y las clases del módulo. También puede obtener todos los métodos globales u otros métodos específicos no globales definidos en el módulo.
+- **ConstructorInfo** para detectar información, como el nombre, los parámetros, los modificadores de acceso (por ejemplo, public o private) y detalles de implementación (por ejemplo, abstract o virtual) de un constructor. Usar el método `GetConstructors` o `GetConstructor` de un `Type` para invocar un constructor específico.
+- **MethodInfo** para detectar información, como el nombre, el tipo de retorno, los parámetros, los modificadores de acceso (por ejemplo, public o private) y detalles de implementación (por ejemplo, abstract o virtual) de un método. Usar el método `GetMethods` o `GetMethod` de un `Type` para invocar un método específico.
+- **FieldInfo** para detectar información como el nombre, los modificadores de acceso (por ejemplo, public o private) y detalles de la implementación (por ejemplo, static) de un campo, así como para obtener o establecer los valores del campo.
+- **EventInfo** para detectar información, como el nombre, el tipo de datos del controlador de eventos, los atributos personalizados, el tipo declarativo y el tipo reflejado de un evento, y para agregar o quitar controladores de eventos.
+- **PropertyInfo** para detectar información, como el nombre, el tipo de datos, la declaración de tipo, el tipo reflejado y el estado de solo lectura o de escritura de una propiedad, así como para obtener o establecer los valores de la propiedad.
+- **ParameterInfo** para detectar información, como el nombre del parámetro, el tipo de datos, si un parámetro es de entrada o de salida, y la posición del parámetro en una firma de método.
+- **CustomAttributeData** para detectar información sobre atributos personalizados cuando se trabaja en el contexto de solo reflexión de un dominio de aplicación. CustomAttributeData permite examinar los atributos sin crear instancias de ellos. Las clases del espacio de nombres `System.Reflection.Emit` proporcionan una forma especializada de reflexión que permite compilar tipos en tiempo de ejecución.
 
 
 # MultiThreading
 Muchos equipos y estaciones de trabajo personales tienen varios núcleos de CPU que permiten ejecutar múltiples subprocesos simultáneamente. Para aprovecharse del hardware, se puede paralelizar el código para distribuir el trabajo entre dichos núcleos.
 
-Por ejemplo, imaginemos que tenemos una aplicacion que requiere de realizar 3 consultas para obtener datos diferentes de una BBDD, aprovechandonos del multithreading, podemos hacer uso de la clase Parallel para realizar esas consultas de forma paralelizada y reducir los tiempos.
-
-
 ## Thread
-Con la clase Thread se pueden crear multiples hilos para poder ejecutar tareas a traves de subprocesos. Esta clase permite obtener el paralelismo de los datos.
-
+Crea y controla un subproceso para procesar un codigo en otro hilo de ejecucion.
 ```Csharp
 var hilo = new Thread(() =>
 {
@@ -1276,10 +955,10 @@ var hilo = new Thread(() =>
 hilo.Start();
 ```
 
-
 ## ThreadPool
-La clase ThreadPool se utiliza para poder reutilizar los hilos y optimizar su uso.  
-Con la clase Thread, cada vez que ejecutamos un metodo `start()` se crea un nuevo hilo para ejecutar la accion correspondiente. Con esta clase lo que se consigue es que si ya existe un hilo creado y este ha terminado su ejecucion, poder reutilizarlo para la ejecucion de otra instruccion, con esto evitamos un consumo extra de registros.
+Proporciona un grupo de subprocesos que pueden usarse para ejecutar tareas, exponer elementos de trabajo, procesar la E/S asincrona, esperar en nombre de otros subprocesos y procesar temporizadores.
+
+Muchas aplicaciones crean subprocesos que invierten mucho tiempo en el estado inactivo, a la espera de que se produzca un evento. Otros subprocesos pueden entrar en un estado de inactividad que solo se activa periódicamente para sondear un cambio o información de estado de actualización. El grupo de subprocesos permite usar subprocesos de forma más eficaz al proporcionar a la aplicación un grupo de subprocesos de trabajo administrados por el sistema.
 
 ```Csharp
 ThreadPool.QueueUserWorkItem(x =>
@@ -1304,71 +983,25 @@ var hilo1 = new Thread(() =>
 });
 hilo1.Start();
 hilo1.Join();
-
-var hilo2 = new Thread(() => {
-    for (int i = 0; i < 5; i++)
-    {
-        Console.WriteLine($"Hilo 2 {i}");
-    }
-});
-hilo2.Start();
-hilo2.Join();
-
 Thread.Sleep(1000);
 ```
 
-## Bloqueos de hilos
-Consiste en bloquear un hilo para que, cuando un hilo esta ejecutando la tarea correspondiente no se pueda manipular dicha ejecucion a traves de otros hilos que estan en ejecucion.
-
 ### lock()
-El uso del metodo `lock` se usa para indicar a los subprocesos que han de esperar a que acabe el hilo que esta en ejecucion dentro del bloque de instruccion.  
+El uso del metodo `lock` se usa para indicar a los subprocesos que han de esperar a que acabe el hilo que esta en ejecucion dentro del bloque de instruccion.
+
 Para poder hacer uso de `lock`, se tiene que crear un objeto instaciado de la clase `object` y agregarlo como parametro.
 
-En el siguiente codigo, si lo probamos se podra apreciar que siempre se obtiene el mismo resultado, puesto que cada vez que se hace la operacion de suma o resta se realiza el bloqueo, si probamos a quitar la instruccion `lock` Y lo ejecutamos, cada vez se mostrará un resultado diferente, a eso se le denomina `condicion de carrera`
+Cuando ejecutamos codigo externo al que se esta procesando en el nuevo hilo, por ejemplo, creamos varios `Thread` que suman una variable que ambos comparten, puede que los hilos accedan a la vez a modificar dicho valor. A este problema se le llama **condicion de carrera**. Para evitarlo se hace uso de la instruccion `lock`
 ```Csharp
-class CuentaBancaria
+private object bloqueoAgregarCantidad = new object();
+
+public void AgregarCantidad(int dinero)
 {
-    private object bloqueoAgregarCantidad = new object();
-    private object bloqueoQuitarCantidad = new object();
-    private int cantidad;
-
-    public int Cantidad {
-        get {
-            return cantidad;
-        }
-        set {
-            cantidad = value;
-        }
-    }
-
-    public CuentaBancaria(int cantidad)
+    lock (bloqueoAgregarCantidad)
     {
-        Cantidad = cantidad;
-    }
-    public void QuitarCantidad(int dinero)
-    {
-        lock (bloqueoQuitarCantidad)
-        {
-            Cantidad -= dinero;
-        }
-    }
-    public void AgregarCantidad(int dinero)
-    {
-        lock (bloqueoAgregarCantidad)
-        {
-            Cantidad += dinero;
-        }
+        Cantidad += dinero;
     }
 }
-
-// Codigo que ejecuta
-var cuentaBancaria = new CuentaBancaria(10000);
-new Thread(() => cuentaBancaria.AgregarCantidad(500)).Start();
-new Thread(() => cuentaBancaria.QuitarCantidad(400)).Start();
-new Thread(() => cuentaBancaria.AgregarCantidad(300)).Start();
-new Thread(() => cuentaBancaria.QuitarCantidad(200)).Start();
-
-Console.WriteLine(cuentaBancaria.Cantidad);
 ```
 
 
@@ -1592,34 +1225,24 @@ Las operaciones **Parallel** estan mas centradas en usan multiples hilos, puesto
 ### Ejemplos de uso de tipos de paralizacion
 - Si queremos realizar varias consultas a base de datos de forma simultanea podemos hacer uso de las operaciones asincronas directamente.
     ```Csharp
-        public async Task<List<UserResponse>> GetListUsers()
-        {
-            using var context = _contextFactory.CreateDbContext();
-            await Task.Delay(1000);
-            return await (from user in context.User
-                        select new UserResponse
-                        {
-                            Id = user.Id,
-                            NombreUsuario = user.UserName,
-                            Nombre = user.NormalizedUserName,
-                            Email = user.Email,
-                            TieneDobleFactor = user.TwoFactorEnabled
-                        }).ToListAsync();
-        }
-
+    public Task<List<UserResponse>> GetListUsers()
+    {
+        using var context = _contextFactory.CreateDbContext();
+        return context.User.ToListAsync();
+    }
     ```
     - Suponiendo la ejecucion de multiples queries
         - Creamos una lista de tareas
         - Ejecutamos las tareas y las agregamos en la lista
         - Esperamos el resultado de las queries
     ```Csharp
-        var tareas = new List<Task>();
+    var tareas = new List<Task>();
 
-        foreach (var item in Enumerable.Range(0, 10))
-        {
-            tareas.Add(userDam.GetListUsers());
-        }
-        await Task.WhenAll(tareas);
+    foreach (var item in Enumerable.Range(0, 10))
+    {
+        tareas.Add(userDam.GetListUsers());
+    }
+    await Task.WhenAll(tareas);
     ```
 
 - Si queremos realiza operaciones costosas, por ejemplo, deserializar varios objetos grandes en memoria, leer estructuras de datos muy complejas, calculos muy grandes, debemos de usar el paralelismo por cpu.
@@ -1634,49 +1257,39 @@ Las operaciones **Parallel** estan mas centradas en usan multiples hilos, puesto
     ![image](https://user-images.githubusercontent.com/28193994/148693892-581d79e0-1e8f-409b-bcee-d3fa3bad1a19.png)
 
 
-
 # Gestion de Memoria
-## Codigo no Administrado
-El codigo no administrado es un tipo de codigo al que no puede acceder el `Garbage Collector` para realizar el proceso de limpieza de memoria, por tanto hay que hacerlo manualmente.  
-Para eliminar los recursos no administrados se suele hacer uso de la interfaz `IDisposable` o el uso de destructores explicado en la seccion [Liberación de memoria](#liberacion-de-memoria)
+La administración de memoria automática es uno de los servicios que proporciona el CLR durante la ejecución. Los programadores no tienen que escribir código para realizar tareas de administración de memoria al programar aplicaciones administradas. La administración automática de la memoria puede eliminar problemas frecuentes, como olvidar liberar un objeto y causar una pérdida de memoria.
 
-### P/Invoke 
-Es una tecnologia que permite hacer uso de librerias compiladas de forma nativa con lenguajes como `Rust`, `Cpp`, etc.  
-De esta forma permite realizar interoperabilidad con librerias de los diferentes sitemas como Windows, por ejemplo se puede hacer uso de esto para ejecutar librerias como el diseño de las GUi nativas.
+## Garbage Collector
+El recolector de elementos no utilizados administra la asignación y liberación de la memoria de una aplicación.
 
-```rust
-#[no_mangle]
-pub extern fn add_numbers(number1: i32, number2: i32) -> i32 {
-    println!("Hola con Rust");
-    number1 + number2
-}
+### Asignar memoria
+Cuando inciamos la aplicacion, se reserva un espacio para las direcciones de memoria denominado montón administrado, que contiene un puntero a la dirección que se asignará al siguiente objeto. Todos los tipos de referencia se asignan en el montón administrado. Cuando creamos el primer tipo de referencia, se le asigna la memoria base del montón. Cuando creamos el resto de objetos se va asignando memoria en los espacios que siguen inmediatamente despues a la asignacion del ultimo objeto.
 
-/*
-> cargo new lib
-> cd lib
-Creamos el archivo lib.rs
-Editamos el archivo cargo.toml y agregamos:
-    [lib]
-    name="libreriaEjemploRust"
-    crate-type = ["dylib"]
-> cargo build
-```
+La asignación de memoria desde el montón administrado es más rápida que la asignación de memoria no administrada. Como el JIT asigna memoria a los objetos agregando un valor a un puntero, este método es casi tan rápido como la asignación de memoria desde la pila. Además, puesto que los nuevos objetos que se asignan consecutivamente se almacenan uno junto a otro en el montón administrado, la aplicación puede tener un acceso muy rápido a los objetos.
 
-```Csharp
-[DllImport("libreriaEjemploRust.dll")]
-private static extern int add_numbers(int number1, int number2);
 
-public static void Main(string[] args)
-{
-    int suma = add_numbers(1, 2);
-    Console.WriteLine(suma);
-}
-```
+### Liberar memoria
+El **GC** determina cuál es el mejor momento para realizar una recolección basándose en las asignaciones. Cuando lleva a cabo una recolección, libera la memoria de los objetos que no se usan. 
 
-### Codigo inseguro
+**GC** determina qué objetos ya no se usan examinando las **raíces** de la aplicación. Todas las aplicaciones tienen un conjunto de **raíces**. Cada raíz hace referencia a un objeto del montón, o bien se establece en `null`. Las **raíces** de una aplicación incluyen campos estáticos, variables locales y parámetros de pila de un subproceso y registros de la CPU. El **GC** tiene acceso a la lista de **raíces** activas que **Just-In-Time (JIT)** y el runtime mantienen. Se examinan las **raíces** de la aplicación y, durante este proceso, crea un gráfico que contiene todos los objetos que no se pueden alcanzar. Durante el proceso de recolección, usa una función de copia de memoria para compactar los objetos **alcanzables** en la memoria y libera los bloques de espacios **inalcanzables**. 
+
+Una vez que se ha compactado la memoria de los objetos alcanzables, el **GC** hace las correcciones de puntero necesarias para que las raíces de la aplicación señalen a los objetos en sus nuevas ubicaciones. También sitúa el puntero del montón administrado después del último objeto alcanzable. La memoria sólo se compacta si, durante una recolección, se detecta un número significativo de objetos inalcanzables. Si todos los objetos del montón administrado sobreviven a una recolección, no hay necesidad de comprimir la memoria.
+
+Para mejorar el rendimiento, el tiempo de ejecución asigna memoria a los objetos grandes en un montón aparte. El recolector de elementos no utilizados libera la memoria para los objetos grandes automáticamente. Sin embargo, para no mover objetos grandes en la memoria, dicha memoria no se compacta.
+
+### Generaciones y rendimiento
+Para optimizar el rendimiento del recolector de elementos no utilizados, el montón administrado se divide en tres generaciones: **0, 1 y 2**.
+- Es más rápido compactar la memoria de una parte del montón administrado que la de todo el montón.
+- Los objetos más recientes tienen una duración más corta y los objetos antiguos tienen una duración más larga. 
+- Los objetos más recientes suelen estar relacionados unos con otros y la aplicación tiene acceso a ellos más o menos al mismo tiempo.
+
+El **GC** almacena los nuevos objetos en la generación 0. Los objetos que sobreviven a las recolecciones se mueven y se almacenan en las generaciones 1 y 2. Como es más rápido compactar una parte del montón administrado que todo el montón, este esquema permite que el recolector libere la memoria en una generación específica en lugar de para todo el montón.
+
+El **GC** realiza la recolección cuando se llena la generación 0. Si una aplicación trata de crear un nuevo objeto cuando está llena, invoca un proceso de liberacion. Primero examina los objetos de la generación 0. Éste es un enfoque más eficaz, ya que los objetos nuevos suelen tener una duración más corta y se espera que la aplicación no utilice muchos de los objetos de la generación 0 cuando se realice una recolección. Además, una recolección de tan sólo la generación 0 a menudo recupera suficiente memoria para que la aplicación pueda continuar creando nuevos objetos.
+
+## Codigo inseguro (unsafe)
 La mayor parte del código de C# que se escribe es "código seguro comprobable". El código seguro comprobable significa que las herramientas de .NET pueden comprobar que el código es seguro. En general, el código seguro no accede directamente a la memoria mediante punteros. Tampoco asigna memoria sin procesar. En su lugar, crea objetos administrados.
-
-Este modo es un tipo de [Codigo no Administrado](#codigo-no-administrado) puesto que a este codigo no acceden las herramientas de .Net para liberar el especio de memoria que ocupan por ejemplo.
 
 El código no seguro tiene las propiedades siguientes:
 
@@ -1686,7 +1299,7 @@ El código no seguro tiene las propiedades siguientes:
 - El código no seguro presenta riesgos para la seguridad y la estabilidad.
 - El código que contenga bloques no seguros deberá compilarse con la opción del compilador AllowUnsafeBlocks.
 
-#### Punteros
+### Punteros
 - `int* p`: p es un puntero a un entero.
 - `int** p`: p es un puntero a un puntero a un entero.
 - `int*[] p`: p es una matriz unidimensional de punteros a enteros.
@@ -1731,12 +1344,14 @@ En la tabla siguiente se muestran los operadores e instrucciones que pueden func
 
 Mas informacion sobre codigo no seguro: [enlace](https://docs.microsoft.com/es-es/dotnet/csharp/language-reference/unsafe-code)
 
-#### Stackalloc
-La expresión stackalloc asigna un bloque de memoria en la pila. Un bloque de memoria asignado a la pila creado durante la ejecución del método se descarta automáticamente cuando se devuelva dicho método. No puede liberar explícitamente memoria asignada con stackalloc. Un bloque de memoria asignada a la pila no está sujeto a la recolección de elementos no utilizados y no tiene que fijarse con una instrucción fixed.
+## Stackalloc
+La expresión stackalloc asigna un bloque de memoria en la pila(**stack**). 
+
+Un bloque de memoria asignado en el stack creado durante la ejecución del método se descarta automáticamente cuando se devuelva dicho método. No puede liberar explícitamente memoria asignada con stackalloc. 
+
+Un bloque de memoria asignada a la pila no está sujeto a la recolección de elementos no utilizados y no tiene que fijarse con una instrucción fixed.
 
 Puede asignar el resultado de una expresión `stackalloc` a una variable de uno de los siguientes tipos
-
-- A partir de C# 7.2, `System.Span<T>` o `System.ReadOnlySpan<T>`, como se muestra en el ejemplo siguiente
 ```Csharp
 int length = 3;
 Span<int> numbers = stackalloc int[length];
@@ -1750,7 +1365,7 @@ int length = 1000;
 Span<byte> buffer = length <= 1024 ? stackalloc byte[length] : new byte[length];
 ```
 
-- Un tipo de puntero, como se muestra en el ejemplo siguiente
+- Usando punteros.
 ```Csharp
 unsafe
 {
@@ -1762,7 +1377,131 @@ unsafe
     }
 }
 ```
-El uso de stackalloc habilita automáticamente las características de detección de saturación del búfer en el entorno Common Language Runtime (CLR). Si se detecta saturación del búfer, se finaliza el proceso lo antes posible para minimizar el riesgo de que se ejecute código malintencionado.
+> Nota:  
+Como la cantidad de memoria disponible en la pila depende del entorno en el que se ejecuta el código, hay que ser conservador al definir el valor límite real.
+
+> Nota:  
+Tenemos que evitar `stackalloc` dentro de bucles. Asignamos el bloque de memoria fuera y lo usamos dentro del bucle.
+
+El uso de `stackalloc` habilita automáticamente las características de detección de saturación del búfer en el CLR. Si esto sucede, se finaliza el proceso lo antes posible para minimizar el riesgo de que se ejecute código malintencionado.
+
+## Memory & Span
+`Span<T>` y `Memory<T>` son los búferes de datos estructurados que se pueden usar en las canalizaciones. Es decir, están diseñados para que parte de los datos, o todos, se puedan pasar, procesar y modificar de forma eficaz.
+
+Puesto que los búferes se pueden pasar entre las API, y se puede acceder a los buffer desde varios subprocesos, es importante tener en cuenta la duración.
+- **Propiedad**. El propietario de una instancia de búfer es responsable de la administración de la duración, por ejemplo, destruirlo cuando ya no se use. Todos los búferes tienen un único propietario.
+- **Consumo**. El consumidor de una instancia de búfer puede usar la instancia leyendolo y, si se permite, escribiendo. Solo se puede tener un consumidor a la vez, a menos que se proporcione algún mecanismo de sincronización externo. El consumidor no tiene porque ser el propietario.
+- **Concesión**. La concesión es el período durante el cual un componente concreto puede ser el consumidor del búfer.
+
+### Instrucciones de uso - [Rules](https://docs.microsoft.com/es-es/dotnet/standard/memory-and-spans/memory-t-usage-guidelines#usage-guidelines)
+1. Para una API sincrónica, use `Span<T>` en lugar de `Memory<T>` como parámetro, si es posible.
+1. `ReadOnlySpan<T>` o `ReadOnlyMemory<T>` si el búfer debe ser de solo lectura.
+1. Si el método acepta `Memory<T>` y devuelve `void`, no debe usar la instancia de `Memory<T>` después de que se devuelva el método.
+1. Si el método acepta `Memory<T>` y devuelve una clase Task, no debe usar la instancia de `Memory<T>` después de las transiciones de Task a un estado terminal.
+1. Si el constructor acepta `Memory<T>` como un parámetro, se da por sentado que los métodos de instancia del objeto construido son los consumidores de la instancia de `Memory<T>`
+1. Si tiene una propiedad con el tipo `Memory<T>` configurable (o un método de instancia equivalente) en su tipo, se da por sentado que los métodos de instancia de ese objeto son los consumidores de la instancia de `Memory<T>`.
+1. Si tiene una referencia de `IMemoryOwner<T>`, en algún punto, debe eliminarla o transferir su propiedad (pero no ambas cosas).
+1. Si tiene un parámetro `IMemoryOwner<T>` en la superficie de API, implica la aceptación de la propiedad de esa instancia.
+1. Si está encapsulando un método p/invoke sincrónico, la API debe aceptar `Span<T>` como parámetro.
+1.  Si está encapsulando un método p/invoke asincrónico, la API debe aceptar `Memory<T>` como parámetro.
+
+### `Span<T>`
+Es una `estructura por referencia` que se asigna en el **Stack**.
+```Csharp
+var arr = new byte[10];
+Span<byte> bytes = arr; // Implicit cast from T[] to Span<T>
+```
+```Csharp
+Span<byte> bytes = stackalloc byte[2]; // Using C# 7.2 stackalloc support for spans
+bytes[0] = 42;
+bytes[1] = 43;
+Assert.Equal(42, bytes[0]);
+Assert.Equal(43, bytes[1]);
+bytes[2] = 44; // throws IndexOutOfRangeException
+```
+
+
+### `Memory<T>`
+`Memory<T>` es una estructura, por tanto, se intentará ubicar en el **Stack** pero podra contener referencias a objetos y por tanto, ubicarse en el **Heap**.
+
+Las instancias de `Span<T>` solo pueden residir en la Stack y no en el Heap. Esto significa que no puede tener campos de este tipo en clases, estructuras que no sean de tipo ref, variables locales en métodos asincronos o iteradores, etc.
+
+Estas limitaciones no importan en algunas situaciones, por ejemplo, las funciones de procesamiento sincrono y asociadas a cálculo. Sin embargo, la funcionalidad asincrona es otra historia.
+
+En los casos en los que `Span<T>` no sea posible, tenemos este tipo, `Memory<T>`
+
+Podemos crear un tipo `Memory<T>` a partir de una matriz y segmentarlo como lo haría con un Span, pero es un tipo struct (no de tipo referencia) y puede residir en la pila. Cuando queramos realizar el procesamiento de forma sincrona, se puede obtener un tipo `Span<T>` a partir de este
+```Csharp
+static async Task<int> ChecksumReadAsync(Memory<byte> buffer, Stream stream)
+{
+    int bytesRead = await stream.ReadAsync(buffer);
+    return Checksum(buffer.Span.Slice(0, bytesRead));
+    // Or buffer.Slice(0, bytesRead).Span
+}
+static int Checksum(Span<byte> buffer) { ... }
+```
+
+## Estructuras
+Una estructura se usa para almacenar datos por tipo de valor, eso quiere decir que la idea de la estructura es almacenar la instancia en el **stack** y no en el **heap** como las clases, por tanto la instanciacion del objeto se realiza de manera mas optima.
+
+Generalmente las estructuras se utilizan para realizar optimizaciones en el codigo.
+
+Cabe decir que no siempre se almacenan en el **stack**, por ejemplo, si usamos una estructura en un delegado o un campo de un objeto de tipo `class`.
+
+```Csharp
+public struct Coords
+{
+    public double X { get; }
+    public double Y { get; }
+    public override string ToString() => $"({X}, {Y})";
+}
+```
+
+### Estructura readonly
+Para poder declarar la estructura como inmutable se puede usar el modificador `readonly`. 
+- Cualquier campo se tiene que declarar como `readonly`.
+- Las propiedades deben de ser de solo lectura. Por tanto solo podran contener los descriptores de acceso `get` e `init`.
+
+```Csharp
+public readonly struct Coords
+{
+}
+```
+
+### Estructura ref
+Las instancias de un tipo de estructura `ref` se asignan en el **stack** y no pueden ubicarse en el **Heap**. Para asegurarse de eso, el compilador limita el uso de este tipo a:
+
+- No puede ser el tipo de elemento de una matriz.
+- No puede ser un tipo declarado de un campo de una clase o una estructura que no sea `ref`.
+- No puede implementar interfaces.
+- No se puede aplicar una conversión boxing a `ValueType` ni `Object`.
+- No puede ser un argumento de tipo.
+- No se puede capturar mediante una expresión lambda o una función local.
+- No se puede usar en un método `async`. Aunque se pueden usar en métodos sincronos, como los que devuelven `Task` o `Task<TResult>`.
+- No se puede usar en iteradores.
+
+```Csharp
+public ref struct CustomRef
+{
+    public bool IsValid;
+    public Span<int> Inputs;
+    public Span<int> Outputs;
+}
+```
+Para poder usarse con `readonly`
+```Csharp
+public readonly ref struct ConversionRequest
+{
+    public ConversionRequest(double rate, ReadOnlySpan<double> values)
+    {
+        Rate = rate;
+        Values = values;
+    }
+
+    public double Rate { get; }
+    public ReadOnlySpan<double> Values { get; }
+}
+```
 
 ## Liberacion de Memoria
 La liberacion de memoria en .Net consiste en marcar ciertos objetos como "liberados", quiere decir, que son objetos que ya no se van a volver a usar y que quiere liberar el recurso que se esta usando o cerrar el proceso.
@@ -1795,12 +1534,9 @@ using (var objeto = File.Create(""))
 {
     objeto.ToString();
 }
-
-using var objeto = File.Create("");
 ```
 
 Los finalizadores (también denominados destructores) se usan para realizar cualquier limpieza final necesaria cuando el recolector de basura va a liberar el objeto de memoria
-
 - Los finalizadores no se pueden definir en struct. Solo se usan con clases.
 - Una clase solo puede tener un finalizador.
 - Los finalizadores no se pueden heredar ni sobrecargar.
@@ -1818,297 +1554,38 @@ internal class Program
 ```
 
 
-# LINQ
-Linq es una API orientada al uso de consultas a diferentes tipos de contenido, como objetos, entidades, XML, etc. De esta manera se resume en una sintaxis sencilla y fácil de leer, tratar y mantener el tratamiento de diferentes tipos de datos.
+# Interoperabilidad
+La interoperabilidad consiste en la capacidad de poder comunicarse con otro software, por ejemplo, hacer uso de liberias nativas del sistema operativo para la GUI, usar librerias desarrolladas en otros lenguajes, etc.
 
-## Sintaxis de consulta
-### From
-```Csharp
-var cust = new List<Customer>();
-//queryAllCustomers is an IEnumerable<Customer>
-from cust in customers
-select cust;
-```
+> Las técnicas de interoperabilidad, al ejecutar librerias externas son recursos no administrados y por tanto, el Garbage Collector no va a actuar sobre ellas.
 
-### Join
-```Csharp
-from category in categories
-join prod in products on category.ID equals prod.CategoryID
-select new
-{
-    ProductName = prod.Name,
-    Category = category.Name
-};
-
-products.Join(categories,
-product => product.CategoryID,
-category => category.ID,
-(product, category) => new
-{
-    ProductName = product.Name,
-    Category = category.Name
-});
-```
-
-### Let
-```Csharp
-
-from sentence in strings
-let words = sentence.Split(' ')
-from word in words
-let w = word.ToLower()
-where w[0] == 'a' || w[0] == 'e'
-    || w[0] == 'i' || w[0] == 'o'
-    || w[0] == 'u'
-select word;
-```
-
-### Where
-```Csharp
-from prod in products
-where prod.Name == "Producto 2"
-select prod;
-
-products.Where(prod => prod.Name == "Producto 2");
-```
-
-### Group by
-```Csharp
-from product in products
-group product by new
-{
-    product.CategoryID,
-    product.Name
-} into prod
-select new
-{
-    idCategoria = prod.Key.CategoryID,
-    nombre = prod.Key.Name
-};
-
-products.GroupBy(product => new
-{
-    product.CategoryID,
-    product.Name
-}).Select(prod => new
-{
-    idCategoria = prod.Key.CategoryID,
-    nombre= prod.Key.Name
-});
-```
-
-### Order by
-```Csharp
-from product in products
-orderby product.CategoryID ascending
-select product;
-products.OrderBy(product => product.CategoryID);
-
-from product in products
-orderby product.CategoryID descending
-select product;
-products.OrderByDescending(product => product.CategoryID);
-```
-
-## Evaluacion/Ejecucion de Consulta
-Para poder tratar las consultas, la api de LINQ devuelve objetos del tipo `IEnumerable<>` o `IQueryable<>`.  
-Hay diferentes formas de leer los datos, por un lado mediante un `foreach` se pueden iterar un `IEnumerable` y por otro lado, hay metodos que convierten los datos a una coleccion directamente.
-
-### ToList
-```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).ToList();
-```
-
-### ToArray
-```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).ToArray();
-```
-
-### ToDictionary
-```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).ToDictionary(key => key.CategoryID, value => value.Name);
-```
-
-### ToLookup
-```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).ToLookup(key => key.CategoryID, value => value.Name);
-```
-
-### Count
-```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).Count()
- ```
-
-### FirstOrDefault
-```Csharp
-(from prod in products
-where prod.Name == "Producto 2"
-select prod).FirstOrDefault()
- ```
-
-## Extension de Linq
-En `Linq` mediante el uso de la interfaz `IEnumerable<T>` se pueden realizar metodos de extension para ampliar y personalizar la libreria linq para realizar filtros o guardar el objeto en una lista personalizada
-
-### Creacion de consultas personalizadas
-Formas de extender la clase `IEnumerable` para crear consultas personalizadas en Linq.
-
-#### Consulta personalizada con Iterator
-1. Creamos el metodo de extension sobre la interfaz `IEnumerable<T>` y recibimos una funcion que recibe un parametro `T` y devolvera un `bool`
-1. Retornamos una instacia de nuestra clase, que implementará la interfaz `IEnumerator<T>`
-```Csharp
-public static IEnumerable<T> WherePersonalizado<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
-{
-    return new EnumeratorPersonalizadoWhere<T>(enumerable, predicate);
-}
-```
-
-1. Creamos una clase que tiene que implementar `IEnumerable` e `IEnumerator<T>`
-    - `IEnumerable` es implementada, puesto que tenemos que devolver un IEnumerable para que se pueda tratar como **Linq** cuando devolvamos la instancia.
-    - `IEnumerator` es implementada para que la instancia pueda sea iterable. Cuando se intenta acceder al siguiente elemento mediante un bucle, llama al metodo `MoveNext()`, es donde habra que realizar la tarea asignada a la nuestra instancia.
-```Csharp
-public class EnumeratorPersonalizadoWhere<T> : IEnumerable<T>, IEnumerator<T>
-{
-    private readonly Func<T, bool> _predicate;
-    private readonly IEnumerable<T> _enumerable;
-    private IEnumerator<T>? _enumerator;
-    private int caso;
-
-    public T Current { get; }
-
-    object IEnumerator.Current => Current;
-
-    public EnumeratorPersonalizadoWhere(IEnumerable<T> enumerable, Func<T, bool> predicate)
-    {
-        _predicate = predicate;
-        _enumerable = enumerable;
-        caso = 1;
-    }
-
-    public bool MoveNext()
-    {
-        switch (caso)
-        {
-            case 1:
-                _enumerator = _enumerable.GetEnumerator();
-                caso = 2;
-                goto case 2;
-                break;
-            case 2:
-                while (_enumerator.MoveNext())
-                {
-                    var item = _enumerator.Current;
-                    if (_predicate(item))
-                    {
-                        return true;
-                    }
-                }
-                Dispose();
-                break;
-        }
-        return false;
-    }
-
-    public void Reset()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Dispose()
-    {
-        if (_enumerator == null) return;
-        _enumerator.Dispose();
-        _enumerator = null;
-    }
-
-    public IEnumerator<T> GetEnumerator()
-    {
-        return this;
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
-}
-```
-
-#### Consulta personalizada con Yield
-Gracias al uso de yield podemos ahorrarnos el lastre de crear una clase personalizada para iteracion
-
-1. Creamos el metodo de extension de `IEnumerable` y recibimos los parametros correspondientes para realizar la consulta
-1. Creamos un bucle foreach del enumerable que recibimos para poder resolver el resto de iterators.
-1. Realizamos el proceso de la consulta que necestiamos
-1. Usamos la instruccion `yield return` para devolver lo que necesitamos.
-```Csharp
-public static IEnumerable<T> WherePersonalizadoYield<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
-{
-    foreach (var item in enumerable)
-    {
-        if (predicate(item))
-        {
-            yield return item;
-        }
-    }
-}
-```
-
-### Crear ejecucion personalizada de la consulta
-Para resolver una consulta **linq** debemos de iterarlo, por ejemplo, creando un bucle foreach. De esta forma se resuelve la consulta.
-
-```Csharp
-public static List<T> ToListPersonalizada<T>(this IEnumerable<T> enumerable)
-{
-    var lista = new List<T>();
-    foreach (var item in enumerable)
-    {
-        lista.Add(item);
-    }
-
-    return lista;
-}
-```
-
-
-## Arboles de Expresion
-Los árboles de expresiones son estructuras de datos que definen código. Se basan en las mismas estructuras que usa un compilador para analizar el código y generar el resultado compilado. Hay cierta similitud entre los árboles de expresiones y los tipos usados en las API de Roslyn para compilar analizadores y correcciones de código. (Los analizadores y las correcciones de código son paquetes de NuGet que realizan un análisis estático en código y pueden sugerir posibles correcciones). Los conceptos son similares y el resultado final es una estructura de datos que permite examinar el código fuente de forma significativa. En cambio, los árboles de expresiones se basan en un conjunto de clases y API totalmente diferentes a las de Roslyn.
-
-Para la creacion y asignacion de una variable que sume 2 numeros, se crearia el siguiente arbol de expresion:
-
-- Instrucción de declaración de variable con asignación (var sum = 1 + 2;)
-    - Declaración de tipo de variable implícita (var sum)
-        - Palabra clave var implícita (var)
-        - Declaración de nombre de variable (sum)
-    - Operador de asignación (=)
-    - Expresión binaria de suma (1 + 2)
-        - Operando izquierdo (1)
-        - Operador de suma (+)
-        - Operando derecho (2)
-
-Podemos devolver el cuerpo de la funcion pasada como un string.  
-Por ejemplo, un uso muy elevado que se le da a los arboles de expresion es con `EntityFramework` para la conversion de objetos `IQueryable<>` a una consulta `SQL`
-```Csharp
-public static class ClaseExpression
-{
-    public static string WhereToString<T>(T argumento, Expression<Func<T, bool>> expression)
-    {
-        return $"WHERE {expression.Body.ToString().Replace("==", "=")}";
-    }
+## P/Invoke 
+Es una libreria que permite acceder a estructuras, devoluciones de llamada y funciones de bibliotecas no administradas desde código administrado.
+```rust
+#[no_mangle]
+pub extern fn add_numbers(number1: i32, number2: i32) -> i32 {
+    println!("Hola con Rust");
+    number1 + number2
 }
 
-var persona = new Persona
+/*
+> cargo new lib
+> cd lib
+Creamos el archivo lib.rs
+Editamos el archivo cargo.toml y agregamos:
+    [lib]
+    name="libreriaEjemploRust"
+    crate-type = ["dylib"]
+> cargo build
+```
+
+```Csharp
+[DllImport("libreriaEjemploRust.dll")]
+private static extern int add_numbers(int number1, int number2);
+
+public static void Main(string[] args)
 {
-    Nombre = "Hola",
-    Apellido = "Adios"
-};
-var expresion = ClaseExpression.WhereToString(persona, x => x.Nombre == x.Apellido);
+    int suma = add_numbers(1, 2);
+    Console.WriteLine(suma);
+}
 ```
