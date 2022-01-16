@@ -430,11 +430,9 @@ Hay que tener en cuenta, que podemos crear un middleware que en ciertas condicio
 
 ### Crear un Middleware
 Para crear un Middleware necesitamos implementar la interfaz `IMiddleware` que nos creara el metodo `Task InvokeAsync(HttpContext context, RequestDelegate next)`
-1. Implementamos la dependencia `ILogger`, puesto que vamos a registrar por logs las respuestas que se reciben de la aplicación.
-
 1. La función `InvokeAsync` recibe el `HttpContext` y el `RequestDelegate`
-    1. El `HttpContext` contiene todos los datos de la peticion, tanto el `Request` como el `Response` entre otras cosas.
-    1. El `RequestDelegate` contiene el siguiente middleware a ejecutar, si no hay ningun Middleware mas, se pasará a ejecutar el proceso principal de la petición
+    1. `HttpContext` contiene todos los datos de la peticion, tanto el `Request` como el `Response` entre otras cosas.
+    1. `RequestDelegate` contiene el siguiente middleware a ejecutar, si no hay ningun Middleware mas, se pasará a ejecutar el proceso principal de la petición
 
 1. La ejecución del Middleware funciona de la siguiente forma.
     1. Ejecutamos codigo antes de la ejecucion del proceso principal y el resto de Middlewares.
@@ -445,39 +443,19 @@ Para crear un Middleware necesitamos implementar la interfaz `IMiddleware` que n
 ```Csharp
 public class EjemploMiddleware : IMiddleware
 {
-    private readonly ILogger<EjemploMiddleware> _logger;
-
-    public EjemploMiddleware(ILogger<EjemploMiddleware> logger)
-    {
-        _logger = logger;
-    }
-
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        // Lo que se ejecuta antes de la resolucion de la request
-        using var memoryStream = new MemoryStream();
-        var original = context.Response.Body;
+        // Request
 
-        context.Response.Body = memoryStream;
-        _logger.LogInformation($"Request Path {context.Request.Path.Value}");
-
-        // La llamada a la siguiente ejecucion correspondiente del Middleware hasta que se resuelva la Request
+        // Ejecucion del resto de Middlewares
         await next(context);
-
-        // Lo que se ejecuta despues de la resolucion de la request
-        memoryStream.Seek(0, SeekOrigin.Begin);
-        var data = await new StreamReader(context.Response.Body).ReadToEndAsync();
-        memoryStream.Seek(0, SeekOrigin.Begin);
-
-        _logger.LogInformation($"Datos del Response {data}");
-        await memoryStream.CopyToAsync(original);
-        context.Response.Body = original;
+        
+        // Response
     }
 }
 ```
 Para implementarlo
-1. Agregamos la clase al contenedor de dependencias para poder usar dependencias como `ILogger`, etc.
-1. Usando el objeto `app` que contiene la instancia de `WebApplication` ejecutamos el metodo `UseMiddleware<EjemploMiddleware>();` para registrarlo en el proceso de la Request.
+1. Con el objeto de tipo `WebApplication`, que implementa la interfaz `IApplicationBuilder` podremos tener acceso al metodo `UseMiddleware<EjemploMiddleware>()`.
 
 ```csharp
 builder.Services.AddScoped<EjemploMiddleware>();
@@ -687,7 +665,6 @@ Entity Framework es compatible con diferentes [proveedores de bases de datos](ht
 Con EF Core, el acceso a datos se realiza mediante un modelo. Un modelo se compone de clases de entidad y un objeto de contexto que representa una sesión con la base de datos. Este objeto de contexto permite consultar y guardar datos.
 
 EF admite los siguientes métodos de desarrollo de modelos:
-
 - Generar un modelo a partir de una base de datos existente.
 - Codificar un modelo manualmente para que coincida con la base de datos.
 - Una vez creado un modelo, usar Migraciones de EF para crear una base de datos a partir del modelo. Migraciones permite que la base de datos evolucione a medida que el modelo va cambiando.
@@ -712,7 +689,6 @@ public class ContextoSqlServer : DbContext
     {
 
     }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer("Cadena de conexion");
@@ -739,7 +715,6 @@ public class ContextoSqlServer : DbContext
     {
 
     }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -757,41 +732,20 @@ services.AddDbContext<ContextoSqlServer>(options =>
 });
 ```
 
-Cuando no disponemos de un tiempo de vida de tipo `scoped` debemos de implementar el tipo `transient`, por ejemplo, cuando realizamos la DI en una aplicacion Desktop.
-
-```Csharp
-services.AddDbContext<ContextoSqlServer>(options =>
-{
-    options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(ContextoSqlServer)));
-},
-contextLifetime: ServiceLifetime.Transient,
-optionsLifetime: ServiceLifetime.Transient);
-```
+Cuando no disponemos de un tiempo de vida `scoped` debemos de implementar el tipo `transient`, por ejemplo, cuando realizamos la DI en una aplicacion Desktop. Para ello tenemos que indicarlo en el metodo `AddDbContext` con los parametros `contextLifetime` y `optionsLifetime`
 
 #### AddDbContextPool
 **Esta opción no se puede utilizar sin un entorno `scoped`**
 
-DbContextPool se utiliza para reutilizar contextos ya creados de bases de datos en vez de eliminarlos.
+Cuando nos llega una **Request**, se procesa y al finalizar se realiza un `Dispose` de todos los elementos, incluyendo los `DbContext` y por tanto son eliminados. 
 
-Sin el pooling, por defecto cada vez que nos llega una **request** se crea un contexto nuevo, se ejecuta el proceso correspondiente y cuando devolvemos el resultado, el contexto es eliminado. Si, por ejemplo, recibimos 1000 peticiones, seran creados 1000 contextos y eliminados cuando se acabe, esto puede dar lugar a perdidas de rendimiento.
-
-El *DbContextPool* sirva para reutilizar los contextos que van a ser eliminados. Digamos que una peticion acaba, el contexto va a ser eliminado, pero como estamos recibiendo peticiones nuevas, se vuelve a mandar ese contexto a otro proceso nuevo, de esta forma evitamos la creacion de este.
+**DbContextPool** sirve para reutilizar los contextos que van a ser eliminados en otras peticiones, de esa manera evitamos crear un `DbContext` cada vez.
 
 ```Csharp
 services.AddDbContextPool<ContextoSqlServer>(options =>
 {
     options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(ContextoSqlServer)));
 });
-```
----
-Para implementar el servicio debemos de recibir el contexto por constructor.
-```Csharp
-private readonly ContextoSqlServer _contexto;
-
-public UserDam(ContextoSqlServer contexto)
-{
-    _contexto = contexto;
-}
 ```
 
 #### AddDbContextFactory
@@ -821,236 +775,6 @@ services.AddPooledDbContextFactory<EjemploContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString(nameof(EjemploContext)));
 });
 services.AddScoped(p => p.GetRequiredService<IDbContextFactory<EjemploContext>>().CreateDbContext());
-```
-
-### Migrations
-En proyectos reales, los modelos de datos cambian a medida que se implementan características: se agregan o se quitan nuevas entidades o propiedades, y los esquemas de base de datos se deben cambiar según corresponda para mantenerlos sincronizados con la aplicación. Esto proporciona una manera de actualizar incrementalmente el esquema de la base de datos para mantenerla sincronizada con el modelo de datos de la aplicación al tiempo que se conservan los datos existentes en la base de datos.
-
-A nivel general, las migraciones funcionan de esta forma:
-
-- Cuando se introduce un cambio en el modelo de datos, se usan las herramientas para agregar una migración correspondiente en la que se describan las actualizaciones necesarias para mantener sincronizado el esquema de la base de datos. EF Core compara el modelo actual con una instantánea del modelo anterior para determinar las diferencias y genera los archivos de origen de la migración, de los que se puede realizar el seguimiento en el control de código fuente del proyecto como cualquier otro archivo de código fuente.
-- Una vez que se ha generado una migración nueva, hay varias maneras de aplicarla a una base de datos. EF Core registra todas las migraciones aplicadas en una tabla de historial especial, lo que le permite saber qué migraciones se han aplicado y cuáles no.
-
-#### Code First
-La opcion de code first se utiliza cuando creamos la base de datos desde el codigo con EntityFramework, para ello tenemos que crear las migraciones y aplicarlas.
-
-Hay que instalar el paquete `Microsoft.EntityFrameworkCore.Design`
-
-Para crear las migraciones ejecutamos el siguiente comando.
-```powershell
-# Comando dotnet
-dotnet ef migrations add InitialCreate
-
-# Visual Studio
-Add-Migration InitialCreate
-```
-
-Para aplicar las migraciones podemos ejecutar el siguiente comando.
-```powershell
-# Comando dotnet
-dotnet ef database update
-
-# Visual Studio
-Update-Database
-```
-
-Para eliminar migraciones
-```powershell
-# Comando dotnet
-dotnet ef migrations remove
-
-# Visual Studio
-Remove-Migration
-```
-
-##### Configurando las relaciones en las entidades
-Cuando queremos hacer la base de datos a traves de `Code First` debemos de configurar las relaciones de las tablas y los navegadores de forma manual en las clases de entidades.
-
-Por un lado tenemos los campos de claves foraneas, que son las columnas que, mediante un campo(id generalmente) se relacionan con otras tablas. Dependiendo de la relacion que tengan las tablas, la Clave Foranea se movera a una tabla u otra:
-- `1:1`: Cualquiera de las dos debe de tener la clave foranea 
-- `1:N`: La clave foranea se traslada en el sentido de la N
-- `N:M`: Estas relaciones generan una nueva tabla que contiene las dos claves foraneas de las tablas que relaciona.
-
-
-Esto trasladado a entidades de EF Core:
-
-- **1:1** Suponiendo dos tablas, una tabla **Propiedad** y otra tabla **PropiedadDetalle**, 1 propiedad contiene 1 Detalle y un detalle de propiedad es 1 propiedad. En este caso es una tabla partida en 2, para dismunuir de columnas, la tabla **Propiedad** contiene la información mas requerida y la de **PropiedadDetalle** lo menos. La relacion se realiza de la siguiente forma
-
-    - Indicamos los campos de la entidad
-    - Señalamos las claves foraneas, en este caso tiene una relacion con **PropiedadDetalleId**
-    - Creamos los navegadores
-    ```Csharp
-    public class Propiedad 
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Id { get; set; }
-        public string Nombre { get; set; }
-
-        [Column(TypeName = "decimal(20, 2)")]
-        public decimal SuperficieMedida { get; set; }
-        public int NBanos { get; set; }
-        public int NHabitaciones { get; set; }
-        public int NGarajes { get; set; }
-
-        [Column(TypeName = "decimal(20, 2)")]
-        public decimal PrecioPropiedad { get; set; }
-
-        // Claves Foraneas
-        public string PropiedadDetalleId { get; set; }
-
-        // Navegadores
-        public PropiedadDetalle PropiedadDetalleNavigation { get; set; }
-    }
-    ```
-    - Creamos los campos de PropiedadDetalle
-    ```Csharp
-    public class PropiedadDetalle 
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Id { get; set; }
-        public string DescripcionPropiedad { get; set; }
-        public bool Balcon { get; set; }
-        public bool Internet { get; set; }
-        public bool Domotica { get; set; }
-        public bool AireAcondicionado { get; set; }
-        public bool Terraza { get; set; }
-        public bool Jardin { get; set; }
-        public bool Calefaccion { get; set; }
-        public DateTime CreateDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
-    }
-    ```
-
-- **1:N** Suponiendo una tabla llamada **PropiedadDetalle** y otra llamada **Imagen**, 1 propiedad puede contener 1 o varias Imagenes y 1 imagen solo puede pertenecer a 1 propiedad. En esta relación la clave foranea se mueve en direccion a la N, por tanto, `Imagen` contendra la clave de `PropiedadDetalle`
-
-    - Indicamos los campos de Entidad
-    - En la clase de `PropiedadDetalle` creamos un objeto Navegador, porque aunque no tenga una clave Foranea, una Propiedad tiene una coleccion de Imagenes y se puede agregar en EF Core esta relacion, de esta forma, cuando se haga una consulta, el framework mapeara la lista de imagenes si queremos.
-    ```Csharp
-    public class PropiedadDetalle 
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Id { get; set; }
-        public string DescripcionPropiedad { get; set; }
-        public bool Balcon { get; set; }
-        public bool Internet { get; set; }
-        public bool Domotica { get; set; }
-        public bool AireAcondicionado { get; set; }
-        public bool Terraza { get; set; }
-        public bool Jardin { get; set; }
-        public bool Calefaccion { get; set; }
-        public DateTime CreateDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
-
-        // Claves Foraneas
-        public string TipoPropiedadId { get; set; }
-
-        // Navegadores
-        public IEnumerable<Imagen> ImagenesPropiedadDetalleNavigation { get; set; }
-    }
-    ```
-    - Indicamos la clave foranea en la Entidad `Imagen`
-    - Creamos un objeto navigation para poder acceder directamente a la propiedad en una query a `PropiedadDetalle`
-    ```Csharp
-    public class Imagen 
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Id { get; set; }
-        public string Nombre { get; set; }
-        public string Descripcion { get; set; }
-        public byte[] Img { get; set; }
-
-        //Claves Foraneas
-        public string PropiedadDetalleId { get; set; }
-
-        // Navegadores
-        public PropiedadDetalle PropiedadDetalleNavigation { get; set; }
-    }
-    ```
-
-- **N:M** Suponiendo dos tablas, una **Propiedad** y otra **Usuario**, queremos hacer que un usuario pueda establecer como favorito una propiedad, por tanto 1 usuario puede establecer 1 o varias propiedades como favorito y una propiedad puede tener 1 o varios usuarios de favoritos, por tanto tenemos una relacion N:M. Como hemos dicho arriba, la relacion N:M generan tabla, por tanto la tabla `Favorito`.
-
-    - La entidad `Propiedad` contiene un objeto navegacion para poder obtener una lista de los usuarios que tienen marcada esa propiedad como favorito, pero no tiene ninguna clave foranea
-    ```Csharp
-    public class Propiedad 
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Id { get; set; }
-        public string Nombre { get; set; }
-
-        [Column(TypeName = "decimal(20, 2)")]
-        public decimal SuperficieMedida { get; set; }
-        public int NBanos { get; set; }
-        public int NHabitaciones { get; set; }
-        public int NGarajes { get; set; }
-
-        [Column(TypeName = "decimal(20, 2)")]
-        public decimal PrecioPropiedad { get; set; }
-
-        // Claves Foraneas
-        public string PropiedadDetalleId { get; set; }
-
-        // Navegadores
-        public ICollection<Favorito> FavoriteNavigation { get; set; }
-    }
-    ```
-    - La clase usuario agregamos un objeto Navigation para poder obtener la lista de propiedades marcadas como favorito por 1 usuario, pero este no tiene la clave foranea
-    ```Csharp
-    public class User : IdentityUser<int> 
-    {
-        //Navigation
-        public ICollection<Favorito> FavoritePropertyNavigation { get; set; }
-    }
-    ```
-    - Como las relaciones N:M generan tabla, tenemos la tabla Favorito, que contiene las claves Foraneas de UserId y PropiedadId, que estas dos conjuntas son la key principal.
-    - Tambien asignamos los navegadores para, teniendo un registro de favorito, poder buscar el Usuario y la Propiedad vinculada.
-    ```Csharp
-    public class Favorito 
-    {
-        public int UserId { get; set; }
-        public string PropiedadId { get; set; }
-
-        // Navegadores
-        public User UserNavigation { get; set; }
-        public Propiedad PropiedadNavigation { get; set; }
-    }
-    ```
-    - En este caso, en el `ModelBuilder` habra que indicar que la tabla Favoritos contiene las 2 key, con la key principal, para ello ponemos lo siguiente
-    ```Csharp
-    builder.Entity<Favorito>()
-        .HasKey(fav => new {
-            fav.UserId,
-            fav.PropiedadId
-        });
-    ```
-
-
-#### Database First
-Cuando preferimos crear la base de datos manualmente o ya la tenemos creada, por ejemplo, porque implementamos EF core en un proyecto que ya estaba creado, podemos hacer uso de un comando que nos crea todas las entidades con sus relaciones y el contexto ya configurado.
-
-1. En el comando se agrega la cadena de conexion para mapear la base de datos y las relaciones
-1. Indicamos el paquete Nuget que indica el tipo de base de datos al cual se va a conectar, en el ejemplo `Microsoft.EntityFrameworkCore.SqlServer`
-1. La opcion `-Project` se usa porque debemos de ejecutar el comnado referenciando al proyecto que contiene `Microsoft.EntityFrameworkCore.Design`, pero puede que se quieran crear el contexto y las entidades a utilizar en otro proyecto, por ejemplo, en el proyecto de `Dominio`.
-
-```powershell
-# Visual studio
-Scaffold-DbContext "Cadena de Conexion" Microsoft.EntityFrameworkCore.SqlServer -Project "Nombre.de.proyecto" -Force
-```
-
-Despues de tener los archivos de entidades y contexto creados, tendremos que echar un vistazo a la configuracion del `ModelBuilder` y del contexto, por ejemplo, en el DbContext seguramente tendremos que eliminar el metodo `OnConfiguring()`.
-
-#### Crear migrations en otro proyecto
-Si queremos tener las migraciones en otro proyecto, sea por organizacion o porque queremos crear un proyecto para aplicar las migraciones por ejemplo, podemos hacerlo agregando la opcion en la configuración del contexto de la siguiente forma.
-
-```Csharp
-options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(EjemploContext)), sql =>
-{
-    sql.MigrationsAssembly(typeof(Program).Assembly.FullName);
-});
 ```
 
 ## Ejecucion de Consultas
@@ -1206,6 +930,184 @@ context.RemoveRange(usuarios);
 await context.SaveChangesAsync();
 ```
 
+## Migrations
+Con el tiempo vamos aplicando las aplicaciones y realizamos modificaciones en la base de datos, por ejemplo, agregamos tablas/entidades, campos, modificamos el esquema, etc. Para poder tener todo eso sincronizado se usan las migraciones.
+
+A nivel general, las migraciones funcionan de esta forma:
+- EF Core compara el modelo modificado con una instantánea del anterior para determinar las diferencias y genera los archivos de origen de la migración, de los que se puede realizar el seguimiento en el control de código fuente del proyecto como cualquier otro archivo de código fuente.
+- Una vez que se ha generado una migración nueva, hay varias maneras de aplicarla a una base de datos. EF Core registra todas las migraciones aplicadas en una tabla de historial especial, lo que le permite saber qué migraciones se han aplicado y cuáles no.
+
+### Code First
+La opcion de code first se utiliza cuando creamos la base de datos desde el codigo con EntityFramework, para ello tenemos que crear las migraciones y aplicarlas.
+
+Hay que instalar el paquete `Microsoft.EntityFrameworkCore.Design`
+
+Para crear las migraciones ejecutamos el siguiente comando.
+```powershell
+# Comando dotnet
+dotnet ef migrations add InitialCreate
+
+# Visual Studio
+Add-Migration InitialCreate
+```
+
+Para aplicar las migraciones podemos ejecutar el siguiente comando.
+```powershell
+# Comando dotnet
+dotnet ef database update
+
+# Visual Studio
+Update-Database
+```
+
+Para eliminar migraciones
+```powershell
+# Comando dotnet
+dotnet ef migrations remove
+
+# Visual Studio
+Remove-Migration
+```
+
+#### Configurando las relaciones en las entidades
+Cuando queremos hacer la base de datos a traves de `Code First` debemos de configurar las relaciones de las tablas y los navegadores de forma manual en las clases de entidades.
+
+Por un lado tenemos los campos de claves foraneas, que son las columnas que, mediante un campo(id generalmente) se relacionan con otras tablas. Dependiendo de la relacion que tengan las tablas, la Clave Foranea se movera a una tabla u otra:
+- `1:1`: Cualquiera de las dos debe de tener la clave foranea 
+- `1:N`: La clave foranea se traslada en el sentido de la N
+- `N:M`: Estas relaciones generan una nueva tabla que contiene las dos claves foraneas de las tablas que relaciona.
+
+Esto trasladado a entidades de EF Core:
+- **1:1** Suponiendo dos tablas, una tabla **Propiedad** y otra tabla **PropiedadDetalle**, 1 propiedad contiene 1 Detalle y un detalle de propiedad es 1 propiedad. La relacion se realiza de la siguiente forma
+    - Señalamos las claves foraneas, en este caso tiene una relacion con **PropiedadDetalleId**
+    - Creamos los navegadores
+    ```Csharp
+    public class Propiedad 
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public string Id { get; set; }
+
+        // Claves Foraneas
+        public string PropiedadDetalleId { get; set; }
+
+        // Navegadores
+        public PropiedadDetalle PropiedadDetalleNavigation { get; set; }
+    }
+    ```
+    - Creamos los campos de PropiedadDetalle
+    ```Csharp
+    public class PropiedadDetalle 
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public string Id { get; set; }
+    }
+    ```
+
+- **1:N** Suponiendo una tabla llamada **PropiedadDetalle** y otra llamada **Imagen**, 1 propiedad puede contener 1 o varias Imagenes y 1 imagen solo puede pertenecer a 1 propiedad. En esta relación la clave foranea se mueve en direccion a la N, por tanto, `Imagen` contendra la clave de `PropiedadDetalle`
+    - Creamos un objeto Navegador, porque aunque no tenga una clave Foranea, una Propiedad tiene una coleccion de Imagenes y se puede agregar en EF Core esta relacion, de esta forma, cuando se haga una consulta, el framework mapeara la lista de imagenes si queremos.
+    ```Csharp
+    public class PropiedadDetalle 
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public string Id { get; set; }
+
+        // Claves Foraneas
+        public string TipoPropiedadId { get; set; }
+
+        // Navegadores
+        public IEnumerable<Imagen> ImagenesPropiedadDetalleNavigation { get; set; }
+    }
+    ```
+    - Indicamos la clave foranea en la Entidad `Imagen`
+    - Creamos un objeto navigation para poder acceder directamente a la propiedad en una query a `PropiedadDetalle`
+    ```Csharp
+    public class Imagen 
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public string Id { get; set; }
+
+        //Claves Foraneas
+        public string PropiedadDetalleId { get; set; }
+
+        // Navegadores
+        public PropiedadDetalle PropiedadDetalleNavigation { get; set; }
+    }
+    ```
+
+- **N:M** Suponiendo dos tablas, una **Propiedad** y otra **Usuario**, queremos hacer que un usuario pueda establecer como favorito una propiedad, por tanto 1 usuario puede establecer 1 o varias propiedades como favorito y una propiedad puede tener 1 o varios usuarios de favoritos, por tanto tenemos una relacion N:M. Como hemos dicho arriba, la relacion N:M generan tabla, por tanto la tabla `Favorito`.
+    - La entidad `Propiedad` contiene un objeto navegacion para poder obtener una lista de los usuarios que tienen marcada esa propiedad como favorito, pero no tiene ninguna clave foranea
+    ```Csharp
+    public class Propiedad 
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public string Id { get; set; }
+
+        // Claves Foraneas
+        public string PropiedadDetalleId { get; set; }
+
+        // Navegadores
+        public ICollection<Favorito> FavoriteNavigation { get; set; }
+    }
+    ```
+    - La clase usuario agregamos un objeto Navigation para poder obtener la lista de propiedades marcadas como favorito por 1 usuario, pero este no tiene la clave foranea
+    ```Csharp
+    public class User : IdentityUser<int> 
+    {
+        //Navigation
+        public ICollection<Favorito> FavoritePropertyNavigation { get; set; }
+    }
+    ```
+    - Como las relaciones N:M generan tabla, tenemos la tabla Favorito, que contiene las claves Foraneas de UserId y PropiedadId, que estas dos conjuntas son la key principal.
+    - Tambien asignamos los navegadores para, teniendo un registro de favorito, poder buscar el Usuario y la Propiedad vinculada.
+    ```Csharp
+    public class Favorito 
+    {
+        public int UserId { get; set; }
+        public string PropiedadId { get; set; }
+
+        // Navegadores
+        public User UserNavigation { get; set; }
+        public Propiedad PropiedadNavigation { get; set; }
+    }
+    ```
+    - En este caso, en el `ModelBuilder` habra que indicar que la tabla Favoritos contiene las 2 key, con la key principal, para ello ponemos lo siguiente
+    ```Csharp
+    builder.Entity<Favorito>()
+        .HasKey(fav => new {
+            fav.UserId,
+            fav.PropiedadId
+        });
+    ```
+
+## Database First
+Cuando preferimos crear la base de datos manualmente o ya la tenemos creada, por ejemplo, porque implementamos EF core en un proyecto que ya estaba creado, podemos hacer uso de un comando que nos crea todas las entidades con sus relaciones y el contexto ya configurado.
+
+1. En el comando se agrega la cadena de conexion para mapear la base de datos y las relaciones
+1. Indicamos el paquete Nuget que indica el tipo de base de datos al cual se va a conectar, en el ejemplo `Microsoft.EntityFrameworkCore.SqlServer`
+1. La opcion `-Project` se usa porque debemos de ejecutar el comnado referenciando al proyecto que contiene `Microsoft.EntityFrameworkCore.Design`, pero puede que se quieran crear el contexto y las entidades a utilizar en otro proyecto, por ejemplo, en el proyecto de `Dominio`.
+
+```powershell
+# Visual studio
+Scaffold-DbContext "Cadena de Conexion" Microsoft.EntityFrameworkCore.SqlServer -Project "Nombre.de.proyecto" -Force
+```
+
+Despues de tener los archivos de entidades y contexto creados, tendremos que echar un vistazo a la configuracion del `ModelBuilder` y del contexto, por ejemplo, en el DbContext seguramente tendremos que eliminar el metodo `OnConfiguring()`.
+
+## Crear migrations en otro proyecto
+Si queremos tener las migraciones en otro proyecto, sea por organizacion o porque queremos crear un proyecto para aplicar las migraciones por ejemplo, podemos hacerlo agregando la opcion en la configuración del contexto de la siguiente forma.
+
+```Csharp
+options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(EjemploContext)), sql =>
+{
+    sql.MigrationsAssembly(typeof(Program).Assembly.FullName);
+});
+```
+
 
 # Identity
 `Identity` es un framework que nos permite abstraernos de toda la configuracion que requiere hacer un proceso de login, crear usuarios, modificar y cerrar sesion.
@@ -1214,55 +1116,38 @@ Permite entre otros, el uso de un doble factor de autenticacion, inicio de sesio
 
 Identity tiene sus propias entidades ya creadas, las cuales podemos utilizar sin ningun problema, si por algun casual necesitamos crear o señalizar nuestras propias entidades no pasaria nada
 
-Identity por debajo hace uso del `Entity Framework core` para la ejecucion de las queries correspondientes.
+Identity por debajo hace uso de `Entity Framework core` para la ejecucion de las queries.
 
 ## Configurar Identity
 Si queremos personalizar alguna tabla, como agregar campos extras a la tabla usuario o la de Roles, podemos crear clases que hereden directamente de su clase Identity.
 
 - Creamos la clase `User` y la clase `Role` y heredamos de `IdentityUser` e `IdentityRole` respectivamente indicando un tipo `int`, ese tipo puede ser cualquier dato y corresponde a la key principal de las columnas, esos significa, que si le indicamos `Guid`, la key cuando se autogenere al, por ejemplo, crear un usuario, sera de tipo `Guid`
-- Agregamos dos campos nuevos para la Base de Datos, **Name** y **LastName**
-- Agregamos objetos de navegacion, objetos que tienen relacion con el usuario.
 ```Csharp
-public class User : IdentityUser<int> {
-    public string Name { get; set; }
-    public string LastName { get; set; }
-
-    //Navigation
-    public ICollection<Favorito> FavoritePropertyNavigation { get; set; }
-    public ICollection<Chat> ChatFromUserNavigation { get; set; }
-    public ICollection<Chat> ChatToUserNavigation { get; set; }
+public class User : IdentityUser<int> 
+{
 }
-
-public class Role : IdentityRole<int> {
-
+public class Role : IdentityRole<int> 
+{
 }
 ``` 
 
-- Creamos la configuracion con las clases personalizadas de Indentity
+- Creamos la configuracion con las clases personalizadas de Identity
 - Creamos las opciones de requisitos minimos en la contraseña a utilizar para el registros de sesion
 - Agregamos el proveedor de tokens por defecto para restablecer contraseñas
-- Agregamos la clase SignInManager indicando la clase que debemos usar para la gestion de sesion.
+- Agregamos la clase `SignInManager` indicando la clase que debemos usar para la gestion de sesion.
 - Agregamos la clase que va a llevar los Roles del usuario, por ejemplo, comprobar si es un usuario Administrador
 - Agregamos el Contexto de EF Core para que las consultas se ejecuten con el framework.
 ```Csharp
 services.AddIdentity<User, Role>(options => {
     // Password settings.
     options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequiredLength = 6;
-    options.Password.RequiredUniqueChars = 1;
 
     // Lockout settings.
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-    options.Lockout.MaxFailedAccessAttempts = 5;
-    options.Lockout.AllowedForNewUsers = true;
 
     // User settings.
     options.User.AllowedUserNameCharacters =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-    options.User.RequireUniqueEmail = false;
 }).AddDefaultTokenProviders()
     .AddSignInManager<SignInManager<User>>()
     .AddRoles<Role>()
@@ -1274,12 +1159,6 @@ Agregamos en el metodo `OnModelCreating` de la clase de `DbContext` que contiene
 ```Csharp
  // Cambio de nombre de las tablas de identity
 builder.Entity<User<int>>().ToTable("Users");
-builder.Entity<Role<int>>().ToTable("Roles");
-builder.Entity<IdentityRoleClaim<int>>().ToTable("RoleClaims");
-builder.Entity<IdentityUserClaim<int>>().ToTable("UserClaims");
-builder.Entity<IdentityUserLogin<int>>().ToTable("UserLogins");
-builder.Entity<IdentityUserRole<int>>().ToTable("UserRoles");
-builder.Entity<IdentityUserToken<int>>().ToTable("UserTokens");
 ```
 
 ## Configurar Identity
@@ -1320,12 +1199,12 @@ internal Constructor(SignInManager<IdentityUser> signInManager)
 
 #### PasswordSignInAsync
 ```Csharp
-await _signInManager.PasswordSignInAsync(user, password, rememberMe, lockOnFailure);
+_signInManager.PasswordSignInAsync(user, password, rememberMe, lockOnFailure);
 ```
 
 #### TwoFactorAuthenticatorSignInAsync
 ```Csharp
-await _signInManager.TwoFactorAuthenticatorSignInAsync(code, isPersistent, rememberClient);
+_signInManager.TwoFactorAuthenticatorSignInAsync(code, isPersistent, rememberClient);
 ```
 
 ## Authorization
@@ -1344,10 +1223,12 @@ Este atributo se puede poner encima de metodos y de la propia clase de Controlle
 
 ### Con HttpContext
 ```Csharp
-if (HttpContext.User.IsInRole(roleAdmin)) {
+if (HttpContext.User.IsInRole(roleAdmin)) 
+{
 }
 
-if (HttpContext.User.Identity.IsAuthenticated) {
+if (HttpContext.User.Identity.IsAuthenticated) 
+{
 }
 ```
 
@@ -1371,10 +1252,6 @@ internal Constructor(UserManager<IdentityUser> userManager)
 var usuario = new IdentityUser() 
 {
     UserName = "usuario",
-    Name = "Usuario",
-    LastName = "No Privilegiado",
-    Email = "usuarioRolUsuario@cbhgdiuohp.com",
-    PhoneNumber = "655666555",
     SecurityStamp = new Guid().ToString()
 };
 await _userManager.CreateAsync(usuario, "Contraseña");
