@@ -34,7 +34,7 @@ var saludo = "Hola";
 Console.WriteLine($"{saludo} terricola");
 ```
 
-## StringBuilder
+# StringBuilder
 **string** es una clase inmutable, eso quiere decir que su valor no puede ser modificado y por tanto, cuando realizamos labores como concatenar, lo que en realidad se hace es crear una cadena nueva con esas dos cadenas juntas.
 
 **StringBuidler** en cambio permite la mutabilidad de la cadena, por tanto, es posible hacer modificaciones a esta sin ncesidad de crearla de nuevo, dando lugar a mas performance en dependiendo que situaciones.
@@ -46,7 +46,7 @@ stringBuilder.Replace("Hola", "Adios");
 var cadenaCompleta = stringBuilder.ToString();
 ```
 
-## Expresiones Regulares
+# Expresiones Regulares
 Las expresiones regulares proporcionan un método eficaz y flexible para procesar texto. La notación extensa de coincidencia de patrones de expresiones regulares permite analizar rápidamente grandes cantidades de texto para:
 
 - Buscar patrones concretos de caracteres.

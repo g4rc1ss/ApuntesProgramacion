@@ -27,21 +27,24 @@ bool d = false;
 var x = "h";
 const int CONSTANTE = 2;
 ```
-- `var` Se usa para no tener que indicar el tipo de la variable, lo detecta automaticamente
+- `var` Se usa para no tener que indicar el tipo de la variable, lo detecta automaticamente en tiempo de compilación
 - `const` Se usa para establecer un valor que no puede ser modificado
+
+## Alias en using
+Al importar un namespace, podemos asignar un alias para identificarlo. Para acceder a una clase que contiene un alias, se usara el operador `::`. Para acceder al namespace de .Net de forma exclusiva, se usara el alias `global`
+
+```Csharp
+using aliasUsing = System;
+
+aliasUsing::Console.WriteLine();
+global::System.Console.WriteLine();
+```
 
 ## Tipos Nullables
 Los tipos primitivos no pueden ser `null` por defecto, no obstante, si se requiere de hacer uso de null en dichos tipos, se pueden definir de la siguiente forma.
 ```Csharp
 int? numero = null;
 Nullable<int> = null;
-```
-
-## Convertir tipos
-Para convertir a otros tipos se puede hacer uso de la clase estatica `Convert` como el ejemplo de arriba
-```Csharp
-Convert.ToInt32(2.0); // 2
-Convert.ToBoolean(1); // true
 ```
 
 ## Boxing y Unboxing
@@ -56,13 +59,8 @@ int j = (int)o; // Unboxing
 ```
 
 ## Dynamic
-Cuando creamos una variable debemos indicar el tipo de variable que va a ser, o podemos utilizar la palabra clave var, la cual se convertirá en tiempo de compilación en el tipo de variable - la cual denominamos variable implícita -
+Este tipo de variables determinan su tipo en tiempo de ejecucion y no de compilacion, por tanto, cada vez que asignemos un nuevo valor, su tipo sera modificado.
 
-En el caso de las variables dinámicas, en vez de determinar su valor en tiempo de compilación se determina durante el tiempo de ejecución, o runtime.
-
-Cuando el compilador pasa por la variable lo que hace es convertir en tipo en un tipo Object en la gran mayoría de los casos. 
-
-Lo que quiere decir que cada vez que le asignamos un valor, cambiará también el tipo de variable que es el objeto, podemos verlo utilizando la siguiente línea de código:
 ```Csharp
 // Se inicializa tipo int
 dynamic variableDinamica = 1;
@@ -75,17 +73,21 @@ variableDinamica.GetType().ToString();
 
 ## Instrucciones de Seleccion
 ### if-else
-Una instrucción `if` con una parte `else` selecciona una de las dos instrucciones que se ejecutarán en función del valor de una expresión booleana
+Es una instruccion condicional, si esta se evalua como `true`, entrará en el cuerpo que se resuelve. Si hay una instruccion `else`, se entrará cuando ninguna condicion anterior se cumpla. 
 ```Csharp
-if (true)
+if (condicion)
 {
 }
-else if (true)
+else if (condicion)
 {
 }
 else
 {
 }
+```
+Equivalente ternario
+```Csharp
+condicion ? esTrue : esFalse
 ```
 
 ### switch
@@ -100,6 +102,14 @@ switch (opt)
     default:
         break;
 }
+```
+Equivalente ternario
+```Csharp
+opt switch
+{
+    "Hola" => Console.WriteLine("Hola"),
+    _ => Console.WriteLine("Default"),
+};
 ```
 
 ## Instrucciones de Iteracion
@@ -148,24 +158,6 @@ El lenguaje C# proporciona una serie de operadores en la sintaxis del codigo par
 | `<=` | El operador `<=` devuelve `true` si el operando izquierdo es menor o igual que el derecho; en caso contrario, devuelve `false`. |
 | `>=` | El operador `>=` devuelve `true` si el operando izquierdo es mayor o igual que el derecho; en caso contrario, devuelve `false`. |
 
-### Alias en using
-Cuando importamos un namespace, podemos asignar un alias para identificarlo como si de una variable se tratara.  
-Para acceder a una clase que contiene un alias, se usara el operador `::`  
-Para acceder al namespace de .Net de forma exclusiva, se usara el alias `global`
-
-```Csharp
-using aliasUsing = System;
-
-aliasUsing::Console.WriteLine();
-global::System.Console.WriteLine();
-```
-
-### Ternario o `?:`
-Se realiza la comprobacion de un `bool` y se agregan dos simbolos, el `?` cuando se cumple la condicion y los `:` si no se cumple dicha condicion
-```Csharp
-"x".StartsWith('d') ? "Empieza por d" : "Pues no, no empieza por d";
-```
-
 ### Condicional NULL de acceso a miembros o `?.` `?[]`
 El uso de `?.` o `?[0]` Se usa para comprobar si el contenido es null y si es asi, se va "arrastrando" el null, osea que en este caso, si `lista` es null, no se comprobaria `.count` y se devolveria null.
 ````Csharp
@@ -184,7 +176,7 @@ lista ??= new List<string>();
 - En el segundo ejemplo, se comprobara si `lista` es `null`, si es asi, seguira normal y sino, se asignara a la variable lista un `new List<string>()`.
 
 ### Sobreescribir Operadores
-Un tipo definido por el usuario puede sobrecargar un operador de C# predefinido. Es decir, un tipo puede proporcionar la implementación personalizada de una operación cuando uno o los dos operandos son de ese tipo
+Un tipo puede proporcionar la implementación personalizada de una operación cuando uno o los dos operandos son de ese tipo
 ````Csharp
 class ClaseConOperadores
 {
@@ -223,7 +215,6 @@ public static explicit operator ClaseConvertidaExplicita(ClaseParaConvertir clas
 }
 ```
 
-
 ## Enumerador
 Una enumeración es un conjunto de constantes enteras que tienen asociado un nombre para cada valor.
 
@@ -257,7 +248,6 @@ public class Customer
    // Fields, properties, methods and events go here...
 }
 ```
-
 
 ## Clases Estaticas
 La instruccion `static` se usa cuando se quiere el acceso a un metodo o propiedad sin que tenga que ser instanciada la clase.
@@ -296,43 +286,22 @@ private void MetodoConParametros(string texto)
 
 ### Paso de parametros
 Los parametros a los metodos se pueden pasar de varias formas y con diferentes modificadores:
-
-#### Modificador params
-El modificador params se utiliza cuando queremos mandar por parametro a un metodo una cantidad muy grande de ellos, los recibe como una lista y los puede leer a traves de un bucle `foreach`
-
-Por ejemplo, supongamos que queremos hacer una verificacion de parametros null, para hacer el metodo reulizable lo hacemos mediante `params`
-```Csharp
-private void MetodoParams(params string[] parametros)
-{
-    foreach (var param in parametros)
-    {
-        Console.WriteLine(param);
-    }
-}
-```
-
-#### Modificadores `in`, `ref`. `out`
-Cuando pasamos parametros a un metodo, internamente se crea un nuevo espacio de memoria para el procesado de dichos parametros.  
-Para aumentar el rendimiento se pueden pasar los valores por referencia, es decir, pasar la direccion de memoria donde de aloja dichos valores, de esta forma el proceso es mas rapido y no consume mas memoria.
-
-Hay tres tipos de modificadores:
-- `ref`: Se indica para pasar el parametro por referencia, hay que tener en cuenta que cuando hacemos esto, se le manda la direccion donde esta alojado el objeto que estamos enviando, por tanto, si el metodo modifica el objeto que recibe, estara modificando el objeto original.
-- `in`: Para evitar el problema del modificador `ref` se ha creado el modificador `in`, este permite enviar el objeto por referencia tambien, pero evitara que se puedan alterar los valores del original.
-- `out`: Con el modificador `out` se evitaria el return del metodo, dentro del metodo se podra almacenar la variable marcada como `out` con el contenido correspondiente y recorger dicha variable desde la llamada al metodo.
-
-```Csharp
-private static void MetodoMoficadores(in string mod1, ref string mod2, out string mod3)
-{
-    Console.WriteLine($"{mod1} - Soy una referencia, pero soy de solo lectura");
-    mod2 = "Sobreescribo lo que habia porque acceso a la referencia";
-    mod3 = "Creo una variable y devuelvo su ref para almacenarla en la llamada externa";
-}
-
-var mod1 = "Soy un valor que se va a pasar por in";
-var mod2 = "Soy un valor que se va a pasar por ref";
-var mod3 = default(string);
-MetodoMoficadores(in mod1, ref mod2, out mod3);
-```
+- **params**: Especifica que el parámetro puede tomar un número variable de argumentos. El tipo de parámetro debe ser una matriz unidimensional.
+    ```Csharp
+    void UseParams(params int[] list)
+    ```
+- **ref**: El parámetro se pasa por referencia y puede ser leído o escrito por el método llamado
+    ```Csharp
+    void RefArgExample(ref int number)
+    ```
+- **in**: El argumento se pasa por referencia, pero garantiza que el argumento no puede ser modificado. 
+    ```Csharp
+    void InArgExample(in int number)
+    ```
+- **out**: El parámetro se pasa por referencia y se escribe mediante el método llamado. Es una manera de retornar por referencia un valor del metodo
+    ```Csharp
+    void OutArgExample(out int number)
+    ```
 
 ### Metodos de extension
 Los métodos de extensión permiten "agregar" métodos a los tipos existentes sin crear un nuevo tipo derivado, recompilar o modificar de otra manera el tipo original. Los métodos de extensión son métodos estáticos, pero se les llama como si fueran métodos de instancia en el tipo extendido.
@@ -342,19 +311,12 @@ El método tiene que ser estático y en el primer parámetro, debemos indicar la
 ```Csharp
 public static class StringExtensions
 {
-    public static string PrimeraMaysucula(this string fraseInicial)
+    public static string stringExtension(this string cadena)
     {
-        char primeraLetra = char.ToUpper(fraseInicial[0]);
-        string RestoDeFrase = fraseInicial.Substring(1);
-
-        return primeraLetra + RestoDeFrase;
+        // code
     }
 }
-
-//Llamada
-Console.WriteLine("hello world!".PrimeraMaysucula());
 ```
-
 
 ## Propiedades
 Las propiedades se comportan como campos cuando se obtiene acceso a ellas. Pero, a diferencia de los
@@ -371,7 +333,6 @@ public string propiedadDos {
 }
 ```
 
-
 ## Herencia
 La herencia significa que se pueden crear nuevas clases partiendo de clases existentes, que tendrá todas los atributos, propiedades y los métodos de su 'superclass' o 'clase padre' y además se le podrán añadir otros atributos, propiedades y métodos propios.
 
@@ -385,7 +346,7 @@ public class Clase : SuperClase
 ## Clases Abstractas
 No se pueden crear instancias de una clase abstracta. 
 
-La finalidad de una clase abstracta es ser una clase de la cual se hereda y te da la posibilidad de tener metodos base completamente funcionales y metodos abstractos, estos ultimos son metodos que han de ser "declarados" en la clase abstracta y sobreescritos en la clase que herede de la abstracta.
+La finalidad de una clase abstracta es ser una clase de la cual se hereda y te da la posibilidad de tener metodos base funcionales y metodos abstractos, estos ultimos son metodos que han de ser "declarados" en la clase abstracta y sobreescritos en la clase derivada.
 
 ```Csharp
 internal abstract class A
@@ -401,7 +362,6 @@ internal class B : A
 }
 ```
 
-
 ## Sealed Class
 El modificador `sealed` se usa para sellar una clase y que esta no pueda ser heredada.
 
@@ -410,21 +370,12 @@ Tambien se puede usar este modificador en metodos o propiedades para que estos n
 sealed class SealedClass
 {
 }
-
 ``` 
-
 
 ## Interface
 Las interfaces, como las clases, definen un conjunto de propiedades, métodos y eventos. Pero de forma contraria a las clases, las interfaces no proporcionan implementación.
 
-Se implementan como clases y se definen como entidades separadas de las clases.
-
-Una interfaz representa un contrato, en el cual una clase que implementa una interfaz debe implementar cualquier aspecto de dicha interfaz exactamente como esté definido
-
-El beneficio que da las interfaces es que permite tener una capa de abstraccion en el codigo, donde puedes hacer uso de ella para ejecutar ciertas clases usando la interfaz como instancia.
-
-Por ejemplo una de las cosas que se consiguen mediante las interfaces es la api Linq, Linq hace uso de la interfaz `IEnumerable` para procesar los datos, por tanto, si yo ahora creo una coleccion mia propia que implemente dicha interfaz, podre hacer uso de las funciones de consulta de LINQ y todo es porque la api lo que espera recibir es una clase que tenga implementada esa interfaz.
-La interfaz tiene una serie de metodos implementados y Linq hace uso de ellos para leer y procesar la coleccion.
+Una interfaz representa un contrato, en el cual una clase que implementa una interfaz debe implementar cualquier aspecto de dicha interfaz exactamente como esté definido,
 
 ```Csharp
 interface IMiInterfaz
@@ -440,14 +391,8 @@ public class PruebaInterfazImplícita : IMiInterfaz
 }
 ```
 
-
 ## Polimorfismo
-Es la capacidad que tiene una clase en convertirse en un nuevo objeto sin cambiar su esencia y luego volver al objeto origina de donde salió.
-
-Hay tres tipos de polimorfismo:
-- Polimorfismo por Herencia: Cuando se hereda de una clase normal y puedo convertirme en ella.
-- Polimorfismo por Abstraccion: Cuando puedo heredar de una clase abstracta y puedo convertirme en ella.
-- Polimorfismo por Interface: Es la posibilidad que tenemos de implementar una interface y puedo convertirme en ella.
+Es la capacidad que tiene una clase en convertirse en un nuevo objeto sin cambiar su esencia y luego volver al objeto original de donde salió.
 
 ### Polimorfismo por Herencia
 Este tipo de polimorfismo es el mas común que existe, y tiene la facultad de heredar de una clase padre y reemplazarla.
@@ -477,41 +422,16 @@ static void Main(string[] args)
 }
 ```
 
-### Polimorfismo por Abstraccion
-Este tipo de polimorfismo se da con el uso de las clases abstractas. Pero que es una clase abstracta es aquella que además de lo normal que contiene una clase tiene comportamientos que si están definidos pero no implementados.
-
-```Csharp
-abstract class Padre
-{
-    public abstract void Escribiendo();
-}
-
-class Hijo : Padre
-{
-    public override void Escribiendo()
-    {
-        Console.WriteLine("Escribiendo el hijo");
-    }
-}
-
-static void Main(string[] args)
-{
-    // La clase hijo sobreescribe el metodo abstracto y lo insertamos a la clase padre.
-    Padre papa = new Hijo();
-    papa.Escribiendo();
-}
-```
-
 ### Polimorfismo por Interface
-Es uno de los polimorfismos mas importantes por que esta basado por contratos, que son los encargados de decirme que puedo hacer o no y como debo de hacerlo.
+Podemos devolver una instancia de un objeto como una interfaz, cuando ese objeto implemente dicha interfaz. Por tanto, una interfaz puede actuar como diferentes objetos.
 
 ```Csharp
-interface IPadre
+interface IEscribir
 {
     void Escribiendo();
 }
 
-class Hijo : IPadre
+class Escribir : IEscribir
 {
     public void Escribiendo()
     {
@@ -521,11 +441,10 @@ class Hijo : IPadre
 
 static void Main(string[] args)
 {
-    IPadre papa = new Hijo();
-    papa.Escribiendo();
+    IEscribir escritura = new Escribir();
+    escritura.Escribiendo();
 }
 ```
-
 
 ## Covarianza y Contravarianza
 La covarianza y la contravarianza habilitan la conversión de referencias implícita de tipos de matriz, tipos de delegado y argumentos de tipo genérico. La covarianza conserva la compatibilidad de asignaciones y la contravarianza la invierte.
