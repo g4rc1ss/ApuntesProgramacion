@@ -18,7 +18,6 @@ namespace ProgramNamespace
 - ``class`` -> Creamos una clase, que es un modulo que se usa para declarar objetos y tratarlos añadiendo funciones.
 - ``Main(string[] args)`` -> el método main es el método principal de donde parte la aplicación siempre, no puede haber dos main en el mismo proyecto
 
-
 ## Declaración de variables
 ```Csharp
 string a = "hoa";
@@ -31,7 +30,6 @@ const int CONSTANTE = 2;
 - `var` Se usa para no tener que indicar el tipo de la variable, lo detecta automaticamente
 - `const` Se usa para establecer un valor que no puede ser modificado
 
-
 ## Tipos Nullables
 Los tipos primitivos no pueden ser `null` por defecto, no obstante, si se requiere de hacer uso de null en dichos tipos, se pueden definir de la siguiente forma.
 ```Csharp
@@ -39,14 +37,12 @@ int? numero = null;
 Nullable<int> = null;
 ```
 
-
 ## Convertir tipos
 Para convertir a otros tipos se puede hacer uso de la clase estatica `Convert` como el ejemplo de arriba
 ```Csharp
 Convert.ToInt32(2.0); // 2
 Convert.ToBoolean(1); // true
 ```
-
 
 ## Boxing y Unboxing
 Todos los tipos de C# directa o indirectamente se derivan del tipo de clase object, y object es la clase base definitiva de todos los tipos. Los valores de tipos de referencia se tratan como objetos mediante la visualización de los valores como tipo object.
@@ -58,7 +54,6 @@ int i = 123;
 object o = i; // Boxing
 int j = (int)o; // Unboxing
 ```
-
 
 ## Dynamic
 Cuando creamos una variable debemos indicar el tipo de variable que va a ser, o podemos utilizar la palabra clave var, la cual se convertirá en tiempo de compilación en el tipo de variable - la cual denominamos variable implícita -
@@ -78,10 +73,9 @@ variableDinamica = "test";
 variableDinamica.GetType().ToString();
 ```
 
-
-## Instrucciones de toma de decisiones
-### Condicionales
-#### if-else
+## Instrucciones de Seleccion
+### if-else
+Una instrucción `if` con una parte `else` selecciona una de las dos instrucciones que se ejecutarán en función del valor de una expresión booleana
 ```Csharp
 if (true)
 {
@@ -94,7 +88,8 @@ else
 }
 ```
 
-#### switch
+### switch
+Selecciona una lista de instrucciones para ejecutarla en función de la coincidencia de un patrón con una expresión.
 ```Csharp
 switch (opt)
 {
@@ -107,33 +102,33 @@ switch (opt)
 }
 ```
 
-### Iteracion
-#### while
-
+## Instrucciones de Iteracion
+### while
+Ejecuta condicionalmente su cuerpo cero o varias veces.
 ```Csharp
 while (true)
 {
 }
 ```
 
-#### do while
-
+### do while
+Ejecuta condicionalmente su cuerpo una o varias veces.
 ```Csharp
 do
 {
 } while (true);
 ```
 
-#### for
-
+### for
+Ejecuta su cuerpo mientras una expresión booleana especificada se evalúe como `true`. Permite inicializar una variable al principio de la iteracion y ejecutar una instruccion cada vez que termina de ejecutarse el cuerpo
 ```Csharp
 for (int i = 0; i < 90; i++)
 {
 }
 ```
 
-#### foreach
-
+### foreach
+Enumera los elementos de una colección y ejecuta su cuerpo para cada elemento de la colección
 ```Csharp
 foreach (var item in new List<string>())
 {
@@ -169,7 +164,6 @@ global::System.Console.WriteLine();
 Se realiza la comprobacion de un `bool` y se agregan dos simbolos, el `?` cuando se cumple la condicion y los `:` si no se cumple dicha condicion
 ```Csharp
 "x".StartsWith('d') ? "Empieza por d" : "Pues no, no empieza por d";
-
 ```
 
 ### Condicional NULL de acceso a miembros o `?.` `?[]`
@@ -204,25 +198,6 @@ class ClaseConOperadores
     {
         return new ClaseConOperadores(a.NumeroOperar + b.NumeroOperar);
     }
-
-    public static ClaseConOperadores operator -(ClaseConOperadores a, ClaseConOperadores b)
-    {
-        return new ClaseConOperadores(a.NumeroOperar - b.NumeroOperar);
-    }
-
-    public static ClaseConOperadores operator *(ClaseConOperadores a, ClaseConOperadores b)
-    {
-        return new ClaseConOperadores(a.NumeroOperar * b.NumeroOperar);
-    }
-
-    public static ClaseConOperadores operator /(ClaseConOperadores a, ClaseConOperadores b)
-    {
-        return new ClaseConOperadores(a.NumeroOperar / b.NumeroOperar);
-    }
-
-    public override bool Equals(object obj) => base.Equals(obj);
-    public override int GetHashCode() => base.GetHashCode();
-    public override string ToString() => $"{NumeroOperar}";
 }
 ````
 
@@ -231,92 +206,21 @@ Para hacer una conversion implicita, basta con que en la clase desde la que quer
 
 En una operacion de conversion implicita se realiza una asignacion teniendo en el operando izquierdo la clase que contiene el operador y en el operando derecho la clase de la que se va a convertir.
 ```Csharp
-internal class ClaseParaConvertir
+public static implicit operator ClaseConvertidaImplicita(ClaseParaConvertir clase)
 {
-    public string Id { get; set; }
-    public string Propiedad { get; set; }
-
-    public ClaseParaConvertir()
-    {
-    }
-
-    public ClaseParaConvertir(string id, string propiedad)
-    {
-        Id = id;
-        Propiedad = propiedad;
-    }
+    return new ClaseConvertidaImplicita(clase.Id);
 }
-
-internal class ClaseConvertidaImplicita
-{
-    public string Id { get; set; }
-
-    public ClaseConvertidaImplicita(string id)
-    {
-        Id = id;
-    }
-
-    public static implicit operator ClaseConvertidaImplicita(ClaseParaConvertir clase)
-    {
-        return new ClaseConvertidaImplicita(clase.Id);
-    }
-}
-
-// Codigo que ejecutamos
-var convirtiendo = new ClaseParaConvertir()
-{
-    Id = "2345678987654",
-    Propiedad = "hbfohsgbvyoduuvhduyovbxovgdvugfbvyfud"
-};
-
-ClaseConvertidaImplicita conversionImplicita = convirtiendo;
 ```
 
 ### Explicit Operator
 Para hacer una conversion explicita, simplemente agregamos un operador estatico para ello.
 
-En las operaciones de conversion explicitas se debe indicar mediante el casteo el tipo del a clase a la que queremos convertir.
+Para convertir una clase en otra con un operador explicito, debemos de castearla
 ```Csharp
-internal class ClaseParaConvertir
+public static explicit operator ClaseConvertidaExplicita(ClaseParaConvertir clase)
 {
-    public string Id { get; set; }
-    public string Propiedad { get; set; }
-
-    public ClaseParaConvertir()
-    {
-    }
-
-    public ClaseParaConvertir(string id, string propiedad)
-    {
-        Id = id;
-        Propiedad = propiedad;
-    }
+    return new ClaseConvertidaExplicita(clase.Id);
 }
-
-internal class ClaseConvertidaExplicita
-{
-    public string Id { get; set; }
-
-    public ClaseConvertidaExplicita(string id)
-    {
-        Id = id;
-    }
-
-    public static explicit operator ClaseConvertidaExplicita(ClaseParaConvertir clase)
-    {
-        return new ClaseConvertidaExplicita(clase.Id);
-    }
-}
-
-
-// Codigo a ejecutar
-var convirtiendo = new ClaseParaConvertir()
-{
-    Id = "2345678987654",
-    Propiedad = "hbfohsgbvyoduuvhduyovbxovgdvugfbvyfud"
-};
-
-var conversionExplicita = (ClaseConvertidaExplicita)convirtiendo;
 ```
 
 
@@ -731,7 +635,6 @@ class MyException : Exception
 Los atributos proporcionan un método eficaz para asociar metadatos, o información declarativa, con código (ensamblados, tipos, métodos, propiedades, etc.). Después de asociar un atributo con una entidad de programa, se puede consultar el atributo en tiempo de ejecución mediante la utilización de una técnica denominada reflexión.
 
 Los atributos tienen las propiedades siguientes:
-
 - Los atributos agregan metadatos al programa. Los metadatos son información sobre los tipos definidos en un programa.
 - Puedes aplicar uno o más atributos a todos los ensamblados, módulos o elementos de programa más pequeños como clases y propiedades.
 - Los atributos pueden aceptar argumentos de la misma manera que los métodos y las propiedades.
@@ -817,14 +720,12 @@ public class EnumerablePersonalizado<T> : IEnumerable<T>
 }
 ```
 
-
 ## Generics
 Los genéricos introducen en .NET el concepto de parámetros de tipo, lo que le permite diseñar clases y métodos que aplazan la especificación de uno o varios tipos hasta que el código de cliente declare y cree una instancia de la clase o el método.
 
 Para que usar los genéricos?
 - Use tipos genéricos para maximizar la reutilización del código, la seguridad de tipos y el rendimiento.
 - El uso más común de los genéricos es crear clases de colección.
-La biblioteca de clases .NET Framework contiene varias clases de colección genéricas nuevas en el espacio de nombres System.Collections.Generic. Estas se deberían usar siempre que sea posible en lugar de clases como ArrayList en el espacio de nombres System.Collections.
 - Puede crear sus propias interfaces, clases, métodos, eventos y delegados genéricos.
 - Puede limitar las clases genéricas para habilitar el acceso a métodos en tipos de datos determinados.
 - Puede obtener información sobre los tipos que se usan en un tipo de datos genérico en tiempo de ejecución mediante la reflexión
@@ -835,17 +736,6 @@ class ClaseGenerica<T> where T : class, IEnumerable, new()
     public void Add(T input)
     {
     }
-}
-
-class ClaseIEnumerable : IEnumerable
-{
-    public ClaseIEnumerable()
-    {
-
-    }
-
-    public IEnumerator GetEnumerator() => throw new NotImplementedException();
-    IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
 }
 ```
 
