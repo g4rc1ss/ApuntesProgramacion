@@ -342,7 +342,6 @@ public class Clase : SuperClase
 }
 ```
 
-
 ## Clases Abstractas
 No se pueden crear instancias de una clase abstracta. 
 
@@ -456,7 +455,6 @@ La covarianza permite la conversion implícita de un tipo mas derivado(un tipo h
 // Covariante porque string es una clase que hereda de object
 IEnumerable<object> convariante = new List<string>();
 object[] arrayCovariante = new string[10];
-
 ```
 
 ### Contravarianza
@@ -582,8 +580,7 @@ Permiten crear una clase, un struct o una interfaz con un "indice" al que se acc
 ```Csharp
 public class ClaseIndex
 {
-    private readonly float[] temps = new float[10] { 56.2F, 56.7F, 56.5F, 56.9F, 58.8F,
-                                            61.3F, 65.9F, 62.1F, 59.2F, 57.5F };
+    private readonly float[] temps = new float[10];
     public float this[int index] {
         get {
             return temps[index];
@@ -592,23 +589,8 @@ public class ClaseIndex
             temps[index] = value;
         }
     }
-    public int Contador {
-        get {
-            return temps.Length;
-        }
-    }
 }
-
-public static void Main(string[] args)
-{
-    var objetoIndice = new ClaseIndex();
-
-    objetoIndice[1] = 58.3F;
-    objetoIndice[5] = 98.4F;
-
-    for (int x = 0; x < objetoIndice.Contador; x++)
-        Console.WriteLine(objetoIndice[x]);
-}
+objetoIndice[1] = 58.3F;
 ```
 
 ## Yield
@@ -629,12 +611,11 @@ public class EnumerablePersonalizado<T> : IEnumerable<T>
 
     public IEnumerator<T> GetEnumerator()
     {
-        for (int i = 0; i < collection.Length; i++)
+        foreach(var collect in collection)
         {
-            yield return collection[i];
+            yield return collect;
         }
     }
-
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }
 ```
