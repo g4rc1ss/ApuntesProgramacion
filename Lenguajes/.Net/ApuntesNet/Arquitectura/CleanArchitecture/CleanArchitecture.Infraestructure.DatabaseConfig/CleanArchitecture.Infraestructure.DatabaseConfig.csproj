@@ -16,8 +16,8 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\CleanArchitecture.ApplicationCore.Domain\CleanArchitecture.ApplicationCore.Domain.csproj" />
         <ProjectReference Include="..\CleanArchitecture.ApplicationCore.InterfacesEjemplo\CleanArchitecture.ApplicationCore.InterfacesEjemplo.csproj" />
-        <ProjectReference Include="..\CleanArchitecture.Dominio\CleanArchitecture.ApplicationCore.Domain.csproj" />
         <ProjectReference Include="..\CleanArchitecture.Infraestructure.DbConnectionExtension\CleanArchitecture.Infraestructure.DbConnectionExtension.csproj" />
     </ItemGroup>
 
