@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using CalculadoraComponente;
 
 namespace Calculadora
 {

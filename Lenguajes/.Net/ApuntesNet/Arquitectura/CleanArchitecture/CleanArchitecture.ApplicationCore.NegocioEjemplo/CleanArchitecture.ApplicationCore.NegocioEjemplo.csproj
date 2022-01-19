@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanArchitecture.Dominio\CleanArchitecture.ApplicationCore.Domain.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.ApplicationCore.Domain\CleanArchitecture.ApplicationCore.Domain.csproj" />
     <ProjectReference Include="..\CleanArchitecture.ApplicationCore.InterfacesEjemplo\CleanArchitecture.ApplicationCore.InterfacesEjemplo.csproj" />
     <ProjectReference Include="..\CleanArchitecture.Shared\CleanArchitecture.Shared.csproj" />
   </ItemGroup>

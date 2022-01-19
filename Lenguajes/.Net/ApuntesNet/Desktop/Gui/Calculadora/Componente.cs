@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace CalculadoraComponente
+namespace Calculadora
 {
     public class Componente : System.Windows.Controls.Button
     {
