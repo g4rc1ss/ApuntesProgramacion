@@ -1,0 +1,2 @@
+*.cshtml linguist-language=Csharp
+*.razor linguist-language=Csharp
