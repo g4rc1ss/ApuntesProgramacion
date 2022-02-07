@@ -1,5 +1,4 @@
-# Conceptos Avanzados
-## Atributos
+# Atributos
 Los atributos proporcionan un método eficaz para asociar metadatos, o información declarativa, con código (ensamblados, tipos, métodos, propiedades, etc.). Después de asociar un atributo con una entidad de programa, se puede consultar el atributo en tiempo de ejecución mediante la utilización de una técnica denominada reflexión.
 
 Los atributos tienen las propiedades siguientes:
@@ -26,7 +25,7 @@ public enum Enumerador
 }
 ```
 
-## Indizadores
+# Indizadores
 Permiten crear una clase, un struct o una interfaz con un "indice" al que se accederá a traves del objeto instanciado de la clase, no hace falta acceder a la matriz como tal.
 ```Csharp
 public class ClaseIndex
@@ -44,7 +43,7 @@ public class ClaseIndex
 objetoIndice[1] = 58.3F;
 ```
 
-## Yield
+# Yield
 Lo que el operador yield realiza es pausar la ejecución de la iteración y devuelve el valor al método que realiza la llamada para que este continúe con su ejecución y cuando termine volverá al siguiente punto del iterador.
 
 - `yield` nos puede dar mejoras en el rendimiento y el uso de la ram lo cual siempre es importante.
@@ -71,7 +70,7 @@ public class EnumerablePersonalizado<T> : IEnumerable<T>
 }
 ```
 
-## Generics
+# Generics
 Los genéricos introducen en .NET el concepto de parámetros de tipo, lo que le permite diseñar clases y métodos que aplazan la especificación de uno o varios tipos hasta que el código de cliente declare y cree una instancia de la clase o el método.
 
 Para que usar los genéricos?
@@ -90,7 +89,7 @@ class ClaseGenerica<T> where T : class, IEnumerable, new()
 }
 ```
 
-### Constraints
+## Constraints
 Los constraints son condiciones que deben de cumplir el parametro que se le pasa al generic para que funcione.
 
 | Constraint | Descripción |
@@ -108,7 +107,7 @@ Los constraints son condiciones que deben de cumplir el parametro que se le pasa
 | where T: U | El argumento de tipo proporcionado para `T` debe ser o derivar del argumento proporcionado para `U`.
 
 
-## Eventos
+# Eventos
 Un evento es un mensaje que envía un objeto cuando ocurre una acción.
 
 Los eventos se realizan a mano en el codigo y son contenedores de un metodo Delegado que es el que se va a invocar.

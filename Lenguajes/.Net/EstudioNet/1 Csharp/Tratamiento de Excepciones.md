@@ -1,9 +1,8 @@
-# Tratamiento de Excepciones
 Una excepción es cualquier condición de error o comportamiento inesperado que encuentra un programa en ejecución. 
 
 Las excepciones pueden iniciarse debido a un error en el código propio o en el código al que se llama (por ejemplo, una biblioteca compartida), a recursos del sistema operativo no disponibles, a condiciones inesperadas que encuentra el runtime (por ejemplo, imposibilidad de comprobar el código), etc.
 
-## Capurando las excepciones
+# Capurando las excepciones
 ```Csharp
 try
 {
@@ -23,7 +22,7 @@ finally
 }
 ```
 
-## Provocando una excepcion
+# Provocando una excepcion
 ```Csharp
 public static void Main(string[] args)
 {
@@ -31,7 +30,7 @@ public static void Main(string[] args)
 }
 ```
 
-## Creando excepciones propias
+# Creando excepciones propias
 ```Csharp
 class MyException : Exception
 {
