@@ -25,4 +25,12 @@ Apuntes sobre el uso de .Net donde se detalla el uso de funcionalidades del API 
 1. [Gestion de Memoria](./docs/ApiNet/GestionMemoria.md)
 1. [Interoperabilidad](./docs/ApiNet/Interoperabilidad.md)
 
-
+## Estudio de Librerias Externas de .Net
+1. [Dependency Injection](./docs/LibreriasNet/DependencyInjection.md)
+1. [Utilizar Cache](./docs/LibreriasNet/Caching.md)
+1. [IOptions](./docs/LibreriasNet/IOptions.md)
+1. [IDataProtectionProvider](./docs/LibreriasNet/IDataProtectionProvider.md)
+1. [Middleware](./docs/LibreriasNet/Middleware.md)
+1. [Dapper](./docs/LibreriasNet/Dapper.md)
+1. [Entity Framework Core](./docs/LibreriasNet/EFCore.md)
+1. [Identity](./docs/LibreriasNet/Identity.md)
