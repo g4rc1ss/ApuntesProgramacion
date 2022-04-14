@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CleanArchitecture.Infraestructure.DataEjemplo\CleanArchitecture.Infraestructure.DataEjemplo.csproj" />
     <ProjectReference Include="..\CleanArchitecture.ApplicationCore.InterfacesEjemplo\CleanArchitecture.ApplicationCore.InterfacesEjemplo.csproj" />
     <ProjectReference Include="..\CleanArchitecture.ApplicationCore.NegocioEjemplo\CleanArchitecture.ApplicationCore.NegocioEjemplo.csproj" />

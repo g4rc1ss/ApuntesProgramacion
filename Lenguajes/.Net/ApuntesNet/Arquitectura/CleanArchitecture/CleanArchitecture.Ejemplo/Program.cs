@@ -1,11 +1,15 @@
 ﻿using CleanArchitecture.Ejemplo.Extensions;
 using CleanArchitecture.Ejemplo.Middlewares;
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddAppConfiguration(builder.Configuration);
+builder.Services.AddMemoryCache();
+builder.Services.AddMediatR(new Program().GetType().Assembly);
+
 builder.Services.AddScoped<EjemploMiddleware>();
 
 var app = builder.Build();
