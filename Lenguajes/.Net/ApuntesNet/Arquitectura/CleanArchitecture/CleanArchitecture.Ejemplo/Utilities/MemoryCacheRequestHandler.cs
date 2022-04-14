@@ -15,7 +15,7 @@ namespace CleanArchitecture.Ejemplo.Utilities
 
         public Task<MemoryCacheResponse> Handle(MemoryCacheRequest request, CancellationToken cancellationToken)
         {
-            if (!_memoryCache.TryGetValue(request.Key, out var valueToReturn))
+            if (!_memoryCache.TryGetValue(request.Key, out var valueToReturn) && request.Value != null)
             {
                 valueToReturn = _memoryCache.Set(request.Key, request.Value);
             }
