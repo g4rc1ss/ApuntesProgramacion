@@ -10,8 +10,19 @@ Apuntes sobre el uso de .Net donde se detalla el uso de funcionalidades del API 
 
 
 ## Estudio del API .Net
-1. [Estructura del Código](./docs/ApiNet/String.md)
-1. [Estructura del Código](./docs/ApiNet/StringBuilder.md)
-1. [Programación Orientada a Objetos](./docs/ApiNet/ExpresionesRegulares.md)
-1. [Tratamiento de Excepciones](./docs/ApiNet/Colecciones.md)
-1. [Conceptos Avanzados](./docs/ApiNet/Delegados.md)
+1. [String](./docs/ApiNet/String.md)
+1. [StringBuilder](./docs/ApiNet/StringBuilder.md)
+1. [Expresiones Regulares](./docs/ApiNet/ExpresionesRegulares.md)
+1. [Colecciones](./docs/ApiNet/Colecciones.md)
+1. [Delegados](./docs/ApiNet/Delegados.md)
+1. [Escritura y Lectura](./docs/ApiNet/EscrituraLectura.md)
+1. [Uso de Internet](./docs/ApiNet/UsoInternet.md)
+1. [Acceso a datos (ADO.NET)](./docs/ApiNet/ADONET.md)
+1. [LINQ (Language Integrated Query)](./docs/ApiNet/LINQ.md)
+1. [Reflexion](./docs/ApiNet/Reflexion.md)
+1. [MultiThreading](./docs/ApiNet/MultiThreading.md)
+1. [Task Parallel Library](./docs/ApiNet/TaskParallelLibrary.md)
+1. [Gestion de Memoria](./docs/ApiNet/GestionMemoria.md)
+1. [Interoperabilidad](./docs/ApiNet/Interoperabilidad.md)
+
+
