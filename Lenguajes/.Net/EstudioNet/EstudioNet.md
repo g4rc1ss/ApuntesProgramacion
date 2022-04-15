@@ -42,3 +42,4 @@ Documentación sobre el uso de librerias o frameworks que no estan alojados en e
 1. [Dapper](./docs/LibreriasNet/Dapper.md)
 1. [Entity Framework Core](./docs/LibreriasNet/EFCore.md)
 1. [Identity](./docs/LibreriasNet/Identity.md)
+1. [Mediatr](./docs/LibreriasNet/Mediatr.md)
