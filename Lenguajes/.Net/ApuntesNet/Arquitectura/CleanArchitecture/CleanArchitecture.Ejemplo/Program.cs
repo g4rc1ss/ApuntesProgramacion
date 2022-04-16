@@ -8,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddAppConfiguration(builder.Configuration);
 builder.Services.AddMemoryCache();
-builder.Services.AddMediatR(new Program().GetType().Assembly);
+builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddScoped<EjemploMiddleware>();
 
