@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace CleanArchitecture.ApplicationCore.Domain.Database.Entities.Identity;
+namespace CleanArchitecture.Domain.Database.Identity;
 
 public class UserClaim : IdentityUserClaim<int>
 {

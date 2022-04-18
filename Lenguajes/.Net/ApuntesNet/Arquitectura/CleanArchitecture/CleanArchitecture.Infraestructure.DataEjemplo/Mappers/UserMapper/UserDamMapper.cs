@@ -1,5 +1,5 @@
-﻿using CleanArchitecture.ApplicationCore.Domain.Database.Entities.Identity;
-using CleanArchitecture.ApplicationCore.Domain.Negocio.UsersDto;
+﻿using CleanArchitecture.Domain.Database.Identity;
+using CleanArchitecture.Domain.Negocio.UsersDto;
 
 namespace CleanArchitecture.Infraestructure.DataEjemplo.Mappers.UserMapper
 {

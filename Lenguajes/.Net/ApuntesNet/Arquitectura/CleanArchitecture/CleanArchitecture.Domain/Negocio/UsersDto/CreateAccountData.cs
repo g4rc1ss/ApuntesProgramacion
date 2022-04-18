@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.ApplicationCore.Domain.Negocio.UsersDto;
+﻿namespace CleanArchitecture.Domain.Negocio.UsersDto;
 
 public class CreateAccountData
 {

@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CleanArchitecture.ApplicationCore.Domain.Negocio.Filtros.UserDetail;
-using CleanArchitecture.ApplicationCore.Domain.Utilities.MemoryCacheMediatr;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManager;
-using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
+using CleanArchitecture.Domain.Database.Identity;
+using CleanArchitecture.Domain.Negocio.Filtros.UserDetail;
+using CleanArchitecture.Domain.Utilities.MemoryCacheMediatr;
 using MediatR;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace CleanArchitecture.ApplicationCore.NegocioEjemplo.Negocio.UsersManager
 {
@@ -22,7 +21,7 @@ namespace CleanArchitecture.ApplicationCore.NegocioEjemplo.Negocio.UsersManager
             _mediator = mediator;
         }
 
-        public async Task<UserResponse> GetUser(FiltroUser filtro)
+        public async Task<User> GetUser(FiltroUser filtro)
         {
             var cache = await _mediator.Send(new MemoryCacheRequest
             {
@@ -44,7 +43,7 @@ namespace CleanArchitecture.ApplicationCore.NegocioEjemplo.Negocio.UsersManager
                     Value = await _userDetailDam.GetUser(filtro)
                 });
             }
-            return (UserResponse)cache.Value;
+            return (User)cache.Value;
         }
     }
 }

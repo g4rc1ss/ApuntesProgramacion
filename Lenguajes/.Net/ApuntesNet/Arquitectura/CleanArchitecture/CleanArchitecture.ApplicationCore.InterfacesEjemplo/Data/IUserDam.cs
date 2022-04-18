@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CleanArchitecture.ApplicationCore.Domain.Negocio.UsersDto;
+using CleanArchitecture.Domain.Database.Identity;
+using CleanArchitecture.Domain.Negocio.UsersDto;
 using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
 
 namespace CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data
@@ -12,6 +13,6 @@ namespace CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data
         Task<bool> DeleteUserAsync(UserData user);
         Task<bool> LogInAsync(string user, string password, bool rememberMe);
         Task<bool> LogoutAsync();
-        Task<List<UserResponse>> GetListUsers();
+        Task<List<User>> GetListUsers();
     }
 }

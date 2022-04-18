@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.ApplicationCore.Domain.Negocio.Filtros.UserDetail
+﻿namespace CleanArchitecture.Domain.Negocio.Filtros.UserDetail
 {
     public class FiltroUser
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace CleanArchitecture.Infraestructure.DatabaseConfig.Identity;
+namespace CleanArchitecture.Domain.Database.Identity;
 
 public class Role : IdentityRole<int>
 {

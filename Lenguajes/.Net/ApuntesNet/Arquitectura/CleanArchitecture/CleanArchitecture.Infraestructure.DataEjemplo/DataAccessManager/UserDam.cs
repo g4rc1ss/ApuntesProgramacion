@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CleanArchitecture.ApplicationCore.Domain.Database.Entities.Identity;
-using CleanArchitecture.ApplicationCore.Domain.Negocio.UsersDto;
+using CleanArchitecture.Domain.Database.Identity;
+using CleanArchitecture.Domain.Negocio.UsersDto;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using CleanArchitecture.Infraestructure.DatabaseConfig;
 using CleanArchitecture.Infraestructure.DataEjemplo.Mappers.UserMapper;
@@ -64,18 +64,11 @@ internal class UserDam : IUserDam
         return (await _userManager.DeleteAsync(user)).Succeeded;
     }
 
-    public async Task<List<UserResponse>> GetListUsers()
+    public async Task<List<User>> GetListUsers()
     {
         using var context = _contextFactory.CreateDbContext();
         await Task.Delay(1000);
         return await (from user in context.User
-                      select new UserResponse
-                      {
-                          Id = user.Id,
-                          NombreUsuario = user.UserName,
-                          Nombre = user.NormalizedUserName,
-                          Email = user.Email,
-                          TieneDobleFactor = user.TwoFactorEnabled
-                      }).ToListAsync();
+                      select user).ToListAsync();
     }
 }

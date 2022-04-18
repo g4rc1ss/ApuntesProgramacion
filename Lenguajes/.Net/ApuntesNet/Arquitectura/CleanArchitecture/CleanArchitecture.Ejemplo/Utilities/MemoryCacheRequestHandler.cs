@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.ApplicationCore.Domain.Utilities.MemoryCacheMediatr;
+﻿using CleanArchitecture.Domain.Utilities.MemoryCacheMediatr;
 using MediatR;
 using Microsoft.Extensions.Caching.Memory;
 

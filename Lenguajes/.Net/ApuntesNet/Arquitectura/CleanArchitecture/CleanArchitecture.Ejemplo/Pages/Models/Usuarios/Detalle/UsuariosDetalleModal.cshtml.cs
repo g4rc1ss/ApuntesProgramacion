@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CleanArchitecture.ApplicationCore.Domain.Negocio.Filtros.UserDetail;
+using CleanArchitecture.Domain.Negocio.Filtros.UserDetail;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManager;
 using CleanArchitecture.Shared.Peticiones.Request.Users.UserDetail;
 using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
@@ -27,7 +27,7 @@ namespace CleanArchitecture.Ejemplo.Pages.Models.Usuarios.Detalle
         public async Task<IActionResult> OnGet()
         {
             var filtro = _mapper.Map<FiltroUser>(UserRequest);
-            UserResponse = await _userDetail.GetUser(filtro);
+            UserResponse = _mapper.Map<UserResponse>(await _userDetail.GetUser(filtro));
 
             return Page();
         }

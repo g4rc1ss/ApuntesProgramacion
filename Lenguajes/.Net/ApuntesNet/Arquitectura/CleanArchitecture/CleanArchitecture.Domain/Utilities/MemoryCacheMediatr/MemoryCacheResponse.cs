@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.ApplicationCore.Domain.Utilities.MemoryCacheMediatr
+namespace CleanArchitecture.Domain.Utilities.MemoryCacheMediatr
 {
     public class MemoryCacheResponse
     {

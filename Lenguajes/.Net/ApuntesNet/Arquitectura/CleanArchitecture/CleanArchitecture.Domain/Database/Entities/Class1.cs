@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.ApplicationCore.Domain.Database.Entities
+namespace CleanArchitecture.Domain.Database.Entities
 {
     internal class Class1
     {

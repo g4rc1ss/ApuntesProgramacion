@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace CleanArchitecture.ApplicationCore.Domain.Utilities.MemoryCacheMediatr
+namespace CleanArchitecture.Domain.Utilities.MemoryCacheMediatr
 {
     public class MemoryCacheRequest : IRequest<MemoryCacheResponse>
     {
