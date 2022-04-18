@@ -1,12 +1,11 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using CleanArchitecture.Domain.Negocio.Filtros.UserDetail;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
-using CleanArchitecture.Infraestructure.DatabaseConfig;
-using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
-using Dapper;
 using CleanArchitecture.Domain.Database.Identity;
+using CleanArchitecture.Domain.Negocio.Filtros.UserDetail;
+using CleanArchitecture.Infraestructure.DatabaseConfig;
+using Dapper;
 
 namespace CleanArchitecture.Infraestructure.DataEjemplo.DataAccessManager
 {

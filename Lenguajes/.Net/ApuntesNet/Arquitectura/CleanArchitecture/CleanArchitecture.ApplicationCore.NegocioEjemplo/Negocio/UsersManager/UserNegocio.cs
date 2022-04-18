@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CleanArchitecture.Domain.Negocio.UsersDto;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManager;
-using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
-using Microsoft.Extensions.Logging;
 using CleanArchitecture.Domain.Database.Identity;
+using CleanArchitecture.Domain.Negocio.UsersDto;
+using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.ApplicationCore.NegocioEjemplo.Negocio.UsersManager;
 

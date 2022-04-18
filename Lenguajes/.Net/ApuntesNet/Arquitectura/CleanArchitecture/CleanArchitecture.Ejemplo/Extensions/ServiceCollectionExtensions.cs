@@ -1,5 +1,5 @@
-﻿using CleanArchitecture.Domain.Database.Identity;
-using CleanArchitecture.ApplicationCore.NegocioEjemplo;
+﻿using CleanArchitecture.ApplicationCore.NegocioEjemplo;
+using CleanArchitecture.Domain.Database.Identity;
 using CleanArchitecture.Infraestructure.DatabaseConfig;
 using CleanArchitecture.Infraestructure.DataEjemplo;
 using Microsoft.AspNetCore.Identity;

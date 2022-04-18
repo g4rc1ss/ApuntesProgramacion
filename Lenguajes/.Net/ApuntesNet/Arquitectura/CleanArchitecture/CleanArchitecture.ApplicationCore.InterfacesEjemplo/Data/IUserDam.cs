@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using CleanArchitecture.Domain.Database.Identity;
 using CleanArchitecture.Domain.Negocio.UsersDto;
-using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
 
 namespace CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data
 {

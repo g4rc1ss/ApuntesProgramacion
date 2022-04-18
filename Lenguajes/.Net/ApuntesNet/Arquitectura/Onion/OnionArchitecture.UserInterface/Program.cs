@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using OnionArchitecture.ApplicationServices;
 using OnionArchitecture.Database;
 using OnionArchitecture.Domain.Interfaces.UserInterfaceContracts;
