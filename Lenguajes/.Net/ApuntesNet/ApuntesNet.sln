@@ -162,8 +162,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Domain", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Shared", "Arquitectura\CleanArchitecture\CleanArchitecture.Shared\CleanArchitecture.Shared.csproj", "{7ED94495-328E-4F52-8520-8A359500A1C9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Ejemplo", "Arquitectura\CleanArchitecture\CleanArchitecture.Ejemplo\CleanArchitecture.Ejemplo.csproj", "{CD3F6FCA-BF1A-4188-A11C-731D4151E5D9}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Infraestructure.DatabaseConfig", "Arquitectura\CleanArchitecture\CleanArchitecture.Infraestructure.DatabaseConfig\CleanArchitecture.Infraestructure.DatabaseConfig.csproj", "{064637A7-ADE7-4297-BFB5-FDAF0F956970}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Infraestructure.InitDatabase", "Arquitectura\CleanArchitecture\CleanArchitecture.Infraestructure.InitDatabase\CleanArchitecture.Infraestructure.InitDatabase.csproj", "{4685D154-FF1E-4355-960A-EB9CC9E47427}"
@@ -290,11 +288,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentacion", "Presentacio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{AC51F9C8-733D-4E16-A03F-B5F7BB570EC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Ejemplo.API", "Arquitectura\CleanArchitecture\CleanArchitecture.Ejemplo.API\CleanArchitecture.Ejemplo.API.csproj", "{B1FE22F4-8375-41D3-B7E5-E270957174DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Ejemplo.API", "Arquitectura\CleanArchitecture\CleanArchitecture.Ejemplo.API\CleanArchitecture.Ejemplo.API.csproj", "{B1FE22F4-8375-41D3-B7E5-E270957174DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Ejemplo.DesktopWPF", "Arquitectura\CleanArchitecture\CleanArchitecture.Ejemplo.DesktopWPF\CleanArchitecture.Ejemplo.DesktopWPF.csproj", "{F87F39A8-7C1B-4F0F-BC02-166924368316}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Ejemplo.DesktopWPF", "Arquitectura\CleanArchitecture\CleanArchitecture.Ejemplo.DesktopWPF\CleanArchitecture.Ejemplo.DesktopWPF.csproj", "{F87F39A8-7C1B-4F0F-BC02-166924368316}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Ejemplo.BlazorApp", "Arquitectura\CleanArchitecture\CleanArchitecture.Ejemplo.BlazorApp\CleanArchitecture.Ejemplo.BlazorApp.csproj", "{E859CC6A-DAE8-4181-B9D6-5872A24B5433}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Ejemplo.BlazorApp", "Arquitectura\CleanArchitecture\CleanArchitecture.Ejemplo.BlazorApp\CleanArchitecture.Ejemplo.BlazorApp.csproj", "{E859CC6A-DAE8-4181-B9D6-5872A24B5433}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -490,10 +488,6 @@ Global
 		{7ED94495-328E-4F52-8520-8A359500A1C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7ED94495-328E-4F52-8520-8A359500A1C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7ED94495-328E-4F52-8520-8A359500A1C9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CD3F6FCA-BF1A-4188-A11C-731D4151E5D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CD3F6FCA-BF1A-4188-A11C-731D4151E5D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CD3F6FCA-BF1A-4188-A11C-731D4151E5D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CD3F6FCA-BF1A-4188-A11C-731D4151E5D9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{064637A7-ADE7-4297-BFB5-FDAF0F956970}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{064637A7-ADE7-4297-BFB5-FDAF0F956970}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{064637A7-ADE7-4297-BFB5-FDAF0F956970}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -740,7 +734,6 @@ Global
 		{7E5C5C27-D314-4DAC-90EC-72B64A6275C6} = {410697DD-26B8-480A-A800-2E0F57F20067}
 		{BF2D0F46-E09E-4828-B92E-9EC39C11FE2C} = {29F32913-F040-4AEB-BF75-D13AAA8271AC}
 		{7ED94495-328E-4F52-8520-8A359500A1C9} = {AC51F9C8-733D-4E16-A03F-B5F7BB570EC1}
-		{CD3F6FCA-BF1A-4188-A11C-731D4151E5D9} = {4A779449-2D39-4908-9AFD-96B5DEF1A70B}
 		{064637A7-ADE7-4297-BFB5-FDAF0F956970} = {14C8407F-1354-42D3-9E3C-5C7E658556ED}
 		{4685D154-FF1E-4355-960A-EB9CC9E47427} = {46433E2B-20F7-4B4C-A71E-6B2D866A36E9}
 		{38E1AB7E-9730-4DC1-AA90-F9848B8AADF8} = {14C8407F-1354-42D3-9E3C-5C7E658556ED}
