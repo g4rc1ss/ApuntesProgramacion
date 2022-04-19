@@ -28,7 +28,7 @@
                             @{
                                 foreach (var usuario in UsersResponse)
                                 {
-                                    <tr onclick="cargarModal('@_httpClient.BaseAddress/UsuariosDetalle/ObtenerDetalleUsuarioGet/@usuario.Id')">
+                                    <tr @onclick="() => SetModalOpenAsync(usuario.Id)">
                                         <td href="@usuario.Nombre" class="th-sm" style="text-align: center"><a href="#">@usuario.NombreUsuario</a></td>
                                         <td class="th-sm" style="text-align: center">@usuario.Nombre</td>
                                         <td class="th-sm" style="text-align: center">@usuario.Email</td>
@@ -54,17 +54,43 @@
 }
 
 <!-- Modal -->
-<div class="modal fade" id="modal-usuarioDetalle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade @ShowModal @Display" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="exampleModalLabel">Detalle del Usuario @UserDetailResponse?.Id</h5>
+                <button @onclick="() => SetModalCloseAsync()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body-usuarioDetalle">
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Nombre Usuario</label>
+                    <input type="text" class="form-control" id="recipient-name" value="@UserDetailResponse?.NombreUsuario" disabled>
+                </div>
+
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Nombre</label>
+                    <input type="text" class="form-control" id="recipient-name" value="@UserDetailResponse?.Nombre" disabled>
+                </div>
+
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Email</label>
+                    <input type="text" class="form-control" id="recipient-name" value="@UserDetailResponse?.Email" disabled>
+                </div>
+
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Doble Factor</label>
+                    @if (UserDetailResponse is not null && UserDetailResponse.TieneDobleFactor)
+                    {
+                        <i class="bi bi-check2-circle" style="color:green"></i>
+                    }
+                    else if (UserDetailResponse is not null)
+                    {
+                        <i class="bi bi-x-circle" style="color:red"></i>
+                    }   
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button @onclick="() => SetModalCloseAsync()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
