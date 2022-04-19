@@ -3,7 +3,7 @@ Es un Micro-ORM(Object Relational Mapper) creado por `Stackoverflow` encargado d
 # **Caracteristicas de Dapper**
 Las caracteristicas principales de Dapper son.
 
-- **Consulta y Mapeo**: Dapper en concreto se centra en hacer un mapeo rápido y preciso de nuestros objetos, además los parámetros de las queries están parametrizados, con lo que evitaremos inyección SQL. 
+- **Consulta y Mapeo**: Dapper en concreto se centra en hacer un mapeo rápido y preciso de nuestros objetos. 
 - **Rendimiento**: Dapper es el rey de los ORM en términos de rendimiento, para conseguir esto, extiende la interfaz `IDbConnection`, lo que implica que es un poco más cercano “al core” del lenguaje, y nos da beneficios de rendimiento. Dapper tiene en su página de [GitHub](https://github.com/DapperLib/Dapper#performance) una lista con el rendimiento comparado con otros ORM.
 - **Api muy sencilla**:  El objetivo de dapper es hacer un par de funcionalidades y hacerlas todas muy bien. La api, nos provee de tres tipos de métodos.
     - Métodos que mapean tipos concretos.
@@ -25,27 +25,27 @@ Dapper tiene la opcion de realizar la ejecucion de las consultas de forma `sincr
 ## SELECT
 Hay varias funciones para realizar consultas con Dapper.
 
-### QueryFirstOrDefault<>
-Cuando queremos realizar una consulta que solamente va a devolver una fila, ejecutamos el metodo `QueryFirstOrDefault`, que nos devolvera una instancia del objeto mapeado que solicitamos
+### QuerySingleOrDefault<>
+Cuando queremos realizar una consulta que solamente va a devolver una fila, ejecutamos el metodo `QuerySingleOrDefault`, que nos devolvera una instancia del objeto mapeado que solicitamos
 
 ```Csharp
-await con.QueryFirstOrDefaultAsync<T?>($"SELECT * FROM {TableName} where UserId = @userId", new
+con.QuerySingleOrDefaultAsync<T?>($"SELECT * FROM {TableName} where UserId = @userId", new
 {
     userId = userId
 });
 ```
 
 ### Query<>
-Cuando queremos obtener una lista de objetos mapeados de una query, usamos el metodo `QueryAsync` y este nos devolvera un objeto `IEnumerable<T>` que podremos iterar, mapear a un `List`, etc.
+Cuando queremos obtener una lista de objetos mapeados de una query, usamos el metodo `QueryAsync` y este nos devolvera un objeto `IEnumerable<T>` que podremos iterar, convertir a `List`, etc.
 
 ```Csharp
-await con.QueryAsync<T>($"SELECT * FROM {TableName} where UserId = @userId", new
+con.QueryAsync<T>($"SELECT * FROM {TableName} where UserId = @userId", new
 {
     userId = userId
 });
 ```
 
-### Consultas relacionadas
+### Consultas relacionadas de varias entidades
 Cuando queremos ejecutar consultas relacionadas, queremos mapear objetos completos, por ejemplo, un usuario pertenece a un municipio y tenemos una clase `Usuario` y una clase `Pueblo`,
 
 La entidad usuario es la siguiente:
@@ -83,7 +83,7 @@ var sqlPueblo = @$"SELECT user.Id as {nameof(Usuario.IdUsuario)}
                 FROM {nameof(Usuario)} as user
                 INNER JOIN {nameof(Pueblo)} as village ON user.IdPueblo = village.Id
                 WHERE user.Id = @idUsuario";
-var respuestaPueblo = await connection.QueryAsync<Usuario, Pueblo, Usuario>(sqlPueblo, (user, pueblo) =>
+var respuestaPueblo = connection.QueryAsync<Usuario, Pueblo, Usuario>(sqlPueblo, (user, pueblo) =>
 {
     user.FKPueblo = pueblo;
     return user;

@@ -6,8 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanArchitecture.ApplicationCore.Domain\CleanArchitecture.ApplicationCore.Domain.csproj" />
-    <ProjectReference Include="..\CleanArchitecture.Shared\CleanArchitecture.Shared.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.Domain\CleanArchitecture.Domain.csproj" />
   </ItemGroup>
 
 </Project>

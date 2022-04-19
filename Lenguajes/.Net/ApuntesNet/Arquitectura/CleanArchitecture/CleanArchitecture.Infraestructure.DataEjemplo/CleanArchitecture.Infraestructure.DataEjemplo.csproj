@@ -6,7 +6,7 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanArchitecture.ApplicationCore.Domain\CleanArchitecture.ApplicationCore.Domain.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.Domain\CleanArchitecture.Domain.csproj" />
     <ProjectReference Include="..\CleanArchitecture.ApplicationCore.InterfacesEjemplo\CleanArchitecture.ApplicationCore.InterfacesEjemplo.csproj" />
     <ProjectReference Include="..\CleanArchitecture.Infraestructure.DatabaseConfig\CleanArchitecture.Infraestructure.DatabaseConfig.csproj" />
   </ItemGroup>

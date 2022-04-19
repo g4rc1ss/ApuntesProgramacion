@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using CleanArchitecture.ApplicationCore.Domain.Negocio.Filtros.UserDetail;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
+using CleanArchitecture.Domain.Database.Identity;
+using CleanArchitecture.Domain.Negocio.Filtros.UserDetail;
 using CleanArchitecture.Infraestructure.DatabaseConfig;
-using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
 using Dapper;
 
 namespace CleanArchitecture.Infraestructure.DataEjemplo.DataAccessManager
@@ -18,19 +18,19 @@ namespace CleanArchitecture.Infraestructure.DataEjemplo.DataAccessManager
             _factoryEjemplo = factoryEjemplo;
         }
 
-        public async Task<UserResponse> GetUser(FiltroUser filtro)
+        public async Task<User> GetUser(FiltroUser filtro)
         {
             using var connection = _factoryEjemplo.CreateDbConnection();
 
-            return (await connection.QueryAsync<UserResponse>(@$"
-SELECT Id as {nameof(UserResponse.Id)}
-    , NormalizedUserName as {nameof(UserResponse.Nombre)}
-    , UserName as {nameof(UserResponse.Nombre)}
-    , Email as {nameof(UserResponse.Email)}
-    , TwoFactorEnabled as {nameof(UserResponse.TieneDobleFactor)}
+            return await connection.QuerySingleOrDefaultAsync<User>(@$"
+SELECT Id as {nameof(User.Id)}
+    , NormalizedUserName as {nameof(User.NormalizedUserName)}
+    , UserName as {nameof(User.UserName)}
+    , Email as {nameof(User.Email)}
+    , TwoFactorEnabled as {nameof(User.TwoFactorEnabled)}
 FROM Users
 WHERE Id = @{nameof(filtro.IdUsuario)}
-", filtro)).FirstOrDefault();
+", filtro);
         }
     }
 }

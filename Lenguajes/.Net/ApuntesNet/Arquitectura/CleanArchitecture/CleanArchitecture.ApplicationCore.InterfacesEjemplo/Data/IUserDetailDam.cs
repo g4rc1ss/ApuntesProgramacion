@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
-using CleanArchitecture.ApplicationCore.Domain.Negocio.Filtros.UserDetail;
-using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
+using CleanArchitecture.Domain.Database.Identity;
+using CleanArchitecture.Domain.Negocio.Filtros.UserDetail;
 
 namespace CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data
 {
     public interface IUserDetailDam
     {
-        Task<UserResponse> GetUser(FiltroUser filtro);
+        Task<User> GetUser(FiltroUser filtro);
     }
 }

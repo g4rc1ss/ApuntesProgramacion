@@ -10,9 +10,15 @@
             loggingOriginal = new Logging();
         }
 
-        public void Info(string message) => loggingOriginal.Info(message);
+        public void Info(string message)
+        {
+            loggingOriginal.Info(message);
+        }
 
-        public void Error(string message, Exception e) => loggingOriginal.Error(message, e);
+        public void Error(string message, Exception e)
+        {
+            loggingOriginal.Error(message, e);
+        }
 
         public void Fatal(string message, Exception e)
         {

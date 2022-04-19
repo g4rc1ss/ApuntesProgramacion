@@ -9,14 +9,13 @@
 
     <ItemGroup>
         <PackageReference Include="Dapper" Version="2.0.123" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.1" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.1" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.1" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.4" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.4" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\CleanArchitecture.ApplicationCore.Domain\CleanArchitecture.ApplicationCore.Domain.csproj" />
+        <ProjectReference Include="..\CleanArchitecture.Domain\CleanArchitecture.Domain.csproj" />
         <ProjectReference Include="..\CleanArchitecture.ApplicationCore.InterfacesEjemplo\CleanArchitecture.ApplicationCore.InterfacesEjemplo.csproj" />
         <ProjectReference Include="..\CleanArchitecture.Infraestructure.DbConnectionExtension\CleanArchitecture.Infraestructure.DbConnectionExtension.csproj" />
     </ItemGroup>

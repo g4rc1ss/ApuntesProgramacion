@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CleanArchitecture.ApplicationCore.Domain.Negocio.UsersDto;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManager;
-using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
+using CleanArchitecture.Domain.Database.Identity;
+using CleanArchitecture.Domain.Negocio.UsersDto;
 using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.ApplicationCore.NegocioEjemplo.Negocio.UsersManager;
@@ -65,7 +65,7 @@ internal class UserNegocio : IUserNegocio
         return await LoginAsync(createAccountData?.UserName, createAccountData?.Password, false);
     }
 
-    public async Task<List<UserResponse>> GetListaUsuarios()
+    public async Task<List<User>> GetListaUsuarios()
     {
         var tareas = new List<Task>();
 

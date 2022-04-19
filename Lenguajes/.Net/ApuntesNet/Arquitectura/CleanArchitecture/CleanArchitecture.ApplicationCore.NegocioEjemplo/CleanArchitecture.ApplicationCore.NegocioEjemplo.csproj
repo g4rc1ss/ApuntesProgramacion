@@ -5,14 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanArchitecture.ApplicationCore.Domain\CleanArchitecture.ApplicationCore.Domain.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.Domain\CleanArchitecture.Domain.csproj" />
     <ProjectReference Include="..\CleanArchitecture.ApplicationCore.InterfacesEjemplo\CleanArchitecture.ApplicationCore.InterfacesEjemplo.csproj" />
-    <ProjectReference Include="..\CleanArchitecture.Shared\CleanArchitecture.Shared.csproj" />
   </ItemGroup>
 </Project>
