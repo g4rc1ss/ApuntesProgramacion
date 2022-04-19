@@ -9,8 +9,7 @@ namespace CleanArchitecture.Ejemplo.BlazorApp.Pages
         [Inject]
         private HttpClient _httpClient { get; set; }
 
-        private string? ShowModal { get; set; }
-        private string? Display { get; set; } = "d-none";
+        private bool ShowModal { get; set; }
 
         internal List<UserResponse>? UsersResponse { get; set; }
         internal UserResponse? UserDetailResponse { get; set; }
@@ -23,17 +22,15 @@ namespace CleanArchitecture.Ejemplo.BlazorApp.Pages
         public async Task SetModalOpenAsync(int idUsuario)
         {
             UserDetailResponse = await _httpClient.GetFromJsonAsync<UserResponse>($"UsuariosDetalle/ObtenerDetalleUsuarioGet/{idUsuario}");
-            Display = "d-block";
-            await Task.Delay(10);
-            ShowModal = "show";
+            ShowModal = true;
+            await Task.Delay(300);
             StateHasChanged();
         }
 
         public async Task SetModalCloseAsync()
         {
-            ShowModal = "";
-            await Task.Delay(400);
-            Display = "d-none";
+            ShowModal = false;
+            await Task.Delay(300);
             StateHasChanged();
         }
     }
