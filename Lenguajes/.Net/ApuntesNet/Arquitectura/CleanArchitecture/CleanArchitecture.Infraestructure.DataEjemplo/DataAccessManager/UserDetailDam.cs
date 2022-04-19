@@ -22,7 +22,7 @@ namespace CleanArchitecture.Infraestructure.DataEjemplo.DataAccessManager
         {
             using var connection = _factoryEjemplo.CreateDbConnection();
 
-            return (await connection.QueryAsync<User>(@$"
+            return await connection.QuerySingleOrDefaultAsync<User>(@$"
 SELECT Id as {nameof(User.Id)}
     , NormalizedUserName as {nameof(User.NormalizedUserName)}
     , UserName as {nameof(User.UserName)}
@@ -30,7 +30,7 @@ SELECT Id as {nameof(User.Id)}
     , TwoFactorEnabled as {nameof(User.TwoFactorEnabled)}
 FROM Users
 WHERE Id = @{nameof(filtro.IdUsuario)}
-", filtro)).FirstOrDefault();
+", filtro);
         }
     }
 }

@@ -290,8 +290,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{AC51F9C8-733
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Ejemplo.API", "Arquitectura\CleanArchitecture\CleanArchitecture.Ejemplo.API\CleanArchitecture.Ejemplo.API.csproj", "{B1FE22F4-8375-41D3-B7E5-E270957174DF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Ejemplo.DesktopWPF", "Arquitectura\CleanArchitecture\CleanArchitecture.Ejemplo.DesktopWPF\CleanArchitecture.Ejemplo.DesktopWPF.csproj", "{F87F39A8-7C1B-4F0F-BC02-166924368316}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Ejemplo.BlazorApp", "Arquitectura\CleanArchitecture\CleanArchitecture.Ejemplo.BlazorApp\CleanArchitecture.Ejemplo.BlazorApp.csproj", "{E859CC6A-DAE8-4181-B9D6-5872A24B5433}"
 EndProject
 Global
@@ -648,10 +646,6 @@ Global
 		{B1FE22F4-8375-41D3-B7E5-E270957174DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1FE22F4-8375-41D3-B7E5-E270957174DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1FE22F4-8375-41D3-B7E5-E270957174DF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F87F39A8-7C1B-4F0F-BC02-166924368316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F87F39A8-7C1B-4F0F-BC02-166924368316}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F87F39A8-7C1B-4F0F-BC02-166924368316}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F87F39A8-7C1B-4F0F-BC02-166924368316}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E859CC6A-DAE8-4181-B9D6-5872A24B5433}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E859CC6A-DAE8-4181-B9D6-5872A24B5433}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E859CC6A-DAE8-4181-B9D6-5872A24B5433}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -798,7 +792,6 @@ Global
 		{4A779449-2D39-4908-9AFD-96B5DEF1A70B} = {40886EA2-2EB5-4D16-BBFB-7DD4D585DD39}
 		{AC51F9C8-733D-4E16-A03F-B5F7BB570EC1} = {40886EA2-2EB5-4D16-BBFB-7DD4D585DD39}
 		{B1FE22F4-8375-41D3-B7E5-E270957174DF} = {AC51F9C8-733D-4E16-A03F-B5F7BB570EC1}
-		{F87F39A8-7C1B-4F0F-BC02-166924368316} = {4A779449-2D39-4908-9AFD-96B5DEF1A70B}
 		{E859CC6A-DAE8-4181-B9D6-5872A24B5433} = {4A779449-2D39-4908-9AFD-96B5DEF1A70B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
