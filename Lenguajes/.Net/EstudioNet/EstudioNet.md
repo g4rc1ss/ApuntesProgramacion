@@ -39,8 +39,13 @@ El API .Net se basa principalmente en el uso de los namespaces: `System`, `Syste
 1. **Escritura y Lectura**
     - [Stream](./docs/ApiNet/InputOutput/Stream.md)
     - [MemoryStream](./docs/ApiNet/InputOutput/MemoryStream.md)
-    - [Archivos de Texto](./docs/ApiNet/InputOutput/TextFiles.md)
-    - [Serializar objetos](./docs/ApiNet/InputOutput/Serializacion.md)
+    - Archivos de Texto
+        - [Binarios](./docs/ApiNet/InputOutput/TextFiles/Binary.md)
+        - [File](./docs/ApiNet/InputOutput/TextFiles/File.md)
+        - [Usando Streams](./docs/ApiNet/InputOutput/TextFiles/StreamOnFiles.md)
+    - [Serializar objetos](./docs/ApiNet/InputOutput/Serialization/Serializacion.md)
+        - [JSON](./docs/ApiNet/InputOutput/Serialization/JSON.md)
+        - [XML](./docs/ApiNet/InputOutput/Serialization/XML.md)
 1. **Uso de Internet**
     - [HttpClient](./docs/ApiNet/Network/HttpClient.md)
 1. [Delegados](./docs/ApiNet/Delegados.md)
