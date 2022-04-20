@@ -5,10 +5,30 @@
 ## Estudio basico Csharp
 Lista de contenido en el que se explica el lenguaje C#, la programación Orientada a Objetos, las excepciones y conceptos avanzados como el uso de indizadores, etc.
 
-1. [Estructura del Código](./docs/Csharp/EstructuraCodigo.md)
-1. [Programación Orientada a Objetos](./docs/Csharp/ProgramacionOrientadaObjetos.md)
-1. [Tratamiento de Excepciones](./docs/Csharp/TratamientoExcepciones.md)
-1. [Conceptos Avanzados](./docs/Csharp/ConceptosAvanzados.md)
+1. [**Estructura del Código**](./docs/Csharp/EstructuraCodigo/EstructuraCodigo.md)
+    - [Variables](./docs/Csharp/EstructuraCodigo/Variables.md)
+    - [Condicionales](./docs/Csharp/EstructuraCodigo/InstruccionSeleccion.md)
+    - [Bucles](./docs/Csharp/EstructuraCodigo/InstruccionIteracion.md)
+    - [Operadores](./docs/Csharp/EstructuraCodigo/Operadores.md)
+    - [Enumeradores](./docs/Csharp/EstructuraCodigo/Enums.md)
+1. **Programación Orientada a Objetos**: La programación orientada a objetos (Object Oriented Programming, OOP) es un modelo de programación que organiza el diseño de software en torno a datos u objetos, en lugar de funciones y lógica. Un objeto se puede definir como un campo de datos que tiene atributos y comportamiento únicos.
+    - [Clases](./docs/Csharp/POO/Clases.md)
+    - [Clases Estaticas](./docs/Csharp/POO/StaticClass.md)
+    - [Metodos](./docs/Csharp/POO/Method.md)
+    - [Propiedades](./docs/Csharp/POO/Properties.md)
+    - [Herencia](./docs/Csharp/POO/Herencia.md)
+    - [Clases Abstractas](./docs/Csharp/POO/ClasesAbstractas.md)
+    - [Clases Selladas](./docs/Csharp/POO/SealedClass.md)
+    - [Interfaces](./docs/Csharp/POO/Interfaces.md)
+    - [Polimorfismo](./docs/Csharp/POO/Polimorfismo.md)
+    - [Covarianza & Contravarianza](./docs/Csharp/POO/CovarianzaContravarianza.md)
+1. [Tratamiento de Excepciones](./docs/Csharp/Excepciones/TratamientoExcepciones.md)
+1. **Conceptos Avanzados**
+    - [Atributos](./docs/Csharp/ConceptosAvanzados/Atributos.md)
+    - [Indizadores](./docs/Csharp/ConceptosAvanzados/Indizadores.md)
+    - [Generics](./docs/Csharp/ConceptosAvanzados/Generics.md)
+    - [Yield](./docs/Csharp/ConceptosAvanzados/Yield.md)
+    - [Events](./docs/Csharp/ConceptosAvanzados/Events.md)
 
 
 ## Estudio del API .Net
