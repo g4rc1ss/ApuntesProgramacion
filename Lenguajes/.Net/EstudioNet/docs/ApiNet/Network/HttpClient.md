@@ -1,5 +1,3 @@
-Conjunto de clases para establecer conexiones con internet con `.Net` como llamadas a API Rest, etc.
-
 # HttpClient
 `HttpClient` es una clase que proporciona .Net para hacer llamadas a traves del protocolo `http`.
 
