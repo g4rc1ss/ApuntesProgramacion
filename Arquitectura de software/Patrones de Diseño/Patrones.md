@@ -20,34 +20,35 @@ Los patrones están explicados de la siguiente forma:
 
 Los patrones varian en el uso que se les da y para que estan destinados, por eso se pueden clasificar por propositos.
 
-- [**Patrones creacionales**](TiposPatrones/PatronesCreacionales.md) proporcionan formas de creacion de objetos y permiten la reutilización de codigo existente.
-    - [Factory Method](./TiposPatrones/PatronesCreacionales.md#Factory-Method)
-    - [Abstract Method](TiposPatrones/PatronesCreacionales.md#Abstract-Method)
-    - [Builder](TiposPatrones/PatronesCreacionales.md#Builder)
-    - [Prototype](TiposPatrones/PatronesCreacionales.md#Prototype)
-    - [Singleton](TiposPatrones/PatronesCreacionales.md#Singleton)
+- **Patrones creacionales**: Proporcionan formas de creacion de objetos y permiten la reutilización de codigo existente.
+    - [Factory Method](./TiposPatrones/PatronesCreacionales/FactoryMethod.md)
+    - [Abstract Method](TiposPatrones/PatronesCreacionales/AbstractMethod.md)
+    - [Builder](TiposPatrones/PatronesCreacionales/Builder.md)
+    - [Prototype](TiposPatrones/PatronesCreacionales/Prototype.md)
+    - [Singleton](TiposPatrones/PatronesCreacionales/Singleton.md)
 
-- [**Patrones estructurales**](TiposPatrones/PatronesEstructurales.md) explican formas de linkar objetos y clases en estructuras mas grandes manteniendo la flexibilidad y la eficiencia de la estructura.
-    - [Adapter](TiposPatrones/PatronesEstructurales.md#Adapter)
-    - [Bridge](TiposPatrones/PatronesEstructurales.md#Bridge)
-    - [Composite](TiposPatrones/PatronesEstructurales.md#Composite)
-    - [Decorator](TiposPatrones/PatronesEstructurales.md#Decorator)
-    - [Facade](TiposPatrones/PatronesEstructurales.md#Facade)
-    - [Flyweight](TiposPatrones/PatronesEstructurales.md#Flyweight)
-    - [Proxy](TiposPatrones/PatronesEstructurales.md#Proxy)
+- **Patrones estructurales**: Explican formas de linkar objetos y clases en estructuras mas grandes manteniendo la flexibilidad y la eficiencia de la estructura.
+    - [Adapter](TiposPatrones/PatronesEstructurales/Adapter.md)
+    - [Bridge](TiposPatrones/PatronesEstructurales/Bridge.md)
+    - [Composite](TiposPatrones/PatronesEstructurales/Composite.md)
+    - [Decorator](TiposPatrones/PatronesEstructurales/Decorator.md)
+    - [Facade](TiposPatrones/PatronesEstructurales/Facade.md)
+    - [Flyweight](TiposPatrones/PatronesEstructurales/Flyweight.md)
+    - [Proxy](TiposPatrones/PatronesEstructurales/Proxy.md)
 
 
-- [**Patrones de comportamiento**](TiposPatrones/PatronesComportamiento.md) tratan con algoritmos y asignacion de responsabilidades entre objetos.
-    - [Chain of Responsability](TiposPatrones/PatronesComportamiento.md#Chain-of-Responsability)
-    - [Command](TiposPatrones/PatronesComportamiento.md#Command)
-    - [Iterator](TiposPatrones/PatronesComportamiento.md#Iterator)
-    - [Mediator](TiposPatrones/PatronesComportamiento.md#Mediator)
-    - [Memento](TiposPatrones/PatronesComportamiento.md#Memento)
-    - [Observer](TiposPatrones/PatronesComportamiento.md#Observer)
-    - [State](TiposPatrones/PatronesComportamiento.md#State)
-    - [Strategy](TiposPatrones/PatronesComportamiento.md#Strategy)
-    - [Template Method](TiposPatrones/PatronesComportamiento.md#Template-Method)
-    - [Visitor](TiposPatrones/PatronesComportamiento.md#Visitor)
+- **Patrones de comportamiento**: Tratan con algoritmos y asignacion de responsabilidades entre objetos.
+    - [Chain of Responsability](TiposPatrones/PatronesComportamiento/ChainOfResponsability.md)
+    - [Command](TiposPatrones/PatronesComportamiento/Command.md)
+    - [Iterator](TiposPatrones/PatronesComportamiento/Iterator.md)
+    - [Interpreter](TiposPatrones/PatronesComportamiento/Interpreter.md)
+    - [Mediator](TiposPatrones/PatronesComportamiento/Mediator.md)
+    - [Memento](TiposPatrones/PatronesComportamiento/Memento.md)
+    - [Observer](TiposPatrones/PatronesComportamiento/Observer.md)
+    - [State](TiposPatrones/PatronesComportamiento/State.md)
+    - [Strategy](TiposPatrones/PatronesComportamiento/Strategy.md)
+    - [Template Method](TiposPatrones/PatronesComportamiento/TemplateMethod.md)
+    - [Visitor](TiposPatrones/PatronesComportamiento/Visitor.md)
 
 
 
