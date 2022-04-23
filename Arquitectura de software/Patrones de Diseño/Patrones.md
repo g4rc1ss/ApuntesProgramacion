@@ -6,7 +6,7 @@ Los patrones son conceptos existentes de como solucionar un caso en concreto. No
 
 Un patrón y un Algoritmo no es lo mismo.  
 **Un algoritmo** es utilizado para resolver algo en concreto y dicho algoritmo no cambia, por ejemplo, el algoritmo de busqueda binaria, es un codigo que se ejecuta de la misma forma sobre un array para obtener el resultado.  
-**Un Patron** es una solucion a un problema, pero el codigo y la solucion varia, puesto que es algo personalizable, por ejemplo, [el Patron Builder](TiposPatrones/PatronesCreacionales.md#Builder), depende de para que se implemente, el codigo y la ejecución será de una forma u otra.
+**Un Patron** es una solucion a un problema, pero el codigo y la solucion varia, puesto que es algo personalizable, por ejemplo, [el Patron Builder](TiposPatrones/PatronesCreacionales/Builder.md), depende de para que se implemente, el codigo y la ejecución será de una forma u otra.
 
 Los patrones están explicados de la siguiente forma:
 
