@@ -84,6 +84,8 @@ Cuando nos llega una **Request**, se procesa y al finalizar se realiza un `Dispo
 
 **DbContextPool** sirve para reutilizar los contextos que van a ser eliminados en otras peticiones, de esa manera evitamos crear un `DbContext` cada vez.
 
+> Las instancias de `DbContext` creadas mediante el Pool pueden ser `Disposed` puesto que cuando se ejecuta desactiva el objeto de forma que se puede volver a reutilizar para futuras ocasiones.
+
 ```Csharp
 services.AddDbContextPool<ContextoSqlServer>(options =>
 {
@@ -111,6 +113,8 @@ services.AddScoped(p => p.GetRequiredService<IDbContextFactory<ContextoSqlServer
 Usando la factoria sin un objeto Pool, cada vez que creamos un contexto, lo usamos y lo eliminamos cuando no lo necesitemos.
 
 Gracias a esta opcion, podremos ir reutilizando diferentes contextos creados en vez de ser directamente eliminados. Es un punto importante a valorar, puesto que puede suponer un aumento en el performance a la larga bastante considerable.
+
+> Las instancias de `DbContext` creadas mediante el Pool pueden ser `Disposed` puesto que cuando se ejecuta desactiva el objeto de forma que se puede volver a reutilizar para futuras ocasiones.
 
 ```Csharp
 services.AddPooledDbContextFactory<EjemploContext>(options =>
