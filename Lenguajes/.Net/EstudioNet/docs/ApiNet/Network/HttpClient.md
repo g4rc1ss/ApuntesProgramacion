@@ -111,7 +111,7 @@ La implementación actual de `IHttpClientFactory` implementa `IHttpMessageHandle
 - HttpClient ya posee el concepto de controladores de delegación, que se pueden vincular entre sí para las solicitudes HTTP salientes.
 - Administrar la duración de `HttpMessageHandler` para evitar los problemas mencionados y los que se pueden producir al administrar las duraciones de HttpClient.
 
-> Las instancias de HttpClient insertadas mediante DI se pueden eliminar de forma segura, porque el elemento `HttpMessageHandler` asociado lo administra la factory.
+> Las instancias de `HttpClient` creadas a traves de `IHttpClientFactory` pueden ser `Disposed` sin problema, puesto que el método `CreateClient` envia un parametro a `false` para que no se ejecute la eliminación completa del objeto y poder reutlizarlo mas adelante en el pool.
 
 ![image](https://user-images.githubusercontent.com/28193994/147922775-8ca43a43-bdab-409c-914f-a435bb7ae356.png)
 
