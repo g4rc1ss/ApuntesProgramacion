@@ -1,8 +1,10 @@
 ﻿using CleanArchitecture.Ejemplo.API.Extensions;
 using CleanArchitecture.Ejemplo.API.Middlewares;
+using CleanArchitecture.Infraestructure.DatabaseConfig;
 using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.AddLoggerConfiguration(builder.Configuration.GetConnectionString(nameof(EjemploContext)));
 
 // Add services to the container.
 builder.Services.AddAppConfiguration(builder.Configuration);
