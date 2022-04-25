@@ -1,4 +1,4 @@
-# IMemoryCache
+# Cache en Memoria con IMemoryCache
 El almacenamiento en caché es una técnica que tiene como objetivo mejorar el rendimiento y la escalabilidad de un sistema. Para ello, se copian temporalmente los datos a los que se accede con mayor frecuencia en memoria.
 
 Podemos suponer un conjunto de usuarios que realizan las mismas peticiones para obtener los mismos resultados, por ejemplo, un listado de empresas.
@@ -13,18 +13,12 @@ Gracias al uso de la cache, podemos evitar tantas llamadas de la siguiente forma
 
 ![image](https://user-images.githubusercontent.com/28193994/147925017-27db6cff-4b28-435e-b043-72481313180d.png)
 
-## MemoryCacheOptions
-1. `Clock`: Indicamos la caducidad del elemento en cache pasandole una clase que implementa `ISystemClock`
-1. `ExpirationScanFrequency`: Podemos indicar cada cuanto tiempo se debe de escanear cache caducada para ser eliminada de la memoria.
-1. `SizeLimit`: Sirve para indicar el tamaño maximo del almacenamiento en caché
-1. `CompactionPercentage`: Eliminar un porcentaje del contenido cuando se excede el limite de memoria establecido de caché.
-
+## MemoryCache en contenedor de dependencias
 Agregamos `MemoryCache` a la inyeccion de dependencias.
 ```Csharp
 builder.services.AddMemoryCache();
 ```
 
-Memory cache con opciones de configuracion
 ```Csharp
 builder.services.AddMemoryCache(options =>
 {
@@ -36,6 +30,10 @@ builder.services.AddMemoryCache(options =>
     options.ExpirationScanFrequency = new TimeSpan(2, 0, 0); // 2h
 });
 ```
+1. `Clock`: Indicamos la caducidad del elemento en cache pasandole una clase que implementa `ISystemClock`
+1. `ExpirationScanFrequency`: Podemos indicar cada cuanto tiempo se debe de escanear cache caducada para ser eliminada de la memoria.
+1. `SizeLimit`: Sirve para indicar el tamaño maximo del almacenamiento en caché
+1. `CompactionPercentage`: Eliminar un porcentaje del contenido cuando se excede el limite de memoria establecido de caché.
 
 ## Usar MemoryCache
 1. Importamos la dependencia `IMemoryCache` por constructor
@@ -53,4 +51,19 @@ if (!_memoryCache.TryGetValue<TipoSerializacion>("Identificador", out var objeto
     var objetoRegistrar = new TipoSerializacion();
     _memoryCache.Set("Identificador", objetoRegistrar);
 }
+```
+
+## DistributedCacheEntryOptions
+1. `AbsoluteExpiration`: Podemos indicar una fecha de caducidad del elemento en cache
+1. `AbsoluteExpirationRelativeToNow`: Podemos indicar cuánto tiempo va a durar la cache en memoria a partir de este momento
+1. `SlidingExpiration`: Podemos indicar cuanto va a durar el elemento en cache una vez "borrado". El objeto seria marcado como `Inaccesible`.
+
+```Csharp
+var options = new DistributedCacheEntryOptions
+{
+    AbsoluteExpiration = DateTime.Now.AddDays(2),
+    AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(2),
+    SlidingExpiration = TimeSpan.FromMinutes(5),
+};
+await _distributedCache.SetStringAsync(Key, Value, options);
 ```

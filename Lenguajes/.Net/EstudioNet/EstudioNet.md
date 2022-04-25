@@ -79,7 +79,8 @@ Documentación sobre el uso de librerias o frameworks que no estan alojados en e
 1. [Dependency Injection](./docs/LibreriasNet/DependencyInjection.md)
 1. [IOptions](./docs/LibreriasNet/IOptions.md)
 1. **Caching**:
-    - [Cache en Memoria](./docs/LibreriasNet/Caching/CacheMemoria.md)
+    - [Cache en Memoria (IMemoryCache)](./docs/LibreriasNet/Caching/CacheMemoriaMemory.md)
+    - [Cache en Memoria (IDistributedCache)](./docs/LibreriasNet/Caching/CacheMemoriaDistributed.md)
     - [Cache Distribuida con Servidor Redis](./docs/LibreriasNet/Caching/CacheServerRedis.md)
 1. [IDataProtectionProvider](./docs/LibreriasNet/IDataProtectionProvider.md)
 1. [Middleware](./docs/LibreriasNet/Middleware.md)
