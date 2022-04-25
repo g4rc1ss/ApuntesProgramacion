@@ -78,6 +78,8 @@ Documentación sobre el uso de librerias o frameworks que no estan alojados en e
 
 1. [Dependency Injection](./docs/LibreriasNet/DependencyInjection.md)
 1. [IOptions](./docs/LibreriasNet/IOptions.md)
+1. **Logging**: Los logs son cadenas de texto que se almacenan en un archivo o Base de datos y son utilizados para guardar registro de las acciones que se han realizado en la aplicación. Por ejemplo, ocurre un error en un entorno de producción donde no tenemos posibilidad de depurar el código. Podemos recurrir a los logs para intentar realizar una simulación en un entorno de desarrollo.
+    - [Logging con Serilog](./docs/LibreriasNet/Logging/LoggingSerilog.md)
 1. **Caching**:
     - [Cache en Memoria (IMemoryCache)](./docs/LibreriasNet/Caching/CacheMemoriaMemory.md)
     - [Cache en Memoria (IDistributedCache)](./docs/LibreriasNet/Caching/CacheMemoriaDistributed.md)
