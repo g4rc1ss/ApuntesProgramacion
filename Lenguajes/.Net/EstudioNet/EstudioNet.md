@@ -77,8 +77,11 @@ El API .Net se basa principalmente en el uso de los namespaces: `System`, `Syste
 Documentación sobre el uso de librerias o frameworks que no estan alojados en el API de .Net y que tienen un uso especifico como `Dapper` para el acceso a base de datos relacionales o `MemoryCache` para cachear objetos en memoria.
 
 1. [Dependency Injection](./docs/LibreriasNet/DependencyInjection.md)
-1. [Utilizar Cache](./docs/LibreriasNet/Caching.md)
 1. [IOptions](./docs/LibreriasNet/IOptions.md)
+1. **Caching**:
+    - [Cache en Memoria (IMemoryCache)](./docs/LibreriasNet/Caching/CacheMemoriaMemory.md)
+    - [Cache en Memoria (IDistributedCache)](./docs/LibreriasNet/Caching/CacheMemoriaDistributed.md)
+    - [Cache Distribuida con Servidor Redis](./docs/LibreriasNet/Caching/CacheServerRedis.md)
 1. [IDataProtectionProvider](./docs/LibreriasNet/IDataProtectionProvider.md)
 1. [Middleware](./docs/LibreriasNet/Middleware.md)
 1. **Database**

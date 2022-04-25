@@ -8,7 +8,7 @@
             {
                 httpClient.BaseAddress = new Uri("https://localhost:7284/api/");
             });
-            
+
             return services;
         }
     }
