@@ -6,6 +6,8 @@ using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManager;
 using CleanArchitecture.Domain.Database.Identity;
 using CleanArchitecture.Domain.Negocio.UsersDto;
+using CleanArchitecture.Domain.Utilities.LoggingMediatr;
+using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.ApplicationCore.NegocioEjemplo.Negocio.UsersManager;
@@ -14,11 +16,13 @@ internal class UserNegocio : IUserNegocio
 {
     private readonly ILogger<UserNegocio> logger;
     private readonly IUserDam userDam;
+    private readonly IMediator _mediator;
 
-    public UserNegocio(ILogger<UserNegocio> logger, IUserDam userDam)
+    public UserNegocio(ILogger<UserNegocio> logger, IUserDam userDam, IMediator mediator)
     {
         this.logger = logger;
         this.userDam = userDam;
+        _mediator = mediator;
     }
 
     public async Task<bool> LoginAsync(string username, string password, bool rememberMe)
@@ -67,13 +71,8 @@ internal class UserNegocio : IUserNegocio
 
     public async Task<List<User>> GetListaUsuarios()
     {
-        var tareas = new List<Task>();
-
-        foreach (var item in Enumerable.Range(0, 10))
-        {
-            tareas.Add(userDam.GetListUsers());
-        }
-        await Task.WhenAll(tareas);
-        return await userDam.GetListUsers();
+        var users = await userDam.GetListUsers();
+        await _mediator.Publish(new LoggingRequest(users, LogType.Warning));
+        return users;
     }
 }
