@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManager;
+using CleanArchitecture.ApplicationCore.NegocioEjemplo.ExtensionsHelper;
 using CleanArchitecture.Domain.Database.Identity;
 using CleanArchitecture.Domain.Negocio.Filtros.UserDetail;
 using CleanArchitecture.Domain.Utilities.MemoryCacheMediatr;
 using MediatR;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace CleanArchitecture.ApplicationCore.NegocioEjemplo.Negocio.UsersManager
 {
@@ -14,36 +17,27 @@ namespace CleanArchitecture.ApplicationCore.NegocioEjemplo.Negocio.UsersManager
     {
         private readonly IUserDetailDam _userDetailDam;
         private readonly IMediator _mediator;
+        private readonly IDistributedCache _distributedCache;
 
-        public UserDetailNegocio(IUserDetailDam userDetailDam, IMediator mediator)
+        public UserDetailNegocio(IUserDetailDam userDetailDam, IMediator mediator, IDistributedCache distributedCache)
         {
             _userDetailDam = userDetailDam;
             _mediator = mediator;
+            _distributedCache = distributedCache;
         }
 
         public async Task<User> GetUser(FiltroUser filtro)
         {
-            var cache = await _mediator.Send(new MemoryCacheRequest
-            {
-                Key = "ObtenerUsuarios"
-            });
+            var key = $"ObtenerUsuario_{filtro.IdUsuario}";
+            var user = await _distributedCache.GetObjectCache<User>(key);
 
-            if (!cache.Succeed)
+            if (user != null)
             {
-                var tareas = new List<Task>();
-
-                foreach (var item in Enumerable.Range(0, 10))
-                {
-                    tareas.Add(_userDetailDam.GetUser(filtro));
-                }
-                await Task.WhenAll(tareas);
-                cache = await _mediator.Send(new MemoryCacheRequest
-                {
-                    Key = "ObtenerUsuarios",
-                    Value = await _userDetailDam.GetUser(filtro)
-                });
+                return user;
             }
-            return (User)cache.Value;
+
+            var usuario = await _userDetailDam.GetUser(filtro);
+            return await _distributedCache.SetObjectCache(key, usuario);
         }
     }
 }

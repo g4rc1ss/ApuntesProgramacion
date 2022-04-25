@@ -26,4 +26,15 @@ internal static class ServiceCollectionExtensions
 
         return services;
     }
+
+    internal static IServiceCollection AddRedisCache(this IServiceCollection services)
+    {
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = "localhost:6379,password=password123";
+            options.InstanceName = "localhost";
+        });
+        //services.AddDistributedMemoryCache();
+        return services;
+    }
 }
