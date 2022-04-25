@@ -33,8 +33,7 @@ namespace CleanArchitecture.Ejemplo.API.Utilities
                 default:
                     break;
             }
-
-            return Task.FromResult(default(Unit));
+            return Task.CompletedTask;
         }
     }
 }

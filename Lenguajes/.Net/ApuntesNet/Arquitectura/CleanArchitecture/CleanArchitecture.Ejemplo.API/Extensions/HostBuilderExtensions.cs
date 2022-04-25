@@ -21,6 +21,7 @@ namespace CleanArchitecture.Ejemplo.API.Extensions
                             AutoCreateSqlTable = true,
                         },
                         restrictedToMinimumLevel: LogEventLevel.Warning);
+
                     config.Console(restrictedToMinimumLevel: LogEventLevel.Information);
                 });
             });
