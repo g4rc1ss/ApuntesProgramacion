@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManager;
 using CleanArchitecture.ApplicationCore.NegocioEjemplo.ExtensionsHelper;
 using CleanArchitecture.Domain.Database.Identity;
 using CleanArchitecture.Domain.Negocio.Filtros.UserDetail;
-using CleanArchitecture.Domain.Utilities.MemoryCacheMediatr;
 using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 
