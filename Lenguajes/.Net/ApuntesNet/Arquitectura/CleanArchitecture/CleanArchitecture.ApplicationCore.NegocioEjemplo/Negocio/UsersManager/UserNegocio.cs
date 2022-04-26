@@ -9,7 +9,6 @@ using CleanArchitecture.Domain.Negocio.UsersDto;
 using CleanArchitecture.Domain.Utilities.LoggingMediatr;
 using MediatR;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.ApplicationCore.NegocioEjemplo.Negocio.UsersManager;
 
@@ -75,7 +74,7 @@ internal class UserNegocio : IUserNegocio
     {
         var users = await userDam.GetListUsers();
         await _mediator.Publish(new LoggingRequest(users, LogType.Warning));
-        
+
         return users.Select(user =>
         {
             user.Email = _protector.Unprotect(user.Email);

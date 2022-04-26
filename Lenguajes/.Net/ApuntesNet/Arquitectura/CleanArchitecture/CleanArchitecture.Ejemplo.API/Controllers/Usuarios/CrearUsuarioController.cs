@@ -2,7 +2,6 @@
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManager;
 using CleanArchitecture.Domain.Negocio.UsersDto;
 using CleanArchitecture.Shared.Peticiones.Request.Users;
-using CleanArchitecture.Shared.Peticiones.Request.Users.UserDetail;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.Ejemplo.API.Controllers.Usuarios

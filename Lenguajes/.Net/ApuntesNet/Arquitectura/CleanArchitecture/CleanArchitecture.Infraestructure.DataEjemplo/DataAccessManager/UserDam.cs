@@ -45,7 +45,7 @@ internal class UserDam : IUserDam
         }
         catch (Exception)
         {
-            response.Succeed =false;
+            response.Succeed = false;
         }
         return response;
     }

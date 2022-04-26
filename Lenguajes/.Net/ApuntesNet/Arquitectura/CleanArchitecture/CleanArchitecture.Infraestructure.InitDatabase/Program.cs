@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using CleanArchitecture.Domain.Database.Identity;
+﻿using CleanArchitecture.Domain.Database.Identity;
 using CleanArchitecture.Infraestructure.DatabaseConfig;
 using CleanArchitecture.Infraestructure.InitDatabase;
 using Microsoft.AspNetCore.DataProtection;
