@@ -84,7 +84,7 @@ Documentación sobre el uso de librerias o frameworks que no estan alojados en e
     - [Cache en Memoria (IMemoryCache)](./docs/LibreriasNet/Caching/CacheMemoriaMemory.md)
     - [Cache en Memoria (IDistributedCache)](./docs/LibreriasNet/Caching/CacheMemoriaDistributed.md)
     - [Cache Distribuida con Servidor Redis](./docs/LibreriasNet/Caching/CacheServerRedis.md)
-1. [IDataProtectionProvider](./docs/LibreriasNet/IDataProtectionProvider.md)
+1. [Protección de Datos](./docs/LibreriasNet/IDataProtectionProvider.md)
 1. [Middleware](./docs/LibreriasNet/Middleware.md)
 1. **Database**
     - [Dapper](./docs/LibreriasNet/Database/Dapper.md)
