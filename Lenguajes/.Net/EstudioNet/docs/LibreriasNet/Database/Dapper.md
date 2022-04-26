@@ -153,6 +153,20 @@ var nChanges = await connection.ExecuteAsync(insert, new
 });
 ```
 
+### Insertar varios registros en la misma Tabla
+Si necesitamos registrar varios datos en el mismo proceso, podemos enviar un array de objetos parametrizados.
+
+```Csharp
+var foos = new List<Foo>
+{
+    { new Foo { A = 1, B = 1 } }
+    { new Foo { A = 2, B = 2 } }
+    { new Foo { A = 3, B = 3 } }
+};
+
+var count = connection.Execute(@"insert MyTable(colA, colB) values (@a, @b)", foos);
+```
+
 ## UPDATE
 Para actualizar registros de la base de datos con `Dapper` ejecutamos igualmente `ExecuteAsync()`
 
@@ -186,3 +200,25 @@ var nChangesUsuario = await connection.ExecuteAsync(deleteUsuario.ToString(), ne
 
 Console.WriteLine($"Borrado {nChangesUsuario} registros");
 ```
+
+
+# Ejecutar Procedimientos Almacenados
+Un procedimiento almacenado de SQL Server es un grupo de una o más instrucciones Transact-SQL.
+
+- Si el procedimiento va a retornar los datos como una consulta, podemos realizar la siguiente instrucción.
+    ```Csharp
+    cnn.Query<User>("StoredProcedureName", new {Id = 1},
+            commandType: CommandType.StoredProcedure).SingleOrDefault();
+    ```
+- Si el procedimiento retorna por variable de dirección, ejecutaremos el siguiente código
+    ```Csharp
+    var p = new DynamicParameters();
+    p.Add("@a", 11);
+    p.Add("@b", dbType: DbType.Int32, direction: ParameterDirection.Output);
+    p.Add("@c", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
+    
+    cnn.Execute("spMagicProc", p, commandType: CommandType.StoredProcedure);
+
+    int b = p.Get<int>("@b");
+    int c = p.Get<int>("@c");
+    ```
