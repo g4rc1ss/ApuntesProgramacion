@@ -6,7 +6,6 @@ using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using CleanArchitecture.Domain.Database.Identity;
 using CleanArchitecture.Domain.Negocio.UsersDto;
 using CleanArchitecture.Infraestructure.DatabaseConfig;
-using CleanArchitecture.Infraestructure.DataEjemplo.Mappers.UserMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,40 +26,56 @@ internal class UserDam : IUserDam
         _contextFactory = contextFactory;
     }
 
-    public async Task<bool> LogInAsync(string user, string password, bool rememberMe)
+    public async Task<UserIdentityResponse> LogInAsync(string user, string password, bool rememberMe)
     {
-        return (await _signInManager.PasswordSignInAsync(user, password, rememberMe, false)).Succeeded;
+        var respuesta = await _signInManager.PasswordSignInAsync(user, password, rememberMe, false);
+        return new UserIdentityResponse
+        {
+            Succeed = respuesta.Succeeded
+        };
     }
 
-    public async Task<bool> LogoutAsync()
+    public async Task<UserIdentityResponse> LogoutAsync()
     {
+        var response = new UserIdentityResponse();
         try
         {
             await _signInManager.SignOutAsync();
-            return true;
+            response.Succeed = true;
         }
         catch (Exception)
         {
-            return false;
+            response.Succeed =false;
         }
+        return response;
     }
 
-    public async Task<bool> CreateUserAsync(UserData userData, string password)
+    public async Task<UserIdentityResponse> CreateUserAsync(User user, string password)
     {
-        var user = UserDamMapper.GetUserFromUserData(userData);
-        return (await _userManager.CreateAsync(user, password)).Succeeded;
+        var respuesta = await _userManager.CreateAsync(user, password);
+        return new UserIdentityResponse
+        {
+            Succeed = respuesta.Succeeded,
+            User = user,
+        };
     }
 
-    public async Task<bool> CreateUserRoleAsync(UserData userData, string role)
+    public async Task<UserIdentityResponse> CreateUserRoleAsync(User user, string role)
     {
-        var user = UserDamMapper.GetUserFromUserData(userData);
-        return (await _userManager.AddToRoleAsync(user, role)).Succeeded;
+        var respuesta = await _userManager.AddToRoleAsync(user, role);
+        return new UserIdentityResponse
+        {
+            Succeed = respuesta.Succeeded
+        };
     }
 
-    public async Task<bool> DeleteUserAsync(UserData userData)
+    public async Task<UserIdentityResponse> DeleteUserAsync(User user)
     {
-        var user = UserDamMapper.GetUserFromUserData(userData);
-        return (await _userManager.DeleteAsync(user)).Succeeded;
+        var respuesta = await _userManager.DeleteAsync(user);
+        return new UserIdentityResponse
+        {
+            Succeed = respuesta.Succeeded
+        };
     }
 
     public async Task<List<User>> GetListUsers()

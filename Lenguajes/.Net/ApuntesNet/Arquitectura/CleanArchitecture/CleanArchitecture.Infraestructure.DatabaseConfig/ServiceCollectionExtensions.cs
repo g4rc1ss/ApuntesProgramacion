@@ -15,6 +15,10 @@ public static class ServiceCollectionExtensions
             options.UseSqlServer(configuration.GetConnectionString(nameof(EjemploContext)));
         });
         services.AddScoped(p => p.GetRequiredService<IDbContextFactory<EjemploContext>>().CreateDbContext());
+        services.AddDbContextPool<KeyDataProtectorContext>(options =>
+        {
+            options.UseSqlServer(configuration.GetConnectionString(nameof(KeyDataProtectorContext)));
+        });
         services.AddDbConnectionFactory<EjemploContext>(() => new SqlConnection(configuration.GetConnectionString(nameof(EjemploContext))));
 
         return services;

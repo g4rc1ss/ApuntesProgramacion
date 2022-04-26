@@ -15,7 +15,7 @@ public class SeedGenerator : IDataSeed
     {
         this.userManager = userManager;
         this.roleManager = roleManager;
-        _protector= dataProtectionProvider.CreateProtector("Identity.Users");
+        _protector = dataProtectionProvider.CreateProtector("Identity.Users");
     }
 
     // Datos a rellenar en el contexto de MySql

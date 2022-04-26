@@ -27,6 +27,7 @@ SELECT Id as {nameof(User.Id)}
     , UserName as {nameof(User.UserName)}
     , Email as {nameof(User.Email)}
     , TwoFactorEnabled as {nameof(User.TwoFactorEnabled)}
+    , PhoneNumber as {nameof(User.PhoneNumber)}
 FROM Users
 WHERE Id = @{nameof(filtro.IdUsuario)}
 ", filtro);
