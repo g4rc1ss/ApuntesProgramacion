@@ -39,7 +39,8 @@ builder.ConfigureServices((hostContext, services) =>
 
 
     services.AddDataProtection()
-        .PersistKeysToDbContext<KeyDataProtectorContext>();
+        .PersistKeysToDbContext<KeyDataProtectorContext>()
+        .SetApplicationName("Aplicacion.CleanArchitecture");
 
     services.AddIdentity<User, Role>()
         .AddEntityFrameworkStores<EjemploContext>();

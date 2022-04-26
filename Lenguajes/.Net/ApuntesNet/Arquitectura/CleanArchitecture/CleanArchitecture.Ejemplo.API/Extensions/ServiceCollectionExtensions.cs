@@ -42,7 +42,8 @@ internal static class ServiceCollectionExtensions
     internal static IServiceCollection ConfigureDataProtectionProvider(this IServiceCollection services)
     {
         services.AddDataProtection()
-            .PersistKeysToDbContext<KeyDataProtectorContext>();
+            .PersistKeysToDbContext<KeyDataProtectorContext>()
+            .SetApplicationName("Aplicacion.CleanArchitecture");
 
         return services;
     }
