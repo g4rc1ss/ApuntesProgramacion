@@ -1,9 +1,6 @@
-﻿using System.Text.Json;
-using AutoMapper;
+﻿using AutoMapper;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManager;
-using CleanArchitecture.Domain.Utilities.LoggingMediatr;
 using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.Ejemplo.API.Controllers.Usuarios.Lista

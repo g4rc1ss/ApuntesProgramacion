@@ -9,19 +9,31 @@ namespace CleanArchitecture.Infraestructure.InitDatabase;
 public class DatabaseMigrator
 {
     private readonly EjemploContext _ejemploContext;
+    private readonly KeyDataProtectorContext _keyDataProtectorContext;
 
-    public DatabaseMigrator(EjemploContext ejemploContext)
+    public DatabaseMigrator(EjemploContext ejemploContext, KeyDataProtectorContext keyDataProtectorContext)
     {
         _ejemploContext = ejemploContext;
+        _keyDataProtectorContext = keyDataProtectorContext;
     }
 
-    public Task Migrate()
+    public Task MigrateEjemploContext()
     {
         return _ejemploContext.Database.MigrateAsync();
     }
 
-    public Task DeleteDatabase()
+    public Task DeleteDatabaseEjemploContext()
     {
         return _ejemploContext.Database.EnsureDeletedAsync();
+    }
+
+    public Task MigrateKeysDataProtectorContext()
+    {
+        return _keyDataProtectorContext.Database.MigrateAsync();
+    }
+
+    public Task DeleteKeysDataProtectorContext()
+    {
+        return _keyDataProtectorContext.Database.EnsureDeletedAsync();
     }
 }

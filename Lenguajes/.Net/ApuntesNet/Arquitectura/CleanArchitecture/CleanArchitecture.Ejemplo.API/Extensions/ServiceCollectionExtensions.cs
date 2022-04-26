@@ -2,6 +2,7 @@
 using CleanArchitecture.Domain.Database.Identity;
 using CleanArchitecture.Infraestructure.DatabaseConfig;
 using CleanArchitecture.Infraestructure.DataEjemplo;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 
 namespace CleanArchitecture.Ejemplo.API.Extensions;
@@ -35,6 +36,15 @@ internal static class ServiceCollectionExtensions
             options.InstanceName = "localhost";
         });
         //services.AddDistributedMemoryCache();
+        return services;
+    }
+
+    internal static IServiceCollection ConfigureDataProtectionProvider(this IServiceCollection services)
+    {
+        services.AddDataProtection()
+            .PersistKeysToDbContext<KeyDataProtectorContext>()
+            .SetApplicationName("Aplicacion.CleanArchitecture");
+
         return services;
     }
 }

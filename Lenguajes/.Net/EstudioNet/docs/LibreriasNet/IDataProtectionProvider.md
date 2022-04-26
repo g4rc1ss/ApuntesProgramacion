@@ -15,6 +15,20 @@ Este sistema de cifrado utiliza unas claves aleatorias generadas por la propia l
 
 > **Si no utilizamos Inyeccion de Dependencias**: Los métodos que veremos mas abajo se pueden configurar con la clase de Factoria `DataProtectionProvider` usando el método `Create` con sobrecarga de parametros para ello.
 
+## Personalizar Nombre de Aplicacion
+Para evitar que se pueda desproteger la información desde otra ubicacion o programa, se utilizan 2 purposes que se concatenan
+
+1. El primero se configura al inicio de la aplicación y por defecto es el Path de la ubicacion del ejecutable.
+1. El Segundo es el que establecemos nosotros al crear el Protector
+
+Podemos establecer un nombre de aplicación personalizado para que se pueda proteger y desproteger los datos desde diferentes programas, siempre que tengamos el dato.
+
+```Csharp
+ services.AddDataProtection()
+    .SetApplicationName("Aplicacion.Nombre.Personalizado");
+```
+
+
 ## Almacenando en Directorio personalizado
 Para almacenar las claves en otro directorio debemos usar el método:
 

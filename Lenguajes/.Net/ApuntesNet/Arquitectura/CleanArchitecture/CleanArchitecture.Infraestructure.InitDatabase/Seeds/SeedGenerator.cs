@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Domain.Database.Identity;
 using CleanArchitecture.Infraestructure.DatabaseConfig;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 
 namespace CleanArchitecture.Infraestructure.InitDatabase.Seeds;
@@ -8,11 +9,13 @@ public class SeedGenerator : IDataSeed
 {
     private readonly UserManager<User> userManager;
     private readonly RoleManager<Role> roleManager;
+    private readonly IDataProtector _protector;
 
-    public SeedGenerator(UserManager<User> userManager, RoleManager<Role> roleManager)
+    public SeedGenerator(UserManager<User> userManager, RoleManager<Role> roleManager, IDataProtectionProvider dataProtectionProvider)
     {
         this.userManager = userManager;
         this.roleManager = roleManager;
+        _protector = dataProtectionProvider.CreateProtector("Identity.Users");
     }
 
     // Datos a rellenar en el contexto de MySql
@@ -41,9 +44,9 @@ public class SeedGenerator : IDataSeed
             var usuario = new User()
             {
                 UserName = "prueba",
-                NormalizedUserName = "Nombre completo",
-                Email = "jaja@prueba.com",
-                PhoneNumber = "655666555",
+                NormalizedUserName = _protector.Protect("Nombre completo"),
+                Email = _protector.Protect("jaja@prueba.com"),
+                PhoneNumber = _protector.Protect("655666555"),
                 SecurityStamp = new Guid().ToString()
             };
             // Creamos el usuario

@@ -6,6 +6,7 @@ using CleanArchitecture.Domain.Database.Identity;
 using CleanArchitecture.Domain.Negocio.Filtros.UserDetail;
 using CleanArchitecture.Domain.Utilities.LoggingMediatr;
 using MediatR;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace CleanArchitecture.ApplicationCore.NegocioEjemplo.Negocio.UsersManager
@@ -15,12 +16,14 @@ namespace CleanArchitecture.ApplicationCore.NegocioEjemplo.Negocio.UsersManager
         private readonly IUserDetailDam _userDetailDam;
         private readonly IMediator _mediator;
         private readonly IDistributedCache _distributedCache;
+        private readonly IDataProtector _protector;
 
-        public UserDetailNegocio(IUserDetailDam userDetailDam, IMediator mediator, IDistributedCache distributedCache)
+        public UserDetailNegocio(IUserDetailDam userDetailDam, IMediator mediator, IDistributedCache distributedCache, IDataProtectionProvider dataProtectionProvider)
         {
             _userDetailDam = userDetailDam;
             _mediator = mediator;
             _distributedCache = distributedCache;
+            _protector = dataProtectionProvider.CreateProtector("Identity.Users");
         }
 
         public async Task<User> GetUser(FiltroUser filtro)
@@ -37,6 +40,9 @@ namespace CleanArchitecture.ApplicationCore.NegocioEjemplo.Negocio.UsersManager
             }
 
             await _mediator.Publish(new LoggingRequest(user, LogType.Warning));
+
+            user.Email = _protector.Unprotect(user.Email);
+            user.PhoneNumber = _protector.Unprotect(user.PhoneNumber);
             return user;
         }
     }

@@ -18,9 +18,12 @@ public class MigrationService : IHostedService
         var migrator = scope.ServiceProvider.GetRequiredService<DatabaseMigrator>();
         var initializer = scope.ServiceProvider.GetRequiredService<DatabaseInitializer>();
 
-        await migrator.DeleteDatabase();
+        await migrator.DeleteDatabaseEjemploContext();
+        await migrator.DeleteKeysDataProtectorContext();
 
-        await migrator.Migrate();
+        await migrator.MigrateEjemploContext();
+        await migrator.MigrateKeysDataProtectorContext();
+
         await initializer.Initialize(cancellationToken);
 
 

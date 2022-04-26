@@ -7,11 +7,11 @@ namespace CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data
 {
     public interface IUserDam
     {
-        Task<bool> CreateUserAsync(UserData userData, string password);
-        Task<bool> CreateUserRoleAsync(UserData userData, string role);
-        Task<bool> DeleteUserAsync(UserData user);
-        Task<bool> LogInAsync(string user, string password, bool rememberMe);
-        Task<bool> LogoutAsync();
+        Task<UserIdentityResponse> CreateUserAsync(User user, string password);
+        Task<UserIdentityResponse> CreateUserRoleAsync(User user, string role);
+        Task<UserIdentityResponse> DeleteUserAsync(User user);
+        Task<UserIdentityResponse> LogInAsync(string user, string password, bool rememberMe);
+        Task<UserIdentityResponse> LogoutAsync();
         Task<List<User>> GetListUsers();
     }
 }

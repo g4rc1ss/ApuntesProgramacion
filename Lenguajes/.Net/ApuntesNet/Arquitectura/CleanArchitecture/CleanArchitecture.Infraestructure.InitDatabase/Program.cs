@@ -1,6 +1,7 @@
 ﻿using CleanArchitecture.Domain.Database.Identity;
 using CleanArchitecture.Infraestructure.DatabaseConfig;
 using CleanArchitecture.Infraestructure.InitDatabase;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +27,19 @@ builder.ConfigureServices((hostContext, services) =>
         });
     });
     services.AddScoped(p => p.GetRequiredService<IDbContextFactory<EjemploContext>>().CreateDbContext());
+
+    services.AddDbContextPool<KeyDataProtectorContext>(options =>
+    {
+        options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(KeyDataProtectorContext)), sql =>
+        {
+            sql.MigrationsAssembly(typeof(Program).Assembly.FullName);
+        });
+    });
+
+
+    services.AddDataProtection()
+        .PersistKeysToDbContext<KeyDataProtectorContext>()
+        .SetApplicationName("Aplicacion.CleanArchitecture");
 
     services.AddIdentity<User, Role>()
         .AddEntityFrameworkStores<EjemploContext>();
