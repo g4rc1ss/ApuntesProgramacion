@@ -78,11 +78,12 @@ Podemos personalizar el Algoritmo de Cifrado que vamos a usar, por ejemplo, igua
 ```
 
 ## Protección de Claves con Certificados
-Para almacenar las claves en otro directorio debemos usar el método:
+Podemos indicar que las claves almacenadas, puesto que estan generalmente en texto plano, sean cifradas mediante certificados, que se encargan de encriptar mediante algoritmos de Clave pública/Clave Privada como `RSA`
 
 ```Csharp
- services.AddDataProtection()
-    .PersistKeysToFileSystem(new DirectoryInfo(@"Nuevo\Path\Claves"))
+var certificate = new X509Certificate2(default(byte[]), "Certificate Password");
+services.AddDataProtection()
+    .ProtectKeysWithCertificate(certificate);
 ```
 
 
