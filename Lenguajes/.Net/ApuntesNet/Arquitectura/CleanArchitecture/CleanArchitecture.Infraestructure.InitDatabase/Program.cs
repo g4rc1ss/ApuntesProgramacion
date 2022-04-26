@@ -31,7 +31,7 @@ builder.ConfigureServices((hostContext, services) =>
 
     services.AddDbContextPool<KeyDataProtectorContext>(options =>
     {
-        options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(EjemploContext)), sql =>
+        options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(KeyDataProtectorContext)), sql =>
         {
             sql.MigrationsAssembly(typeof(Program).Assembly.FullName);
         });

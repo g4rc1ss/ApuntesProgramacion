@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Infraestructure.DatabaseConfig
@@ -11,5 +6,15 @@ namespace CleanArchitecture.Infraestructure.DatabaseConfig
     public class KeyDataProtectorContext : DbContext, IDataProtectionKeyContext
     {
         public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
+
+        public KeyDataProtectorContext(DbContextOptions<KeyDataProtectorContext> contextOptions) : base(contextOptions)
+        {
+
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
     }
 }
