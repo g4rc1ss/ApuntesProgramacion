@@ -18,6 +18,7 @@ dotnet ef migrations add InitialCreate
 # Visual Studio
 Add-Migration InitialCreate
 ```
+> Si vamos a tener varios Contextos, puesto que vamos a tener varias Bases de Datos, se pueden crear las migraciones agregando el parametro `-Context nombreContexto` o `--context nombreContexto` en Powershell o Dotnet respectivamente.
 
 Para aplicar las migraciones podemos ejecutar el siguiente comando.
 ```powershell
