@@ -1,6 +1,6 @@
 ﻿using CleanArchitecture.Ejemplo.API.Extensions;
 using CleanArchitecture.Ejemplo.API.Middlewares;
-using CleanArchitecture.Infraestructure.DatabaseConfig;
+using CleanArchitecture.Infraestructure.DataEntityFramework.Contexts;
 using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);

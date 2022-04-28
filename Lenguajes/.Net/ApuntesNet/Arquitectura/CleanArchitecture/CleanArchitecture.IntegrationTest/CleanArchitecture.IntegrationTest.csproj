@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CleanArchitecture.ApplicationCore.InterfacesEjemplo\CleanArchitecture.ApplicationCore.InterfacesEjemplo.csproj" />
-    <ProjectReference Include="..\CleanArchitecture.Infraestructure.DataEjemplo\CleanArchitecture.Infraestructure.DataEjemplo.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.Infraestructure.DataEjemplo\CleanArchitecture.Infraestructure.DataEntityFramework.csproj" />
   </ItemGroup>
 
 </Project>

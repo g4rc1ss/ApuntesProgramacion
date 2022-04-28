@@ -8,17 +8,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Dapper" Version="2.0.123" />
-        <PackageReference Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="6.0.4" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.4" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.4" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\CleanArchitecture.Domain\CleanArchitecture.Domain.csproj" />
-        <ProjectReference Include="..\CleanArchitecture.ApplicationCore.InterfacesEjemplo\CleanArchitecture.ApplicationCore.InterfacesEjemplo.csproj" />
-        <ProjectReference Include="..\CleanArchitecture.Infraestructure.DbConnectionExtension\CleanArchitecture.Infraestructure.DbConnectionExtension.csproj" />
+      <ProjectReference Include="..\CleanArchitecture.Infraestructure.DataDapper\CleanArchitecture.Infraestructure.DataDapper.csproj" />
+      <ProjectReference Include="..\CleanArchitecture.Infraestructure.DataEjemplo\CleanArchitecture.Infraestructure.DataEntityFramework.csproj" />
+      <ProjectReference Include="..\CleanArchitecture.Infraestructure.DbConnectionExtension\CleanArchitecture.Infraestructure.DbConnectionExtension.csproj" />
     </ItemGroup>
 
 </Project>

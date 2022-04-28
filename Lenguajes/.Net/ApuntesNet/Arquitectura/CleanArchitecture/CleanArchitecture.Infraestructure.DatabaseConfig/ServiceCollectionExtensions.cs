@@ -1,4 +1,8 @@
-﻿using CleanArchitecture.Infraestructure.DbConnectionExtension.DependencyInjection;
+﻿using CleanArchitecture.Infraestructure.DataDapper;
+using CleanArchitecture.Infraestructure.DataDapper.Contexts;
+using CleanArchitecture.Infraestructure.DataEjemplo;
+using CleanArchitecture.Infraestructure.DataEntityFramework.Contexts;
+using CleanArchitecture.Infraestructure.DbConnectionExtension.DependencyInjection;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +23,11 @@ public static class ServiceCollectionExtensions
         {
             options.UseSqlServer(configuration.GetConnectionString(nameof(KeyDataProtectorContext)));
         });
-        services.AddDbConnectionFactory<EjemploContext>(() => new SqlConnection(configuration.GetConnectionString(nameof(EjemploContext))));
+        services.AddEntityFrameworkRepositories();
+
+        // Agregar Dapper
+        services.AddDbConnectionFactory<EjemploDapperDatabase>(() => new SqlConnection(configuration.GetConnectionString(nameof(EjemploContext))));
+        services.AddDapperRepositories();
 
         return services;
     }

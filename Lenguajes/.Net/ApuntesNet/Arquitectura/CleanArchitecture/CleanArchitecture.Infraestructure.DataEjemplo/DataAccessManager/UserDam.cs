@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using CleanArchitecture.Domain.Database.Identity;
 using CleanArchitecture.Domain.Negocio.UsersDto;
-using CleanArchitecture.Infraestructure.DatabaseConfig;
+using CleanArchitecture.Infraestructure.DataEntityFramework.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -81,7 +81,6 @@ internal class UserDam : IUserDam
     public async Task<List<User>> GetListUsers()
     {
         using var context = _contextFactory.CreateDbContext();
-        await Task.Delay(1000);
         return await (from user in context.User
                       select user).ToListAsync();
     }

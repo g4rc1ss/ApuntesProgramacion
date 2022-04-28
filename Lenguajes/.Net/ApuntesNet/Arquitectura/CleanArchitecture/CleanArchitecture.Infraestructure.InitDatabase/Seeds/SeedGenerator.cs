@@ -1,5 +1,5 @@
 ﻿using CleanArchitecture.Domain.Database.Identity;
-using CleanArchitecture.Infraestructure.DatabaseConfig;
+using CleanArchitecture.Infraestructure.DataEntityFramework.Contexts;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 

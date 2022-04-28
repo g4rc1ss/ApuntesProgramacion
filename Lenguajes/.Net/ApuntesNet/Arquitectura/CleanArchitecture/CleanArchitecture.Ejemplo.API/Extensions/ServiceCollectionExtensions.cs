@@ -2,6 +2,7 @@
 using CleanArchitecture.Domain.Database.Identity;
 using CleanArchitecture.Infraestructure.DatabaseConfig;
 using CleanArchitecture.Infraestructure.DataEjemplo;
+using CleanArchitecture.Infraestructure.DataEntityFramework.Contexts;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 
@@ -21,9 +22,8 @@ internal static class ServiceCollectionExtensions
         .AddRoles<Role>()
         .AddEntityFrameworkStores<EjemploContext>();
 
-        services.AddDatabaseConfig(configuration);
         services.AddCapaNegocio();
-        services.AddCapaDatos();
+        services.AddDatabaseConfig(configuration);
 
         return services;
     }

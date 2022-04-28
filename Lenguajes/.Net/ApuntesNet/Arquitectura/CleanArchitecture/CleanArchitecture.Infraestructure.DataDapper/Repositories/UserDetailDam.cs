@@ -1,18 +1,17 @@
-﻿using System.Threading.Tasks;
-using CleanArchitecture.ApplicationCore.InterfacesEjemplo;
+﻿using CleanArchitecture.ApplicationCore.InterfacesEjemplo;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using CleanArchitecture.Domain.Database.Identity;
 using CleanArchitecture.Domain.Negocio.Filtros.UserDetail;
-using CleanArchitecture.Infraestructure.DatabaseConfig;
+using CleanArchitecture.Infraestructure.DataDapper.Contexts;
 using Dapper;
 
-namespace CleanArchitecture.Infraestructure.DataEjemplo.DataAccessManager
+namespace CleanArchitecture.Infraestructure.DataDapper.Repositories
 {
     internal class UserDetailDam : IUserDetailDam
     {
-        private readonly IDbConnectionFactory<EjemploContext> _factoryEjemplo;
+        private readonly IDbConnectionFactory<EjemploDapperDatabase> _factoryEjemplo;
 
-        public UserDetailDam(IDbConnectionFactory<EjemploContext> factoryEjemplo)
+        public UserDetailDam(IDbConnectionFactory<EjemploDapperDatabase> factoryEjemplo)
         {
             _factoryEjemplo = factoryEjemplo;
         }
