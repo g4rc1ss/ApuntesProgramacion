@@ -1,8 +1,10 @@
-﻿using CleanArchitecture.Infraestructure.DataEjemplo;
+﻿using System.Reflection;
+using CleanArchitecture.Infraestructure.DataEjemplo;
 using CleanArchitecture.Infraestructure.DataEntityFramework.Contexts;
 using CleanArchitecture.Infraestructure.DataEntityFramework.Entities;
 using CleanArchitecture.Infraestructure.InitDatabase;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,12 +23,34 @@ builder.ConfigureServices((hostContext, services) =>
 {
     services.AddOptions();
 
+    services.AddDbContextPool<KeyDataProtectorContext>(options =>
+    {
+        options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(KeyDataProtectorContext)), sql => 
+            sql.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName));
+    });
     services.AddDataProtection()
         .SetApplicationName("Aplicacion.CleanArchitecture")
-        .AddDataProtectionEntityFramework(hostContext.Configuration);
+        .PersistKeysToDbContext<KeyDataProtectorContext>();
 
-    services.AddIdentityEntityFramework(hostContext.Configuration);
-    services.AddEntityFrameworkRepositories(hostContext.Configuration);
+    services.AddPooledDbContextFactory<EjemploContext>(options =>
+    {
+        options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(EjemploContext)), sql =>
+            sql.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName));
+    });
+
+    services.AddDbContextPool<EjemploContext>(options =>
+    {
+        options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(EjemploContext)), sql =>
+            sql.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName));
+    });
+
+    services.AddIdentity<User, Role>(options =>
+    {
+        options.Password.RequiredLength = 8;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = false;
+
+    }).AddEntityFrameworkStores<EjemploContext>();
 
     services.AddTransient<DatabaseMigrator>();
     services.AddTransient<DatabaseInitializer>();

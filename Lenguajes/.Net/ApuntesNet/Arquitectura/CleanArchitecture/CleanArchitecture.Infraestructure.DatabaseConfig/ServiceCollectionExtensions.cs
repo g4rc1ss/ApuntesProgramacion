@@ -12,12 +12,10 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddDatabaseConfig(this IServiceCollection services, IConfiguration configuration)
     {
         // Add EntityFramework
-        services.AddAutoMapper(typeof(EjemploContext));
         services.AddIdentityEntityFramework(configuration);
         services.AddEntityFrameworkRepositories(configuration);
 
         // Agregar Dapper
-        services.AddAutoMapper(typeof(EjemploDapperDatabase));
         services.AddDapperRepositories(configuration.GetConnectionString(nameof(EjemploContext)));
 
         return services;

@@ -11,6 +11,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddDapperRepositories(this IServiceCollection services, string connectionString)
     {
+        services.AddAutoMapper(typeof(EjemploDapperDatabase));
         services.AddDbConnectionFactory<EjemploDapperDatabase>(() => new SqlConnection(connectionString));
 
 

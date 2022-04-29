@@ -15,7 +15,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddEntityFrameworkRepositories(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContextFactory<EjemploContext>(options =>
+        services.AddPooledDbContextFactory<EjemploContext>(options =>
         {
             options.UseSqlServer(configuration.GetConnectionString(nameof(EjemploContext)));
         });
@@ -26,6 +26,8 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddIdentityEntityFramework(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddAutoMapper(typeof(EjemploContext));
+
         services.AddIdentity<User, Role>(options =>
         {
             options.Password.RequiredLength = 8;
@@ -35,7 +37,8 @@ public static class ServiceCollectionExtensions
         }).AddSignInManager<SignInManager<User>>()
         .AddRoles<Role>()
         .AddEntityFrameworkStores<EjemploContext>();
-        services.AddDbContext<EjemploContext>(options =>
+
+        services.AddDbContextPool<EjemploContext>(options =>
         {
             options.UseSqlServer(configuration.GetConnectionString(nameof(EjemploContext)));
         });
