@@ -1,4 +1,4 @@
-﻿namespace Facade.Patron
+﻿namespace Facade.CodigoComplejo
 {
     // Some facades can work with multiple subsystems at the same time.
     public class Subsystem2

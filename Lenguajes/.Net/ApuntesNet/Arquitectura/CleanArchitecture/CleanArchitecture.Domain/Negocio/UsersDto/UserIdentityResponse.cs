@@ -1,10 +1,10 @@
-﻿using CleanArchitecture.Domain.Database.Identity;
+﻿using CleanArchitecture.Domain.Database.ModelEntity;
 
 namespace CleanArchitecture.Domain.Negocio.UsersDto
 {
     public class UserIdentityResponse
     {
-        public User User { get; set; }
+        public UserModelEntity User { get; set; }
         public bool Succeed { get; set; }
     }
 }

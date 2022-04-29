@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace CleanArchitecture.Domain.Database.Identity;
+namespace CleanArchitecture.Infraestructure.DataEntityFramework.Entities;
 
 public class UserRole : IdentityUserRole<int>
 {
-
 }

@@ -1,4 +1,6 @@
-﻿namespace Facade.Patron
+﻿using Facade.CodigoComplejo;
+
+namespace Facade.Patron
 {
     public class Fachada
     {

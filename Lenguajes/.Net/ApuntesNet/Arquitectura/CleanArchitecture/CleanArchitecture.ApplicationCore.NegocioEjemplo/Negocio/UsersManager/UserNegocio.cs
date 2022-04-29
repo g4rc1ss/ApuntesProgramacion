@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManager;
-using CleanArchitecture.Domain.Database.Identity;
+using CleanArchitecture.Domain.Database.ModelEntity;
 using CleanArchitecture.Domain.Negocio.UsersDto;
 using CleanArchitecture.Domain.Utilities.LoggingMediatr;
 using MediatR;
@@ -14,20 +14,23 @@ namespace CleanArchitecture.ApplicationCore.NegocioEjemplo.Negocio.UsersManager;
 
 internal class UserNegocio : IUserNegocio
 {
-    private readonly IUserDam userDam;
+    private readonly IUserRepository _userRepository;
+    private readonly IIdentityUserRepository _identityUserRepository;
     private readonly IDataProtector _protector;
     private readonly IMediator _mediator;
 
-    public UserNegocio(IUserDam userDam, IMediator mediator, IDataProtectionProvider dataProtectionProvider)
+    public UserNegocio(IUserRepository userRepository, IMediator mediator, 
+        IDataProtectionProvider dataProtectionProvider, IIdentityUserRepository identityUserRepository)
     {
-        this.userDam = userDam;
+        _userRepository = userRepository;
         _mediator = mediator;
         _protector = dataProtectionProvider.CreateProtector("Identity.Users");
+        _identityUserRepository = identityUserRepository;
     }
 
     public async Task<bool> LoginAsync(string username, string password, bool rememberMe)
     {
-        var resp = await userDam.LogInAsync(username, password, rememberMe);
+        var resp = await _identityUserRepository.LogInAsync(username, password, rememberMe);
         if (!resp.Succeed)
         {
             await _mediator.Publish(new LoggingRequest($"Nombre de usuario {username} o contraseña incorrecta ***", LogType.Info));
@@ -37,7 +40,7 @@ internal class UserNegocio : IUserNegocio
 
     public async Task<bool> LogoutAsync()
     {
-        var resp = await userDam.LogoutAsync();
+        var resp = await _identityUserRepository.LogoutAsync();
         if (!resp.Succeed)
         {
             await _mediator.Publish(new LoggingRequest("Error al Cerrar la sesion", LogType.Info));
@@ -48,7 +51,7 @@ internal class UserNegocio : IUserNegocio
 
     public async Task<bool> CreateUserAccountAsync(CreateAccountData createAccountData)
     {
-        var user = new User()
+        var user = new UserModelEntity()
         {
             UserName = createAccountData?.UserName,
             NormalizedUserName = createAccountData?.NormalizedUserName,
@@ -56,13 +59,13 @@ internal class UserNegocio : IUserNegocio
             PhoneNumber = _protector.Protect(createAccountData?.PhoneNumber),
             SecurityStamp = new Guid().ToString()
         };
-        var respUser = await userDam.CreateUserAsync(user, createAccountData?.Password);
-        var respRole = await userDam.CreateUserRoleAsync(user, "Usuario");
+        var respUser = await _identityUserRepository.CreateUserAsync(user, createAccountData?.Password);
+        var respRole = await _identityUserRepository.CreateUserRoleAsync(user, "Usuario");
 
         if (!(respUser.Succeed && respRole.Succeed))
         {
             // Delete user if error
-            await userDam.DeleteUserAsync(user);
+            await _identityUserRepository.DeleteUserAsync(user);
             await _mediator.Publish(new LoggingRequest($"usuario creado? {respUser} \n , logger" +
                 $"usuario insertado Rol? {respRole}", LogType.Info));
             return false;
@@ -70,9 +73,9 @@ internal class UserNegocio : IUserNegocio
         return await LoginAsync(createAccountData?.UserName, createAccountData?.Password, false);
     }
 
-    public async Task<List<User>> GetListaUsuarios()
+    public async Task<List<UserModelEntity>> GetListaUsuarios()
     {
-        var users = await userDam.GetListUsers();
+        var users = await _userRepository.GetListUsers();
         await _mediator.Publish(new LoggingRequest(users, LogType.Warning));
 
         return users.Select(user =>

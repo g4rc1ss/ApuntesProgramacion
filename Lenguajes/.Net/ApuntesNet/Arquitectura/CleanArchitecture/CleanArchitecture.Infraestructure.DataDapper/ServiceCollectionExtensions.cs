@@ -21,7 +21,7 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddDapperServices(this IServiceCollection services)
     {
-        services.AddScoped<IUserDetailDam, UserDetailDam>();
+        services.AddScoped<IUserDetailRepository, UserDetailRepository>();
 
         return services;
     }

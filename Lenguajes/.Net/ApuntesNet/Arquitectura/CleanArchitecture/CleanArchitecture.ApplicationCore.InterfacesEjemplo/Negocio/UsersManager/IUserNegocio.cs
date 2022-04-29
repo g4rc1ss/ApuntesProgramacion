@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CleanArchitecture.Domain.Database.Identity;
+using CleanArchitecture.Domain.Database.ModelEntity;
 using CleanArchitecture.Domain.Negocio.UsersDto;
 
 namespace CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManager;
@@ -8,7 +8,7 @@ namespace CleanArchitecture.ApplicationCore.InterfacesEjemplo.Negocio.UsersManag
 public interface IUserNegocio
 {
     Task<bool> CreateUserAccountAsync(CreateAccountData createAccountData);
-    Task<List<User>> GetListaUsuarios();
+    Task<List<UserModelEntity>> GetListaUsuarios();
     Task<bool> LoginAsync(string username, string password, bool rememberMe);
     Task<bool> LogoutAsync();
 }

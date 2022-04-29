@@ -1,9 +1,7 @@
 ﻿using CleanArchitecture.ApplicationCore.NegocioEjemplo;
-using CleanArchitecture.Domain.Database.Identity;
 using CleanArchitecture.Infraestructure.DatabaseConfig;
-using CleanArchitecture.Infraestructure.DataEntityFramework.Contexts;
+using CleanArchitecture.Infraestructure.DataEjemplo;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Identity;
 
 namespace CleanArchitecture.Ejemplo.API.Extensions;
 
@@ -11,16 +9,6 @@ internal static class ServiceCollectionExtensions
 {
     internal static IServiceCollection AddAppConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddIdentity<User, Role>(options =>
-        {
-            options.Password.RequiredLength = 8;
-            options.Password.RequireUppercase = false;
-            options.Password.RequireLowercase = false;
-
-        }).AddSignInManager<SignInManager<User>>()
-        .AddRoles<Role>()
-        .AddEntityFrameworkStores<EjemploContext>();
-
         services.AddCapaNegocio();
         services.AddDatabaseConfig(configuration);
 
@@ -38,12 +26,11 @@ internal static class ServiceCollectionExtensions
         return services;
     }
 
-    internal static IServiceCollection ConfigureDataProtectionProvider(this IServiceCollection services)
+    internal static IServiceCollection ConfigureDataProtectionProvider(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDataProtection()
-            .PersistKeysToDbContext<KeyDataProtectorContext>()
+            .AddDataProtectionEntityFramework(configuration)
             .SetApplicationName("Aplicacion.CleanArchitecture");
-
         return services;
     }
 }

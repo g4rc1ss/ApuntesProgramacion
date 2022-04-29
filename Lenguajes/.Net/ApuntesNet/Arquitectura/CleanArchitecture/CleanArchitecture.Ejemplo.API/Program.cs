@@ -9,7 +9,7 @@ builder.Host.AddLoggerConfiguration(builder.Configuration.GetConnectionString(na
 // Add services to the container.
 builder.Services.AddAppConfiguration(builder.Configuration);
 builder.Services.AddRedisCache();
-builder.Services.ConfigureDataProtectionProvider();
+builder.Services.ConfigureDataProtectionProvider(builder.Configuration);
 builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddAutoMapper(typeof(Program));
 
