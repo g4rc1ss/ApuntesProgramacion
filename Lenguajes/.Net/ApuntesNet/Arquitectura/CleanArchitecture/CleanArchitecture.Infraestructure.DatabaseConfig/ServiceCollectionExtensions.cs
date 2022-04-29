@@ -13,8 +13,8 @@ public static class ServiceCollectionExtensions
     {
         // Add EntityFramework
         services.AddAutoMapper(typeof(EjemploContext));
-        services.AddEntityFrameworkRepositories(configuration);
         services.AddIdentityEntityFramework(configuration);
+        services.AddEntityFrameworkRepositories(configuration);
 
         // Agregar Dapper
         services.AddAutoMapper(typeof(EjemploDapperDatabase));

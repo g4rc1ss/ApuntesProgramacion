@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Infraestructure.DataEntityFramework.Contexts;
+﻿using CleanArchitecture.Infraestructure.DataEjemplo;
+using CleanArchitecture.Infraestructure.DataEntityFramework.Contexts;
 using CleanArchitecture.Infraestructure.DataEntityFramework.Entities;
 using CleanArchitecture.Infraestructure.InitDatabase;
 using Microsoft.AspNetCore.DataProtection;
@@ -19,30 +20,13 @@ builder.ConfigureLogging((hostContext, log) =>
 builder.ConfigureServices((hostContext, services) =>
 {
     services.AddOptions();
-    services.AddDbContextFactory<EjemploContext>(options =>
-    {
-        options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(EjemploContext)), sql =>
-        {
-            sql.MigrationsAssembly(typeof(Program).Assembly.FullName);
-        });
-    });
-    services.AddScoped(p => p.GetRequiredService<IDbContextFactory<EjemploContext>>().CreateDbContext());
-
-    services.AddDbContextPool<KeyDataProtectorContext>(options =>
-    {
-        options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(KeyDataProtectorContext)), sql =>
-        {
-            sql.MigrationsAssembly(typeof(Program).Assembly.FullName);
-        });
-    });
-
 
     services.AddDataProtection()
-        .PersistKeysToDbContext<KeyDataProtectorContext>()
-        .SetApplicationName("Aplicacion.CleanArchitecture");
+        .SetApplicationName("Aplicacion.CleanArchitecture")
+        .AddDataProtectionEntityFramework(hostContext.Configuration);
 
-    services.AddIdentity<User, Role>()
-        .AddEntityFrameworkStores<EjemploContext>();
+    services.AddIdentityEntityFramework(hostContext.Configuration);
+    services.AddEntityFrameworkRepositories(hostContext.Configuration);
 
     services.AddTransient<DatabaseMigrator>();
     services.AddTransient<DatabaseInitializer>();
