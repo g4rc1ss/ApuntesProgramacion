@@ -16,7 +16,7 @@ namespace CleanArchitecture.Ejemplo.API.AutoMapperProfiles
             CreateMap<UserDetailRequest, FiltroUser>();
             CreateMap<int, FiltroUser>()
                 .ForMember(x => x.IdUsuario, y => y.MapFrom(x => x));
-            CreateMap<User, UserResponse>()
+            CreateMap<UserModelEntity, UserResponse>()
                 .ForMember(x => x.NombreUsuario, y => y.MapFrom(x => x.UserName))
                 .ForMember(x => x.TieneDobleFactor, y => y.MapFrom(x => x.TwoFactorEnabled))
                 .ForMember(x => x.Nombre, y => y.MapFrom(x => x.NormalizedUserName));

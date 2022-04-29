@@ -61,6 +61,7 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddEntityFrameworkServices(this IServiceCollection services)
     {
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUserDetailRepository, UserDetailRepository>();
 
         return services;
     }

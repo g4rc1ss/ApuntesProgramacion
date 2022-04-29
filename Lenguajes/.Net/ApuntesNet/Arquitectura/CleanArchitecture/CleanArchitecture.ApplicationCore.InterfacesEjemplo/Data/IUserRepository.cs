@@ -7,6 +7,6 @@ namespace CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data
 {
     public interface IUserRepository
     {
-        Task<List<UserModelEntity>> GetListUsers();
+        Task<IEnumerable<UserModelEntity>> GetListUsers();
     }
 }

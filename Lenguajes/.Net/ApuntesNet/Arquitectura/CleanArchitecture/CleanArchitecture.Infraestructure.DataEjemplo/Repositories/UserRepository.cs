@@ -20,12 +20,11 @@ internal class UserRepository : IUserRepository
         _mapper = mapper;
     }
 
-    public async Task<List<UserModelEntity>> GetListUsers()
+    public async Task<IEnumerable<UserModelEntity>> GetListUsers()
     {
         using var context = _contextFactory.CreateDbContext();
-        var users = await (from user in context.User
-                           select user).ToListAsync();
+        var users = await context.User.ToListAsync();
 
-        return _mapper.Map<List<UserModelEntity>>(users);
+        return _mapper.Map<IEnumerable<UserModelEntity>>(users);
     }
 }
