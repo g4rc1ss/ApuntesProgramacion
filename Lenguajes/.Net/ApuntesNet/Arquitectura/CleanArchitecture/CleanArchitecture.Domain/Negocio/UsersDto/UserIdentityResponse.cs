@@ -1,6 +1,4 @@
-﻿using CleanArchitecture.Domain.Database.ModelEntity;
-
-namespace CleanArchitecture.Domain.Negocio.UsersDto
+﻿namespace CleanArchitecture.Domain.Negocio.UsersDto
 {
     public class UserIdentityResponse
     {
@@ -14,7 +12,7 @@ namespace CleanArchitecture.Domain.Negocio.UsersDto
 
         public UserIdentityResponse()
         {
-            
+
         }
     }
 }

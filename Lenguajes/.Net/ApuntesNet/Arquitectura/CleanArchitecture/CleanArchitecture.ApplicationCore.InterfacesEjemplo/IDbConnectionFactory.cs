@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data.Common;
-using System.Threading.Tasks;
-using CleanArchitecture.Domain.Database.ModelEntity;
+﻿using System.Data.Common;
 
 namespace CleanArchitecture.ApplicationCore.InterfacesEjemplo;
 

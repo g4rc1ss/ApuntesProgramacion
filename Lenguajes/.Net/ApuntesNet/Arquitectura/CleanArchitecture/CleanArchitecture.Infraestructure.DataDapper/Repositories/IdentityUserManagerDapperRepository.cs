@@ -169,7 +169,7 @@ FROM Roles r
             identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, userResult.Id.ToString()));
             identity.AddClaim(new Claim(ClaimTypes.Name, $"{userResult.UserName}"));
 
-            AuthenticationProperties prop = new AuthenticationProperties { IsPersistent = false };
+            var prop = new AuthenticationProperties { IsPersistent = false };
             await _httpContext.HttpContext.SignInAsync("Cookies", new ClaimsPrincipal(identity), prop);
 
             return new UserIdentityResponse(true);

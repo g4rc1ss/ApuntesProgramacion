@@ -2,7 +2,6 @@
 using CleanArchitecture.Domain.Database.ModelEntity;
 using CleanArchitecture.Domain.Negocio.Filtros.UserDetail;
 using CleanArchitecture.Domain.Negocio.UsersDto;
-using CleanArchitecture.Infraestructure.DataEntityFramework.Entities;
 using CleanArchitecture.Shared.Peticiones.Request.Users;
 using CleanArchitecture.Shared.Peticiones.Request.Users.UserDetail;
 using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;

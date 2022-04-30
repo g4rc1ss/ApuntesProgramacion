@@ -19,7 +19,7 @@ internal class UserNegocio : IUserNegocio
     private readonly IDataProtector _protector;
     private readonly IMediator _mediator;
 
-    public UserNegocio(IUserRepository userRepository, IMediator mediator, 
+    public UserNegocio(IUserRepository userRepository, IMediator mediator,
         IDataProtectionProvider dataProtectionProvider, IIdentityUser identityUserRepository)
     {
         _userRepository = userRepository;

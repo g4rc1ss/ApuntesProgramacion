@@ -1,10 +1,8 @@
 ﻿using System.Reflection;
-using CleanArchitecture.Infraestructure.DataEjemplo;
 using CleanArchitecture.Infraestructure.DataEntityFramework.Contexts;
 using CleanArchitecture.Infraestructure.DataEntityFramework.Entities;
 using CleanArchitecture.Infraestructure.InitDatabase;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,7 +23,7 @@ builder.ConfigureServices((hostContext, services) =>
 
     services.AddDbContextPool<KeyDataProtectorContext>(options =>
     {
-        options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(KeyDataProtectorContext)), sql => 
+        options.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(KeyDataProtectorContext)), sql =>
             sql.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName));
     });
     services.AddDataProtection()

@@ -61,7 +61,10 @@ namespace CleanArchitecture.Infraestructure.DataEntityFramework.Repositories
         public async Task<UserIdentityResponse> CreateUserRoleAsync(UserModelEntity user, string role)
         {
             if (_userIdentity is null)
+            {
                 _userIdentity = _mapper.Map<User>(user);
+            }
+
             var respuesta = await _userManager.AddToRoleAsync(_userIdentity, role);
             return new UserIdentityResponse
             {
@@ -72,7 +75,10 @@ namespace CleanArchitecture.Infraestructure.DataEntityFramework.Repositories
         public async Task<UserIdentityResponse> DeleteUserAsync(UserModelEntity user)
         {
             if (_userIdentity is null)
+            {
                 _userIdentity = _mapper.Map<User>(user);
+            }
+
             var respuesta = await _userManager.DeleteAsync(_userIdentity);
             return new UserIdentityResponse
             {

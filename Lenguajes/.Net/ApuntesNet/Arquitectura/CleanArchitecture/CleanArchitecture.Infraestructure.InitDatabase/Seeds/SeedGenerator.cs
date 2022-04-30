@@ -1,5 +1,4 @@
-﻿using CleanArchitecture.Domain.Database.ModelEntity;
-using CleanArchitecture.Infraestructure.DataEntityFramework.Contexts;
+﻿using CleanArchitecture.Infraestructure.DataEntityFramework.Contexts;
 using CleanArchitecture.Infraestructure.DataEntityFramework.Entities;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
