@@ -14,6 +14,10 @@ public static class ServiceCollectionExtensions
         {
             services.AddIdentityEntityFramework(configuration);
         }
+        else
+        {
+            services.AddDapperIdentity();
+        }
 
         if (bool.TryParse(configuration.GetSection("UseEntityFramework").Value, out var usarEntityFramework) && usarEntityFramework)
         {

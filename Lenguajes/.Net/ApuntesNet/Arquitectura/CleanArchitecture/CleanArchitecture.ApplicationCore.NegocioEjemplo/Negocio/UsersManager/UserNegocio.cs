@@ -15,12 +15,12 @@ namespace CleanArchitecture.ApplicationCore.NegocioEjemplo.Negocio.UsersManager;
 internal class UserNegocio : IUserNegocio
 {
     private readonly IUserRepository _userRepository;
-    private readonly IIdentityUserRepository _identityUserRepository;
+    private readonly IIdentityUser _identityUserRepository;
     private readonly IDataProtector _protector;
     private readonly IMediator _mediator;
 
     public UserNegocio(IUserRepository userRepository, IMediator mediator, 
-        IDataProtectionProvider dataProtectionProvider, IIdentityUserRepository identityUserRepository)
+        IDataProtectionProvider dataProtectionProvider, IIdentityUser identityUserRepository)
     {
         _userRepository = userRepository;
         _mediator = mediator;
@@ -66,8 +66,8 @@ internal class UserNegocio : IUserNegocio
         {
             // Delete user if error
             await _identityUserRepository.DeleteUserAsync(user);
-            await _mediator.Publish(new LoggingRequest($"usuario creado? {respUser} \n , logger" +
-                $"usuario insertado Rol? {respRole}", LogType.Info));
+            await _mediator.Publish(new LoggingRequest($"usuario creado? {respUser.Succeed} \n , logger" +
+                $"usuario insertado Rol? {respRole.Succeed}", LogType.Info));
             return false;
         }
         return await LoginAsync(createAccountData?.UserName, createAccountData?.Password, false);

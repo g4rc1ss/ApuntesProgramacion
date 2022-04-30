@@ -4,7 +4,17 @@ namespace CleanArchitecture.Domain.Negocio.UsersDto
 {
     public class UserIdentityResponse
     {
-        public UserModelEntity User { get; set; }
+
         public bool Succeed { get; set; }
+
+        public UserIdentityResponse(bool succeed)
+        {
+            Succeed = succeed;
+        }
+
+        public UserIdentityResponse()
+        {
+            
+        }
     }
 }

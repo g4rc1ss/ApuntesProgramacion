@@ -42,7 +42,7 @@ public static class ServiceCollectionExtensions
         {
             options.UseSqlServer(configuration.GetConnectionString(nameof(EjemploContext)));
         });
-        services.AddScoped<IIdentityUserRepository, IdentityUserRepository>();
+        services.AddScoped<IIdentityUser, IdentityUserRepository>();
 
         return services;
     }

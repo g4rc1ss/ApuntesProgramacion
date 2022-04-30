@@ -9,11 +9,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CleanArchitecture.Infraestructure.DataEntityFramework.Repositories
 {
-    internal class IdentityUserRepository : IIdentityUserRepository
+    internal class IdentityUserRepository : IIdentityUser
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
+
+        private User _userIdentity;
 
         public IdentityUserRepository(SignInManager<User> signInManager, UserManager<User> userManager, IMapper mapper)
         {
@@ -48,19 +50,19 @@ namespace CleanArchitecture.Infraestructure.DataEntityFramework.Repositories
 
         public async Task<UserIdentityResponse> CreateUserAsync(UserModelEntity user, string password)
         {
-            var userIdentity = _mapper.Map<User>(user);
-            var respuesta = await _userManager.CreateAsync(userIdentity, password);
+            _userIdentity = _mapper.Map<User>(user);
+            var respuesta = await _userManager.CreateAsync(_userIdentity, password);
             return new UserIdentityResponse
             {
-                Succeed = respuesta.Succeeded,
-                User = user,
+                Succeed = respuesta.Succeeded
             };
         }
 
         public async Task<UserIdentityResponse> CreateUserRoleAsync(UserModelEntity user, string role)
         {
-            var userIdentity = _mapper.Map<User>(user);
-            var respuesta = await _userManager.AddToRoleAsync(userIdentity, role);
+            if (_userIdentity is null)
+                _userIdentity = _mapper.Map<User>(user);
+            var respuesta = await _userManager.AddToRoleAsync(_userIdentity, role);
             return new UserIdentityResponse
             {
                 Succeed = respuesta.Succeeded
@@ -69,8 +71,9 @@ namespace CleanArchitecture.Infraestructure.DataEntityFramework.Repositories
 
         public async Task<UserIdentityResponse> DeleteUserAsync(UserModelEntity user)
         {
-            var userIdentity = _mapper.Map<User>(user);
-            var respuesta = await _userManager.DeleteAsync(userIdentity);
+            if (_userIdentity is null)
+                _userIdentity = _mapper.Map<User>(user);
+            var respuesta = await _userManager.DeleteAsync(_userIdentity);
             return new UserIdentityResponse
             {
                 Succeed = respuesta.Succeeded

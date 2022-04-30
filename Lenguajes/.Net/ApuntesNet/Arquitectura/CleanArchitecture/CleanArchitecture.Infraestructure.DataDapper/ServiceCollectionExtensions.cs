@@ -20,6 +20,15 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
+    public static IServiceCollection AddDapperIdentity(this IServiceCollection services)
+    {
+        services.AddHttpContextAccessor();
+
+        services.AddScoped<IIdentityUser, IdentityUserManagerDapperRepository>();
+
+        return services;
+    }
+
     private static IServiceCollection AddDapperServices(this IServiceCollection services)
     {
         services.AddScoped<IUserRepository, UserRepository>();

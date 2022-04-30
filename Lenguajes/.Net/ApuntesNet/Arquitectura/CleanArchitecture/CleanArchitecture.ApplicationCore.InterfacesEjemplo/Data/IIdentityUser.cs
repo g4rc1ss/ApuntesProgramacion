@@ -8,7 +8,7 @@ using CleanArchitecture.Domain.Negocio.UsersDto;
 
 namespace CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data
 {
-    public interface IIdentityUserRepository
+    public interface IIdentityUser
     {
         Task<UserIdentityResponse> LogInAsync(string user, string password, bool rememberMe);
         Task<UserIdentityResponse> LogoutAsync();
