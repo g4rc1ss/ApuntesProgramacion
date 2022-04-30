@@ -8,13 +8,13 @@ namespace CleanArchitecture.Ejemplo.API.Controllers.Usuarios
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CrearUsuarioController : Controller
+    public class UserManagerController : Controller
     {
 
         private readonly IUserNegocio _userDetail;
         private readonly IMapper _mapper;
 
-        public CrearUsuarioController(IUserNegocio userDetail, IMapper mapper)
+        public UserManagerController(IUserNegocio userDetail, IMapper mapper)
         {
             _userDetail = userDetail;
             _mapper = mapper;
@@ -29,5 +29,6 @@ namespace CleanArchitecture.Ejemplo.API.Controllers.Usuarios
 
             return Json(succeed);
         }
+
     }
 }
