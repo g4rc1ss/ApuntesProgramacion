@@ -20,12 +20,6 @@ namespace CleanArchitecture.Ejemplo.API.Controllers.Usuarios
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return Json(null);
-        }
-
         [HttpPost(nameof(CreateUser))]
         public async Task<IActionResult> CreateUser(CreateUserRequest userRequest)
         {

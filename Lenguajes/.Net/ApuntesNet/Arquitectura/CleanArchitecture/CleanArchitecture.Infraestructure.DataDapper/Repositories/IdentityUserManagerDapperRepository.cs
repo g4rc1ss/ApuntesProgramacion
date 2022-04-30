@@ -142,7 +142,13 @@ SELECT *
 FROM [Users] u
 WHERE u.UserName = @userName
 
-
+SELECT r.Id 
+, r.Name 
+FROM Roles r
+	INNER JOIN UserRoles ur ON r.Id = ur.RoleId
+	AND ur.UserId = (SELECT Id 
+					FROM Users u 
+					WHERE u.UserName = @userName)
 ";
             var obtainUserResult = await dbConnection.QueryMultipleAsync(sqlUser, new
             {

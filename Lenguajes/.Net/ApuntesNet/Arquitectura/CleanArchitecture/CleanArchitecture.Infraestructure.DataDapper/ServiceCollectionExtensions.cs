@@ -2,6 +2,7 @@
 using CleanArchitecture.Infraestructure.DataDapper.Contexts;
 using CleanArchitecture.Infraestructure.DataDapper.Repositories;
 using CleanArchitecture.Infraestructure.DbConnectionExtension.DependencyInjection;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,6 +23,18 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddDapperIdentity(this IServiceCollection services)
     {
+        services.AddAuthentication("Cookies").AddCookie(option =>
+        {
+            option.Cookie = new CookieBuilder
+            {
+                Name = "Authentication",
+                HttpOnly = true,
+                SecurePolicy = CookieSecurePolicy.Always,
+                SameSite = SameSiteMode.Strict,
+                IsEssential = true,
+                Path = "/"
+            };
+        });
         services.AddHttpContextAccessor();
 
         services.AddScoped<IIdentityUser, IdentityUserManagerDapperRepository>();
