@@ -8,6 +8,7 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddMemoryCache();
+
 builder.Services.AddHttpClientFactories();
 
 await builder.Build().RunAsync();

@@ -4,12 +4,14 @@ using CleanArchitecture.Infraestructure.DatabaseConfig;
 using CleanArchitecture.Infraestructure.DataEjemplo;
 using Microsoft.AspNetCore.DataProtection;
 
-namespace CleanArchitecture.Ejemplo.API.Extensions;
+namespace CleanArchitecture.Ejemplo.RazorPages.Extensions;
 
 internal static class ServiceCollectionExtensions
 {
     internal static IServiceCollection AddAppConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddOptions();
+        services.Configure<InfraestructureConfiguration>(configuration);
         services.AddCapaNegocio();
         services.AddDatabaseConfig(configuration);
 

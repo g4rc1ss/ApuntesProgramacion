@@ -1,0 +1,55 @@
+﻿@page "/"
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="col-md-12">
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <div style="overflow:auto; height: 50vh;">
+                <table id="tablaResultadosLogs" class="table table-striped table-hover table-bordered table-sm">
+                    <caption class="text-center">@(Model.UserResponse.Count()) registro@(Model.UserResponse.Count() != 1 ? "s" : "") </caption>
+                    <thead>
+                        <tr>
+                            <th class="th-sm" style="text-align: center">
+                                Nombre de Usuario
+                            </th>
+                            <th class="th-sm" style="text-align: center">
+                                Nombre
+                            </th>
+                            <th class="th-sm" style="text-align: center">
+                                Email
+                            </th>
+                            <th class="th-sm" style="text-align: center">
+                                Tiene doble factor
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var usuario in Model.UserResponse)
+                            {
+                                <tr>
+                                    <td class="th-sm" style="text-align: center"><a href="#">@usuario.NombreUsuario</a></td>
+                                    <td class="th-sm" style="text-align: center">@usuario.Nombre</td>
+                                    <td class="th-sm" style="text-align: center">@usuario.Email</td>
+                                    <td class="th-sm" style="text-align: center">
+                                        @if (usuario.TieneDobleFactor)
+                                        {
+                                            <i class="bi bi-check2-circle" style="color:green"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="bi bi-x-circle" style="color:red"></i>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

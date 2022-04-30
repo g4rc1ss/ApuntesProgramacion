@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using CleanArchitecture.Shared.Peticiones.Request.Users;
 using CleanArchitecture.Shared.Peticiones.Responses.User.Usuarios;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Caching.Memory;
@@ -21,6 +22,12 @@ namespace CleanArchitecture.Ejemplo.BlazorApp.Pages
         protected override async Task OnInitializedAsync()
         {
             _httpClientApiCA = HttpClientFactory?.CreateClient("API-CleanArchitecture");
+            var login = new LoginRequest
+            {
+                UserName = "string",
+                Password = "string",
+            };
+            await _httpClientApiCA?.PostAsJsonAsync("Sign/Login", login);
             UsersResponse = await _httpClientApiCA?.GetFromJsonAsync<List<UserResponse>>("ListaUsuarios/ObtenerListadoUsuarios");
         }
 
