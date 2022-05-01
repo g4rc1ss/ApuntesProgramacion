@@ -1,0 +1,40 @@
+﻿@page "/Login"
+@attribute [AllowAnonymous]
+
+@code {
+
+}
+<h3>Login</h3>
+
+<div class="login">
+    <div class="panel panel-default  login-content">
+
+        <div class="panel-body">
+
+            <div class="">
+            </div>
+            <div class="col-md-7">
+                <h3 class="col-md-12 text-secondary margin-bottom margin-top">LOGIN</h3>
+
+                <EditForm class="margin-top" method="post" OnSubmit="EnviarLogin">
+                    <div class="col-md-12 form-group ">
+                        <label class="control-label">Usuario</label>
+                        <input type="text" @bind-value="LoginRequest.UserName" class="form-control input-lg">
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label class="control-label">Contraseña</label>
+                        <input type="password" @bind-value="LoginRequest.Password" class="form-control input-lg">
+                    </div>
+
+                    <div class="row col-md-12 form-group">
+                        <div class="text-center col-md-2 col-md-offset-4">
+                            <button id="btnentrarlogin" type="submit" class="btn bg-secondary text-white">ENTRAR</button>
+                        </div>
+                    </div>
+                </EditForm>
+
+            </div>
+
+        </div>
+    </div>
+</div>
