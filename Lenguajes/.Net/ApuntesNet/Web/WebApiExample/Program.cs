@@ -1,13 +1,25 @@
-﻿using Microsoft.OpenApi.Models;
-using WebApiExample.Business.Action;
-using WebApiExample.Business.Manager;
-using WebApiExample.Database;
-using WebApiExample.Database.Queries;
+﻿using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+
+
+builder.Services.AddAuthentication(options =>
+{
+
+}).AddJwtBearer(options =>
+{
+    options.SaveToken = true;
+    options.RequireHttpsMetadata = false;
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+    };
+});
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -21,10 +33,6 @@ builder.Services.AddCors(option =>
 });
 
 builder.Services.AddDataProtection();
-builder.Services.AddSingleton<IDapperConfig, DapperConfig>();
-builder.Services.AddScoped<IActionUsers, ActionUsers>();
-builder.Services.AddScoped<IUserManager, UserManager>();
-builder.Services.AddScoped<IUsersDatabase, UsersDatabase>();
 
 
 var app = builder.Build();

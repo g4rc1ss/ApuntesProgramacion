@@ -4,6 +4,5 @@
     {
         public bool? UseIdentity { get; set; }
         public bool? UseEntityFramework { get; set; }
-        public bool? EsAPI { get; set; }
     }
 }

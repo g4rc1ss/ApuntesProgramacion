@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WebApiExample.Business.Action;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using WebApiExample.Shared.DTO.Request;
-using WebApiExample.Shared.DTO.Response;
 
 namespace WebApiExample.Controllers
 {
@@ -9,24 +11,43 @@ namespace WebApiExample.Controllers
     [Route("api/[controller]")]
     public class UserController : Controller
     {
-        private readonly IActionUsers _actionUser;
 
-        public UserController(IActionUsers actionUser)
+        [HttpPost("Login")]
+        public async Task<IActionResult> LoginAsync(LoginRequest loginRequest)
         {
-            _actionUser = actionUser;
-        }
+            var comprobamosLaPasswordEnBaseDeDatos = true;
 
-        [HttpGet("users")]
-        public async Task<List<UserResponse>> Get()
-        {
-            var response = await _actionUser.GetAllUsersAsync();
-            return response.Select(x => (UserResponse)x).ToList();
-        }
+            if (comprobamosLaPasswordEnBaseDeDatos)
+            {
+                var authClaims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, loginRequest.UserName),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                };
 
-        [HttpPost("insertar-user")]
-        public async Task<bool> InsertUser(UserRequest userRequest)
-        {
-            return await _actionUser.InsertUser(userRequest);
+                //foreach (var userRole in userRoles)
+                //{
+                //    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+                //}
+
+                var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("JWTAuthenticationHIGHsecuredPasswordVVVp1OH7Xzyr"));
+
+                var token = new JwtSecurityToken(
+                    issuer: "http://localhost:5000",
+                    audience: "http://localhost:4200",
+                    expires: DateTime.Now.AddHours(3),
+                    claims: authClaims,
+                    signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+                    );
+
+                return Ok(new
+                {
+                    token = new JwtSecurityTokenHandler().WriteToken(token),
+                    expiration = token.ValidTo
+                });
+            }
+
+            return Unauthorized();
         }
     }
 }

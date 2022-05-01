@@ -9,7 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CleanArchitecture.Infraestructure.DataDapper\CleanArchitecture.Infraestructure.DataDapper.csproj" />
-      <ProjectReference Include="..\CleanArchitecture.Infraestructure.DataEjemplo\CleanArchitecture.Infraestructure.DataEntityFramework.csproj" />
+      <ProjectReference Include="..\CleanArchitecture.Infraestructure.DataEntityFramework\CleanArchitecture.Infraestructure.DataEntityFramework.csproj" />
     </ItemGroup>
 
 </Project>

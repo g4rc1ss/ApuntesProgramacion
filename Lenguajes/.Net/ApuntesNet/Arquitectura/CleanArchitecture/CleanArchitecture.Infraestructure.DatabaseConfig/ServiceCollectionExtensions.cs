@@ -14,32 +14,26 @@ public static class ServiceCollectionExtensions
     {
         var config = services.BuildServiceProvider().GetRequiredService<IOptions<InfraestructureConfiguration>>().Value;
 
-        if (config.EsAPI.HasValue && config.EsAPI.Value)
+        if (config.UseIdentity.HasValue && config.UseIdentity.Value)
         {
-
+            services.AddIdentityEntityFramework(configuration);
         }
         else
         {
-            if (config.UseIdentity.HasValue && config.UseIdentity.Value)
-            {
-                services.AddIdentityEntityFramework(configuration);
-            }
-            else
-            {
-                services.AddDapperIdentity();
-            }
-
-            if (config.UseEntityFramework.HasValue && config.UseEntityFramework.Value)
-            {
-                // Add EntityFramework
-                services.AddEntityFrameworkRepositories(configuration);
-            }
-            else
-            {
-                // Agregar Dapper
-                services.AddDapperRepositories(configuration.GetConnectionString(nameof(EjemploContext)));
-            }
+            services.AddDapperIdentity();
         }
+
+        if (config.UseEntityFramework.HasValue && config.UseEntityFramework.Value)
+        {
+            // Add EntityFramework
+            services.AddEntityFrameworkRepositories(configuration);
+        }
+        else
+        {
+            // Agregar Dapper
+            services.AddDapperRepositories(configuration.GetConnectionString(nameof(EjemploContext)));
+        }
+
 
         return services;
     }
