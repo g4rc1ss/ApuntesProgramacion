@@ -10,19 +10,8 @@ namespace CleanArchitecture.Infraestructure.DatabaseConfig;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddDatabaseConfig(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddDatabaseConfig(this IServiceCollection services, IConfiguration configuration, InfraestructureConfiguration config)
     {
-        var config = services.BuildServiceProvider().GetRequiredService<IOptions<InfraestructureConfiguration>>().Value;
-
-        if (config.UseIdentity.HasValue && config.UseIdentity.Value)
-        {
-            services.AddIdentityEntityFramework(configuration);
-        }
-        else
-        {
-            services.AddDapperIdentity();
-        }
-
         if (config.UseEntityFramework.HasValue && config.UseEntityFramework.Value)
         {
             // Add EntityFramework

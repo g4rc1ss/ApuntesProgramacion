@@ -21,27 +21,6 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddDapperIdentity(this IServiceCollection services)
-    {
-        services.AddAuthentication("Cookies").AddCookie(option =>
-        {
-            option.Cookie = new CookieBuilder
-            {
-                Name = "Authentication",
-                HttpOnly = true,
-                SecurePolicy = CookieSecurePolicy.Always,
-                SameSite = SameSiteMode.Strict,
-                IsEssential = true,
-                Path = "/"
-            };
-        });
-        services.AddHttpContextAccessor();
-
-        services.AddScoped<IIdentityUser, IdentityUserManagerDapperRepository>();
-
-        return services;
-    }
-
     private static IServiceCollection AddDapperServices(this IServiceCollection services)
     {
         services.AddScoped<IUserRepository, UserRepository>();

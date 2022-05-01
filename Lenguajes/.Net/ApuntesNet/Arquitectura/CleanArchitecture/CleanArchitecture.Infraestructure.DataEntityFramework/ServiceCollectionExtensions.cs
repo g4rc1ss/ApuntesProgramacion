@@ -15,47 +15,34 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddEntityFrameworkRepositories(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddPooledDbContextFactory<EjemploContext>(options =>
-        {
-            options.UseSqlServer(configuration.GetConnectionString(nameof(EjemploContext)));
-        });
+        services.AddContextDatabase<EjemploContext>(configuration);
         services.AddEntityFrameworkServices();
-
-        return services;
-    }
-
-    public static IServiceCollection AddIdentityEntityFramework(this IServiceCollection services, IConfiguration configuration)
-    {
-        services.AddAutoMapper(typeof(EjemploContext));
-
-        services.AddIdentity<User, Role>(options =>
-        {
-            options.Password.RequiredLength = 8;
-            options.Password.RequireUppercase = false;
-            options.Password.RequireLowercase = false;
-
-        }).AddSignInManager<SignInManager<User>>()
-        .AddRoles<Role>()
-        .AddEntityFrameworkStores<EjemploContext>();
-
-        services.AddDbContextPool<EjemploContext>(options =>
-        {
-            options.UseSqlServer(configuration.GetConnectionString(nameof(EjemploContext)));
-        });
-        services.AddScoped<IIdentityUser, IdentityUserRepository>();
 
         return services;
     }
 
     public static IDataProtectionBuilder AddDataProtectionEntityFramework(this IDataProtectionBuilder dataProtection, IConfiguration configuration)
     {
-        dataProtection.Services.AddDbContextPool<KeyDataProtectorContext>(options =>
-        {
-            options.UseSqlServer(configuration.GetConnectionString(nameof(KeyDataProtectorContext)));
-        });
+        dataProtection.Services.AddContextDatabase<KeyDataProtectorContext>(configuration);
         dataProtection.PersistKeysToDbContext<KeyDataProtectorContext>();
 
         return dataProtection;
+    }
+
+    public static IServiceCollection AddContextDatabase<TContext>(this IServiceCollection services, IConfiguration configuration) 
+        where TContext : DbContext
+    {
+        services.AddPooledDbContextFactory<TContext>(options =>
+        {
+            options.UseSqlServer(configuration.GetConnectionString(typeof(TContext).Name));
+        });
+
+        services.AddDbContextPool<TContext>(options =>
+        {
+            options.UseSqlServer(configuration.GetConnectionString(typeof(TContext).Name));
+        });
+
+        return services;
     }
 
     private static IServiceCollection AddEntityFrameworkServices(this IServiceCollection services)

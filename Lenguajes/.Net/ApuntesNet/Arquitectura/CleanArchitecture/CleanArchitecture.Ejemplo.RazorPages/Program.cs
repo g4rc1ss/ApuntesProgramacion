@@ -11,8 +11,7 @@ builder.Services.Configure<InfraestructureConfiguration>(builder.Configuration.G
 builder.Services.AddAppConfiguration(builder.Configuration);
 builder.Services.AddRedisCache();
 builder.Services.ConfigureDataProtectionProvider(builder.Configuration);
-builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddAutoMapper(typeof(Program));
+
 var razorPages = builder.Services.AddRazorPages();
 
 if (builder.Environment.IsDevelopment())

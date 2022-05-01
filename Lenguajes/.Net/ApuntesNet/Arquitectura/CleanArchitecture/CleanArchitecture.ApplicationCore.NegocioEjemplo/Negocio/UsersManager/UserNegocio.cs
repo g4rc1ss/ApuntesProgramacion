@@ -28,25 +28,14 @@ internal class UserNegocio : IUserNegocio
         _identityUserRepository = identityUserRepository;
     }
 
-    public async Task<bool> LoginAsync(string username, string password, bool rememberMe)
+    public async Task<LoginIdentityResponse> LoginAsync(string username, string password, bool rememberMe)
     {
         var resp = await _identityUserRepository.LogInAsync(username, password, rememberMe);
-        if (!resp.Succeed)
+        if (!resp.ValidatePassword)
         {
             await _mediator.Publish(new LoggingRequest($"Nombre de usuario {username} o contraseña incorrecta ***", LogType.Info));
         }
-        return resp.Succeed;
-    }
-
-    public async Task<bool> LogoutAsync()
-    {
-        var resp = await _identityUserRepository.LogoutAsync();
-        if (!resp.Succeed)
-        {
-            await _mediator.Publish(new LoggingRequest("Error al Cerrar la sesion", LogType.Info));
-            return false;
-        }
-        return true;
+        return resp;
     }
 
     public async Task<bool> CreateUserAccountAsync(CreateAccountData createAccountData)
@@ -57,32 +46,34 @@ internal class UserNegocio : IUserNegocio
             NormalizedUserName = createAccountData?.NormalizedUserName,
             Email = _protector.Protect(createAccountData?.Email),
             PhoneNumber = _protector.Protect(createAccountData?.PhoneNumber),
-            SecurityStamp = new Guid().ToString()
+            SecurityStamp = Guid.NewGuid().ToString()
         };
         var respUser = await _identityUserRepository.CreateUserAsync(user, createAccountData?.Password);
-        var respRole = await _identityUserRepository.CreateUserRoleAsync(user, "Usuario");
-
-        if (!(respUser.Succeed && respRole.Succeed))
+        if (respUser.Succeed)
         {
-            // Delete user if error
-            await _identityUserRepository.DeleteUserAsync(user);
-            await _mediator.Publish(new LoggingRequest($"usuario creado? {respUser.Succeed} \n , logger" +
-                $"usuario insertado Rol? {respRole.Succeed}", LogType.Info));
-            return false;
-        }
-        return await LoginAsync(createAccountData?.UserName, createAccountData?.Password, false);
+            var respRole = await _identityUserRepository.CreateUserRoleAsync(user, "Usuario");
+            if (!respRole.Succeed)
+            {
+                // Delete user if error
+                await _identityUserRepository.DeleteUserAsync(user);
+                await _mediator.Publish(new LoggingRequest($"usuario creado? {respUser.Succeed} \n , logger" +
+                    $"usuario insertado Rol? {respRole.Succeed}", LogType.Info));
+                return false;
+            }
+        }  
+        return true;
     }
 
-    public async Task<List<UserModelEntity>> GetListaUsuarios()
+public async Task<List<UserModelEntity>> GetListaUsuarios()
+{
+    var users = await _userRepository.GetListUsers();
+    await _mediator.Publish(new LoggingRequest(users, LogType.Warning));
+
+    return users.Select(user =>
     {
-        var users = await _userRepository.GetListUsers();
-        await _mediator.Publish(new LoggingRequest(users, LogType.Warning));
-
-        return users.Select(user =>
-        {
-            user.Email = _protector.Unprotect(user.Email);
-            user.PhoneNumber = _protector.Unprotect(user.PhoneNumber);
-            return user;
-        }).ToList();
-    }
+        user.Email = _protector.Unprotect(user.Email);
+        user.PhoneNumber = _protector.Unprotect(user.PhoneNumber);
+        return user;
+    }).ToList();
+}
 }

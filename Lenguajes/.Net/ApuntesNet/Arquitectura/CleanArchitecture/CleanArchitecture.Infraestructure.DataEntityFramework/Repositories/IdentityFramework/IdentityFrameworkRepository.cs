@@ -7,9 +7,9 @@ using CleanArchitecture.Domain.Negocio.UsersDto;
 using CleanArchitecture.Infraestructure.DataEntityFramework.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace CleanArchitecture.Infraestructure.DataEntityFramework.Repositories
+namespace CleanArchitecture.Infraestructure.DataEntityFramework.Repositories.IdentityFramework
 {
-    internal class IdentityUserRepository : IIdentityUser
+    public class IdentityFrameworkRepository : IIdentityUser
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
@@ -17,19 +17,19 @@ namespace CleanArchitecture.Infraestructure.DataEntityFramework.Repositories
 
         private User _userIdentity;
 
-        public IdentityUserRepository(SignInManager<User> signInManager, UserManager<User> userManager, IMapper mapper)
+        public IdentityFrameworkRepository(SignInManager<User> signInManager, UserManager<User> userManager, IMapper mapper)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _mapper = mapper;
         }
 
-        public async Task<UserIdentityResponse> LogInAsync(string user, string password, bool rememberMe)
+        public async Task<LoginIdentityResponse> LogInAsync(string user, string password, bool rememberMe)
         {
             var respuesta = await _signInManager.PasswordSignInAsync(user, password, rememberMe, false);
-            return new UserIdentityResponse
+            return new LoginIdentityResponse
             {
-                Succeed = respuesta.Succeeded
+                ValidatePassword = respuesta.Succeeded
             };
         }
 

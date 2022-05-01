@@ -1,17 +1,15 @@
-﻿using System.Security.Claims;
-using CleanArchitecture.ApplicationCore.InterfacesEjemplo;
+﻿using CleanArchitecture.ApplicationCore.InterfacesEjemplo;
 using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using CleanArchitecture.Domain.Database.ModelEntity;
 using CleanArchitecture.Domain.Negocio.UsersDto;
 using CleanArchitecture.Infraestructure.DataDapper.Contexts;
 using Dapper;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
 namespace CleanArchitecture.Infraestructure.DataDapper.Repositories
 {
-    internal class IdentityUserManagerDapperRepository : IIdentityUser
+    public class IdentityUserManagerDapperRepository : IIdentityUser
     {
         private readonly IDbConnectionFactory<EjemploDapperDatabase> _dbConnectionFactory;
         private readonly IHttpContextAccessor _httpContext;
@@ -133,7 +131,7 @@ SELECT @@ROWCOUNT;
             };
         }
 
-        public async Task<UserIdentityResponse> LogInAsync(string user, string password, bool rememberMe)
+        public async Task<LoginIdentityResponse> LogInAsync(string user, string password, bool rememberMe)
         {
             var dbConnection = _dbConnectionFactory.CreateDbConnection();
 
@@ -159,26 +157,12 @@ FROM Roles r
 
             var verifiedPassword = new PasswordHasher<UserModelEntity>().VerifyHashedPassword(userResult, userResult.PasswordHash, password);
 
-            if (verifiedPassword != PasswordVerificationResult.Success)
+            return new LoginIdentityResponse
             {
-                return new UserIdentityResponse(false);
-            }
-
-            var identity = new ClaimsIdentity("Cookies");
-            identity.AddClaim(new Claim(ClaimTypes.Role, roleResult.Name));
-            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, userResult.Id.ToString()));
-            identity.AddClaim(new Claim(ClaimTypes.Name, $"{userResult.UserName}"));
-
-            var prop = new AuthenticationProperties { IsPersistent = false };
-            await _httpContext.HttpContext.SignInAsync("Cookies", new ClaimsPrincipal(identity), prop);
-
-            return new UserIdentityResponse(true);
-        }
-
-        public async Task<UserIdentityResponse> LogoutAsync()
-        {
-            await _httpContext.HttpContext.SignOutAsync();
-            return new UserIdentityResponse(true);
+                ValidatePassword = verifiedPassword == PasswordVerificationResult.Success,
+                UserModel = userResult,
+                RoleModel = roleResult,
+            };
         }
     }
 }

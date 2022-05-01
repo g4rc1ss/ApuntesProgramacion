@@ -9,6 +9,5 @@ public interface IUserNegocio
 {
     Task<bool> CreateUserAccountAsync(CreateAccountData createAccountData);
     Task<List<UserModelEntity>> GetListaUsuarios();
-    Task<bool> LoginAsync(string username, string password, bool rememberMe);
-    Task<bool> LogoutAsync();
+    Task<LoginIdentityResponse> LoginAsync(string username, string password, bool rememberMe);
 }
