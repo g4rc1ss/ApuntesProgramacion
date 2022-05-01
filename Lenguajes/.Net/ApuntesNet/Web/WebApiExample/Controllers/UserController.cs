@@ -47,7 +47,7 @@ namespace WebApiExample.Controllers
                 var token = new JwtSecurityToken(
                     issuer: _jwtConfig.Issuer,
                     audience: _jwtConfig.Audience,
-                    expires: DateTime.Now.AddHours(3),
+                    expires: DateTime.Now.AddSeconds(10),
                     claims: authClaims,
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
@@ -55,6 +55,7 @@ namespace WebApiExample.Controllers
                 return Json(new
                 {
                     token = new JwtSecurityTokenHandler().WriteToken(token),
+                    UserName = loginRequest.UserName,
                     expiration = token.ValidTo
                 });
             }

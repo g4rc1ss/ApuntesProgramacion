@@ -24,10 +24,12 @@ builder.Services.AddAuthentication(options =>
     options.SaveToken = true;
     options.TokenValidationParameters = new TokenValidationParameters()
     {
+        ClockSkew = TimeSpan.Zero,
         ValidateIssuer = false,
         ValidateAudience = false,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
+        RequireExpirationTime = true,
         ValidIssuer = jwtConfig.Value.Issuer,
         ValidAudience = jwtConfig.Value.Audience,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.Value.SignInKey))
