@@ -10,7 +10,7 @@ Hacer uso de `HttpClient` dentro de un bloque `using` puede ocasionar problemas 
 
 En el siguiente ejemplo hacemos un bucle de 10 conexiones con el using y ejecutamos un comando `netstat` en el servidor para comprobar las conexiones establecidas y si nos fijamos, las conexiones no se cierran.
 ```Csharp
-for(int i = 0; i<10; i++)
+for(int i = 0; i < 10; i++)
 {
     using var client = new HttpClient();
     var result = await client.GetAsync("url a consultar");
@@ -23,7 +23,7 @@ El protocolo TCP/IP funciona de la siguiente manera.
 
 ![image](https://user-images.githubusercontent.com/28193994/147914590-f0ea6873-5148-4f4e-8059-5e6104cd2e01.png)
 
-Una solucion, sobretodo para Dependency Injection, es usar la clase `HttpClientFactory` que hay nas abajo explicada,
+Una solucion, sobretodo para Dependency Injection, es usar la clase `DefaultHttpClientFactory` que hay nas abajo explicada.
 
 ## Configurar Headers
 Para crear, eliminar y modificar los headers de una solicitud Http, en el objeto de `HttpClient` debemos acceder a la propiedad `DefaultRequestHeaders` la cual contendra toda la informacion sobre las diferentes cabeceras que se pueden tratar.
@@ -130,3 +130,26 @@ public DispensacionConsultaNegocio(IHttpClientFactory httpClientFactory)
 }
 ```
 
+## Crear Handler en HttpClient
+Para crear un handler por el cual se pasará a la hora de realizar una peticion http puede ser interesante para configurar acciones antes de enviar la request o cuando la recibimos.
+
+Para indicar en `HttpClient` que queremos hacer uso de dicho Handler hay 2 formas.
+
+### Sin inyeccion de dependencias
+A la hora de instancia la clase `HttpClient` pasamos por constructor una instancia del handler a usar.
+
+```csharp
+var handler = new HandlerHttpPersonalizado();
+var httpClient = new HttpClient(handler);
+```
+
+### Con Inyeccion de dependencias
+Si usamos `IHttpClientFactory`, en la configuracion del cliente, despues de usar el metodo `AddHttpClient` debemos de realizar lo siguiente:
+
+```csharp
+services.AddTransient<HttpMessageConfigHandler>();
+
+services.AddHttpClient()
+    .AddHttpMessageHandler<HttpMessageConfigHandler>();
+```
+> Lo positivo de hacer inyeccion de dependencias, es que podemos hacer uso de ello dentro de la clase `handler`, por ejemplo, para inyectar un `ILogger<>`.

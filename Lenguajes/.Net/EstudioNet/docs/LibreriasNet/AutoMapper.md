@@ -74,6 +74,13 @@ Para realizar el proceso de mapeo se hace uso del método `Map` de la interfaz `
 _mapper.Map<Class1>(objToMap);
 ```
 
+Podemos sobrecargar el metodo `Map` pasandole dos objetos para realizar mapeo entre ellos.
+
+```Csharp
+_mapper.Map<Type1, Type2>(objectToRead, objectToWrite);
+```
+>Recordar que se puede pasar la referencia `this` para pasarle el objeto en el que estas actualmente, de esta forma, podemos usar nuestra propia clase para ser mapeada, un ejemplo de uso puede ser en el caso de aplicaciones Desktop, como WPF, para rellenar valores de una respuesta en campos visuales.
+
 # Buenas Practicas
 - Hacer uso de la inyeccion de dependencias para el escaneo y registro de las configuraciones del perfil.
 - Siempre organizar las configuraciones dentro de Profiles para poder tener varios archivos destinados a la configuración y de esta forma, ser mas claro y mantenible.

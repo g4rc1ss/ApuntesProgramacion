@@ -68,6 +68,7 @@ El API .Net se basa principalmente en el uso de los namespaces: `System`, `Syste
         - [XML](./docs/ApiNet/InputOutput/Serialization/XML.md)
 1. **Uso de Internet**
     - [HttpClient](./docs/ApiNet/Network/HttpClient.md)
+    - [HttpMessageHandler](./docs/ApiNet/Network/HttpMessageHandler.md)
 1. [Delegados](./docs/ApiNet/Delegados.md)
 1. [Reflexion](./docs/ApiNet/Reflexion.md)
 1. [Gestion de Memoria](./docs/ApiNet/GestionMemoria.md)
