@@ -1,6 +1,9 @@
 # Handler de Mensajes HTTP
 Un handler de mensajes es una clase que recibe una solicitud HTTP y devuelve una respuesta HTTP. Los controladores de mensajes derivan de la clase `HttpMessageHandler` abstracta.
 
+![image](https://user-images.githubusercontent.com/28193994/166473039-23316fa6-d1c0-485d-a2a6-8f4f4303cfbc.png)
+
+
 Normalmente, una serie de controladores de mensajes se encadenan juntas. El primer controlador recibe una solicitud HTTP, realiza algún procesamiento y proporciona la solicitud al siguiente controlador. En algún momento, se crea la respuesta y vuelve a la cadena. Este patrón se denomina **controlador de delegación**.
 
 El método toma `HttpRequestMessage` como entrada y devuelve de forma asíncrona un `HttpResponseMessage`.
