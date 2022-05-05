@@ -48,6 +48,22 @@ WriteTo.MSSqlServer(
     - **AutoCreateSqlTable**: Indicamos si queremos que se cree la tabla si no existiera.
 - **restrictedToMinimumLevel**: Se almacenan los Logs a partir del nivel de log indicado.
 
+## Logs en Greylog
+Se pueden enviar los logs a un servicio externo configurado como `Greylog` para agregar observabilidad a nuestro desarrollo.
+> Debemos instalar el paquete `Serilog.Sinks.Graylog`
+
+```Csharp
+var grayLogConfig = new GraylogSinkOptions
+{
+    HostnameOrAddress = "Ubicacion, por ejemplo, localhost",
+    Port = 12201,
+
+    TransportType = TransportType.Udp,
+    MinimumLogEventLevel = LogEventLevel.Error,
+};
+loggerConfig.WriteTo.Graylog()
+```
+
 ## Almacenamiento de forma `Async`
 Esta función se establece en la configuración antes de indicar el método de almacenamiento y recibe un `Action<LoggerSinkConfiguration>` para indicar como se deben mostrar/guardar la información`.
 
