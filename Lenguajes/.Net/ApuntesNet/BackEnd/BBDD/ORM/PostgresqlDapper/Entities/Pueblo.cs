@@ -1,4 +1,4 @@
-﻿namespace SqliteDapper.Database.Sqlite
+﻿namespace PostgresqlDapper.Entities
 {
     internal class Pueblo
     {
