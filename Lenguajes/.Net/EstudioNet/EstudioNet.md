@@ -99,5 +99,5 @@ Documentación sobre el uso de librerias o frameworks que no estan alojados en e
 
 1. **Testing**
     - [XUnit](./docs/LibreriasNet/Testing/XUnit.md)
-        - [Testing Unitarios](./docs/LibreriasNet/Testing/Unitarios/TestUnitarios.md)
-        - [Testing de Integracion](./docs/LibreriasNet/Testing/Integracion/TestIntegracion.md)
+    - [Moq](./docs/LibreriasNet/Testing/Moq.md)
+    - [Fluent Assert](./docs/LibreriasNet/Testing/FluentAssertions.md)
