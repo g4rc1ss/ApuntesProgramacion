@@ -12,7 +12,7 @@ namespace MySqlDatabase.MySQL
                 try
                 {
                     connection.Open();
-                    var delete = "DELETE FROM `apuntesnet`.`Empleado` WHERE (`ID` = '2')";
+                    var delete = "DELETE FROM `AdoNetMySqlDatabase`.`Empleado` WHERE (`ID` = '2')";
                     using (var comandoDelete = new MySqlCommand(delete, connection))
                     {
                         var numeroCambios = comandoDelete.ExecuteNonQuery();

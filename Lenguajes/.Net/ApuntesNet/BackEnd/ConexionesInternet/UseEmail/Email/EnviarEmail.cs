@@ -7,12 +7,6 @@ namespace UseEmail.Email
 {
     public class EnviarEmail
     {
-        private readonly IDataProtector dataProtector;
-        public EnviarEmail(IDataProtectionProvider dataProtectionProvider)
-        {
-            dataProtector = dataProtectionProvider.CreateProtector("ConexionesInternetCSharp.Email.EnviarEmail");
-        }
-
         public void EnvioMail()
         {
             var servidorDeEnvio = "smtp.gmail.com";
@@ -22,7 +16,6 @@ namespace UseEmail.Email
                 Console.WriteLine("Usuario y Contraseña");
                 var usuario = Console.ReadLine();
                 var contraseña = string.Empty;
-                var contraseñaCifrada = string.Empty;
 
                 //Capuramos la contraseña de modo que no se vea en la consola
                 for (var stop = false; stop == false;)
@@ -45,8 +38,6 @@ namespace UseEmail.Email
                     }
                     else
                     {
-                        contraseñaCifrada = dataProtector.Protect(contraseña);
-                        Console.Write(contraseñaCifrada);
                         stop = true;
                         Console.Write("\n");
                     }
@@ -68,7 +59,7 @@ namespace UseEmail.Email
                     cliente.EnableSsl = true;
                     cliente.Credentials = new NetworkCredential(
                         usuario,
-                        dataProtector.Unprotect(contraseñaCifrada)
+                        contraseña
                     );
                     cliente.Send(mensaje);
                 }
