@@ -1,11 +1,13 @@
-﻿namespace UseEmail
+﻿using UseEmail.Email;
+
+namespace UseEmail
 {
     internal class Program
     {
         private static void Main()
         {
             // -------- Enviar un Email -------- \\
-            _ = new Email.EnviarMailInyeccionDependenciasParaProtector();
+            new EnviarEmail().EnvioMail();
         }
     }
 }

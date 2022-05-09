@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SqlServerEfCore.Database.DTO
+namespace SqlServerEfCore.Database.Entities
 {
     public class Pueblo
     {
