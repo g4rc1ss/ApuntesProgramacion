@@ -188,6 +188,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "Web\Ident
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorAuthenticationJWT", "Web\BlazorAuthenticationJWT\BlazorAuthenticationJWT.csproj", "{71349230-CA15-4343-A8A5-B3FD8F2E43D6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Middlewares", "Middlewares", "{CE23AE7B-BB98-4098-ABEA-91DDD094AA65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiddlewaresApi", "Web\MiddlewaresApi\MiddlewaresApi.csproj", "{C15F62E4-3AEC-48D0-8B12-31029E6687E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -442,6 +446,10 @@ Global
 		{71349230-CA15-4343-A8A5-B3FD8F2E43D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71349230-CA15-4343-A8A5-B3FD8F2E43D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71349230-CA15-4343-A8A5-B3FD8F2E43D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C15F62E4-3AEC-48D0-8B12-31029E6687E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C15F62E4-3AEC-48D0-8B12-31029E6687E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C15F62E4-3AEC-48D0-8B12-31029E6687E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C15F62E4-3AEC-48D0-8B12-31029E6687E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -534,6 +542,8 @@ Global
 		{6177943A-F1A0-4ABA-87CC-43BD275D78FE} = {1199B005-272F-4DE3-A802-26807C515459}
 		{7C186AEF-C9BD-4717-B83D-8676BA87445B} = {6177943A-F1A0-4ABA-87CC-43BD275D78FE}
 		{71349230-CA15-4343-A8A5-B3FD8F2E43D6} = {13D1BC8D-CD31-4D58-BF03-3A7E5C00C53D}
+		{CE23AE7B-BB98-4098-ABEA-91DDD094AA65} = {1DA159C8-90C4-4281-BD8E-514EF1B0CF3E}
+		{C15F62E4-3AEC-48D0-8B12-31029E6687E0} = {CE23AE7B-BB98-4098-ABEA-91DDD094AA65}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E490D0C8-C5A7-4F24-8A9B-CE1635508778}
