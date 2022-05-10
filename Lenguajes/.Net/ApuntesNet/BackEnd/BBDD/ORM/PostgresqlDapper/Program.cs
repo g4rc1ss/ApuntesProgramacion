@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PostgresqlDapper;
 using PostgresqlDapper.Repository;
-using PostgresqlDapper.Repository.SelectDapperMethod;
+using PostgresqlDapper.Repository.SelectExtensionMethods;
 
 var serviceProvider = Helper.CreateDependencyInjection();
 

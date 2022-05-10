@@ -2,7 +2,7 @@
 using Dapper;
 using PostgresqlDapper.Entities;
 
-namespace PostgresqlDapper.Repository.SelectDapperMethod
+namespace PostgresqlDapper.Repository.SelectExtensionMethods
 {
     internal static class SelectDataMultipleQuery
     {
