@@ -2,7 +2,6 @@
 using CleanArchitecture.Infraestructure.DataDapper.Contexts;
 using CleanArchitecture.Infraestructure.DataDapper.Repositories;
 using CleanArchitecture.Infraestructure.DbConnectionExtension.DependencyInjection;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
 

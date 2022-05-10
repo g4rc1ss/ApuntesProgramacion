@@ -22,7 +22,7 @@ builder.ConfigureServices((hostContext, services) =>
                 options.MigrationsAssembly(typeof(MigrationService).Assembly.FullName);
             });
     });
-        services.AddTransient<MigrationService>();
+    services.AddTransient<MigrationService>();
 });
 
 var app = builder.Build();

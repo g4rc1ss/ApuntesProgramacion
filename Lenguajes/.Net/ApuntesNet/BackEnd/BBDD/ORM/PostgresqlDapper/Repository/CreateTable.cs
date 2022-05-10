@@ -1,6 +1,5 @@
 ﻿using System.Data;
 using Dapper;
-using PostgresqlDapper.Entities;
 
 namespace PostgresqlDapper.Repository
 {

@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Npgsql;
 using PostgresqlDapper.Repository;
-using PostgresqlDapper.Repository.SelectDapperMethod;
 
 namespace PostgresqlDapper
 {

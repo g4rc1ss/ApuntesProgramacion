@@ -1,5 +1,4 @@
-﻿using System.Net.Http.Headers;
-using BlazorJWT.Configuration;
+﻿using BlazorJWT.Configuration;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace BlazorJWT.Extensions

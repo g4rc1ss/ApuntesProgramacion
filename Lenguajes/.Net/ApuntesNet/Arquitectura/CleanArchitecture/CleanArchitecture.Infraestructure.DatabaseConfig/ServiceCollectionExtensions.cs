@@ -4,7 +4,6 @@ using CleanArchitecture.Infraestructure.DataEjemplo;
 using CleanArchitecture.Infraestructure.DataEntityFramework.Contexts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace CleanArchitecture.Infraestructure.DatabaseConfig;
 

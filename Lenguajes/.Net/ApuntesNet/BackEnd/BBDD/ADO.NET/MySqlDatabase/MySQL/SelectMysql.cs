@@ -25,10 +25,10 @@ namespace MySqlDatabase.MySQL
                         Console.WriteLine(
                             leerSelect["ID"]
                             + " -- " +
-                            leerSelect["Nombre"] 
+                            leerSelect["Nombre"]
                             + " -- " +
-                            leerSelect["Apellidos"] 
-                            + " -- " + 
+                            leerSelect["Apellidos"]
+                            + " -- " +
                             leerSelect["Salario"]);
                     }
                 }

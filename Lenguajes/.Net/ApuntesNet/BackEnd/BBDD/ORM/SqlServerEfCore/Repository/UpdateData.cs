@@ -18,7 +18,7 @@ namespace SqlServerEfCore.Repository
             var usuario = (from user in _frameworkSqlServerContext.Usuarios
                            where user.PuebloIdNavigation.Id == idPueblo
                            select user).Single();
-            
+
             usuario.Nombre = "cnifvbdilcbsuyvrg";
 
             _frameworkSqlServerContext.Update(usuario);

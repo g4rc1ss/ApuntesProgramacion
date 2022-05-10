@@ -1,10 +1,8 @@
 ﻿using CleanArchitecture.ApplicationCore.InterfacesEjemplo.Data;
 using CleanArchitecture.Infraestructure.DataEjemplo.DataAccessManager;
 using CleanArchitecture.Infraestructure.DataEntityFramework.Contexts;
-using CleanArchitecture.Infraestructure.DataEntityFramework.Entities;
 using CleanArchitecture.Infraestructure.DataEntityFramework.Repositories;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,7 +27,7 @@ public static class ServiceCollectionExtensions
         return dataProtection;
     }
 
-    public static IServiceCollection AddContextDatabase<TContext>(this IServiceCollection services, IConfiguration configuration) 
+    public static IServiceCollection AddContextDatabase<TContext>(this IServiceCollection services, IConfiguration configuration)
         where TContext : DbContext
     {
         services.AddPooledDbContextFactory<TContext>(options =>

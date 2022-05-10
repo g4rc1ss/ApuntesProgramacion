@@ -1,7 +1,7 @@
 ﻿using Blazored.LocalStorage;
+using BlazorJWT;
 using BlazorJWT.Extensions;
 using BlazorJWT.Pages.Account;
-using BlazorWebAssembly;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;

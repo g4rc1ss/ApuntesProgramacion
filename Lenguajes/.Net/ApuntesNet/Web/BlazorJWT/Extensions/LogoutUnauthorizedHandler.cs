@@ -8,7 +8,7 @@ namespace BlazorJWT.Extensions
     public class LogoutUnauthorizedHandler : DelegatingHandler
     {
         private readonly AuthenticationProvider _authenticationProvider;
-        private NavigationManager _navigation;
+        private readonly NavigationManager _navigation;
 
         public LogoutUnauthorizedHandler(AuthenticationStateProvider authenticationStateProvider, NavigationManager navigation)
         {

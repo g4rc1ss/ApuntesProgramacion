@@ -60,20 +60,20 @@ internal class UserNegocio : IUserNegocio
                     $"usuario insertado Rol? {respRole.Succeed}", LogType.Info));
                 return false;
             }
-        }  
+        }
         return true;
     }
 
-public async Task<List<UserModelEntity>> GetListaUsuarios()
-{
-    var users = await _userRepository.GetListUsers();
-    await _mediator.Publish(new LoggingRequest(users, LogType.Warning));
-
-    return users.Select(user =>
+    public async Task<List<UserModelEntity>> GetListaUsuarios()
     {
-        user.Email = _protector.Unprotect(user.Email);
-        user.PhoneNumber = _protector.Unprotect(user.PhoneNumber);
-        return user;
-    }).ToList();
-}
+        var users = await _userRepository.GetListUsers();
+        await _mediator.Publish(new LoggingRequest(users, LogType.Warning));
+
+        return users.Select(user =>
+        {
+            user.Email = _protector.Unprotect(user.Email);
+            user.PhoneNumber = _protector.Unprotect(user.PhoneNumber);
+            return user;
+        }).ToList();
+    }
 }
