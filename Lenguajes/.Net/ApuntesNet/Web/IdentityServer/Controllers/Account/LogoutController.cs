@@ -17,7 +17,7 @@ namespace IdentityServer.Controllers.Account
         {
             await _signInManager.SignOutAsync();
 
-            return Ok();
+            return LocalRedirect("/");
         }
     }
 }

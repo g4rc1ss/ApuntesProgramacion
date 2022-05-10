@@ -14,7 +14,7 @@ namespace IdentityServer.Controllers.Account
             _signInManager = signInManager;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(object s)
         {
             return View();
         }
