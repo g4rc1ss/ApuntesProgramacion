@@ -96,7 +96,6 @@ Documentación sobre el uso de librerias o frameworks que no estan alojados en e
 1. [Identity](./docs/LibreriasNet/Identity.md)
 1. [Mediatr](./docs/LibreriasNet/Mediatr.md)
 1. [AutoMapper](./docs/LibreriasNet/AutoMapper.md)
-
 1. **Testing**
     - [XUnit](./docs/LibreriasNet/Testing/XUnit.md)
     - [Moq](./docs/LibreriasNet/Testing/Moq.md)
