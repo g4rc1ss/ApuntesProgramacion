@@ -1,8 +1,8 @@
 ﻿using System.Net.Http.Json;
-using BlazorJWT.SharedApiDTO.Response;
+using BlazorAuthenticationJWT.Peticiones.Response;
 using Microsoft.AspNetCore.Components;
 
-namespace BlazorJWT.Pages
+namespace BlazorAuthenticationJWT.Pages
 {
     public partial class Index
     {

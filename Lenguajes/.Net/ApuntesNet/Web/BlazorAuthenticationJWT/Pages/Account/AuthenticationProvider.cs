@@ -1,10 +1,10 @@
 ﻿using System.Security.Claims;
+using BlazorAuthenticationJWT.Configuration;
 using Blazored.LocalStorage;
-using BlazorJWT.Configuration;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace BlazorJWT.Pages.Account
+namespace BlazorAuthenticationJWT.Pages.Account
 {
     public class AuthenticationProvider : AuthenticationStateProvider
     {

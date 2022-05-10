@@ -1,7 +1,7 @@
-﻿using BlazorJWT.Configuration;
+﻿using BlazorAuthenticationJWT.Configuration;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace BlazorJWT.Extensions
+namespace BlazorAuthenticationJWT.Extensions
 {
     public static class HttpFactories
     {

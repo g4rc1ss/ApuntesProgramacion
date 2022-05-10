@@ -1,4 +1,4 @@
-﻿namespace BlazorJWT.SharedApiDTO.Response
+﻿namespace BlazorAuthenticationJWT.Peticiones.Response
 {
     public class UserResponse
     {

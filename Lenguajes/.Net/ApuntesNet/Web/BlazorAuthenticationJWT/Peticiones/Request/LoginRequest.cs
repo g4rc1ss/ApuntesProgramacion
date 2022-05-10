@@ -1,4 +1,4 @@
-﻿namespace BlazorJWT.SharedApiDTO.Request
+﻿namespace BlazorAuthenticationJWT.Peticiones.Request
 {
     public class LoginRequest
     {

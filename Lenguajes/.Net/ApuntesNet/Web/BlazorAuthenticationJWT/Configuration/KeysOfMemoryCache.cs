@@ -1,4 +1,4 @@
-﻿namespace BlazorJWT.Configuration
+﻿namespace BlazorAuthenticationJWT.Configuration
 {
     public readonly struct KeysOfMemoryCache
     {

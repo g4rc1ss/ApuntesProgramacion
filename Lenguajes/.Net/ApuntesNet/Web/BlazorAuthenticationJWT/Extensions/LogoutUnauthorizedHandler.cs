@@ -1,9 +1,9 @@
 ﻿using System.Net;
-using BlazorJWT.Pages.Account;
+using BlazorAuthenticationJWT.Pages.Account;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 
-namespace BlazorJWT.Extensions
+namespace BlazorAuthenticationJWT.Extensions
 {
     public class LogoutUnauthorizedHandler : DelegatingHandler
     {

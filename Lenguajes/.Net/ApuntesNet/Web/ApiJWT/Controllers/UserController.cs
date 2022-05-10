@@ -47,7 +47,7 @@ namespace ApiJWT.Controllers
                 var token = new JwtSecurityToken(
                     issuer: _jwtConfig.Issuer,
                     audience: _jwtConfig.Audience,
-                    expires: DateTime.Now.AddSeconds(10),
+                    expires: DateTime.Now.AddMinutes(10),
                     claims: authClaims,
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
