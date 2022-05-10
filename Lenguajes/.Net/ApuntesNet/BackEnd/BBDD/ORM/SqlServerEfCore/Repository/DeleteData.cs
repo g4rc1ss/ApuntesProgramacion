@@ -14,7 +14,7 @@ namespace SqlServerEfCore.Repository
         internal Task<int> DeleteDataAsync()
         {
             var usuarios = (from user in _frameworkSqlServerContext.Usuarios
-                            where user.Edad < 22
+                            where user.Id == 2
                             select user).ToList();
             _frameworkSqlServerContext.RemoveRange(usuarios);
             return _frameworkSqlServerContext.SaveChangesAsync();

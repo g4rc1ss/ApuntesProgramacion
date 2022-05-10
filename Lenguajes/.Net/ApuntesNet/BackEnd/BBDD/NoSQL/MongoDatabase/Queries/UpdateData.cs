@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MongoDatabase.Document;
 using MongoDB.Driver;
 
@@ -10,7 +11,9 @@ namespace MongoDatabase.Queries
         {
             var filter = Builders<Persona>.Filter.Eq(x => x.Name, "asier");
             var update = Builders<Persona>.Update.Set(x => x.Name, "asier updateado");
-            await Helper.GetConnectionDatabase.GetCollection<Persona>("persona").UpdateOneAsync(filter, update);
+            var valorRespuesta = await Helper.GetConnectionDatabase.GetCollection<Persona>("persona").UpdateOneAsync(filter, update);
+
+            Console.WriteLine($"Se han modificado {valorRespuesta.ModifiedCount}");
         }
     }
 }

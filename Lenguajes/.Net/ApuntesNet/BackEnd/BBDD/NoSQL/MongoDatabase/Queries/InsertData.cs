@@ -43,6 +43,7 @@ namespace MongoDatabase.Queries
                 }
             };
             await Helper.GetConnectionDatabase.GetCollection<Persona>("persona").InsertManyAsync(persona);
+            Console.WriteLine("Datos Insertados");
         }
     }
 }
