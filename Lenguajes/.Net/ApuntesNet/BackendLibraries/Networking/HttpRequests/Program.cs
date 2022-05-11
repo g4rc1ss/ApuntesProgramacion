@@ -1,7 +1,13 @@
 ﻿using System;
 using System.Net.Http;
+using HttpRequests;
+using HttpRequests.Internal;
+using Microsoft.Extensions.DependencyInjection;
 
-var client = new HttpClient();
+var serviceProvider = HelperDI.GetServideProvider();
+
+var usarHttpClient = serviceProvider.GetRequiredService<UsarHttpClient>();
+await usarHttpClient.ExecuteHttpClientAsync();
 
 
 Console.WriteLine("Pulsa un boton para terminar...");
