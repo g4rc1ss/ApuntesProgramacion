@@ -1,7 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using Benchmarking.Fakes;
 
-namespace Benchmarking
+namespace Benchmarking.Benchmarks
 {
     public class ThreadsVsAsync
     {
@@ -12,7 +12,7 @@ namespace Benchmarking
         {
             await Parallel.ForEachAsync(_lenght, async (value, token) =>
             {
-                await Faker.ExecuteTask();
+                await FakerThreadVsAsync.ExecuteTask();
             });
         }
 
@@ -23,7 +23,7 @@ namespace Benchmarking
 
             foreach (var item in _lenght)
             {
-                lista.Add(Faker.ExecuteTask());
+                lista.Add(FakerThreadVsAsync.ExecuteTask());
             }
 
             await Task.WhenAll(lista);
@@ -34,7 +34,7 @@ namespace Benchmarking
         {
             foreach (var item in _lenght)
             {
-                await Faker.ExecuteTask();
+                await FakerThreadVsAsync.ExecuteTask();
             }
         }
 
@@ -45,7 +45,7 @@ namespace Benchmarking
 
             foreach (var item in _lenght)
             {
-                lista.Add(Faker.ExecuteTaskBlocking());
+                lista.Add(FakerThreadVsAsync.ExecuteTaskBlocking());
             }
 
             await Task.WhenAll(lista);

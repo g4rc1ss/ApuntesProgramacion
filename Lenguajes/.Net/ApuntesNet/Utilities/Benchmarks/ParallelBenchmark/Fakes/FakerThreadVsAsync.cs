@@ -1,8 +1,8 @@
 ﻿namespace Benchmarking.Fakes
 {
-    internal static class Faker
+    internal static class FakerThreadVsAsync
     {
-        private const int DELAY = 2000;
+        private const int DELAY = 100;
 
         internal static async Task ExecuteTask()
         {
