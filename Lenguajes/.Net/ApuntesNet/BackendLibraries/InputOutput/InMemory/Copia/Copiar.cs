@@ -1,4 +1,4 @@
-﻿namespace EnMemoria.Copia;
+﻿namespace InMemory.Copia;
 
 internal class Copiar
 {

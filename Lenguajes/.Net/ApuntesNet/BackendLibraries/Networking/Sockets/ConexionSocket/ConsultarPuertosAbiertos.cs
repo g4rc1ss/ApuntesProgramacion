@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 
-namespace ConexionesSocket.ConexionSocket
+namespace Sockets.ConexionSocket
 {
     public class ConsultarPuertosAbiertos
     {

@@ -1,4 +1,4 @@
-﻿namespace Cachear.ObjCaching
+﻿namespace Caching.ObjCaching
 {
     internal static class ObjectsToCaching
     {

@@ -1,6 +1,5 @@
-﻿using Cachear.Distributed;
-using Cachear.Memory;
-
+﻿using Caching.Distributed;
+using Caching.Memory;
 
 new MemoryCaching().MemoryCacheWithDI();
 

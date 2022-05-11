@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace MiddlewaresApi.Middlewares
+﻿namespace MiddlewaresApi.Middlewares
 {
     public class ErrorMiddleware : IMiddleware
     {

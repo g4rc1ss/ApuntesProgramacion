@@ -1,7 +1,6 @@
-﻿using EnMemoria.Copia;
-using EnMemoria.Escritura;
-using EnMemoria.Lectura;
-
+﻿using InMemory.Copia;
+using InMemory.Escritura;
+using InMemory.Lectura;
 
 var streamEscrito = await Escribir.Write();
 await Leer.Read(streamEscrito);

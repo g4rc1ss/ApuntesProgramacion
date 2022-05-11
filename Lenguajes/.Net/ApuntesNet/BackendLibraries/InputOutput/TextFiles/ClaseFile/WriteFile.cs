@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Text;
 
-namespace ArchivosTexto.ClaseFile
+namespace TextFiles.ClaseFile
 {
     internal class WriteFile
     {

@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 
-namespace ConexionesSocket.ConexionSocket.ClienteServidor
+namespace Sockets.ConexionSocket.ClienteServidor
 {
     public class Cliente
     {

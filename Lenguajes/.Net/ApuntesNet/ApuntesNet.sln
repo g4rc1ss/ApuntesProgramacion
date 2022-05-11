@@ -192,11 +192,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataProtectionLibrary", "Ba
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logging", "Logging", "{7CC6C2B6-2077-45F7-B8C9-2E3606CC8AE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerilogLibrary", "BackendLibraries\Logging\SerilogLibrary\SerilogLibrary.csproj", "{2AEEDD02-DE87-4A6F-B722-BAE07A654879}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerilogLibrary", "BackendLibraries\Logging\SerilogLibrary\SerilogLibrary.csproj", "{2AEEDD02-DE87-4A6F-B722-BAE07A654879}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mappers", "Mappers", "{4A052519-57F1-4A5A-B918-DE92B41430A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomapperLibrary", "BackendLibraries\Mappers\AutomapperLibrary\AutomapperLibrary.csproj", "{24A2277F-4860-4376-A132-063CF18F43CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomapperLibrary", "BackendLibraries\Mappers\AutomapperLibrary\AutomapperLibrary.csproj", "{24A2277F-4860-4376-A132-063CF18F43CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediatrLibrary", "BackendLibraries\MediatrLibrary\MediatrLibrary.csproj", "{768654CA-97DB-4F78-9DF9-F1BD6A1D4456}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -456,6 +458,10 @@ Global
 		{24A2277F-4860-4376-A132-063CF18F43CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24A2277F-4860-4376-A132-063CF18F43CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24A2277F-4860-4376-A132-063CF18F43CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{768654CA-97DB-4F78-9DF9-F1BD6A1D4456}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{768654CA-97DB-4F78-9DF9-F1BD6A1D4456}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{768654CA-97DB-4F78-9DF9-F1BD6A1D4456}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{768654CA-97DB-4F78-9DF9-F1BD6A1D4456}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -552,6 +558,7 @@ Global
 		{2AEEDD02-DE87-4A6F-B722-BAE07A654879} = {7CC6C2B6-2077-45F7-B8C9-2E3606CC8AE7}
 		{4A052519-57F1-4A5A-B918-DE92B41430A1} = {261ED94F-5197-460B-9B6F-C3E0802193F7}
 		{24A2277F-4860-4376-A132-063CF18F43CA} = {4A052519-57F1-4A5A-B918-DE92B41430A1}
+		{768654CA-97DB-4F78-9DF9-F1BD6A1D4456} = {261ED94F-5197-460B-9B6F-C3E0802193F7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E490D0C8-C5A7-4F24-8A9B-CE1635508778}

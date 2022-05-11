@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace ArchivosTexto.ClaseFile
+namespace TextFiles.ClaseFile
 {
     internal class DeleteFile
     {

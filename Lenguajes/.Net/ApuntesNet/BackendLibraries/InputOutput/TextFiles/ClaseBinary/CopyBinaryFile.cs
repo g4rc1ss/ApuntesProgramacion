@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace ArchivosTexto.ClaseBinary
+namespace TextFiles.ClaseBinary
 {
     public class CopyBinaryFile
     {

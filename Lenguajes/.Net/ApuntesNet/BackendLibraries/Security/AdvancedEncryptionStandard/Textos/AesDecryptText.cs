@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace AesCipherExample.Textos
+namespace AdvancedEncryptionStandard.Textos
 {
     public class AesDecryptText
     {

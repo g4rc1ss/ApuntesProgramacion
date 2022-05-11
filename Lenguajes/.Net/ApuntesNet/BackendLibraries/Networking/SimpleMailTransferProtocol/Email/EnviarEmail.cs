@@ -2,18 +2,18 @@
 using System.Net;
 using System.Net.Mail;
 
-namespace UseEmail.Email
+namespace SimpleMailTransferProtocol.Email
 {
     public class EnviarEmail
     {
         public void EnvioMail()
         {
             var servidorDeEnvio = "smtp.gmail.com";
-            
+
             //Enviamos el mensaje
             Console.WriteLine("Usuario");
             var emisor = Console.ReadLine();
-            
+
             Console.WriteLine("Constraseña");
             var contraseña = Console.ReadLine();
 

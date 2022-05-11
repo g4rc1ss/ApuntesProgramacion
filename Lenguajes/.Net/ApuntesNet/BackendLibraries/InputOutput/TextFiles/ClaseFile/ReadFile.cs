@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace ArchivosTexto.ClaseFile
+namespace TextFiles.ClaseFile
 {
     internal class ReadFile
     {

@@ -10,7 +10,7 @@ namespace SqlServerEfCore.Database
 
         public EntityFrameworkSqlServerContext(DbContextOptions optionsBuilder) : base(optionsBuilder)
         {
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

@@ -4,22 +4,13 @@ using JsonFiles.JSON;
 using JsonFiles.Read;
 using JsonFiles.Write;
 
-namespace JsonFiles
+// Creamos un archivo JSON para indicar la ruta
+var crearJSON = new ClaseParaJSON()
 {
-    internal class Program
-    {
-        private static async Task Main()
-        {
-            // Creamos un archivo JSON para indicar la ruta
-            var crearJSON = new ClaseParaJSON()
-            {
-                Ruta = "archivo.txt"
-            };
+    Ruta = "archivo.txt"
+};
 
-            // Usamos JSON
-            await JsonWriteSerialization.UsingJSONAsync(crearJSON);
-            Console.WriteLine("\n-------------------------------------------------------------\n");
-            await JsonReadDeserialize.UsingJSONAsync();
-        }
-    }
-}
+// Usamos JSON
+await JsonWriteSerialization.UsingJSONAsync(crearJSON);
+Console.WriteLine("\n-------------------------------------------------------------\n");
+await JsonReadDeserialize.UsingJSONAsync();

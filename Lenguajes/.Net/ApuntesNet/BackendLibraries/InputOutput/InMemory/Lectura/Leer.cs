@@ -1,4 +1,4 @@
-﻿namespace EnMemoria.Lectura
+﻿namespace InMemory.Lectura
 {
     internal class Leer
     {

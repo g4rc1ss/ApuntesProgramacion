@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace ArchivosTexto.ClaseStream
+namespace TextFiles.ClaseStream
 {
     internal class WriteWithStream
     {

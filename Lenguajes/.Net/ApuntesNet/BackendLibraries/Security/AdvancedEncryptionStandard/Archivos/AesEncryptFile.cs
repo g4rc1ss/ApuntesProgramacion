@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace AesCipherExample.Archivos
+namespace AdvancedEncryptionStandard.Archivos
 {
     public class AesEncryptFile
     {

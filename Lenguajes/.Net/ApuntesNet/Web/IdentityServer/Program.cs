@@ -15,7 +15,7 @@ builder.Services.AddDbContextPool<IdentityContext>(contextBuilder =>
 
 builder.Services.AddIdentity<User, Role>(options =>
 {
-    
+
 }).AddSignInManager<SignInManager<User>>()
 .AddEntityFrameworkStores<IdentityContext>();
 

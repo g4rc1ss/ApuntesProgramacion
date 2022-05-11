@@ -2,7 +2,7 @@
 using System.Net;               //   Paso 1
 using System.Net.Sockets;       //   Paso 1
 
-namespace ConexionesSocket.ConexionSocket.ClienteServidor
+namespace Sockets.ConexionSocket.ClienteServidor
 {
     public class Servidor
     {

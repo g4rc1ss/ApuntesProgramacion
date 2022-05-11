@@ -1,9 +1,9 @@
 ﻿using System.Text.Json;
-using Cachear.ObjCaching;
+using Caching.ObjCaching;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cachear.Distributed
+namespace Caching.Distributed
 {
     internal class DistributedRedis
     {

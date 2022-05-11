@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace ArchivosTexto.ClaseStream
+namespace TextFiles.ClaseStream
 {
     internal class ReadWithStream
     {

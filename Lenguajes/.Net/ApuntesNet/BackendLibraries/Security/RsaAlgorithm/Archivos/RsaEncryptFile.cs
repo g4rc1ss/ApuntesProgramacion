@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace RsaCipherExample.Archivos
+namespace RsaAlgorithm.Archivos
 {
     public class RsaEncryptFile
     {

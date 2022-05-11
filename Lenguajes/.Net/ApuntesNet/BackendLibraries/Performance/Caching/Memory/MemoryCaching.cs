@@ -1,8 +1,8 @@
-﻿using Cachear.ObjCaching;
+﻿using Caching.ObjCaching;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cachear.Memory
+namespace Caching.Memory
 {
     internal class MemoryCaching
     {
