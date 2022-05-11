@@ -1,11 +1,6 @@
-﻿namespace ConsoleDesign
-{
-    internal class DesignSalidaConsole
-    {
-        private static void Main()
-        {
-            Colores.Colores.PintamosColores();
-            ProgressBar.BarrasDeProgreso.BarraProgreso();
-        }
-    }
-}
+﻿using ConsoleDesign.Colores;
+using ConsoleDesign.ProgressBar;
+
+
+Colores.PintamosColores();
+BarrasDeProgreso.BarraProgreso();

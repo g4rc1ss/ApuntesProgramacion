@@ -240,6 +240,19 @@ select new ChatDao
 }
 ```
 
+### Include
+Entity Framework provee del metodo `Include()` para obtener el objeto `Navigation` que indiquemos y podemos ir ramificandolo con el método `ThenInclude()`.
+
+Con esta funcion, EntityFramework analiza la relacion y crea una `INNER JOIN` o lo que considere necesario para devolver los datos.
+
+> Es importante indicar que muchas veces sin indicar de manera explicita que queremos obtener los objetos `Navigation`, por ejemplo usando una consulta como `Context.Entidad.ToList()`, si que nos devuelve las relaciones, eso es porque EntityFramework cache las respuestas de las consultas anteriores durante un periodo de tiempo y si coincide, se mapean, pero no siempre puede pasar que lo haga, si se necesita si o si una consulta relacionada, hay que indicarlo de forma explicita.
+
+```Csharp
+Contexto.Entidad
+    .Include(x => x.PropiedadNavigation)
+    .ThenInclude(x => x.PropiedadNavegacionDePropiedadNavigation)
+```
+
 ## Guardado
 1. **INSERT**: Usamos el metodo `DbSet.Add` para agregar instancias nuevas de las clases de entidad.
 1. **UPDATE**: EF detecta automáticamente los cambios hechos en una entidad existente de la que hace seguimiento. Por tanto, obtenemos el registro a actualizar y modificamos el objeto.

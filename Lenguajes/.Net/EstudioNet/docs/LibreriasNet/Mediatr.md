@@ -11,8 +11,10 @@ services.AddMediatR(Assembly.GetExecutingAssembly());
 
 Este método se encarga de leer mediante reflection el assembly o assemblies que le pasamos y busca las clases que implementan sus interfaces como `IRequestHandler`, `IRequest`, etc.
 
-# Usar Mediatr
-Para usar `MediatR` necesitamos:
+# Mediator RequestHandler
+Con Mediator podemos hacer uso del metodo `Send()` para resolver la dependencia de una clase que implemente la interfaz `IRequestHandler<TRequest, TResponse>`.
+
+Para registrar un servicio de mediator de esta forma necesitaremos:
 - Una clase que implemente la interfaz `IMediatR<TRequest, TResponse>`
     ```Csharp
     public class ClaseRequestHandler : IRequestHandler<ClaseRequest, ClaseResponse>
@@ -38,9 +40,34 @@ Para usar `MediatR` necesitamos:
     }
     ```
 
+# Mediator Notification
+Con Mediator podemos hacer uso del metodo `Publish()` para enviar el objeto request a una o varias dependencias registradas en `Mediatr`
+
+Para registrar un servicio de mediator de esta forma necesitaremos:
+- Una o varias clases que implementen la interfaz `INotificationHandler<TRequest>`
+    ```Csharp
+    internal class PublishMethodOneNotificationHandler : INotificationHandler<PublishMethodRequest>
+    {
+        public Task Handle(PublishMethodRequest notification, CancellationToken cancellationToken)
+        {
+            Console.WriteLine($"El metodo PUBLISH 1 indica: {notification.Message}");
+            return Task.CompletedTask;
+        }
+    }
+    ```
+- Una clase que implemente la interfaz `IRequest<TResponse>`
+    ```Csharp
+    internal class PublishMethodRequest : INotification
+    {
+        public string Message { get; set; }
+    }
+    ```
+
+
+# Llamar a Mediator
 El proceso de llamada es el siguiente:
 
-1. Inyectamos la interfaz `IMediatR`.
+1. Inyectamos la interfaz `IMediator`.
     ```Csharp
     private readonly IMediator _mediator;
 
@@ -49,38 +76,19 @@ El proceso de llamada es el siguiente:
         _mediator = mediator;
     }
     ```
-1. Ejecutamos un método, como `Send()`, enviando como parametro una instancia de la clase Request.
+
+1. Si queremos resolver clases del tipo `INotificationHandler` debemos usar el método `Publish`
     ```Csharp
-    ClasResponse llamadaMediatr = await _mediator.Send(
-        new ClaseRequest
-        {
-            ObjetoEnviamosHandler = null
-        }
-    );
-    ```
-1. La función de MediatR realiza una busqueda usando el tipo de la instancia que le pasamos para localizar su clase `RequestHandler` correspondiente y devuelve la instancia usando el inyector de dependencias.
-1. Ejecuta el metodo `Handler` y devuelve la response.
-    ```Csharp
-    public class ClaseRequestHandler : IRequestHandler<ClaseRequest, ClaseResponse>
+    await mediatr.Publish(new PublishMethodRequest
     {
-        private readonly IMemoryCache _memoryCache;
-
-        public ClaseRequestHandler(IMemoryCache memoryCache)
-        {
-            _memoryCache = memoryCache;
-        }
-
-        public Task<ClaseResponse> Handle(ClaseRequest request, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-    }
+        Message = "Prueba de notificacion por el metodo Publish con Mediatr"
+    });
+1. Si queremos resolver una clase de tipo `IRequestHandler` se usará el metodo `Send`
+    ```Csharp
+    var respuesta = await mediatr.Send(new SendMethodRequest
+    {
+        Message = "Prueba de envio de mensaje a un handler de mediator"
+    });
     ```
 > Como se utiliza el inyector de dependencias para resolver la instancia de la clase `Handler`, en esta clase podemos aplicar la inyección de dependencias por constructor para usar librerias como el acceso a base de datos, etc.
 
-# Funciones de Mediatr
-Mediatr utiliza diferentes funciones para resolver la clase `Handler` dependiendo del uso que necesitemos.
-
-- `Send`: Busca, resuelve y ejecuta un único Handler.
-- `Publish`: Busca, resuelve y ejecuta múltiples Handler.
-- `CreateStream`: Crea un Stream a traves de un único Handler.
