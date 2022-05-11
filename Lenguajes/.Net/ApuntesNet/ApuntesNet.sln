@@ -216,6 +216,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentAssertionsLibrary", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspMvcTesting", "Testing\AspMvcTesting\AspMvcTesting.csproj", "{A77E3D19-A03B-42B6-917E-B7BFA02BD473}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiToTesting", "Testing\ApiToTesting\ApiToTesting.csproj", "{8386C99B-8A96-4DA6-935D-DB14691A236E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -494,6 +496,10 @@ Global
 		{A77E3D19-A03B-42B6-917E-B7BFA02BD473}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A77E3D19-A03B-42B6-917E-B7BFA02BD473}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A77E3D19-A03B-42B6-917E-B7BFA02BD473}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8386C99B-8A96-4DA6-935D-DB14691A236E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8386C99B-8A96-4DA6-935D-DB14691A236E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8386C99B-8A96-4DA6-935D-DB14691A236E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8386C99B-8A96-4DA6-935D-DB14691A236E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -598,6 +604,7 @@ Global
 		{3A73E115-C340-43CD-B61C-D04409008E6F} = {F30FF9A0-3664-48F1-AF33-655067703796}
 		{8B7B0DB2-5750-4966-90AB-A6E9B4ABC6C0} = {F30FF9A0-3664-48F1-AF33-655067703796}
 		{A77E3D19-A03B-42B6-917E-B7BFA02BD473} = {D8F07DA8-8CF3-49DA-84B5-A0C467DE9969}
+		{8386C99B-8A96-4DA6-935D-DB14691A236E} = {D8F07DA8-8CF3-49DA-84B5-A0C467DE9969}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E490D0C8-C5A7-4F24-8A9B-CE1635508778}
