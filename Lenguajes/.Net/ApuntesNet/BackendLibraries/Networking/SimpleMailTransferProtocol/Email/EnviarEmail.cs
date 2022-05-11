@@ -28,10 +28,10 @@ namespace SimpleMailTransferProtocol.Email
             var cuerpo = Console.ReadLine();
 
             var mensaje = new MailMessage(
-                from: emisor,
-                to: receptor,
-                subject: asunto
-                body: cuerpo
+                emisor,
+                receptor,
+                asunto,
+                cuerpo
             );
 
             using (var cliente = new SmtpClient(servidorDeEnvio))
