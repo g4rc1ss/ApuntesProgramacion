@@ -1,6 +1,5 @@
 ﻿using BenchmarkDotNet.Running;
-using Benchmarking.Benchmarks;
-
+using ParallelBenchmark.Benchmarks;
 
 BenchmarkRunner.Run<ThreadsVsAsync>();
 

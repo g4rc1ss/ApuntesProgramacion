@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace IdentityServer.Database.Entities;
+namespace IdentityServerCookie.Database.Entities;
 
 public class UserRole : IdentityUserRole<int>
 {

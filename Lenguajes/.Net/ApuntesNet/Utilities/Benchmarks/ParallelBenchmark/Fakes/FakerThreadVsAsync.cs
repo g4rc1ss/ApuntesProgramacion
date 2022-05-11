@@ -1,4 +1,4 @@
-﻿namespace Benchmarking.Fakes
+﻿namespace ParallelBenchmark.Fakes
 {
     internal static class FakerThreadVsAsync
     {

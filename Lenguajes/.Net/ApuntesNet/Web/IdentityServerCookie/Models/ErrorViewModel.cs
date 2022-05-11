@@ -1,4 +1,4 @@
-namespace IdentityServer.Models
+namespace IdentityServerCookie.Models
 {
     public class ErrorViewModel
     {

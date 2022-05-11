@@ -1,5 +1,5 @@
 ﻿using BenchmarkDotNet.Running;
-using Benchmarking.Benchmarks;
+using YieldBenchmark.Benchmarks;
 
 
 // INIT DATA \\

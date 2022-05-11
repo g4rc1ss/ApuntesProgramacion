@@ -1,8 +1,8 @@
-﻿using IdentityServer.Database.Entities;
+﻿using IdentityServerCookie.Database.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace IdentityServer.Controllers.Account
+namespace IdentityServerCookie.Controllers.Account
 {
     public class LogoutController : Controller
     {

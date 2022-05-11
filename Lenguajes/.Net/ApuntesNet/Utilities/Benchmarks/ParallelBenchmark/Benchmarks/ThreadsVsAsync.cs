@@ -1,7 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
-using Benchmarking.Fakes;
+using ParallelBenchmark.Fakes;
 
-namespace Benchmarking.Benchmarks
+namespace ParallelBenchmark.Benchmarks
 {
     [MemoryDiagnoser]
     public class ThreadsVsAsync

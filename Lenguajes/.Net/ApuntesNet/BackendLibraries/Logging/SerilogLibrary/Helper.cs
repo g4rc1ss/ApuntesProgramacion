@@ -1,9 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
 
-namespace AutomapperLibrary
+namespace SerilogLibrary
 {
     public class Helper
     {

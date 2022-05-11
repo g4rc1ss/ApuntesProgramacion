@@ -1,9 +1,9 @@
-﻿using IdentityServer.Database.Entities;
-using IdentityServer.Models;
+﻿using IdentityServerCookie.Database.Entities;
+using IdentityServerCookie.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace IdentityServer.Controllers.Account
+namespace IdentityServerCookie.Controllers.Account
 {
     public class LoginController : Controller
     {

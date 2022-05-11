@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AutomapperLibrary
+namespace MediatrLibrary
 {
     public class Helper
     {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.Http;
 using HttpRequests;
 using HttpRequests.Internal;
 using Microsoft.Extensions.DependencyInjection;

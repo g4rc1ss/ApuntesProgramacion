@@ -1,8 +1,8 @@
-﻿namespace Benchmarking.Fakes
+﻿namespace YieldBenchmark.Fakes
 {
     public class FakerYieldVsList
     {
-        const int NumberOfObjects = 1000_000_000;
+        private const int NumberOfObjects = 1000_000_000;
 
         public static List<int> WithBuffer()
         {

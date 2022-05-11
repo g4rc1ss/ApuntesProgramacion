@@ -1,6 +1,6 @@
-﻿using AutomapperLibrary;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using SerilogLibrary;
 
 var serviceProvider = Helper.GetServiceProvider();
 

@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
-using IdentityServer.Models;
+using IdentityServerCookie.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace IdentityServer.Controllers
+namespace IdentityServerCookie.Controllers
 {
     [Authorize]
     public class HomeController : Controller

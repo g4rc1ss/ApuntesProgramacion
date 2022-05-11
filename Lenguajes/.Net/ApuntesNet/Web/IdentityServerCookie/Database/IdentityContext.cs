@@ -1,9 +1,9 @@
-﻿using IdentityServer.Database.Entities;
+﻿using IdentityServerCookie.Database.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace IdentityServer.Database
+namespace IdentityServerCookie.Database
 {
     public class IdentityContext : IdentityDbContext<User, Role, int>
     {

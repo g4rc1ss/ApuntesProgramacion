@@ -172,7 +172,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cookie", "Cookie", "{1FF1B4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{6177943A-F1A0-4ABA-87CC-43BD275D78FE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "Web\IdentityServer\IdentityServer.csproj", "{7C186AEF-C9BD-4717-B83D-8676BA87445B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServerCookie", "Web\IdentityServerCookie\IdentityServerCookie.csproj", "{7C186AEF-C9BD-4717-B83D-8676BA87445B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorAuthenticationJWT", "Web\BlazorAuthenticationJWT\BlazorAuthenticationJWT.csproj", "{71349230-CA15-4343-A8A5-B3FD8F2E43D6}"
 EndProject

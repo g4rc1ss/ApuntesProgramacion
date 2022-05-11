@@ -1,7 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
-using Benchmarking.Fakes;
+using YieldBenchmark.Fakes;
 
-namespace Benchmarking.Benchmarks
+namespace YieldBenchmark.Benchmarks
 {
     [MemoryDiagnoser]
     public class YieldVsList
@@ -22,8 +22,10 @@ namespace Benchmarking.Benchmarks
             var response = FakerYieldVsList.WithYield();
 
             // Leemos el yield puesto que es una ejecucion diferida
-            foreach (var item in response) ;
-
+            foreach (var item in response)
+            {
+                ;
+            }
         }
     }
 }

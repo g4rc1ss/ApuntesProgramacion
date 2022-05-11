@@ -1,5 +1,5 @@
-﻿using AutomapperLibrary;
-using MediatR;
+﻿using MediatR;
+using MediatrLibrary;
 using MediatrLibrary.Handlers.PublishMethod;
 using MediatrLibrary.Handlers.SendMethod;
 using Microsoft.Extensions.DependencyInjection;
