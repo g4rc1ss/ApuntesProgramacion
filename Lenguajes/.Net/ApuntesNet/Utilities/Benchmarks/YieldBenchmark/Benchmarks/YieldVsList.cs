@@ -3,25 +3,26 @@ using Benchmarking.Fakes;
 
 namespace Benchmarking.Benchmarks
 {
-    internal class YieldVsList
+    [MemoryDiagnoser]
+    public class YieldVsList
     {
         public YieldVsList()
         {
         }
 
         [Benchmark]
-        internal async Task ReadWithListAsync()
+        public void ExpensiveObjectsWithList()
         {
-            await FakerYieldVsList.ReadFileWithBufferList();
+            FakerYieldVsList.WithBuffer();
         }
 
         [Benchmark]
-        internal async Task ReadWithYieldAsync()
+        public void ExpensiveObjectsWithYield()
         {
-            var response = FakerYieldVsList.ReadFileWithYield();
+            var response = FakerYieldVsList.WithYield();
 
             // Leemos el yield puesto que es una ejecucion diferida
-            await foreach (var item in response) ;
+            foreach (var item in response) ;
 
         }
     }

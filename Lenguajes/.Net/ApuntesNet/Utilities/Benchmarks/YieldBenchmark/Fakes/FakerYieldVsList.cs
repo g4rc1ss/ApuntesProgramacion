@@ -1,34 +1,25 @@
 ﻿namespace Benchmarking.Fakes
 {
-    internal class FakerYieldVsList
+    public class FakerYieldVsList
     {
-        private const string Path = "archivoLectura.txt";
+        const int NumberOfObjects = 1000_000_000;
 
-        internal static async Task<List<object>> ReadFileWithBufferList()
+        public static List<int> WithBuffer()
         {
-            var file = new StreamReader(Path);
-            var buffer = new List<object>();
+            var buffer = new List<int>();
 
-            while (!file.EndOfStream)
+            foreach (var item in Enumerable.Range(0, NumberOfObjects))
             {
-                buffer.Add(new
-                {
-                    NombrePueblo = await file.ReadLineAsync()
-                });
+                buffer.Add(item);
             }
             return buffer;
         }
 
-        internal static async IAsyncEnumerable<object> ReadFileWithYield()
+        public static IEnumerable<int> WithYield()
         {
-            var file = new StreamReader(Path);
-
-            while (!file.EndOfStream)
+            foreach (var item in Enumerable.Range(0, NumberOfObjects))
             {
-                yield return new
-                {
-                    NombrePueblo = await file.ReadLineAsync()
-                };
+                yield return item;
             }
         }
     }

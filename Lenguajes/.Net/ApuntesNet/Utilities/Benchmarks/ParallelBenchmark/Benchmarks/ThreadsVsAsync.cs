@@ -3,6 +3,7 @@ using Benchmarking.Fakes;
 
 namespace Benchmarking.Benchmarks
 {
+    [MemoryDiagnoser]
     public class ThreadsVsAsync
     {
         private readonly IEnumerable<int> _lenght = Enumerable.Range(0, 5);
