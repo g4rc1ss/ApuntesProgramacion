@@ -1,27 +1,14 @@
 ﻿using BenchmarkDotNet.Running;
 using DatabaseLibrariesBenchmark.Benchmarks;
+using DatabaseLibrariesBenchmark.ConfigurationBenchmark;
 
 
-//var performance = new DatabaseFrameworksPerformance();
-
-//performance.DapperSelectSingleQuery();
-//performance.DapperSelectAllResults();
-
-//performance.EntityFrameworkCoreSelectSingleQuery();
-//performance.EntityFrameworkCoreSelectAllResults();
-
-//performance.ADONETSingleQuery();
-//performance.ADONETSelectAllResults();
-
-BenchmarkRunner.Run<DatabaseFrameworksPerformance>();
+BenchmarkRunner.Run<DatabaseFrameworksPerformance>(new Config());
 
 
-
-//|                               Method |      Mean |     Error |    StdDev |    Median |     Gen 0 |     Gen 1 |   Gen 2 | Allocated |
-//|------------------------------------- |----------:|----------:|----------:|----------:|----------:|----------:|--------:|----------:|
-//|                    ADONETSingleQuery |  2.552 ms | 0.0488 ms | 0.1029 ms |  2.595 ms |         - |         - |       - |      9 KB |
-//|               ADONETSelectAllResults | 42.060 ms | 0.9552 ms | 2.7408 ms | 41.993 ms | 2000.0000 | 1000.0000 |       - | 10,889 KB |
-//|              DapperSelectSingleQuery |  2.803 ms | 0.0535 ms | 0.0677 ms |  2.790 ms |         - |         - |       - |      9 KB |
-//|               DapperSelectAllResults | 26.204 ms | 0.8420 ms | 2.4560 ms | 25.564 ms | 1000.0000 |         - |       - |  9,297 KB |
-//| EntityFrameworkCoreSelectSingleQuery |  1.558 ms | 0.0288 ms | 0.0691 ms |  1.549 ms |    1.9531 |         - |       - |     15 KB |
-//|  EntityFrameworkCoreSelectAllResults | 19.491 ms | 1.9287 ms | 5.6262 ms | 18.119 ms |  640.6250 |   46.8750 | 15.6250 |  2,731 KB |
+//|                       Method |     Mean |    StdDev |     Error |   Gen 0 |  Gen 1 | Allocated |
+//|----------------------------- |---------:|----------:|----------:|--------:|-------:|----------:|
+//|              'Dapper single' | 1.370 ms | 0.0240 ms | 0.0363 ms |       - |      - |      5 KB |
+//|             'EF Core Single' | 1.565 ms | 0.0356 ms | 0.0538 ms |  4.0000 |      - |     22 KB |
+//| 'EF Core Single no Tranking' | 1.604 ms | 0.0637 ms | 0.0962 ms |  2.0000 |      - |     11 KB |
+//|   'EF Core Single Compilada' | 4.384 ms | 0.2247 ms | 0.3396 ms | 22.0000 | 2.0000 |     96 KB |

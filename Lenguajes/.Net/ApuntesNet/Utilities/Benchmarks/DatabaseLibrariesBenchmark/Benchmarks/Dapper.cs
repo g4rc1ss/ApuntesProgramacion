@@ -6,7 +6,6 @@ using DatabaseLibrariesBenchmark.Entities;
 
 namespace DatabaseLibrariesBenchmark.Benchmarks
 {
-    [MemoryDiagnoser]
     public partial class DatabaseFrameworksPerformance
     {
         private readonly IDbConnection _dbConnection;
@@ -18,16 +17,21 @@ namespace DatabaseLibrariesBenchmark.Benchmarks
             _benchmarkContext = Helper.GetDbContext;
         }
 
-        [Benchmark]
+        [Benchmark(Description = "Dapper single")]
         public void DapperSelectSingleQuery()
         {
-            var result = _dbConnection.QuerySingle<WeatherForecast>(QueriesToExecute.SelectOne);
-        }
+            Step();
+            var sql = @"
+SELECT * 
+FROM BenchmarkingDatabases.WeatherForecast
+Where Id = @id
+LIMIT 0, 1
+";
 
-        [Benchmark]
-        public void DapperSelectAllResults()
-        {
-            var result = _dbConnection.Query<WeatherForecast>(QueriesToExecute.SelectAll);
+            var result = _dbConnection.QuerySingle<WeatherForecast>(sql, new
+            {
+                Id = id
+            });
         }
     }
 }

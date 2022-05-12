@@ -4,9 +4,9 @@
     {
         private const int DELAY = 100;
 
-        internal static async Task ExecuteTask()
+        internal static Task ExecuteTask()
         {
-            await Task.Delay(DELAY);
+            return Task.Delay(DELAY);
         }
 
         internal static Task ExecuteTaskBlocking()

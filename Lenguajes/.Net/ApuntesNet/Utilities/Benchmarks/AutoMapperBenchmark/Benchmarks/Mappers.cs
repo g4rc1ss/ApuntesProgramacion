@@ -23,7 +23,7 @@ namespace AutoMapperBenchmark.Benchmarks
 
             _claseOrigen = Helper.Origin;
             _claseRelacionadaConOrigen = Helper.ClaseRelacion;
-            _enumerableOrigen = Enumerable.Range(0, 1_000_000).Select(x => Helper.Origin).ToList();
+            _enumerableOrigen = Enumerable.Range(0, 5_000).Select(x => Helper.Origin).ToList();
             _enumerableRelacion = Enumerable.Range(0, 1).Select(x => Helper.ClaseRelacion).ToList();
         }
 
