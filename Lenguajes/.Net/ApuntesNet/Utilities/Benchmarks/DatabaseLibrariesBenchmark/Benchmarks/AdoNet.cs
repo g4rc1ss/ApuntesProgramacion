@@ -30,6 +30,8 @@ namespace DatabaseLibrariesBenchmark.Benchmarks
                     TemperatureF = int.TryParse(leerSelect["TemperatureF"].ToString(), out var temF) ? temF : default
                 };
             }
+
+            _dbConnection.Close();
         }
 
         [Benchmark]
@@ -54,6 +56,8 @@ namespace DatabaseLibrariesBenchmark.Benchmarks
                     TemperatureF = int.TryParse(leerSelect["TemperatureF"].ToString(), out var temF) ? temF : default
                 });
             }
+
+            _dbConnection.Close();
         }
     }
 }

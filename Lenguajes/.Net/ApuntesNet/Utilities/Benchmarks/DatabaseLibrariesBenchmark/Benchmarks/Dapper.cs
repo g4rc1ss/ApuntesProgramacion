@@ -21,13 +21,13 @@ namespace DatabaseLibrariesBenchmark.Benchmarks
         [Benchmark]
         public void DapperSelectSingleQuery()
         {
-            _dbConnection.QuerySingle<WeatherForecast>(QueriesToExecute.SelectOne);
+            var result = _dbConnection.QuerySingle<WeatherForecast>(QueriesToExecute.SelectOne);
         }
 
         [Benchmark]
         public void DapperSelectAllResults()
         {
-            _dbConnection.Query<WeatherForecast>(QueriesToExecute.SelectAll);
+            var result = _dbConnection.Query<WeatherForecast>(QueriesToExecute.SelectAll);
         }
     }
 }

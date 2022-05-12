@@ -7,13 +7,13 @@ namespace DatabaseLibrariesBenchmark.Benchmarks
         [Benchmark]
         public void EntityFrameworkCoreSelectSingleQuery()
         {
-            _benchmarkContext.WeatherForecasts.Single();
+            var result = _benchmarkContext.WeatherForecast.Take(1)  .Single();
         }
 
         [Benchmark]
         public void EntityFrameworkCoreSelectAllResults()
         {
-            _benchmarkContext.WeatherForecasts.ToList();
+            var result = _benchmarkContext.WeatherForecast.ToList();
         }
     }
 }

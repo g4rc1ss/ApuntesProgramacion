@@ -9,7 +9,13 @@ namespace DatabaseLibrariesBenchmark.Benchmarks.Queries
     internal class QueriesToExecute
     {
 
-        public static string SelectOne = "Select * From WeatherForecast";
-        public static string SelectAll = "Select * From WeatherForecast";
+        public static string SelectOne = @"
+SELECT * 
+FROM BenchmarkingDatabases.WeatherForecast
+LIMIT 0, 1";
+
+        public static string SelectAll = @"
+SELECT * 
+FROM BenchmarkingDatabases.WeatherForecast";
     }
 }
