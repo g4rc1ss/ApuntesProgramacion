@@ -9,8 +9,9 @@ namespace AutoMapperBenchmark
 {
     public static class Helper
     {
-        public static ClaseOrigen Origin => new ClaseOrigen
+        public static ClaseOrigen Origin => new()
         {
+            IdRelacion = 10190,
             Valor1 = "Valor",
             Valor2 = "Valor",
             Valor3 = "Valor",
@@ -29,5 +30,10 @@ namespace AutoMapperBenchmark
 
         };
 
+        public static ClaseRelacionadaConOrigen ClaseRelacion => new()
+        {
+            ClaseOriginId = 10190,
+            NombreCampo = "ValorClaseRelacionada",
+        };
     }
 }

@@ -23,6 +23,6 @@ namespace AutoMapperBenchmark.Fakes.Clases
         public string Valor13 { get; set; }
         public string Valor14 { get; set; }
         public string Valor15 { get; set; }
-       
+        public int IdRelacion { get; internal set; }
     }
 }

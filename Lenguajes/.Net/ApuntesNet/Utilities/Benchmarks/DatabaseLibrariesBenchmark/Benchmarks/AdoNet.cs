@@ -1,7 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using DatabaseLibrariesBenchmark.Benchmarks.Queries;
 using DatabaseLibrariesBenchmark.Entities;
-using MySql.Data.MySqlClient;
 
 namespace DatabaseLibrariesBenchmark.Benchmarks
 {
