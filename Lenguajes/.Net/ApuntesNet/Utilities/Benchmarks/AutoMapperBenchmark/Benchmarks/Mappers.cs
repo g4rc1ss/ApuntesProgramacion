@@ -10,6 +10,7 @@ namespace AutoMapperBenchmark.Benchmarks
     {
         private readonly IMapper _mapper;
         private readonly ClaseOrigen _claseOrigen;
+        private readonly List<ClaseOrigen> _enumerableOrigen;
 
         public Mappers()
         {
@@ -18,6 +19,7 @@ namespace AutoMapperBenchmark.Benchmarks
                 config.AddProfile(new AutoMapperProfile());
             }).CreateMapper();
             _claseOrigen = Helper.Origin;
+            _enumerableOrigen = Enumerable.Range(0, 1_000_000).Select(x => Helper.Origin).ToList();
         }
 
         [Benchmark]
@@ -33,27 +35,15 @@ namespace AutoMapperBenchmark.Benchmarks
         }
 
         [Benchmark]
-        public void ManualMapping()
+        public void AutomapperListas()
         {
-            var destino = new ClaseDestino
-            {
-                Valor1 = _claseOrigen.Valor1,
-                Valor2 = _claseOrigen.Valor2,
-                Valor3 = _claseOrigen.Valor3,
-                Valor4 = _claseOrigen.Valor4,
-                Valor5 = _claseOrigen.Valor5,
-                Valor6 = _claseOrigen.Valor6,
-                Valor7 = _claseOrigen.Valor7,
-                Valor8 = _claseOrigen.Valor8,
-                Valor9 = _claseOrigen.Valor9,
-                Valor10 = _claseOrigen.Valor10,
-                Valor11 = _claseOrigen.Valor11,
-                Valor12 = _claseOrigen.Valor12,
-                Valor13 = _claseOrigen.Valor13,
-                Valor14 = _claseOrigen.Valor14,
-                Valor15 = _claseOrigen.Valor15,
+            _mapper.Map<List<ClaseDestino>>(_enumerableOrigen);
+        }
 
-            };
+        [Benchmark]
+        public void ImplicitOperatorListas()
+        {
+            _enumerableOrigen.Select(x => (ClaseDestinoImplicitOperator)x).ToList();
         }
     }
 }

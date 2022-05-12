@@ -2,11 +2,6 @@
 using YieldBenchmark.Benchmarks;
 
 
-// INIT DATA \\
-//var collection = Enumerable.Range(0, 50_000_000).Select(x => $"registro {x}").ToArray();
-//File.WriteAllLines("archivoLectura.txt", collection);
-
-
 BenchmarkRunner.Run<YieldVsList>();
 
 
