@@ -27,6 +27,10 @@ Console.WriteLine($"La instruccion con doble iteracion tarda: {stopWatch.Elapsed
     $"Se han realizado {totalIteracionesCuadratico} iteraciones.");
 
 
+Console.WriteLine("Pulsa una tecla para finalizar...");
+Console.ReadKey();
+
+
 long ContadorTradicionalPalabras(string[] cadenaArray)
 {
     long iteraciones = 0;
