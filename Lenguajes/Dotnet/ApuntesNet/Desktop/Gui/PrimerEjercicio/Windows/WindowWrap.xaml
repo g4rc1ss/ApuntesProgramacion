@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PrimerEjercicio.Windows.WindowWrap"
+             Title="WindowWrap">
+
+    <FlexLayout x:Name="panelWrap"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start">
+
+        <Button x:Name="btnHorizontal"
+                Text="Horizontal"
+                Width="75"/>
+
+        <Button x:Name="btnVertical"
+                Text="Vertical"
+                Width="75"/>
+
+        <Button x:Name="btnOpen"
+                Text="Open"
+                Width="75"
+                Clicked="BtnOpen_Click"/>
+
+        <Button x:Name="btnSave"
+                Text="Save"
+                Width="75"
+                Clicked="BtnSave_Click"/>
+
+        <Button x:Name="btndummy0"
+                Text="Boton"
+                Width="75"/>
+
+        <Button x:Name="btndummy1"
+                Text="Boton"
+                Width="75"/>
+
+        <Button x:Name="btndummy2"
+                Text="Boton"
+                Width="75"/>
+
+        <Button x:Name="btndummy3"
+                Text="Boton"
+                Width="75"/>
+
+        <Button x:Name="btndummy4"
+                Text="Boton"
+                Width="75"/>
+
+        <Button x:Name="btndummy5"
+                Text="Boton"
+                Width="75"/>
+
+        <Button x:Name="btndummy6"
+                Text="Boton"
+                Width="75"/>
+
+        <Button x:Name="btndummy7"
+                Text="Boton"
+                Width="75"/>
+
+        <Button x:Name="btndummy8"
+                Text="Boton"
+                Width="75"/>
+
+    </FlexLayout>
+</ContentPage>
