@@ -1,42 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:Componente="clr-namespace:Calculadora"
              x:Class="Calculadora.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+    <Grid Background="Bisque">
+        <Grid Background="Azure"
+              HorizontalOptions="Fill"
+              Height="391"
+              Margin="106,38,0,0"
+              VerticalOptions="Start"
+              Width="285">
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
-
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
-
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
-
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
-
-        </VerticalStackLayout>
-    </ScrollView>
+            <Editor HorizontalTextAlignment="Center" IsReadOnly="True" Height="53"  VerticalOptions="Start" Width="284" Text="CALCULADORA&#xD;&#xA;DE&#xD;&#xA;ASIER GARCIA"/>
+            <Editor x:Name="mostrar" HorizontalTextAlignment="Center" IsReadOnly="True" Height="38" Margin="91,58,0,0" VerticalOptions="Start" Width="100"/>
+            <Componente:Componente Text="1" Margin="56,159,0,0"  VerticalOptions="Start" Clicked="Listener" Tipo="1"/>
+            <Componente:Componente Text="2" Margin="91,159,0,0"  VerticalOptions="Start" Clicked="Listener" Tipo="1"/>
+            <Componente:Componente Text="3" Margin="126,159,0,0" VerticalOptions="Start" Clicked="Listener" Tipo="1"/>
+            <Componente:Componente Text="+" Margin="191,159,0,0" VerticalOptions="Start" Clicked="Listener" Tipo="2"/>
+            <Componente:Componente Text="4" Margin="56,208,0,0"  VerticalOptions="Start" Clicked="Listener" Tipo="1"/>
+            <Componente:Componente Text="7" Margin="56,257,0,0"  VerticalOptions="Start" Clicked="Listener" Tipo="1"/>
+            <Componente:Componente Text="C" Margin="56,308,0,0"  VerticalOptions="Start" Clicked="Listener" Tipo="3"/>
+            <Componente:Componente Text="5" Margin="91,208,0,0"  VerticalOptions="Start" Clicked="Listener" Tipo="1"/>
+            <Componente:Componente Text="8" Margin="91,257,0,0"  VerticalOptions="Start" Clicked="Listener" Tipo="1"/>
+            <Componente:Componente Text="0" Margin="91,308,0,0"  VerticalOptions="Start" Clicked="Listener" Tipo="1"/>
+            <Componente:Componente Text="6" Margin="126,208,0,0" VerticalOptions="Start" Clicked="Listener" Tipo="1"/>
+            <Componente:Componente Text="9" Margin="126,257,0,0" VerticalOptions="Start" Clicked="Listener" Tipo="1"/>
+            <Componente:Componente Text="=" Margin="126,308,0,0" VerticalOptions="Start" Clicked="Listener" Tipo="2"/>
+            <Componente:Componente Text="-" Margin="191,208,0,0" VerticalOptions="Start" Clicked="Listener" Tipo="2"/>
+            <Componente:Componente Text="*" Margin="191,257,0,0" VerticalOptions="Start" Clicked="Listener" Tipo="2"/>
+            <Componente:Componente Text="/" Margin="191,308,0,0" VerticalOptions="Start" Clicked="Listener" Tipo="2"/>
+        </Grid>
+    </Grid>
 
 </ContentPage>
 
