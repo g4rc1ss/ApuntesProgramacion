@@ -16,15 +16,15 @@ Dentro de las bases de datos nos encontramos con las relacionales(SQL) y las no 
 
 
 ## SQL
-- [Sqlite](./SQL/Sqlite.md)
-- [MySQL o MariaDB](./SQL/MySQL.md)
-- [Postgresql](./SQL/Postgresql.md)
-- [Microsoft SQL Server](./SQL/SqlServer.md)
+- **Sqlite**:
+- **MySQL o MariaDB**:
+- **Postgresql**:
+- **Microsoft SQL Server**:
 
 
 ## NoSQL
-- [Redis](./NoSQL/Redis.md)
-- [Mongo Database](./NoSQL/MongoDB.md)
-- [Elastic Search](./NoSQL/ElasticSearch.md)
-- [Microsoft Cosmos Database](./NoSQL/Cosmos.md)
+- **Redis**:
+- **Mongo Database**:
+- **Elastic Search**:
+- **Microsoft Cosmos Database**:
 
