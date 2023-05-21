@@ -9,8 +9,15 @@ Cuando tenemos un sitema en producción es importante tener registros de cuando,
 
 Para almacenar, tratar y estudiar los registros correspondientes a la observabilidad existen varios programas orientados a ellos.
 
+Por lo general las trazas y las metricas se utilizan en aplicaciones serverless o de microservicios y se suelen desplegar en clouds como Azure, AWS, etc. Sistemas que suelen tener sus propios software como Application Insights.
+
+No obstante existen aplicaciones como las siguientes:
+
 ## Almacenamiento de logs
 - [Graylog](./Logs/Graylog.md)
 
-## Almacenamiento de Trazas y Metricas
-- [Zipking](./Telemetry/Zipking.md)
+## Almacenamiento de Trazas
+- [Zipking](./Traces/Zipking.md)
+
+## Almacenamiento de Metricas
+- [Grafana](./Metricas/Grafana.md)
