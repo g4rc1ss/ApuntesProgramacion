@@ -13,4 +13,4 @@ Para almacenar, tratar y estudiar los registros correspondientes a la observabil
 - [Graylog](./Logs/Graylog.md)
 
 ## Almacenamiento de Trazas y Metricas
-- [Application Insights](./Telemetry/Insights.md)
+- [Zipking](./Telemetry/Zipking.md)
