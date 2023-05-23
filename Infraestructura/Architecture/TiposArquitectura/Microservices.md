@@ -7,7 +7,7 @@ Se basa en una serie de servicios que se pueden implementar de forma independien
 
 - Los microservicios no reducen la complejidad, pero hacen que sea más gestionable, ya que separan las tareas en procesos más pequeños que funcionan de manera independiente entre sí.
 
-
+![esquema-arquitectura-microservicios](https://github.com/g4rc1ss/ApuntesProgramacion/assets/28193994/25775a8f-86e8-423a-a51d-2b12abc53535)
 
 En la imagen el frontend hace una llamada a un gestor de API, que sera el encargado de recibir el trafico y redirigir las peticiones al endpoint correspondiente.  
 - Cada servicio puede estar desarrollado en diferentes lenguajes y tecnologias
