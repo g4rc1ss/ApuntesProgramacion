@@ -2,7 +2,7 @@
 
 Consiste en una aplicacion que contiene toda la logica en un mismo punto. Esa misma aplicacion es la encargada de gestionar todas las API, logica de negocio, consultas a datos, etc.
 
-
+![esquema-arquitectura-monoltica](https://github.com/g4rc1ss/ApuntesProgramacion/assets/28193994/7eceded4-7b0a-40b2-91a1-7648bc407cc6)
 
 En la imagen lo que se aprecia es una llamada desde un front hacia el back, el back como monolitico gestiona 3 tipos de apis diferentes, pero estan todas en el mismo lenguaje de programacion y englobadas en la misma aplicación.
 
