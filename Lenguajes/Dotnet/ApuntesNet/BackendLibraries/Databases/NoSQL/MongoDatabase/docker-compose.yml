@@ -10,6 +10,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: 123456
-    #volumes:
-    #  - .docker/bbdd/initMongoDB.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
-  
+    volumes:
+      - mongo_data:/data/db
+volumes:
+  mongo_data:
