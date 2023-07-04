@@ -7,11 +7,7 @@ public class Componente : Button
 
     public Componente()
     {
-        WidthRequest = 30;
-        HeightRequest = 30;
     }
-
-    private string texto;
 
     [Category("Opcion")]
     public int Tipo { set; get; }
@@ -24,9 +20,8 @@ public class Componente : Button
         }
         else if (Tipo == 1)
         {//Numeros
-            texto += Text.ToString();
-            cajaDeTexto.Text += texto.ToString();
-            return texto;
+            cajaDeTexto.Text += Text.ToString();
+            return cajaDeTexto.Text;
         }
         else if (Tipo == 2)
         {//Operacion
@@ -35,7 +30,7 @@ public class Componente : Button
         else if (Tipo == 3)
         {//Vaciar
             cajaDeTexto.Text = "";
-            return Text.ToString();
+            return cajaDeTexto.Text;
         }
         return null;
     }
