@@ -1,6 +1,4 @@
-¡Por supuesto! Aquí tienes un documento en formato Markdown con los comandos básicos de Redis:
 
-```markdown
 # Comandos básicos de Redis
 
 Redis es una base de datos en memoria muy popular que se utiliza para almacenar y manipular datos clave-valor. A continuación, se presentan algunos de los comandos básicos más utilizados en Redis:
@@ -116,7 +114,3 @@ Ejemplo:
 ```
 HGETALL usuario:1
 ```
-
-Estos son solo algunos de los comandos básicos más utilizados en Redis. Existen muchos otros comandos disponibles que te permiten realizar diversas operaciones en tu base de datos. Puedes consultar la documentación oficial de Redis para obtener más información sobre los comandos y sus usos.
-
-¡Espero que esta guía te sea útil!
