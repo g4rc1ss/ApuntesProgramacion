@@ -1,46 +1,122 @@
-# SET
-Crea registros Clave-Valor en Redis
+¡Por supuesto! Aquí tienes un documento en formato Markdown con los comandos básicos de Redis:
 
-```redis
-SET key value [NX | XX] [GET] [EX seconds | PX milliseconds |
-  EXAT unix-time-seconds | PXAT unix-time-milliseconds | KEEPTTL]
+```markdown
+# Comandos básicos de Redis
+
+Redis es una base de datos en memoria muy popular que se utiliza para almacenar y manipular datos clave-valor. A continuación, se presentan algunos de los comandos básicos más utilizados en Redis:
+
+## Almacenamiento de datos
+
+### SET clave valor
+Almacena un valor en una clave específica.
+
+Ejemplo:
 ```
-`set clave:1 "valor"`
-
-- `NX` Inserta el valor si la key NO existe en Redis.
-
-- `XX` Inserta el valor si la key existe en Redis.
-
-- `GET` Retorna el anterior valor de la key antes de ser modificada, si no existia retorna un error.
-
-- `EX seconds` Indica una cantidad de tiempo en la que expirara el registro, en segundos
-
-- `PX milliseconds` Indica una cantidad de tiempo en la que expirara el registro, en milisegundos
-
-- `EXAT unix-time-seconds` Indica una cantidad de tiempo (en UNIX) en la que expirara el registro, ensegundos
-
-- `PXAT unix-time-milliseconds` Indica una cantidad de tiempo (en UNIX) en la que expirara el registro, enmilisegundos
-
-- `KEEPTTL` Guarda el tiempo de visa asociado a la clave
-
-# GET
-Obtiene el valor asociado a la clave que consultamos
-
-```redis
-GET key
+SET nombre "Juan"
 ```
 
-# DEL
-Eliminar la clave o claves y los valores asociados
+### GET clave
+Obtiene el valor almacenado en una clave específica.
 
-```redis
-DEL key [key ...]
+Ejemplo:
+```
+GET nombre
 ```
 
-# UNLINK
-Desvincula la clave con el valor que tiene asociado y un proceso asincrono se encarga de la eliminacion del valor
+### DEL clave
+Elimina una clave y su valor asociado.
 
-```redis
-UNLINK key [key ...]
+Ejemplo:
+```
+DEL nombre
 ```
 
+## Listas
+
+### LPUSH clave valor [valor ...]
+Agrega uno o más valores al inicio de una lista.
+
+Ejemplo:
+```
+LPUSH numeros 1 2 3
+```
+
+### RPUSH clave valor [valor ...]
+Agrega uno o más valores al final de una lista.
+
+Ejemplo:
+```
+RPUSH numeros 4 5 6
+```
+
+### LLEN clave
+Obtiene el tamaño de una lista.
+
+Ejemplo:
+```
+LLEN numeros
+```
+
+### LRANGE clave inicio fin
+Obtiene una porción de una lista, especificando el índice de inicio y fin.
+
+Ejemplo:
+```
+LRANGE numeros 0 3
+```
+
+## Sets
+
+### SADD clave valor [valor ...]
+Agrega uno o más valores a un conjunto.
+
+Ejemplo:
+```
+SADD colores rojo azul verde
+```
+
+### SMEMBERS clave
+Obtiene todos los miembros de un conjunto.
+
+Ejemplo:
+```
+SMEMBERS colores
+```
+
+### SISMEMBER clave valor
+Verifica si un valor es miembro de un conjunto.
+
+Ejemplo:
+```
+SISMEMBER colores rojo
+```
+
+## Hashes
+
+### HSET clave campo valor
+Asigna un valor a un campo en un hash.
+
+Ejemplo:
+```
+HSET usuario:1 nombre "Juan" edad 30
+```
+
+### HGET clave campo
+Obtiene el valor de un campo en un hash.
+
+Ejemplo:
+```
+HGET usuario:1 nombre
+```
+
+### HGETALL clave
+Obtiene todos los campos y valores de un hash.
+
+Ejemplo:
+```
+HGETALL usuario:1
+```
+
+Estos son solo algunos de los comandos básicos más utilizados en Redis. Existen muchos otros comandos disponibles que te permiten realizar diversas operaciones en tu base de datos. Puedes consultar la documentación oficial de Redis para obtener más información sobre los comandos y sus usos.
+
+¡Espero que esta guía te sea útil!
