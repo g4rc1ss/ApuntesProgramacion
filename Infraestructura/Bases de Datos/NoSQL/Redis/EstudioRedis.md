@@ -114,3 +114,27 @@ Ejemplo:
 ```
 HGETALL usuario:1
 ```
+
+### MULTI (TRANSACTIONS)
+
+En Redis, puedes ejecutar una serie de comandos como una transacción atómica utilizando el comando `MULTI` y luego confirmar la transacción con `EXEC`. Esto asegura que todos los comandos se ejecuten en secuencia sin intervención de otros clientes entre ellos. Si algún comando falla durante la ejecución, Redis descarta todos los comandos de la transacción y no se realiza ninguna modificación en la base de datos.
+
+```python
+# Iniciar la transacción
+MULTI
+
+# Agregar comandos a la transacción
+SET clave1 valor1
+SET clave2 valor2
+GET clave1
+GET clave2
+
+# Ejecutar la transacción
+EXEC
+```
+
+En este ejemplo, los comandos `SET` y `GET` están siendo agregados a la transacción. Cuando se ejecuta el comando `EXEC`, Redis ejecuta todos los comandos de la transacción en secuencia y devuelve los resultados correspondientes.
+
+También puedes utilizar el comando `DISCARD` para descartar una transacción en curso sin ejecutarla. Esto puede ser útil si necesitas cancelar una transacción antes de su ejecución.
+
+Es importante tener en cuenta que Redis no admite rollback de transacciones. Una vez que se ejecuta `EXEC`, los comandos de la transacción se realizan de forma irreversible. 
