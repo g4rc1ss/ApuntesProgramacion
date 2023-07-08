@@ -52,17 +52,38 @@ La busqueda de claves de esta manera es mucho mas tediosa, SCAN fragmenta la bus
 En este caso solo 1 slot nos ha devuelto datos, pero nos podrian haber devuelto mas registros los otros slot.
 
 
-## Strings
+## Strings (Cadenas)
 
-## Lists
+- Las cadenas son la estructura de datos más básica en Redis.
+- Pueden contener cualquier tipo de datos, como texto, números o incluso datos binarios.
+- Los comandos clave para trabajar con cadenas incluyen SET, GET, DEL y EXPIRE.
 
-## Sets
+## Lists (Listas)
 
-## Sorted Sets
+- Las listas son colecciones ordenadas de elementos.
+- Los elementos se pueden agregar al principio (LPUSH) o al final (RPUSH) de la lista.
+- Los comandos clave para trabajar con listas incluyen LPUSH, RPUSH, LPOP, RPOP y LRANGE.
 
-## Hashes
+## Sets (Conjuntos)
 
-## Streams
+- Los conjuntos son colecciones no ordenadas de elementos únicos.
+- Los conjuntos son ideales para verificar la existencia de elementos y realizar operaciones de conjuntos, como intersecciones y uniones.
+- Los comandos clave para trabajar con conjuntos incluyen SADD, SREM, SMEMBERS, SISMEMBER, SUNION y SINTER.
 
-## Transactions
+## Hashes (Tablas Hash)
 
+- Los hashes son estructuras de datos clave-valor que representan tablas hash.
+- Son útiles para almacenar y recuperar información estructurada.
+- Los comandos clave para trabajar con hashes incluyen HSET, HGET, HGETALL, HDEL y HEXISTS.
+
+## Sorted Sets (Conjuntos Ordenados)
+
+- Los conjuntos ordenados son conjuntos donde cada elemento tiene una puntuación asociada.
+- Los elementos se almacenan en orden según su puntuación.
+- Los comandos clave para trabajar con conjuntos ordenados incluyen ZADD, ZRANK, ZRANGE y ZSCORE.
+
+## Bitmaps (Mapas de Bits)
+
+- Los mapas de bits son matrices de bits compactas y eficientes.
+- Se pueden utilizar para representar información binaria y realizar operaciones lógicas en bits.
+- Los comandos clave para trabajar con mapas de bits incluyen SETBIT, GETBIT, BITOP y 
