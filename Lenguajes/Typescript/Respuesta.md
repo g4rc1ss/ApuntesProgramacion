@@ -401,6 +401,301 @@
 10. Interoperabilidad: TypeScript puede interactuar con otros lenguajes y plataformas a través de APIs y bibliotecas externas, como utilizar JavaScript existente o utilizar TypeScript en proyectos web y Node.js.
 
 
+## Librerias Externas
 
+1. **Inyección de Dependencias**:
+   - Ejemplo con la biblioteca `tsyringe`:
+   ```typescript
+   import { injectable, inject, container } from 'tsyringe';
 
+   @injectable()
+   class Logger {
+       log(message: string) {
+           console.log(message);
+       }
+   }
+
+   @injectable()
+   class ProductService {
+       constructor(@inject(Logger) private logger: Logger) {}
+
+       doSomething() {
+           this.logger.log('Doing something...');
+       }
+   }
+
+   const productService = container.resolve(ProductService);
+   productService.doSomething();
+   ```
+
+2. **Logging**:
+   - Ejemplo con la biblioteca `winston`:
+   ```typescript
+   import winston from 'winston';
+
+   const logger = winston.createLogger({
+       level: 'info',
+       format: winston.format.simple(),
+       transports: [
+           new winston.transports.Console(),
+           new winston.transports.File({ filename: 'app.log' })
+       ]
+   });
+
+   logger.info('This is an informational log message.');
+   ```
+
+3. **Caching**:
+   - Cache en Memoria:
+     Ejemplo utilizando una simple implementación de caché en memoria:
+   ```typescript
+   const cache = new Map();
+
+   function getCachedData(key: string) {
+       if (cache.has(key)) {
+           return cache.get(key);
+       }
+
+       // Obtener los datos de la fuente de datos
+       const data = fetchDataFromSource();
+
+       // Almacenar los datos en caché
+       cache.set(key, data);
+
+       return data;
+   }
+   ```
+
+   - Cache Distribuida con Redis:
+     Ejemplo utilizando la biblioteca `ioredis` para trabajar con una cache distribuida utilizando Redis:
+   ```typescript
+   import Redis from 'ioredis';
+
+   const redis = new Redis();
+
+   async function getCachedData(key: string) {
+       const cachedData = await redis.get(key);
+
+       if (cachedData) {
+           return JSON.parse(cachedData);
+       }
+
+       // Obtener los datos de la fuente de datos
+       const data = fetchDataFromSource();
+
+       // Almacenar los datos en caché en Redis
+       await redis.set(key, JSON.stringify(data));
+
+       return data;
+   }
+   ```
+
+4. **Protección de Datos**: La protección de datos puede involucrar diversas prácticas y técnicas. Algunas bibliotecas populares para la protección de datos incluyen `bcrypt` para el hash de contraseñas y `crypto` para el cifrado de datos sensibles.
+    - crypto
+```typescript
+import crypto from 'crypto';
+
+const algorithm = 'aes-256-cbc';
+const key = 'clave-secreta';
+const plainData = 'Datos sensibles';
+
+const cipher = crypto.createCipher(algorithm, key);
+let encryptedData = cipher.update(plainData, 'utf8', 'hex');
+encryptedData += cipher.final('hex');
+
+console.log('Datos en texto plano:', plainData);
+console.log('Datos cifrados:', encryptedData);
+
+const decipher = crypto.createDecipher(algorithm, key);
+let decryptedData = decipher.update(encryptedData, 'hex', 'utf8');
+decryptedData += decipher.final('utf8');
+
+console.log('Datos descifrados:', decryptedData);
+```
+    - bcrypt
+```typescript
+import bcrypt from 'bcrypt';
+
+const saltRounds = 10;
+const plainPassword = 'myPassword123';
+
+bcrypt.hash(plainPassword, saltRounds, (err, hashedPassword) => {
+    if (err) {
+        console.error(err);
+        return;
+    }
+
+    console.log('Contraseña en texto plano:', plainPassword);
+    console.log('Contraseña hasheada:', hashedPassword);
+
+    // Verificación de la contraseña hasheada
+    bcrypt.compare(plainPassword, hashedPassword, (err, result) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+
+        console.log('La contraseña coincide:', result); // Output: true
+    });
+});
+```
+
+5. **Middleware**: Para trabajar con middlewares en TypeScript, puedes utilizar bibliotecas como `express` o `koa` para la creación de aplicaciones web y la gestión de middlewares. A continuación, un ejemplo utilizando Express.js:
+```typescript
+import express, { Request, Response, NextFunction } from 'express';
+
+const app = express();
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+    console.log('Middleware ejecutado');
+    next();
+});
+
+app.get('/', (req: Request, res: Response) => {
+    res.send('Hola, mundo!');
+});
+
+app.listen(3000, () => {
+    console.log('Servidor iniciado en el puerto 3000');
+});
+```
+
+6. **Database**:
+   - MySQL: Para trabajar con MySQL en TypeScript, puedes utilizar la biblioteca `mysql2`:
+   ```typescript
+   import mysql from 'mysql2';
+
+   const connection = mysql.createConnection({
+       host: 'localhost',
+       user: 'username',
+       password: 'password',
+       database: 'database'
+   });
+
+   connection.query('SELECT * FROM users', (error, results) => {
+       if (error) {
+           console.error(error);
+           return;
+       }
+
+       console.log(results);
+   });
+   ```
+
+   - SQLite: Para trabajar con SQLite en TypeScript, puedes utilizar la biblioteca `sqlite3`:
+   ```typescript
+   import sqlite3 from 'sqlite3';
+
+   const db = new sqlite3.Database('database.sqlite');
+
+   db.all('SELECT * FROM users', (error, rows) => {
+       if (error) {
+           console.error(error);
+           return;
+       }
+
+       console.log(rows);
+   });
+   ```
+
+   - PostgreSQL: Para trabajar con PostgreSQL en TypeScript, puedes utilizar la biblioteca `pg`:
+   ```typescript
+   import { Client } from 'pg';
+
+   const client = new Client({
+       user: 'username',
+       password: 'password',
+       host: 'localhost',
+       port: 5432,
+       database: 'database'
+   });
+
+   client.connect();
+
+   client.query('SELECT * FROM users', (error, results) => {
+       if (error) {
+           console.error(error);
+           return;
+       }
+
+       console.log(results.rows);
+   });
+
+   client.end();
+   ```
+
+   - MongoDB: Para trabajar con MongoDB en TypeScript, puedes utilizar la biblioteca `mongodb`:
+   ```typescript
+   import { MongoClient } from 'mongodb';
+
+   const uri = 'mongodb://localhost:27017';
+   const client = new MongoClient(uri);
+
+   async function main() {
+       try {
+           await client.connect();
+
+           const database = client.db('mydb');
+           const collection = database.collection('users');
+
+           const users = await collection.find().toArray();
+           console.log(users);
+       } catch (error) {
+           console.error(error);
+       } finally {
+           await client.close();
+       }
+   }
+
+   main();
+   ```
+
+   - LiteDB: Para trabajar con LiteDB en TypeScript, puedes utilizar la biblioteca `litedb`:
+   ```typescript
+   import { LiteDB } from 'litedb';
+
+   const db = new LiteDB('database.db');
+
+   const collection = db.collection('users');
+   const users = collection.find();
+
+   console.log(users);
+   ```
+
+7. **Database ORM**: Para trabajar con ORM en TypeScript, una biblioteca popular es `TypeORM`:
+   ```typescript
+   import { Entity, Column, PrimaryGeneratedColumn, createConnection } from 'typeorm';
+
+   @Entity()
+   class User {
+       @PrimaryGeneratedColumn()
+       id: number;
+
+       @Column()
+       name: string;
+
+       @Column()
+       age: number;
+   }
+
+   async function main() {
+       const connection = await createConnection();
+
+       const userRepository = connection.getRepository(User);
+       const users = await userRepository.find();
+
+       console.log(users);
+   }
+
+   main();
+   ```
+
+8. **Testing**: Para realizar pruebas unitarias en TypeScript, puedes utilizar bibliotecas como `Jest` o `Mocha` junto con `Chai` o `Assert` para aserciones. A continuación, un ejemplo con Jest:
+```typescript
+import { sumar } from './functions';
+
+test('Suma dos números correctamente', () => {
+    expect(sumar(2, 3)).toBe(5);
+});
+```
 
