@@ -7,3 +7,7 @@ services:
       - 6379:6379
     environment:
       - REDIS_PASSWORD=password123
+    volumes:
+      - redis_data:/data
+volumes:
+  redis_data:

@@ -1,4 +1,0 @@
-{
-    "python.formatting.provider": "autopep8",
-    "python.defaultInterpreterPath": "env\\Scripts\\python.exe"
-}

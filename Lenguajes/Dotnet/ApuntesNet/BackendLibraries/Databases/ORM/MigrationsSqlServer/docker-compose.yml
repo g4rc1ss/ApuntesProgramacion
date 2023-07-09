@@ -11,3 +11,7 @@ services:
     environment:
       SA_PASSWORD: Apuntes@Net!
       ACCEPT_EULA: Y
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+volumes:
+  sqlserver_data:

@@ -12,12 +12,7 @@ public partial class MainPage : ContentPage
         InitializeComponent();
     }
 
-    void Listener(object sender, EventArgs e)
-    {
-        Lanzar(sender);
-    }
-
-    public async void Lanzar(object sender)
+    async void Listener(object sender, EventArgs e)
     {
         var compo = (Componente)sender;
         var respuesta = compo.Accion(mostrar);
