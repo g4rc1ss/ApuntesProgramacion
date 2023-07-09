@@ -365,6 +365,7 @@ worker.on('message', (message) => {
 });
 
 worker.postMessage('¡Hola desde el hilo principal!');
+```
 
 En este ejemplo, creamos un hilo de trabajo utilizando el archivo worker.js. El hilo de trabajo se ejecuta en paralelo al hilo principal y puede recibir y enviar mensajes utilizando el método postMessage y el evento message. Puedes realizar tareas en paralelo dentro del hilo de trabajo y comunicarte con el hilo principal utilizando mensajes.
 
