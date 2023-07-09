@@ -1,4 +1,4 @@
-# Estudio Typescript
+# Estudio Lenguaje
 Índice ordenado para estudiar el uso del lenguaje y las librerias mas utilizadas tanto del API, como librerias externas.
 
 
