@@ -1,5 +1,0 @@
-Título;Dirección;País
-El clan;Pablo Trapero;Argentina
-Papeles en el Viento;Juan Taratuto;Argentina
-El club;Pablo Larraín;Chile
-El botón de nácar;Patricio Guzmán;Chile

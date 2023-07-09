@@ -1,3 +1,0 @@
-jdbc:mariadb://localhost:3306/
-root
-123456
