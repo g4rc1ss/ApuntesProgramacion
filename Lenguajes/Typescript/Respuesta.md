@@ -328,9 +328,45 @@
    ```
 
 4. **Threads**:
-   - MultiThreading: TypeScript se ejecuta en un entorno de un solo hilo, por lo que no es compatible con el multihilo directamente. Sin embargo, puedes trabajar con hilos utilizando APIs externas o módulos específicos.
-   
-   - Sincronizar Hilos: Para sincronizar hilos y evitar problemas de concurrencia en TypeScript, puedes utilizar mecanismos como bloqueo de exclusión mutua (mutex), semáforos, promesas o eventos para garantizar la sincronización y la exclusión mutua.
+   - MultiThreading: TypeScript se ejecuta en un entorno de un solo hilo, por lo que no es compatible con el multihilo directamente.
+    Aquí tienes algunos enfoques comunes para trabajar con paralelismo en TypeScript y Node.js:
+
+        - Clustering: Node.js proporciona el módulo cluster que te permite crear un clúster de procesos hijo para aprovechar los múltiples núcleos del procesador. Cada proceso hijo se ejecuta en un hilo separado, lo que permite realizar tareas en paralelo. Aquí tienes un ejemplo básico de clustering:
+```typescript
+import cluster from 'cluster';
+import os from 'os';
+
+if (cluster.isMaster) {
+  const numCPUs = os.cpus().length;
+
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`Proceso hijo ${worker.process.pid} finalizado`);
+  });
+} else {
+  // Lógica del proceso hijo
+  // Realizar tareas en paralelo aquí
+  console.log(`Proceso hijo ${process.pid} iniciado`);
+}
+```
+        Este ejemplo crea un clúster de procesos hijo utilizando el número de núcleos disponibles en el sistema. Cada proceso hijo ejecutará la lógica definida dentro del bloque else. Puedes realizar tareas en paralelo en cada proceso hijo para aprovechar el paralelismo.
+
+        - Hilos de Trabajo (Workers): TypeScript y Node.js también admiten la creación de hilos de trabajo (workers) utilizando el módulo worker_threads. Los hilos de trabajo son hilos independientes que se ejecutan en paralelo y permiten realizar tareas en segundo plano sin bloquear el hilo principal. Aquí tienes un ejemplo básico de hilos de trabajo:
+```typescript
+import { Worker } from 'worker_threads';
+
+const worker = new Worker('./worker.js');
+
+worker.on('message', (message) => {
+  console.log('Mensaje del hilo de trabajo:', message);
+});
+
+worker.postMessage('¡Hola desde el hilo principal!');
+
+En este ejemplo, creamos un hilo de trabajo utilizando el archivo worker.js. El hilo de trabajo se ejecuta en paralelo al hilo principal y puede recibir y enviar mensajes utilizando el método postMessage y el evento message. Puedes realizar tareas en paralelo dentro del hilo de trabajo y comunicarte con el hilo principal utilizando mensajes.
 
    - Async & await: TypeScript admite las palabras clave `async` y `await` para trabajar con código asíncrono de manera más sencilla. Ejemplo:
    ```typescript
@@ -389,16 +425,6 @@
            console.error(error);
        });
    ```
-
-   - HttpMessageHandler: TypeScript no tiene una funcionalidad integrada para trabajar directamente con `HttpMessageHandler`, pero puedes utilizar bibliotecas y frameworks como Express.js para manejar solicitudes y respuestas HTTP.
-
-7. Delegados: TypeScript no tiene un concepto directo de delegados como en algunos lenguajes, pero puedes lograr comportamientos similares utilizando funciones como parámetros o devoluciones de llamada.
-
-8. Reflexión: TypeScript no proporciona una API de reflexión incorporada, pero puedes utilizar bibliotecas como `reflect-metadata` para acceder a metadatos y realizar operaciones de reflexión.
-
-9. Gestión de Memoria: TypeScript es un lenguaje de programación con recolección automática de basura (garbage collection), lo que significa que no necesitas administrar manualmente la memoria. El recolector de basura se encarga de liberar la memoria de los objetos que ya no están en uso.
-
-10. Interoperabilidad: TypeScript puede interactuar con otros lenguajes y plataformas a través de APIs y bibliotecas externas, como utilizar JavaScript existente o utilizar TypeScript en proyectos web y Node.js.
 
 
 ## Librerias Externas
