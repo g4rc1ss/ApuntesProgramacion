@@ -1,632 +1,260 @@
-¡Claro! A continuación, te proporcionaré ejemplos básicos en TypeScript para cada punto del índice. Ten en cuenta que los ejemplos son breves y se enfocan en ilustrar conceptos clave. Puedes expandirlos y personalizarlos según tus necesidades.
-
-## Estudio básico
+¡Claro! A continuación, te proporcionaré una explicación resumida de cada punto junto con ejemplos de código en TypeScript.
 
 1. **Estructura del Código**
-   - [Variables](./docs/Lenguaje/EstructuraCodigo/Variables.md): 
-   ```typescript
-   let mensaje: string = "¡Hola, TypeScript!";
-   console.log(mensaje);
-   ```
+    - Variables: En TypeScript, puedes declarar variables utilizando la palabra clave `let` o `const`. Por ejemplo:
+    ```typescript
+    let edad: number = 25;
+    const nombre: string = "Juan";
+    ```
+    - Condicionales: Puedes utilizar estructuras de control como `if`, `else if` y `else` para ejecutar diferentes bloques de código según condiciones. Aquí tienes un ejemplo:
+    ```typescript
+    if (edad >= 18) {
+        console.log("Eres mayor de edad");
+    } else {
+        console.log("Eres menor de edad");
+    }
+    ```
+    - Bucles: TypeScript admite bucles como `for`, `while` y `do-while` para repetir bloques de código. Aquí tienes un ejemplo con un bucle `for`:
+    ```typescript
+    for (let i = 0; i < 5; i++) {
+        console.log(i);
+    }
+    ```
+    - Operadores: TypeScript proporciona diversos operadores como aritméticos, de asignación, de comparación, lógicos, entre otros. Por ejemplo:
+    ```typescript
+    let resultado = (5 + 3) * 2;
+    console.log(resultado); // Output: 16
+    ```
+    - Enumeradores: Los enumeradores te permiten definir un conjunto de constantes con nombres descriptivos. Aquí tienes un ejemplo:
+    ```typescript
+    enum DiaSemana {
+        Lunes,
+        Martes,
+        Miércoles,
+        Jueves,
+        Viernes,
+        Sábado,
+        Domingo
+    }
+    let dia: DiaSemana = DiaSemana.Martes;
+    console.log(dia); // Output: 1
+    ```
 
-   - [Condicionales](./docs/Lenguaje/EstructuraCodigo/InstruccionSeleccion.md):
-   ```typescript
-   let num: number = 10;
-   if (num > 0) {
-       console.log("El número es positivo");
-   } else {
-       console.log("El número es negativo");
-   }
-   ```
+2. **Programación Orientada a Objetos**:
+    - Clases: Puedes definir clases en TypeScript para encapsular propiedades y métodos relacionados. Aquí tienes un ejemplo básico:
+    ```typescript
+    class Persona {
+        nombre: string;
+        edad: number;
 
-   - [Bucles](./docs/Lenguaje/EstructuraCodigo/InstruccionIteracion.md):
-   ```typescript
-   for (let i = 0; i < 5; i++) {
-       console.log(i);
-   }
-   ```
+        constructor(nombre: string, edad: number) {
+            this.nombre = nombre;
+            this.edad = edad;
+        }
 
-   - [Operadores](./docs/Lenguaje/EstructuraCodigo/Operadores.md):
-   ```typescript
-   let a: number = 5;
-   let b: number = 3;
-   let suma: number = a + b;
-   console.log(suma);
-   ```
+        saludar() {
+            console.log(`Hola, mi nombre es ${this.nombre}`);
+        }
+    }
 
-   - [Enumeradores](./docs/Lenguaje/EstructuraCodigo/Enums.md):
-   ```typescript
-   enum Color {
-       Rojo,
-       Verde,
-       Azul
-   }
-   
-   let color: Color = Color.Verde;
-   console.log(color);  // 1
-   ```
+    let persona = new Persona("Juan", 25);
+    persona.saludar(); // Output: Hola, mi nombre es Juan
+    ```
+    - Clases Estáticas: Puedes utilizar la palabra clave `static` para definir miembros estáticos en una clase, los cuales pertenecen a la clase en sí misma en lugar de las instancias individuales. Ejemplo:
+    ```typescript
+    class MathUtils {
+        static PI: number = 3.1416;
 
-2. **Programación Orientada a Objetos**
-   - [Clases](./docs/Lenguaje/POO/Clases.md):
-   ```typescript
-   class Persona {
-       constructor(public nombre: string, public edad: number) {}
-   
-       saludar() {
-           console.log(`Hola, mi nombre es ${this.nombre} y tengo ${this.edad} años.`);
-       }
-   }
-   
-   let persona = new Persona("Juan", 25);
-   persona.saludar();
-   ```
+        static calcularAreaCirculo(radio: number): number {
+            return MathUtils.PI * radio * radio;
+        }
+    }
 
-   - [Clases Estáticas](./docs/Lenguaje/POO/StaticClass.md):
-   ```typescript
-   class Utilidades {
-       static sumar(a: number, b: number): number {
-           return a + b;
-       }
-   }
-   
-   let resultado = Utilidades.sumar(3, 4);
-   console.log(resultado);  // 7
-   ```
+    console.log(MathUtils.calcularAreaCirculo(5)); // Output: 78.54
+    ```
+    - Métodos: En TypeScript, los métodos son funciones dentro de una clase que pueden realizar ciertas acciones o cálculos. Aquí tienes un ejemplo:
+    ```typescript
+    class Calculadora {
+        sumar(a: number, b: number): number {
+            return a + b;
+        }
+    }
 
-   - [Métodos](./docs/Lenguaje/POO/Method.md):
-   ```typescript
-   class Calculadora {
-       sumar(a: number, b: number): number {
-           return a + b;
-       }
-   
-       restar(a: number, b: number): number {
-           return a - b;
-       }
-   }
-   
-   let calculadora = new Calculadora();
-   let suma = calculadora.sumar(3, 4);
-   console.log(suma);  // 7
-   let resta = calculadora.restar(6, 2);
-   console.log(resta);  // 4
-   ```
+    let calculadora = new Calculadora();
+    console.log(calculadora.sumar(3, 4)); // Output: 7
+    ```
+    - Propiedades: Las propiedades son variables asociadas a una clase. Pueden tener modificadores de acceso como `public`, `private` o `protected`. Ejemplo:
+    ```typescript
+    class Coche {
+        private marca: string;
 
-   - [Propiedades](./docs/Lenguaje/POO/Properties.md):
-   ```typescript
-   class Rectangulo {
-       constructor(public base: number, public altura: number) {}
-   
-       get area(): number {
-           return this.base * this.altura;
-       }
-   }
-   
-   let rectangulo = new Rectangulo(5, 3);
-   console.log(rectangulo.area);  // 15
-   ```
+        constructor(marca: string) {
+            this.marca = marca;
+        }
 
-   - [Herencia](./docs/Lenguaje/POO/Herencia.md):
-   ```typescript
-   class Animal {
-       constructor(public nombre: string) {}
-   
-       hacerSonido() {
-           console.log("Haciendo sonido...");
-       }
-   }
-   
-   class Perro extends Animal {
-       hacerSonido() {
-           console.log("Guau guau");
-       }
-   }
-   
-   let perro = new Perro("Firulais");
-   perro.hacerSonido();  // Guau guau
-   ```
+        mostrarMarca() {
+            console.log(this.marca);
+        }
+    }
 
-   - [Clases Abstractas](./docs/Lenguaje/POO/ClasesAbstractas.md):
-   ```typescript
-   abstract class Figura {
-       abstract calcularArea(): number;
-   }
-   
-   class Circulo extends Figura {
-       constructor(private radio: number) {
-           super();
-       }
-   
-       calcularArea(): number {
-           return Math.PI * this.radio * this.radio;
-       }
-   }
-   
-   let circulo = new Circulo(5);
-   console.log(circulo.calcularArea());  // 78.54
-   ```
+    let coche = new Coche("Toyota");
+    coche.mostrarMarca(); // Output: Toyota
+    ```
+    - Herencia: Puedes crear una jerarquía de clases donde una clase hija hereda propiedades y métodos de una clase padre. Ejemplo:
+    ```typescript
+    class Animal {
+        comer() {
+            console.log("El animal está comiendo");
+        }
+    }
 
-   - [Clases Selladas](./docs/Lenguaje/POO/SealedClass.md):
-   ```typescript
-   class Animal {
-       hacerSonido() {
-           console.log("Haciendo sonido...");
-       }
-   }
-   
-   let animal = new Animal();
-   animal.hacerSonido();  // Haciendo sonido...
-   // No se puede heredar de la clase Animal debido a que es sellada
-   ```
+    class Perro extends Animal {
+        ladrar() {
+            console.log("¡Guau!");
+        }
+    }
 
-   - [Interfaces](./docs/Lenguaje/POO/Interfaces.md):
-   ```typescript
-   interface Forma {
-       calcularArea(): number;
-   }
-   
-   class Rectangulo implements Forma {
-       constructor(private base: number, private altura: number) {}
-   
-       calcularArea(): number {
-           return this.base * this.altura;
-       }
-   }
-   
-   let rectangulo: Forma = new Rectangulo(5, 3);
-   console.log(rectangulo.calcularArea());  // 15
-   ```
+    let perro = new Perro();
+    perro.comer(); // Output: El animal está comiendo
+    perro.ladrar(); // Output: ¡Guau!
+    ```
+    - Clases Abstractas: Las clases abstractas son clases que no se pueden instanciar directamente, sino que se utilizan como base para otras clases. Ejemplo:
+    ```typescript
+    abstract class Figura {
+        abstract calcularArea(): number;
+    }
 
-   - [Polimorfismo](./docs/Lenguaje/POO/Polimorfismo.md):
-   ```typescript
-   class Animal {
-       hacerSonido() {
-           console.log("Haciendo sonido...");
-       }
-   }
-   
-   class Perro extends Animal {
-       hacerSonido() {
-           console.log("Guau guau");
-       }
-   }
-   
-   class Gato extends Animal {
-       hacerSonido() {
-           console.log("Miau miau");
-       }
-   }
-   
-   let perro: Animal = new Perro();
-   perro.hacerSonido();  // Guau guau
-   
-   let gato: Animal = new Gato();
-   gato.hacerSonido();  // Miau miau
-   ```
+    class Rectangulo extends Figura {
+        base: number;
+        altura: number;
 
-   - [Covarianza y Contravarianza](./docs/Lenguaje/POO/CovarianzaContravarianza.md):
-   ```typescript
-   class Animal {}
-   
-   class Perro extends Animal {}
-   
-   class Gato extends Animal {}
-   
-   interface ContenedorAnimal {
-       animal: Animal;
-   }
-   
-   let perroContenedor: ContenedorAnimal = { animal: new Perro() };
-   let gatoContenedor: ContenedorAnimal = { animal: new Gato() };
-   ```
+        calcularArea(): number {
+            return this.base * this.altura;
+        }
+    }
 
-3. [Tratamiento de Excepciones](./docs/Lenguaje/Excepciones/Tr
+    let rectangulo = new Rectangulo();
+    rectangulo.base = 4;
+    rectangulo.altura = 5;
+    console.log(rectangulo.calcularArea()); // Output: 20
+    ```
+    - Clases Selladas: Las clases selladas (o `sealed`) son clases que no pueden tener clases hijas adicionales. Ejemplo:
+    ```typescript
+    class Vehiculo {
+        // Código de la clase Vehiculo
+    }
 
-atamientoExcepciones.md):
-```typescript
-try {
-   // Código que puede generar una excepción
-   let resultado = 10 / 0;
-   console.log(resultado);
-} catch (error) {
-   // Manejo de la excepción
-   console.log("Ocurrió un error:", error);
-}
-```
+    class Coche extends Vehiculo {
+        // Código de la clase Coche
+    }
 
-4. **Conceptos Avanzados**
-   - [Atributos](./docs/Lenguaje/ConceptosAvanzados/Atributos.md):
-   ```typescript
-   class Persona {
-       @validarTexto
-       nombre: string;
-   
-       constructor(nombre: string) {
-           this.nombre = nombre;
-       }
-   }
-   
-   function validarTexto(target: any, propertyKey: string) {
-       let value = target[propertyKey];
-   
-       const getter = function () {
-           return value;
-       };
-   
-       const setter = function (nuevoValor: string) {
-           if (typeof nuevoValor !== "string") {
-               throw new Error("El valor debe ser una cadena de texto.");
-           }
-           value = nuevoValor;
-       };
-   
-       Object.defineProperty(target, propertyKey, {
-           get: getter,
-           set: setter,
-           enumerable: true,
-           configurable: true,
-       });
-   }
-   
-   let persona = new Persona("Juan");
-   console.log(persona.nombre);  // Juan
-   persona.nombre = 123;  // Error: El valor debe ser una cadena de texto.
-   ```
+    sealed class Moto extends Vehiculo {
+        // Código de la clase Moto
+    }
 
-   - [Indizadores](./docs/Lenguaje/ConceptosAvanzados/Indizadores.md):
-   ```typescript
-   class ListaNumeros {
-       private numeros: number[] = [];
-   
-       constructor(...numeros: number[]) {
-           this.numeros = numeros;
-       }
-   
-       obtenerNumero(index: number): number {
-           return this.numeros[index];
-       }
-   }
-   
-   let lista = new ListaNumeros(1, 2, 3, 4, 5);
-   console.log(lista.obtenerNumero(2));  // 3
-   ```
+    // No se puede crear una clase hija de Moto
+    ```
 
-   - [Genéricos](./docs/Lenguaje/ConceptosAvanzados/Generics.md):
-   ```typescript
-   function obtenerPrimero<T>(array: T[]): T {
-       return array[0];
-   }
-   
-   let numeros: number[] = [1, 2, 3, 4, 5];
-   let primerNumero: number = obtenerPrimero(numeros);
-   console.log(primerNumero);  // 1
-   
-   let nombres: string[] = ["Juan", "María", "Pedro"];
-   let primerNombre: string = obtenerPrimero(nombres);
-   console.log(primerNombre);  // Juan
-   ```
+3. Tratamiento de Excepciones:
+    En TypeScript, puedes manejar excepciones utilizando bloques `try`, `catch` y `finally`. Aquí tienes un ejemplo:
+    ```typescript
+    try {
+        // Código que puede generar una excepción
+        throw new Error("¡Ha ocurrido un error!");
+    } catch (error) {
+        console.log("Se produjo un error:", error.message);
+    } finally {
+        console.log("Bloque finally ejecutado siempre");
+    }
+    ```
 
-   - [Yield](./docs/Lenguaje/ConceptosAvanzados/Yield.md):
-   ```typescript
-   function* generarNumeros(): Generator<number> {
-       let i = 0;
-       while (true) {
-           yield i++;
-       }
-   }
-   
-   let generador = generarNumeros();
-   console.log(generador.next().value);  // 0
-   console.log(generador.next().value);  // 1
-   console.log(generador.next().value);  // 2
-   ```
+4. **Conceptos Avanzados**:
+    - Atributos: Los atributos son variables asociadas a una clase que representan características o datos de un objeto. Ejemplo:
+    ```typescript
+    class Persona {
+        nombre: string;
+        edad: number;
+    }
 
-   - [Eventos](./docs/Lenguaje/ConceptosAvanzados/Events.md):
-   ```typescript
-   class EventoClick {
-       private listeners: (() => void)[] = [];
-   
-       suscribir(listener: () => void) {
-           this.listeners.push(listener);
-       }
-   
-       disparar() {
-           this.listeners.forEach(listener => listener());
-       }
-   }
-   
-   let boton = new EventoClick();
-   boton.suscribir(() => {
-       console.log("Se hizo clic en el botón");
-   });
-   boton.disparar();  // Se hizo clic en el botón
-   ```
+    let persona = new Persona();
+    persona.nombre = "Juan";
+    persona.edad = 25;
+    ```
 
-## Estudio del API
+    - Indizadores: Los indizadores permiten acceder a los elementos de una clase como si fueran un array. Ejemplo:
+    ```typescript
+    class ListaNumeros {
+        private numeros: number[] = [];
 
-1. **Cadenas**
-   - [String](./docs/ApiLenguaje/Cadenas/String.md):
-   ```typescript
-   let mensaje: string = "¡Hola, TypeScript!";
-   console.log(mensaje.length);  // 17
-   console.log(mensaje.toUpperCase());  // ¡HOLA, TYPESCRIPT!
-   ```
+        setNumero(index: number, valor: number) {
+            this.numeros[index] = valor;
+        }
 
-   - [StringBuilder](./docs/ApiLenguaje/Cadenas/StringBuilder.md):
-   ```typescript
-   class StringBuilder {
-       private value: string = "";
-   
-       append(text: string): void {
-           this.value += text;
-       }
-   
-       toString(): string {
-           return this.value;
-       }
-   }
-   
-   let builder = new StringBuilder();
-   builder.append("Hola, ");
-   builder.append("TypeScript!");
-   console.log(builder.toString());  // Hola, TypeScript!
-   ```
+        getNumero(index: number): number {
+            return this.numeros[index];
+        }
+    }
 
-   - [Expresiones Regulares](./docs/ApiLenguaje/Cadenas/ExpresionesRegulares.md):
-   ```typescript
-   let texto: string = "Hola, 123 mundo!";
-   let patron: RegExp = /\d+/g;
-   let resultados: RegExpExecArray | null;
-   while ((resultados = patron.exec(texto)) !== null) {
-       console.log(resultados[0]);
-   }
-   // Resultado: 123
-   ```
+    let lista = new ListaNumeros();
+    lista.setNumero(0, 10);
+    console.log(lista.getNumero(0)); // Output: 10
+    ```
 
-2. **Colecciones**
-   - [Listas](./docs/ApiLenguaje/Enumerables/Colecciones/List.md):
-   ```typescript
-   let numeros: number[] = [1, 2, 3, 4, 5];
-   console.log(numeros.length);  // 5
-   console.log(numeros[2]);  // 3
-   numeros.push(6);
-   console.log(numeros);  // [1, 2, 3, 4, 5, 6]
-   ```
+    - Generics: Los generics permiten crear componentes reutilizables y flexibles que pueden trabajar con diferentes tipos de datos. Ejemplo:
+    ```typescript
+    class Lista<T> {
+        private elementos: T[] = [];
 
-   - [Diccionarios](./docs/ApiLenguaje/Enumerables/Colecciones/Dictionary.md):
-   ```typescript
-   let diccionario: { [clave: string]: string } = {
-       "uno": "one",
-       "dos": "two",
-       "tres": "three"
-   };
-   
-   console.log(diccionario["uno"]);  // one
-   console.log(diccionario["tres"]);  // three
-   ```
+        agregar(elemento: T) {
+            this.elementos.push(elemento);
+        }
 
-   - [Pilas](./docs/ApiLenguaje/Enumerables/Colecciones/Stack.md):
-   ```typescript
-   let pila: number[] = [];
-   pila.push(1);
-   pila.push(2);
-   pila.push(3);
-   console.log(pila.pop());  // 3
-   console.log(pila);  // [1, 2]
-   ```
+        obtener(indice: number): T {
+            return this.elementos[indice];
+        }
+    }
 
-   - [Colas](./docs/ApiLenguaje/Enumerables/Colecciones/Queue.md):
-   ```typescript
-   let cola: number[] = [];
-   cola.push(1);
-   cola.push(2);
-   cola.push(3);
-   console.log(cola.shift());  // 1
-   console.log(cola);  // [2, 3]
-   ```
+    let listaNumeros = new Lista<number>();
+    listaNumeros.agregar(1);
+    listaNumeros.agregar(2);
+    console.log(listaNumeros.obtener(0)); // Output: 1
 
-3. [Consultas Acceso a Colecciones](./docs/ApiLenguaje/Enumerables/ConsultaDatos.md):
-   ```typescript
-   let numeros: number[] = [1, 2, 3, 4, 5];
-   let numerosPares = numeros.filter(numero => numero % 2 === 0);
-   console.log(numerosPares);  // [2, 4]
+    let listaStrings = new Lista<string>();
+    listaStrings.agregar("Hola");
+    listaStrings.agregar("Mundo");
+    console.log(listaStrings.obtener(1)); // Output: Mundo
+    ```
 
-   let suma = numeros.reduce((acumulador, numero) => acumulador + numero, 0);
-   console.log(suma);  // 15
+    - Yield: La palabra clave `yield` se utiliza en funciones generadoras para pausar y reanudar la ejecución de una función. Ejemplo:
+    ```typescript
+    function* generarSecuencia() {
+        yield 1;
+        yield 2;
+        yield 3;
+    }
 
-   let existeTres = numeros.some(numero => numero === 3);
-   console.log(existeTres);  // true
+    let secuencia = generarSecuencia();
+    console.log(secuencia.next().value); // Output: 1
+    console.log(secuencia.next().value); // Output: 2
+    console.log(secuencia.next().value); // Output: 3
+    ```
 
-   let todosMayoresCero = numeros.every(numero => numero > 0);
-   console.log(todosMayoresCero);  // true
-   ```
+    - Events: TypeScript admite el uso de eventos para notificar o responder a acciones o cambios en el sistema. Ejemplo:
+    ```typescript
+    class EventoClick {
+        private listeners: ((data: string) => void)[] = [];
 
-1. **Threads** (continuación)
-   - [MultiThreading](./docs/ApiLenguaje/Threading/MultiThreading.md):
-   ```typescript
-   function contarNumeros() {
-       for (let i = 0; i <= 10; i++) {
-           console.log(i);
-       }
-   }
-   
-   setTimeout(contarNumeros, 1000);  // Ejecutar después de 1 segundo
-   console.log("Contando...");
-   ```
+        agregarListener(listener: (data: string) => void) {
+            this.listeners.push(listener);
+        }
 
-   - [Sincronizar Hilos](./docs/ApiLenguaje/Threading/SyncThreads.md):
-   ```typescript
-   function contarNumeros() {
-       for (let i = 0; i <= 10; i++) {
-           console.log(i);
-       }
-   }
-   
-   setInterval(contarNumeros, 1000);  // Ejecutar cada 1 segundo
-   console.log("Contando...");
-   ```
+        dispararEvento(data: string) {
+            this.listeners.forEach(listener => listener(data));
+        }
+    }
 
-   - [Async & await](./docs/ApiLenguaje/Threading/Async.md):
-   ```typescript
-   function esperar(ms: number): Promise<void> {
-       return new Promise(resolve => setTimeout(resolve, ms));
-   }
-   
-   async function proceso() {
-       console.log("Inicio del proceso");
-       await esperar(2000);  // Esperar 2 segundos
-       console.log("Fin del proceso");
-   }
-   
-   proceso();
-   console.log("Continuando con otras tareas...");
-   ```
-
-2. **Escritura y Lectura** (continuación)
-   - Archivos de Texto
-       - [File](./docs/ApiLenguaje/InputOutput/TextFiles/File.md):
-       ```typescript
-       // Ejemplo de lectura y escritura de archivos de texto con 'fs' en Node.js
-       import * as fs from "fs";
-   
-       fs.readFile("archivo.txt", "utf-8", (error, data) => {
-           if (error) {
-               console.error("Error al leer el archivo:", error);
-           } else {
-               console.log("Contenido del archivo:", data);
-           }
-       });
-   
-       fs.writeFile("archivo.txt", "Hola, Mundo!", "utf-8", error => {
-           if (error) {
-               console.error("Error al escribir en el archivo:", error);
-           } else {
-               console.log("Archivo escrito exitosamente.");
-           }
-       });
-       ```
-
-   - [Serializar objetos](./docs/ApiLenguaje/InputOutput/Serialization/Serializacion.md):
-       - [JSON](./docs/ApiLenguaje/InputOutput/Serialization/JSON.md):
-       ```typescript
-       interface Persona {
-           nombre: string;
-           edad: number;
-       }
-       
-       let persona: Persona = {
-           nombre: "Juan",
-           edad: 25
-       };
-       
-       let personaJson: string = JSON.stringify(persona);
-       console.log(personaJson);
-       
-       let personaDeserializada: Persona = JSON.parse(personaJson);
-       console.log(personaDeserializada);
-       ```
-
-       - [XML](./docs/ApiLenguaje/InputOutput/Serialization/XML.md):
-       ```typescript
-       // Ejemplo de serialización y deserialización de XML omitido por simplicidad
-       // Puedes usar librerías como 'xml2js' para trabajar con XML en TypeScript
-       ```
-
-3. **Uso de Internet**
-   - [Consulta HTTP](./docs/ApiLenguaje/Network/HttpClient.md):
-   ```typescript
-   import axios from "axios";
-   
-   axios.get("https://api.example.com/data")
-       .then(response => {
-           console.log(response.data);
-       })
-       .catch(error => {
-           console.error("Error al realizar la consulta HTTP:", error);
-       });
-   ```
-
-4. [Delegados](./docs/ApiLenguaje/Delegados.md):
-   ```typescript
-   // Los delegados no están disponibles en TypeScript directamente, pero puedes usar funciones como alternativa
-   
-   type OperacionMatematica = (a: number, b: number) => number;
-   
-   function sumar(a: number, b: number): number {
-       return a + b;
-   }
-   
-   function multiplicar(a: number, b: number): number {
-       return a * b;
-   }
-   
-   let operacion: OperacionMatematica = sumar;
-   console.log(operacion(2, 3));  // 5
-   
-   operacion = multiplicar;
-   console.log(operacion(2, 3));  // 6
-   ```
-
-   ¡Por supuesto! Aquí tienes la continuación de la respuesta desde el punto de Caching:
-
-8. Estudio de Librerías Externas (continuación)
-   - [Caching](./docs/Librerias/Caching/CacheMemoriaMemory.md):
-   ```typescript
-   // Ejemplo de uso de una librería de caching en memoria omitido por simplicidad
-   // Puedes utilizar librerías como 'node-cache' o 'lru-cache' para implementar el caching en TypeScript
-   
-   import NodeCache from "node-cache";
-   
-   const cache = new NodeCache();
-   
-   function obtenerDatos(key: string): any {
-       const data = cache.get(key);
-       if (data) {
-           console.log("Obteniendo datos de la caché...");
-           return data;
-       } else {
-           console.log("Obteniendo datos de la fuente...");
-           // Obtener datos de la fuente de datos (por ejemplo, una base de datos o una API)
-           const newData = { /* Datos obtenidos */ };
-           cache.set(key, newData);
-           return newData;
-       }
-   }
-   
-   console.log(obtenerDatos("datos-1"));  // Obteniendo datos de la fuente...
-   console.log(obtenerDatos("datos-1"));  // Obteniendo datos de la caché...
-   ```
-
-9. [Pruebas Unitarias](./docs/Librerias/Testing/UnitTesting.md):
-   ```typescript
-   // Ejemplo de uso de una librería de pruebas unitarias omitido por simplicidad
-   // Puedes utilizar librerías como 'Mocha' o 'Jest' para escribir y ejecutar pruebas unitarias en TypeScript
-   
-   import { sumar } from "./operaciones";
-   import { expect } from "chai";
-   
-   describe("Operaciones", () => {
-       it("debería sumar dos números correctamente", () => {
-           const resultado = sumar(2, 3);
-           expect(resultado).to.equal(5);
-       });
-   });
-   ```
-
-10. [Logging](./docs/Librerias/Logging/Logging.md):
-   ```typescript
-   import winston from "winston";
-   
-   const logger = winston.createLogger({
-       level: "info",
-       format: winston.format.json(),
-       transports: [
-           new winston.transports.Console(),
-           new winston.transports.File({ filename: "logfile.log" })
-       ]
-   });
-   
-   logger.info("Mensaje de información");
-   logger.warn("Mensaje de advertencia");
-   logger.error("Mensaje de error");
-   ```
+    let evento = new EventoClick();
+    evento.agregarListener(data => console.log(`Se hizo clic en ${data}`));
+    evento.dispararEvento("botón");
+    // Output: Se hizo clic en botón
+    ```
