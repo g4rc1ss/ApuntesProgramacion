@@ -26,7 +26,7 @@ Lista de contenido en el que se explica el lenguaje, la programación Orientada 
     - Yield
     - Events
 
-## Librerias internas
+## Estudio del API
 Uso del API interno del lenguaje
 
 1. **Cadenas**
@@ -38,13 +38,6 @@ Uso del API interno del lenguaje
     - Diccionarios
     - Pilas
     - Colas
-1. **Database**
-    - Acceso a datos
-        - MySQL
-        - SQLite
-        - PostgreSQL
-        - MongoDB
-        - LiteDB
 1. **Threads**
     - MultiThreading
     - Sincronizar Hilos
@@ -52,8 +45,6 @@ Uso del API interno del lenguaje
         - Async & await
         - Parallel
 1. **Escritura y Lectura**
-    - Stream
-    - MemoryStream
     - Archivos de Texto
         - Binarios
         - File
@@ -74,6 +65,13 @@ Uso de bibliotecas externas
 
 1. **Inyeccion de Dependencias**
 1. **Logging**
+1. **Database**
+    - Acceso a datos
+        - MySQL
+        - SQLite
+        - PostgreSQL
+        - MongoDB
+        - LiteDB
 1. **ORM(Object Relational Mapper)**
 1. **Caching**:
     - Cache en Memoria
