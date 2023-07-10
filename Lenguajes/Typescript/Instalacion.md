@@ -12,7 +12,9 @@ npm init
 Para usar typescript tenemos que instalarlo como si de una dependencia se tratase, por tanto:
 
 ```powershell
-npm install typescript
+npm install -save-dev typescript
+npm install -save-dev rimraf
+
 ```
 
 ## Configurar
@@ -21,8 +23,13 @@ npm install typescript
 Abrimos el archivo **package.json** y agregamos la siguiente opcion
 ```json
 "scripts": {
-    "tsc": "tsc"
-}
+  "build": "npm install && npm run tsc",
+  "tsc": "tsc",
+  "dev": "ts-node-dev --respawn --transpile-only ./app/app.ts",
+  "prod": "tsc && node ./build/app.js",
+  "reinstall": "npm run remove-node-modules && npm install",
+  "clean": ""rimraf ./node_modules ./build""
+},
 ```
 Ejecutamos el siguiente comando
 ```powershell
@@ -41,18 +48,7 @@ Instalamos el modulo **ts-node-dev**
 npm install --save-dev ts-node-dev
 ```
 
-Dentro del **package.json** agregamos dos scripts mas, uno para entorno de desarrollo y otro para produccion.
-
-```json
-"scripts": {
-  "build": "npm install && npm run tsc",
-  "tsc": "tsc",
-  "dev": "ts-node-dev --respawn --transpile-only ./app/app.ts",
-  "prod": "tsc && node ./build/app.js",
-  "reinstall": "npm run remove-node-modules && npm install",
-  "clean": "npx rimraf node_modules **/node_modules && npx rimraf ./build"
-},
-```
+Dentro del tenemos dos scripts, uno para entorno de desarrollo y otro para produccion.
 
 Para ejecutar el programa, se puede usar el comando
 ```powershell

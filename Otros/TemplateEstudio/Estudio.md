@@ -1,4 +1,8 @@
-## Contenido basico
+# Estudio Lenguaje
+Índice ordenado para estudiar el uso del lenguaje y las librerias mas utilizadas tanto del API, como librerias externas.
+
+
+## Estudio basico
 Lista de contenido en el que se explica el lenguaje, la programación Orientada a Objetos, las excepciones, etc.
 
 1. **Estructura del Código**
@@ -26,8 +30,9 @@ Lista de contenido en el que se explica el lenguaje, la programación Orientada 
     - Yield
     - Events
 
-## Librerias internas
-Uso del API interno del lenguaje
+
+## Estudio del API
+Documentacion sobre el uso de librerias del API
 
 1. **Cadenas**
     - String
@@ -38,43 +43,44 @@ Uso del API interno del lenguaje
     - Diccionarios
     - Pilas
     - Colas
-1. **Database**
-    - Acceso a datos
-        - MySQL
-        - SQLite
-        - PostgreSQL
-        - MongoDB
-        - LiteDB
+1. Consultas Acceso a Colecciones
 1. **Threads**
     - MultiThreading
     - Sincronizar Hilos
-    - Task Parallel Library
-        - Async & await
-        - Parallel
+    - Async & await
 1. **Escritura y Lectura**
-    - Stream
-    - MemoryStream
     - Archivos de Texto
         - Binarios
         - File
-        - Usando Streams
     - Serializar objetos
         - JSON
         - XML
 1. **Uso de Internet**
-    - HttpClient
+    - Consulta Http
     - HttpMessageHandler
-1. Delegados(arrow functions)
+1. Delegados
 1. Reflexion
 1. Gestion de Memoria
 1. Interoperabilidad
 
-## Librerias externas
-Uso de bibliotecas externas
+## Estudio de Librerias Externas
+Documentación sobre el uso de librerias o frameworks que no estan alojados en el API, se suelen instalar mediante un gestor de paquetes como NPM, Nuget, etc.
 
 1. **Inyeccion de Dependencias**
-1. **Logging**
-1. **ORM(Object Relational Mapper)**
+1. **Logging**: Los logs son cadenas de texto que se almacenan y son utilizados para guardar registro de las acciones que se han realizado en la aplicación.
+    - Logging con 
 1. **Caching**:
     - Cache en Memoria
+    - Cache Distribuida con Redis
+1. Protección de Datos
+1. Middleware
+1. **Database**
+    - MySQL
+    - SQLite
+    - PostgreSQL
+    - MongoDB
+    - LiteDB
+
+1. **Database ORM**
+
 1. **Testing**
