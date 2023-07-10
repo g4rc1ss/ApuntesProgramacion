@@ -1,26 +1,43 @@
-Muchos equipos y estaciones de trabajo personales tienen varios núcleos de CPU que permiten ejecutar múltiples subprocesos simultáneamente. Para aprovecharse del hardware, se puede paralelizar el código para distribuir el trabajo entre dichos núcleos.
+TypeScript se ejecuta en un entorno de un solo hilo, por lo que no es compatible con el multihilo directamente. No obstante existen tecnicas y librerias creadas por node para suplir este problema.
 
-# Thread
-Crea y controla un subproceso para procesar un codigo en otro hilo de ejecucion.
-```Csharp
-var hilo = new Thread(() =>
-{
-    for (int i = 0; i < 5; i++)
-    {
-        Console.WriteLine($"Hilo {i}");
-    }
+## Clustering
+Node.js proporciona el módulo cluster que te permite crear un clúster de procesos hijo para aprovechar los múltiples núcleos del procesador. Cada proceso hijo se ejecuta en un hilo separado, lo que permite realizar tareas en paralelo.
+
+```typescript
+import cluster from 'cluster';
+import os from 'os';
+
+if (cluster.isMaster) {
+  const numCPUs = os.cpus().length;
+
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`Proceso hijo ${worker.process.pid} finalizado`);
+  });
+} else {
+  // Lógica del proceso hijo
+  // Realizar tareas en paralelo aquí
+  console.log(`Proceso hijo ${process.pid} iniciado`);
+}
+```
+Se crea un clúster de procesos utilizando el número de núcleos disponibles en el sistema. Cada proceso hijo ejecutará la lógica definida dentro del bloque else. Puedes realizar tareas en paralelo en cada proceso hijo para aprovechar el paralelismo.
+
+## Hilos de Trabajo (Workers)
+Node también admite la creación de hilos de trabajo (workers) utilizando el módulo `worker_threads`. Los hilos de trabajo son hilos independientes que se ejecutan en paralelo y permiten realizar tareas en segundo plano sin bloquear el hilo principal. 
+
+```typescript
+import { Worker } from 'worker_threads';
+
+const worker = new Worker('./worker.js');
+
+worker.on('message', (message) => {
+  console.log('Mensaje del hilo de trabajo:', message);
 });
-hilo.Start();
+
+worker.postMessage('¡Hola desde el hilo principal!');
 ```
 
-# ThreadPool
-Proporciona un grupo de subprocesos que pueden usarse para ejecutar tareas, exponer elementos de trabajo, procesar la E/S asincrona, esperar en nombre de otros subprocesos y procesar temporizadores.
-
-Muchas aplicaciones crean subprocesos que invierten mucho tiempo en el estado inactivo, a la espera de que se produzca un evento. Otros subprocesos pueden entrar en un estado de inactividad que solo se activa periódicamente para sondear un cambio o información de estado de actualización. El grupo de subprocesos permite usar subprocesos de forma más eficaz al proporcionar a la aplicación un grupo de subprocesos de trabajo administrados por el sistema.
-
-```Csharp
-ThreadPool.QueueUserWorkItem(x =>
-{
-    Console.WriteLine($"Id Thread: {Thread.CurrentThread.ManagedThreadId}");
-});
-```
+En este ejemplo, creamos un hilo de trabajo utilizando el archivo worker.js. El hilo de trabajo se ejecuta en paralelo al hilo principal y puede recibir y enviar mensajes utilizando el método postMessage y el evento message.

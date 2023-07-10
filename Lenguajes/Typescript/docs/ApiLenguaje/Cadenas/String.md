@@ -1,34 +1,53 @@
-Una cadena es un objeto de tipo String cuyo valor es texto. Internamente, el 
-texto se almacena como una colección secuencial de solo lectura de 
-objetos Char.
+Los strings son utilizados para representar texto y se consideran un tipo de dato primitivo. Los strings pueden contener caracteres alfanuméricos, espacios, símbolos y otros caracteres especiales. 
 
-1. `Replace`: Devuelve una cadena en la que se reemplazan los caracteres introducidos, el primero es el valor a cambiar y el segundo parametro el nuevo valor
-1. `Split`: Devuelve un Array con la cadena separada dividiéndola cada vez que encuentre el char enviado, por defecto sera el símbolo '-'
-1. `IndexOf`: Devuelve el indice donde se encuentra el caracter indicado
-1. `CompareTo`: Compara el string con otro objeto, como por ejemplo, otra cadena
-1. `SubString`: Devuelve los caracteres entre una posicion de indice y otra, si no se indica la otra se devolvera la cadena desde el indice inicial
+**Declaración de strings:**
 
-# Literales
-| Secuencia de escape | Nombre de carácter | Codificación Unicode |
-| ------------------- | ------------------ | -------------------- |
-| `\'` | Comilla simple | 0x0027
-| `\"` | Comilla doble  | 0x0022
-| `\\` | Barra diagonal inversa | 0x005C
-| `\0` | Null | 0x0000
-| `\a` | Alerta | 0x0007
-| `\b` | Retroceso | 0x0008
-| `\f` | Avance de página | 0x000C
-| `\n` | Nueva línea | 0x000A
-| `\r` | Retorno de carro | 0x000D
-| `\t` | Tabulación horizontal | 0x0009
-| `\U` | Secuencia de escape Unicode para pares suplentes. | `\Unnnnnnnn`
-| `\u` | Secuencia de escape Unicode | `\u0041` = "A"
-| `\v` | Tabulación vertical | 0x000B
-| `\x` | Secuencia de escape Unicode similar a "\u" | \x0041 o \x41 = "A"
+Puedes declarar strings utilizando comillas simples (`'`) o comillas dobles (`"`). Aquí tienes un ejemplo:
 
-# Interpolacion de Cadenas
-La interpolación de cadenas se usa para mejorar la legibilidad y el mantenimiento del código. Se obtienen los mismos resultados que con el método `String.Format`, pero mejora la facilidad de uso y la claridad en línea.
-```csharp
-var saludo = "Hola";
-Console.WriteLine($"{saludo} terricola");
+```typescript
+let mensaje: string = "Hola";
+let nombre: string = 'Juan';
+```
+
+En el ejemplo, declaramos las variables `mensaje` y `nombre` como strings utilizando comillas dobles y comillas simples, respectivamente.
+
+**Concatenación de strings:**
+
+Puedes concatenar strings utilizando el operador `+` o el método `concat()`. Aquí tienes un ejemplo:
+
+```typescript
+let saludo: string = "Hola";
+let nombre: string = "Juan";
+let mensaje: string = saludo + ", " + nombre;
+console.log(mensaje); // Salida: Hola, Juan
+
+let mensajeConcatenado: string = saludo.concat(", ", nombre);
+console.log(mensajeConcatenado); // Salida: Hola, Juan
+```
+
+En el ejemplo, concatenamos los strings `saludo` y `nombre` utilizando el operador `+` y el método `concat()`, respectivamente. El resultado es el mismo en ambos casos: "Hola, Juan".
+
+**Métodos comunes de strings:**
+
+Existen varios métodos disponibles para manipular y trabajar con strings en TypeScript. Aquí tienes algunos métodos comunes:
+
+- `length`: Devuelve la longitud del string.
+- `charAt(index)`: Devuelve el carácter en la posición especificada por el índice.
+- `substring(startIndex, endIndex)`: Devuelve una subcadena del string, desde la posición `startIndex` hasta `endIndex`.
+- `toUpperCase()`: Convierte el string a mayúsculas.
+- `toLowerCase()`: Convierte el string a minúsculas.
+- `trim()`: Elimina los espacios en blanco al inicio y al final del string.
+- `split(delimiter)`: Divide el string en un array de subcadenas, utilizando `delimiter` como separador.
+
+Aquí tienes un ejemplo que muestra el uso de algunos de estos métodos:
+
+```typescript
+let mensaje: string = "   Hola, Juan   ";
+console.log(mensaje.length); // Salida: 15
+console.log(mensaje.charAt(0)); // Salida: " "
+console.log(mensaje.substring(6, 10)); // Salida: "Juan"
+console.log(mensaje.toUpperCase()); // Salida: "   HOLA, JUAN   "
+console.log(mensaje.toLowerCase()); // Salida: "   hola, juan   "
+console.log(mensaje.trim()); // Salida: "Hola, Juan"
+console.log(mensaje.split(", ")); // Salida: ["Hola", "Juan"]
 ```

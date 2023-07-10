@@ -24,7 +24,6 @@ Lista de contenido en el que se explica el lenguaje, la programación Orientada 
 1. [Tratamiento de Excepciones](./docs/Lenguaje/Excepciones/TratamientoExcepciones.md)
 1. **Conceptos Avanzados**
     - [Atributos](./docs/Lenguaje/ConceptosAvanzados/Atributos.md)
-    - [Indizadores](./docs/Lenguaje/ConceptosAvanzados/Indizadores.md)
     - [Generics](./docs/Lenguaje/ConceptosAvanzados/Generics.md)
     - [Yield](./docs/Lenguaje/ConceptosAvanzados/Yield.md)
     - [Events](./docs/Lenguaje/ConceptosAvanzados/Events.md)
@@ -40,48 +39,40 @@ Documentacion sobre el uso de librerias del API
 1. **Colecciones**
     - [Listas](./docs/ApiLenguaje/Enumerables/Colecciones/List.md)
     - [Diccionarios](./docs/ApiLenguaje/Enumerables/Colecciones/Dictionary.md)
-    - [Pilas](./docs/ApiLenguaje/Enumerables/Colecciones/Stack.md)
-    - [Colas](./docs/ApiLenguaje/Enumerables/Colecciones/Queue.md)
 1. [Consultas Acceso a Colecciones](./docs/ApiLenguaje/Enumerables/ConsultaDatos.md)
 1. **Threads**
     - [MultiThreading](./docs/ApiLenguaje/Threading/MultiThreading.md)
-    - [Sincronizar Hilos](./docs/ApiLenguaje/Threading/SyncThreads.md)
     - [Async & await](./docs/ApiLenguaje/Threading/Async.md)
 1. **Escritura y Lectura**
     - Archivos de Texto
         - [Binarios](./docs/ApiLenguaje/InputOutput/TextFiles/Binary.md)
         - [File](./docs/ApiLenguaje/InputOutput/TextFiles/File.md)
-    - [Serializar objetos](./docs/ApiLenguaje/InputOutput/Serialization/Serializacion.md)
+    - Serializar objetos
         - [JSON](./docs/ApiLenguaje/InputOutput/Serialization/JSON.md)
-        - [XML](./docs/ApiLenguaje/InputOutput/Serialization/XML.md)
-1. **Uso de Internet**
-    - [Consulta Http](./docs/ApiLenguaje/Network/HttpClient.md)
-    - [HttpMessageHandler](./docs/ApiLenguaje/Network/HttpMessageHandler.md)
 1. [Delegados](./docs/ApiLenguaje/Delegados.md)
-1. [Reflexion](./docs/ApiLenguaje/Reflexion.md)
-1. [Gestion de Memoria](./docs/ApiLenguaje/GestionMemoria.md)
-1. [Interoperabilidad](./docs/ApiLenguaje/Interoperabilidad.md)
 
 ## Estudio de Librerias Externas
 Documentación sobre el uso de librerias o frameworks que no estan alojados en el API, se suelen instalar mediante un gestor de paquetes como NPM, Nuget, etc.
 
+1. **Uso de Internet**
+    - [Consulta Http](./docs/Librerias/Network/ConsultasHttp.md)
 1. [**Inyeccion de Dependencias**](./docs/Librerias/DependencyInjection/DependencyInjection.md)
 1. **Logging**: Los logs son cadenas de texto que se almacenan y son utilizados para guardar registro de las acciones que se han realizado en la aplicación.
     - [Logging con ](./docs/Librerias/Logging/Logging.md)
 1. **Caching**:
     - [Cache en Memoria](./docs/Librerias/Caching/CacheMemoriaMemory.md)
     - [Cache Distribuida con Redis](./docs/Librerias/Caching/CacheServerRedis.md)
-1. [Protección de Datos](./docs/Librerias/IDataProtectionProvider.md)
+1. [Protección de Datos](./docs/Librerias/ProteccionDatos.md)
 1. [Middleware](./docs/Librerias/Middleware.md)
 1. **Database**
-    - [MySQL](./docs/Librerias/Database/.md)
-    - [SQLite](./docs/Librerias/Database/.md)
-    - [PostgreSQL](./docs/Librerias/Database/.md)
-    - [MongoDB](./docs/Librerias/Database/.md)
-    - [LiteDB](./docs/Librerias/Database/.md)
+    - [MySQL](./docs/Librerias/Database/MySQL.md)
+    - [SQLite](./docs/Librerias/Database/SQLite.md)
+    - [PostgreSQL](./docs/Librerias/Database/PostgreSQL.md)
+    - [MongoDB](./docs/Librerias/Database/MongoDB.md)
+    - [LiteDB](./docs/Librerias/Database/LiteDB.md)
 
 1. **Database ORM**
-    - [](./docs/Librerias/DatabaseORM/.md)
+    - [TypeORM](./docs/Librerias/DatabaseORM/TypeORM.md)
 
 1. **Testing**
-    - [](./docs/Librerias/Testing/Test.md)
+    - [jest](./docs/Librerias/Testing/Test.md)

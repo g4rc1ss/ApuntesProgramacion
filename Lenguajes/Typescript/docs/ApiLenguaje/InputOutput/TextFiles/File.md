@@ -1,27 +1,28 @@
-## File
-La clase File se usa para operaciones típicas como copiar, mover, cambiar el nombre, crear, abrir, eliminar y anexar a un único archivo cada vez
+**Lectura de un archivo de texto:**
 
-### Create
-```Csharp
-using var file = File.Create(archivo);
+```typescript
+import { readFile } from 'fs';
+
+// Ruta del archivo de texto
+const rutaArchivo = 'ruta/del/archivo.txt';
+
+// Lectura del archivo de texto
+readFile(rutaArchivo, 'utf8', (error, datos) => {
+  if (error) {
+    console.error('Error al leer el archivo:', error);
+    return;
+  }
+  
+  console.log('Contenido del archivo de texto:', datos);
+});
 ```
 
-### Delete
-```Csharp
-File.Delete(archivo);
-```
+En este ejemplo, utilizamos la función `readFile()` para leer el contenido del archivo de texto especificado en la `rutaArchivo`. El segundo parámetro `'utf8'` indica la codificación del archivo de texto. En la devolución de llamada, verificamos si se produjo algún error durante la lectura y, de ser así, lo mostramos en la consola. Si la lectura se realiza correctamente, mostramos el contenido del archivo de texto en la consola.
 
-### Lectura
-1. `ReadAllTextAsync`: Abre de forma asincrona un archivo de texto, lee todo el texto del archivo y, a continuación, cierra el archivo.
-1. `ReadAllBytesAsync`: Abre de forma asincrona un archivo binario, lee su contenido, lo introduce en una matriz de bytes y, a continuación, cierra el archivo.
-1. `ReadAllLinesAsync`: Abre de forma asincrona un archivo de texto, lee todas sus líneas y, a continuación, cierra el archivo.
+**Consideraciones adicionales:**
 
-### Escritura
-1. `WriteAllTextAsync`: Crea de forma asincrona un archivo nuevo, escribe en él la cadena especificada y, a continuación, lo cierra. Si el archivo de destino ya existe, se sobrescribe.
-1. `WriteAllBytesAsync`: Crea de forma asincrona un archivo nuevo, escribe en él la matriz de bytes especificada y, a continuación, lo cierra. Si el archivo de destino ya existe, se sobrescribe.
-1. `WriteAllLinesAsync`: Crea de forma asincrona un archivo nuevo, escribe en él las líneas especificadas y, a continuación, lo cierra.
+Al leer archivos de texto, ten en cuenta las siguientes consideraciones:
 
-### Copia
-```Csharp
-File.Copy(nombreArchivoOrigen, nombreArchivoDestino);
-```
+- Asegúrate de proporcionar la ruta correcta del archivo en la `rutaArchivo`. Puedes utilizar rutas relativas o absolutas según tus necesidades.
+- El segundo parámetro de `readFile()` especifica la codificación del archivo de texto. Si no se proporciona, los datos se devolverán como un objeto `Buffer`. Si conoces la codificación del archivo, asegúrate de especificarla para obtener el contenido en formato de cadena de texto.
+- Si necesitas leer archivos grandes o realizar operaciones más complejas, como leer el archivo en fragmentos o realizar análisis y procesamiento adicional, puedes considerar el uso de `createReadStream()` en lugar de `readFile()`. `createReadStream()` te permite leer el archivo en fragmentos y trabajar con ellos de manera eficiente.
