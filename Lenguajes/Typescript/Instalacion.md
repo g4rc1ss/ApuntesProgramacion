@@ -13,6 +13,8 @@ Para usar typescript tenemos que instalarlo como si de una dependencia se tratas
 
 ```powershell
 npm install -save-dev typescript
+npm install -save-dev rimraf
+
 ```
 
 ## Configurar
@@ -26,7 +28,7 @@ Abrimos el archivo **package.json** y agregamos la siguiente opcion
   "dev": "ts-node-dev --respawn --transpile-only ./app/app.ts",
   "prod": "tsc && node ./build/app.js",
   "reinstall": "npm run remove-node-modules && npm install",
-  "clean": "npx rimraf node_modules **/node_modules && npx rimraf ./build"
+  "clean": ""rimraf ./node_modules ./build""
 },
 ```
 Ejecutamos el siguiente comando

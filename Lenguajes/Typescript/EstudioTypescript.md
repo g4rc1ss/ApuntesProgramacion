@@ -5,7 +5,7 @@
 ## Estudio basico
 Lista de contenido en el que se explica el lenguaje, la programación Orientada a Objetos, las excepciones, etc.
 
-1. [**Estructura del Código**](./docs/Lenguaje/EstructuraCodigo/EstructuraCodigo.md)
+1. **Estructura del Código**
     - [Variables](./docs/Lenguaje/EstructuraCodigo/Variables.md)
     - [Condicionales](./docs/Lenguaje/EstructuraCodigo/InstruccionSeleccion.md)
     - [Bucles](./docs/Lenguaje/EstructuraCodigo/InstruccionIteracion.md)
@@ -18,7 +18,6 @@ Lista de contenido en el que se explica el lenguaje, la programación Orientada 
     - [Propiedades](./docs/Lenguaje/POO/Properties.md)
     - [Herencia](./docs/Lenguaje/POO/Herencia.md)
     - [Clases Abstractas](./docs/Lenguaje/POO/ClasesAbstractas.md)
-    - [Clases Selladas](./docs/Lenguaje/POO/SealedClass.md)
     - [Interfaces](./docs/Lenguaje/POO/Interfaces.md)
     - [Polimorfismo](./docs/Lenguaje/POO/Polimorfismo.md)
     - [Covarianza & Contravarianza](./docs/Lenguaje/POO/CovarianzaContravarianza.md)
