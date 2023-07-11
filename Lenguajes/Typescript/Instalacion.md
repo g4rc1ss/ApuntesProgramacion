@@ -28,7 +28,7 @@ Abrimos el archivo **package.json** y agregamos la siguiente opcion
   "dev": "ts-node-dev --respawn --transpile-only ./app/app.ts",
   "prod": "tsc && node ./build/app.js",
   "reinstall": "npm run remove-node-modules && npm install",
-  "clean": ""rimraf ./node_modules ./build""
+  "clean": "rimraf ./node_modules ./build"
 },
 ```
 Ejecutamos el siguiente comando
