@@ -196,7 +196,7 @@ Ejecutar las pruebas con:
 
 `$ python3 fmatemat4.py -v`
 
-```
+```bash
 Trying:
     from datetime import datetime
 Expecting nothing
@@ -253,8 +253,9 @@ def impar(n):
 if __name__ == '__main__':    
     import doctest
     doctest.testmod()
+```
 
-
+```bash
 Ejecutar las pruebas con:
 
 $ python3 fmatemat5.py -v
@@ -275,7 +276,7 @@ ok
 1 items passed all tests:
    2 tests in __main__.impar
 2 tests in 2 items.
-````
+```
 Si en una salida se esperan tabuladores es recomendable habilitar la directiva NORMALIZE_WHITESPACE para una correcta evaluación de las pruebas.
 
 Para poder utilizar barras invertidas "\\" en salidas como parte de los mensajes sin producir efectos adversos (por ejemplo, produciendo un salto de línea '\n') deben incluirse en cadenas crudas (raw) o bien escribirse por duplicado '\\\\'.

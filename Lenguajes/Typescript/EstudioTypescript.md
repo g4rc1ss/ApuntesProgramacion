@@ -58,7 +58,7 @@ Documentación sobre el uso de librerias o frameworks que no estan alojados en e
     - [Consulta Http](./docs/Librerias/Network/ConsultasHttp.md)
 1. [**Inyeccion de Dependencias**](./docs/Librerias/DependencyInjection/DependencyInjection.md)
 1. **Logging**: Los logs son cadenas de texto que se almacenan y son utilizados para guardar registro de las acciones que se han realizado en la aplicación.
-    - [Logging con ](./docs/Librerias/Logging/Logging.md)
+    - [Logging](./docs/Librerias/Logging/Logging.md)
 1. **Caching**:
     - [Cache en Memoria](./docs/Librerias/Caching/CacheMemoriaMemory.md)
     - [Cache Distribuida con Redis](./docs/Librerias/Caching/CacheServerRedis.md)
