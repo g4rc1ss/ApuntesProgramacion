@@ -14,7 +14,7 @@ Para usar typescript tenemos que instalarlo como si de una dependencia se tratas
 ```powershell
 npm install -save-dev typescript
 npm install -save-dev rimraf
-
+npm install -save-dev tsc
 ```
 
 ## Configurar
