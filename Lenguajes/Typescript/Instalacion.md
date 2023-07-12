@@ -23,12 +23,12 @@ npm install -save-dev rimraf
 Abrimos el archivo **package.json** y agregamos la siguiente opcion
 ```json
 "scripts": {
-  "build": "npm install && npm run tsc",
-  "tsc": "tsc",
-  "dev": "ts-node-dev --respawn --transpile-only ./app/app.ts",
-  "prod": "tsc && node ./build/app.js",
-  "reinstall": "npm run remove-node-modules && npm install",
-  "clean": "rimraf ./node_modules ./build"
+    "build": "npm install && npm run tsc",
+    "tsc": "tsc",
+    "dev": "ts-node-dev --respawn --transpile-only ./app.ts",
+    "prod": "tsc && node ./build/app.js",
+    "reinstall": "npm run clean && npm install",
+    "clean": "rimraf ./node_modules ./build"
 },
 ```
 Ejecutamos el siguiente comando
@@ -46,6 +46,7 @@ Hay un modulo en Node, que nos permite directamente la ejecucion de `Typescript`
 Instalamos el modulo **ts-node-dev**
 ```powershell
 npm install --save-dev ts-node-dev
+npm install --save-dev @types/node
 ```
 
 Dentro del tenemos dos scripts, uno para entorno de desarrollo y otro para produccion.
@@ -93,20 +94,16 @@ npm --save-dev @types/express
 Para comprobar que funciona, nos vamos al `app.ts` y agregamos el siguiente codigo.
 
 ```Typescript
-import express = require('express')
+import express, { Request, Response, NextFunction } from "express";
 
-const port: number = 3000;
-const app: express.Application = express();
+const app = express();
+app.listen(55434);
+app.use(express.json())
 
-app.use(express.json)
 
-app.listen(port, function () {
-    console.log(`Corriendo en el puerto ${port}`);
-})
-
-app.get('/', function (request, response) {
-    response.send('Holaaaaaaaa, prueba con Typescrit');
-})
+app.get('/', async (request: Request, response: Response) => {
+    response.json('Holaaaaaaaa, prueba con Typescrit');
+});
 ```
 
 # React
@@ -119,5 +116,5 @@ npx create-react-app typescript-react --template typescript
 Si tenemos un proyecto ya escrito en Javascript y queremos pasarlo a Typescript, podemos instalar las siguientes dependencias
 
 ```powershell
-npm install --save typescript @types/node @types/react @types/react-dom @types/jest
+npm install --save-dev @types/react @types/react-dom @types/jest
 ```

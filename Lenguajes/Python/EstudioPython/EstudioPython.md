@@ -50,7 +50,6 @@ Documentacion sobre el uso de librerias del API
         - [XML](./docs/ApiLenguaje/InputOutput/Serialization/XML.md)
 1. **Uso de Internet**
     - [Consulta Http](./docs/ApiLenguaje/Network/HttpClient.md)
-    - [HttpMessageHandler](./docs/ApiLenguaje/Network/HttpMessageHandler.md)
 1. [Delegados](./docs/ApiLenguaje/Delegados.md)
 1. [Reflexion](./docs/ApiLenguaje/Reflexion.md)
 1. [Gestion de Memoria](./docs/ApiLenguaje/GestionMemoria.md)
@@ -60,22 +59,21 @@ Documentacion sobre el uso de librerias del API
 Documentación sobre el uso de librerias o frameworks que no estan alojados en el API, se suelen instalar mediante un gestor de paquetes como NPM, Nuget, etc.
 
 1. [**Inyeccion de Dependencias**](./docs/Librerias/DependencyInjection/DependencyInjection.md)
-1. **Logging**: Los logs son cadenas de texto que se almacenan y son utilizados para guardar registro de las acciones que se han realizado en la aplicación.
+1. **Logging**:
     - [Logging](./docs/Librerias/Logging/Logging.md)
 1. **Caching**:
     - [Cache en Memoria](./docs/Librerias/Caching/CacheMemoriaMemory.md)
     - [Cache Distribuida con Redis](./docs/Librerias/Caching/CacheServerRedis.md)
 1. [Protección de Datos](./docs/Librerias/ProteccionDatos.md)
-1. [Middleware](./docs/Librerias/Middleware.md)
 1. **Database**
-    - [MySQL](./docs/Librerias/Database/.md)
-    - [SQLite](./docs/Librerias/Database/.md)
-    - [PostgreSQL](./docs/Librerias/Database/.md)
-    - [MongoDB](./docs/Librerias/Database/.md)
-    - [LiteDB](./docs/Librerias/Database/.md)
+    - [MariaDB](./docs/Librerias/Database/MariaDB.md)
+    - [SQLite](./docs/Librerias/Database/SQLite.md)
+    - [PostgreSQL](./docs/Librerias/Database/PostgreSQL.md)
+    - [MongoDB](./docs/Librerias/Database/MongoDB.md)
+    - [LiteDB](./docs/Librerias/Database/LiteDB.md)
 
 1. **Database ORM**
-    - [](./docs/Librerias/DatabaseORM/.md)
+    - [SQLAlchemy](./docs/Librerias/DatabaseORM/SQLAlchemy.md)
 
 1. **Testing**
     - [DocTest](./docs/Librerias/Testing/Test.md)
