@@ -121,4 +121,4 @@ pwsh
 > Estos comandos son para debian 10, si hay otra version, habra que consultarla en la doc oficial
 
 Nos ubicamos en la carpeta del proyecto donde tenemos el fichero de docker y ejecutamos el comando, si todo va bien, este compilara la imagen, descargara las que necesite y ejecutara la aplicacion exponiendo el puerto que le hemos indicado
-
+> Si nos sale un error del estilo: `error getting credentials - err: exit status 1, out: GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.secrets was not provided by any .service files` tendremos que instalar el paquete `apt -y install gnome-keyring`
