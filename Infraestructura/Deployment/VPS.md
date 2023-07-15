@@ -31,10 +31,23 @@ Creamos un archivo llamado `iptables` y escribimos lo siguiente
 :DOCKER-USER - [0:0]
 :DOCKER-ISOLATION-STAGE-2 - [0:0]
 -A INPUT -i lo -j ACCEPT
+# NGINX
 -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
 -A INPUT -p tcp -m tcp --dport 22 -j ACCEPT
 -A INPUT -p udp -m udp --dport 53 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
+# grafana
+-A INPUT -p tcp -m tcp --dport 3000 -j ACCEPT
+# Zipkin
+-A INPUT -p tcp -m tcp --dport 9411 -j ACCEPT
+# SEQ
+-A INPUT -p tcp -m tcp --dport 5341 -j ACCEPT
+# Open Telemetry
+-A INPUT -p tcp -m tcp --dport 8889 -j ACCEPT
+# Prometheus
+-A INPUT -p tcp -m tcp --dport 9090 -j ACCEPT
+# API NodeJS
+-A INPUT -p tcp -m tcp --dport 55434 -j ACCEPT
 -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 -A FORWARD -j DOCKER-USER
 -A FORWARD -j DOCKER-ISOLATION-STAGE-1
