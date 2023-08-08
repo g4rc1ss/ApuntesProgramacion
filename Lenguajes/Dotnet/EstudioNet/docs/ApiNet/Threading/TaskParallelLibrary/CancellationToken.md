@@ -24,3 +24,5 @@ El uso de `CancellationToken` y `CancellationTokenSource` en .NET ofrece varias 
 - Flexibilidad en operaciones asincronas: Se puede propagar la cancelación a través de cadenas de llamadas asincronas, lo que permite una gestión uniforme de la cancelación en operaciones complejas.
 
 - Aplicar en diferentes escenarios: La cancelación de subprocesos es útil en diversos contextos, como operaciones de E/S intensivas, llamadas a servicios web, etc.
+
+> Es recomendable hacer uso del CancellationToken en el uso de Task y operaciones asincronas siempre que se pueda, por ejemplo, en un API, si un usuario cuando va a entrar reinicia o cierra la pestaña, al perderse la conexion, el CancellationToken se propagaria y se usarian menos recursos de operacione I/O
