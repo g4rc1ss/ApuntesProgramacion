@@ -14,11 +14,12 @@ Lista de contenido en el que se explica el lenguaje C#, la programación Orienta
 1. **Programación Orientada a Objetos**: La programación orientada a objetos (Object Oriented Programming, OOP) es un modelo de programación que organiza el diseño de software en torno a datos u objetos, en lugar de funciones y lógica. Un objeto se puede definir como un campo de datos que tiene atributos y comportamiento únicos.
     - [Clases](./docs/Csharp/POO/Clases.md)
     - [Clases Estaticas](./docs/Csharp/POO/StaticClass.md)
-    - [Metodos](./docs/Csharp/POO/Method.md)
-    - [Propiedades](./docs/Csharp/POO/Properties.md)
     - [Herencia](./docs/Csharp/POO/Herencia.md)
     - [Clases Abstractas](./docs/Csharp/POO/ClasesAbstractas.md)
     - [Clases Selladas](./docs/Csharp/POO/SealedClass.md)
+    - [Records](./docs/Csharp/POO/Records.md)
+    - [Metodos](./docs/Csharp/POO/Method.md)
+    - [Propiedades](./docs/Csharp/POO/Properties.md)
     - [Interfaces](./docs/Csharp/POO/Interfaces.md)
     - [Polimorfismo](./docs/Csharp/POO/Polimorfismo.md)
     - [Covarianza & Contravarianza](./docs/Csharp/POO/CovarianzaContravarianza.md)
@@ -56,6 +57,7 @@ El API .Net se basa principalmente en el uso de los namespaces: `System`, `Syste
     - [Task Parallel Library](./docs/ApiNet/Threading/TaskParallelLibrary/TPL.md)
         - [Async & await](./docs/ApiNet/Threading/TaskParallelLibrary/Async.md)
         - [Parallel](./docs/ApiNet/Threading/TaskParallelLibrary/Parallel.md)
+        - [Cancellation de Subprocesos](./docs/ApiNet/Threading/TaskParallelLibrary/CancellationToken.md)
 1. **Escritura y Lectura**
     - [Stream](./docs/ApiNet/InputOutput/Stream.md)
     - [MemoryStream](./docs/ApiNet/InputOutput/MemoryStream.md)
