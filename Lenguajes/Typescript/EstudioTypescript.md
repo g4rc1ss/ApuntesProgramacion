@@ -1,4 +1,4 @@
-# Estudio Lenguaje
+# Estudio Typescript
 Índice ordenado para estudiar el uso del lenguaje y las librerias mas utilizadas tanto del API, como librerias externas.
 
 
@@ -18,28 +18,30 @@ Lista de contenido en el que se explica el lenguaje, la programación Orientada 
     - [Propiedades](./docs/Lenguaje/POO/Properties.md)
     - [Herencia](./docs/Lenguaje/POO/Herencia.md)
     - [Clases Abstractas](./docs/Lenguaje/POO/ClasesAbstractas.md)
+    - [Interfaces](./docs/Lenguaje/POO/Interfaces.md)
     - [Polimorfismo](./docs/Lenguaje/POO/Polimorfismo.md)
     - [Covarianza & Contravarianza](./docs/Lenguaje/POO/CovarianzaContravarianza.md)
 1. [Tratamiento de Excepciones](./docs/Lenguaje/Excepciones/TratamientoExcepciones.md)
 1. **Conceptos Avanzados**
     - [Atributos](./docs/Lenguaje/ConceptosAvanzados/Atributos.md)
+    - [Generics](./docs/Lenguaje/ConceptosAvanzados/Generics.md)
     - [Yield](./docs/Lenguaje/ConceptosAvanzados/Yield.md)
+    - [Events](./docs/Lenguaje/ConceptosAvanzados/Events.md)
+
 
 ## Estudio del API
 Documentacion sobre el uso de librerias del API
 
 1. **Cadenas**
     - [String](./docs/ApiLenguaje/Cadenas/String.md)
+    - [StringBuilder](./docs/ApiLenguaje/Cadenas/StringBuilder.md)
     - [Expresiones Regulares](./docs/ApiLenguaje/Cadenas/ExpresionesRegulares.md)
 1. **Colecciones**
     - [Listas](./docs/ApiLenguaje/Enumerables/Colecciones/List.md)
     - [Diccionarios](./docs/ApiLenguaje/Enumerables/Colecciones/Dictionary.md)
-    - [Pilas](./docs/ApiLenguaje/Enumerables/Colecciones/Stack.md)
-    - [Colas](./docs/ApiLenguaje/Enumerables/Colecciones/Queue.md)
 1. [Consultas Acceso a Colecciones](./docs/ApiLenguaje/Enumerables/ConsultaDatos.md)
 1. **Threads**
     - [MultiThreading](./docs/ApiLenguaje/Threading/MultiThreading.md)
-    - [Sincronizar Hilos](./docs/ApiLenguaje/Threading/SyncThreads.md)
     - [Async & await](./docs/ApiLenguaje/Threading/Async.md)
 1. **Escritura y Lectura**
     - Archivos de Texto
@@ -47,33 +49,30 @@ Documentacion sobre el uso de librerias del API
         - [File](./docs/ApiLenguaje/InputOutput/TextFiles/File.md)
     - Serializar objetos
         - [JSON](./docs/ApiLenguaje/InputOutput/Serialization/JSON.md)
-        - [XML](./docs/ApiLenguaje/InputOutput/Serialization/XML.md)
-1. **Uso de Internet**
-    - [Consulta Http](./docs/ApiLenguaje/Network/HttpClient.md)
 1. [Delegados](./docs/ApiLenguaje/Delegados.md)
-1. [Reflexion](./docs/ApiLenguaje/Reflexion.md)
-1. [Gestion de Memoria](./docs/ApiLenguaje/GestionMemoria.md)
-1. [Interoperabilidad](./docs/ApiLenguaje/Interoperabilidad.md)
 
 ## Estudio de Librerias Externas
 Documentación sobre el uso de librerias o frameworks que no estan alojados en el API, se suelen instalar mediante un gestor de paquetes como NPM, Nuget, etc.
 
+1. **Uso de Internet**
+    - [Consulta Http](./docs/Librerias/Network/ConsultasHttp.md)
 1. [**Inyeccion de Dependencias**](./docs/Librerias/DependencyInjection/DependencyInjection.md)
 1. **Logging**:
-    - [Logging](./docs/Librerias/Logging/Logging.md)
+    - [Log4js](./docs/Librerias/Logging/Log4js.md)
 1. **Caching**:
     - [Cache en Memoria](./docs/Librerias/Caching/CacheMemoriaMemory.md)
     - [Cache Distribuida con Redis](./docs/Librerias/Caching/CacheServerRedis.md)
 1. [Protección de Datos](./docs/Librerias/ProteccionDatos.md)
+1. [Middleware](./docs/Librerias/Middleware.md)
 1. **Database**
-    - [MariaDB](./docs/Librerias/Database/MariaDB.md)
+    - [MySQL](./docs/Librerias/Database/MySQL.md)
     - [SQLite](./docs/Librerias/Database/SQLite.md)
     - [PostgreSQL](./docs/Librerias/Database/PostgreSQL.md)
     - [MongoDB](./docs/Librerias/Database/MongoDB.md)
     - [LiteDB](./docs/Librerias/Database/LiteDB.md)
 
 1. **Database ORM**
-    - [SQLAlchemy](./docs/Librerias/DatabaseORM/SQLAlchemy.md)
+    - [TypeORM](./docs/Librerias/DatabaseORM/TypeORM.md)
 
 1. **Testing**
-    - [DocTest](./docs/Librerias/Testing/Test.md)
+    - [jest](./docs/Librerias/Testing/Test.md)
