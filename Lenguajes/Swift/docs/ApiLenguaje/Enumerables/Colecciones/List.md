@@ -1,9 +1,42 @@
-# Listas (`List<T>`)
-Una lista es un tipo de colección ordenada.
-> Estos objetos no son seguros para subprocesos, para ello es mejor usar `ConcurrentBag<T>`
+# Arrays:
+Un array es una colección ordenada de elementos del mismo tipo. Puedes usar un array para representar una lista de elementos y acceder a sus elementos mediante un índice numérico.
 
-1. `Add`: Agrega al ultimo elemento de la lista el objeto que se le pasa por parametro
-1. `IndexOf`: Devuelve la posicion de la lista donde se ubica el objeto a buscar
-1. `Insert`: Insertas en la posicion 1 el objeto que se quiere, si hay elementos en dicha posicion se mueven hacia la derecha, por tanto el de la 1 pasaria a la posicion 2
-1. `Remove`: Eliminar de la lista el objeto indicado
-1. `Reverse`: Ordenas la lista al contra
+Ejemplo:
+
+```swift
+// Creación de un array
+var listaDeNombres = ["Juan", "María", "Pedro", "Laura"]
+
+// Acceso a elementos
+let primerNombre = listaDeNombres[0] // "Juan"
+let tercerNombre = listaDeNombres[2] // "Pedro"
+
+// Modificación de elementos
+listaDeNombres[1] = "Lucía" // ["Juan", "Lucía", "Pedro", "Laura"]
+
+// Añadir elementos al final
+listaDeNombres.append("Carlos") // ["Juan", "Lucía", "Pedro", "Laura", "Carlos"]
+
+// Eliminar elementos
+listaDeNombres.remove(at: 2) // ["Juan", "Lucía", "Laura", "Carlos"]
+```
+
+En este ejemplo, hemos utilizado un array para representar una lista de nombres. Hemos accedido a elementos utilizando índices, modificado elementos existentes, añadido elementos al final y eliminado elementos específicos.
+
+# Sets:
+Un set es una colección no ordenada de elementos únicos del mismo tipo. Puedes utilizar un set para representar una lista de elementos donde no se permiten duplicados.
+
+Ejemplo:
+
+```swift
+// Creación de un set
+var listaDeNombresUnicos: Set<String> = ["Juan", "María", "Pedro", "Laura"]
+
+// Añadir elementos
+listaDeNombresUnicos.insert("María") // El set no permitirá duplicados
+
+// Eliminar elementos
+listaDeNombresUnicos.remove("Juan") // El elemento "Juan" es eliminado
+```
+
+En este ejemplo, hemos utilizado un set para representar una lista de nombres únicos. Al intentar añadir un nombre duplicado, el set no permite duplicados, por lo que el segundo intento de añadir "María" es ignorado.
