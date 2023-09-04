@@ -45,13 +45,5 @@ Documentacion sobre el uso de librerias del API
 ## Estudio de Librerias Externas
 Documentación sobre el uso de librerias o frameworks que no estan alojados en el API, se suelen instalar mediante un gestor de paquetes como NPM, Nuget, etc.
 
-1. **Caching**:
-    - [Cache Distribuida con Redis](./docs/Librerias/Caching/CacheServerRedis.md)
 1. [Protección de Datos](./docs/Librerias/ProteccionDatos.md)
-1. **Database**
-    - [MySQL](./docs/Librerias/Database/MySQL.md)
-    - [MongoDB](./docs/Librerias/Database/MongoDB.md)
-
-1. **Database ORM**
-    - [Doctrine](./docs/Librerias/DatabaseORM/ORM.md)
 

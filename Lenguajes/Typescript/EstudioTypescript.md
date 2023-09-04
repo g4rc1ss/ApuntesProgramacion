@@ -51,28 +51,3 @@ Documentacion sobre el uso de librerias del API
         - [JSON](./docs/ApiLenguaje/InputOutput/Serialization/JSON.md)
 1. [Delegados](./docs/ApiLenguaje/Delegados.md)
 
-## Estudio de Librerias Externas
-Documentación sobre el uso de librerias o frameworks que no estan alojados en el API, se suelen instalar mediante un gestor de paquetes como NPM, Nuget, etc.
-
-1. **Uso de Internet**
-    - [Consulta Http](./docs/Librerias/Network/ConsultasHttp.md)
-1. [**Inyeccion de Dependencias**](./docs/Librerias/DependencyInjection/DependencyInjection.md)
-1. **Logging**:
-    - [Log4js](./docs/Librerias/Logging/Log4js.md)
-1. **Caching**:
-    - [Cache en Memoria](./docs/Librerias/Caching/CacheMemoriaMemory.md)
-    - [Cache Distribuida con Redis](./docs/Librerias/Caching/CacheServerRedis.md)
-1. [Protección de Datos](./docs/Librerias/ProteccionDatos.md)
-1. [Middleware](./docs/Librerias/Middleware.md)
-1. **Database**
-    - [MySQL](./docs/Librerias/Database/MySQL.md)
-    - [SQLite](./docs/Librerias/Database/SQLite.md)
-    - [PostgreSQL](./docs/Librerias/Database/PostgreSQL.md)
-    - [MongoDB](./docs/Librerias/Database/MongoDB.md)
-    - [LiteDB](./docs/Librerias/Database/LiteDB.md)
-
-1. **Database ORM**
-    - [TypeORM](./docs/Librerias/DatabaseORM/TypeORM.md)
-
-1. **Testing**
-    - [jest](./docs/Librerias/Testing/Test.md)
