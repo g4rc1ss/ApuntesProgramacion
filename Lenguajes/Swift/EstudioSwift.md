@@ -55,14 +55,3 @@ Documentacion sobre el uso de librerias del API
 1. [Gestion de Memoria](./docs/ApiLenguaje/GestionMemoria.md)
 1. [Interoperabilidad](./docs/ApiLenguaje/Interoperabilidad.md)
 
-## Estudio de Librerias Externas
-Documentación sobre el uso de librerias o frameworks que no estan alojados en el API, se suelen instalar mediante un gestor de paquetes como NPM, Nuget, etc.
-
-1. **Caching**:
-    - [Cache en Memoria](./docs/Librerias/Caching/CacheMemoriaMemory.md)
-    - [Cache Distribuida con Redis](./docs/Librerias/Caching/CacheServerRedis.md)
-1. [Protección de Datos](./docs/Librerias/ProteccionDatos.md)
-1. [Middleware](./docs/Librerias/Middleware.md)
-1. **Database**
-    - [MySQL](./docs/Librerias/Database/MySQL.md)
-
