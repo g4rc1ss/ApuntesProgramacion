@@ -41,13 +41,15 @@ pub extern "C" fn prueba_callback(callback: extern "C" fn(result: i32)) {
 ```
 En este ejemplo de codigo vamos a crear una funcion asíncrona en `Rust` que ejecuta una operacion que lleva un tiempo(10 segundos) y esta recibe una funcion `Callback` para que, cuando termine, poder avisar a nuestra aplicacion `.net`
 
+Para compilar la libreria de `Rust` ejecutamos el comando `cargo build --release`
+
 ```Csharp
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 public delegate void Callback(int response);
 
 public class ClaseInteractuaRust
 {
-    [DllImport("rustCallbackWin.dll")]
+    [DllImport("librustCallback.dylib")]
     static extern void prueba_callback(Callback callback);
 
     public async Task EjecutarDllAsync(CancellationToken cancellationToken = default)
@@ -67,7 +69,6 @@ public class ClaseInteractuaRust
         using (cancellationToken.UnsafeRegister(static (task, ct) => ((TaskCompletionSource)task!).TrySetCanceled(ct), taskCompletionSource))
         {
             await taskCompletionSource.Task;
-            
         }
     }
 }
