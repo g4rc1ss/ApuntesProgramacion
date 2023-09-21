@@ -3,8 +3,6 @@ Los test unitarios se encargan de testear los métodos o procesos de forma indiv
 
 Eso significa que si nuestro programa requiere de dependencias externas, como una base de datos, no cumpliria ese requisito de Base de datos, puesto que estarias realizando un test de integración. Los test unitarios buscan analizar un algoritmo, validaciones, etc.
 
-Para poder simular esas llamadas podemo hacer uso de la libreria `Moq`
-
 `Install-Package NSubstitute`
 
 Si queremos mockear la siguiente interface.

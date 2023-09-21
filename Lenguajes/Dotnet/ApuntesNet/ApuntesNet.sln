@@ -202,7 +202,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTesting", "UnitTesting"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTesting", "IntegrationTesting", "{D8F07DA8-8CF3-49DA-84B5-A0C467DE9969}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSubstituteLibrary", "Testing\MockLibrary\NSubstituteLibrary.csproj", "{3A73E115-C340-43CD-B61C-D04409008E6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSubstituteLibrary", "Testing\NSubstituteLibrary\NSubstituteLibrary.csproj", "{3A73E115-C340-43CD-B61C-D04409008E6F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentAssertionsLibrary", "Testing\FluentAssertionsLibrary\FluentAssertionsLibrary.csproj", "{8B7B0DB2-5750-4966-90AB-A6E9B4ABC6C0}"
 EndProject
