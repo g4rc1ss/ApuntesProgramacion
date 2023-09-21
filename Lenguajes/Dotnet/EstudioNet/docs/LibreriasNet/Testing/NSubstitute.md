@@ -17,26 +17,11 @@ public interface IRepositoryToMock
 
 ```Csharp
 _repositoryMock = Substitute.For<IRepositoryToMock>();
+_repositoryToMock.GetRepositoryAsync(Arg.Any<string>()).Returns(Task.CompletedTask);
+_repositoryToMock.GetRepositoriesAsync().Returns(Enumerable.Range(0, 1000).Select(x => $"{x}"));
 
-_repositoryMock.Add(1, 2).Returns(3);
-Assert.That(_repositoryMock.Add(1, 2), Is.EqualTo(3));
-
+Assert.True(repositories.Count() == 1000);
 ```
 Como podemos deducir, se va a moquear la implementacion de la interface de repositorio. Normalmente en nuestro negocio esta clase llamaria a una base de datos o una api, en este caso la vamos a simular devolviendo datos hardcodeados.
 
-Si nuestros metodos a la hora de moquear reciben parametros, podemos hacer uso de `Arg.IsAny<T>` para indicar que tenemos que enviar un parametro de ese tipo. 
-
-```Csharp
-_repositoryMock.Add(10, -5);
-_repositoryMock.Received().Add(10, Arg.Any<int>());
-_repositoryMock.Received().Add(10, Arg.Is<int>(x => x < 0));
-```
-
-> Los metodos de extension **no pueden ser moqueados**, solo podemos moquear los metodos de la propia clase
-
-Para poder hacer uso de esta simulación en nuestro test
-```Csharp
-
-```
-
-1. 
+Si nuestros metodos a la hora de moquear reciben parametros, podemos hacer uso de `Arg.IsAny<T>` para indicar que tenemos que enviar un parametro de ese tipo.
