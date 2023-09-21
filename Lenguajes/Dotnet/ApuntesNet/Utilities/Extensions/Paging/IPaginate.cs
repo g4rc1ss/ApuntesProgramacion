@@ -1,4 +1,4 @@
-﻿namespace Garciss.Paging;
+﻿namespace Paging;
 
 public interface IPaginate<T>
 {

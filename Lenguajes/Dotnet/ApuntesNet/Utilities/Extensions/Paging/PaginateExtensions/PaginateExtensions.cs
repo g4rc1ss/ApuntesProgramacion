@@ -1,7 +1,7 @@
-﻿using Garciss.Paging.Internal;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Paging.Internal;
 
-namespace Garciss.Paging.PaginateExtensions;
+namespace Paging.PaginateExtensions;
 
 public static class PaginateExtensions
 {

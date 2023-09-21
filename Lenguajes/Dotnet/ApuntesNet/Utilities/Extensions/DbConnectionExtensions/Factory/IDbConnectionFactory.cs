@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 
-namespace Garciss.DbConnectionExtensions.Factory;
+namespace DbConnectionExtensions.Factory;
 
 public interface IDbConnectionFactory
 {

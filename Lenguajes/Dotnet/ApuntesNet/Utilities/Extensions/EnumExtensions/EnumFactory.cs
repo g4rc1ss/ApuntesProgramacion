@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Garciss.EnumExtensions;
+namespace EnumExtensions;
 
 /// <summary>
 /// Muchas de nuestras enumeraciones correspondería con una clave Alfanumérica, no una clave númerica.

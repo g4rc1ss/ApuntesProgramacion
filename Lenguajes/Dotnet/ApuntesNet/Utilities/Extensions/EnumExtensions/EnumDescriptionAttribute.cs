@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Garciss.EnumExtensions;
+namespace EnumExtensions;
 
 /// <summary>
 /// Para evitar tener un array de claves o constantes asociado a una enumeración,

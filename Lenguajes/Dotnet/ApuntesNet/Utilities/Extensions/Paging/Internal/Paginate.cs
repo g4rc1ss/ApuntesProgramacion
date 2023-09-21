@@ -1,4 +1,4 @@
-﻿namespace Garciss.Paging.Internal;
+﻿namespace Paging.Internal;
 
 internal class Paginate<T> : IPaginate<T> where T : class
 {

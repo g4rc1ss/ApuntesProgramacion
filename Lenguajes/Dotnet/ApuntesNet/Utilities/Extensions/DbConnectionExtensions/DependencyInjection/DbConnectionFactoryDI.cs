@@ -1,8 +1,8 @@
 ﻿using System.Data.Common;
-using Garciss.DbConnectionExtensions.Factory;
+using DbConnectionExtensions.Factory;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Garciss.DbConnectionExtensions.DependencyInjection;
+namespace DbConnectionExtensions.DependencyInjection;
 
 /// <summary>
 /// 

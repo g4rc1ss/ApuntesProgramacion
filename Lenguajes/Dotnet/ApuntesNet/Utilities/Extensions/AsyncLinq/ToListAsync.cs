@@ -1,25 +1,24 @@
-﻿namespace Garciss.AsyncLinq
+﻿namespace AsyncLinq;
+
+/// <summary>
+/// 
+/// </summary>
+public static class ListAsync
 {
     /// <summary>
     /// 
     /// </summary>
-    public static class ListAsync
+    /// <typeparam name="T"></typeparam>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static async Task<List<T>> GetListAsync<T>(this IAsyncEnumerable<T> value)
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static async Task<List<T>> GetListAsync<T>(this IAsyncEnumerable<T> value)
+        var buffer = new List<T>();
+        await foreach (var item in value)
         {
-            var buffer = new List<T>();
-            await foreach (var item in value)
-            {
-                buffer.Add(item);
-            }
-
-            return buffer;
+            buffer.Add(item);
         }
+
+        return buffer;
     }
 }
