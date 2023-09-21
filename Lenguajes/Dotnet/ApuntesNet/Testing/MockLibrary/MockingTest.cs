@@ -1,22 +1,25 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using NSubstitute;
+using NSubstitute.ReceivedExtensions;
 using Xunit;
 
-namespace MockLibrary
+namespace NSubstituteLibrary;
+
+public class MockingTest
 {
-    public class MockingTest
+    IRepositoryToMock _repository;
+
+    public MockingTest()
     {
-        IRepositoryToMock _repository;
+        _repository = new MockingRepositoryToMock().repositoryToMock;
+    }
 
-        public MockingTest()
-        {
-            _repository = new MockingDependency().MockingRepository.Object;
-        }
-
-        [Fact]
-        public async Task MockingDependencyAsync()
-        {
-            await _repository.GetRepositoryAsync("Ejemplo");
-            var repositories = await _repository.GetRepositoriesAsync();
-        }
+    [Fact]
+    public async Task MockingDependencyAsync()
+    {
+        await _repository.GetRepositoryAsync(string.Empty);
+        var repositories = await _repository.GetRepositoriesAsync();
+        Assert.True(repositories.Count() == 1000);
     }
 }
