@@ -101,5 +101,5 @@ Documentación sobre el uso de librerias o frameworks que no estan alojados en e
 1. [AutoMapper](./docs/LibreriasNet/AutoMapper.md)
 1. **Testing**
     - [XUnit](./docs/LibreriasNet/Testing/XUnit.md)
-    - [Moq](./docs/LibreriasNet/Testing/Moq.md)
+    - [NSubstitute](./docs/LibreriasNet/Testing/NSubstitute.md)
     - [Fluent Assert](./docs/LibreriasNet/Testing/FluentAssertions.md)
