@@ -44,8 +44,47 @@ builder.ConfigureServices(services =>
 
 var app = builder.Build();
 
-await app.StartAsync();
+await app.RunAsync();
 ```
 En el `Program.cs` configuramos la clase Host y agregamos el servicio mediante el metodo `services.AddHostedServices<HostedService>()`
 
 Cuando ejecutamos el metodo `await app.StartAsync()` internamente se resuelven las dependencias de los `IHostedServices` y se ejecutan el metodo `StartAsync(CancellationToken cancellation)`
+
+
+## BackgroundServices
+La clase abstracta `BackgroundService` esta pensada en que puedas ejecutar una tarea en segundo plano ya sea porque es costosa en tiempo o porque es un servicio en bucle como un consumidor de mensajes de un `ServiceBus` sin afectar al resto de servicios.
+
+En .Net, los servicios Host interpretan el `IHostedService` como una tarea que se debe esperar a que acabe, el problema es que hasta que termine esa tarea, no se ejecutan el resto. La solucion es `BackgroundService`.
+
+```Csharp
+using DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+namespace HostedService;
+
+public class BackgroundServiceTask : BackgroundService
+{
+    private readonly IServicioInyectado _servicioInyectado;
+
+    public BackgroundServiceTask(IServicioInyectado servicioInyectado)
+    {
+        _servicioInyectado = servicioInyectado;
+    }
+
+    protected override Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        return Task.Run(async () =>
+        {
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                Console.WriteLine("Este es el metodo de Start");
+                var counter = await _servicioInyectado.ExecuteAsync(stoppingToken);
+                Console.WriteLine(counter);
+                await Task.Delay(1100, stoppingToken);
+            }
+        });
+    }
+}
+```
+
+En este codigo retornamos una tarea que se ejecuta en segunda plano y de esta manera pueden ejecutarse el resto de `HostedServices`.
