@@ -82,6 +82,9 @@ Documentación sobre el uso de librerias o frameworks que no estan alojados en e
 1. **Inyeccion de Dependencias**
     1. [Explicacion de DI](./docs/LibreriasNet/DependencyInjection/DependencyInjection.md)
     1. [Implementar DI en Proyectos](./docs/LibreriasNet/DependencyInjection/ImplementarDiProyectos.md)
+1. **Servicios Host**
+    1. [Host](./docs/LibreriasNet/ServiciosHost/Host.md)
+    1. [Worker Services](./docs/LibreriasNet/ServiciosHost/WorkerServices.md)
 1. [IOptions](./docs/LibreriasNet/IOptions.md)
 1. **Logging**: Los logs son cadenas de texto que se almacenan y son utilizados para guardar registro de las acciones que se han realizado en la aplicación.
     - [Logging con Serilog](./docs/LibreriasNet/Logging/LoggingSerilog.md)

@@ -7,7 +7,7 @@ Muy resumidamente, el Principio de Inversión de Dependencias propone evitar las
 - Utilizar abstracciones (interfaces) en lugar de referencias directas entre clases, lo que facilita que podamos reemplazar componentes con suma facilidad.
 - Hacer que una clase reciba referencias a los componentes que necesite para funcionar, en lugar de permitir que sea ella misma quien los instancie de forma directa o a través de factorías.
 
-# Tipos de DI
+# Tipos de Dependency Injection
 A la hora de registrar la dependencia, tenemos 3 opciones que difieren en el **tiempo de vida**.
 
 El contenedor mantiene todos los servicios que crea y una vez su tiempo de vida (lifetime) termina, son disposed.
