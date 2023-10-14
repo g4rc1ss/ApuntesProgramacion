@@ -35,7 +35,7 @@ public class Mappers
     }
 
     [Benchmark]
-    public void AutomapperListas()
+    public void MapperlyListas()
     {
         _enumerableOrigen.Select(x => _mapper.ToClaseDestino(x)).ToList();
     }
@@ -47,7 +47,7 @@ public class Mappers
     }
 
     [Benchmark]
-    public void RelacionLinqAutomapperEnSelect()
+    public void RelacionLinqMapperlyEnSelect()
     {
         var result = (from origen in _enumerableOrigen
                       from relacion in _enumerableRelacion
