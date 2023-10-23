@@ -123,10 +123,15 @@ services.AddHttpClient("Nombre identificador", httpClient =>
     httpClient.BaseAddress = new Uri("url");
 });
 
-private readonly HttpClient _httpClient;
+private readonly IHttpClientFactory _httpClientFactory;
 public DispensacionConsultaNegocio(IHttpClientFactory httpClientFactory)
 {
-    _httpClient = httpClientFactory.CreateClient("Nombre identificador");
+    _httpClientFactory = httpClientFactory;
+}
+
+public void MethodHttpClientExecute()
+{
+    using var httpClient = _httpClientFactory.CreateClient("Nombre identificador");
 }
 ```
 
