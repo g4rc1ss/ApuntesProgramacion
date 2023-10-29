@@ -103,6 +103,7 @@ Este metodo no es recomendable usarlo por el problema de los sockets comentado a
 ```Csharp
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:44326/api/") });
 ```
+> Como una posible solución al tema de los sockets, seria inyectar la clase HttpClient como Singleton
 
 ## HttpClientFactory
 La implementación actual de `IHttpClientFactory` implementa `IHttpMessageHandlerFactory` y proporciona las siguientes ventajas.
