@@ -6,9 +6,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
-    <PackageReference Include="Riok.Mapperly" Version="3.2.0" />
-  </ItemGroup>
 
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="Riok.Mapperly" Version="3.2.0" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.9" />
+  </ItemGroup>
 </Project>
