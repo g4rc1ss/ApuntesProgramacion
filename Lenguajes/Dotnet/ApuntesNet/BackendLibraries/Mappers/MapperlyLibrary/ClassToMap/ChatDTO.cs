@@ -1,4 +1,4 @@
-﻿namespace MappersBenchmark;
+﻿namespace MapperlyLibrary.ClassToMap;
 
 public class ChatDTO
 {

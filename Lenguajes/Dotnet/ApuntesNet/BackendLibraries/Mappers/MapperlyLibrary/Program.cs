@@ -1,3 +1,10 @@
-﻿using MapperlyLibrary;
+﻿using MapperlyLibrary.ClassToMap;
+using MapperlyLibrary.Profiles;
 
-new MapperlyClasses().Mapping();
+var _mapperly = new MapperlyProfile();
+
+var chatDTO = _mapperly.ToChatDTO(ClassFake.ChatClass);
+
+var chatsDTO = ClassFake.ChatEntityList.Select(x => _mapperly.ToChatDTO(x))
+    .ToList();
+

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace MappersBenchmark;
+namespace MapperlyLibrary.ClassToMap;
 
 public static class ClassFake
 {
@@ -40,5 +40,5 @@ public static class ClassFake
         }
     };
 
-    public static IEnumerable<Chat> ChatEntityList = Enumerable.Range(0, 1000).Select(x => ChatClass).ToList();
+    public static IEnumerable<Chat> ChatEntityList = Enumerable.Range(0, 50000).Select(x => ChatClass).ToList();
 }
