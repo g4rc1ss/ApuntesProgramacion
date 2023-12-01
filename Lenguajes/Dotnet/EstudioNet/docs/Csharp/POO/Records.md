@@ -19,9 +19,9 @@ De esta forma, crea en tiempo de compilación la clase inmutable con los paramet
 ```csharp
 public record Prueba
 {
-    public required string Param1 { get; set; }
-    public string Param2 { get; set; }
-    public int Param3 { get; set; }
+    public required string Param1 { get; init; }
+    public string Param2 { get; init; }
+    public int Param3 { get; init; }
 }
 ```
 La otra forma de crearla es la habitual, como las clases de datos
