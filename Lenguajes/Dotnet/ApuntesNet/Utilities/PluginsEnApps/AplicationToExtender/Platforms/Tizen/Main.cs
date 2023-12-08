@@ -2,7 +2,7 @@
 using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 
-namespace AplicationToExtender;
+namespace AplicationToExtender.Platforms.Tizen;
 
 class Program : MauiApplication
 {

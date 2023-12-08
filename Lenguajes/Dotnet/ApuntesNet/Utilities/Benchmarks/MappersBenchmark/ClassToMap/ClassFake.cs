@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace MappersBenchmark;
+namespace MappersBenchmark.ClassToMap;
 
 public static class ClassFake
 {

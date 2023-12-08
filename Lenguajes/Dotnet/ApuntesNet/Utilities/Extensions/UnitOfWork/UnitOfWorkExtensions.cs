@@ -1,4 +1,4 @@
-﻿namespace Garciss.UnitOfWork;
+﻿namespace UnitOfWork;
 
 /// <summary>
 /// 

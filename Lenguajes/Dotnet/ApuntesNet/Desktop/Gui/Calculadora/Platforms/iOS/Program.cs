@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace Calculadora;
+namespace Calculadora.Platforms.iOS;
 
 public class Program
 {

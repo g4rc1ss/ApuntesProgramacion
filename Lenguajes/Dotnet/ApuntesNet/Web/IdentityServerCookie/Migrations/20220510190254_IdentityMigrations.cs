@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace IdentityServer.Migrations
+namespace IdentityServerCookie.Migrations
 {
     public partial class IdentityMigrations : Migration
     {

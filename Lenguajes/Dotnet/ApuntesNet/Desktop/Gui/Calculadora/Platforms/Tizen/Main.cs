@@ -2,7 +2,7 @@
 using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 
-namespace Calculadora;
+namespace Calculadora.Platforms.Tizen;
 
 class Program : MauiApplication
 {

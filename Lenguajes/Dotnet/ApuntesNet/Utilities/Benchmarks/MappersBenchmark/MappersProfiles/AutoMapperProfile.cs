@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
+using MappersBenchmark.ClassToMap;
 
-namespace MappersBenchmark;
+namespace MappersBenchmark.MappersProfiles;
 
 public class AutoMapperProfile : Profile
 {

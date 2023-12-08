@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace AplicationToExtender;
+namespace AplicationToExtender.Platforms.iOS;
 
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate

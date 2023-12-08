@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace IdentityServer.Migrations
+namespace IdentityServerCookie.Migrations
 {
     [DbContext(typeof(IdentityContext))]
     [Migration("20220510190254_IdentityMigrations")]

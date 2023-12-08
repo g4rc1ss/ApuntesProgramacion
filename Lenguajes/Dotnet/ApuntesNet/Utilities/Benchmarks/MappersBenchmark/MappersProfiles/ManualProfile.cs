@@ -1,4 +1,6 @@
-﻿namespace MappersBenchmark;
+﻿using MappersBenchmark.ClassToMap;
+
+namespace MappersBenchmark.MappersProfiles;
 
 public static class ManualProfile
 {

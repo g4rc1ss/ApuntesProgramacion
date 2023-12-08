@@ -1,4 +1,4 @@
-﻿namespace MappersBenchmark;
+﻿namespace MappersBenchmark.ClassToMap;
 
 public class Chat
 {

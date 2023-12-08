@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace AplicationToExtender;
+namespace AplicationToExtender.Platforms.MacCatalyst;
 
 public class Program
 {

@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace Calculadora;
+namespace Calculadora.Platforms.MacCatalyst;
 
 public class Program
 {

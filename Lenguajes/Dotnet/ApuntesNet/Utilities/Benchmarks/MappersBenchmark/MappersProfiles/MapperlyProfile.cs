@@ -1,6 +1,7 @@
-﻿using Riok.Mapperly.Abstractions;
+﻿using MappersBenchmark.ClassToMap;
+using Riok.Mapperly.Abstractions;
 
-namespace MappersBenchmark;
+namespace MappersBenchmark.MappersProfiles;
 
 [Mapper]
 public partial class MapperlyProfile

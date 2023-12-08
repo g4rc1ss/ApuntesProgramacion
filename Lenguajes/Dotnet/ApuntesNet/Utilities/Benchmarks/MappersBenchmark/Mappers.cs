@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using BenchmarkDotNet.Attributes;
+using MappersBenchmark.ClassToMap;
+using MappersBenchmark.MappersProfiles;
 
 namespace MappersBenchmark;
 

@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace Calculadora;
+namespace Calculadora.Platforms.iOS;
 
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate

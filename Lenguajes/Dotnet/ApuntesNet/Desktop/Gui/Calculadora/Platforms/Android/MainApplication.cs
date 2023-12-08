@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace Calculadora;
+namespace Calculadora.Platforms.Android;
 
 [Application]
 public class MainApplication : MauiApplication
