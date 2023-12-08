@@ -13,7 +13,7 @@ public class PruebaHttpClientFactory
 
     public async Task ExecutePrueba(string endpoint)
     {
-        var client = _httpClientFactory.CreateClient();
+        using var client = _httpClientFactory.CreateClient();
 
         await client.GetAsync(endpoint);
     }
