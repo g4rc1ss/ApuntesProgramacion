@@ -12,4 +12,12 @@ logger.LogWarning("Log para trazas importantes");
 logger.LogError("Log para errores");
 logger.LogCritical("Log generalmente para excepciones");
 
+// Implementar un objeto entero en log
+var user = new UserDTO {
+    Name = "Prueba",
+    SurName = "Logger",
+    Email = "Prueba@logger.com"
+}
+logger.LogInformation("Datos de usuario {@userData}", user)
+
 Console.Read();
