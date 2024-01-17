@@ -1,41 +1,30 @@
 ﻿using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 
-namespace SerilogLibrary
+namespace SerilogLibrary;
+
+public class Helper
 {
-    public class Helper
+    public static IServiceProvider GetServiceProvider()
     {
-        public static IServiceProvider GetServiceProvider()
+        var builder = Host.CreateDefaultBuilder();
+
+        builder.ConfigureLogging(log =>
         {
-            var builder = Host.CreateDefaultBuilder();
+            log.ClearProviders();
+            log.AddConsole();
+            log.SetMinimumLevel(LogLevel.Trace);
+        });
+        builder.UseSerilog((hostContext, loggerConfig) =>
+        {
+            loggerConfig.WriteTo.Seq(hostContext.Configuration["ConnectionStrings:SeqConnectionString"]!);
+            loggerConfig.WriteTo.Console();
+        });
 
-            builder.UseSerilog((hostContext, loggerConfig) =>
-            {
-                loggerConfig.WriteTo.Async(config =>
-                {
-                    //config.MSSqlServer(
-                    //    connectionString: connectionString,
-                    //    new MSSqlServerSinkOptions
-                    //    {
-                    //        SchemaName = "dbo",
-                    //        TableName = "Logs",
-                    //        AutoCreateSqlTable = true,
-                    //    },
-                    //    restrictedToMinimumLevel: LogEventLevel.Warning);
+        var app = builder.Build();
 
-                    config.Console(LogEventLevel.Debug);
-                });
-            });
-
-            builder.ConfigureServices(services =>
-            {
-
-            });
-
-            var app = builder.Build();
-
-            return app.Services;
-        }
+        return app.Services;
     }
 }
