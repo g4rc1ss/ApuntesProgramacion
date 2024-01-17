@@ -64,6 +64,14 @@ var grayLogConfig = new GraylogSinkOptions
 loggerConfig.WriteTo.Graylog()
 ```
 
+## Logs en Seq
+Se pueden enviar los logs al servicio`Seq` para agregar observabilidad a nuestro desarrollo.
+> Debemos instalar el paquete `Serilog.Sinks.Seq`
+
+```Csharp
+loggerConfig.WriteTo.Seq(hostContext.Configuration["ConnectionStrings:SeqConnectionString"]!, LogEventLevel.Information);
+```
+
 ## Almacenamiento de forma `Async`
 Esta función se establece en la configuración antes de indicar el método de almacenamiento y recibe un `Action<LoggerSinkConfiguration>` para indicar como se deben mostrar/guardar la información`.
 
