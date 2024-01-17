@@ -13,11 +13,15 @@ logger.LogError("Log para errores");
 logger.LogCritical("Log generalmente para excepciones");
 
 // Implementar un objeto entero en log
-var user = new UserDTO {
+var user = new UserDTO
+{
     Name = "Prueba",
     SurName = "Logger",
-    Email = "Prueba@logger.com"
-}
-logger.LogInformation("Datos de usuario {@userData}", user)
+    Email = "Prueba@logger.com",
+    MerchantId = "1234567890",
+    TerminalId = "0000000001"
+};
+logger.LogInformation("Datos de usuario {@userData}", user);
+
 
 Console.Read();

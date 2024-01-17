@@ -1,13 +1,10 @@
-using Microsoft.Extensions.Hosting;
-using Serilog;
-using Serilog.Events;
+namespace SerilogLibrary;
 
-namespace SerilogLibrary
+public record UserDTO
 {
-    public class UserDTO
-    {
-        public string Name { get;set; }
-        public string SurName { get;set; }
-        public string Email { get;set; }
-    }
+    public required string Name { get; init; }
+    public required string SurName { get; init; }
+    public required string Email { get; init; }
+    public required string MerchantId { get; init; }
+    public required string TerminalId { get; init; }
 }
