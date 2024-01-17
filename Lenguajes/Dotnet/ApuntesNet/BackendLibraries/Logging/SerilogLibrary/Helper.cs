@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 
@@ -10,13 +11,16 @@ public class Helper
     {
         var builder = Host.CreateDefaultBuilder();
 
+        builder.ConfigureLogging(log =>
+        {
+            log.ClearProviders();
+            log.AddConsole();
+            log.SetMinimumLevel(LogLevel.Trace);
+        });
         builder.UseSerilog((hostContext, loggerConfig) =>
         {
-            loggerConfig.WriteTo.Async(config =>
-            {
-                config.Seq(hostContext.Configuration["ConnectionStrings:SeqConnectionString"]!, LogEventLevel.Information);
-                config.Console(LogEventLevel.Debug);
-            });
+            loggerConfig.WriteTo.Seq(hostContext.Configuration["ConnectionStrings:SeqConnectionString"]!);
+            loggerConfig.WriteTo.Console();
         });
 
         var app = builder.Build();
