@@ -108,9 +108,58 @@ Ambas se cogen de las variables de entorno o fichero de configuracion `Appsettin
 
 ### Visualizacion de Insights
 He creado una prueba de concepto para mostrar como se visualizaria en Insights
+![image](https://github.com/g4rc1ss/ApuntesProgramacion/assets/28193994/0a98e6f8-aaeb-4d53-bada-381f82a10d97)
+- Ejecutamos los diferentes loggers, tanto informativos, como detallados con objetos y el formato de Template
 
+Como podemos apreciar, se visualiza la dependencia, que seria el servicio invocado
+![image](https://github.com/g4rc1ss/ApuntesProgramacion/assets/28193994/b59a344c-dbf2-4fab-9674-e75183cd0f16)
+Y si accedemos al `View All`, podemos acceder a todas las trazas
+![image](https://github.com/g4rc1ss/ApuntesProgramacion/assets/28193994/b965b7e8-1d7a-4a92-828e-21daf12e977f)
 
+Como buscar por el apartado de Performance, a veces es un poco rollo, lo que puede hacer es buscar a traves de `Logs`
 
+Con esta consulta agrupamos los resultados para buscar la transaccion por RequestId y obtenemos parametros valores como el `operation_id`, que es un id de Insights para poder buscar la transaccion y ver toda la timeline
+![image](https://github.com/g4rc1ss/ApuntesProgramacion/assets/28193994/119ebace-c4fa-494a-b12f-0197fd822dfc)
+```KQL
+traces
+    | extend MerchantId = customDimensions.MerchantId
+    | extend TerminalId = customDimensions.TerminalId
+    | extend Amount = customDimensions.Amount
+    | extend ResponseCode = customDimensions.ResponseCode
+    | extend MerchantId = customDimensions.MerchantId
+    | extend RequestId = customDimensions.RequestId
+    | where true
+        and timestamp > ago(18m)
+        and MerchantId == "329811087" 
+        and TerminalId == "00000021"
+    | summarize 
+        take_any(timestamp),
+        take_any(MerchantId),
+        take_any(TerminalId),
+        take_any(Amount),
+        take_any(ResponseCode),
+        take_any(operation_Id),
+        take_any(customDimensions)
+        by tostring(RequestId)
+```
+
+Si queremos visualizar todas las trazas directamente desde logs, se puede lanzar una consulta parecida a esta
+![image](https://github.com/g4rc1ss/ApuntesProgramacion/assets/28193994/1e4ccb04-f67f-4be5-a2f8-d52743cc6de4)
+
+```KQL
+traces
+| where customDimensions.RequestId == "0HN0OV1DEBDPG:00000003"
+| project
+    timestamp,
+    customDimensions.ResponseCode,
+    customDimensions.MerchantId,
+    customDimensions.TerminalId,
+    customDimensions.Amount,
+    message,
+    operation_Id,
+    customDimensions.RequestId,
+    customDimensions
+```
 
 ## Almacenamiento de forma `Async`
 Esta función se establece en la configuración antes de indicar el método de almacenamiento y recibe un `Action<LoggerSinkConfiguration>` para indicar como se deben mostrar/guardar la información`.
@@ -176,7 +225,6 @@ public LoggingRequestHandler(ILogger<Clase> logger)
 
 _logger.LogDebug("Valor a Guardar del log");
 ```
-
 
 ### Template con objetos complejos
 A veces necesitamos logear todos los valores de un objeto. En vez de tener que andar serializando en JSON, podemos agregar un `@` cuando especificamos el nombre del campo y `Serilog` se encargara mejor de serializarlo.
