@@ -34,9 +34,8 @@ public void RegistrandoEvento()
 ```
 
 ## Plantillas y parametrizar mensajes y objetos
-`ILogger` acepta un mensaje solamente de tipo `string` y por tanto, tienes varias opciones para poder enviar objetos al proveedor de log.
+`ILogger` acepta un mensaje solamente de tipo `string` y por tanto, si queremos enviar valores de objetos al provider tenemos que hacerlo a modo de template
 
-### Template con objetos simples
 Para añadir objetos simples(`int`, `string`, etc.), objetos que solo vayan a tener 1 valor, simplemente podemos pasarlos como parametro
 
 ```Csharp
@@ -51,22 +50,3 @@ var bananas = 3;
 _logger.LogInformation("Parameters: {apples}, {pears}, {bananas}", apples, pears, bananas);
 ```
 El nombre que indicamos en la opcion parametrizada del mensaje "`{apples}`" es importante, puesto que el mensaje final va a ser parecido a "apples : 1", si lo llamamos "objeto1", el nombre seria "objeto1: 1" y no entenderiamos a que se refiere
-
-### Template con objetos complejos
-A veces necesitamos logear objetos que tienen diferentes valores dentro, por ejemplo, un objeto `User`, tendra las propiedades `Name`, `Email`, etc.
-
-En vez de tener que andar serializando en JSON o similares, podemos agregar un `@` cuando especificamos el nombre del campo.
-
-```Csharp
-var user = new User("Nombre", "Email@email.com");
-_logger.LogInformation("Se ha creado el usuario: {@DatosCreacionUsuario}", user);
-```
-Esto, en el mensaje final, se ve como crea el parametro `DatosCreacionUsuario`, que contiene el objeto `user` y por tanto, a la hora de filtrar por los logs, podremos filtrar por los campos de este.
-
-<img width="919" alt="image" src="https://github.com/g4rc1ss/ApuntesProgramacion/assets/28193994/05364daf-d941-4980-bffa-313f15798455">
-
-> Esta es la forma recomendada de tratar los mensajes, puesto que en un proveedor de lectura de logs como `seq`, registrara la existencia del campo `DatosCreacionUsuario` o de los campos `Id`, `apples`, etc. y podremos filtrar por ellos de forma sencilla con su sintaxis de consulta, por ejemplo, para filtrar los de datos de usuario, podremos poner algo del estilo. `DatosCreacionUsuario.Nombre = "Nombre" and DatosCreacionUsuario.Email = "Email@email.com"`
-
-> Si lo creamos en un sistema como SQL Server, habra una columna de `Properties` en `XML` donde podremos filtrar de igual forma, adaptandose dicha implementacion a los diferentes proveedores de registros que implementemos
-
-<img width="919" alt="image" src="https://github.com/g4rc1ss/ApuntesProgramacion/assets/28193994/463df373-c40f-47ad-8278-2b57eafd648a">
