@@ -1,11 +1,11 @@
-name: 💡 Feature Request
-description: Suggest a feature
-title: "[SUGGESTION] <title>"
+name: 💡 Feature
+description: feature
+title: "[FEATURE] <title>"
 labels: [enhancement]
 body:
 - type: textarea
   attributes:
-    label: Describe the feature you'd like
+    label: Describe the feature
     description: A clear concise description of what you'd like to see
   validations:
     required: false
