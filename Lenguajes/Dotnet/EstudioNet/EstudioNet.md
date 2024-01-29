@@ -87,9 +87,12 @@ Documentación sobre el uso de librerias o frameworks que no estan alojados en e
     1. [Host](./docs/LibreriasNet/ServiciosHost/Host.md)
     1. [Worker Services](./docs/LibreriasNet/ServiciosHost/WorkerServices.md)
 1. [IOptions](./docs/LibreriasNet/IOptions.md)
-1. **Logging**: Los logs son cadenas de texto que se almacenan y son utilizados para guardar registro de las acciones que se han realizado en la aplicación.
-    - [Registros con ILogger<T>](./docs/LibreriasNet/Logging/InterfazILogger.md)
-    - [Logging con Serilog](./docs/LibreriasNet/Logging/LoggingSerilog.md)
+1. **Instrumentacion**: Cuando desplegamos una aplicacion, estamos completamente ciegos de lo que esta ocurriendo en ella, para evitarlo, se utiliza la instrumentacion de codigo
+    - [Registros con ILogger<T>](./docs/LibreriasNet/Instrumentation/InterfazILogger.md)
+    - [Logging con Serilog](./docs/LibreriasNet/Instrumentation/LoggingSerilog.md)
+    - [Metricas](./docs/LibreriasNet/Instrumentation/Metricas.md)
+    - [Traces](./docs/LibreriasNet/Instrumentation/Traces.md)
+    - [OpenTelemetry](./docs/LibreriasNet/Instrumentation/OpenTelemetry.md)
 1. **Caching**:
     - [Cache en Memoria (IMemoryCache)](./docs/LibreriasNet/Caching/CacheMemoriaMemory.md)
     - [Cache en Memoria (IDistributedCache)](./docs/LibreriasNet/Caching/CacheMemoriaDistributed.md)
