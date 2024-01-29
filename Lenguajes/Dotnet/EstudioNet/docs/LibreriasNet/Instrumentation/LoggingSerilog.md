@@ -47,22 +47,6 @@ WriteTo.MSSqlServer(
     - **AutoCreateSqlTable**: Indicamos si queremos que se cree la tabla si no existiera.
 - **restrictedToMinimumLevel**: Se almacenan los Logs a partir del nivel de log indicado.
 
-## Greylog
-Se pueden enviar los logs a un servicio externo configurado como `Greylog` para agregar observabilidad a nuestro desarrollo.
-> Debemos instalar el paquete `Serilog.Sinks.Graylog`
-
-```Csharp
-var grayLogConfig = new GraylogSinkOptions
-{
-    HostnameOrAddress = "Ubicacion, por ejemplo, localhost",
-    Port = 12201,
-
-    TransportType = TransportType.Udp,
-    MinimumLogEventLevel = LogEventLevel.Error,
-};
-loggerConfig.WriteTo.Graylog()
-```
-
 ## Seq
 Se pueden enviar los logs al servicio `Seq` para agregar observabilidad a nuestro desarrollo.
 > Debemos instalar el paquete `Serilog.Sinks.Seq`
@@ -161,6 +145,16 @@ traces
     customDimensions
 ```
 
+## OpenTelemetry
+Podemos enviar directamente los logs a un collector de `OpenTelemetry` y que sea el quien se encargue de enviar los logs a los providers que le indiquemos. Para poder hacer esto, a la hora de seleccionar a quien vamos a enviar, simplemente ponemos lo siguiente
+
+```Csharp
+.WriteTo.OpenTelemetry(options =>
+{
+    options.Endpoint = "ConnectionStrings:OpenTelemetry";
+});
+```
+> Necesitamos el paquete `Serilog.Sinks.OpenTelemetry`
 ## Almacenamiento de forma `Async`
 Esta función se establece en la configuración antes de indicar el método de almacenamiento y recibe un `Action<LoggerSinkConfiguration>` para indicar como se deben mostrar/guardar la información`.
 
