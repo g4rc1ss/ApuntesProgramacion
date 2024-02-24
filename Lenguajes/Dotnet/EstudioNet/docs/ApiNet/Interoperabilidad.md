@@ -4,79 +4,50 @@ La interoperabilidad consiste en la capacidad de poder comunicarse con otro soft
 > Las técnicas de interoperabilidad, al ejecutar librerias externas son recursos no administrados y por tanto, el Garbage Collector no va a actuar sobre ellas.
 
 ## Ejemplo
-Creamos una libreria en Rust con el comando `cargo new --lib rustCallback` 
+Creamos una libreria en Rust con el comando `cargo new --lib rustlib` 
 
 En el archivo `cargo.toml` agregamos el siguiente codigo:
 
 ```toml
 [package]
-name = "rustCallback"
+name = "rustlib"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [lib]
-name="rustCallback"
+name="rustlib"
 crate-type = ["cdylib"]
 
 [dependencies]
-async-std = "1.12.0"
 ```
 
 ```rust
-use async_std::task;
-use std::{time::Duration};
-
-#[no_mangle]
-pub extern "C" fn prueba_callback(callback: extern "C" fn(result: i32)) {
-    let std_task = task::spawn(async move {
-        let response = 676767;
-        
-        task::sleep(Duration::from_secs(10)).await;
-
-        // Ejecutamos el Callback
-        callback(response);
-    });
+pub fn prueba_interoperabilidad() {
+    println!("Hola dotnet");
 }
+
 ```
 En este ejemplo de codigo vamos a crear una funcion asíncrona en `Rust` que ejecuta una operacion que lleva un tiempo(10 segundos) y esta recibe una funcion `Callback` para que, cuando termine, poder avisar a nuestra aplicacion `.net`
 
 Para compilar la libreria de `Rust` ejecutamos el comando `cargo build --release`
 
 ```Csharp
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public delegate void Callback(int response);
-
 public class ClaseInteractuaRust
 {
-    [DllImport("librustCallback.dylib")]
-    static extern void prueba_callback(Callback callback);
+    [DllImport("rustlib.dylib", CallingConvention = CallingConvention.Cdecl)]
+    static extern void prueba_interoperabilidad();
 
-    public async Task EjecutarDllAsync(CancellationToken cancellationToken = default)
-    {
-        var taskCompletionSource = new TaskCompletionSource<int>(TaskCreationOptions.RunContinuationsAsynchronously);
-
-        void callback(int response)
-        {
-            if (!taskCompletionSource.TrySetResult(response))
-            {
-                taskCompletionSource.SetException(new Exception("No se puede insertar el resultado"));
-            }
-            Console.WriteLine(response);
-        };
-        prueba_callback(callback);
-
-        using (cancellationToken.UnsafeRegister(static (task, ct) => ((TaskCompletionSource)task!).TrySetCanceled(ct), taskCompletionSource))
-        {
-            await taskCompletionSource.Task;
-        }
+    public EjecutarDll(){
+        prueba_interoperabilidad();
     }
 }
 ```
-- Creamos un delegado de `Callback`
-- Creamos una funcion `extern` para indicar la dll que queremos ejecutar de forma nativa
-- Como la aplicacion se va a ejecutar de forma asincrona, creamos una instancia de `TaskCompletionSource` para poder insertar los resultados y modificar el state de la `Task`
-- Implementamos el `callback` que vamos a enviar a la `dll` y esta se encargará de ejecutar, en el indicamos que recibimos un parametro de tipo `int` (que lo inserta la libreria de rust), al recibirlo, cambiamos el resultado y el estado de la tarea
-- Ejecutamos la tarea
-- Registramos un token de cancelacion vinculado a la tarea, el cual, si el token se modifica a canceled, la tarea terminará
-- Esperamos la tarea de forma asincrona.
+
+1. Importamos la libreria con el atributo `DllImport` de `dotnet`
+1. Llamamos a la funcion, de la misma forma que la funcion de la libreria que estamos usando, en este caso la funcion en `Rust` se llama `prueba_interoperabilidad`
+1. Llamamos a la funcion como si de un metodo se tratara y con eso deberia de ejecutar la libreria sin problemas.
+
+
+> Hay que tener en cuenta el Path de la libreria, el import es desde disco local
+
