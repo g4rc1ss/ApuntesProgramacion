@@ -56,8 +56,9 @@ El API .Net se basa principalmente en el uso de los namespaces: `System`, `Syste
     - [Sincronizar Hilos](./docs/ApiNet/Threading/SyncThreads.md)
     - [Task Parallel Library](./docs/ApiNet/Threading/TaskParallelLibrary/TPL.md)
         - [Async & await](./docs/ApiNet/Threading/TaskParallelLibrary/Async.md)
+        - [Crear tareas asincronas](./docs/ApiNet/Threading/TaskParallelLibrary/CrearTaskAsync.md)
         - [Parallel](./docs/ApiNet/Threading/TaskParallelLibrary/Parallel.md)
-        - [Cancellation de Subprocesos](./docs/ApiNet/Threading/TaskParallelLibrary/CancellationToken.md)
+        - [Cancelacion de Subprocesos](./docs/ApiNet/Threading/TaskParallelLibrary/CancellationToken.md)
 1. **Escritura y Lectura**
     - [Stream](./docs/ApiNet/InputOutput/Stream.md)
     - [MemoryStream](./docs/ApiNet/InputOutput/MemoryStream.md)
