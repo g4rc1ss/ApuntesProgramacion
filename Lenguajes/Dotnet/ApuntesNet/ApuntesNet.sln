@@ -10,10 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{1DA159C8-90C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleDesign", "Desktop\ConsoleDesign\ConsoleDesign.csproj", "{4B99397C-0463-40DF-8151-71339EB054C5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Configs", "_Configs", "{4233726F-ADE3-4D58-BEEA-80F16678477C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{BC3CFAEF-A9A3-4BA7-A01B-6A45AEB04392}"
 	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		nuget.config = nuget.config
+		Directory.build.props = Directory.build.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gui", "Gui", "{0668E463-2FB9-4D83-8FD5-BABAF6E85BDB}"

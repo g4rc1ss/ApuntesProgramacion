@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks>$(AndroidTargetMaui);$(IOSTargetMaui);$(MaccatalystTargetMaui)</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);$(WindowsTargetMaui)</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
@@ -30,8 +30,8 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
-	  <CreatePackage>false</CreatePackage>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|$(IOSTargetMaui)|AnyCPU'">
+		<CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
@@ -48,18 +48,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiImage Remove="Resources\Images\dotnet_bot.svg" />
+		<MauiImage Remove="Resources\Images\dotnet_bot.svg" />
 	</ItemGroup>
 	<ItemGroup>
-	  <BundleResource Include="Resources\Images\dotnet_bot.svg" />
+		<BundleResource Include="Resources\Images\dotnet_bot.svg" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Remove="Model\" />
+		<None Remove="Model\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Model\" />
+		<Folder Include="Model\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\PluginAPI\PluginAPI.csproj" />
+		<ProjectReference Include="..\PluginAPI\PluginAPI.csproj" />
 	</ItemGroup>
 </Project>

@@ -1,11 +1,11 @@
 ﻿namespace DependencyInjection;
 
-interface IServicioInyectado
+interface PServicioInyectado
 {
     Task<bool> ExecuteAsync(CancellationToken cancellationToken = default);
 }
 
-public class ServicioInyectado : IServicioInyectado
+public class ServicioInyectado : PServicioInyectado
 {
     public Task<bool> ExecuteAsync(CancellationToken cancellationToken = default)
     {
