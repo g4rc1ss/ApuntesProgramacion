@@ -2,30 +2,30 @@
 
 public partial class MainPage : ContentPage
 {
-    private string operacion = "";
-    private readonly int[] numero = new int[2];
-    private bool insertar = true;
-    private bool operacionSeleccion = false;
+    private string _operacion = "";
+    private readonly int[] _numero = new int[2];
+    private bool _insertar = true;
+    private bool _operacionSeleccion = false;
 
     public MainPage()
     {
         InitializeComponent();
     }
 
-    async void Listener(object sender, EventArgs e)
+    private async void Listener(object sender, EventArgs e)
     {
         var compo = (Componente)sender;
         var respuesta = compo.Accion(mostrar);
 
         if (ComprobarNumero(respuesta))
         {
-            if (insertar)
+            if (_insertar)
             {
-                numero[0] = int.Parse(mostrar.Text);
+                _numero[0] = int.Parse(mostrar.Text);
             }
-            else if (!insertar)
+            else if (!_insertar)
             {
-                numero[1] = int.Parse(mostrar.Text);
+                _numero[1] = int.Parse(mostrar.Text);
             }
         }
         else if (respuesta.Equals("+") || respuesta.Equals("-") || respuesta.Equals("*") || respuesta.Equals("/"))
@@ -35,7 +35,7 @@ public partial class MainPage : ContentPage
                 await DisplayAlert("Calculadora", "Calculadora", "Debes introducir un numero primero", "Cancel");
                 return;
             }
-            if (operacionSeleccion)
+            if (_operacionSeleccion)
             {
                 await DisplayAlert("Calculadora", "Calculadora", "Ya has seleccionado una operacion", "Cancel");
                 return;
@@ -43,25 +43,25 @@ public partial class MainPage : ContentPage
             else
             {
                 mostrar.Text = "";
-                operacion = respuesta;
-                insertar = false;
-                operacionSeleccion = true;
+                _operacion = respuesta;
+                _insertar = false;
+                _operacionSeleccion = true;
             }
 
         }
         else if (respuesta.Equals("C"))
         {
-            for (var x = 0; x < numero.Length; x++)
+            for (var x = 0; x < _numero.Length; x++)
             {
-                numero[x] = 0;
+                _numero[x] = 0;
             }
 
-            insertar = true;
-            operacionSeleccion = false;
+            _insertar = true;
+            _operacionSeleccion = false;
         }
         else if (respuesta.Equals("="))
         {
-            if (operacion == null)
+            if (_operacion == null)
             {
                 await DisplayAlert("Calculadora", "Debes seleccionar una operacion primero", "Cancel");
                 return;
@@ -71,28 +71,24 @@ public partial class MainPage : ContentPage
                 await DisplayAlert("Calculadora", "Debes introducir otro numero", "Cancel");
                 return;
             }
-            var resultado = Operar(operacion);
+            var resultado = Operar(_operacion);
             mostrar.Text = "" + resultado;
-            numero[0] = resultado;
-            insertar = true;
-            operacionSeleccion = false;
+            _numero[0] = resultado;
+            _insertar = true;
+            _operacionSeleccion = false;
         }
     }
 
     private int Operar(string operacion)
     {
-        switch (operacion)
+        return operacion switch
         {
-            case "+":
-                return numero[0] + numero[1];
-            case "-":
-                return numero[0] - numero[1];
-            case "*":
-                return numero[0] * numero[1];
-            case "/":
-                return numero[0] / numero[1];
-        }
-        return 0;
+            "+" => _numero[0] + _numero[1],
+            "-" => _numero[0] - _numero[1],
+            "*" => _numero[0] * _numero[1],
+            "/" => _numero[0] / _numero[1],
+            _ => 0,
+        };
     }
 
     private bool ComprobarNumero(string respuesta)

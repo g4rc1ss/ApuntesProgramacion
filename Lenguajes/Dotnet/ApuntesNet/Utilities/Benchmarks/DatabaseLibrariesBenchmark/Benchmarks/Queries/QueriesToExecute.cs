@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace DatabaseLibrariesBenchmark.Benchmarks.Queries;
 
-namespace DatabaseLibrariesBenchmark.Benchmarks.Queries
+internal class QueriesToExecute
 {
-    internal class QueriesToExecute
-    {
 
-        public static string SelectAll = @"
+    public static string selectAll = @"
 SELECT * 
 FROM BenchmarkingDatabases.WeatherForecast";
-    }
 }

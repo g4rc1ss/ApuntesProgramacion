@@ -8,12 +8,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(config =>
-{
-    config.AddPolicy("all", corsPolicy =>
-    {
-        corsPolicy.AllowAnyHeader().AllowAnyOrigin();
-    });
-});
+    config.AddPolicy("all",
+    corsPolicy => corsPolicy.AllowAnyHeader().AllowAnyOrigin()));
 
 var app = builder.Build();
 

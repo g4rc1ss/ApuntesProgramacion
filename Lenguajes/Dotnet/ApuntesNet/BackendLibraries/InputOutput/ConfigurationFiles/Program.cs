@@ -1,5 +1,4 @@
-﻿using System;
-using ConfigurationFiles.JsonConfigFile;
+﻿using ConfigurationFiles.JsonConfigFile;
 using ConfigurationFiles.XmlConfigFile;
 
 // Usamos un archivo de configuracion

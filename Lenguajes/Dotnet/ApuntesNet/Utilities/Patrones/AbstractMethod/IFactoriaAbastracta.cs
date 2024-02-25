@@ -2,12 +2,11 @@
 using AbstractMethod.BaseDatos;
 using AbstractMethod.File;
 
-namespace AbstractMethod
+namespace AbstractMethod;
+
+internal interface IFactoriaAbastracta
 {
-    internal interface IFactoriaAbastracta
-    {
-        IAlmacenamientoBBDD CreateAlmacenamientoBBDD();
-        IAlmacenamientoFile CreateAlmacenamientoFile();
-        IAlmacenamientoApi CreateAlmacenamientoApi();
-    }
+    IAlmacenamientoBBDD CreateAlmacenamientoBBDD();
+    IAlmacenamientoFile CreateAlmacenamientoFile();
+    IAlmacenamientoApi CreateAlmacenamientoApi();
 }

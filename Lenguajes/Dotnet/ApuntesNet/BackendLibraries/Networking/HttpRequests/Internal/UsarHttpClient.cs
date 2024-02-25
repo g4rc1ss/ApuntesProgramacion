@@ -1,21 +1,13 @@
-﻿using System.Net.Http;
-using System.Net.Http.Json;
-using System.Threading.Tasks;
+﻿using System.Net.Http.Json;
 
-namespace HttpRequests.Internal
+namespace HttpRequests.Internal;
+
+internal class UsarHttpClient(IHttpClientFactory httpClientFactory)
 {
-    internal class UsarHttpClient
+    private readonly HttpClient _httpClient = httpClientFactory.CreateClient("clientePrueba");
+
+    public Task<object> ExecuteHttpClientAsync()
     {
-        private readonly HttpClient _httpClient;
-
-        public UsarHttpClient(IHttpClientFactory httpClientFactory)
-        {
-            _httpClient = httpClientFactory.CreateClient("clientePrueba");
-        }
-
-        public Task<object> ExecuteHttpClientAsync()
-        {
-            return _httpClient.GetFromJsonAsync<object>("pokemon/lucario");
-        }
+        return _httpClient.GetFromJsonAsync<object>("pokemon/lucario");
     }
 }

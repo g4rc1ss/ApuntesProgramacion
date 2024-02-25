@@ -2,23 +2,22 @@
 using AbstractMethod.BaseDatos;
 using AbstractMethod.File;
 
-namespace AbstractMethod
+namespace AbstractMethod;
+
+internal class FactoriaAbstracta : IFactoriaAbastracta
 {
-    internal class FactoriaAbstracta : IFactoriaAbastracta
+    public IAlmacenamientoApi CreateAlmacenamientoApi()
     {
-        public IAlmacenamientoApi CreateAlmacenamientoApi()
-        {
-            return new AlmacenamientoApi();
-        }
+        return new AlmacenamientoApi();
+    }
 
-        public IAlmacenamientoBBDD CreateAlmacenamientoBBDD()
-        {
-            return new AlmacenamientoBBDD();
-        }
+    public IAlmacenamientoBBDD CreateAlmacenamientoBBDD()
+    {
+        return new AlmacenamientoBBDD();
+    }
 
-        public IAlmacenamientoFile CreateAlmacenamientoFile()
-        {
-            return new AlmacenamientoFile();
-        }
+    public IAlmacenamientoFile CreateAlmacenamientoFile()
+    {
+        return new AlmacenamientoFile();
     }
 }

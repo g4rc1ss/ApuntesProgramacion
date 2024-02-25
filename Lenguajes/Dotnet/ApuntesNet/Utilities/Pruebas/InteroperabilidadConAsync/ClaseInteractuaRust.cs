@@ -8,13 +8,13 @@ public delegate void Callback(int response);
 public class ClaseInteractuaRust
 {
     [DllImport("libcallback.dylib", CallingConvention = CallingConvention.Cdecl)]
-    static extern void prueba_callback(Callback callback);
+    private static extern void prueba_callback(Callback callback);
 
     public async Task EjecutarDllAsync(CancellationToken cancellationToken = default)
     {
         var taskCompletionSource = new TaskCompletionSource<int>(TaskCreationOptions.RunContinuationsAsynchronously);
 
-        void callback(int response)
+        void Callback(int response)
         {
             if (!taskCompletionSource.TrySetResult(response))
             {
@@ -24,7 +24,7 @@ public class ClaseInteractuaRust
         };
 
         Console.WriteLine($"Hilo de Csharp antes de llamar a la libreria {Thread.CurrentThread.ManagedThreadId}");
-        prueba_callback(callback);
+        prueba_callback(Callback);
 
         using (cancellationToken.UnsafeRegister(static (task, ct) => ((TaskCompletionSource)task!).TrySetCanceled(ct), taskCompletionSource))
         {

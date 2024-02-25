@@ -1,17 +1,16 @@
 ﻿using FactoryMethod.Storage;
 
-namespace FactoryMethod
-{
-    internal static class Factory
-    {
-        public static IAlmacenamiento GetAlmacenamientoBaseDatos()
-        {
-            return new AlmacenamientoBBDD();
-        }
+namespace FactoryMethod;
 
-        public static IAlmacenamiento GetAlmacenamientoFile()
-        {
-            return new AlmacenamientoFile();
-        }
+internal static class Factory
+{
+    public static IAlmacenamiento GetAlmacenamientoBaseDatos()
+    {
+        return new AlmacenamientoBBDD();
+    }
+
+    public static IAlmacenamiento GetAlmacenamientoFile()
+    {
+        return new AlmacenamientoFile();
     }
 }

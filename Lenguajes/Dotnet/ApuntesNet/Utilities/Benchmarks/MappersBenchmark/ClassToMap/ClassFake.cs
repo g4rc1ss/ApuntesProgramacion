@@ -1,10 +1,8 @@
-﻿using System.Collections.Immutable;
-
-namespace MappersBenchmark.ClassToMap;
+﻿namespace MappersBenchmark.ClassToMap;
 
 public static class ClassFake
 {
-    public static Chat ChatClass = new()
+    public static Chat chatClass = new()
     {
         Id = Guid.NewGuid().ToString(),
         Message = "Hola, me llamo Ralph",
@@ -40,5 +38,5 @@ public static class ClassFake
         }
     };
 
-    public static IEnumerable<Chat> ChatEntityList = Enumerable.Range(0, 1000).Select(x => ChatClass).ToList();
+    public static IEnumerable<Chat> chatEntityList = Enumerable.Range(0, 1000).Select(x => chatClass).ToList();
 }

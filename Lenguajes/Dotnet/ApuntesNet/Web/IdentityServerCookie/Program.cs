@@ -1,5 +1,6 @@
 ﻿using IdentityServerCookie.Database;
 using IdentityServerCookie.Database.Entities;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,10 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContextPool<IdentityContext>(contextBuilder =>
-{
-    contextBuilder.UseSqlServer(builder.Configuration.GetConnectionString(nameof(IdentityContext)));
-});
+builder.Services.AddDbContextPool<IdentityContext>(contextBuilder => contextBuilder.UseSqlServer(builder.Configuration.GetConnectionString(nameof(IdentityContext))));
 
 builder.Services.AddIdentity<User, Role>(options =>
 {

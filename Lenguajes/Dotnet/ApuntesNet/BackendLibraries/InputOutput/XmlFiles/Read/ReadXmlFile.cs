@@ -1,24 +1,22 @@
-﻿using System;
-using System.Xml;
+﻿using System.Xml;
 
-namespace XmlFiles.Read
+namespace XmlFiles.Read;
+
+internal class ReadXmlFile
 {
-    internal class ReadXmlFile
+    public ReadXmlFile(string nombreArchivo)
     {
-        public ReadXmlFile(string nombreArchivo)
+        var document = new XmlDocument();
+        document.Load(nombreArchivo);
+
+        foreach (XmlNode node in document.DocumentElement.ChildNodes)
         {
-            var document = new XmlDocument();
-            document.Load(nombreArchivo);
+            var id = node.Attributes["id"].Value;
+            Console.WriteLine($"Id: {id}");
 
-            foreach (XmlNode node in document.DocumentElement.ChildNodes)
+            foreach (XmlNode elements in node.ChildNodes)
             {
-                var id = node.Attributes["id"].Value;
-                Console.WriteLine($"Id: {id}");
-
-                foreach (XmlNode elements in node.ChildNodes)
-                {
-                    Console.WriteLine($"{elements.Name} : {elements.InnerText}");
-                }
+                Console.WriteLine($"{elements.Name} : {elements.InnerText}");
             }
         }
     }

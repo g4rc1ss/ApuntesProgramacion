@@ -1,18 +1,14 @@
-﻿using System;
-using System.IO;
+﻿namespace TextFiles.ClaseFile;
 
-namespace TextFiles.ClaseFile
+internal class CreateFile
 {
-    internal class CreateFile
+    public CreateFile(params string[] archivosCrear)
     {
-        public CreateFile(params string[] archivosCrear)
+        // Creamos el archivo en la ruta correspondiente
+        foreach (var archivo in archivosCrear)
         {
-            // Creamos el archivo en la ruta correspondiente
-            foreach (var archivo in archivosCrear)
-            {
-                using var file = File.Create(archivo);
-                Console.WriteLine($"Archivo {archivo} creado");
-            }
+            using var file = File.Create(archivo);
+            Console.WriteLine($"Archivo {archivo} creado");
         }
     }
 }

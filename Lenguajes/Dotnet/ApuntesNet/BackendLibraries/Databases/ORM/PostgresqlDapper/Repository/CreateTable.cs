@@ -1,20 +1,17 @@
 ﻿using System.Data;
+
+
 using Dapper;
 
-namespace PostgresqlDapper.Repository
+namespace PostgresqlDapper.Repository;
+
+internal class CreateTable(IDbConnection dbConnection)
 {
-    internal class CreateTable
+    private readonly IDbConnection _dbConnection = dbConnection;
+
+    public async Task CreateTableAsync()
     {
-        private readonly IDbConnection _dbConnection;
-
-        public CreateTable(IDbConnection dbConnection)
-        {
-            _dbConnection = dbConnection;
-        }
-
-        public async Task CreateTableAsync()
-        {
-            var createUsuario = @"CREATE TABLE Usuario(
+        var createUsuario = @"CREATE TABLE Usuario(
                                         Id         SERIAL     NOT NULL,
                                         Nombre     TEXT    NOT NULL,
                                         IdPueblo   INT     NOT NULL,
@@ -24,14 +21,13 @@ namespace PostgresqlDapper.Repository
                                         ON DELETE CASCADE
                                         ON UPDATE CASCADE);";
 
-            var createPueblo = @"CREATE TABLE Pueblo(
+        var createPueblo = @"CREATE TABLE Pueblo(
                                         Id         SERIAL     NOT NULL,
                                         Nombre     TEXT    NOT NULL,
                                         CONSTRAINT PK_Pueblo PRIMARY KEY (Id))";
 
 
-            await _dbConnection.ExecuteAsync(createPueblo);
-            await _dbConnection.ExecuteAsync(createUsuario);
-        }
+        await _dbConnection.ExecuteAsync(createPueblo);
+        await _dbConnection.ExecuteAsync(createUsuario);
     }
 }

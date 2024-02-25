@@ -1,23 +1,17 @@
 ﻿using IdentityServerCookie.Database.Entities;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace IdentityServerCookie.Controllers.Account
+namespace IdentityServerCookie.Controllers.Account;
+
+public class LogoutController(SignInManager<User> signInManager) : Controller
 {
-    public class LogoutController : Controller
+
+    public async Task<IActionResult> IndexAsync()
     {
-        private readonly SignInManager<User> _signInManager;
+        await signInManager.SignOutAsync();
 
-        public LogoutController(SignInManager<User> signInManager)
-        {
-            _signInManager = signInManager;
-        }
-
-        public async Task<IActionResult> IndexAsync()
-        {
-            await _signInManager.SignOutAsync();
-
-            return LocalRedirect("/");
-        }
+        return LocalRedirect("/");
     }
 }

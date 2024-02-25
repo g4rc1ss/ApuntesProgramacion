@@ -1,33 +1,27 @@
 ﻿using SqlServerEfCore.Database;
 using SqlServerEfCore.Database.Entities;
 
-namespace SqlServerEfCore.Repository
+namespace SqlServerEfCore.Repository;
+
+public class InsertData(EntityFrameworkSqlServerContext frameworkSqlServerContext)
 {
-    public class InsertData
+    private readonly EntityFrameworkSqlServerContext _frameworkSqlServerContext = frameworkSqlServerContext;
+
+    internal Task<int> InsertDataAsync()
     {
-        private readonly EntityFrameworkSqlServerContext _frameworkSqlServerContext;
-
-        public InsertData(EntityFrameworkSqlServerContext frameworkSqlServerContext)
+        var usuarioAgregar = new Usuario
         {
-            _frameworkSqlServerContext = frameworkSqlServerContext;
-        }
-
-        internal Task<int> InsertDataAsync()
-        {
-            var usuarioAgregar = new Usuario
+            Nombre = "Nombre del usuario",
+            Edad = 10,
+            FechaHoy = DateTime.Now,
+            PuebloId = 20,
+            PuebloIdNavigation = new Pueblo
             {
-                Nombre = "Nombre del usuario",
-                Edad = 10,
-                FechaHoy = DateTime.Now,
-                PuebloId = 20,
-                PuebloIdNavigation = new Pueblo
-                {
-                    Nombre = "Soria"
-                }
-            };
+                Nombre = "Soria"
+            }
+        };
 
-            _frameworkSqlServerContext.Usuarios.Add(usuarioAgregar);
-            return _frameworkSqlServerContext.SaveChangesAsync();
-        }
+        _frameworkSqlServerContext.Usuarios.Add(usuarioAgregar);
+        return _frameworkSqlServerContext.SaveChangesAsync();
     }
 }

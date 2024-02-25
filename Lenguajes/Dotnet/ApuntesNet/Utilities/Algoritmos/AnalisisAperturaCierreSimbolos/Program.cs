@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-
-const string PRUEBA1 = "[[[{{()}}]]]";
+﻿const string PRUEBA1 = "[[[{{()}}]]]";
 const string PRUEBA2 = "[[[{{(}]]]";
 
 Dictionary<char, char> simbolosAperturaCierre = new()

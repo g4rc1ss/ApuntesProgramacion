@@ -1,30 +1,23 @@
-﻿namespace MiddlewaresApi.Middlewares
+﻿namespace MiddlewaresApi.Middlewares;
+
+public class ErrorMiddleware(ILogger<ErrorMiddleware> logger) : IMiddleware
 {
-    public class ErrorMiddleware : IMiddleware
+
+    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        private readonly ILogger<ErrorMiddleware> _logger;
-
-        public ErrorMiddleware(ILogger<ErrorMiddleware> logger)
+        try
         {
-            _logger = logger;
+            await next(context);
         }
-
-        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+        catch (Exception ex)
         {
-            try
+            var messageResponse = new
             {
-                await next(context);
-            }
-            catch (Exception ex)
-            {
-                var messageResponse = new
-                {
-                    Detalle = ex.Message,
-                    StackTrace = ex.StackTrace,
-                };
+                Detalle = ex.Message,
+                ex.StackTrace,
+            };
 
-                await context.Response.WriteAsJsonAsync(messageResponse);
-            }
+            await context.Response.WriteAsJsonAsync(messageResponse);
         }
     }
 }

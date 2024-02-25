@@ -1,9 +1,8 @@
 ﻿using Xunit;
 
-namespace AspMvcTesting
+namespace AspMvcTesting;
+
+[CollectionDefinition("Identificador")]
+public class TestFixture : ICollectionFixture<TestConfigurationToFixture>
 {
-    [CollectionDefinition("Identificador")]
-    public class TestFixture : ICollectionFixture<TestConfigurationToFixture>
-    {
-    }
 }

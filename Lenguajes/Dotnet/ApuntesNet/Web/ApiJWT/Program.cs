@@ -1,5 +1,7 @@
 ﻿using System.Text;
+
 using ApiJWT.Configuration;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -64,10 +66,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // Cuando se van a realizar solicitudes sobre el mismo origen, por ejemplo, ejecutando una app Blazor se requiere permitirlo mediante una policita de configuracion
-builder.Services.AddCors(option =>
-{
-    option.AddPolicy("open", builder => builder.AllowAnyOrigin().AllowAnyHeader());
-});
+builder.Services.AddCors(option => option.AddPolicy("open", builder => builder.AllowAnyOrigin().AllowAnyHeader()));
 
 builder.Services.AddDataProtection();
 
@@ -96,9 +95,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
+app.UseEndpoints(endpoints => endpoints.MapControllers());
 
 await app.RunAsync();

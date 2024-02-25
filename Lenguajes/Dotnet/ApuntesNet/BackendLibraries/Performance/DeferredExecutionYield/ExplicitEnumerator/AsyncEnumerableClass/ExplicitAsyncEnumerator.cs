@@ -1,23 +1,22 @@
-﻿namespace DeferredExecutionYield.ExplicitEnumerator.AsyncEnumerableClass
+﻿namespace DeferredExecutionYield.ExplicitEnumerator.AsyncEnumerableClass;
+
+internal class ExplicitAsyncEnumerator : IAsyncEnumerator<int>
 {
-    internal class ExplicitAsyncEnumerator : IAsyncEnumerator<int>
+    public int Current { get; private set; }
+
+    public async ValueTask DisposeAsync()
     {
-        public int Current { get; private set; }
+        await Task.Delay(1);
+        GC.SuppressFinalize(this);
+    }
 
-        public async ValueTask DisposeAsync()
+    public async ValueTask<bool> MoveNextAsync()
+    {
+        if (Current < 100)
         {
-            await Task.Delay(1);
-            GC.SuppressFinalize(this);
+            Current++;
+            return await Task.FromResult(true);
         }
-
-        public async ValueTask<bool> MoveNextAsync()
-        {
-            if (Current < 100)
-            {
-                Current++;
-                return await Task.FromResult(true);
-            }
-            return await Task.FromResult(false);
-        }
+        return await Task.FromResult(false);
     }
 }

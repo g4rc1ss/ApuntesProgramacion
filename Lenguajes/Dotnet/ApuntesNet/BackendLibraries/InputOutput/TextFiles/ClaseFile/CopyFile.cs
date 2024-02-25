@@ -1,12 +1,9 @@
-﻿using System.IO;
+﻿namespace TextFiles.ClaseFile;
 
-namespace TextFiles.ClaseFile
+internal class CopyFile
 {
-    internal class CopyFile
+    public CopyFile(string nombreArchivoOrigen, string nombreArchivoDestino)
     {
-        public CopyFile(string nombreArchivoOrigen, string nombreArchivoDestino)
-        {
-            File.Copy(nombreArchivoOrigen, nombreArchivoDestino);
-        }
+        File.Copy(nombreArchivoOrigen, nombreArchivoDestino);
     }
 }

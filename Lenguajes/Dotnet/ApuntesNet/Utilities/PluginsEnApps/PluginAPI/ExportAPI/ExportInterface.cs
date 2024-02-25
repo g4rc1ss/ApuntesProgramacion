@@ -1,13 +1,7 @@
-﻿namespace PluginAPI.ExportAPI
+﻿namespace PluginAPI.ExportAPI;
+
+public class ExportInterface(object windowInterface, bool fullWindow)
 {
-    public class ExportInterface
-    {
-        public readonly bool fullWindow;
-        public readonly object windowInterface;
-        public ExportInterface(object windowInterface, bool fullWindow)
-        {
-            this.windowInterface = windowInterface;
-            this.fullWindow = fullWindow;
-        }
-    }
+    public readonly bool fullWindow = fullWindow;
+    public readonly object windowInterface = windowInterface;
 }

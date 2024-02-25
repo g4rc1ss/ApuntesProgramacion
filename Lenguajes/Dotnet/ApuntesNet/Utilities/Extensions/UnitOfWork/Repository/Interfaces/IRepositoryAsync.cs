@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 
@@ -80,7 +81,7 @@ public interface IRepositoryAsync<T> where T : class
     /// <param name="predicate"></param>
     /// <param name="selector"></param>
     /// <returns></returns>
-    Task<K> MaxAsync<K>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, K>> selector = null);
+    Task<TK> MaxAsync<TK>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, TK>> selector = null);
     /// <summary>
     /// Devuelve el Min de los registros seleccionadod
     /// </summary>
@@ -88,7 +89,7 @@ public interface IRepositoryAsync<T> where T : class
     /// <param name="predicate"></param>
     /// <param name="selector"></param>
     /// <returns></returns>
-    Task<K> MinAsync<K>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, K>> selector = null);
+    Task<TK> MinAsync<TK>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, TK>> selector = null);
     /// <summary>
     /// Devueve la media de los registros seleccionados
     /// </summary>

@@ -1,7 +1,6 @@
-﻿namespace MediatrLibrary.Handlers.SendMethod
+﻿namespace MediatrLibrary.Handlers.SendMethod;
+
+internal class SendMethodResponse
 {
-    internal class SendMethodResponse
-    {
-        public string Respuesta { get; set; }
-    }
+    public string Respuesta { get; set; }
 }

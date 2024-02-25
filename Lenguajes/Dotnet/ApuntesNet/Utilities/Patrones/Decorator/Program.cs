@@ -1,7 +1,7 @@
 ﻿using Decorator;
 
 
-Client client = new Client();
+var client = new Client();
 
 var simple = new ConcreteComponent();
 Console.WriteLine("Client: I get a simple component:");
@@ -14,8 +14,8 @@ Console.WriteLine();
  * Cuando llamemos a la funcion, se iran ejecutando las funciones de las instancias abstractas que recibimos.
  * 
  */
-ConcreteDecoratorA decorator1 = new ConcreteDecoratorA(simple);
-ConcreteDecoratorB decorator2 = new ConcreteDecoratorB(decorator1);
+var decorator1 = new ConcreteDecoratorA(simple);
+var decorator2 = new ConcreteDecoratorB(decorator1);
 Console.WriteLine("Client: Now I've got a decorated component:");
 client.ClientCode(decorator2);
 

@@ -1,34 +1,27 @@
-﻿namespace MiddlewaresApi.Middlewares
+﻿namespace MiddlewaresApi.Middlewares;
+
+public class DefaultMiddleware(ILogger<DefaultMiddleware> logger) : IMiddleware
 {
-    public class DefaultMiddleware : IMiddleware
+
+    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        private readonly ILogger<DefaultMiddleware> _logger;
+        // Lo que se ejecuta antes de la resolucion de la request
+        using var memoryStream = new MemoryStream();
+        var original = context.Response.Body;
 
-        public DefaultMiddleware(ILogger<DefaultMiddleware> logger)
-        {
-            _logger = logger;
-        }
+        context.Response.Body = memoryStream;
+        logger.LogInformation($"Request Path {context.Request.Path.Value}");
 
-        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
-        {
-            // Lo que se ejecuta antes de la resolucion de la request
-            using var memoryStream = new MemoryStream();
-            var original = context.Response.Body;
+        // La llamada a la siguiente ejecucion correspondiente del Middleware hasta que se resuelva la Request
+        await next(context);
 
-            context.Response.Body = memoryStream;
-            _logger.LogInformation($"Request Path {context.Request.Path.Value}");
+        // Lo que se ejecuta despues de la resolucion de la request
+        memoryStream.Seek(0, SeekOrigin.Begin);
+        var data = await new StreamReader(context.Response.Body).ReadToEndAsync();
+        memoryStream.Seek(0, SeekOrigin.Begin);
 
-            // La llamada a la siguiente ejecucion correspondiente del Middleware hasta que se resuelva la Request
-            await next(context);
-
-            // Lo que se ejecuta despues de la resolucion de la request
-            memoryStream.Seek(0, SeekOrigin.Begin);
-            var data = await new StreamReader(context.Response.Body).ReadToEndAsync();
-            memoryStream.Seek(0, SeekOrigin.Begin);
-
-            _logger.LogInformation($"Datos del Response {data}");
-            await memoryStream.CopyToAsync(original);
-            context.Response.Body = original;
-        }
+        logger.LogInformation($"Datos del Response {data}");
+        await memoryStream.CopyToAsync(original);
+        context.Response.Body = original;
     }
 }

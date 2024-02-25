@@ -1,20 +1,13 @@
-﻿namespace Adapter
+﻿namespace Adapter;
+
+
+// The Adapter makes the Adaptee's interface compatible with the Target's
+// interface.
+internal class PatronAdapter(Adaptar adaptar) : ITarget
 {
 
-    // The Adapter makes the Adaptee's interface compatible with the Target's
-    // interface.
-    internal class PatronAdapter : ITarget
+    public string GetRequest()
     {
-        private readonly Adaptar _adaptar;
-
-        public PatronAdapter(Adaptar adaptar)
-        {
-            _adaptar = adaptar;
-        }
-
-        public string GetRequest()
-        {
-            return $"This is '{_adaptar.GetSpecificRequest()}'";
-        }
+        return $"This is '{adaptar.GetSpecificRequest()}'";
     }
 }

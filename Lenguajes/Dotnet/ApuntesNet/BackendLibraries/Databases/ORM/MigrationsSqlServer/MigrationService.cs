@@ -1,26 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using SqlServerEfCore.Database;
 
-namespace MigrationsSqlServer
+namespace MigrationsSqlServer;
+
+internal class MigrationService(EntityFrameworkSqlServerContext context)
 {
-    internal class MigrationService
+
+    public async Task MigrateApplicationAsync()
     {
-        private readonly EntityFrameworkSqlServerContext _context;
+        await context.Database.EnsureDeletedAsync();
+        await context.Database.MigrateAsync();
+    }
 
-        public MigrationService(EntityFrameworkSqlServerContext context)
-        {
-            _context = context;
-        }
-
-        public async Task MigrateApplicationAsync()
-        {
-            await _context.Database.EnsureDeletedAsync();
-            await _context.Database.MigrateAsync();
-        }
-
-        public Task InitializeDatabase()
-        {
-            return Task.CompletedTask;
-        }
+    public Task InitializeDatabase()
+    {
+        return Task.CompletedTask;
     }
 }

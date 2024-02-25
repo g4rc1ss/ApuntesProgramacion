@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace AspMvcTesting.Configuration
+namespace AspMvcTesting.Configuration;
+
+internal class WebApplicationFactoryWeatherForecast : WebApplicationFactory<Program>
 {
-    internal class WebApplicationFactoryWeatherForecast : WebApplicationFactory<Program>
-    {
-    }
 }

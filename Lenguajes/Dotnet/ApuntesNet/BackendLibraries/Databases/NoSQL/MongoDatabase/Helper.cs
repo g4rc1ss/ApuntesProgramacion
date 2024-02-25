@@ -1,13 +1,12 @@
 ﻿using MongoDB.Driver;
 
-namespace MongoDatabase
+namespace MongoDatabase;
+
+internal class Helper
 {
-    internal class Helper
-    {
-        private const string CONNECTION_STRING = "mongodb://root:123456@localhost:27017/";
-        internal static IMongoClient GetMongoClient => new MongoClient(CONNECTION_STRING);
+    private static readonly string ConnectionString = "mongodb://root:123456@localhost:27017/";
+    internal static IMongoClient GetMongoClient => new MongoClient(ConnectionString);
 
-        internal static IMongoDatabase GetConnectionDatabase => GetMongoClient.GetDatabase("prueba");
+    internal static IMongoDatabase GetConnectionDatabase => GetMongoClient.GetDatabase("prueba");
 
-    }
 }

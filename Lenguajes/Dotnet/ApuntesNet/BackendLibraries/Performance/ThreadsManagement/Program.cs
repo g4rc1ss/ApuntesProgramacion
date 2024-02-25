@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using ThreadsManagement.Hilos;
+﻿using ThreadsManagement.Hilos;
 
 
 new Thread(CreacionDeHilos.FuncHilo1).Start();

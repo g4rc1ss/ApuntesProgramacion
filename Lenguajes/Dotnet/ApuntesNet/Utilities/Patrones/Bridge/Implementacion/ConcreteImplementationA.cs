@@ -1,12 +1,11 @@
-﻿namespace Bridge.Implementacion
+﻿namespace Bridge.Implementacion;
+
+// Each Concrete Implementation corresponds to a specific platform and
+// implements the Implementation interface using that platform's API.
+internal class ConcreteImplementationA : IImplementation
 {
-    // Each Concrete Implementation corresponds to a specific platform and
-    // implements the Implementation interface using that platform's API.
-    internal class ConcreteImplementationA : IImplementation
+    public string OperationImplementation()
     {
-        public string OperationImplementation()
-        {
-            return "ConcreteImplementationA: The result in platform A.\n";
-        }
+        return "ConcreteImplementationA: The result in platform A.\n";
     }
 }

@@ -1,26 +1,25 @@
-﻿namespace YieldBenchmark.Fakes
+﻿namespace YieldBenchmark.Fakes;
+
+public class FakerYieldVsList
 {
-    public class FakerYieldVsList
+    private const int NUMBEROFOBJECTS = 1000_000_000;
+
+    public static List<int> WithBuffer()
     {
-        private const int NumberOfObjects = 1000_000_000;
+        var buffer = new List<int>();
 
-        public static List<int> WithBuffer()
+        foreach (var item in Enumerable.Range(0, NUMBEROFOBJECTS))
         {
-            var buffer = new List<int>();
-
-            foreach (var item in Enumerable.Range(0, NumberOfObjects))
-            {
-                buffer.Add(item);
-            }
-            return buffer;
+            buffer.Add(item);
         }
+        return buffer;
+    }
 
-        public static IEnumerable<int> WithYield()
+    public static IEnumerable<int> WithYield()
+    {
+        foreach (var item in Enumerable.Range(0, NUMBEROFOBJECTS))
         {
-            foreach (var item in Enumerable.Range(0, NumberOfObjects))
-            {
-                yield return item;
-            }
+            yield return item;
         }
     }
 }

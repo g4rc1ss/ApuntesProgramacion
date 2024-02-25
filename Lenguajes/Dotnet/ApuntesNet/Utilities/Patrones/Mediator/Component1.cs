@@ -1,22 +1,21 @@
-﻿namespace Mediator
+﻿namespace Mediator;
+
+// Concrete Components implement various functionality. They don't depend on
+// other components. They also don't depend on any concrete mediator
+// classes.
+internal class Component1 : BaseComponent
 {
-    // Concrete Components implement various functionality. They don't depend on
-    // other components. They also don't depend on any concrete mediator
-    // classes.
-    internal class Component1 : BaseComponent
+    public void DoA()
     {
-        public void DoA()
-        {
-            Console.WriteLine("Component 1 does A.");
+        Console.WriteLine("Component 1 does A.");
 
-            _mediator.Notify(this, "A");
-        }
+        _mediator.Notify(this, "A");
+    }
 
-        public void DoB()
-        {
-            Console.WriteLine("Component 1 does B.");
+    public void DoB()
+    {
+        Console.WriteLine("Component 1 does B.");
 
-            _mediator.Notify(this, "B");
-        }
+        _mediator.Notify(this, "B");
     }
 }

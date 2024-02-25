@@ -1,22 +1,21 @@
-﻿namespace Command
+﻿namespace Command;
+
+// The Invoker is associated with one or several commands. It sends a
+// request to the command.
+internal class Invoker
 {
-    // The Invoker is associated with one or several commands. It sends a
-    // request to the command.
-    internal class Invoker
+    private readonly Queue<ICommand> _queue = new();
+
+    public void Add(ICommand command)
     {
-        private readonly Queue<ICommand> _queue = new();
+        _queue.Enqueue(command);
+    }
 
-        public void Add(ICommand command)
+    public void Execute()
+    {
+        foreach (var item in _queue)
         {
-            _queue.Enqueue(command);
-        }
-
-        public void Execute()
-        {
-            foreach (var item in _queue)
-            {
-                item.Execute();
-            }
+            item.Execute();
         }
     }
 }

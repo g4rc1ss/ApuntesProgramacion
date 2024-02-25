@@ -1,24 +1,17 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿namespace ParallelExecutionCode.EjecucionEnParalelo;
 
-namespace ParallelExecutionCode.EjecucionEnParalelo
+internal class UsoParallelInvoke
 {
-    internal class UsoParallelInvoke
+    public UsoParallelInvoke()
     {
-        public UsoParallelInvoke()
-        {
-            Parallel.Invoke(
-                () =>
-                {
-                    Console.WriteLine("Hola 1");
-                },
-                () => Metodo2(2)
-            );
-        }
+        Parallel.Invoke(
+            () => Console.WriteLine("Hola 1"),
+            () => Metodo2(2)
+        );
+    }
 
-        private static void Metodo2(int numero)
-        {
-            Console.WriteLine($"Hola {numero}");
-        }
+    private static void Metodo2(int numero)
+    {
+        Console.WriteLine($"Hola {numero}");
     }
 }

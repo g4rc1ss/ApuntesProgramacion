@@ -1,15 +1,14 @@
 ﻿using PluginAPI.ExportAPI;
 
-namespace PluginAPI
+namespace PluginAPI;
+
+public interface IPlugin
 {
-    public interface IPlugin
-    {
-        ExportInterface ExportInterface { get; }
-        ExportPlugin ExportPlugin { get; }
-        string Name { get; }
+    ExportInterface ExportInterface { get; }
+    ExportPlugin ExportPlugin { get; }
+    string Name { get; }
 
-        string Description { get; }
+    string Description { get; }
 
-        void Execute();
-    }
+    void Execute();
 }

@@ -1,22 +1,22 @@
 ﻿using DataProtectionLibrary.Protections;
+
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DataProtectionLibrary
+namespace DataProtectionLibrary;
+
+internal class Helper
 {
-    internal class Helper
+    public static IServiceProvider GetServiceProvider()
     {
-        public static IServiceProvider GetServiceProvider()
-        {
-            IServiceCollection services = new ServiceCollection();
+        IServiceCollection services = new ServiceCollection();
 
-            services.AddTransient<DataProtectionExample>();
+        services.AddTransient<DataProtectionExample>();
 
-            services.AddDataProtection()
-                .PersistKeysToFileSystem(new DirectoryInfo(@"keysDataProtection"))
-                .SetDefaultKeyLifetime(TimeSpan.FromDays(7));
+        services.AddDataProtection()
+            .PersistKeysToFileSystem(new DirectoryInfo(@"keysDataProtection"))
+            .SetDefaultKeyLifetime(TimeSpan.FromDays(7));
 
-            return services.BuildServiceProvider();
-        }
+        return services.BuildServiceProvider();
     }
 }

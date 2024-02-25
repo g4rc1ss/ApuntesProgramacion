@@ -1,49 +1,47 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Net.Mail;
 
-namespace SimpleMailTransferProtocol.Email
+namespace SimpleMailTransferProtocol.Email;
+
+public class EnviarEmail
 {
-    public class EnviarEmail
+    public void EnvioMail()
     {
-        public void EnvioMail()
+        var servidorDeEnvio = "smtp.gmail.com";
+
+        //Enviamos el mensaje
+        Console.WriteLine("Usuario");
+        var emisor = Console.ReadLine();
+
+        Console.WriteLine("Constraseña");
+        var contraseña = Console.ReadLine();
+
+
+        Console.WriteLine("A quien quieres mandar el mensaje?");
+        var receptor = Console.ReadLine();
+
+        Console.WriteLine("Asunto");
+        var asunto = Console.ReadLine();
+
+        Console.WriteLine("Cuerpo");
+        var cuerpo = Console.ReadLine();
+
+        var mensaje = new MailMessage(
+            emisor,
+            receptor,
+            asunto,
+            cuerpo
+        );
+
+        using (var cliente = new SmtpClient(servidorDeEnvio))
         {
-            var servidorDeEnvio = "smtp.gmail.com";
-
-            //Enviamos el mensaje
-            Console.WriteLine("Usuario");
-            var emisor = Console.ReadLine();
-
-            Console.WriteLine("Constraseña");
-            var contraseña = Console.ReadLine();
-
-
-            Console.WriteLine("A quien quieres mandar el mensaje?");
-            var receptor = Console.ReadLine();
-
-            Console.WriteLine("Asunto");
-            var asunto = Console.ReadLine();
-
-            Console.WriteLine("Cuerpo");
-            var cuerpo = Console.ReadLine();
-
-            var mensaje = new MailMessage(
+            cliente.EnableSsl = true;
+            cliente.Credentials = new NetworkCredential(
                 emisor,
-                receptor,
-                asunto,
-                cuerpo
+                contraseña
             );
-
-            using (var cliente = new SmtpClient(servidorDeEnvio))
-            {
-                cliente.EnableSsl = true;
-                cliente.Credentials = new NetworkCredential(
-                    emisor,
-                    contraseña
-                );
-                cliente.Send(mensaje);
-            }
-            Console.WriteLine();
+            cliente.Send(mensaje);
         }
+        Console.WriteLine();
     }
 }

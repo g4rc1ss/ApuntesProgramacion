@@ -1,10 +1,9 @@
-﻿namespace AbstractMethod.File
+﻿namespace AbstractMethod.File;
+
+internal class AlmacenamientoFile : IAlmacenamientoFile
 {
-    internal class AlmacenamientoFile : IAlmacenamientoFile
+    public void Guardar(string linea)
     {
-        public void Guardar(string linea)
-        {
-            Console.WriteLine(linea);
-        }
+        Console.WriteLine(linea);
     }
 }

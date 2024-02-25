@@ -1,19 +1,18 @@
-﻿namespace Mediator
+﻿namespace Mediator;
+
+internal class Component2 : BaseComponent
 {
-    internal class Component2 : BaseComponent
+    public void DoC()
     {
-        public void DoC()
-        {
-            Console.WriteLine("Component 2 does C.");
+        Console.WriteLine("Component 2 does C.");
 
-            _mediator.Notify(this, "C");
-        }
+        _mediator.Notify(this, "C");
+    }
 
-        public void DoD()
-        {
-            Console.WriteLine("Component 2 does D.");
+    public void DoD()
+    {
+        Console.WriteLine("Component 2 does D.");
 
-            _mediator.Notify(this, "D");
-        }
+        _mediator.Notify(this, "D");
     }
 }

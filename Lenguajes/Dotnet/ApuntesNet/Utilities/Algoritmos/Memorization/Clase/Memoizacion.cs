@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace Memorization.Clase;
 
-namespace Memorization.Clase
+internal class Memoizacion<T, TResult>
 {
-    internal class Memoizacion<T, TResult>
-    {
-        private static readonly Dictionary<T, TResult> diccionario = new();
+    private static readonly Dictionary<T, TResult> Diccionario = [];
 
-        public static TResult AddMemoizacion(Func<T, TResult> method, T argument)
+    public static TResult AddMemoizacion(Func<T, TResult> method, T argument)
+    {
+        if (!Diccionario.TryGetValue(argument, out var result))
         {
-            if (!diccionario.TryGetValue(argument, out var result))
-            {
-                result = method.Invoke(argument);
-                diccionario.Add(argument, result);
-            }
-            return result;
+            result = method.Invoke(argument);
+            Diccionario.Add(argument, result);
         }
+        return result;
     }
 }

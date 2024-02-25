@@ -1,31 +1,30 @@
 ﻿using System.Collections;
 
-namespace DeferredExecutionYield.ExplicitEnumerator.EnumerableClass
+namespace DeferredExecutionYield.ExplicitEnumerator.EnumerableClass;
+
+internal class ExplicitEnumerator : IEnumerator<int>
 {
-    internal class ExplicitEnumerator : IEnumerator<int>
+    public int Current { get; set; }
+
+    object IEnumerator.Current => Current;
+
+    public void Dispose()
     {
-        public int Current { get; set; }
+        GC.SuppressFinalize(this);
+    }
 
-        object IEnumerator.Current => Current;
-
-        public void Dispose()
+    public bool MoveNext()
+    {
+        if (Current < 100)
         {
-            GC.SuppressFinalize(this);
+            Current++;
+            return true;
         }
+        return false;
+    }
 
-        public bool MoveNext()
-        {
-            if (Current < 100)
-            {
-                Current++;
-                return true;
-            }
-            return false;
-        }
-
-        public void Reset()
-        {
-            throw new NotImplementedException();
-        }
+    public void Reset()
+    {
+        throw new NotImplementedException();
     }
 }

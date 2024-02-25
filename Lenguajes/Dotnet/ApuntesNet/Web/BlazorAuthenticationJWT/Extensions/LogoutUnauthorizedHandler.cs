@@ -1,33 +1,27 @@
 ﻿using System.Net;
+
 using BlazorAuthenticationJWT.Pages.Account;
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 
-namespace BlazorAuthenticationJWT.Extensions
+namespace BlazorAuthenticationJWT.Extensions;
+
+public class LogoutUnauthorizedHandler(AuthenticationStateProvider authenticationStateProvider, NavigationManager navigation) : DelegatingHandler
 {
-    public class LogoutUnauthorizedHandler : DelegatingHandler
+    private readonly AuthenticationProvider _authenticationProvider = (AuthenticationProvider)authenticationStateProvider;
+
+    protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
-        private readonly AuthenticationProvider _authenticationProvider;
-        private readonly NavigationManager _navigation;
+        var response = await base.SendAsync(request, cancellationToken);
 
-        public LogoutUnauthorizedHandler(AuthenticationStateProvider authenticationStateProvider, NavigationManager navigation)
+        if (response.StatusCode == HttpStatusCode.Unauthorized)
         {
-            _authenticationProvider = (AuthenticationProvider)authenticationStateProvider;
-            _navigation = navigation;
+            await _authenticationProvider.SetLogoutAsync();
+            navigation.NavigateTo("/", true);
+            return new HttpResponseMessage();
         }
 
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            var response = await base.SendAsync(request, cancellationToken);
-
-            if (response.StatusCode == HttpStatusCode.Unauthorized)
-            {
-                await _authenticationProvider.SetLogoutAsync();
-                _navigation.NavigateTo("/", true);
-                return new HttpResponseMessage();
-            }
-
-            return response;
-        }
+        return response;
     }
 }

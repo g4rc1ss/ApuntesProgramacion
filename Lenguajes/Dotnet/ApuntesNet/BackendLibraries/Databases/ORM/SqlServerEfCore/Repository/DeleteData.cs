@@ -1,23 +1,17 @@
 ﻿using SqlServerEfCore.Database;
 
-namespace SqlServerEfCore.Repository
+namespace SqlServerEfCore.Repository;
+
+internal class DeleteData(EntityFrameworkSqlServerContext frameworkSqlServerContext)
 {
-    internal class DeleteData
+    private readonly EntityFrameworkSqlServerContext _frameworkSqlServerContext = frameworkSqlServerContext;
+
+    internal Task<int> DeleteDataAsync()
     {
-        private readonly EntityFrameworkSqlServerContext _frameworkSqlServerContext;
-
-        public DeleteData(EntityFrameworkSqlServerContext frameworkSqlServerContext)
-        {
-            _frameworkSqlServerContext = frameworkSqlServerContext;
-        }
-
-        internal Task<int> DeleteDataAsync()
-        {
-            var usuarios = (from user in _frameworkSqlServerContext.Usuarios
-                            where user.Id == 2
-                            select user).ToList();
-            _frameworkSqlServerContext.RemoveRange(usuarios);
-            return _frameworkSqlServerContext.SaveChangesAsync();
-        }
+        var usuarios = (from user in _frameworkSqlServerContext.Usuarios
+                        where user.Id == 2
+                        select user).ToList();
+        _frameworkSqlServerContext.RemoveRange(usuarios);
+        return _frameworkSqlServerContext.SaveChangesAsync();
     }
 }

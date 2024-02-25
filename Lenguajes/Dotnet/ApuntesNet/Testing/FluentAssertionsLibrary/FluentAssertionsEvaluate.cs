@@ -1,35 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using FluentAssertions;
+﻿using FluentAssertions;
+
+
 using Xunit;
 
-namespace FluentAssertionsLibrary
+namespace FluentAssertionsLibrary;
+
+public class FluentAssertionsEvaluate
 {
-    public class FluentAssertionsEvaluate
+    private readonly IEnumerable<string> _enumerable;
+
+    public FluentAssertionsEvaluate()
     {
-        private readonly IEnumerable<string> _enumerable;
-
-        public FluentAssertionsEvaluate()
-        {
-            _enumerable = Enumerable.Range(0, 10).Select(x => x.ToString());
-        }
-
-        [Fact]
-        public void Fluent()
-        {
-            "".Should().NotBeNull();
-            _enumerable.Should().HaveCountGreaterThan(0);
-            "Expected".Should().Be("Expected");
-            "ABCDEFGHIJKLMNOPQRSTUVWXYZ".Should().StartWith("AB");
-
-            "".Invoking(x =>
-            {
-                throw new NotImplementedException("Excepcion lanzada de prueba");
-            }).Should()
-            .Throw<NotImplementedException>()
-            .WithMessage("Excepcion lanzada de prueba");
-        }
-
+        _enumerable = Enumerable.Range(0, 10).Select(x => x.ToString());
     }
+
+    [Fact]
+    public void Fluent()
+    {
+        "".Should().NotBeNull();
+        _enumerable.Should().HaveCountGreaterThan(0);
+        "Expected".Should().Be("Expected");
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ".Should().StartWith("AB");
+
+        "".Invoking(x => throw new NotImplementedException("Excepcion lanzada de prueba")).Should()
+        .Throw<NotImplementedException>()
+        .WithMessage("Excepcion lanzada de prueba");
+    }
+
 }

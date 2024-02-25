@@ -1,26 +1,20 @@
 ﻿using AutoMapper;
+
 using AutomapperLibrary.Internal;
 
-namespace AutomapperLibrary
+namespace AutomapperLibrary;
+
+public class AutoMappingClasses(IMapper mapper)
 {
-    public class AutoMappingClasses
+
+    public void Mapping()
     {
-        private readonly IMapper _mapper;
-
-        public AutoMappingClasses(IMapper mapper)
+        var entidad = new PuebloEntity
         {
-            _mapper = mapper;
-        }
-
-        public void Mapping()
-        {
-            var entidad = new PuebloEntity
-            {
-                Id = 1,
-                Location = "Algun sitio",
-                Name = "bilbao",
-            };
-            var response = _mapper.Map<PuebloEntityResponse>(entidad);
-        }
+            Id = 1,
+            Location = "Algun sitio",
+            Name = "bilbao",
+        };
+        var response = mapper.Map<PuebloEntityResponse>(entidad);
     }
 }

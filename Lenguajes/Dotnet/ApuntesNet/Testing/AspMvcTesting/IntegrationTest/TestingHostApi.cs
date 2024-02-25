@@ -1,26 +1,17 @@
-﻿using System.Net.Http.Json;
-using System.Threading.Tasks;
-using Xunit;
+﻿using Xunit;
 
-namespace AspMvcTesting.IntegrationTest
+namespace AspMvcTesting.IntegrationTest;
+
+[Collection("Identificador")]
+public class TestingHostApi(TestConfigurationToFixture fixture)
 {
-    [Collection("Identificador")]
-    public class TestingHostApi
+
+    [Fact]
+    public async Task WhenGetAllApiWeatherForecastThenReturnValueAsync()
     {
-        private readonly TestConfigurationToFixture _fixture;
+        var response = await fixture.Client.GetStringAsync("WeatherForecast");
 
-        public TestingHostApi(TestConfigurationToFixture fixture)
-        {
-            _fixture = fixture;
-        }
-
-        [Fact]
-        public async Task When_Get_All_ApiWeatherForecast_Then_Return_ValueAsync()
-        {
-            var response = await _fixture.Client.GetStringAsync("WeatherForecast");
-
-            Assert.NotNull(response);
-            Assert.True(response is string);
-        }
+        Assert.NotNull(response);
+        Assert.True(response is not null);
     }
 }

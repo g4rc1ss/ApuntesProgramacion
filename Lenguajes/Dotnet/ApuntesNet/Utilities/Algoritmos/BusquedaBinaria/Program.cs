@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 
-int iteracionesRecursivas = 0;
+var iteracionesRecursivas = 0;
 var arrayOrdenado = Enumerable.Range(0, 1000_000_000).ToList();
 var numero = 1000_000_000 - 1;
 var existeNumero = default(bool);

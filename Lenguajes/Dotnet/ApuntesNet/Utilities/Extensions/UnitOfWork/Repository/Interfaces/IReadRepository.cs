@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 
@@ -41,7 +42,7 @@ public interface IReadRepository<T> where T : class
     /// <param name="queryCustom">Se le puede indicar un query inicial, por ejemplo para join</param>
     /// <param name="ignoreQueryFilter">activa o desactiva ignorar la query global para el tenant y baja</param>
     /// <returns></returns>
-    T Single(Expression<Func<T, bool>> predicate = null,
+    T SelectSingle(Expression<Func<T, bool>> predicate = null,
         Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
         Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
         bool disableTracking = true,

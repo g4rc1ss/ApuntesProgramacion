@@ -1,16 +1,9 @@
 ﻿namespace HttpClientVsHttpClientFactory;
 
-public class PruebaHttpClient
+public class PruebaHttpClient(HttpClient client)
 {
-    private readonly HttpClient _client;
-
-    public PruebaHttpClient(HttpClient client)
-    {
-        _client = client;
-    }
-
     public async Task ExecutePrueba(string endpoint)
     {
-        await _client.GetAsync(endpoint);
+        await client.GetAsync(endpoint);
     }
 }

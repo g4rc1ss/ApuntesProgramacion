@@ -1,28 +1,22 @@
 ﻿using SqlServerEfCore.Database;
 
-namespace SqlServerEfCore.Repository
+namespace SqlServerEfCore.Repository;
+
+public class UpdateData(EntityFrameworkSqlServerContext frameworkSqlServerContext)
 {
-    public class UpdateData
+    private readonly EntityFrameworkSqlServerContext _frameworkSqlServerContext = frameworkSqlServerContext;
+
+    internal Task<int> UpdateDataAsync()
     {
-        private readonly EntityFrameworkSqlServerContext _frameworkSqlServerContext;
+        var idPueblo = 1;
 
-        public UpdateData(EntityFrameworkSqlServerContext frameworkSqlServerContext)
-        {
-            _frameworkSqlServerContext = frameworkSqlServerContext;
-        }
+        var usuario = (from user in _frameworkSqlServerContext.Usuarios
+                       where user.PuebloIdNavigation.Id == idPueblo
+                       select user).Single();
 
-        internal Task<int> UpdateDataAsync()
-        {
-            var idPueblo = 1;
+        usuario.Nombre = "cnifvbdilcbsuyvrg";
 
-            var usuario = (from user in _frameworkSqlServerContext.Usuarios
-                           where user.PuebloIdNavigation.Id == idPueblo
-                           select user).Single();
-
-            usuario.Nombre = "cnifvbdilcbsuyvrg";
-
-            _frameworkSqlServerContext.Update(usuario);
-            return _frameworkSqlServerContext.SaveChangesAsync();
-        }
+        _frameworkSqlServerContext.Update(usuario);
+        return _frameworkSqlServerContext.SaveChangesAsync();
     }
 }

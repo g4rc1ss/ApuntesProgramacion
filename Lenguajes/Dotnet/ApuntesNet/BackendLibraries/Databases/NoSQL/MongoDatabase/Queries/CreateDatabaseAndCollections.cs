@@ -1,17 +1,14 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 
-namespace MongoDatabase.Queries
+namespace MongoDatabase.Queries;
+
+internal class CreateDatabaseAndCollections
 {
-    internal class CreateDatabaseAndCollections
+    internal static async Task CreateCollection()
     {
-        internal static async Task CreateCollection()
+        if ((await (await Helper.GetConnectionDatabase.ListCollectionNamesAsync()).ToListAsync()).FirstOrDefault(x => x == "persona") == null)
         {
-            if ((await (await Helper.GetConnectionDatabase.ListCollectionNamesAsync()).ToListAsync()).Where(x => x == "persona").FirstOrDefault() == null)
-            {
-                await Helper.GetConnectionDatabase.CreateCollectionAsync("persona");
-            }
+            await Helper.GetConnectionDatabase.CreateCollectionAsync("persona");
         }
     }
 }

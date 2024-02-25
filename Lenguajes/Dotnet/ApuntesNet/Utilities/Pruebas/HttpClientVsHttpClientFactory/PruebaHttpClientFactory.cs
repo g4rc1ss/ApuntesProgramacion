@@ -1,19 +1,10 @@
-﻿using System.Diagnostics;
+﻿namespace HttpClientVsHttpClientFactory;
 
-namespace HttpClientVsHttpClientFactory;
-
-public class PruebaHttpClientFactory
+public class PruebaHttpClientFactory(IHttpClientFactory httpClientFactory)
 {
-    private readonly IHttpClientFactory _httpClientFactory;
-
-    public PruebaHttpClientFactory(IHttpClientFactory httpClientFactory)
-    {
-        _httpClientFactory = httpClientFactory;
-    }
-
     public async Task ExecutePrueba(string endpoint)
     {
-        using var client = _httpClientFactory.CreateClient();
+        using var client = httpClientFactory.CreateClient();
 
         await client.GetAsync(endpoint);
     }

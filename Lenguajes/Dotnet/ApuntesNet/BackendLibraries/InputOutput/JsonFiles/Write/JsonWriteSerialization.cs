@@ -1,16 +1,15 @@
-﻿using System.IO;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
+
+
 using JsonFiles.JSON;
 
-namespace JsonFiles.Write
+namespace JsonFiles.Write;
+
+public class JsonWriteSerialization
 {
-    public class JsonWriteSerialization
+    public static async Task UsingJSONAsync(ClaseParaJSON json)
     {
-        public static async Task UsingJSONAsync(ClaseParaJSON json)
-        {
-            using var jsonStream = File.OpenWrite("ruta.json");
-            await JsonSerializer.SerializeAsync(jsonStream, json);
-        }
+        using var jsonStream = File.OpenWrite("ruta.json");
+        await JsonSerializer.SerializeAsync(jsonStream, json);
     }
 }

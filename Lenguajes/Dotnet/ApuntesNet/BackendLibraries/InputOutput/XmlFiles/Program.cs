@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using XmlFiles.Read;
+﻿using XmlFiles.Read;
 using XmlFiles.Write;
 
 

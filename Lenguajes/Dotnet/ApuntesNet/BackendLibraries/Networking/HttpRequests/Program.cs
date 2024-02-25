@@ -1,6 +1,7 @@
-﻿using System;
-using HttpRequests;
+﻿using HttpRequests;
 using HttpRequests.Internal;
+
+
 using Microsoft.Extensions.DependencyInjection;
 
 var serviceProvider = HelperDI.GetServideProvider();

@@ -1,25 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using UnitOfWork.Repository;
 using UnitOfWork.Repository.Interfaces;
 using UnitOfWork.UnitOfWork.Interfaces;
 
 namespace UnitOfWork.UnitOfWork;
 
-internal class UnitOfWork<TContext> : IRepositoryFactory, IUnitOfWork<TContext> where TContext : DbContext, IDisposable
+internal class UnitOfWork<TContext>(TContext context) : IRepositoryFactory, IUnitOfWork<TContext> where TContext : DbContext, IDisposable
 {
     private Dictionary<Type, object> _repositories;
 
-    public UnitOfWork(TContext context)
-    {
-        Context = context ?? throw new ArgumentNullException(nameof(context));
-    }
-
     public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class
     {
-        if (_repositories == null)
-        {
-            _repositories = new Dictionary<Type, object>();
-        }
+        _repositories ??= [];
 
         var type = typeof(TEntity);
         if (!_repositories.ContainsKey(type))
@@ -32,10 +25,7 @@ internal class UnitOfWork<TContext> : IRepositoryFactory, IUnitOfWork<TContext> 
 
     public IRepositoryAsync<TEntity> GetRepositoryAsync<TEntity>() where TEntity : class
     {
-        if (_repositories == null)
-        {
-            _repositories = new Dictionary<Type, object>();
-        }
+        _repositories ??= [];
 
         var type = typeof(TEntity);
         if (!_repositories.ContainsKey(type))
@@ -48,10 +38,7 @@ internal class UnitOfWork<TContext> : IRepositoryFactory, IUnitOfWork<TContext> 
 
     public IRepositoryReadOnly<TEntity> GetReadOnlyRepository<TEntity>() where TEntity : class
     {
-        if (_repositories == null)
-        {
-            _repositories = new Dictionary<Type, object>();
-        }
+        _repositories ??= [];
 
         var type = typeof(TEntity);
         if (!_repositories.ContainsKey(type))
@@ -62,7 +49,7 @@ internal class UnitOfWork<TContext> : IRepositoryFactory, IUnitOfWork<TContext> 
         return (IRepositoryReadOnly<TEntity>)_repositories[type];
     }
 
-    public TContext Context { get; }
+    public TContext Context { get; } = context ?? throw new ArgumentNullException(nameof(context));
 
 
     public int SaveChanges()

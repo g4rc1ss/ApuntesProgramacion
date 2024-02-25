@@ -1,5 +1,4 @@
-﻿using System;
-using TextFiles.ClaseBinary;
+﻿using TextFiles.ClaseBinary;
 using TextFiles.ClaseFile;
 using TextFiles.ClaseStream;
 

@@ -1,8 +1,7 @@
-﻿namespace Caching.ObjCaching
+﻿namespace Caching.ObjCaching;
+
+internal static class ObjectsToCaching
 {
-    internal static class ObjectsToCaching
-    {
-        internal static IEnumerable<int> listToCache = Enumerable.Range(0, 10).Select(x => x);
-        internal static string cacheKey = "KeyIdentificadorCache";
-    }
+    internal static IEnumerable<int> listToCache = Enumerable.Range(0, 10).Select(x => x);
+    internal static string cacheKey = "KeyIdentificadorCache";
 }

@@ -1,8 +1,7 @@
-﻿namespace FactoryMethod
+﻿namespace FactoryMethod;
+
+internal interface IAlmacenamiento
 {
-    internal interface IAlmacenamiento
-    {
-        bool Guardar<T>(T entity);
-        Task<bool> GuardarAsync<T>(T entity);
-    }
+    bool Guardar<T>(T entity);
+    Task<bool> GuardarAsync<T>(T entity);
 }

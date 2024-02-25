@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+
 using MappersBenchmark.ClassToMap;
 
 namespace MappersBenchmark.MappersProfiles;

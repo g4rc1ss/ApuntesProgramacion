@@ -1,44 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
+﻿namespace AsyncAwait.Async;
 
-namespace AsyncAwait.Async
+public class Asincronia
 {
-    public class Asincronia
+    internal Task CpuAsync()
     {
-        internal Task CpuAsync()
+        return Task.Run(() =>
         {
-            return Task.Run(() =>
-            {
-                Thread.Sleep(10000);
-                Console.WriteLine("Codigo asincrono CPU terminado");
-            });
-        }
+            Thread.Sleep(10000);
+            Console.WriteLine("Codigo asincrono CPU terminado");
+        });
+    }
 
-        internal async Task ESAsync()
-        {
-            var cliente = new HttpClient();
-            await cliente.GetStringAsync("https://docs.microsoft.com/en-us/");
-            Console.WriteLine("Codigo asincrono E/S terminado");
-        }
+    internal async Task ESAsync()
+    {
+        var cliente = new HttpClient();
+        await cliente.GetStringAsync("https://docs.microsoft.com/en-us/");
+        Console.WriteLine("Codigo asincrono E/S terminado");
+    }
 
-        internal async Task ExecuteIEnumerableAsync()
+    internal async Task ExecuteIEnumerableAsync()
+    {
+        await foreach (var item in RangeAsync(0, int.MaxValue))
         {
-            await foreach (var item in RangeAsync(0, int.MaxValue))
-            {
-            }
-            Console.WriteLine("Codigo asincrono IAsyncEnumerable terminado");
         }
+        Console.WriteLine("Codigo asincrono IAsyncEnumerable terminado");
+    }
 
-        private async IAsyncEnumerable<int> RangeAsync(int start, int count)
+    private async IAsyncEnumerable<int> RangeAsync(int start, int count)
+    {
+        for (; start < count; start++)
         {
-            for (; start < count; start++)
-            {
-                await Task.Delay(10);
-                yield return start + 1;
-            }
+            await Task.Delay(10);
+            yield return start + 1;
         }
     }
 }

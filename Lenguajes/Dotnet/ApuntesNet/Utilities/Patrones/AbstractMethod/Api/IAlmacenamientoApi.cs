@@ -1,7 +1,6 @@
-﻿namespace AbstractMethod.Api
+﻿namespace AbstractMethod.Api;
+
+internal interface IAlmacenamientoApi
 {
-    internal interface IAlmacenamientoApi
-    {
-        string Guardar(string objetoEnviado);
-    }
+    string Guardar(string objetoEnviado);
 }

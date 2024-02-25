@@ -1,15 +1,15 @@
 ﻿using AplicationToExtender.Model;
+
 using PluginAPI;
 using PluginAPI.ExportAPI;
-using System.Linq;
+
 using System.Reflection;
-using System.Runtime.Loader;
 
 namespace AplicationToExtender;
 
 public partial class MainPage : ContentPage
 {
-    List<DllData> DllData { get; set; } = new();
+    private List<DllData> DllData { get; set; } = [];
 
     public MainPage()
     {
@@ -17,7 +17,7 @@ public partial class MainPage : ContentPage
         LoadEventCallers();
     }
 
-    async void CargarPluginsCLick(System.Object sender, System.EventArgs e)
+    private async void CargarPluginsCLick(System.Object sender, EventArgs e)
     {
         var openFileDialog1 = await FilePicker.PickAsync();
         if (!string.IsNullOrEmpty(openFileDialog1.FullPath))
@@ -33,13 +33,13 @@ public partial class MainPage : ContentPage
         }
     }
 
-    void ListaPlugins_SelectionChanged(System.Object sender, Microsoft.Maui.Controls.SelectedItemChangedEventArgs e)
+    private void ListaPlugins_SelectionChanged(System.Object sender, SelectedItemChangedEventArgs e)
     {
         if (ListaPlugins.SelectedItem != null)
         {
             if (e.SelectedItem is DllData pluginData)
             {
-                if (!string.IsNullOrEmpty(pluginData.Path))
+                if (!string.IsNullOrEmpty(pluginData?.Path))
                 {
                     var plugin = CreateInstanceForAssemblyPath(pluginData.Path);
                     plugin.Execute();

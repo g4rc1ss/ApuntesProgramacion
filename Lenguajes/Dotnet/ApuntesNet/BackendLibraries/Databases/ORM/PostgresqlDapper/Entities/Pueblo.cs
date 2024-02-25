@@ -1,8 +1,7 @@
-﻿namespace PostgresqlDapper.Entities
+﻿namespace PostgresqlDapper.Entities;
+
+internal class Pueblo
 {
-    internal class Pueblo
-    {
-        internal string IdPueblo { get; set; }
-        internal string NombrePueblo { get; set; }
-    }
+    internal string IdPueblo { get; set; }
+    internal string NombrePueblo { get; set; }
 }

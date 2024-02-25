@@ -1,7 +1,6 @@
-﻿namespace JsonFiles.JSON
+﻿namespace JsonFiles.JSON;
+
+public class ClaseParaJSON
 {
-    public class ClaseParaJSON
-    {
-        public string Ruta { get; set; }
-    }
+    public string Ruta { get; set; }
 }

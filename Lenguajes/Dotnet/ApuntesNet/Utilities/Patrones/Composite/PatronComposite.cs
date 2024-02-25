@@ -1,28 +1,27 @@
-﻿namespace Composite
+﻿namespace Composite;
+
+public class PatronComposite : ILogger
 {
-    public class PatronComposite : ILogger
+    // Contenemos un objeto que referencia a instancias del objeto original o clase base.
+    private readonly Logging _loggingOriginal;
+
+    public PatronComposite()
     {
-        // Contenemos un objeto que referencia a instancias del objeto original o clase base.
-        private readonly Logging loggingOriginal;
+        _loggingOriginal = new Logging();
+    }
 
-        public PatronComposite()
-        {
-            loggingOriginal = new Logging();
-        }
+    public void LogInfo(string message)
+    {
+        _loggingOriginal.LogInfo(message);
+    }
 
-        public void Info(string message)
-        {
-            loggingOriginal.Info(message);
-        }
+    public void LogError(string message, Exception e)
+    {
+        _loggingOriginal.LogError(message, e);
+    }
 
-        public void Error(string message, Exception e)
-        {
-            loggingOriginal.Error(message, e);
-        }
-
-        public void Fatal(string message, Exception e)
-        {
-            Console.WriteLine($"Hemos guardado {message} en Base de datos");
-        }
+    public void LogFatal(string message, Exception e)
+    {
+        Console.WriteLine($"Hemos guardado {message} en Base de datos");
     }
 }

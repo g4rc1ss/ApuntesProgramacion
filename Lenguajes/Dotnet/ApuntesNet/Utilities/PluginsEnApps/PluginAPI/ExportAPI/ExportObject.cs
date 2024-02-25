@@ -1,12 +1,6 @@
-﻿namespace PluginAPI.ExportAPI
-{
-    public sealed class ExportObject
-    {
-        public object ObjectToExport { get; }
+﻿namespace PluginAPI.ExportAPI;
 
-        public ExportObject(object objectToExport)
-        {
-            ObjectToExport = objectToExport;
-        }
-    }
+public sealed class ExportObject(object objectToExport)
+{
+    public object ObjectToExport { get; } = objectToExport;
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using Paging.Internal;
 
 namespace Paging.PaginateExtensions;

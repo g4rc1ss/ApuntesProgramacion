@@ -1,15 +1,14 @@
-﻿namespace Visitor
-{
-    internal class ConcreteVisitor2 : IVisitor
-    {
-        public void VisitConcreteComponentA(ConcreteComponentA element)
-        {
-            Console.WriteLine(element.ExclusiveMethodOfConcreteComponentA() + " + ConcreteVisitor2");
-        }
+﻿namespace Visitor;
 
-        public void VisitConcreteComponentB(ConcreteComponentB element)
-        {
-            Console.WriteLine(element.SpecialMethodOfConcreteComponentB() + " + ConcreteVisitor2");
-        }
+internal class ConcreteVisitor2 : IVisitor
+{
+    public void VisitConcreteComponentA(ConcreteComponentA element)
+    {
+        Console.WriteLine(element.ExclusiveMethodOfConcreteComponentA() + " + ConcreteVisitor2");
+    }
+
+    public void VisitConcreteComponentB(ConcreteComponentB element)
+    {
+        Console.WriteLine(element.SpecialMethodOfConcreteComponentB() + " + ConcreteVisitor2");
     }
 }

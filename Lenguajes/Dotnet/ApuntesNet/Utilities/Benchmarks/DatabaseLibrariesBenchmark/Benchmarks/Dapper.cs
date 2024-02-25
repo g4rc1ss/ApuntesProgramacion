@@ -1,37 +1,41 @@
 ﻿using System.Data;
+
+
 using BenchmarkDotNet.Attributes;
+
+
 using Dapper;
-using DatabaseLibrariesBenchmark.Benchmarks.Queries;
+
+
 using DatabaseLibrariesBenchmark.Entities;
 
-namespace DatabaseLibrariesBenchmark.Benchmarks
+namespace DatabaseLibrariesBenchmark.Benchmarks;
+
+public partial class DatabaseFrameworksPerformance
 {
-    public partial class DatabaseFrameworksPerformance
+    private readonly IDbConnection _dbConnection;
+    private readonly BenchmarkingDbContext _benchmarkContext;
+
+    public DatabaseFrameworksPerformance()
     {
-        private readonly IDbConnection _dbConnection;
-        private readonly BenchmarkingDbContext _benchmarkContext;
+        _dbConnection = Helper.GetDbConnection;
+        _benchmarkContext = Helper.GetDbContext;
+    }
 
-        public DatabaseFrameworksPerformance()
-        {
-            _dbConnection = Helper.GetDbConnection;
-            _benchmarkContext = Helper.GetDbContext;
-        }
-
-        [Benchmark(Description = "Dapper single")]
-        public void DapperSelectSingleQuery()
-        {
-            Step();
-            var sql = @"
+    [Benchmark(Description = "Dapper single")]
+    public void DapperSelectSingleQuery()
+    {
+        Step();
+        var sql = @"
 SELECT * 
 FROM BenchmarkingDatabases.WeatherForecast
 Where Id = @id
 LIMIT 0, 1
 ";
 
-            var result = _dbConnection.QuerySingle<WeatherForecast>(sql, new
-            {
-                Id = id
-            });
-        }
+        var result = _dbConnection.QuerySingle<WeatherForecast>(sql, new
+        {
+            Id = id
+        });
     }
 }

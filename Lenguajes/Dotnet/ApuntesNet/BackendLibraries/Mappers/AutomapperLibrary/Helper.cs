@@ -1,17 +1,16 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace AutomapperLibrary
+namespace AutomapperLibrary;
+
+public class Helper
 {
-    public class Helper
+    public static IServiceProvider GetServiceProvider()
     {
-        public static IServiceProvider GetServiceProvider()
-        {
-            IServiceCollection services = new ServiceCollection();
+        IServiceCollection services = new ServiceCollection();
 
-            services.AddTransient<AutoMappingClasses>();
-            services.AddAutoMapper(typeof(Program));
+        services.AddTransient<AutoMappingClasses>();
+        services.AddAutoMapper(typeof(Program));
 
-            return services.BuildServiceProvider();
-        }
+        return services.BuildServiceProvider();
     }
 }

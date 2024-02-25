@@ -1,19 +1,14 @@
 ﻿using Bridge.Implementacion;
 
-namespace Bridge
-{
-    // You can extend the Abstraction without changing the Implementation
-    // classes.
-    internal class ExtendedAbstraction : Abstraction
-    {
-        public ExtendedAbstraction(IImplementation implementation) : base(implementation)
-        {
-        }
+namespace Bridge;
 
-        public override string Operation()
-        {
-            return "ExtendedAbstraction: Extended operation with:\n" +
-                _implementation.OperationImplementation();
-        }
+// You can extend the Abstraction without changing the Implementation
+// classes.
+internal class ExtendedAbstraction(IImplementation implementation) : Abstraction(implementation)
+{
+    public override string Operation()
+    {
+        return "ExtendedAbstraction: Extended operation with:\n" +
+            _implementation.OperationImplementation();
     }
 }

@@ -1,18 +1,11 @@
-﻿namespace Command
+﻿namespace Command;
+
+// Some commands can implement simple operations on their own.
+internal class SimpleCommand(string payload) : ICommand
 {
-    // Some commands can implement simple operations on their own.
-    internal class SimpleCommand : ICommand
+
+    public void Execute()
     {
-        private readonly string _payload = string.Empty;
-
-        public SimpleCommand(string payload)
-        {
-            _payload = payload;
-        }
-
-        public void Execute()
-        {
-            Console.WriteLine($"SimpleCommand: See, I can do simple things like printing ({_payload})");
-        }
+        Console.WriteLine($"SimpleCommand: See, I can do simple things like printing ({payload})");
     }
 }

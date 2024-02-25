@@ -1,26 +1,19 @@
-﻿namespace Composite
+﻿namespace Composite;
+
+public class ArticulosServicio(ILogger logger)
 {
-    public class ArticulosServicio
+
+    public void GuardarArticulo(string contenido, string titulo)
     {
-        private readonly ILogger _logging;
+        logger.LogInfo($"vamos a insertar el articulo {titulo} con el contenido {contenido}");
+        logger.LogInfo($"articulo {titulo} insertado");
+    }
 
-        public ArticulosServicio(ILogger logger)
-        {
-            _logging = logger;
-        }
+    public string ConsultarArticulo(string titulo)
+    {
+        logger.LogInfo($"Consultar artículo {titulo}");
 
-        public void GuardarArticulo(string contenido, string titulo)
-        {
-            _logging.Info($"vamos a insertar el articulo {titulo}");
-            _logging.Info($"articulo {titulo} insertado");
-        }
-
-        public string ConsultarArticulo(string titulo)
-        {
-            _logging.Info($"Consultar artículo {titulo}");
-
-            _logging.Fatal($"buscar articulo en el sistema de archivos {titulo}", null);
-            return string.Empty;
-        }
+        logger.LogFatal($"buscar articulo en el sistema de archivos {titulo}", null);
+        return string.Empty;
     }
 }

@@ -1,24 +1,18 @@
 ﻿using System.Collections;
 
-namespace Iterator
+namespace Iterator;
+
+public class EnumerablePersonalizado<T>(int maxIndex) : IEnumerable<T>
 {
-    public class EnumerablePersonalizado<T> : IEnumerable<T>
+    public T[] enumerable = new T[maxIndex];
+
+    public IEnumerator<T> GetEnumerator()
     {
-        public T[] enumerable;
+        return new Iterator<T>(enumerable);
+    }
 
-        public EnumerablePersonalizado(int maxIndex)
-        {
-            enumerable = new T[maxIndex];
-        }
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            return new Iterator<T>(enumerable);
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

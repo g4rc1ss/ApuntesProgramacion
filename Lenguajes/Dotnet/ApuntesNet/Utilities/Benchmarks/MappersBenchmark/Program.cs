@@ -7,6 +7,7 @@ using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Loggers;
 using BenchmarkDotNet.Order;
 using BenchmarkDotNet.Running;
+
 using MappersBenchmark;
 
 
@@ -37,7 +38,7 @@ BenchmarkRunner.Run<Mappers>(new Config());
 
 public class Config : ManualConfig
 {
-    public const int Iterations = 500;
+    public const int ITERATIONS = 500;
     public Config()
     {
         AddLogger(ConsoleLogger.Default);
@@ -58,7 +59,7 @@ public class Config : ManualConfig
         AddJob(Job.ShortRun
                .WithLaunchCount(1)
                .WithWarmupCount(2)
-               .WithUnrollFactor(Iterations)
+               .WithUnrollFactor(ITERATIONS)
                .WithIterationCount(10)
         );
         Orderer = new DefaultOrderer(SummaryOrderPolicy.FastestToSlowest);

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EnumExtensions;
+﻿namespace EnumExtensions;
 
 /// <summary>
 /// Muchas de nuestras enumeraciones correspondería con una clave Alfanumérica, no una clave númerica.
@@ -156,11 +154,7 @@ public static class EnumFactory
         }
 
         var num = Convert.ToInt32(t);
-        if (num > constantes.GetUpperBound(0) || num < constantes.GetLowerBound(0))
-        {
-            return retorno;
-        }
-        return constantes[num];
+        return num > constantes.GetUpperBound(0) || num < constantes.GetLowerBound(0) ? retorno : constantes[num];
     }
 
     /// <summary>
@@ -173,16 +167,11 @@ public static class EnumFactory
     /// <exception cref="ArgumentNullException">Si el valor a copnvertir es null</exception>
     public static TEnum ParseEnum<TEnum>(string value) where TEnum : struct, IConvertible
     {
-        if (value == null)
-        {
-            throw new ArgumentNullException(nameof(value));
-        }
-
-        if (!Enum.TryParse(value, true, out TEnum retorno))
-        {
-            throw new ArgumentException("El valor no existe en la enumeración", nameof(value));
-        }
-        return retorno;
+        return value == null
+            ? throw new ArgumentNullException(nameof(value))
+            : !Enum.TryParse(value, true, out TEnum retorno)
+            ? throw new ArgumentException("El valor no existe en la enumeración", nameof(value))
+            : retorno;
     }
 
     /// <summary>
@@ -194,16 +183,7 @@ public static class EnumFactory
     /// <exception cref="ArgumentException">Si el valor a copnvertir no se encuentra en la enumeración</exception>
     public static TEnum? ParseEnumNullable<TEnum>(string value) where TEnum : struct, IConvertible
     {
-        if (value == null)
-        {
-            return null;
-        }
-
-        if (!Enum.TryParse(value, true, out TEnum retorno))
-        {
-            return null;
-        }
-        return retorno;
+        return value == null ? null : !Enum.TryParse(value, true, out TEnum retorno) ? null : retorno;
     }
 
     /// <summary>

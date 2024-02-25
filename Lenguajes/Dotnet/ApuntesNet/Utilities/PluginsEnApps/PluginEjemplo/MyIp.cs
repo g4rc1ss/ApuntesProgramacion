@@ -1,5 +1,4 @@
-﻿using System;
-namespace PluginEjemplo;
+﻿namespace PluginEjemplo;
 
 
 public class MyIp

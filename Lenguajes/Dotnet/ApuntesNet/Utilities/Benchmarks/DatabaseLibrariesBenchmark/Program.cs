@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Running;
+
 using DatabaseLibrariesBenchmark.Benchmarks;
 using DatabaseLibrariesBenchmark.ConfigurationBenchmark;
 

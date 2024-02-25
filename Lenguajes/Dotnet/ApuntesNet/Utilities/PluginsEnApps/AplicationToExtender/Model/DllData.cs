@@ -1,10 +1,8 @@
-﻿using System;
-namespace AplicationToExtender.Model
+﻿namespace AplicationToExtender.Model;
+
+public class DllData
 {
-    public class DllData
-    {
-        public string Name { get; set; }
-        public string Path { get; set; }
-    }
+    public string Name { get; set; }
+    public string Path { get; set; }
 }
 

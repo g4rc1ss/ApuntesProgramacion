@@ -1,7 +1,6 @@
-﻿namespace BlazorAuthenticationJWT.Configuration
+﻿namespace BlazorAuthenticationJWT.Configuration;
+
+public readonly struct KeysOfLocalStorage
 {
-    public readonly struct KeysOfLocalStorage
-    {
-        public const string TokenLocalStorageKey = "loginToken";
-    }
+    public const string TOKENLOCALSTORAGEKEY = "loginToken";
 }

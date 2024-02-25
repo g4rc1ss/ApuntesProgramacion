@@ -1,13 +1,12 @@
-﻿namespace Observer
+﻿namespace Observer;
+
+internal class ConcreteObserverB : IObserver
 {
-    internal class ConcreteObserverB : IObserver
+    public void Update(ISubject subject)
     {
-        public void Update(ISubject subject)
+        if ((subject as Subject).State is 0 or >= 2)
         {
-            if ((subject as Subject).State == 0 || (subject as Subject).State >= 2)
-            {
-                Console.WriteLine("ConcreteObserverB: Reacted to the event.");
-            }
+            Console.WriteLine("ConcreteObserverB: Reacted to the event.");
         }
     }
 }

@@ -1,10 +1,13 @@
 ﻿using Foundation;
 
-namespace Calculadora.Platforms.iOS;
+namespace Calculadora.Platforms.IOS;
 
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate
 {
-    protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+    protected override MauiApp CreateMauiApp()
+    {
+        return MauiProgram.CreateMauiApp();
+    }
 }
 

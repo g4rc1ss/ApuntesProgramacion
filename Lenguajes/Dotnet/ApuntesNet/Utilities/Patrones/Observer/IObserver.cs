@@ -1,8 +1,7 @@
-﻿namespace Observer
+﻿namespace Observer;
+
+public interface IObserver
 {
-    public interface IObserver
-    {
-        // Receive update from subject
-        void Update(ISubject subject);
-    }
+    // Receive update from subject
+    void Update(ISubject subject);
 }

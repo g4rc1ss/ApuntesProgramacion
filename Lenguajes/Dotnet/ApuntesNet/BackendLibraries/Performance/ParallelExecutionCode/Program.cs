@@ -1,5 +1,4 @@
-﻿using System;
-using ParallelExecutionCode.EjecucionEnParalelo;
+﻿using ParallelExecutionCode.EjecucionEnParalelo;
 
 new UsoParallelBucles()
     .BucleFor();

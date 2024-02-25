@@ -1,5 +1,4 @@
-﻿using System;
-using MongoDatabase.Queries;
+﻿using MongoDatabase.Queries;
 
 await CreateDatabaseAndCollections.CreateCollection();
 await InsertData.Insert();

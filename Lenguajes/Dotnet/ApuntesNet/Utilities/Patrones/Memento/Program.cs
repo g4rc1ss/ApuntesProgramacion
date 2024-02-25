@@ -1,8 +1,8 @@
 ﻿using Memento;
 
 
-Originator originator = new Originator("Super-duper-super-puper-super.");
-Caretaker caretaker = new Caretaker(originator);
+var originator = new Originator("Super-duper-super-puper-super.");
+var caretaker = new Caretaker(originator);
 
 caretaker.Backup();
 originator.DoSomething();

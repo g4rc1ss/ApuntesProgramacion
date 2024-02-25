@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+
 using BenchmarkDotNet.Attributes;
+
 using MappersBenchmark.ClassToMap;
 using MappersBenchmark.MappersProfiles;
 
@@ -20,38 +22,38 @@ public class Mappers
     [Benchmark]
     public void MapperObjectManual()
     {
-        var chatDTO = ClassFake.ChatClass.ToDto();
+        var chatDTO = ClassFake.chatClass.ToDto();
     }
 
     [Benchmark]
     public void MapperObjectMapperly()
     {
-        var chatDTO = _mapperly.ToChatDTO(ClassFake.ChatClass);
+        var chatDTO = _mapperly.ToChatDTO(ClassFake.chatClass);
     }
 
     [Benchmark]
     public void MapperObjectAutoMapper()
     {
-        var chatDTO = _autoMapper.Map<ChatDTO>(ClassFake.ChatClass);
+        var chatDTO = _autoMapper.Map<ChatDTO>(ClassFake.chatClass);
     }
 
     [Benchmark]
     public void MapperListManual()
     {
-        var chatDTO = ClassFake.ChatEntityList.Select(x => x.ToDto())
+        var chatDTO = ClassFake.chatEntityList.Select(x => x.ToDto())
             .ToList();
     }
 
     [Benchmark]
     public void MapperListMapperly()
     {
-        var chatDTO = ClassFake.ChatEntityList.Select(x => _mapperly.ToChatDTO(x))
+        var chatDTO = ClassFake.chatEntityList.Select(x => _mapperly.ToChatDTO(x))
             .ToList();
     }
 
     [Benchmark]
     public void MapperListAutoMapper()
     {
-        var chatDTO = _autoMapper.Map<List<ChatDTO>>(ClassFake.ChatEntityList);
+        var chatDTO = _autoMapper.Map<List<ChatDTO>>(ClassFake.chatEntityList);
     }
 }

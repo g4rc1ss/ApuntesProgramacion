@@ -1,9 +1,8 @@
-﻿namespace Decorator.ClasesBase
+﻿namespace Decorator.ClasesBase;
+
+// The base Component interface defines operations that can be altered by
+// decorators.
+public abstract class Component
 {
-    // The base Component interface defines operations that can be altered by
-    // decorators.
-    public abstract class Component
-    {
-        public abstract string Operation();
-    }
+    public abstract string Operation();
 }

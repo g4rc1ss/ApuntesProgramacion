@@ -20,8 +20,8 @@ public interface IRepository<T> : IReadRepository<T>, IDisposable where T : clas
     void Update(IEnumerable<T> entities);
     int Count(Expression<Func<T, bool>> predicate = null);
     long LongCount(Expression<Func<T, bool>> predicate = null);
-    K Max<K>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, K>> selector = null);
-    K Min<K>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, K>> selector = null);
+    TK Max<TK>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, TK>> selector = null);
+    TK Min<TK>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, TK>> selector = null);
     decimal Average(Expression<Func<T, bool>> predicate = null, Expression<Func<T, decimal>> selector = null);
     decimal Sum(Expression<Func<T, bool>> predicate = null, Expression<Func<T, decimal>> selector = null);
     bool Exists(Expression<Func<T, bool>> selector = null);

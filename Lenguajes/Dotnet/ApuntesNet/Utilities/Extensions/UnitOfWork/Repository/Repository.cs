@@ -1,16 +1,14 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
+
 using Microsoft.EntityFrameworkCore;
+
 using UnitOfWork.Repository.Interfaces;
 
 namespace UnitOfWork.Repository;
 
-internal class Repository<T> : BaseRepository<T>, IRepository<T> where T : class
+internal class Repository<T>(DbContext context) : BaseRepository<T>(context), IRepository<T> where T : class
 {
-    public Repository(DbContext context) : base(context)
-    {
-    }
-
     public void Add(T entity)
     {
         _dbSet.Add(entity);
@@ -41,13 +39,13 @@ internal class Repository<T> : BaseRepository<T>, IRepository<T> where T : class
     public void Delete(object id)
     {
         var typeInfo = typeof(T).GetTypeInfo();
-        var key = _dbContext.Model.FindEntityType(typeInfo).FindPrimaryKey().Properties.FirstOrDefault();
+        var key = dbContext.Model.FindEntityType(typeInfo).FindPrimaryKey().Properties.FirstOrDefault();
         var property = typeInfo.GetProperty(key?.Name);
         if (property != null)
         {
             var entity = Activator.CreateInstance<T>();
             property.SetValue(entity, id);
-            _dbContext.Entry(entity).State = EntityState.Deleted;
+            dbContext.Entry(entity).State = EntityState.Deleted;
         }
         else
         {
@@ -87,90 +85,41 @@ internal class Repository<T> : BaseRepository<T>, IRepository<T> where T : class
 
     public void Dispose()
     {
-        _dbContext?.Dispose();
+        dbContext?.Dispose();
     }
 
     public virtual int Count(Expression<Func<T, bool>> predicate = null)
     {
-        if (predicate == null)
-        {
-            return _dbSet.Count();
-        }
-        else
-        {
-            return _dbSet.Count(predicate);
-        }
+        return predicate == null ? _dbSet.Count() : _dbSet.Count(predicate);
     }
 
     public virtual long LongCount(Expression<Func<T, bool>> predicate = null)
     {
-        if (predicate == null)
-        {
-            return _dbSet.LongCount();
-        }
-        else
-        {
-            return _dbSet.LongCount(predicate);
-        }
+        return predicate == null ? _dbSet.LongCount() : _dbSet.LongCount(predicate);
     }
 
-    public virtual K Max<K>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, K>> selector = null)
+    public virtual TK Max<TK>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, TK>> selector = null)
     {
-        if (predicate == null)
-        {
-            return _dbSet.Max(selector);
-        }
-        else
-        {
-            return _dbSet.Where(predicate).Max(selector);
-        }
+        return predicate == null ? _dbSet.Max(selector) : _dbSet.Where(predicate).Max(selector);
     }
 
-    public virtual K Min<K>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, K>> selector = null)
+    public virtual TK Min<TK>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, TK>> selector = null)
     {
-        if (predicate == null)
-        {
-            return _dbSet.Min(selector);
-        }
-        else
-        {
-            return _dbSet.Where(predicate).Min(selector);
-        }
+        return predicate == null ? _dbSet.Min(selector) : _dbSet.Where(predicate).Min(selector);
     }
 
     public virtual decimal Average(Expression<Func<T, bool>> predicate = null, Expression<Func<T, decimal>> selector = null)
     {
-        if (predicate == null)
-        {
-            return _dbSet.Average(selector);
-        }
-        else
-        {
-            return _dbSet.Where(predicate).Average(selector);
-        }
+        return predicate == null ? _dbSet.Average(selector) : _dbSet.Where(predicate).Average(selector);
     }
 
     public virtual decimal Sum(Expression<Func<T, bool>> predicate = null, Expression<Func<T, decimal>> selector = null)
     {
-        if (predicate == null)
-        {
-            return _dbSet.Sum(selector);
-        }
-        else
-        {
-            return _dbSet.Where(predicate).Sum(selector);
-        }
+        return predicate == null ? _dbSet.Sum(selector) : _dbSet.Where(predicate).Sum(selector);
     }
 
     public bool Exists(Expression<Func<T, bool>> selector = null)
     {
-        if (selector == null)
-        {
-            return _dbSet.Any();
-        }
-        else
-        {
-            return _dbSet.Any(selector);
-        }
+        return selector == null ? _dbSet.Any() : _dbSet.Any(selector);
     }
 }

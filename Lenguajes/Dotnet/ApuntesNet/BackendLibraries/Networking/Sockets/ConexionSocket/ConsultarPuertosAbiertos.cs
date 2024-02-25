@@ -1,34 +1,30 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Net.Sockets;
 
-namespace Sockets.ConexionSocket
+namespace Sockets.ConexionSocket;
+
+public class ConsultarPuertosAbiertos
 {
-    public class ConsultarPuertosAbiertos
+    public static void EscanerPuertos()
     {
-        public static void EscanerPuertos()
+        var port = 80;
+
+        try
         {
-            var port = 80;
-
-            try
+            using var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            var host = Dns.GetHostEntry("google.es");
+            var ip = host.AddressList[0]?.ToString();
+            if (ip == null)
             {
-                using (var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
-                {
-                    var host = Dns.GetHostEntry("google.es");
-                    var ip = host.AddressList[0]?.ToString();
-                    if (ip == null)
-                    {
-                        return;
-                    }
+                return;
+            }
 
-                    socket.Connect(new IPEndPoint(IPAddress.Parse(ip), port));
-                    Console.WriteLine($"[+] puerto {port} abierto");
-                }
-            }
-            catch (Exception)
-            {
-                Console.WriteLine($"[-] puerto {port} cerrado");
-            }
+            socket.Connect(new IPEndPoint(IPAddress.Parse(ip), port));
+            Console.WriteLine($"[+] puerto {port} abierto");
+        }
+        catch (Exception)
+        {
+            Console.WriteLine($"[-] puerto {port} cerrado");
         }
     }
 }

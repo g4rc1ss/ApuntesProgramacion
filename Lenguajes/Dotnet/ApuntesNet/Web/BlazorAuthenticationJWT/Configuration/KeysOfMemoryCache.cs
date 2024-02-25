@@ -1,7 +1,6 @@
-﻿namespace BlazorAuthenticationJWT.Configuration
+﻿namespace BlazorAuthenticationJWT.Configuration;
+
+public readonly struct KeysOfMemoryCache
 {
-    public readonly struct KeysOfMemoryCache
-    {
-        public const string TokenMemoryCacheKey = "loginToken";
-    }
+    public const string TOKENMEMORYCACHEKEY = "loginToken";
 }

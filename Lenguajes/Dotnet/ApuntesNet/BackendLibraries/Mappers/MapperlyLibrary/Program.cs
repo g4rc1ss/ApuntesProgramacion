@@ -1,11 +1,11 @@
 ﻿using MapperlyLibrary.ClassToMap;
 using MapperlyLibrary.Profiles;
 
-var _mapperly = new MapperlyProfile();
+var mapperly = new MapperlyProfile();
 
-var chatDTO = _mapperly.ToChatDTO(ClassFake.ChatClass);
+var chatDTO = mapperly.ToChatDTO(ClassFake.chatClass);
 
-var chatsDTO = ClassFake.ChatEntityList.Select(x => _mapperly.ToChatDTO(x));
+var chatsDTO = ClassFake.chatEntityList.Select(mapperly.ToChatDTO);
 
 foreach (var chat in chatsDTO)
 {

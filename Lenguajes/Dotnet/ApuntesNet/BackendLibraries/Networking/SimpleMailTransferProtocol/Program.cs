@@ -1,5 +1,4 @@
-﻿using System;
-using SimpleMailTransferProtocol.Email;
+﻿using SimpleMailTransferProtocol.Email;
 
 
 new EnviarEmail()

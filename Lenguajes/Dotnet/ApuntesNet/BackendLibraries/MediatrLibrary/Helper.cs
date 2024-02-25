@@ -1,17 +1,17 @@
 ﻿using MediatR;
+
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MediatrLibrary
+namespace MediatrLibrary;
+
+public class Helper
 {
-    public class Helper
+    public static IServiceProvider GetServiceProvider()
     {
-        public static IServiceProvider GetServiceProvider()
-        {
-            IServiceCollection services = new ServiceCollection();
+        IServiceCollection services = new ServiceCollection();
 
-            services.AddMediatR(typeof(Program));
+        services.AddMediatR(typeof(Program));
 
-            return services.BuildServiceProvider();
-        }
+        return services.BuildServiceProvider();
     }
 }

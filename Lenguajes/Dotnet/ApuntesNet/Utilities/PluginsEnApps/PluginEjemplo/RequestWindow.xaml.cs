@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+
 using PluginAPI.ExportAPI;
 
 namespace PluginEjemplo;
@@ -10,7 +11,7 @@ public partial class RequestWindow : ContentPage
         InitializeComponent();
     }
 
-    async void Button_Clicked(System.Object sender, System.EventArgs e)
+    private async void Button_Clicked(System.Object sender, EventArgs e)
     {
         var response = await GetMyIp();
         ExportAPI.ExportEventCaller(new ExportObject(response));

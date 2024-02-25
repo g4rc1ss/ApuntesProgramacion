@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 
 const int NUM_SUSTITUCION = 5;
-List<char> letrasSustitucion = new()
-{
+List<char> letrasSustitucion =
+[
     'A',
     'B',
     'C',
@@ -31,7 +29,7 @@ List<char> letrasSustitucion = new()
     'X',
     'Y',
     'Z'
-};
+];
 
 var frase = "Hola esta es la frase que va a ser encriptada con cifrado cesar abcdefghijklmnopqrstuvwxyz";
 Console.WriteLine(frase);

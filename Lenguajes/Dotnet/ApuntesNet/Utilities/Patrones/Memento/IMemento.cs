@@ -1,14 +1,13 @@
-﻿namespace Memento
+﻿namespace Memento;
+
+// The Memento interface provides a way to retrieve the memento's metadata,
+// such as creation date or name. However, it doesn't expose the
+// Originator's state.
+public interface IMemento
 {
-    // The Memento interface provides a way to retrieve the memento's metadata,
-    // such as creation date or name. However, it doesn't expose the
-    // Originator's state.
-    public interface IMemento
-    {
-        string GetName();
+    string GetName();
 
-        string GetState();
+    string GetState();
 
-        DateTime GetDate();
-    }
+    DateTime GetDate();
 }

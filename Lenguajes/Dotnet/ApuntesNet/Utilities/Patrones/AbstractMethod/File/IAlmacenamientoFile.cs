@@ -1,7 +1,6 @@
-﻿namespace AbstractMethod.File
+﻿namespace AbstractMethod.File;
+
+internal interface IAlmacenamientoFile
 {
-    internal interface IAlmacenamientoFile
-    {
-        void Guardar(string linea);
-    }
+    void Guardar(string linea);
 }

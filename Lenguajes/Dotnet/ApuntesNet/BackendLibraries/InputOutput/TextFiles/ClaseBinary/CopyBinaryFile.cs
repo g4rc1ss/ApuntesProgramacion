@@ -1,20 +1,15 @@
-﻿using System.IO;
+﻿namespace TextFiles.ClaseBinary;
 
-namespace TextFiles.ClaseBinary
+public class CopyBinaryFile
 {
-    public class CopyBinaryFile
+    public CopyBinaryFile(string nombreArchivoFuente, string nombreArchivoDestino)
     {
-        public CopyBinaryFile(string nombreArchivoFuente, string nombreArchivoDestino)
+        using var readBinaryFile = new BinaryReader(File.OpenRead(nombreArchivoFuente));
+        using var writeBinaryFile = new BinaryWriter(File.OpenWrite(nombreArchivoDestino));
+        for (byte data; readBinaryFile.PeekChar() != -1;)
         {
-            using (var readBinaryFile = new BinaryReader(File.OpenRead(nombreArchivoFuente)))
-            using (var writeBinaryFile = new BinaryWriter(File.OpenWrite(nombreArchivoDestino)))
-            {
-                for (byte data; readBinaryFile.PeekChar() != -1;)
-                {
-                    data = readBinaryFile.ReadByte();
-                    writeBinaryFile.Write(data);
-                }
-            }
+            data = readBinaryFile.ReadByte();
+            writeBinaryFile.Write(data);
         }
     }
 }

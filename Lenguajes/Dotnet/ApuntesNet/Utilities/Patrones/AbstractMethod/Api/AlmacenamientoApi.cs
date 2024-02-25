@@ -1,11 +1,10 @@
-﻿namespace AbstractMethod.Api
+﻿namespace AbstractMethod.Api;
+
+internal class AlmacenamientoApi : IAlmacenamientoApi
 {
-    internal class AlmacenamientoApi : IAlmacenamientoApi
+    public string Guardar(string objetoEnviado)
     {
-        public string Guardar(string objetoEnviado)
-        {
-            Console.WriteLine(objetoEnviado);
-            return "cosas nazis";
-        }
+        Console.WriteLine(objetoEnviado);
+        return "cosas nazis";
     }
 }

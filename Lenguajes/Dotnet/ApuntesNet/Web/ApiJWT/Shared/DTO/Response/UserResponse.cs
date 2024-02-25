@@ -1,8 +1,7 @@
-﻿namespace ApiJWT.Shared.DTO.Response
+﻿namespace ApiJWT.Shared.DTO.Response;
+
+public class UserResponse
 {
-    public class UserResponse
-    {
-        public int Id { get; set; }
-        public string UserName { get; set; }
-    }
+    public int Id { get; set; }
+    public string UserName { get; set; }
 }

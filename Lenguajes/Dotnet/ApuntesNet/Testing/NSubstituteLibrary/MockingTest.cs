@@ -1,18 +1,14 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using NSubstitute;
-using NSubstitute.ReceivedExtensions;
-using Xunit;
+﻿using Xunit;
 
 namespace NSubstituteLibrary;
 
 public class MockingTest
 {
-    IRepositoryToMock _repository;
+    private readonly IRepositoryToMock _repository;
 
     public MockingTest()
     {
-        _repository = new MockingRepositoryToMock().repositoryToMock;
+        _repository = new MockingRepositoryToMock().RepositoryToMock;
     }
 
     [Fact]

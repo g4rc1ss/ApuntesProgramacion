@@ -1,5 +1,4 @@
-﻿using System;
-using ArbolBinario.Clase;
+﻿using ArbolBinario.Clase;
 
 
 var arbolParaPrueba = CrearArbolConDatosPrueba();
@@ -15,8 +14,7 @@ for (var i = 0; i < (path4.Count < path5.Count ? path4.Count : path5.Count); i++
     }
 }
 
-
-BinaryTree<int> CrearArbolConDatosPrueba()
+static BinaryTree<int> CrearArbolConDatosPrueba()
 {
     var arbol = new BinaryTree<int>(1);
     // Agregar los hijos izquierdos

@@ -1,17 +1,15 @@
 ﻿var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddAuthentication("Cookies").AddCookie(option =>
+builder.Services.AddAuthentication("Cookies").AddCookie(option => option.Cookie = new CookieBuilder
 {
-    option.Cookie = new CookieBuilder
-    {
-        Name = "Authentication",
-        HttpOnly = true,
-        SecurePolicy = CookieSecurePolicy.Always,
-        SameSite = SameSiteMode.Strict,
-        IsEssential = true,
-        Path = "/"
-    };
+    Name = "Authentication",
+    HttpOnly = true,
+    SecurePolicy = CookieSecurePolicy.Always,
+    SameSite = SameSiteMode.Strict,
+    IsEssential = true,
+    Path = "/"
+
 });
 
 var razorPages = builder.Services.AddRazorPages();
