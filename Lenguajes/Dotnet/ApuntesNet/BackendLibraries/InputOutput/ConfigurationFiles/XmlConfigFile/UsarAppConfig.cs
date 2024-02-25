@@ -4,7 +4,7 @@ namespace ConfigurationFiles.XmlConfigFile;
 
 public class UsarAppConfig
 {
-    public string LocalizacionArchivo { get; private set; }
+    public string? LocalizacionArchivo { get; private set; }
 
     public void ArchivosConfiguracion()
     {

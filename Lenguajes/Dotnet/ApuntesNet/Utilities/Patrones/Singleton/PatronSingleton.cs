@@ -2,9 +2,9 @@
 
 public class PatronSingleton
 {
-    private static PatronSingleton _singleton;
+    private static PatronSingleton? _singleton;
 
-    public string Nombre { get; set; }
+    public string? Nombre { get; set; }
 
     private PatronSingleton()
     {

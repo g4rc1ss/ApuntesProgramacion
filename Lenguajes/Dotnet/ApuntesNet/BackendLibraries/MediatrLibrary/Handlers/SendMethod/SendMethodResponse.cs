@@ -2,5 +2,5 @@
 
 internal class SendMethodResponse
 {
-    public string Respuesta { get; set; }
+    public string? Respuesta { get; set; }
 }

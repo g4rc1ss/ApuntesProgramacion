@@ -4,5 +4,5 @@ namespace MediatrLibrary.Handlers.PublishMethod;
 
 internal class PublishMethodRequest : INotification
 {
-    public string Message { get; set; }
+    public string? Message { get; set; }
 }

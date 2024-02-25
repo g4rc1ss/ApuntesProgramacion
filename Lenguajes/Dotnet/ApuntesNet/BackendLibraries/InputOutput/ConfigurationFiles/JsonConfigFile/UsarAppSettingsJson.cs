@@ -4,11 +4,7 @@ namespace ConfigurationFiles.JsonConfigFile;
 
 public class UsarAppSettingsJson
 {
-    public string LocalizacionArchivo { get; internal set; }
-    public UsarAppSettingsJson()
-    {
-
-    }
+    public string? LocalizacionArchivo { get; internal set; }
 
     internal void ArchivosConfiguracion()
     {

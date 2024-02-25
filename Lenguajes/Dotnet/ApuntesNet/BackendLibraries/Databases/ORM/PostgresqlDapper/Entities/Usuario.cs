@@ -2,7 +2,7 @@
 
 internal class Usuario
 {
-    internal string IdUsuario { get; set; }
-    internal string NombreUsuario { get; set; }
-    internal Pueblo FKPueblo { get; set; }
+    internal string? IdUsuario { get; set; }
+    internal string? NombreUsuario { get; set; }
+    internal Pueblo? FKPueblo { get; set; }
 }

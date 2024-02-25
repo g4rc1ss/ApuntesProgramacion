@@ -18,10 +18,10 @@ public class LoginModel : PageModel
     }
 
     [BindProperty(SupportsGet = true)]
-    public LoginRequest LoginRequest { get; set; }
+    public LoginRequest? LoginRequest { get; set; }
 
     [BindProperty(SupportsGet = true)]
-    public string ReturnUrl { get; set; }
+    public string? ReturnUrl { get; set; }
 
     public void OnGet()
     {

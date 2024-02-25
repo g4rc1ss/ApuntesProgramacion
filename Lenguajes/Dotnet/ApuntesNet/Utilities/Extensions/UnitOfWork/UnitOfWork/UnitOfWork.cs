@@ -8,7 +8,7 @@ namespace UnitOfWork.UnitOfWork;
 
 internal class UnitOfWork<TContext>(TContext context) : IRepositoryFactory, IUnitOfWork<TContext> where TContext : DbContext, IDisposable
 {
-    private Dictionary<Type, object> _repositories;
+    private Dictionary<Type, object>? _repositories;
 
     public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class
     {

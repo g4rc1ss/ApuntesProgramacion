@@ -2,5 +2,5 @@
 
 public class ClaseParaJSON
 {
-    public string Ruta { get; set; }
+    public string? Ruta { get; set; }
 }

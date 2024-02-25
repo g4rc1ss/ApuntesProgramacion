@@ -6,7 +6,7 @@
 // transition the Context to another State.
 internal abstract class State
 {
-    protected Context _context;
+    protected Context? _context;
 
     public void SetContext(Context context)
     {

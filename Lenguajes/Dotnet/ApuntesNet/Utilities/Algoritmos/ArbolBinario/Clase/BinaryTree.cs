@@ -1,20 +1,9 @@
 ﻿namespace ArbolBinario.Clase;
 
-internal class BinaryTree<T>
+internal class BinaryTree<T>(T value)
 {
-    public BinaryTree<T> Left { get; private set; }
-    public BinaryTree<T> Right { get; private set; }
-    private readonly T _objectToSave;
-
-    public BinaryTree()
-    {
-
-    }
-
-    public BinaryTree(T value)
-    {
-        _objectToSave = value;
-    }
+    public BinaryTree<T>? Left { get; private set; }
+    public BinaryTree<T>? Right { get; private set; }
 
     public void AddLeftSoon(T value)
     {
@@ -28,7 +17,7 @@ internal class BinaryTree<T>
 
     public T GetValue()
     {
-        return _objectToSave;
+        return value;
     }
 }
 

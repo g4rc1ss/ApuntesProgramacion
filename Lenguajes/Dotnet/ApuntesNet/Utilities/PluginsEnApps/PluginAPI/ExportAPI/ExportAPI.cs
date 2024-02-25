@@ -2,7 +2,7 @@
 
 public static class ExportAPI
 {
-    public static event EventHandler ExportEvent;
+    public static event EventHandler? ExportEvent;
 
     public static void ExportEventCaller(ExportObject export)
     {

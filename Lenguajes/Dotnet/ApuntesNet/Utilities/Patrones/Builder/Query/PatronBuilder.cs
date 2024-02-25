@@ -4,10 +4,10 @@ namespace Builder.Query;
 
 internal class PatronBuilder : IPatronBuilder
 {
-    internal string Select { get; set; }
-    internal string Where { get; set; }
-    internal string From { get; set; }
-    internal string Orderby { get; set; }
+    internal string? Select { get; set; }
+    internal string? Where { get; set; }
+    internal string? From { get; set; }
+    internal string? Orderby { get; set; }
 
     public string Build()
     {

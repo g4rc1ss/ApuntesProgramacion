@@ -5,9 +5,9 @@ namespace PluginEjemplo;
 
 public class PluginEjemplo : IPlugin
 {
-    public ExportInterface ExportInterface { get; private set; }
+    public ExportInterface? ExportInterface { get; private set; }
 
-    public ExportPlugin ExportPlugin { get; private set; }
+    public ExportPlugin? ExportPlugin { get; private set; }
 
     public string Name => "Plugin ejemplo";
 

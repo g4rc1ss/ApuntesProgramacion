@@ -3,6 +3,6 @@
 
 public class MyIp
 {
-    public string Ip { get; set; }
+    public string? Ip { get; set; }
 }
 
