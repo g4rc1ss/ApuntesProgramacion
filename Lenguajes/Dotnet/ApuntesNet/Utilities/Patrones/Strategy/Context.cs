@@ -6,7 +6,7 @@ internal class Context
     // The Context maintains a reference to one of the Strategy objects. The
     // Context does not know the concrete class of a strategy. It should
     // work with all strategies via the Strategy interface.
-    private IStrategy? _strategy;
+    private IStrategy? strategy;
 
     public Context()
     { }
@@ -15,13 +15,13 @@ internal class Context
     // also provides a setter to change it at runtime.
     public Context(IStrategy strategy)
     {
-        _strategy = strategy;
+        this.strategy = strategy;
     }
 
     // Usually, the Context allows replacing a Strategy object at runtime.
     public void SetStrategy(IStrategy strategy)
     {
-        _strategy = strategy;
+        this.strategy = strategy;
     }
 
     // The Context delegates some work to the Strategy object instead of
@@ -29,7 +29,7 @@ internal class Context
     public void DoSomeBusinessLogic()
     {
         Console.WriteLine("Context: Sorting data using the strategy (not sure how it'll do it)");
-        var result = _strategy.DoAlgorithm(new List<string> { "a", "b", "c", "d", "e" });
+        var result = strategy.DoAlgorithm(new List<string> { "a", "b", "c", "d", "e" });
 
         var resultStr = string.Empty;
         foreach (var element in result as List<string>)

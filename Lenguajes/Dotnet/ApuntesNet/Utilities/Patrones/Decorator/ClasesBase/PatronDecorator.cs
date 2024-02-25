@@ -8,16 +8,16 @@
 // the means to initialize it.
 internal abstract class PatronDecorator(Component component) : Component
 {
-    protected Component _component = component;
+    protected Component component = component;
 
     public void SetComponent(Component component)
     {
-        _component = component;
+        this.component = component;
     }
 
     // The Decorator delegates all work to the wrapped component.
     public override string Operation()
     {
-        return _component != null ? _component.Operation() : string.Empty;
+        return component != null ? component.Operation() : string.Empty;
     }
 }

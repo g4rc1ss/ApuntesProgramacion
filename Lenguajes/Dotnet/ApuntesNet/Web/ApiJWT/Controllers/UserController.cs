@@ -22,7 +22,7 @@ public class UserController(IOptions<JwtConfig> jwtConfig) : Controller
 
     [AllowAnonymous]
     [HttpPost("Login")]
-    public async Task<IActionResult> LoginAsync(LoginRequest loginRequest)
+    public IActionResult Login(LoginRequest loginRequest)
     {
         var comprobamosLaPasswordEnBaseDeDatos = true;
 

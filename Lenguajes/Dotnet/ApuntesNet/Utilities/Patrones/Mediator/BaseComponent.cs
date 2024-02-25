@@ -4,10 +4,10 @@
 // mediator's instance inside component objects.
 internal class BaseComponent(IMediator mediator = null)
 {
-    protected IMediator _mediator = mediator;
+    protected IMediator mediator = mediator;
 
     public void SetMediator(IMediator mediator)
     {
-        _mediator = mediator;
+        this.mediator = mediator;
     }
 }

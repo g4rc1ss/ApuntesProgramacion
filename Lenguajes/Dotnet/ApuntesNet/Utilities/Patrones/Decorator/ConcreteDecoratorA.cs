@@ -4,7 +4,7 @@ namespace Decorator;
 
 // Concrete Decorators call the wrapped object and alter its result in some
 // way.
-internal class ConcreteDecoratorA(Component comp) : PatronDecorator(comp)
+internal sealed class ConcreteDecoratorA(Component comp) : PatronDecorator(comp)
 {
 
     // Decorators may call parent implementation of the operation, instead

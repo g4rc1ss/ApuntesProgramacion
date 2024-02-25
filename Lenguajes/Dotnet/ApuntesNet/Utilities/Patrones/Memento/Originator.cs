@@ -7,11 +7,11 @@ internal class Originator
 {
     // For the sake of simplicity, the originator's state is stored inside a
     // single variable.
-    private string _state;
+    private string state;
 
     public Originator(string state)
     {
-        _state = state;
+        this.state = state;
         Console.WriteLine("Originator: My initial state is: " + state);
     }
 
@@ -21,8 +21,8 @@ internal class Originator
     public void DoSomething()
     {
         Console.WriteLine("Originator: I'm doing something important.");
-        _state = GenerateRandomString(30);
-        Console.WriteLine($"Originator: and my state has changed to: {_state}");
+        state = GenerateRandomString(30);
+        Console.WriteLine($"Originator: and my state has changed to: {state}");
     }
 
     private string GenerateRandomString(int length = 10)
@@ -45,7 +45,7 @@ internal class Originator
     // Saves the current state inside a memento.
     public IMemento Save()
     {
-        return new ConcreteMemento(_state);
+        return new ConcreteMemento(state);
     }
 
     // Restores the Originator's state from a memento object.
@@ -56,7 +56,7 @@ internal class Originator
             throw new Exception("Unknown memento class " + memento.ToString());
         }
 
-        _state = memento.GetState();
-        Console.Write($"Originator: My state has changed to: {_state}");
+        state = memento.GetState();
+        Console.Write($"Originator: My state has changed to: {state}");
     }
 }

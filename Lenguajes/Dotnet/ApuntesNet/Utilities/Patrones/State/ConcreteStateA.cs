@@ -8,7 +8,7 @@ internal class ConcreteStateA : State
     {
         Console.WriteLine("ConcreteStateA handles request1.");
         Console.WriteLine("ConcreteStateA wants to change the state of the context.");
-        _context.TransitionTo(new ConcreteStateB());
+        context.TransitionTo(new ConcreteStateB());
     }
 
     public override void Handle2()

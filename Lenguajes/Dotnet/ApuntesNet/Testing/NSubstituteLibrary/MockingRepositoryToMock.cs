@@ -12,7 +12,7 @@ public class MockingRepositoryToMock
         Initialize();
     }
 
-    private async void Initialize()
+    private void Initialize()
     {
         RepositoryToMock.GetRepositoryAsync(Arg.Any<string>()).Returns(Task.CompletedTask);
         RepositoryToMock.GetRepositoriesAsync().Returns(Enumerable.Range(0, 1000).Select(x => $"{x}"));

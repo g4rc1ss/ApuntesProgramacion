@@ -11,6 +11,6 @@ internal class ConcreteStateB : State
     {
         Console.WriteLine("ConcreteStateB handles request2.");
         Console.WriteLine("ConcreteStateB wants to change the state of the context.");
-        _context.TransitionTo(new ConcreteStateA());
+        context.TransitionTo(new ConcreteStateA());
     }
 }

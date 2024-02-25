@@ -6,13 +6,13 @@ internal class Component2 : BaseComponent
     {
         Console.WriteLine("Component 2 does C.");
 
-        _mediator.Notify(this, "C");
+        mediator.Notify(this, "C");
     }
 
     public void DoD()
     {
         Console.WriteLine("Component 2 does D.");
 
-        _mediator.Notify(this, "D");
+        mediator.Notify(this, "D");
     }
 }

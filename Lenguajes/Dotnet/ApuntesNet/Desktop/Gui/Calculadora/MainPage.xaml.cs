@@ -2,10 +2,10 @@
 
 public partial class MainPage : ContentPage
 {
-    private string _operacion = "";
+    private string operacion = "";
     private readonly int[] _numero = new int[2];
-    private bool _insertar = true;
-    private bool _operacionSeleccion = false;
+    private bool insertar = true;
+    private bool operacionSeleccion = false;
 
     public MainPage()
     {
@@ -19,11 +19,11 @@ public partial class MainPage : ContentPage
 
         if (ComprobarNumero(respuesta))
         {
-            if (_insertar)
+            if (insertar)
             {
                 _numero[0] = int.Parse(mostrar.Text);
             }
-            else if (!_insertar)
+            else if (!insertar)
             {
                 _numero[1] = int.Parse(mostrar.Text);
             }
@@ -35,7 +35,7 @@ public partial class MainPage : ContentPage
                 await DisplayAlert("Calculadora", "Calculadora", "Debes introducir un numero primero", "Cancel");
                 return;
             }
-            if (_operacionSeleccion)
+            if (operacionSeleccion)
             {
                 await DisplayAlert("Calculadora", "Calculadora", "Ya has seleccionado una operacion", "Cancel");
                 return;
@@ -43,9 +43,9 @@ public partial class MainPage : ContentPage
             else
             {
                 mostrar.Text = "";
-                _operacion = respuesta;
-                _insertar = false;
-                _operacionSeleccion = true;
+                operacion = respuesta;
+                insertar = false;
+                operacionSeleccion = true;
             }
 
         }
@@ -56,12 +56,12 @@ public partial class MainPage : ContentPage
                 _numero[x] = 0;
             }
 
-            _insertar = true;
-            _operacionSeleccion = false;
+            insertar = true;
+            operacionSeleccion = false;
         }
         else if (respuesta.Equals("="))
         {
-            if (_operacion == null)
+            if (operacion == null)
             {
                 await DisplayAlert("Calculadora", "Debes seleccionar una operacion primero", "Cancel");
                 return;
@@ -71,11 +71,11 @@ public partial class MainPage : ContentPage
                 await DisplayAlert("Calculadora", "Debes introducir otro numero", "Cancel");
                 return;
             }
-            var resultado = Operar(_operacion);
+            var resultado = Operar(operacion);
             mostrar.Text = "" + resultado;
             _numero[0] = resultado;
-            _insertar = true;
-            _operacionSeleccion = false;
+            insertar = true;
+            operacionSeleccion = false;
         }
     }
 

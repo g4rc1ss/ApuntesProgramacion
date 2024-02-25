@@ -4,8 +4,8 @@ namespace Iterator;
 
 public class Iterator<T>(T[] collection) : IEnumerator<T>
 {
-    private int _indiceActual = -1;
-    private bool _disposedValue = false;
+    private int indiceActual = -1;
+    private bool disposedValue = false;
 
     public T Current { get; private set; } = default;
 
@@ -14,20 +14,20 @@ public class Iterator<T>(T[] collection) : IEnumerator<T>
     public bool MoveNext()
     {
         Console.WriteLine("Pasando por el Iterator personalizado");
-        if (++_indiceActual >= collection.Length)
+        if (++indiceActual >= collection.Length)
         {
             return false;
         }
         else
         {
-            Current = collection[_indiceActual];
+            Current = collection[indiceActual];
         }
         return true;
     }
 
     public void Reset()
     {
-        _indiceActual = -1;
+        indiceActual = -1;
     }
 
     public void Dispose()
@@ -38,7 +38,7 @@ public class Iterator<T>(T[] collection) : IEnumerator<T>
 
     private void Dispose(bool disposing)
     {
-        if (!_disposedValue)
+        if (!disposedValue)
         {
             if (disposing)
             {
@@ -46,6 +46,6 @@ public class Iterator<T>(T[] collection) : IEnumerator<T>
                 Current = default;
             }
         }
-        _disposedValue = true;
+        disposedValue = true;
     }
 }
