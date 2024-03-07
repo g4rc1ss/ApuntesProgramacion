@@ -1,34 +1,92 @@
-```Csharp
-using System;
+# Estructura del codigo Rust
 
-namespace ProgramNamespace
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            // Code...
-        }
+1. **Módulos:**
+   - Agrupa código relacionado usando `mod`.
+   - Archivos separados reflejan la estructura de módulos.
+
+```rust
+mod modulo1 {
+    // Código del módulo 1
+}
+
+mod modulo2 {
+    // Código del módulo 2
+}
+```
+
+2. **Funciones:**
+   - Define funciones con `fn`.
+   - Especifica el tipo de retorno y parámetros.
+
+```rust
+fn mi_funcion(parametro: Tipo) -> TipoRetorno {
+    // Código de la función
+}
+```
+
+3. **Estructuras:**
+   - Crea estructuras de datos con `struct`.
+
+```rust
+struct MiEstructura {
+    campo1: Tipo1,
+    campo2: Tipo2,
+}
+```
+
+4. **Enum:**
+   - Define enumeraciones para representar datos variantes.
+
+```rust
+enum MiEnum {
+    Variante1,
+    Variante2(Tipo),
+    Variante3 { campo: Tipo },
+}
+```
+
+5. **Trait:**
+   - Especifica comportamientos con traits.
+
+```rust
+trait MiTrait {
+    fn metodo(&self);
+}
+```
+
+6. **Implementación:**
+   - Implementa funciones y traits para tipos específicos.
+
+```rust
+impl MiTrait for MiTipo {
+    fn metodo(&self) {
+        // Implementación del método
     }
 }
 ```
-- ``using`` -> Para importar librerías y módulos
-- ``namespace`` -> indica la ubicación del programa
-- ``class`` -> Creamos una clase, que es un modulo que se usa para declarar objetos y tratarlos añadiendo funciones.
-- ``Main(string[] args)`` -> el método main es el método principal de donde parte la aplicación siempre, no puede haber dos main en el mismo proyecto
 
+7. **Patrones de coincidencia:**
+   - Usa `match` para patrones de coincidencia.
 
-# Alias en using
-Al importar un namespace, podemos asignar un alias para identificarlo. Para acceder a una clase que contiene un alias, se usara el operador `::`. Para acceder al namespace de .Net de forma exclusiva, se usara el alias `global`
-
-```Csharp
-using aliasUsing = System;
-
-aliasUsing::Console.WriteLine();
-global::System.Console.WriteLine();
+```rust
+match valor {
+    Patron1 => {
+        // Código para Patron1
+    }
+    Patron2(valor) if condicion => {
+        // Código para Patron2 con condición
+    }
+    _ => {
+        // Código por defecto
+    }
+}
 ```
 
+8. **Manejo de errores:**
+   - Usa `Result` para el manejo de errores.
 
-
-
-
+```rust
+fn mi_funcion() -> Result<Tipo, Error> {
+    // Código que puede devolver un error
+}
+```
