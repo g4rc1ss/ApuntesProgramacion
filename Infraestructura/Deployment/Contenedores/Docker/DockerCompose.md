@@ -5,13 +5,11 @@ En lugar de tener que ejecutar múltiples comandos de Docker para crear y config
 
 1. **Definición de servicios**: Puedes definir los servicios que componen tu aplicación, especificando la imagen, los puertos, las variables de entorno, los volúmenes y otras configuraciones necesarias para cada servicio.
 
-2. **Escalado de servicios**: Con Docker Compose, puedes escalar los servicios de tu aplicación para manejar diferentes niveles de carga, simplemente ajustando el número de réplicas.
+2. **Gestión de redes**: Docker Compose crea automáticamente una red por defecto para todos los servicios de la aplicación, lo que permite la comunicación entre contenedores.
 
-3. **Gestión de redes**: Docker Compose crea automáticamente una red por defecto para todos los servicios de la aplicación, lo que permite la comunicación entre contenedores.
+3. **Facilidad de despliegue**: Con un solo comando `docker-compose up`, puedes crear y levantar todos los contenedores definidos
 
-4. **Facilidad de despliegue**: Con un solo comando `docker-compose up`, puedes crear y levantar todos los contenedores definidos
-
-5. **Entornos reproducibles**: Docker Compose garantiza que tu aplicación se despliegue de la misma manera en diferentes entornos, facilitando la reproducción de la configuración de desarrollo y producción.
+4. **Entornos reproducibles**: Docker Compose garantiza que tu aplicación se despliegue de la misma manera en diferentes entornos, facilitando la reproducción de la configuración de desarrollo y producción.
 
 
 Por lo tanto Docker compose es una herramienta de **orquestación de contenedores**.
@@ -59,16 +57,16 @@ volumes:
   mongodb_data:
 ```
 
-- El servicio `dotnetapp` que se va a encangar de ejecutar el archivo dockerfile ubicado en `../src` pasandole la variable de entorno `production` y se accedera a traves de los puertos 80 y 443
+- El servicio `dotnetapp` comprobara si hay que compilar la imagen, si es asi, se basara en el dockerfile que le hemos indicado y despues levantará el servicio pasandole la variable de entorno correspondiente y asignando el volumen `dotnetapp_keys_data`
 
 - El servicio `mongodb` indicamos que queremos la imagen `mongo` del registro de docker, indicamos que el usuario administrador sera vacio, por tanto no habra usuario admin(para entornos de prueba o locales da igual, para pro... **NO**) y su punto de acceso sera el puerto 27017
 
-En el docker compose se le pueden indicar parametros como:
+En el docker-compose se le pueden indicar parametros como:
 - **restart** Si sucediera algun error que tiraria el contenedor, con este parametro podemos indicar si queremos que automaticamente docker lo vuelva a levantar.
 
 - **volumes** Los contenedores carecen de una caracteristica muy importante como es la persistencia. Si eliminas un contenedor y lo vuelves a crear, todos los archivos son eliminados y reemplazados con la nueva imagen. Para poder indicar persistencia a una carpeta en especifico se puede usar la propiedad `volumes`.
 
-- **link** Si queremos que un contendor pueda enviar peticiones y tratar con otros tenemos que agregar esta propiedad indicando el servicio con el que queremos enlazarlo.
+- **networks** Si queremos que un contendor pueda enviar peticiones y tratar con otros tenemos que agregar esta propiedad indicando el servicio con el que queremos enlazarlo.
 
 - **mem_limit** Si necesitamos limitar el uso de recursos a un contenedor, por ejemplo la memoria RAM que puede utilizar lo podemos indicar con esta propiedad
 
@@ -82,91 +80,15 @@ Para ejecutar docker compose simplemente hay que escribir el comando:
 
 
 ```powershell
-docker compose -f archivoDockerCompose.yml up -d
+docker-compose -f archivoDockerCompose.yml up -d
 ```
 
 Es importante destacar que en docker compose podemos tener varios archivos `yml` para ejecutar el entorno segun queramos.
 
 ```bash
-docker compose -f archivoDotnetApp.yml -f archivoMongodb.yml up -d
+docker-compose -f archivoDotnetApp.yml -f archivoMongodb.yml up -d
 ```
 
 Por ejemplo, supongamos que en local no queremos ejecutar el archivo para levantar la aplicacion dotnet, pero necesitamos la Base de datos
 
-Yo por tener organizado los docker-compose personalmente me gusta tenerlos separados por servicio y despues tengo un script en `powershell` que monta el comando y los ejecuta:
-
-```powershell 
-param (
-    [Parameter(Mandatory = $true)]
-    [ValidateSet("up", "down")]
-    [string]$action,
-
-    [Parameter(Mandatory = $true)]
-    [ValidateSet("local", "test")]
-    [string]$environment,
-
-    [Parameter(Mandatory = $false)]
-    [ValidateSet("v")]
-    [string]$removeVolumes
-)
-
-$composeToExecuteAlways = @(
-    "docker-compose.grafana.yml",
-    "docker-compose.mongo.yml",
-    "docker-compose.openTelemetry.yml"
-);
-
-
-$composeToExecuteOnTest = @(
-    "docker-compose.app.yml"
-);
-
-$composeToExecuteOnLocal = @(
-
-);
-
-$commadDockerComposeToExecute = "docker compose"
-$enviromentFile = ".env.$environment"
-
-
-
-$commadDockerComposeToExecute += " --env-file $enviromentFile"
-foreach ($dockerComposeFile in $composeToExecuteAlways) {
-    $commadDockerComposeToExecute += " -f $dockerComposeFile";
-}
-
-
-if ($environment -eq "local") {
-    foreach ($dockerComposeFile in $composeToExecuteOnLocal) {
-        $commadDockerComposeToExecute += " -f $dockerComposeFile";
-    }
-}
-
-if ($environment -eq "test") {
-    foreach ($dockerComposeFile in $composeToExecuteOnTest) {
-        $commadDockerComposeToExecute += " -f $dockerComposeFile";
-    }
-
-    if ($action -eq "up") {
-        $buildExec = "$commadDockerComposeToExecute build" 
-        Write-Output $buildExec
-        Invoke-Expression $buildExec
-    }
-}
-
-if ($action -eq "up") {
-    $commadDockerComposeToExecute += " up -d"
-
-}
-elseif ($action -eq "down") {
-    $commadDockerComposeToExecute += " down"
-
-    if ($removeVolumes -eq "v") {
-        $commadDockerComposeToExecute += " -v"
-    }
-
-}
-
-Write-Output "Comando a ejecutar" + $commadDockerComposeToExecute
-Invoke-Expression $commadDockerComposeToExecute
-```
+Yo por tener organizado los docker-compose personalmente me gusta tenerlos separados por servicio y despues tengo un script en `powershell` que los junta y ejecuta: [docker-compose.ps1](https://github.com/g4rc1ss/Dotnet-Web-Clean-Architecture-Skeleton/blob/main/.docker/docker-compose.ps1)
