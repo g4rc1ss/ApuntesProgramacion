@@ -8,8 +8,6 @@ Accedemos al portal de OVH
 <img width="731" alt="image" src="https://github.com/g4rc1ss/ApuntesProgramacion/assets/28193994/f7703bf0-ff19-4c0a-a2c0-9f24461fa029">
 
 Basicamente para lo que necesitamos estar aqui es para obtene los datos como la ip para acceder al servidor, para conectar con la maquina se realiza a traves de una conexion `SSH` y toda configuracion se hace mediante terminal o algun gestor GUI que lo permita.
-
-<img width="731" alt="image" src="https://github.com/g4rc1ss/ApuntesProgramacion/assets/28193994/29752b94-427b-4aa7-80db-fa01cda28470">
 - `sudo su`: para tener acceso root termporalmente y no andar metiendo `sudo` todo el rato(no es lo mas recomendable, la verdad)
 - `apt-get update`: Actualizamos el registro de dependencias y sus versiones
 - `apt-get upgrade`: Actualizamos las dependencias con las nuevas versiones del registro
@@ -86,19 +84,17 @@ Para poder desplegar la aplicacion con docker, aparte de tener docker, necesitam
 
 Hay varias formas de hacerlo:
 
-- **GITHUB**
-La forma mas comun es hacerlo a traves del control del versiones, puesto que se pueden subir releases, etc.
+### GITHUB
+Lo mas comodo es hacer el deploy desde Github directamente a traves de procesos CI/CD, la idea es, crear una pipeline que compile la imagen a ejecutar en el servidor y enviar esa imagen al VPS para hacer el proceso de deploy
 
-En este caso usare GITHUB y la forma de descargarlo seria con el siguiente comando:
-```bash
-# Si queremos descargar directamente desde la rama(branch) que se va a desplegar
-curl -L https://github.com/usuario/proyecto/archive/refs/heads/main.zip -o ./project.zip
+- [Pipe de CI/CD de deploy](https://github.com/g4rc1ss/Dotnet-Web-Clean-Architecture-Skeleton/blob/main/.github/workflows/deploy-hostwebapi.yml)
+- [Script de deploy](https://github.com/g4rc1ss/Dotnet-Web-Clean-Architecture-Skeleton/blob/main/.docker/deploy.ps1)
 
-# Si tenemos la aplicacion en Releases
-curl -L https://github.com/g4rc1ss/Dotnet-Web-Clean-Architecture-Skeleton/archive/refs/tags/1.0.zip -o ./project.zip
-```
+Basicamente la CI/CD tiene configurados los entornos de DEV y PRO y se encarga de llamar al script de deploy
 
-- **SFTP**
+El script de deploy se encarga de compilar la imagen, subirla al servidor junto al docker-compose y los archivos que sean necesarios y hacer el proceso de deploy. Si el proceso de deploy falla por lo que sea, por ejemplo, porque se ha configurado mal y no devuelve healthy, se hará un rollback automático.
+
+### SFTP
 Si preferimos mandar directamente el codigo nosotros, se puede establecer una conexion `sftp` para la transferencia de ficheros.
 
 Comprimimos nuestro proyecto en un zip por ejemplo para la transferencia y ejecutamos los comandos:
@@ -107,31 +103,4 @@ sftp usuario@direccion.ip
 put /ruta/nuestro/archivo ./ruta/donde/colocarlo
 ```
 
-Una vez tenemos el projecto en zip, lo descomprimimos con el comando `unzip`
-
-## Desplegando con Docker
-En este caso tenemos las variables de configuracion en un archivo `.env`.
-> En el proyecto hay creados unos archivos configurados para los diferentes entornos, no obstante deberiamos de tener el archivo en el VPS en una ruta diferente y proteger el archivo
-
-Para poder ejecutar esta aplicacion tengo un script en powershell, por tanto hemos de instalarlo en el servidor debian
-```bash
-# Download the Microsoft repository GPG keys
-wget https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb
-
-# Register the Microsoft repository GPG keys
-sudo dpkg -i packages-microsoft-prod.deb
-
-# Update the list of products
-sudo apt-get update
-
-# Install PowerShell
-sudo apt-get install -y powershell
-
-# Start PowerShell
-pwsh
-```
-> La info de los comandos es recogida en la pagina oficial de [Microsoft](https://learn.microsoft.com/es-es/powershell/scripting/install/installing-powershell-on-linux?view=powershell-7.3)
-> Estos comandos son para debian 10, si hay otra version, habra que consultarla en la doc oficial
-
-Nos ubicamos en la carpeta del proyecto donde tenemos el fichero de docker y ejecutamos el comando, si todo va bien, este compilara la imagen, descargara las que necesite y ejecutara la aplicacion exponiendo el puerto que le hemos indicado
-> Si nos sale un error del estilo: `error getting credentials - err: exit status 1, out: GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.secrets was not provided by any .service files` tendremos que instalar el paquete `apt -y install gnome-keyring`
+Una vez tenemos el projecto en zip, lo descomprimimos con el comando `unzip` y ejecutamos el comando para crear la imagen `docker-compose -f archivo.yml build` y una vez construida la imagen, ejecutamos `docker-compose -f archivo.yml up -d` para desplegar el servicio.

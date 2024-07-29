@@ -25,7 +25,7 @@ Dentro de una imagen podemos referenciar a otras imagenes tambien, por ejemplo:
 
 ```dockerfile
 # Establece la imagen base
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 # Establece el directorio de trabajo
 WORKDIR /app
@@ -36,12 +36,16 @@ RUN dotnet restore
 
 # Compila la aplicación
 RUN dotnet publish -c Release -o out
+RUN dotnet dev-certs https -ep /app/cert.pfx -p password
 
 # Configura la imagen de producción
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
-
 COPY --from=build /app/out .
+COPY --from=build /app/cert.pfx .
+
+# Instalamos curl para el healthcheck de Docker
+RUN apt update && apt install -y curl
 
 # Inicia la aplicación
 ENTRYPOINT ["dotnet", "HostWebApi.dll"]
@@ -80,3 +84,72 @@ Un contenedor es un entorno virtualizado donde se monta la imagen que le hemos i
    - Docker: Los contenedores son altamente portátiles, ya que se pueden ejecutar en cualquier sistema operativo que tenga Docker instalado.
    - Máquinas Virtuales: Las VMs también son portátiles, pero requieren una capa de virtualización específica para cada tipo de `hipervisor` (por ejemplo, VMware, VirtualBox, Hyper-V, etc.).
 
+## Comandos Docker
+Para hacer uso de docker por terminal tenemos los siguientes comandos:
+
+### Comandos Básicos
+1. **`docker build -t <nombre>:<etiqueta> <directorio>`**  
+   Construye una imagen Docker desde un Dockerfile ubicado en el directorio especificado.
+
+1. **`docker run <opciones> <imagen>`**  
+   Ejecuta un contenedor basado en la imagen especificada. Ejemplos de opciones incluyen:
+   - `-d` para ejecutar en segundo plano (detached).
+   - `-p <puerto_host>:<puerto_contenedor>` para mapear puertos.
+   - `--name <nombre>` para darle un nombre al contenedor.
+
+1. **`docker ps`**  
+   Muestra una lista de los contenedores en ejecución.
+
+1. **`docker ps -a`**  
+   Muestra todos los contenedores, incluyendo los que están detenidos.
+
+1. **`docker stop <nombre_contenedor>`**  
+   Detiene un contenedor en ejecución.
+
+1. **`docker start <nombre_contenedor>`**  
+   Inicia un contenedor detenido.
+
+1. **`docker restart <nombre_contenedor>`**  
+   Reinicia un contenedor.
+
+1. **`docker rm <nombre_contenedor>`**  
+    Elimina un contenedor detenido.
+
+1. **`docker rmi <imagen>`**  
+    Elimina una imagen Docker.
+
+1. **`docker logs <nombre_contenedor>`**  
+    Muestra los logs de un contenedor.
+
+### Gestión de Imágenes
+
+1. **`docker images`**  
+   Lista las imágenes disponibles en tu máquina local.
+
+2. **`docker image prune`**  
+   Elimina las imágenes que no están en uso y que no tienen etiquetas.
+
+3. **`docker image ls`**  
+   Lista las imágenes, similar a `docker images`.
+
+### Volúmenes y Redes
+
+1. **`docker volume ls`**  
+   Muestra los volúmenes disponibles.
+
+2. **`docker volume rm <volumen>`**  
+   Elimina un volumen Docker.
+
+3. **`docker network ls`**  
+   Lista las redes disponibles.
+
+4. **`docker network rm <red>`**  
+   Elimina una red Docker.
+
+### Otros Comandos Útiles
+
+1. **`docker exec -it <nombre_contenedor> <comando>`**  
+   Ejecuta un comando interactivo dentro de un contenedor en ejecución (por ejemplo, `bash`).
+
+2. **`docker inspect <nombre_contenedor_o_imagen>`**  
+   Muestra detalles en formato JSON sobre un contenedor o una imagen.
