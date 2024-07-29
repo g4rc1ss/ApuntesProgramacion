@@ -14,9 +14,12 @@ Para las soluciones cloud puras como `Azure`, `AWS`, etc. Generalmente han adopt
 
 Ejecutamos los siguientes comandos para instalar `Docker`
 ```bash
-apt update && apt upgrade
-apt install docker.io docker-compose
+apt update && apt upgrade -y && apt install -y docker.io docker-compose
+```
+```bash
 systemctl is-enabled docker
+```
+```bash
 systemctl status docker
 ```
 
@@ -29,6 +32,8 @@ Ejecutamos el comando `docker swarm init` y cogemos el comando que tenemos que e
 Ejecutamos el comando de pareado en los nodos worker correspondientes
 ![alt text](.img/dockerswarm_join.png)
 
+Para comprobar que, efectivamente, estan emparejados podemos ejecutar el comando `docker node ls`
+![alt text](.img/dockerswarm_nodels.png)
 
 Para deplegar la imagen, es similar a cuando ejecutamos un docker-compose
 
