@@ -92,3 +92,71 @@ docker-compose -f archivoDotnetApp.yml -f archivoMongodb.yml up -d
 Por ejemplo, supongamos que en local no queremos ejecutar el archivo para levantar la aplicacion dotnet, pero necesitamos la Base de datos
 
 Yo por tener organizado los docker-compose personalmente me gusta tenerlos separados por servicio y despues tengo un script en `powershell` que los junta y ejecuta: [docker-compose.ps1](https://github.com/g4rc1ss/Dotnet-Web-Clean-Architecture-Skeleton/blob/main/.docker/docker-compose.ps1)
+
+## Comandos de Docker-compose
+Docker compose tiene comandos parecidos a Docker, pero que trabajan directamente con los servicios de los docker-compose indicados, esto hace que resulte mas sencillo de interpretar y de visualizar
+
+1. **`docker-compose up`**
+   - **Descripción**: Inicia los servicios definidos en el archivo `docker-compose.yml`.
+   - **Opciones comunes**:
+     - `-d`: Ejecuta en segundo plano (detached mode).
+     - `--build`: Fuerza la reconstrucción de las imágenes antes de iniciar los contenedores.
+
+2. **`docker-compose down`**
+   - **Descripción**: Detiene y elimina los contenedores, redes y volúmenes creados por `docker-compose up`.
+   - **Opciones comunes**:
+     - `-v`: Elimina los volúmenes asociados.
+
+3. **`docker-compose start`**
+   - **Descripción**: Inicia los contenedores que están definidos en el archivo `docker-compose.yml` pero que no están en ejecución.
+   - **Nota**: No crea nuevos contenedores ni reconstruye las imágenes.
+
+4. **`docker-compose stop`**
+   - **Descripción**: Detiene los contenedores en ejecución sin eliminarlos.
+
+5. **`docker-compose restart`**
+   - **Descripción**: Reinicia los contenedores en ejecución.
+
+6. **`docker-compose build`**
+   - **Descripción**: Construye o reconstruye los servicios definidos en `docker-compose.yml`.
+   - **Opciones comunes**:
+     - `--no-cache`: No utiliza caché para construir las imágenes.
+
+7. **`docker-compose logs`**
+   - **Descripción**: Muestra los logs de los contenedores en ejecución.
+   - **Opciones comunes**:
+     - `-f`: Muestra los logs en tiempo real (follow).
+     - `--tail <número>`: Muestra solo las últimas `<número>` líneas de logs.
+
+8. **`docker-compose ps`**
+   - **Descripción**: Lista los contenedores que están siendo gestionados por `docker-compose`.
+
+9. **`docker-compose exec <servicio> <comando>`**
+   - **Descripción**: Ejecuta un comando en un contenedor en ejecución.
+   - **Opciones comunes**:
+     - `-it`: Permite la interacción con el contenedor (modo interactivo).
+
+10. **`docker-compose run <servicio> <comando>`**
+    - **Descripción**: Ejecuta un comando en un nuevo contenedor basado en el servicio definido.
+    - **Opciones comunes**:
+      - `--rm`: Elimina el contenedor después de que el comando se complete.
+
+11. **`docker-compose config`**
+    - **Descripción**: Valida y muestra la configuración de `docker-compose.yml` en formato expandido.
+
+12. **`docker-compose pull`**
+    - **Descripción**: Descarga las imágenes para los servicios definidos en el archivo `docker-compose.yml`.
+
+13. **`docker-compose push`**
+    - **Descripción**: Sube las imágenes a un registro para los servicios definidos en el archivo `docker-compose.yml`.
+
+14. **`docker-compose pause`**
+    - **Descripción**: Pausa los contenedores en ejecución sin detenerlos.
+
+15. **`docker-compose unpause`**
+    - **Descripción**: Reanuda los contenedores que han sido pausados.
+
+16. **`docker-compose rm`**
+    - **Descripción**: Elimina los contenedores que están detenidos.
+    - **Opciones comunes**:
+      - `-f`: Elimina los contenedores sin solicitar confirmación.
