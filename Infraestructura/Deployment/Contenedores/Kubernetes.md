@@ -261,6 +261,57 @@ Otra forma de escalar la aplicacion es mediante el comando `kubetcl scale deploy
 #### Escalado automatico
 Este suele ser el valor mas común y el recomendado, generalmente el escalado manual se usa en momentos muy puntuales donde necesitas mas pods de los indicados en el automático
 
+Kubernetes tiene un kind llamado `HorizontalPodAutoscaler` al que tenemos que refenciar nuestras instrucciones del kind `Deployment` donde tenemos definido la aplicación
+
+```yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: php-apache
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nginx-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 50  
+```
+- **spec**:
+    - **scaleTargetRef**  Indica el Deployment que será escalado
+    - **minReplicas**: El minimo de replicas que el HPA mantendra
+    - **maxReplicas**: El maximo de replicas que el HPA creará
+    - **metrics**: Realizamos el autoescalado basandonos en las metricas
+        - **type**: Indicamos el tipo de metrica en el que nos vamos a basar
+
+Se pueden indicar diferentes tipos de metricas a tener en cuenta, pero las que estan por defecto con kubernetes son las de tipo `Resource`
+> Dentro de este tipo podemos basarnos en la CPU y en la memoria que esta haciendo uso el contendor
+
+A la hora de evaluar los recursos se puede hacer de varias formas a traves del `target.type`
+
+```yaml
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 50  
+```
+El type **Utilization** se refiere a la utilización promedio de un recurso en relación con la cantidad solicitada y se establece en porcentaje
+
+> En el ejemplo, kubernetes empezara a escalar y agregar mas pods a cuando la media de los pods supere el 50% de la memoria solicitada(la que definimos en `requests` **NO en limits**)
 
 
 ### Desplegando aplicaciones
@@ -288,11 +339,44 @@ El proceso de actualizacion consiste en ir eliminando las instancias con la imag
 > Si el proceso de deploy falla, por ejemplo, los healthchecks no terminan de funcionar, el deployment fallaria y se seguiria con las versiones viejas(el usuario ni se enteraría)
 
 #### Definir estrategia
-Si queremos definir la estrategia que kubernetes tiene que seguir para hacer el deploy lo indicariamos en el archivo deployments en `strategy`
+Si queremos definir la estrategia que kubernetes tiene que seguir para hacer el deploy lo indicariamos en el archivo deployments en `spec.strategy`
+
+El tipo de la `strategy` pueden ser 2
+- **Recreate**: Todos los pods actuales son eliminados antes de crear los nuevos
+- **RollingUpdate**: Actualiza los pods en modo de actualizacion continua(es el valor por defecto)
 
 ```yaml
-
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: nombreContenedor
+        image: my-app-image:v2
+        ports:
+        - containerPort: 80
+  strategy:
+    type: Recreate
+  progressDeadlineSeconds: 600
+  minReadySeconds: 30
 ```
+- **strategy**
+    - **type** Indicamos si queremos Recreate o RollingUpdate
+    - **rollingUpdate**: En el caso de elegir RollingUpdate podemos usar esta opción
+        - **maxUnavailable**: es un campo opcional que indica el número máximo de Pods que pueden no estar disponibles durante el proceso de actualización. Por ejemplo, cuando este valor es 30%, el ReplicaSet viejo puede escalarse al 70%, aseguramente de que el número total de pods disponibles es al menos el 70% de los deseados. **El valor por defecto es 25%**.
+        - **maxSurge**: Indica el número máximo de Pods que puede crearse por encima del número deseado de Pods. El valor no puede ser 0 si MaxUnavailable es 0. Por ejemplo, cuando este valor es 30%, el nuevo ReplicaSet puede escalarse inmediatamente cuando comienza la actualización continua, de forma que el número total de Pods viejos y nuevos no excede el 130% de los Pods deseados **El valor por defecto es 25%**
+- **progressDeadlineSeconds**: Establecemos el tiempo que queremos que pase antes de que kubernetes de como fallido un deploy
+- **minReadySeconds**: Indica el número mínimo de segundos en que un Pod recién creado debería estar listo sin que falle ninguno de sus contenedores, para que se considere disponible
 
 
 #### Rollback
