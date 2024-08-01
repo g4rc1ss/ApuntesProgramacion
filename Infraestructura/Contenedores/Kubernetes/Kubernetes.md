@@ -1,4 +1,3 @@
-# Kubernetes
 Es una tecnologia nacida en Google, que es de código abierto y el objetivo es facilitar los deploys de las aplicaciones, automatizando todo el proceso basandose en una serie de instrucciones que nosotros le adjuntamos a traves de un fichero de configuración.
 
 La idea de kubertenes es la de desplegar la aplicacion en un cluster a traves de contenedores optimizando y buscando la mejor reparticion de recursos del cluster para obtener los mayores beneficios posibles en terminos de necesidades, escalabilidad, rendimiento y precio.
@@ -18,7 +17,7 @@ En las especificaciones declarativas nuestras indicamos lo siguiente:
 - **spec**: Indicamos la declaracion del ciclo de vida de la aplicación(como queremos que quede el objeto)
 - **status**: Estado actual del objeto en el cluster
 
-## Bucle de Reconciliación
+# Bucle de Reconciliación
 Para todo el proceso de leer la configuracion que enviamos y realizar las acciones que sea necesarias, kubernetes usa un proceso llamado **bucle de reconciliacion**
 
 > El bucle de reonciliacion kubernetes los esta ejecutando siempre sobre todos los objetos que tiene, de esta forma, cuando encuentra que hay cambios de estado, los va aplicando
@@ -30,7 +29,7 @@ Tenemos un bucle infinito en el que se obtiene el estado actual del objeto, el e
 
 Este proceso del bucle de reconciliacion no lo tiene solo 1 servicio, sino que kubernetes por debajo tiene muchos servicios independientes los cuales se van encargando de diferentes partes, por eso el despliegue no es instantaneo.
 
-## Pods
+# Pods
 En kubernetes cuando queremos crear y desplegar una aplicacion necesitamos crear un `pod`.
 
 Un pod es un conjunto de contenedores y de volumenes de datos que van a componer la aplicacion
@@ -56,7 +55,7 @@ Cada pod tiene su propio ciclo de vida y puede ser escalado de forma independien
 
 Como consejo es no poner dentro de ese pod varias aplicaciones, intentar que sean lo mas separadas posibles, puesto que si necesitas escalar o incluso matar una aplicacion, tendrias que hacerlo sobre el pod y eso afectaria al conjunto de aplicaciones de ese pod.
 
-### Estructura de un POD
+## Estructura de un POD
 
 Si queremos generar una estrucutra por donde empezar, podemos ejecutar un comando como el siguiente: `kubectl run prueba --image=nginx:latest --restart=Never --port=8080 --dry-run -o yaml`
 
@@ -118,7 +117,7 @@ Esta es la expresion declarativa en un fichero `yaml` que tenemos que enviar a k
     - **readinessProbe**: Establece si el contenedor esta preparado para recibir tráfico. Si este falla, kubernetes sacará este pod del servicio para que no reciba peticiones hasta que este operativo de nuevo.
     - **restartPolicy**: Definimos que queremos que haga kubernetes si el pod muere, por ejemplo, por un error
 
-#### Cálculo de Recursos
+### Cálculo de Recursos
 Para indicar los recursos que necesitamos como la CPU o la memoria, necesitamos establecer los valores de formas concretas
 
 - **Memoria**: La memoria se especifica en bytes, y puedes utilizar las unidades como Mi o Gi para simplificar la lectura y escritura. La conversión es la siguiente:
@@ -127,7 +126,7 @@ Para indicar los recursos que necesitamos como la CPU o la memoria, necesitamos 
 - **CPU**: Los valores para la CPU se especifican en *millicpus*, por lo que **1000m** representa un núcleo completo.
     - **0.5**: Representa lo mismo que **500m**, que seria medio núcleo
 
-#### Opciones para los healthcheck
+### Opciones para los healthcheck
 Para establacer los healthcheck podemos indicar varias formas de hacer esa comprobacion. La normal suele ser la `http`, pero tambien podemos establecer otras formas como ejecutar un comando dentro del container
 
 - **httpGet** Establece una conexion por HTTP, si no devuelve un codigo entre 200-399 será marcado como error.
@@ -144,7 +143,7 @@ Para establacer los healthcheck podemos indicar varias formas de hacer esa compr
 - **failureThreshold**: El numero de checks que indican que esta muerto
 
 
-## Persistencia
+# Persistencia
 Los pods, igual que pasa en docker, cuando son destruidos toda la información que contienen tambien lo es.
 Cuando montas un pod nuevo, se construye todo dede 0 en base a la imagen del contenedor que queremos.
 
@@ -156,7 +155,7 @@ Un **volume** es un directorio reservado para ese pod y los container(del pod) q
 
 > Como volumen tambien podemos configurar algunos concretos del cloud donde estemos, por ejemplo, *awselasticblockstore*, *azuredisk*, etc.
 
-### Empty Dir
+## Empty Dir
 Un volumen **emptyDir** es un almacenamiento que se usa durante el ciclo de vida del pod, es util si la informacion que se va a almacenar no es importante que se persista y puede que queramos compartirla entre containers del pod.
 
 Agregamos la siguiente configuracion relativa al pod
@@ -171,10 +170,10 @@ spec:
     emptyDir: {}
 ```
 
-### State Persistence
+## State Persistence
 Si queremos persistir datos en kubernetes para que, cuando el pod sea eliminado, no se pierdan hay que definir unos objetos de tipo  **PersistentVolume(PV)** o **PersistentVolumeClaim(PVC)**
 
-#### PersistentVolume
+### PersistentVolume
 Representa un recurso de almacenamiento
 
 ```yaml
@@ -204,7 +203,7 @@ spec:
 
 
 
-#### PersistentVolumeClaim
+### PersistentVolumeClaim
 Es una capa de abstraccion entre el **PV** y el pod
 
 ```yaml
@@ -261,7 +260,7 @@ spec:
 
 
 
-## Config Maps
+# Config Maps
 Nos permiten almacenar valores de configuración como una coleccion de parejas clave/valor
 
 Podemos acceder a los valores de los configMaps de varias formas
@@ -269,7 +268,7 @@ Podemos acceder a los valores de los configMaps de varias formas
 - Poniendo diferentes claves dentro del contenedor. Cada clave sera un fichero distinto
 - Pasandolo a la aplicacion como arguments de líne a de comandos
 
-### Estructura de un ConfigMap
+## Estructura de un ConfigMap
 Para generar un nuevo configmap podemos usar el comando `kubectl create configmap example-config --from-literal=example.property1=hello`
 
 Para listar los configmaps `get configmaps` y para leerlo `get configmaps special-config -o yaml`
@@ -294,8 +293,7 @@ Data:
 
 > Como recomendacion usar siempre el formato de los contenidos en tipo `string`
 
-### Configmaps como Variables de entorno
-
+## Configmaps como Variables de entorno
 Para consumir los configmap desde un pod, basandonos en el pod anterior, eliminariamos los `value` alojados en las `spec.env` y referenciamos al configmap
 
 ```yaml
@@ -330,7 +328,7 @@ spec:
 
 > Si queremos comprobar que las variables tienen el contenido que queremos, podemos, acceder al container del pod mediante el comando `kubectl exec -it nombre-container -- /bin/bash` y dentro de la terminal y ejecutamos `env` para comprobar que estan y sus valores.
 
-### Configmaps como ficheros en Volumes
+## Configmaps como ficheros en Volumes
 Podemos usar un configmap para consumir sus valores en `volumes` indicandolo en el pod
 
 ```yaml
@@ -356,7 +354,7 @@ spec:
 > Para comprobar este caso podemos ejecutar el comando `kubectl exec -it nombre-pod -- cat /tmp/nginx.conf`
 
 
-## Secrets
+# Secrets
 Son parecidos a los `config maps`, pero se almacenan codificados en base64
 
 Podemos acceder a los datos de los Secret usando el tipo Volumen Secret.
@@ -365,7 +363,7 @@ Los secretos se almacenan en volumenes temporales *tmpfs* y nunca llegan a escri
 
 Cada elemento de un Secret se guarda en un fichero distinto en el punto de montake especificado en el volumen
 
-### Estructura de un Secret
+## Estructura de un Secret
 Para generar un nuevo configmap podemos usar el comando `kubectl create secret generic test-secret --from-literal=username='admin' --from-literal=password='123456'`
 
 Para obtener la lista ejecutamos `get secrets` y para leerlo `get secrets test-secret -o yaml`
@@ -384,7 +382,7 @@ data:
 ```
 - **data**: se hace de la misma forma que con configmaps, pero en este caso los valores esta codificados en base64
 
-### Secrets como Variables de entorno
+## Secrets como Variables de entorno
 ```yaml
 spec:
   env:
@@ -408,7 +406,7 @@ spec:
       name: test-secret
 ```
 
-### Secrets como Ficheros
+## Secrets como Ficheros
 ```yaml
 spec:
   container:
@@ -424,7 +422,7 @@ spec:
 > Cuando creamos el fichero de esta forma, se crea 1 fichero por cada key dentro del configmap o secret y el contenido esta en claro
 
 
-## Services
+# Services
 Por defecto las direcciones que reciben los pods estan limitadas al cluster privado, no se puede acceder desde fuera.
 
 Un service nos da una direccion accesible y estable para poder enviar peticiones a los contenedores alojados en kubernetes.
@@ -435,7 +433,7 @@ Cuando se crea un Service kubernetes crea un objeto(mediante el bucle de reconci
 
 Para relacionar un pod con un service, se hace uso del campo de **metadata**, donde indicamos el mismo nombre que el que tiene el pod al que hacemos referencia.
 
-### Estructura de un Service
+## Estructura de un Service
 > Para generar un archivo base de service podemos usar el comando `kubectl expose pod/nombrePod --port 80 --dry-run -o yaml`
 
 > Para consultar los services que tenemos `kubectl get services`
@@ -474,7 +472,7 @@ spec:
 > Para interconectar servicios dentro del cluster, igual que en docker, podemos indicar el nombre del pod correspondiente, para probar que funciona, podemos ejecutar el comando `kubectl run --rm -i --tty my-client-app --image=alpine --restart=Never -- sh` para simular una terminal y lanzar un `curl -i nginx` contra el nombre o IP del pod correspondiente
 
 
-## Deployment
+# Deployment
 Los Pods están atados al ciclo de vida del nodo donde se están ejecutando. Si ese nodo desaparece, el pod desaparecerá con él.
 
 Se pueden usar los Deployments para asegurarnos de que un pod siempre esté vivo, aunque un nodo falle(gracias al bucle de reconciliacion).
@@ -483,7 +481,7 @@ Se pueden usar los Deployments para asegurarnos de que un pod siempre esté vivo
 
 > Para obtener un listado de los objetos de tipo deployment ejecutamos `kubectl get deployments`
 
-### Estructura de un Deployment
+## Estructura de un Deployment
 ```yml
 apiVersion: apps/v1
 kind: Deployment
@@ -533,10 +531,10 @@ Esta es la expresión declarativa en un fichero `yaml` que tenemos que enviar a 
 
 Esta es la expresion declarativa en un fichero `yaml` que tenemos que enviar a kubernetes, el comando seria el siguiente `kubectl create -f pod.yaml`.
 
-### Escalar con deployments
+## Escalar con deployments
 Una casuistica muy común en este tipo de aplicaciones, es que llegado a un punto, puede que sea necesario escalar la aplicación(agregando mas replicas o mas recursos) al **pod**, para eso hay varias formas.
 
-#### Escalado Manual
+### Escalado Manual
 Para hacer un escalado manual es tan simple como editar el fichero de configuración de kubernetes modificando el valor de replicas o de recursos y ejecutar el fichero en kubernetes para ello
 
 Otra forma de escalar la aplicacion es mediante el comando `kubetcl scale deployments nombreApp --replicas=3`
@@ -545,7 +543,7 @@ Otra forma de escalar la aplicacion es mediante el comando `kubetcl scale deploy
 
 > Para eliminar pods porque no necesitamos tanto escalado, podemos hacer lo mismo indicando valores mas pequeños
 
-#### Escalado automatico
+### Escalado automatico
 Este suele ser el valor mas común y el recomendado, generalmente el escalado manual se usa en momentos muy puntuales donde necesitas mas pods de los indicados en el automático
 
 Kubernetes tiene un kind llamado `HorizontalPodAutoscaler` al que tenemos que refenciar nuestras instrucciones del kind `Deployment` donde tenemos definido la aplicación
@@ -601,7 +599,7 @@ El type **Utilization** se refiere a la utilización promedio de un recurso en r
 > En el ejemplo, kubernetes empezara a escalar y agregar mas pods a cuando la media de los pods supere el 50% de la memoria solicitada(la que definimos en `requests` **NO en limits**)
 
 
-### Desplegando aplicaciones
+## Desplegando aplicaciones
 Para poder actualizar un pod con una version nueva de la imagen del container se puede hacer de forma manual modificando el archivo de deployment e indicando la nueva version a subir o mediante el comando ``
 
 > En la especificacion de la imagen del pod `spec.template.spec.containers[]` se puede agregar junto a image la configuracion `imagePullPolicy`, quedaria algo similar
@@ -625,7 +623,7 @@ El proceso de actualizacion consiste en ir eliminando las instancias con la imag
 
 > Si el proceso de deploy falla, por ejemplo, los healthchecks no terminan de funcionar, el deployment fallaria y se seguiria con las versiones viejas(el usuario ni se enteraría)
 
-#### Definir estrategia
+### Definir estrategia
 Si queremos definir la estrategia que kubernetes tiene que seguir para hacer el deploy lo indicariamos en el archivo deployments en `spec.strategy`
 
 El tipo de la `strategy` pueden ser 2
@@ -666,5 +664,91 @@ spec:
 - **minReadySeconds**: Indica el número mínimo de segundos en que un Pod recién creado debería estar listo sin que falle ninguno de sus contenedores, para que se considere disponible
 
 
-#### Rollback
+### Rollback
 En el caso de que necesitaramos ejecutar un rollback manualmente, podriamos ejecutar el comando `kubectl rollout undo deployment/my-app`
+
+
+# Kubectl
+Para poder usar el comando `kubectl` para poder ejecutar todo lo anterior en el cluster de kubernetes, tenemos que configurarlo
+
+Para poder probar kubernetes podemos usar programas como `minikube`, el cual levantara un kubernetes en local
+
+> docker desktop te permite tambien activando la opcion de interpretar y crear nodos para probar el tema de kubernetes
+
+## Configurando kubectl
+Si ejecutamos el comando `kubectl config view` nos devolvera la configuracion que tiene aplicada kubectl donde se puede configurar los cluster a los que queremos conectar y los datos de acceso, por ejemplo, podemos tener el acceso al kubernetes que tenemos en **AWS**, al **minikube** o a un cluster personal que tengamos
+
+La forma que tiene `kubectl` para saber a donde tiene que enviar la orden de ejecución, es a través de contextos.
+
+### Configurar clusters
+Para configurar kubectl con el contexto a donde queremos conectar, generalmente los proveedores nos proporcionan el comando y la forma de hacerlo de forma transparecente para nosotros.
+
+Aun asi para ello usariamos el comando `kubectl config`
+
+```powershell
+kubectl config --kubeconfig=config-demo set-cluster development --server=https://1.2.3.4 --certificate-authority=fake-ca-file
+kubectl config --kubeconfig=config-demo set-cluster test --server=https://5.6.7.8 --insecure-skip-tls-verify
+
+kubectl config --kubeconfig=config-demo set-credentials developer --client-certificate=fake-cert-file --client-key=fake-key-seefile
+kubectl config --kubeconfig=config-demo set-credentials experimenter --username=exp --password=some-password
+```
+
+### Contextos
+> Hay una key en el archivo de configuracion donde podemos indicar el contexto actual que se llama `current-context`
+
+Si queremos cambiar el contexto ejecutaremos el comando `kubectl config set-context nombrecontexto` y para activar esta configuracion usamos el comando `kubeon` y para desativarlo `kubeoff`
+
+> Para saber que contexto es que el que estamos usando, podemos usar el comando `kubectl config current-context`
+
+## Comandos de kubectl
+
+**Cluster**
+- `kubectl version` 
+- `kubectl cluster-info` 
+
+**Contextos**
+- `kubectl config get-contexts` 
+- `kubectl config current-context`: Obtenemos el contexto actual
+- `kubectl config use-context <context-name>`: Cambia al contexto indicado 
+- `kubectl config set-context <context-name> --cluster=<cluster-name> --user=<user-name> --namespace=<namespace>` Crea un contexto para conectar a un cluster 
+- `kubectl config delete-context <context-name>`
+
+**Pods**
+- `kubectl get pods` 
+- `kubectl describe pod <pod-name>` 
+- `kubectl logs <pod-name>` 
+- `kubectl delete pod <pod-name>` 
+
+**Deployment**
+- `kubectl get deployments` 
+- `kubectl describe deployment <deployment-name>` 
+- `kubectl scale deployment <deployment-name> --replicas=<number>`
+- `kubectl apply -f <deployment-file>.yaml`
+- `kubectl delete deployment <deployment-name>`
+
+**Services**
+- `kubectl get services`
+- `kubectl describe service <service-name>` 
+- `kubectl delete service <service-name>` 
+
+**Secrets y ConfigMaps**
+- `kubectl get configmaps` 
+- `kubectl describe configmap <configmap-name>` 
+- `kubectl delete configmap <configmap-name>` 
+- `kubectl get secrets` 
+- `kubectl describe secret <secret-name>` 
+- `kubectl delete secret <secret-name>` 
+
+**Persistence**
+- `kubectl get pv` 
+- `kubectl describe pv <pv-name>` 
+- `kubectl delete pv <pv-name>` 
+- `kubectl get pvc` 
+- `kubectl describe pvc <pvc-name>` 
+- `kubectl delete pvc <pvc-name>` 
+
+**Resources**
+- `kubectl get services` 
+- `kubectl apply -f <file>.yaml` Comando para aplicar la configuracion desde un archivo YAML 
+- `kubectl delete -f <file>.yaml` Eliminar la configuracion desde el YAML
+- `kubectl get <resource-type> <resource-name> -o yaml`
