@@ -143,6 +143,124 @@ Para establacer los healthcheck podemos indicar varias formas de hacer esa compr
 - **successThreshold**:  El mínimo de checks antes de considerar que esta correcto
 - **failureThreshold**: El numero de checks que indican que esta muerto
 
+
+## Persistencia
+Los pods, igual que pasa en docker, cuando son destruidos toda la información que contienen tambien lo es.
+Cuando montas un pod nuevo, se construye todo dede 0 en base a la imagen del contenedor que queremos.
+
+Si queremos alojar en un pod por ejemplo, una bbdd y ese pod es destruido por lo que sea, se perderan todo los datos alojados, para evitar eso, en kubernetes tenemos el concepto de `volumes`
+
+Un **volume** es un directorio reservado para ese pod y los container(del pod) que lo referencian.
+
+> En un volume indicamos un path dentro del container que queremos persistir y toda la informacion de ese path sera accesible desde un directorio reservado en el disco duro del cluster
+
+> Como volumen tambien podemos configurar algunos concretos del cloud donde estemos, por ejemplo, *awselasticblockstore*, *azuredisk*, etc.
+
+### Empty Dir
+Un volumen **emptyDir** es un almacenamiento que se usa durante el ciclo de vida del pod, es util si la informacion que se va a almacenar no es importante que se persista y puede que queramos compartirla entre containers del pod.
+
+Agregamos la siguiente configuracion relativa al pod
+```yaml
+spec:
+  containers:
+    volumeMounts:
+    - name: k8svolume
+      mountPath: /tmp/
+  volumes:
+  - name: k8svolume
+    emptyDir: {}
+```
+
+### State Persistence
+Si queremos persistir datos en kubernetes para que, cuando el pod sea eliminado, no se pierdan hay que definir unos objetos de tipo  **PersistentVolume(PV)** o **PersistentVolumeClaim(PVC)**
+
+#### PersistentVolume
+Representa un recurso de almacenamiento
+
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mipv
+spec:
+  storageClassName: local-storage
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+```
+
+- **storageClassName** Nombre de la clase de almacenamiento a la que pertenece el PV
+- **capacity**  La cantidad de almacenamiento que necesitamos
+  - **storage**
+- **accessModes** indicamos el modo que queremos que se acceda a los datos(lectura/escritura)
+  - **ReadWriteOnce (RWO)** El volumen puede ser montado como lectura-escritura por un solo nodo.
+  - **ReadOnlyMany (ROX)** El volumen puede ser montado como solo lectura por múltiples nodos.
+  - **ReadWriteMany (RWX)** El volumen puede ser montado como lectura-escritura por múltiples nodos.
+- **hostPath** Utiliza el sistema de archivos local del nodo para el almacenamiento
+  - **path** Ruta en el sistema de archivos del nodo
+
+
+
+#### PersistentVolumeClaim
+Es una capa de abstraccion entre el **PV** y el pod
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mipvc
+  namespace: paradigma
+spec:
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 512Mi
+
+```
+- **storageClassName** Nombre de la clase de almacenamiento a la que pertenece el PV
+- **capacity**  La cantidad de almacenamiento que necesitamos
+  - **storage**
+- **accessModes** indicamos el modo que queremos que se acceda a los datos(lectura/escritura)
+  - **ReadWriteOnce (RWO)** El volumen puede ser montado como lectura-escritura por un solo nodo.
+  - **ReadOnlyMany (ROX)** El volumen puede ser montado como solo lectura por múltiples nodos.
+  - **ReadWriteMany (RWX)** El volumen puede ser montado como lectura-escritura por múltiples nodos.
+- **resources** Indicamos los recursos de almacenamiento que necesitamos
+  - **requests** Solicitamos el almacenamiento que necesitamos
+    - **storage**: 
+
+Como se ha comentado, esto es una solicitud mas a kubernetes como podia ser un `service` o un `deployment`, etc. Y es para solicitar espacio en disco.
+
+El **PVC** se vincula con el recurso **PV** a traves de el **storageClassName** y el **AccessMode**, por tanto una vez creamos el PV y el PVC con el comando `kubectl apply -f archivo.yml` 
+
+> El **storage-class** es la referencia del almacenamiento, `local-storage` es el sistema gestionado por kubernetes para usar el almacenamiento en el nodo local.
+
+Una vez creados ambos recursos, tanto el volumen de persistencia, como el claim, establecemos la referencia en el pod de la siguiente forma:
+
+```yaml
+spec:
+  containers:
+    volumeMounts:
+    - mountPath: "/mnt/storage"
+      name: mivolume
+  volumes:
+  - name: mivolume
+    persistentVolumeClaim:
+      claimName: mipvc
+```
+- **persistentVolumeClaim** para hacer la referencia al PVC a que se tiene que conectar el pod
+  - **claimName** el nombre del PVC que hemos establecido
+
+> Es **IMPORTANTE** tener en cuenta que aunque esta solucion es interesante, si guardamos en `local-storage` y el nodo por lo que sea muere, los datos se perderían.
+
+> Es **IMPORTANTE** tener en cuenta, que si usamos un deployment con varias replicas, si almacenamos con el `local-storage`, el almacenamiento no es compartido por nodos, por tanto las replicas no tendrian acceso a los mismos datos
+
+
+
 ## Config Maps
 Nos permiten almacenar valores de configuración como una coleccion de parejas clave/valor
 
@@ -550,4 +668,3 @@ spec:
 
 #### Rollback
 En el caso de que necesitaramos ejecutar un rollback manualmente, podriamos ejecutar el comando `kubectl rollout undo deployment/my-app`
-
