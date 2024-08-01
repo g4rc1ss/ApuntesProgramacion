@@ -78,6 +78,11 @@ spec:
     image: nginx:1.13
     ports:
     - containerPort: 8080
+    env:
+    - name: VARIABLE_ENTORNO
+      value: "2324" 
+    - name: VARIABLE_ENTORNO_2
+      value: "prueba de variable de entorno"
     resources:
       limits: # cantidad maxima requerida
         cpu: 50m
@@ -105,6 +110,7 @@ Esta es la expresion declarativa en un fichero `yaml` que tenemos que enviar a k
     - **name**: Nombramos el contenedor del pod
     - **image**: Indicamos la imagen que queremos desplegar en el contenedor
     - **ports**: Indicamos el puerto donde queremos ejecutar la app
+    - **env**: Se usa para indicar una lista de variables de entorno con `name` y `value`
     - **resources**: Para indicar los recursos minimos y maximos que tiene que usar el pod, si se deja en blanco es equivalente a recursos ilimitados(**NO Recomendable**)
         - **limits**: Cantidad de recursos maximos que el pod puede llegar a consumir.
         - **requests**: El pod será colocado en algún nodo donde como mínimo haya esa cantidad de recursos, si no hay disponible esos recursos, no se creará el pod.
@@ -136,6 +142,168 @@ Para establacer los healthcheck podemos indicar varias formas de hacer esa compr
 - **timeoutSeconds**: El tiempo que hay que esperar antes de darlo por fallido
 - **successThreshold**:  El mínimo de checks antes de considerar que esta correcto
 - **failureThreshold**: El numero de checks que indican que esta muerto
+
+## Config Maps
+Nos permiten almacenar valores de configuración como una coleccion de parejas clave/valor
+
+Podemos acceder a los valores de los configMaps de varias formas
+- Pasandolo a la aplicacion como variables de entorno
+- Poniendo diferentes claves dentro del contenedor. Cada clave sera un fichero distinto
+- Pasandolo a la aplicacion como arguments de líne a de comandos
+
+### Estructura de un ConfigMap
+Para generar un nuevo configmap podemos usar el comando `kubectl create configmap example-config --from-literal=example.property1=hello`
+
+Para listar los configmaps `get configmaps` y para leerlo `get configmaps special-config -o yaml`
+
+```yaml
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: example-config
+Data:
+  someValue: "23"
+  example.property1: hello
+  example.property2: world
+  example.file: |-
+    server {
+      localtion / {
+        root /data/www;
+      }
+    }
+```
+- **Data**: Le podemos pasar una lista de valores a tener, incluso le podemos guardar un fichero entero como en el ejemplo, el caso de `example.file`
+
+> Como recomendacion usar siempre el formato de los contenidos en tipo `string`
+
+### Configmaps como Variables de entorno
+
+Para consumir los configmap desde un pod, basandonos en el pod anterior, eliminariamos los `value` alojados en las `spec.env` y referenciamos al configmap
+
+```yaml
+spec:
+  env:
+  - name: SOME_VARIABLE
+    valueFrom:
+      configMapKeyRef:
+        name: example-config
+        key: someValue
+  - name: PROPERTY_1
+    valueFrom:
+      configMapKeyRef:
+        name: example-config
+        key: example.property1
+  - name: PROPERTY_2
+    valueFrom:
+      configMapKeyRef:
+        name: example-config
+        key: example.property2
+```
+
+Si queremos pasar como variables de entorno todas las key del ConfigMap, sin tener que especificarlas en el pod podemos usar el tag `spec.envFrom` en sustitucion con `spec.env` e indicar los configmap a los que hacemos referencia
+```yaml
+spec:
+  envFrom:
+  - configMapRef:
+      name: example-config
+```
+
+> Si el configmap esta creado, cuando ejecutemos la aplicacion, se aplicará el configmap correspondiente, segun entorno
+
+> Si queremos comprobar que las variables tienen el contenido que queremos, podemos, acceder al container del pod mediante el comando `kubectl exec -it nombre-container -- /bin/bash` y dentro de la terminal y ejecutamos `env` para comprobar que estan y sus valores.
+
+### Configmaps como ficheros en Volumes
+Podemos usar un configmap para consumir sus valores en `volumes` indicandolo en el pod
+
+```yaml
+spec:
+  container:
+    volumeMounts:
+    - name: config-volume
+      mountPath: /tmp
+  volumes:
+  - name: config-volume
+    configMap:
+      name: nginx-conf #Referencia al nombre del configmap
+```
+- **container**
+  - **volumeMounts**
+    - **name**: Nombre del volumen
+    - **mountPath**: El path dentro del contenedor donde se va a asignar el volumen
+- **volumes**
+  - **name**: Nombre del volumen al que hacemos referencia(el del contendor)
+  - **confiMap**: Indicamos que nos vamos a basar en un configmap
+    - **name**: Nombre del confimap al que hacemos referencia
+
+> Para comprobar este caso podemos ejecutar el comando `kubectl exec -it nombre-pod -- cat /tmp/nginx.conf`
+
+
+## Secrets
+Son parecidos a los `config maps`, pero se almacenan codificados en base64
+
+Podemos acceder a los datos de los Secret usando el tipo Volumen Secret.
+
+Los secretos se almacenan en volumenes temporales *tmpfs* y nunca llegan a escribir en los discos de los nodos del cluster
+
+Cada elemento de un Secret se guarda en un fichero distinto en el punto de montake especificado en el volumen
+
+### Estructura de un Secret
+Para generar un nuevo configmap podemos usar el comando `kubectl create secret generic test-secret --from-literal=username='admin' --from-literal=password='123456'`
+
+Para obtener la lista ejecutamos `get secrets` y para leerlo `get secrets test-secret -o yaml`
+
+> En la base de datos de kubernetes y dentro del cluster si que estan cifrados los secretos y no se pueden obtener, pero si hay acceso a kubectl, se puede leer perfectamente, para evitar esto lo recomedable es usar aplicaciones como `Vault` de hashicorp
+
+```yaml
+kind: Secret
+apiVersion: v1
+metadata:
+  name: test-secret
+type: Opaque
+data:
+  username: YWRtaW4
+  passowrd: MWYyZDFlM
+```
+- **data**: se hace de la misma forma que con configmaps, pero en este caso los valores esta codificados en base64
+
+### Secrets como Variables de entorno
+```yaml
+spec:
+  env:
+  - name: USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: test-secret
+        key: username
+  - name: PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: test-secret
+        key: password
+```
+
+Para pasar todas las key y values del secret, podemos referenciarlo directamente
+```yaml
+spec:
+  envFrom:
+  - secretRef:
+      name: test-secret
+```
+
+### Secrets como Ficheros
+```yaml
+spec:
+  container:
+    volumeMounts:
+    - name: config-volume
+      mountPath: /etc/carpetaSecreta
+  volumes:
+  - name: config-volume
+    secret:
+      secretName: test-secret #Referencia al nombre del secret
+```
+
+> Cuando creamos el fichero de esta forma, se crea 1 fichero por cada key dentro del configmap o secret y el contenido esta en claro
 
 
 ## Services
@@ -182,10 +350,11 @@ spec:
         - **nodePort**: Indicamos el puerto desde el que queremos que el servicio sea accesible con el tipo **NodePort**, esto es útil si queremos definir nuestro load balancer aparte(por ejemplo, con un proveedor como cloudflare)
     - **Type**: indicamos el tipo de service, si no indicamos nada se establecera por defecto `ClusterIP` 
         - **ClusterIP**: El Service obtiene una IP estable(no cambia) que solo es accesible desde otros PODS ejecutandose dentro del cluster, no se puede acceder desde fuera
-        - **NodePort**: En todos los nodos del cluster va a estar expuerto un puerto y consultando sobre ese puerto, se accederá por detras al pod correspondiente. El Service sera accesible desde cualquier `<IP-Nodo>:<Puerto>` del cluster. El puerto al que tenemos que acceder se genera aleatoriamente y solo podremos acceder al servicio a través del puerto generado
+        - **NodePort**: En todos los nodos del cluster va a estar expuesto un puerto y las peticiones hacia `<IP-Nodo>:<Puerto>` del cluster, se accederá al pod correspondiente. El puerto al que tenemos que acceder se genera aleatoriamente o podemos indicarlo en el parametro `spec.ports.nodePort`, lo reocmendable es utilizar un puerto entre 30000-32767
         - **LoadBalancer**: Solicita al proveedor de cloud correspondiente la creacion y configuracion de un `Load Balancer`, este tendra una direccion accesible desde fuera y este se encargará de mandar el tráfico internamente a los pods que corresponda. **Es parecido a un NodePort, pero con la lógica de balancear la carga**
  
 > Para interconectar servicios dentro del cluster, igual que en docker, podemos indicar el nombre del pod correspondiente, para probar que funciona, podemos ejecutar el comando `kubectl run --rm -i --tty my-client-app --image=alpine --restart=Never -- sh` para simular una terminal y lanzar un `curl -i nginx` contra el nombre o IP del pod correspondiente
+
 
 ## Deployment
 Los Pods están atados al ciclo de vida del nodo donde se están ejecutando. Si ese nodo desaparece, el pod desaparecerá con él.
@@ -381,3 +550,4 @@ spec:
 
 #### Rollback
 En el caso de que necesitaramos ejecutar un rollback manualmente, podriamos ejecutar el comando `kubectl rollout undo deployment/my-app`
+
