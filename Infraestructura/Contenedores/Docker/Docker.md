@@ -96,6 +96,8 @@ Para hacer uso de docker por terminal tenemos los siguientes comandos:
    - `-d` para ejecutar en segundo plano (detached).
    - `-p <puerto_host>:<puerto_contenedor>` para mapear puertos.
    - `--name <nombre>` para darle un nombre al contenedor.
+   - `-ty` para abrir una terminal cuando el contenedor se ejecute
+   - `--rm` elimina el contenedor cuando termina el comando(por ejemplo, cuando salimos de la terminal)
 
 1. **`docker ps`**  
    Muestra una lista de los contenedores en ejecución.
