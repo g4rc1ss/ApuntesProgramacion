@@ -137,7 +137,7 @@ Para establacer los healthcheck podemos indicar varias formas de hacer esa compr
 - **exec**: Ejecuta un comando a nivel del contenedor
     - **command**
 - **initialDelaySeconds**: Tiempo que espera antes de realizar el primer check
-- **periodSeconds**: Intervalo de tiempo entre checks
+- **periodSeconds**: Intervalo de tiempo entre checks *El valor por defecto son 10s*
 - **timeoutSeconds**: El tiempo que hay que esperar antes de darlo por fallido
 - **successThreshold**:  El mínimo de checks antes de considerar que esta correcto
 - **failureThreshold**: El numero de checks que indican que esta muerto
