@@ -9,7 +9,7 @@ Redis es una base de datos en memoria muy popular que se utiliza para almacenar 
 Almacena un valor en una clave específica.
 
 Ejemplo:
-```
+```python
 SET nombre "Juan"
 ```
 
@@ -17,7 +17,7 @@ SET nombre "Juan"
 Obtiene el valor almacenado en una clave específica.
 
 Ejemplo:
-```
+```python
 GET nombre
 ```
 
@@ -25,7 +25,7 @@ GET nombre
 Elimina una clave y su valor asociado.
 
 Ejemplo:
-```
+```python
 DEL nombre
 ```
 
@@ -35,7 +35,7 @@ DEL nombre
 Agrega uno o más valores al inicio de una lista.
 
 Ejemplo:
-```
+```python
 LPUSH numeros 1 2 3
 ```
 
@@ -43,7 +43,7 @@ LPUSH numeros 1 2 3
 Agrega uno o más valores al final de una lista.
 
 Ejemplo:
-```
+```python
 RPUSH numeros 4 5 6
 ```
 
@@ -51,7 +51,7 @@ RPUSH numeros 4 5 6
 Obtiene el tamaño de una lista.
 
 Ejemplo:
-```
+```python
 LLEN numeros
 ```
 
@@ -59,7 +59,7 @@ LLEN numeros
 Obtiene una porción de una lista, especificando el índice de inicio y fin.
 
 Ejemplo:
-```
+```python
 LRANGE numeros 0 3
 ```
 
@@ -69,7 +69,7 @@ LRANGE numeros 0 3
 Agrega uno o más valores a un conjunto.
 
 Ejemplo:
-```
+```python
 SADD colores rojo azul verde
 ```
 
@@ -77,7 +77,7 @@ SADD colores rojo azul verde
 Obtiene todos los miembros de un conjunto.
 
 Ejemplo:
-```
+```python
 SMEMBERS colores
 ```
 
@@ -85,7 +85,7 @@ SMEMBERS colores
 Verifica si un valor es miembro de un conjunto.
 
 Ejemplo:
-```
+```python
 SISMEMBER colores rojo
 ```
 
@@ -95,7 +95,7 @@ SISMEMBER colores rojo
 Asigna un valor a un campo en un hash.
 
 Ejemplo:
-```
+```python
 HSET usuario:1 nombre "Juan" edad 30
 ```
 
@@ -103,7 +103,7 @@ HSET usuario:1 nombre "Juan" edad 30
 Obtiene el valor de un campo en un hash.
 
 Ejemplo:
-```
+```python
 HGET usuario:1 nombre
 ```
 
@@ -111,7 +111,7 @@ HGET usuario:1 nombre
 Obtiene todos los campos y valores de un hash.
 
 Ejemplo:
-```
+```python
 HGETALL usuario:1
 ```
 
