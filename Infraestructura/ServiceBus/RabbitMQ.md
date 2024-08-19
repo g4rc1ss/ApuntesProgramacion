@@ -71,3 +71,127 @@ El uso de dead-letter exchanges proporciona una manera de manejar mensajes que n
 3. **Cola llena**: Si la cola de destino está llena, se pueden enviar los mensajes excedentes a la cola de mensajes no entregados para evitar pérdida de datos.
 
 4. **Error en el enrutamiento**: Si un mensaje no puede ser enrutado a la cola deseada debido a un error en la configuración, se puede redirigir a la cola de mensajes no entregados para su posterior análisis.
+
+# Configuración
+En Rabbit se puede crear un archivo JSON en el que podemos establecer directamente la configuracion de las colas y los exchange y como enlazarlos.
+
+Este es un archivo de configuracion de rabbit en el que podemos establecer usuarios, permisos, configuracion de exchanges, colas, etc. Se puede importar desde el gestor visual de Rabbit directamente.
+```JSON
+{
+    "queues": [
+        {
+            "name": "publisher",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {
+                "x-dead-letter-exchange": "dead-letter.exchange",
+                "x-dead-letter-routing-key": "publisher.dead-letter",
+                "x-message-ttl": 20000
+            }
+        },
+        {
+            "name": "publisher.dead-letter",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {
+            }
+        },
+        {
+            "name": "subscription.weatherForecast",
+            "vhost": "/",
+            "durable": false,
+            "auto_delete": false,
+            "arguments": {
+                "x-dead-letter-exchange": "dead-letter.exchange",
+                "x-dead-letter-routing-key": "subscription.weatherForecast.dead-letter",
+                "x-message-ttl": 20000
+            }
+        },
+        {
+            "name": "subscription.weatherForecast.dead_letter",
+            "vhost": "/",
+            "durable": false,
+            "auto_delete": false,
+            "arguments": {}
+        }
+    ],
+    "exchanges": [
+        {
+            "name": "dead-letter.exchange",
+            "vhost": "/",
+            "type": "direct",
+            "durable": true,
+            "auto_delete": false,
+            "internal": false,
+            "arguments": {}
+        },
+        {
+            "name": "subscription.exchange",
+            "vhost": "/",
+            "type": "topic",
+            "durable": true,
+            "auto_delete": true,
+            "internal": false,
+            "arguments": {}
+        }
+    ],
+    "bindings": [
+        {
+            "source": "subscription.exchange",
+            "vhost": "/",
+            "destination": "publisher",
+            "destination_type": "queue",
+            "routing_key": "subscription.#",
+            "arguments": {}
+        },
+        {
+            "source": "subscription.exchange",
+            "vhost": "/",
+            "destination": "subscription.weatherForecast",
+            "destination_type": "queue",
+            "routing_key": "subscription.*",
+            "arguments": {}
+        },
+        {
+            "source": "dead-letter.exchange",
+            "vhost": "/",
+            "destination": "publisher.dead-letter",
+            "destination_type": "queue",
+            "routing_key": "publisher.dead-letter",
+            "arguments": {}
+        },
+        {
+            "source": "dead-letter.exchange",
+            "vhost": "/",
+            "destination": "subscription.weatherForecast.dead_letter",
+            "destination_type": "queue",
+            "routing_key": "subscription.weatherForecast.dead-letter",
+            "arguments": {}
+        }
+    ]
+}
+```
+- **queues**: En esta sección debemos de configurar las colas que necesitamos, generalmente una por cada caso de uso de la aplicación
+    - **name**: Nombre de la cola que necesitamos
+    - **vhost**: El Virtual host se usa para hacer una separación lógica de recursos en Rabbit
+    - **durable**: Indicamos si queremos que se almacene los datos de la cola en disco, esto es importante por si el servidor se reinicia
+    - **auto_delete**: Con este campo indicamos si queremos que la cola se elimine cuando no detecte consumers(nadie esta suscrito a la cola)
+    - **arguments**: Se puede indicar configuraciones adicionales como, por ejemplo, si queremos que un mensaje se envie a otra cola si es rechazado o expira, o queremos establecer un tiempo maximo en cola, etc.
+- **exchanges**:
+    - **name**: Nombre del exchange
+    - **vhost**: Ubicacion logica donde va a estar este recurso
+    - **type**: El tipo del Exchange(direct, topic, etc.)
+    - **durable**: Indicamos si queremos almacenarlo en disco para prevenir perdida de información ante reinicios inesperados
+    - **auto_delete**: Si no hay colas enlazadas se elimina automaticamente
+    - **internal**: Indicamos si es un proceso que se hace de forma interna(a nivel de rabbit) o tiene que estar abierto a recibir los mensajes de producers
+    - **arguments**: Configuracion adicional, por ejemplo, para establecer exchanges alternativos si este no tiene ninguna cola enlazada.
+- **bindings**:
+    - **source**: El Exchange que hay que evaluar
+    - **vhost**: Ubicacion logica del recurso
+    - **destination**: Cola de destino donde se va a enviar el mensaje
+    - **destination_type**: El tipo de destino(queue)
+    - **routing_key**: La routing key que va a tener que evaluar rabbit para saber a que colas tiene que enviar el contenido en base a la routing key que nos viene en el mensaje(*Esto seria lo que llamamos la binding key*)
+    - **arguments** Aqui es donde se asignarian las condiciones de binging cuando evaluamos por headers
+
