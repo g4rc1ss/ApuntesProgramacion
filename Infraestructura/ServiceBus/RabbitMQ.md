@@ -2,9 +2,17 @@ Un software que actua como `Message Broker` pensado en su uso para la programaci
 
 En lugar de que 2 aplicaciones realicen una comunicacion entre si, una(productor) envia el objeto al servicio de RabbitMQ y la otra(consumidor), recibe el objeto y lo trata.
 
-El uso principal de este sistema es la reduccion de tiempos de espera para tareas que no necesitemos una respuesta inmediata, por ejmplo, enviar un correo, sincronizar una base de datos, sincronizar caches, etc.
+El uso principal de este sistema es la reduccion de tiempos de espera para tareas que no necesitemos una respuesta inmediata, por ejemplo, enviar un correo, sincronizar una base de datos, sincronizar caches, etc.
+
+Para poder realizar todo este proceso Rabbit implementa el protocolo AMQP(Advanced Message Queuing Protocol)
+
+# AMQP
+Es un protocolo de red que se utiliza para la comunicación entre aplicaciones que envian y reciben mensajes.
+
+Se diseño con el proposito de permitir la comunicacion entre componentes de infraestructura de forma asíncrona para procesos que no se nececesite una respuesta inmediata.
 
 
+# Broker
 El funcionamiento de RabbitMQ es el siguiente:
 ![RabbitMQ general](.img/RabbitMQ.webp)
 
