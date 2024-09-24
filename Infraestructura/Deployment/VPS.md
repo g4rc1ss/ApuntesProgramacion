@@ -29,23 +29,36 @@ Creamos un archivo llamado `iptables` y escribimos lo siguiente
 :DOCKER-USER - [0:0]
 :DOCKER-ISOLATION-STAGE-2 - [0:0]
 -A INPUT -i lo -j ACCEPT
+
+#SSH
+-A INPUT -p tcp -m tcp --dport 22 -j ACCEPT
+# DNS
+-A INPUT -p udp -m udp --dport 53 -j ACCEPT
+
+
 # NGINX
 -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
 -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 22 -j ACCEPT
--A INPUT -p udp -m udp --dport 53 -j ACCEPT
+
 # grafana
 -A INPUT -p tcp -m tcp --dport 3000 -j ACCEPT
+
 # Zipkin
 -A INPUT -p tcp -m tcp --dport 9411 -j ACCEPT
+
 # SEQ
 -A INPUT -p tcp -m tcp --dport 5341 -j ACCEPT
-# Open Telemetry
--A INPUT -p tcp -m tcp --dport 8889 -j ACCEPT
+
 # Prometheus
 -A INPUT -p tcp -m tcp --dport 9090 -j ACCEPT
+
+# Open Telemetry
+-A INPUT -p tcp -m tcp --dport 8889 -j ACCEPT
+
 # API NodeJS
 -A INPUT -p tcp -m tcp --dport 55434 -j ACCEPT
+
+
 -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 -A FORWARD -j DOCKER-USER
 -A FORWARD -j DOCKER-ISOLATION-STAGE-1
@@ -81,6 +94,29 @@ Cargamos las reglas con el comando `sudo iptables-restore < archivoIptablesCread
 En este ejemplo se va a desplegar una aplicacion .NET con Docker-Compose
 
 Para poder desplegar la aplicacion con docker, aparte de tener docker, necesitamos el codigo que se va a desplegar junto con los dockerfile.
+
+Para desplegar Docker:
+```powershell
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+sudo apt update
+apt-cache policy docker-ce
+sudo apt install docker-ce
+
+#Verificar que docker esta en ejecución
+sudo systemctl status docker
+```
+
+Para ejecutar docker sin `sudo` y establecerlo a un usuario concreto(El de la pipe por ejemplo)
+```powershell
+sudo usermod -aG docker ${USER}
+su - ${USER}
+
+#Comprobamos que se ha agregado el usuario al grupo del Docker
+id -nG
+```
 
 Hay varias formas de hacerlo:
 
