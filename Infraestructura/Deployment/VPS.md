@@ -14,6 +14,31 @@ Basicamente para lo que necesitamos estar aqui es para obtene los datos como la 
 
 > Tambien es recomendable ejecutar el comando `passwd` para cambiar la password, si es que nos han dado una por defecto(que suele ser lo habitual)
 
+## SSH
+Para poder crear un acceso SSH a través de una Key podemos hacer los siguientes pasos
+
+Creamos las claves en el servidor
+```bash
+ssh-keygen -t rsa -b 4096
+```
+
+Para acceder, la clave publica generada tiene que estar en el servidor y la privada tenerla nosotros, por tanto vamos a mover la clave publica a "autorizadas"
+```bash
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+```
+
+Ahora salimos del control remoto y desde nuestra terminal personal, ejecutamos el comando para descargarnos la clave privada
+```bash
+scp usuario@host:/path/del/archivo/.ssh/id_rsa /path/nuestro/para/guardado/
+```
+
+Ahora, para conectar al servidor con la clave podemos hacer uso del comando
+```bash
+ssh -i archivoClave usuario@host
+```
+
+> Si da problemas al conectar, seguramente sea por tema de permisos, el fichero de las claves tiene que tener el permiso '0400', por tanto, ejecuta el comando `chmod 0400 ./id_rsa`
+
 ## Iptables
 Para poder agregar un poco de seguridad, configuramos un firewall con `iptables`
 
