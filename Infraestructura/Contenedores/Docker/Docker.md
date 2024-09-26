@@ -156,3 +156,9 @@ Para hacer uso de docker por terminal tenemos los siguientes comandos:
 
 3. **`docker inspect <nombre_contenedor_o_imagen>`**  
    Muestra detalles en formato JSON sobre un contenedor o una imagen.
+
+4. **`docker system prune -af`**
+   Limpia los recursos usados por docker en el ordenador como las imagenes, cache, etc.
+
+4. **`docker system df`**
+   Muestra todos los espacios utilizados por docker
