@@ -96,8 +96,9 @@ Para hacer uso de docker por terminal tenemos los siguientes comandos:
    - `-d` para ejecutar en segundo plano (detached).
    - `-p <puerto_host>:<puerto_contenedor>` para mapear puertos.
    - `--name <nombre>` para darle un nombre al contenedor.
-   - `-ty` para abrir una terminal cuando el contenedor se ejecute
+   - `--tty` para abrir una terminal cuando el contenedor se ejecute
    - `--rm` elimina el contenedor cuando termina el comando(por ejemplo, cuando salimos de la terminal)
+   > Por ejemplo, para levantar una shell con imagen de ubuntu `docker run -it --rm ubuntu`
 
 1. **`docker ps`**  
    Muestra una lista de los contenedores en ejecución.
@@ -153,5 +154,5 @@ Para hacer uso de docker por terminal tenemos los siguientes comandos:
 1. **`docker exec -it <nombre_contenedor> <comando>`**  
    Ejecuta un comando interactivo dentro de un contenedor en ejecución (por ejemplo, `bash`).
 
-2. **`docker inspect <nombre_contenedor_o_imagen>`**  
+3. **`docker inspect <nombre_contenedor_o_imagen>`**  
    Muestra detalles en formato JSON sobre un contenedor o una imagen.
