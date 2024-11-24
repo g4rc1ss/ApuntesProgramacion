@@ -8,7 +8,7 @@
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Riok.Mapperly" Version="3.2.0" />
+    <PackageReference Include="Riok.Mapperly" Version="4.1.1" />
   </ItemGroup>
 
 </Project>

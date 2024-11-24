@@ -1,10 +1,10 @@
 <Project>
     <PropertyGroup>
-        <TargetFrameworks>net8.0</TargetFrameworks>
-        <AndroidTargetMaui>net8.0-android</AndroidTargetMaui>
-        <IOSTargetMaui>net8.0-ios</IOSTargetMaui>
-        <MaccatalystTargetMaui>net8.0-maccatalyst</MaccatalystTargetMaui>
-        <WindowsTargetMaui>net8.0-windows10.0.19041.0</WindowsTargetMaui>
+        <TargetFrameworks>net9.0</TargetFrameworks>
+        <AndroidTargetMaui>net9.0-android</AndroidTargetMaui>
+        <IOSTargetMaui>net9.0-ios</IOSTargetMaui>
+        <MaccatalystTargetMaui>net9.0-maccatalyst</MaccatalystTargetMaui>
+        <WindowsTargetMaui>net9.0-windows10.0.19041.0</WindowsTargetMaui>
         <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks)</TargetFrameworks>
     </PropertyGroup>
 
