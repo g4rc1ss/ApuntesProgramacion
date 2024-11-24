@@ -1,23 +1,24 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AplicationToExtender.MainPage">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="16*"/>
-            <RowDefinition Height="161*"/>
-            <RowDefinition Height="39*"/>
-            <RowDefinition Height="252*"/>
-            <RowDefinition Height="16*"/>
+            <RowDefinition Height="16*" />
+            <RowDefinition Height="161*" />
+            <RowDefinition Height="39*" />
+            <RowDefinition Height="252*" />
+            <RowDefinition Height="16*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="12*"/>
-            <ColumnDefinition Width="71*"/>
-            <ColumnDefinition Width="62*"/>
-            <ColumnDefinition Width="93*"/>
-            <ColumnDefinition Width="609*"/>
-            <ColumnDefinition Width="13*"/>
+            <ColumnDefinition Width="12*" />
+            <ColumnDefinition Width="71*" />
+            <ColumnDefinition Width="62*" />
+            <ColumnDefinition Width="93*" />
+            <ColumnDefinition Width="609*" />
+            <ColumnDefinition Width="13*" />
         </Grid.ColumnDefinitions>
 
         <Button Text="Cargar un Plugin"
@@ -63,8 +64,7 @@
                      VerticalOptions="Fill"
                      Height="436"
                      Grid.RowSpan="4"
-                     Width="599"/>
+                     Width="599" />
     </Grid>
 
 </ContentPage>
-

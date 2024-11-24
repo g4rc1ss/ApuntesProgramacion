@@ -47,7 +47,7 @@ public class Mappers
     [Benchmark]
     public void MapperListMapperly()
     {
-        var chatDTO = ClassFake.chatEntityList.Select(x => _mapperly.ToChatDTO(x))
+        var chatDTO = ClassFake.chatEntityList.Select(_mapperly.ToChatDTO)
             .ToList();
     }
 

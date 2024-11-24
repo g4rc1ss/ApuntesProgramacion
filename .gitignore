@@ -1029,3 +1029,5 @@ $RECYCLE.BIN/
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/deno,node,visualstudio,visualstudiocode,csharp,dotnetcore,python,java,macos,windows,linux,rust,rust-analyzer
+
+.idea

@@ -13,6 +13,6 @@ internal class Paginate<T> : IPaginate<T> where T : class
 
     internal Paginate()
     {
-        Items = new List<T>();
+        Items = [];
     }
 }

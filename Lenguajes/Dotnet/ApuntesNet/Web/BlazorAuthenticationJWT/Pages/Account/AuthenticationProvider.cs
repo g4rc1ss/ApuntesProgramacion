@@ -41,10 +41,9 @@ public class AuthenticationProvider(ILocalStorageService localStorage, IMemoryCa
         if (token is not null)
         {
             memoryCache.Set(KeysOfMemoryCache.TOKENMEMORYCACHEKEY, token);
-            identity = new ClaimsIdentity(new[]
-            {
+            identity = new ClaimsIdentity([
                 new Claim(ClaimTypes.Authentication, token)
-            }, "apiauth_type");
+            ], "apiauth_type");
         }
         else
         {
@@ -61,10 +60,9 @@ public class AuthenticationProvider(ILocalStorageService localStorage, IMemoryCa
         await localStorage.SetItemAsStringAsync(KeysOfLocalStorage.TOKENLOCALSTORAGEKEY, token);
         memoryCache.Set(KeysOfMemoryCache.TOKENMEMORYCACHEKEY, token);
         identity = token is not null
-            ? new ClaimsIdentity(new[]
-            {
+            ? new ClaimsIdentity([
                 new Claim(ClaimTypes.Authentication, token)
-            }, "apiauth_type")
+            ], "apiauth_type")
             : new ClaimsIdentity();
         return new ClaimsPrincipal(identity);
     }
