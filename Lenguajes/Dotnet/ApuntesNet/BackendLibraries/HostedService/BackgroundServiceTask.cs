@@ -4,17 +4,14 @@ namespace HostedService;
 
 public class BackgroundServiceTask(IServicioInyectado servicioInyectado) : BackgroundService
 {
-    protected override Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        return Task.Run(async () =>
+        while (!stoppingToken.IsCancellationRequested)
         {
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                Console.WriteLine("Este es el metodo de Start");
-                var counter = await servicioInyectado.ExecuteAsync(stoppingToken);
-                Console.WriteLine(counter);
-                await Task.Delay(1100, stoppingToken);
-            }
-        });
+            Console.WriteLine("Este es el metodo de Start");
+            var counter = await servicioInyectado.ExecuteAsync(stoppingToken);
+            Console.WriteLine(counter);
+            await Task.Delay(1100, stoppingToken);
+        }
     }
 }
