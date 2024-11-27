@@ -1,0 +1,20 @@
+﻿@page "/"
+@inject ILogger<Home> _logger;
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+@code{
+    [CascadingParameter(Name = "IsSSR")] private bool IsSSR { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(500);
+        _logger.LogInformation("Home SSR? = {0}", IsSSR);
+        await base.OnInitializedAsync();
+    }
+
+}
