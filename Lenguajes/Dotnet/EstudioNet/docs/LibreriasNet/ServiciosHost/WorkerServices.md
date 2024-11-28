@@ -73,16 +73,13 @@ public class BackgroundServiceTask : BackgroundService
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        return Task.Run(async () =>
+        while (!stoppingToken.IsCancellationRequested)
         {
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                Console.WriteLine("Este es el metodo de Start");
-                var counter = await _servicioInyectado.ExecuteAsync(stoppingToken);
-                Console.WriteLine(counter);
-                await Task.Delay(1100, stoppingToken);
-            }
-        });
+            Console.WriteLine("Este es el metodo de Start");
+            var counter = await _servicioInyectado.ExecuteAsync(stoppingToken);
+            Console.WriteLine(counter);
+            await Task.Delay(1100, stoppingToken);
+        }
     }
 }
 ```
