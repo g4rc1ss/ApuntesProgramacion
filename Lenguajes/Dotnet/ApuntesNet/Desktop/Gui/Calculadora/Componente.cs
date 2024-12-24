@@ -1,4 +1,7 @@
 ﻿using System.ComponentModel;
+using System.Net.Mime;
+
+using Avalonia.Controls;
 
 namespace Calculadora;
 
@@ -12,7 +15,7 @@ public class Componente : Button
     [Category("Opcion")]
     public int Tipo { set; get; }
 
-    public string Accion(Editor cajaDeTexto)
+    public string Accion(TextBox cajaDeTexto)
     {
         if (Tipo == 0)
         {
@@ -20,12 +23,12 @@ public class Componente : Button
         }
         else if (Tipo == 1)
         {//Numeros
-            cajaDeTexto.Text += Text.ToString();
+            cajaDeTexto.Text += Content;
             return cajaDeTexto.Text;
         }
         else if (Tipo == 2)
         {//Operacion
-            return Text.ToString();
+            return Content?.ToString() ?? String.Empty;
         }
         else if (Tipo == 3)
         {//Vaciar

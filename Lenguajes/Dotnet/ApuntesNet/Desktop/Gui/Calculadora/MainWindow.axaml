@@ -1,0 +1,77 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:calculadora="clr-namespace:Calculadora"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Calculadora.MainWindow"
+        Title="Calculadora">
+
+    <Grid RowDefinitions="*,*,*,*,*,*">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <TextBox x:Name="mostrar"
+                 Grid.RowSpan="3" Grid.ColumnSpan="4"
+                 VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch"
+                 IsReadOnly="True"
+                 Foreground="LawnGreen"
+                 Background="Black"
+                 FontSize="50" />
+
+        <calculadora:Componente Grid.Row="1" Grid.ColumnSpan="3"
+                                BorderBrush="Black" BorderThickness="1"
+                                Background="LightGray" Foreground="White" FontSize="16" Content="C"
+                                Click="Listener" Tipo="3" />
+        <calculadora:Componente Grid.Row="1" Grid.Column="3" BorderBrush="Black" BorderThickness="1"
+                                Background="DarkOrange" Foreground="White" FontSize="16" Content="/"
+                                Click="Listener" Tipo="2" />
+        <calculadora:Componente Grid.Row="2" Grid.Column="0" BorderBrush="Black" BorderThickness="1"
+                                Background="DarkGray" Foreground="White" FontSize="16" Content="1"
+                                Click="Listener" Tipo="1" />
+        <calculadora:Componente Grid.Row="2" Grid.Column="1" BorderBrush="Black" BorderThickness="1"
+                                Background="DarkGray" Foreground="White" FontSize="16" Content="2"
+                                Click="Listener" Tipo="1" />
+        <calculadora:Componente Grid.Row="2" Grid.Column="2" BorderBrush="Black" BorderThickness="1"
+                                Background="DarkGray" Foreground="White" FontSize="16" Content="3"
+                                Click="Listener" Tipo="1" />
+        <calculadora:Componente Grid.Row="3" Grid.Column="0" BorderBrush="Black" BorderThickness="1"
+                                Background="DarkGray" Foreground="White" FontSize="16" Content="4"
+                                Click="Listener" Tipo="1" />
+        <calculadora:Componente Grid.Row="3" Grid.Column="1" BorderBrush="Black" BorderThickness="1"
+                                Background="DarkGray" Foreground="White" FontSize="16" Content="5"
+                                Click="Listener" Tipo="1" />
+        <calculadora:Componente Grid.Row="3" Grid.Column="2" BorderBrush="Black" BorderThickness="1"
+                                Background="DarkGray" Foreground="White" FontSize="16" Content="6"
+                                Click="Listener" Tipo="1" />
+        <calculadora:Componente Grid.Row="4" Grid.Column="0" BorderBrush="Black" BorderThickness="1"
+                                Background="DarkGray" Foreground="White" FontSize="16" Content="7"
+                                Click="Listener" Tipo="1" />
+        <calculadora:Componente Grid.Row="4" Grid.Column="1" BorderBrush="Black" BorderThickness="1"
+                                Background="DarkGray" Foreground="White" FontSize="16" Content="8"
+                                Click="Listener" Tipo="1" />
+        <calculadora:Componente Grid.Row="4" Grid.Column="2" BorderBrush="Black" BorderThickness="1"
+                                Background="DarkGray" Foreground="White" FontSize="16" Content="9"
+                                Click="Listener" Tipo="1" />
+        <calculadora:Componente Grid.Row="5" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1"
+                                Background="DarkGray" Foreground="White" FontSize="16" Content="0"
+                                Click="Listener" Tipo="1" />
+        <calculadora:Componente Grid.Row="5" Grid.Column="3" BorderBrush="Black" BorderThickness="1"
+                                Background="DarkOrange" Foreground="White" FontSize="16" Content="="
+                                Click="Listener" Tipo="2" />
+        <calculadora:Componente Grid.Row="2" Grid.Column="3" BorderBrush="Black" BorderThickness="1"
+                                Background="DarkOrange" Foreground="White" FontSize="16" Content="+"
+                                Click="Listener" Tipo="2" />
+        <calculadora:Componente Grid.Row="3" Grid.Column="3" BorderBrush="Black" BorderThickness="1"
+                                Background="DarkOrange" Foreground="White" FontSize="16" Content="-"
+                                Click="Listener" Tipo="2" />
+        <calculadora:Componente Grid.Row="4" Grid.Column="3" BorderBrush="Black" BorderThickness="1"
+                                Background="DarkOrange" Foreground="White" FontSize="16" Content="*"
+                                Click="Listener" Tipo="2" />
+    </Grid>
+
+</Window>
