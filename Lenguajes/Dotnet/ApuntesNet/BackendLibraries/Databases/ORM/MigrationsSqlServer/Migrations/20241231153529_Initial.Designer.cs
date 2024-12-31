@@ -12,17 +12,18 @@ using SqlServerEfCore.Database;
 namespace MigrationsSqlServer.Migrations
 {
     [DbContext(typeof(EntityFrameworkSqlServerContext))]
-    [Migration("20220509223646_CrearDatabase")]
-    partial class CrearDatabase
+    [Migration("20241231153529_Initial")]
+    partial class Initial
     {
+        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.4")
+                .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("SqlServerEfCore.Database.Entities.Pueblo", b =>
                 {
@@ -30,10 +31,9 @@ namespace MigrationsSqlServer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Nombre")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -47,7 +47,7 @@ namespace MigrationsSqlServer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Edad")
                         .HasColumnType("int");
@@ -56,7 +56,6 @@ namespace MigrationsSqlServer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Nombre")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PuebloId")
@@ -72,12 +71,17 @@ namespace MigrationsSqlServer.Migrations
             modelBuilder.Entity("SqlServerEfCore.Database.Entities.Usuario", b =>
                 {
                     b.HasOne("SqlServerEfCore.Database.Entities.Pueblo", "PuebloIdNavigation")
-                        .WithMany()
+                        .WithMany("Usuarios")
                         .HasForeignKey("PuebloId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("PuebloIdNavigation");
+                });
+
+            modelBuilder.Entity("SqlServerEfCore.Database.Entities.Pueblo", b =>
+                {
+                    b.Navigation("Usuarios");
                 });
 #pragma warning restore 612, 618
         }
