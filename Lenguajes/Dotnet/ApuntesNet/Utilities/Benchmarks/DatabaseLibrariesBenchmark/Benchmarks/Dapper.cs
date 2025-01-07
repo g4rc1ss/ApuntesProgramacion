@@ -1,11 +1,8 @@
 ﻿using System.Data;
 
-
 using BenchmarkDotNet.Attributes;
 
-
 using Dapper;
-
 
 using DatabaseLibrariesBenchmark.Entities;
 
@@ -33,9 +30,6 @@ Where Id = @id
 LIMIT 0, 1
 ";
 
-        var result = _dbConnection.QuerySingle<WeatherForecast>(sql, new
-        {
-            Id = id
-        });
+        var result = _dbConnection.QuerySingle<WeatherForecast>(sql, new { Id = id });
     }
 }
