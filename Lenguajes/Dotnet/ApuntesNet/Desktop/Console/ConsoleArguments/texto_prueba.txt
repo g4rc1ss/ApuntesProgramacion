@@ -1,0 +1,1 @@
+Texto de prueba para CLI con argumentos

@@ -11,7 +11,7 @@ public static class UnsafeWithPointers
             var value = 42;
 
             // Obtenemos el puntero de la variable creada y asignada por el runtime
-            int* ptr = &value;
+            var ptr = &value;
 
             // Desreferenciamos el puntero(Accedemos al valor)
             Console.WriteLine(*ptr);
