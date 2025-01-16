@@ -1,4 +1,7 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using ConsoleApi;
 
-Console.WriteLine("Hello, World!");
-
+ProgressBar.ExecuteNormalProgressBar();
+ProgressBar.ExecuteLoading();
+ProgressBar.ExecutePercentageLoad();
+ChangeColors.Execute();
+SelectCoordinates.Execute();
