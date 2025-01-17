@@ -4,7 +4,7 @@ public static class UnsafeWithPointers
 {
     public static void Execute()
     {
-        // Los punteros se usan para gestionar la memoria a mas bajo nivel, pero estos obj
+        // Los punteros se usan para gestionar la memoria a más bajo nivel, pero estos obj
         // Siguen siendo gestionados por el runtime y el GC
         unsafe
         {
