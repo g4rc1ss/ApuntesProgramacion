@@ -7,113 +7,121 @@ public class HashTables<TKey, TValue>
 {
     private int size;
     private ObjectKeyValue[] data;
-    private uint[] hashIndex;
+    private int[] hashIndex;
     private int count;
 
     public HashTables()
     {
         data = new ObjectKeyValue[3];
-        hashIndex = new uint[3];
+        hashIndex = Enumerable.Range(0, 3).Select(x => -1).ToArray();
     }
 
     public void Add(TKey key, TValue value)
     {
         ArgumentNullException.ThrowIfNull(key);
 
-        var hash = GetHashCode(key);
-        var indexHash = GetIndexHash((uint)hash);
-        var dataIndex = hashIndex[indexHash];
-
-        var objectKeyValue = data[dataIndex];
-        // Verificamos si la key existe
-        while (true)
+        var existsValue = TryGet(key).exists;
+        if (existsValue)
         {
-            if (hash == objectKeyValue.hashCode)
-            {
-                throw new ArgumentException("Key already exists");
-            }
-
-            if (objectKeyValue.next == -1)
-            {
-                break;
-            }
-
-            if (objectKeyValue.next == default && objectKeyValue.hashCode == default)
-            {
-                break;
-            }
-
-            objectKeyValue = data[objectKeyValue.next];
+            throw new KeyNotFoundException("Key was not found");
         }
 
         // Verificamos el tamaño de los array
         if (size == data.Length)
         {
-            Array.Resize(ref data, data.Length * 2);
-            Array.Resize(ref hashIndex, hashIndex.Length * 2);
-            RehashData();
-            dataIndex = GetIndexHash((uint)hash);
+            Resize();
         }
 
-        // Insertamos en el indice del hash en data, si tiene contenido, registramos en el next
-        
-        var dataIndexValue = data[dataIndex];
+        var hash = GetHashCode(key);
+        var indexHash = GetIndexHash(hash);
+        var dataIndex = hashIndex[indexHash];
+
+
         data[size].key = key;
         data[size].value = value;
         data[size].hashCode = (uint)hash;
         data[size].next = -1;
 
-        while (true)
+        if (dataIndex > -1)
         {
-            var next = dataIndexValue.next;
-
-            if (next == -1 && dataIndexValue.hashCode != 0)
+            var dataIndexValue = data[dataIndex];
+            while (true)
             {
-                data[dataIndex].next = size;
-                break;
-            }
+                var next = dataIndexValue.next;
 
-            if (dataIndexValue.hashCode == 0)
-            {
-                hashIndex[indexHash] = (uint)size;
-                break;
-            }
+                if (next == -1 && dataIndexValue.hashCode != 0)
+                {
+                    data[dataIndex].next = size;
+                    break;
+                }
 
-            dataIndexValue = data[next];
+                if (dataIndexValue.hashCode == 0)
+                {
+                    hashIndex[indexHash] = size;
+                    break;
+                }
+
+                dataIndexValue = data[next];
+            }
+        }
+        else
+        {
+            hashIndex[indexHash] = size;
         }
 
         size++;
         count++;
     }
 
+    private void Resize()
+    {
+        Array.Resize(ref data, data.Length * 2);
+        Array.Resize(ref hashIndex, hashIndex.Length * 2);
+        RehashData();
+    }
+
     private void RehashData()
     {
-        var rehashIndex = new uint[hashIndex.Length];
-        for (var i = 0; i < data.Length; i++)
-        {
-            var hash = data[i].hashCode;
-            var index = (uint)(hash % hashIndex.Length);
-            rehashIndex[index] = (uint)i;
-        }
+        var copyData = new ObjectKeyValue[this.data.Length];
+        Array.Copy(data, copyData, copyData.Length);
+        Array.Clear(data);
+        Array.Clear(hashIndex);
+        hashIndex = Enumerable.Range(0, hashIndex.Length).Select(x => -1).ToArray();
+        var oldSize = size;
+        size = 0;
+        count = 0;
 
-        hashIndex = rehashIndex;
+        for (var i = 0; i < oldSize; i++)
+        {
+            Add(copyData[i].key, copyData[i].value);
+        }
     }
 
     public TValue Get(TKey key)
     {
+        var (value, _) = TryGet(key);
+        return value;
+    }
+
+    private (TValue value, bool exists) TryGet(TKey key)
+    {
         ArgumentNullException.ThrowIfNull(key);
 
         var hash = GetHashCode(key);
-        var indexHash = GetIndexHash((uint)hash);
+        var indexHash = GetIndexHash(hash);
         var index = hashIndex[indexHash];
+        if (index == -1)
+        {
+            return default;
+        }
 
         var objectKeyValue = data[index];
         // Verificamos si la key existe
         while (true)
         {
-            if (hash == objectKeyValue.hashCode)
+            if ((uint)hash == objectKeyValue.hashCode)
             {
-                return objectKeyValue.value;
+                return (objectKeyValue.value, true);
             }
 
             if (objectKeyValue.next == -1)
@@ -151,9 +159,9 @@ public class HashTables<TKey, TValue>
 
 
     // Metodo copiado de la clase Dictionary
-    private uint GetIndexHash(uint hash)
+    private uint GetIndexHash(int hash)
     {
-        return hash % (uint)hashIndex.Length;
+        return (uint)hash % (uint)hashIndex.Length;
     }
 
 
