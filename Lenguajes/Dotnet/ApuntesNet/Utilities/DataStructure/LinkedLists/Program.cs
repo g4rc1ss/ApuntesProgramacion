@@ -1,6 +1,20 @@
-﻿// TODO: LinkedList
+﻿using LinkedLists;
+
+var listaNueva = new LinkedObjectList<string>();
+listaNueva.Add("A");
+listaNueva.Add("B");
 
 
-// See https://aka.ms/new-console-template for more information
+var deep = listaNueva;
+while (true)
+{
+    var (value, nextNode) = deep.Get();
+    Console.WriteLine(value);
 
-Console.WriteLine("Hello, World!");
+    if (nextNode == null)
+    {
+        break;
+    }
+
+    deep = nextNode;
+}
