@@ -1,0 +1,32 @@
+type: ide
+custom_name: "Task: Introduce Variable Refactoring"
+files:
+  - name: src/main.rs
+    visible: true
+    placeholders:
+      - offset: 10
+        length: 257
+        placeholder_text: |-
+          {
+              let ten_years_ago = 1993 - 10;
+              let five_years_ago = 1993 - 5;
+              let one_year_ago = 1993 - 1;
+          
+              println!("Ten years ago: {}", ten_years_ago);
+              println!("Five years ago: {}", five_years_ago);
+              println!("One year ago: {}", one_year_ago);
+          }
+        initial_state:
+          length: 257
+          offset: 10
+        initialized_from_dependency: false
+        encrypted_possible_answer: JIR4gmKzK9OvtJYjQ1U++uldQQWwyPwvpz7IdzyE5bOX81z01mehEives70P45RABff/i2Puez9/2VX9AOH2llI8IOzlRc8CCQw3ejb3tg44cUnRV/As71CApD4fGRBEGewcGNts6FKgevjsKDcmuerc1+oTuVB5PSbWhpy6NtEf+Tq8R5XXoCuWat3v1FTqTjz+TFE34wtCqflcczPXqZKYFJG65ueVkSX4Wi9eOd+xie1755P+x/uVrIoW0F3/TZshrWuuBdA7cGEehXksctuPyovinr5zkMFrRl+ToUXE+JOGyNvtyQnNStLmJoHjVCR9inRL4s52C315errCA9B9+MYr8nZ0AFsDpDEker/d4/niaMB0PxYxjbpIeghK
+        selected: false
+        status: Unchecked
+    learner_created: false
+  - name: Cargo.toml
+    visible: false
+    learner_created: false
+feedback_link: https://docs.google.com/forms/d/e/1FAIpQLSdfJQgjsbDA4pPGpklj3vJnKNspd9wmEHzAgh6EkoJy2IiRuw/viewform?usp=pp_url&entry.2103429047=Common+Programming+Concepts+/+Variables+/+Introduce+Variable+Refactoring
+status: Unchecked
+record: -1

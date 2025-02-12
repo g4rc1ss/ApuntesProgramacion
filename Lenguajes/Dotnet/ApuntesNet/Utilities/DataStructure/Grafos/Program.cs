@@ -1,5 +1,12 @@
-﻿// TODO: Grafos
+﻿using Grafos;
 
-// See https://aka.ms/new-console-template for more information
+var graph = new GraphObject<string, string>();
 
-Console.WriteLine("Hello, World!");
+graph.Add("Hola", "adios");
+graph.Add("Hola", "buenas");
+
+var result = graph.Get("Hola");
+foreach (var data in result)
+{
+    Console.WriteLine(data);
+}
