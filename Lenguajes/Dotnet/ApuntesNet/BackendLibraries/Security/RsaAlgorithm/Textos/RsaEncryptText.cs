@@ -11,16 +11,16 @@ public class RsaEncryptText
         {
             Console.WriteLine("Escribe el texto a cifrar");
             //Obtenemos un array de bytes del texto a cifrar
-            var textoCifrarBytes = Encoding.UTF8.GetBytes(Console.ReadLine());
+            byte[]? textoCifrarBytes = Encoding.UTF8.GetBytes(Console.ReadLine());
 
             // Instanciamos el algorimo asimétrico RSA
-            using var rsaCrypt = RSA.Create();
+            using RSA? rsaCrypt = RSA.Create();
             // Establecemos la longitud de la clave que queremos usar
             rsaCrypt.KeySize = 4096;
             File.WriteAllBytes("public.key", rsaCrypt.ExportRSAPublicKey());
             File.WriteAllBytes("private.key", rsaCrypt.ExportRSAPrivateKey());
 
-            var mensajeCifrado = rsaCrypt.Encrypt(textoCifrarBytes, RSAEncryptionPadding.Pkcs1);
+            byte[]? mensajeCifrado = rsaCrypt.Encrypt(textoCifrarBytes, RSAEncryptionPadding.Pkcs1);
 
             Console.WriteLine("----------------------------------- \n Mensaje encriptado:");
             Console.WriteLine(Encoding.UTF8.GetString(mensajeCifrado));

@@ -1,4 +1,6 @@
-﻿var dictionary = new Dictionary<string, string>();
+﻿using HashTables;
+
+Dictionary<string, string>? dictionary = [];
 
 if (true)
 {
@@ -9,13 +11,13 @@ if (true)
     dictionary.Add("Mundo4", "value1");
 }
 
-dictionary.TryGetValue("Mundo", out var value);
+dictionary.TryGetValue("Mundo", out string? value);
 Console.WriteLine(value);
 
 
-var hashTable = new HashTables.HashTables<string, int>();
+HashTables<string, int>? hashTable = new();
 
-for (var i = 0; i < 100; i++)
+for (int i = 0; i < 100; i++)
 {
     hashTable.Add(i.ToString(), i);
 }

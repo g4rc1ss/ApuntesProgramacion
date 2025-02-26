@@ -8,7 +8,7 @@ internal class Copiar
 
     internal static async Task Copy(MemoryStream streamEscrito)
     {
-        using var memoryStream = new MemoryStream();
+        using MemoryStream? memoryStream = new();
 
         await streamEscrito.CopyToAsync(memoryStream);
     }

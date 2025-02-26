@@ -7,7 +7,7 @@ using MigrationsSqlServer;
 
 using SqlServerEfCore.Database;
 
-var builder = Host.CreateDefaultBuilder();
+IHostBuilder? builder = Host.CreateDefaultBuilder();
 
 builder.ConfigureAppConfiguration(options =>
 {
@@ -21,8 +21,8 @@ builder.ConfigureServices((hostContext, services) =>
     services.AddTransient<MigrationService>();
 });
 
-var app = builder.Build();
+IHost? app = builder.Build();
 
-var migration = app.Services.GetRequiredService<MigrationService>();
+MigrationService? migration = app.Services.GetRequiredService<MigrationService>();
 
 await migration.MigrateApplicationAsync();

@@ -2,6 +2,7 @@
 using System.Reflection;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 using UnitOfWork.Repository.Interfaces;
 
@@ -28,7 +29,7 @@ internal class Repository<T>(DbContext context) : BaseRepository<T>(context), IR
 
     public void Delete(T entity)
     {
-        var existing = _dbSet.Find(entity);
+        T? existing = _dbSet.Find(entity);
         if (existing != null)
         {
             _dbSet.Remove(existing);
@@ -38,18 +39,18 @@ internal class Repository<T>(DbContext context) : BaseRepository<T>(context), IR
 
     public void Delete(object id)
     {
-        var typeInfo = typeof(T).GetTypeInfo();
-        var key = dbContext.Model.FindEntityType(typeInfo).FindPrimaryKey().Properties.FirstOrDefault();
-        var property = typeInfo.GetProperty(key?.Name);
+        TypeInfo? typeInfo = typeof(T).GetTypeInfo();
+        IProperty? key = dbContext.Model.FindEntityType(typeInfo).FindPrimaryKey().Properties.FirstOrDefault();
+        PropertyInfo? property = typeInfo.GetProperty(key?.Name);
         if (property != null)
         {
-            var entity = Activator.CreateInstance<T>();
+            T? entity = Activator.CreateInstance<T>();
             property.SetValue(entity, id);
             dbContext.Entry(entity).State = EntityState.Deleted;
         }
         else
         {
-            var entity = _dbSet.Find(id);
+            T? entity = _dbSet.Find(id);
             if (entity != null)
             {
                 Delete(entity);

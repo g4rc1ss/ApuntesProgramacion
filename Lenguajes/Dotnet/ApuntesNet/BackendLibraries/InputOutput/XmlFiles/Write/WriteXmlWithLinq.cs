@@ -6,7 +6,7 @@ internal class WriteXmlWithLinq
 {
     public WriteXmlWithLinq(string nombreArchivo)
     {
-        var empresa = new XElement("empresa",
+        XElement? empresa = new("empresa",
             new XElement("empleado",
                     new XAttribute("id", "1"),
                 new XElement("nombre", "empleado 1"),

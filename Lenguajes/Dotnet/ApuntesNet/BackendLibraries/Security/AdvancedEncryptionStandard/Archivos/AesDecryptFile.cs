@@ -13,18 +13,18 @@ public class AesDecryptFile
         try
         {
             Console.WriteLine("Escribe la contraseña");
-            var contraseña = Console.ReadLine();
+            string? contraseña = Console.ReadLine();
 
             using (HashAlgorithm hash = SHA256.Create())
             {
-                using var aesAlg = Aes.Create();
+                using Aes? aesAlg = Aes.Create();
                 aesAlg.Key = hash.ComputeHash(Encoding.UTF8.GetBytes(contraseña));
 
                 // Create an encryptor to perform the stream transform.
-                using var decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
-                using var fileStreamCrypt = new FileStream(_archivoAES_TXT_Cifrado, FileMode.Open, FileAccess.Read);
-                using var fileStreamOut = new FileStream(_archivoAES_TXT, FileMode.OpenOrCreate, FileAccess.Write);
-                using var decryptStream = new CryptoStream(fileStreamCrypt, decryptor, CryptoStreamMode.Read);
+                using ICryptoTransform? decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+                using FileStream? fileStreamCrypt = new(_archivoAES_TXT_Cifrado, FileMode.Open, FileAccess.Read);
+                using FileStream? fileStreamOut = new(_archivoAES_TXT, FileMode.OpenOrCreate, FileAccess.Write);
+                using CryptoStream? decryptStream = new(fileStreamCrypt, decryptor, CryptoStreamMode.Read);
                 for (int data; (data = decryptStream.ReadByte()) != -1;)
                 {
                     fileStreamOut.WriteByte((byte)data);

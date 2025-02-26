@@ -8,7 +8,7 @@ Dictionary<char, char> simbolosAperturaCierre = new()
     { '[', ']' }
 };
 
-var resultado = default(bool);
+bool resultado = false;
 Console.WriteLine("------------------ PRUEBA DE SIMBOLOS CORRECTOS ------------------");
 resultado = ComprobacionStringSimbolos(PRUEBA1);
 Console.WriteLine($"Resultado = {resultado}");
@@ -20,8 +20,8 @@ Console.WriteLine($"Resultado = {resultado}");
 
 bool ComprobacionStringSimbolos(string frase)
 {
-    var stack = new Stack<char>();
-    foreach (var item in frase)
+    Stack<char>? stack = new();
+    foreach (char item in frase)
     {
         if (simbolosAperturaCierre.ContainsKey(item))
         {

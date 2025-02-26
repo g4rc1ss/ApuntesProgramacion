@@ -13,7 +13,7 @@ internal class Invoker
 
     public void Execute()
     {
-        foreach (var item in _queue)
+        foreach (ICommand? item in _queue)
         {
             item.Execute();
         }

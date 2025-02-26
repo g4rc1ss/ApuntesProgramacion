@@ -15,7 +15,7 @@ public partial class Index
 
     protected override async Task OnInitializedAsync()
     {
-        var httpClient = HttpClientFactory?.CreateClient("API-CleanArchitecture");
+        HttpClient? httpClient = HttpClientFactory?.CreateClient("API-CleanArchitecture");
         if (httpClient is not null)
         {
             users = await httpClient.GetFromJsonAsync<IEnumerable<UserResponse>>("user/GetUsers");

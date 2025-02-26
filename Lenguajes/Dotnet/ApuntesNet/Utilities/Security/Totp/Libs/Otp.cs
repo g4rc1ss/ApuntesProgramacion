@@ -39,7 +39,7 @@ public abstract class Otp
     private static byte[] ComputeHmac(byte[] key, OtpHashMode mode, byte[] data)
     {
         byte[] hashedValue = [];
-        using var hmac = CreateHmacHash(mode);
+        using HMAC? hmac = CreateHmacHash(mode);
         try
         {
             hmac.Key = key;
@@ -62,7 +62,7 @@ public abstract class Otp
     /// </summary>
     private static string Digits(long input, int numeroDigitos)
     {
-        var truncatedValue = (int)input % (int)Math.Pow(10, numeroDigitos);
+        int truncatedValue = (int)input % (int)Math.Pow(10, numeroDigitos);
         return truncatedValue.ToString().PadLeft(numeroDigitos, '0');
     }
 
@@ -75,7 +75,7 @@ public abstract class Otp
     private static byte[] GetBigEndianBytes(long input)
     {
         // Since .net uses little endian numbers, we need to reverse the byte order to get big endian.
-        var data = BitConverter.GetBytes(input);
+        byte[]? data = BitConverter.GetBytes(input);
         Array.Reverse(data);
         return data;
     }
@@ -85,13 +85,13 @@ public abstract class Otp
     /// </summary>
     private static long CalculateOtp(byte[] claveSecreta, byte[] data, OtpHashMode mode)
     {
-        var hmacComputedHash = ComputeHmac(claveSecreta, mode, data);
+        byte[]? hmacComputedHash = ComputeHmac(claveSecreta, mode, data);
 
         // The RFC has a hard coded index 19 in this value.
         // This is the same thing but also accommodates SHA256 and SHA512
         // hmacComputedHash[19] => hmacComputedHash[hmacComputedHash.Length - 1]
 
-        var offset = hmacComputedHash[^1] & 0x0F;
+        int offset = hmacComputedHash[^1] & 0x0F;
         return ((hmacComputedHash[offset] & 0x7f) << 24)
                | ((hmacComputedHash[offset + 1] & 0xff) << 16)
                | ((hmacComputedHash[offset + 2] & 0xff) << 8)
@@ -108,8 +108,8 @@ public abstract class Otp
     /// <returns>Código TOTP</returns>
     protected static string Compute(byte[] claveSecreta, long contador, OtpHashMode mode, int otpSize)
     {
-        var data = GetBigEndianBytes(contador);
-        var otp = CalculateOtp(claveSecreta, data, mode);
+        byte[]? data = GetBigEndianBytes(contador);
+        long otp = CalculateOtp(claveSecreta, data, mode);
         return Digits(otp, otpSize);
     }
 }

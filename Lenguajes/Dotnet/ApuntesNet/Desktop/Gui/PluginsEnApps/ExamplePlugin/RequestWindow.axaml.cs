@@ -16,7 +16,7 @@ public partial class RequestWindow : Window
 
     private async void Button_Clicked(System.Object sender, RoutedEventArgs e)
     {
-        var response = await GetMyIp();
+        string? response = await GetMyIp();
         ExportAPI.ExportEventCaller(new ExportObject(response));
     }
 
@@ -24,7 +24,7 @@ public partial class RequestWindow : Window
     {
         try
         {
-            var ip = await new HttpClient().GetFromJsonAsync<MyIp>("https://api.ipify.org/?format=json");
+            MyIp? ip = await new HttpClient().GetFromJsonAsync<MyIp>("https://api.ipify.org/?format=json");
             return $"Direccion ip: {ip.Ip} \n";
 
         }

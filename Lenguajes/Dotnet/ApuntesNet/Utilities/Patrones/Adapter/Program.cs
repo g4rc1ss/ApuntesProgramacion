@@ -1,6 +1,6 @@
 ﻿using Adapter;
 
-var adaptadar = new Adaptar();
+Adaptar? adaptadar = new();
 ITarget target = new PatronAdapter(adaptadar);
 
 Console.WriteLine("El objeto de la clase Adaptar que nos viene, no es compatible con el cliente");

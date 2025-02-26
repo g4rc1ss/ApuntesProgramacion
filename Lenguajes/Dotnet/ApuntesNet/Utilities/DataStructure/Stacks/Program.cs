@@ -1,24 +1,24 @@
 ﻿using Stacks;
 
-var arrayElementos = new int[5] { 5, 2, 3, 4, 5 };
+int[]? arrayElementos = [5, 2, 3, 4, 5];
 
-var queue = new StackCollection<int>(arrayElementos);
+StackCollection<int>? queue = new(arrayElementos);
 queue.Push(1);
-var result = queue.Pop();
+int result = queue.Pop();
 
 Console.WriteLine(result == 1);
 
-var list = queue.ToList();
+List<int>? list = [.. queue];
 
 Console.WriteLine(string.Join(", ", list));
 
 
-var queue2 = new StackCollection<int>();
+StackCollection<int>? queue2 = new();
 queue2.Push(1);
 queue2.Push(2);
-var valor = queue2.Pop();
+int valor = queue2.Pop();
 Console.WriteLine(valor == 2);
 queue2.Push(5);
-queue2.ToList();
+_ = queue2.ToList();
 
 Console.WriteLine(string.Join(", ", queue2));

@@ -9,7 +9,7 @@ public class TestConfigurationToFixture
 
     public TestConfigurationToFixture()
     {
-        var webHost = new WebApplicationFactoryWeatherForecast();
+        WebApplicationFactoryWeatherForecast? webHost = new();
         ServiceProvider = webHost.Services;
         Client = webHost.CreateClient();
     }

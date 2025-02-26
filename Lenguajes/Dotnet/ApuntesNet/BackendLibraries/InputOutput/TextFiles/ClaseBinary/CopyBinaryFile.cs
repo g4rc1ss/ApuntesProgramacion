@@ -4,8 +4,8 @@ public class CopyBinaryFile
 {
     public CopyBinaryFile(string nombreArchivoFuente, string nombreArchivoDestino)
     {
-        using var readBinaryFile = new BinaryReader(File.OpenRead(nombreArchivoFuente));
-        using var writeBinaryFile = new BinaryWriter(File.OpenWrite(nombreArchivoDestino));
+        using BinaryReader? readBinaryFile = new(File.OpenRead(nombreArchivoFuente));
+        using BinaryWriter? writeBinaryFile = new(File.OpenWrite(nombreArchivoDestino));
         for (byte data; readBinaryFile.PeekChar() != -1;)
         {
             data = readBinaryFile.ReadByte();

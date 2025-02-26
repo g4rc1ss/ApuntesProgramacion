@@ -42,12 +42,12 @@ public class LoginModel : PageModel
             RoleUsuario = "Usuario",
         };
 
-        var identity = new ClaimsIdentity("Cookies");
+        ClaimsIdentity? identity = new("Cookies");
         identity.AddClaim(new Claim(ClaimTypes.Role, respuestaLogin.RoleUsuario));
         identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, respuestaLogin.Codigo.ToString()));
         identity.AddClaim(new Claim(ClaimTypes.Name, respuestaLogin.NombreUsuario));
 
-        var prop = new AuthenticationProperties { IsPersistent = false };
+        AuthenticationProperties? prop = new() { IsPersistent = false };
         await HttpContext.SignInAsync("Cookies", new ClaimsPrincipal(identity), prop);
 
         return LocalRedirect(ReturnUrl ?? "/");

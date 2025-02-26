@@ -1,4 +1,6 @@
-﻿namespace EnumExtensions;
+﻿using System.Reflection;
+
+namespace EnumExtensions;
 
 /// <summary>
 /// Muchas de nuestras enumeraciones correspondería con una clave Alfanumérica, no una clave númerica.
@@ -66,14 +68,14 @@ public static class EnumFactory
     /// </returns>
     public static TEnum EnumItemFromKey<TEnum>(string clave) where TEnum : struct, IConvertible
     {
-        var enumToTranslate = typeof(TEnum);
+        Type? enumToTranslate = typeof(TEnum);
         if (enumToTranslate.IsEnum)
         {
-            foreach (var valor in Enum.GetValues(enumToTranslate))
+            foreach (object? valor in Enum.GetValues(enumToTranslate))
             {
-                var miembro = enumToTranslate.GetMember(valor.ToString());
-                var attrs = miembro[0].GetCustomAttributes(typeof(EnumDescriptionAttribute), false);
-                var nombre = attrs.Length > 0 ? ((EnumDescriptionAttribute)attrs[0]).Text : Enum.GetName(enumToTranslate, valor);
+                MemberInfo[]? miembro = enumToTranslate.GetMember(valor.ToString());
+                object[]? attrs = miembro[0].GetCustomAttributes(typeof(EnumDescriptionAttribute), false);
+                string? nombre = attrs.Length > 0 ? ((EnumDescriptionAttribute)attrs[0]).Text : Enum.GetName(enumToTranslate, valor);
                 if (nombre == clave)
                 {
                     return (TEnum)valor;
@@ -95,7 +97,7 @@ public static class EnumFactory
     /// </returns>
     public static TEnum EnumItemFromKey<TEnum>(string[] constates, string clave) where TEnum : struct, IConvertible
     {
-        var posicion = Array.IndexOf(constates, clave);
+        int posicion = Array.IndexOf(constates, clave);
         if (posicion < 0)
         {
             posicion = -1;
@@ -115,21 +117,21 @@ public static class EnumFactory
     /// </returns>
     public static string KeyFromEnumItem<TEnum>(TEnum enumItem) where TEnum : struct, IConvertible
     {
-        var retorno = string.Empty;
+        string? retorno = string.Empty;
         if (!typeof(TEnum).IsEnum)
         {
             return retorno;
         }
 
-        var enumToSearch = typeof(TEnum);
+        Type? enumToSearch = typeof(TEnum);
 
-        foreach (var value in Enum.GetValues(enumToSearch))
+        foreach (object? value in Enum.GetValues(enumToSearch))
         {
             if (enumItem.Equals(value))
             {
-                var m = enumToSearch.GetMember(value.ToString());
-                var attrs = m[0].GetCustomAttributes(typeof(EnumDescriptionAttribute), false);
-                var key = attrs.Length > 0 ? ((EnumDescriptionAttribute)attrs[0]).Text : Enum.GetName(enumToSearch, value);
+                MemberInfo[]? m = enumToSearch.GetMember(value.ToString());
+                object[]? attrs = m[0].GetCustomAttributes(typeof(EnumDescriptionAttribute), false);
+                string? key = attrs.Length > 0 ? ((EnumDescriptionAttribute)attrs[0]).Text : Enum.GetName(enumToSearch, value);
                 return key == "desconocido" ? retorno : key;
             }
         }
@@ -147,13 +149,13 @@ public static class EnumFactory
     /// </returns>
     public static string KeyFromEnumItem<TEnum>(string[] constantes, TEnum t) where TEnum : struct, IConvertible
     {
-        var retorno = " ";
+        string? retorno = " ";
         if (!typeof(TEnum).IsEnum)
         {
             return retorno;
         }
 
-        var num = Convert.ToInt32(t);
+        int num = Convert.ToInt32(t);
         return num > constantes.GetUpperBound(0) || num < constantes.GetLowerBound(0) ? retorno : constantes[num];
     }
 
@@ -196,8 +198,8 @@ public static class EnumFactory
     /// <exception cref="ArgumentNullException">Si el valor a copnvertir es null</exception>
     public static TEnum ParseEnumValue<TEnum>(string value) where TEnum : struct, IConvertible
     {
-        var retorno = default(TEnum);
-        var tp = typeof(TEnum);
+        TEnum retorno = default(TEnum);
+        Type? tp = typeof(TEnum);
         if (!tp.IsEnum)
         {
             return retorno;
@@ -216,11 +218,11 @@ public static class EnumFactory
         // out _ (Se utiliza el discard de Csharp, porque no se necesita ese parametro)
         if (int.TryParse(value.Trim(), out _))
         {
-            var paramValue = Convert.ToInt32(value);
+            int paramValue = Convert.ToInt32(value);
             foreach (TEnum obj in Enum.GetValues(tp))
             {
-                var test = Enum.Parse(typeof(TEnum), obj.ToString()) as Enum;
-                var x = Convert.ToInt32(test); // x is the integer value of enum
+                Enum? test = Enum.Parse(typeof(TEnum), obj.ToString()) as Enum;
+                int x = Convert.ToInt32(test); // x is the integer value of enum
                 if (x.Equals(paramValue))
                 {
                     return obj;

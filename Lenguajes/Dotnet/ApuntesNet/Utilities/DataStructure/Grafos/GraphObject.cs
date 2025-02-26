@@ -11,7 +11,7 @@ public class GraphObject<TKey, TValue>
 
     public void Add(TKey key, TValue value)
     {
-        var exists = _graph.TryGetValue(key, out var result);
+        bool exists = _graph.TryGetValue(key, out IEnumerable<TValue>? result);
         if (!exists)
         {
             _graph.Add(key, [value]);

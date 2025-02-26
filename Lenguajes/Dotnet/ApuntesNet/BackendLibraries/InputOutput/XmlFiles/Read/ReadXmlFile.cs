@@ -6,12 +6,12 @@ internal class ReadXmlFile
 {
     public ReadXmlFile(string nombreArchivo)
     {
-        var document = new XmlDocument();
+        XmlDocument? document = new();
         document.Load(nombreArchivo);
 
         foreach (XmlNode node in document.DocumentElement.ChildNodes)
         {
-            var id = node.Attributes["id"].Value;
+            string? id = node.Attributes["id"].Value;
             Console.WriteLine($"Id: {id}");
 
             foreach (XmlNode elements in node.ChildNodes)

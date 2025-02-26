@@ -14,13 +14,13 @@ public class AuthenticationProvider(ILocalStorageService localStorage, IMemoryCa
 
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {
-        var claim = await GetClaimsAsync();
+        ClaimsPrincipal? claim = await GetClaimsAsync();
         return new AuthenticationState(new ClaimsPrincipal(claim));
     }
 
     public async Task SetAuthenticationAsync(string token)
     {
-        var claim = await SetClaimsAsync(token);
+        ClaimsPrincipal? claim = await SetClaimsAsync(token);
 
         NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(claim)));
     }
@@ -29,7 +29,7 @@ public class AuthenticationProvider(ILocalStorageService localStorage, IMemoryCa
     {
         await localStorage.RemoveItemAsync(KeysOfLocalStorage.TOKENLOCALSTORAGEKEY);
         memoryCache.Remove(KeysOfMemoryCache.TOKENMEMORYCACHEKEY);
-        var claim = new ClaimsPrincipal(new ClaimsIdentity());
+        ClaimsPrincipal? claim = new(new ClaimsIdentity());
         NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(claim)));
     }
 
@@ -37,7 +37,7 @@ public class AuthenticationProvider(ILocalStorageService localStorage, IMemoryCa
     private async Task<ClaimsPrincipal> GetClaimsAsync()
     {
         ClaimsIdentity? identity;
-        var token = await localStorage.GetItemAsStringAsync(KeysOfLocalStorage.TOKENLOCALSTORAGEKEY);
+        string? token = await localStorage.GetItemAsStringAsync(KeysOfLocalStorage.TOKENLOCALSTORAGEKEY);
         if (token is not null)
         {
             memoryCache.Set(KeysOfMemoryCache.TOKENMEMORYCACHEKEY, token);

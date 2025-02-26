@@ -18,35 +18,35 @@ public class HotpTest
     [Fact]
     public void TestGeneraOK()
     {
-        var hotpCode = GeneraHotp(CONTADOR, claveSecreta);
+        string? hotpCode = GeneraHotp(CONTADOR, claveSecreta);
         Assert.Equal("147108", hotpCode);
     }
 
     [Fact]
     public void TestGeneraSize8OK()
     {
-        var hotpCode = GeneraHotp(CONTADOR, claveSecreta, otpSize: 8);
+        string? hotpCode = GeneraHotp(CONTADOR, claveSecreta, otpSize: 8);
         Assert.Equal("17147108", hotpCode);
     }
 
     [Fact]
     public void TestValidaOK()
     {
-        var hotpCode = GeneraHotp(CONTADOR, claveSecreta);
+        string? hotpCode = GeneraHotp(CONTADOR, claveSecreta);
         Assert.True(ValidaHotp(CONTADOR, hotpCode, claveSecreta));
     }
 
     [Fact]
     public void TestErrorCodigoIncorrecto()
     {
-        var hotpCode = GeneraHotp(CONTADOR, claveSecreta);
+        string? hotpCode = GeneraHotp(CONTADOR, claveSecreta);
         Assert.False(ValidaHotp(CONTADOR, "123456", claveSecreta));
     }
 
     [Fact]
     public void TestErrorOtraClave()
     {
-        var hotpCode = GeneraHotp(CONTADOR, claveSecreta);
+        string? hotpCode = GeneraHotp(CONTADOR, claveSecreta);
         Assert.False(ValidaHotp(CONTADOR, hotpCode, claveSecreta2));
     }
 }

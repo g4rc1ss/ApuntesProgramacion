@@ -61,8 +61,8 @@ public class Totp : Otp
     /// <returns></returns>
     private static long CalculaIntervalo(int tiempoValidez)
     {
-        var unixTimestamp = (DateTime.UtcNow.Ticks - UNIX_EPOCH_TICKS) / TICKS_TO_SECONDS;
-        var window = unixTimestamp / tiempoValidez;
+        long unixTimestamp = (DateTime.UtcNow.Ticks - UNIX_EPOCH_TICKS) / TICKS_TO_SECONDS;
+        long window = unixTimestamp / tiempoValidez;
         return window;
     }
 
@@ -111,7 +111,7 @@ public class Totp : Otp
     {
         ValidaParametrosEntrada(claveSecreta, tiempo, otpSize);
 
-        var intervalo = CalculaIntervalo(tiempo);
+        long intervalo = CalculaIntervalo(tiempo);
 
         return Compute(claveSecreta, intervalo, hashMode, otpSize);
     }
@@ -152,9 +152,9 @@ public class Totp : Otp
     {
         ValidaParametrosEntrada(claveSecreta, tiempo, otpSize);
 
-        var intervalo = CalculaIntervalo(tiempo);
+        long intervalo = CalculaIntervalo(tiempo);
 
-        var newTotp = Compute(claveSecreta, intervalo, hashMode, otpSize);
+        string? newTotp = Compute(claveSecreta, intervalo, hashMode, otpSize);
         if (newTotp == totp)
         {
             return (true, intervalo);
@@ -182,7 +182,7 @@ public class Totp : Otp
     public static bool ValidarTotp(string totp, string claveSecreta, int tiempo = 30, int otpSize = 6,
         OtpHashMode hashMode = OtpHashMode.SHA1)
     {
-        var (valido, _) = ValidaTotp(totp, Base32Encoding.Standard.ToBytes(claveSecreta), tiempo, otpSize,
+        (bool valido, _) = ValidaTotp(totp, Base32Encoding.Standard.ToBytes(claveSecreta), tiempo, otpSize,
             hashMode);
 
         return valido;

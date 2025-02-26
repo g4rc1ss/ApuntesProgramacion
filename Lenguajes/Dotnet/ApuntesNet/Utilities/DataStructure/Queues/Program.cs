@@ -1,22 +1,22 @@
-﻿var arrayElementos = new int[5] { 5, 2, 3, 4, 5 };
+﻿int[]? arrayElementos = [5, 2, 3, 4, 5];
 
-var queue = new Queues.Queue<int>(arrayElementos);
+Queues.Queue<int>? queue = new(arrayElementos);
 queue.Enqueue(1);
-var result = queue.Dequeue();
+int result = queue.Dequeue();
 
 Console.WriteLine(result == 5);
 
-var list = queue.ToList();
+List<int>? list = [.. queue];
 
 Console.WriteLine(string.Join(", ", list));
 
 
-var queue2 = new Queues.Queue<int>();
+Queues.Queue<int>? queue2 = new();
 queue2.Enqueue(1);
 queue2.Enqueue(2);
-var valor = queue2.Dequeue();
+int valor = queue2.Dequeue();
 Console.WriteLine(valor == 1);
 queue2.Enqueue(5);
-queue2.ToList();
+_ = queue2.ToList();
 
 Console.WriteLine(string.Join(", ", queue2));

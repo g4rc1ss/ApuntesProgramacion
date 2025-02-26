@@ -5,10 +5,10 @@ using Microsoft.Extensions.Logging;
 
 using SerilogLibrary;
 
-var serviceProvider = Helper.GetServiceProvider();
-var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
+IServiceProvider? serviceProvider = Helper.GetServiceProvider();
+ILogger<Program>? logger = serviceProvider.GetRequiredService<ILogger<Program>>();
 
-var user = new UserDTO
+UserDTO? user = new()
 {
     Name = "Prueba",
     SurName = "Logger",

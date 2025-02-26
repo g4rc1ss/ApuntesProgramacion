@@ -18,15 +18,15 @@ public class IntrinsicsVsNormalArm
     [GlobalSetup]
     public void Setup()
     {
-        paramA = Enumerable.Range(0, iterations).ToArray();
-        paramB = Enumerable.Range(0, iterations).ToArray();
+        paramA = [.. Enumerable.Range(0, iterations)];
+        paramB = [.. Enumerable.Range(0, iterations)];
     }
 
     [Benchmark]
     public unsafe void SumArraysWithIntrinsicsAndFixed()
     {
-        var len = paramA.Length;
-        var result = new int[len];
+        int len = paramA.Length;
+        int[]? result = new int[len];
 
         fixed (int* paramAPtr = paramA, paramBPtr = paramB, resultPtr = result)
         {
@@ -35,17 +35,17 @@ public class IntrinsicsVsNormalArm
                 throw new PlatformNotSupportedException();
             }
 
-            for (var i = 0; i < len; i += Vector128<int>.Count)
+            for (int i = 0; i < len; i += Vector128<int>.Count)
             {
-                var nextAPrt = i + paramAPtr;
-                var nextBPrt = i + paramBPtr;
-                var nextResultPtr = i + resultPtr;
+                int* nextAPrt = i + paramAPtr;
+                int* nextBPrt = i + paramBPtr;
+                int* nextResultPtr = i + resultPtr;
 
-                var vecA = Vector128.Load(nextAPrt);
-                var vecB = Vector128.Load(nextBPrt);
+                Vector128<int> vecA = Vector128.Load(nextAPrt);
+                Vector128<int> vecB = Vector128.Load(nextBPrt);
 
                 // Llamada al procesador
-                var vecResult = AdvSimd.Add(vecA, vecB);
+                Vector128<int> vecResult = AdvSimd.Add(vecA, vecB);
 
                 vecResult.Store(nextResultPtr);
             }
@@ -55,10 +55,10 @@ public class IntrinsicsVsNormalArm
     [Benchmark]
     public unsafe void SumArraysWithIntrinsicsWithMarshal()
     {
-        var pointerA = Marshal.AllocHGlobal(sizeof(int) * paramA.Length);
-        var pointerB = Marshal.AllocHGlobal(sizeof(int) * paramB.Length);
-        var resultPointer = Marshal.AllocHGlobal(sizeof(int) * paramA.Length);
-        var len = paramA.Length;
+        IntPtr pointerA = Marshal.AllocHGlobal(sizeof(int) * paramA.Length);
+        IntPtr pointerB = Marshal.AllocHGlobal(sizeof(int) * paramB.Length);
+        IntPtr resultPointer = Marshal.AllocHGlobal(sizeof(int) * paramA.Length);
+        int len = paramA.Length;
 
         try
         {
@@ -70,17 +70,17 @@ public class IntrinsicsVsNormalArm
             Marshal.Copy(paramA, 0, pointerA, len);
             Marshal.Copy(paramB, 0, pointerB, len);
 
-            for (var i = 0; i < len; i += Vector128<int>.Count)
+            for (int i = 0; i < len; i += Vector128<int>.Count)
             {
-                var nextAPrt = i + (int*)pointerA;
-                var nextBPrt = (i + (int*)pointerB);
-                var nextResultPtr = (i + (int*)resultPointer);
+                int* nextAPrt = i + (int*)pointerA;
+                int* nextBPrt = i + (int*)pointerB;
+                int* nextResultPtr = i + (int*)resultPointer;
 
-                var vecA = Vector128.Load(nextAPrt);
-                var vecB = Vector128.Load(nextBPrt);
+                Vector128<int> vecA = Vector128.Load(nextAPrt);
+                Vector128<int> vecB = Vector128.Load(nextBPrt);
 
                 // Llamada al procesador
-                var vecResult = AdvSimd.Add(vecA, vecB);
+                Vector128<int> vecResult = AdvSimd.Add(vecA, vecB);
 
                 vecResult.Store(nextResultPtr);
             }
@@ -90,7 +90,7 @@ public class IntrinsicsVsNormalArm
 #if DEBUG
             for (int i = 0; i < len; i++)
             {
-                var nextResultPtr = (i + (int*)resultPointer);
+                int* nextResultPtr = i + (int*)resultPointer;
                 Console.WriteLine(*nextResultPtr);
             }
 #endif
@@ -104,9 +104,9 @@ public class IntrinsicsVsNormalArm
     [Benchmark]
     public unsafe void SumArraysWithIntrinsicsWithMarshalWithoutCopy()
     {
-        var resultPointer = Marshal.AllocHGlobal(sizeof(int) * paramA.Length);
-        var len = paramA.Length;
-        var resultPtr = (int*)resultPointer;
+        IntPtr resultPointer = Marshal.AllocHGlobal(sizeof(int) * paramA.Length);
+        int len = paramA.Length;
+        int* resultPtr = (int*)resultPointer;
 
         try
         {
@@ -117,17 +117,17 @@ public class IntrinsicsVsNormalArm
 
             fixed (int* paramAPtr = paramA, paramBPtr = paramB)
             {
-                for (var i = 0; i < len; i += Vector128<int>.Count)
+                for (int i = 0; i < len; i += Vector128<int>.Count)
                 {
-                    var nextAPrt = i + paramAPtr;
-                    var nextBPrt = (i + paramBPtr);
-                    var nextResultPtr = (i + resultPtr);
+                    int* nextAPrt = i + paramAPtr;
+                    int* nextBPrt = i + paramBPtr;
+                    int* nextResultPtr = i + resultPtr;
 
-                    var vecA = Vector128.Load(nextAPrt);
-                    var vecB = Vector128.Load(nextBPrt);
+                    Vector128<int> vecA = Vector128.Load(nextAPrt);
+                    Vector128<int> vecB = Vector128.Load(nextBPrt);
 
                     // Llamada al procesador
-                    var vecResult = AdvSimd.Add(vecA, vecB);
+                    Vector128<int> vecResult = AdvSimd.Add(vecA, vecB);
 
                     vecResult.Store(nextResultPtr);
                 }
@@ -138,7 +138,7 @@ public class IntrinsicsVsNormalArm
 #if DEBUG
             for (int i = 0; i < len; i++)
             {
-                var nextResultPtr = (i + (int*)resultPointer);
+                int* nextResultPtr = i + (int*)resultPointer;
                 Console.WriteLine(*nextResultPtr);
             }
 #endif
@@ -149,9 +149,9 @@ public class IntrinsicsVsNormalArm
     [Benchmark]
     public void SumArrays()
     {
-        var result = new int[paramA.Length];
+        int[]? result = new int[paramA.Length];
 
-        for (var i = 0; i < paramA.Length; i++)
+        for (int i = 0; i < paramA.Length; i++)
         {
             result[i] = paramA[i] + paramB[i];
         }

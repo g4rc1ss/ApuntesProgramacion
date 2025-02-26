@@ -9,7 +9,7 @@ public class TestingHostApi(TestConfigurationToFixture fixture)
     [Fact]
     public async Task WhenGetAllApiWeatherForecastThenReturnValueAsync()
     {
-        var response = await fixture.Client.GetStringAsync("WeatherForecast");
+        string? response = await fixture.Client.GetStringAsync("WeatherForecast");
 
         Assert.NotNull(response);
         Assert.True(response is not null);

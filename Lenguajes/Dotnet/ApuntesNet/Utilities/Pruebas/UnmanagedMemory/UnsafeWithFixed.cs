@@ -6,15 +6,15 @@ public static class UnsafeWithFixed
     {
         unsafe
         {
-            var numbers = new int[1000000];
+            int[]? numbers = new int[1000000];
             fixed (int* ptr = numbers)
             {
-                for (var i = 0; i < numbers.Length; i++)
+                for (int i = 0; i < numbers.Length; i++)
                 {
                     ptr[i] = 1 * sizeof(int);
                 }
 
-                for (var i = 0; i < numbers.Length; i++)
+                for (int i = 0; i < numbers.Length; i++)
                 {
                     Console.Write($"{ptr[i]}");
                 }

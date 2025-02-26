@@ -14,7 +14,7 @@ internal class InsertData(IDbConnection dbConnection)
 
     internal async Task InsertDataQueryAsync()
     {
-        var inserts = @$"
+        string? inserts = @$"
 INSERT INTO {nameof(Pueblo)} (Nombre)
 VALUES (@NombrePueblo);
 
@@ -28,7 +28,7 @@ VALUES (@NombreUsuario, currval(pg_get_serial_sequence('pueblo', 'id')));
                 NombreUsuario = "nombre de usuario",
             }).ToList();
 
-        var nChanges = await _dbConnection.ExecuteAsync(inserts, parametros);
+        int nChanges = await _dbConnection.ExecuteAsync(inserts, parametros);
 
         Console.WriteLine($"Agregado {nChanges} registros");
     }

@@ -3,7 +3,7 @@ using System.Threading.RateLimiting;
 
 using Microsoft.AspNetCore.RateLimiting;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -21,7 +21,7 @@ builder.Services.AddRateLimiter(options =>
     });
 });
 
-var app = builder.Build();
+WebApplication? app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -35,7 +35,7 @@ app.UseHttpsRedirection();
 
 app.MapGet("/normalRequest", (ILogger<Program> logger) =>
     {
-        ThreadPool.GetAvailableThreads(out var workerThreads, out var iocpThreads);
+        ThreadPool.GetAvailableThreads(out int workerThreads, out int iocpThreads);
         Console.WriteLine($"WorkerThreads: {workerThreads}, IOCPThreads: {iocpThreads}");
     })
     .WithName("normalRequest")
@@ -43,7 +43,7 @@ app.MapGet("/normalRequest", (ILogger<Program> logger) =>
 
 app.MapGet("/blockRequest", (ILogger<Program> logger) =>
     {
-        ThreadPool.GetAvailableThreads(out var workerThreads, out var iocpThreads);
+        ThreadPool.GetAvailableThreads(out int workerThreads, out int iocpThreads);
         Console.WriteLine($"WorkerThreads: {workerThreads}, IOCPThreads: {iocpThreads}");
 
         Thread.Sleep(TimeSpan.FromHours(10));
@@ -54,7 +54,7 @@ app.MapGet("/blockRequest", (ILogger<Program> logger) =>
 
 app.MapGet("/nonBlockRequest", async (ILogger<Program> logger) =>
     {
-        ThreadPool.GetAvailableThreads(out var workerThreads, out var iocpThreads);
+        ThreadPool.GetAvailableThreads(out int workerThreads, out int iocpThreads);
         Console.WriteLine($"WorkerThreads: {workerThreads}, IOCPThreads: {iocpThreads}");
 
         await Task.Delay(TimeSpan.FromSeconds(10));
@@ -64,7 +64,7 @@ app.MapGet("/nonBlockRequest", async (ILogger<Program> logger) =>
 
 
 ThreadPool.SetMaxThreads(20, 20);
-ThreadPool.GetAvailableThreads(out var workerThreads, out var iocpThreads);
+ThreadPool.GetAvailableThreads(out int workerThreads, out int iocpThreads);
 Console.WriteLine($"WorkerThreads: {workerThreads} \n" +
                   $"IOCPThreads: {iocpThreads}");
 

@@ -4,9 +4,9 @@ internal class WriteWithStream
 {
     public WriteWithStream(string nombreArchivo)
     {
-        var textoEscribir = "Este es el texto que se esta \n escribiendo con la Clase Stream de .NET";
+        string? textoEscribir = "Este es el texto que se esta \n escribiendo con la Clase Stream de .NET";
 
-        using var writeFile = new StreamWriter(nombreArchivo);
+        using StreamWriter? writeFile = new(nombreArchivo);
         writeFile.Write(textoEscribir);
     }
 }

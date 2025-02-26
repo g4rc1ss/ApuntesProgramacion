@@ -22,38 +22,36 @@ public class Mappers
     [Benchmark]
     public void MapperObjectManual()
     {
-        var chatDTO = ClassFake.chatClass.ToDto();
+        ChatDTO? chatDTO = ClassFake.chatClass.ToDto();
     }
 
     [Benchmark]
     public void MapperObjectMapperly()
     {
-        var chatDTO = _mapperly.ToChatDTO(ClassFake.chatClass);
+        ChatDTO? chatDTO = _mapperly.ToChatDTO(ClassFake.chatClass);
     }
 
     [Benchmark]
     public void MapperObjectAutoMapper()
     {
-        var chatDTO = _autoMapper.Map<ChatDTO>(ClassFake.chatClass);
+        ChatDTO? chatDTO = _autoMapper.Map<ChatDTO>(ClassFake.chatClass);
     }
 
     [Benchmark]
     public void MapperListManual()
     {
-        var chatDTO = ClassFake.chatEntityList.Select(x => x.ToDto())
-            .ToList();
+        List<ChatDTO>? chatDTO = [.. ClassFake.chatEntityList.Select(x => x.ToDto())];
     }
 
     [Benchmark]
     public void MapperListMapperly()
     {
-        var chatDTO = ClassFake.chatEntityList.Select(_mapperly.ToChatDTO)
-            .ToList();
+        List<ChatDTO>? chatDTO = [.. ClassFake.chatEntityList.Select(_mapperly.ToChatDTO)];
     }
 
     [Benchmark]
     public void MapperListAutoMapper()
     {
-        var chatDTO = _autoMapper.Map<List<ChatDTO>>(ClassFake.chatEntityList);
+        List<ChatDTO>? chatDTO = _autoMapper.Map<List<ChatDTO>>(ClassFake.chatEntityList);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Prototype;
 
-var prototype = new ClasePrototype("contraseña 1")
+ClasePrototype? prototype = new("contraseña 1")
 {
     Name = "Nombre",
     Description = "Descripcion",
@@ -9,7 +9,7 @@ var prototype = new ClasePrototype("contraseña 1")
 };
 Console.WriteLine(prototype.ToString());
 
-var copia = (ClasePrototype)prototype.Clone();
+ClasePrototype? copia = (ClasePrototype)prototype.Clone();
 Console.WriteLine(copia.ToString());
 
 Console.WriteLine("------------------------ cambios ------------------------");

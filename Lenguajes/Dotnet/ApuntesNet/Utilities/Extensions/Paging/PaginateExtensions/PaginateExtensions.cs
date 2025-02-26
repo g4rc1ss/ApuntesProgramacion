@@ -24,8 +24,8 @@ public static class PaginateExtensions
             throw new ArgumentException($"indexFrom: {from} > pageIndex: {index}, must indexFrom <= pageIndex");
         }
 
-        var count = source.Count();
-        var items = source.Skip((index - from) * size).Take(size).ToList();
+        int count = source.Count();
+        List<T>? items = [.. source.Skip((index - from) * size).Take(size)];
 
         return new Paginate<T>
         {
@@ -55,8 +55,8 @@ public static class PaginateExtensions
             throw new ArgumentException($"indexFrom: {from} > pageIndex: {index}, must indexFrom <= pageIndex");
         }
 
-        var count = source.Count();
-        var items = source.Skip((index - from) * size).Take(size).ToList();
+        int count = source.Count();
+        List<T>? items = [.. source.Skip((index - from) * size).Take(size)];
 
         return new Paginate<T>
         {
@@ -89,8 +89,8 @@ public static class PaginateExtensions
             throw new ArgumentException($"From: {from} > Index: {index}, debe ser <= Index");
         }
 
-        var count = await source.CountAsync(cancellationToken);
-        var items = await source.Skip((index - from) * size).Take(size).ToListAsync(cancellationToken);
+        int count = await source.CountAsync(cancellationToken);
+        List<T>? items = await source.Skip((index - from) * size).Take(size).ToListAsync(cancellationToken);
 
         return new Paginate<T>
         {

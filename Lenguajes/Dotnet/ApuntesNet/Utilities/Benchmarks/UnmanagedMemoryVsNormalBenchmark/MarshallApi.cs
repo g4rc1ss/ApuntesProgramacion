@@ -13,14 +13,14 @@ public class MarshallApi
     [Benchmark]
     public void WriteMemoryOnMarshal()
     {
-        var pointer = IntPtr.Zero;
+        IntPtr pointer = IntPtr.Zero;
         try
         {
             pointer = Marshal.AllocHGlobal(new nint(SIZE));
             for (long i = 0; i < NUMBER_OF_INTEGERS; i++)
             {
                 // Calculamos la dirección de memoria de cada entero
-                var ptr = IntPtr.Add(pointer, (int)(i * sizeof(int)));
+                IntPtr ptr = IntPtr.Add(pointer, (int)(i * sizeof(int)));
 
                 // Escribimos el valor entero (por ejemplo, asignar el valor de i)
                 Marshal.WriteInt32(ptr, (int)i);
@@ -35,8 +35,8 @@ public class MarshallApi
     [Benchmark]
     public void WriteMemoryWithManagement()
     {
-        var listaInt = new List<int>();
-        for (var i = 0; i < SIZE; i++)
+        List<int>? listaInt = [];
+        for (int i = 0; i < SIZE; i++)
         {
             listaInt.Add(i);
         }

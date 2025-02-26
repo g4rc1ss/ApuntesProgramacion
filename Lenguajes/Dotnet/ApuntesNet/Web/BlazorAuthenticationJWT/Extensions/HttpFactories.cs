@@ -12,8 +12,8 @@ public static class HttpFactories
 
         services.AddHttpClient("API-CleanArchitecture", (serviceProvider, httpClient) =>
         {
-            var memoryCache = serviceProvider.GetRequiredService<IMemoryCache>();
-            if (memoryCache.TryGetValue<string>(KeysOfMemoryCache.TOKENMEMORYCACHEKEY, out var token))
+            IMemoryCache? memoryCache = serviceProvider.GetRequiredService<IMemoryCache>();
+            if (memoryCache.TryGetValue<string>(KeysOfMemoryCache.TOKENMEMORYCACHEKEY, out string? token))
             {
                 httpClient.DefaultRequestHeaders.Add("Authorization", token);
             }

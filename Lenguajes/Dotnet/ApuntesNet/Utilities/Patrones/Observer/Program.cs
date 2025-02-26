@@ -1,11 +1,11 @@
 ﻿// The client code.
 using Observer;
 
-var subject = new Subject();
-var observerA = new ConcreteObserverA();
+Subject? subject = new();
+ConcreteObserverA? observerA = new();
 subject.Attach(observerA);
 
-var observerB = new ConcreteObserverB();
+ConcreteObserverB? observerB = new();
 subject.Attach(observerB);
 
 subject.SomeBusinessLogic();

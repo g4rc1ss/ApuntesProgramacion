@@ -14,7 +14,7 @@ public class RsaEncryptFile
         {
             if (!File.Exists(_archivoRSA_TXT))
             {
-                var archivoEscrituraRSA = File.CreateText(_archivoRSA_TXT);
+                StreamWriter? archivoEscrituraRSA = File.CreateText(_archivoRSA_TXT);
                 archivoEscrituraRSA.Write("Esto es una prueba de escritura en un archivo de " +
                     "texto. \n" +
                     "Siguiente Linea jajajaja");
@@ -22,16 +22,16 @@ public class RsaEncryptFile
             }
 
             //Obtenemos un array de bytes del texto a cifrar
-            var textoCifrarBytes = File.ReadAllBytes(_archivoRSA_TXT);
+            byte[]? textoCifrarBytes = File.ReadAllBytes(_archivoRSA_TXT);
 
             // Instanciamos el algorimo asimétrico RSA
-            using var rsaCrypt = RSA.Create();
+            using RSA? rsaCrypt = RSA.Create();
             // Establecemos la longitud de la clave que queremos usar
             rsaCrypt.KeySize = 4096;
             File.WriteAllBytes("public.key", rsaCrypt.ExportRSAPublicKey());
             File.WriteAllBytes("private.key", rsaCrypt.ExportRSAPrivateKey());
 
-            var mensajeCifrado = rsaCrypt.Encrypt(textoCifrarBytes, RSAEncryptionPadding.Pkcs1);
+            byte[]? mensajeCifrado = rsaCrypt.Encrypt(textoCifrarBytes, RSAEncryptionPadding.Pkcs1);
 
             // Escribir en un fichero el mensaje cifrado
             File.WriteAllBytes(_archivoRSA_CRYPT, mensajeCifrado);

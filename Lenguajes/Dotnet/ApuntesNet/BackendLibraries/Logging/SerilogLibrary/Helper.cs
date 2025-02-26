@@ -9,7 +9,7 @@ public class Helper
 {
     public static IServiceProvider GetServiceProvider()
     {
-        var builder = Host.CreateDefaultBuilder();
+        IHostBuilder? builder = Host.CreateDefaultBuilder();
 
         builder.ConfigureLogging(log =>
         {
@@ -23,7 +23,7 @@ public class Helper
             loggerConfig.WriteTo.Console();
         });
 
-        var app = builder.Build();
+        IHost? app = builder.Build();
 
         return app.Services;
     }

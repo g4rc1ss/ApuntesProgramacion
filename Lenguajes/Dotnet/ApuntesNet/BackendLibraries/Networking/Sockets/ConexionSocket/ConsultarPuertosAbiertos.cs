@@ -7,13 +7,13 @@ public class ConsultarPuertosAbiertos
 {
     public static void EscanerPuertos()
     {
-        var port = 80;
+        int port = 80;
 
         try
         {
-            using var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            var host = Dns.GetHostEntry("google.es");
-            var ip = host.AddressList[0]?.ToString();
+            using Socket? socket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            IPHostEntry? host = Dns.GetHostEntry("google.es");
+            string? ip = host.AddressList[0]?.ToString();
             if (ip == null)
             {
                 return;

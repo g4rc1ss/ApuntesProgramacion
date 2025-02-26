@@ -1,11 +1,11 @@
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+WebApplication? app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -20,7 +20,7 @@ app.MapGet("/", async (CancellationToken ct) =>
 {
     try
     {
-        foreach (var i in Enumerable.Range(0, 1000))
+        foreach (int i in Enumerable.Range(0, 1000))
         {
             Console.WriteLine($"iteration: {i}");
 

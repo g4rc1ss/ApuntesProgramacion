@@ -7,9 +7,9 @@ using Command;
  * Ejecutamos el metodo Invoke del Invoker
  */
 
-var invoker = new Invoker();
+Invoker? invoker = new();
 invoker.Add(new SimpleCommand("Say Hi!"));
-var receiver = new Receiver();
+Receiver? receiver = new();
 invoker.Add(new ComplexCommand(receiver, "Send email", "Save report"));
 
 invoker.Execute();

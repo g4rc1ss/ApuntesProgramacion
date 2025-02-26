@@ -1,4 +1,5 @@
 ﻿using SqlServerEfCore.Database;
+using SqlServerEfCore.Database.Entities;
 
 namespace SqlServerEfCore.Repository;
 
@@ -8,11 +9,12 @@ public class UpdateData(EntityFrameworkSqlServerContext frameworkSqlServerContex
 
     internal Task<int> UpdateDataAsync()
     {
-        var idPueblo = 1;
+        int idPueblo = 1;
 
-        var usuario = (from user in _frameworkSqlServerContext.Usuarios
-                       where user.PuebloIdNavigation.Id == idPueblo
-                       select user).Single();
+        Usuario? usuario = (
+            from user in _frameworkSqlServerContext.Usuarios
+            where user.PuebloIdNavigation.Id == idPueblo
+            select user).Single();
 
         usuario.Nombre = "cnifvbdilcbsuyvrg";
 

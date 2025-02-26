@@ -15,7 +15,7 @@ public class MockingTest
     public async Task MockingDependencyAsync()
     {
         await _repository.GetRepositoryAsync(string.Empty);
-        var repositories = await _repository.GetRepositoriesAsync();
+        IEnumerable<string>? repositories = await _repository.GetRepositoriesAsync();
         Assert.True(repositories.Count() == 1000);
     }
 }

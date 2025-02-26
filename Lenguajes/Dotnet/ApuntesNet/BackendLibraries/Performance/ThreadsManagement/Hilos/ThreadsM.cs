@@ -4,9 +4,9 @@ public static class ThreadsM
 {
     public static Thread StartThread()
     {
-        var thread = new Thread(() =>
+        Thread thread = new(() =>
         {
-            for (var x = 0; x < 1000; x++)
+            for (int x = 0; x < 1000; x++)
             {
                 Console.WriteLine("hilo1");
             }

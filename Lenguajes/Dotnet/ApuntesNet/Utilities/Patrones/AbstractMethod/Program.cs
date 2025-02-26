@@ -1,7 +1,7 @@
 ﻿
 using AbstractMethod;
 
-var factoria = new FactoriaAbstracta();
+FactoriaAbstracta? factoria = new();
 
 factoria.CreateAlmacenamientoApi().Guardar("objeto de api");
 factoria.CreateAlmacenamientoFile().Guardar("Objeto de File");

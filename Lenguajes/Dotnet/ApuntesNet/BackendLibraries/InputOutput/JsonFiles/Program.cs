@@ -3,7 +3,7 @@ using JsonFiles.Read;
 using JsonFiles.Write;
 
 // Creamos un archivo JSON para indicar la ruta
-var crearJSON = new ClaseParaJSON()
+ClaseParaJSON? crearJSON = new()
 {
     Ruta = "archivo.txt"
 };

@@ -13,22 +13,22 @@ public class AesEncryptText
         {
             Console.WriteLine("Escribe el texto a encriptar");
             //Obtenemos un array de bytes del texto a cifrar
-            var textoCifrarBytes = Console.ReadLine();
+            string? textoCifrarBytes = Console.ReadLine();
 
             Console.WriteLine("Escribe la contraseña");
-            var contraseña = Console.ReadLine();
+            string? contraseña = Console.ReadLine();
 
-            var textoCifrado = default(byte[]);
+            byte[]? textoCifrado = null;
             using (HashAlgorithm hash = SHA256.Create())
             {
-                using var aesAlg = Aes.Create();
+                using Aes? aesAlg = Aes.Create();
                 aesAlg.Key = hash.ComputeHash(Encoding.UTF8.GetBytes(contraseña));
 
                 // Create an encryptor to perform the stream transform.
-                using var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);                     // Create the streams used for encryption.
-                using var msEncrypt = new MemoryStream();
-                using var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write);
-                using (var swEncrypt = new StreamWriter(csEncrypt))
+                using ICryptoTransform? encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);                     // Create the streams used for encryption.
+                using MemoryStream? msEncrypt = new();
+                using CryptoStream? csEncrypt = new(msEncrypt, encryptor, CryptoStreamMode.Write);
+                using (StreamWriter? swEncrypt = new(csEncrypt))
                 {
                     //Write all data to the stream.
                     swEncrypt.Write(textoCifrarBytes);

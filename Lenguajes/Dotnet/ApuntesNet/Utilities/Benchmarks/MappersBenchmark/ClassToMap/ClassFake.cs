@@ -11,7 +11,7 @@ public static class ClassFake
         PropiedadId = Guid.NewGuid().ToString(),
         UserIdFrom = 2,
         UserIdTo = 5,
-        PropiedadesNavigation = Enumerable.Range(0, 1000).Select(x =>
+        PropiedadesNavigation = [.. Enumerable.Range(0, 1000).Select(x =>
             new Propiedad()
             {
                 Id = Guid.NewGuid().ToString(),
@@ -25,7 +25,7 @@ public static class ClassFake
                 PropiedadDetalleId = Guid.NewGuid().ToString(),
                 SuperficieMedida = 560,
                 TipoOperacionId = Guid.NewGuid().ToString()
-            }).ToList(),
+            })],
         UserIdFromNavigation = new User
         {
             Name = "Ralph",
@@ -38,5 +38,5 @@ public static class ClassFake
         }
     };
 
-    public static IEnumerable<Chat> chatEntityList = Enumerable.Range(0, 1000).Select(x => chatClass).ToList();
+    public static IEnumerable<Chat> chatEntityList = [.. Enumerable.Range(0, 1000).Select(x => chatClass)];
 }

@@ -12,10 +12,10 @@ internal class SelectData(EntityFrameworkSqlServerContext frameworkSqlServerCont
 
     public async Task<List<Usuario>> SelectDataAsync()
     {
-        var pueblos = await _frameworkSqlServerContext.Pueblos.ToArrayAsync();
-        var usuarios = await _frameworkSqlServerContext.Usuarios.ToArrayAsync();
-        var pueblosInclude = await _frameworkSqlServerContext.Pueblos.Include(x => x.Usuarios).ToArrayAsync();
-        var usuariosInclude = await _frameworkSqlServerContext.Usuarios.Include(x => x.PuebloIdNavigation).ToArrayAsync();
+        Pueblo[]? pueblos = await _frameworkSqlServerContext.Pueblos.ToArrayAsync();
+        Usuario[]? usuarios = await _frameworkSqlServerContext.Usuarios.ToArrayAsync();
+        Pueblo[]? pueblosInclude = await _frameworkSqlServerContext.Pueblos.Include(x => x.Usuarios).ToArrayAsync();
+        Usuario[]? usuariosInclude = await _frameworkSqlServerContext.Usuarios.Include(x => x.PuebloIdNavigation).ToArrayAsync();
 
 
         return await (from usuario in _frameworkSqlServerContext.Usuarios

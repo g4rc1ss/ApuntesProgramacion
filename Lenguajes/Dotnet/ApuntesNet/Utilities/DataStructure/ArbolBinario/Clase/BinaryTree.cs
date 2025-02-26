@@ -25,18 +25,16 @@ internal static class BinaryTreeExtensions
 {
     public static List<T> GetPathOfValue<T>(this BinaryTree<T> root, T valueToSearch)
     {
-        var listaValor = new List<T> {
-            root.GetValue()
-        };
+        List<T>? listaValor = [root.GetValue()];
 
-        if (root.GetValue().Equals(valueToSearch))
+        if (root.GetValue()!.Equals(valueToSearch))
         {
             return listaValor;
         }
 
         if (root.Left is not null)
         {
-            var listaLeft = GetPathOfValue(root.Left, valueToSearch);
+            List<T>? listaLeft = GetPathOfValue(root.Left, valueToSearch);
             if (listaLeft.Contains(valueToSearch))
             {
                 listaValor.AddRange(listaLeft);
@@ -45,7 +43,7 @@ internal static class BinaryTreeExtensions
 
         if (root.Right is not null)
         {
-            var listaRight = GetPathOfValue(root.Right, valueToSearch);
+            List<T>? listaRight = GetPathOfValue(root.Right, valueToSearch);
             if (listaRight.Contains(valueToSearch))
             {
                 listaValor.AddRange(listaRight);

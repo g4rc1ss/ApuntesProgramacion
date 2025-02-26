@@ -16,20 +16,20 @@ public partial class DatabaseFrameworksPerformance
     public void EntityFrameworkCoreSelectSingleQuery()
     {
         Step();
-        var result = _benchmarkContext.WeatherForecast.Where(x => x.Id == id).Take(1).Single();
+        WeatherForecast? result = _benchmarkContext.WeatherForecast.Where(x => x.Id == id).Take(1).Single();
     }
 
     [Benchmark(Description = "EF Core Single no Tranking")]
     public void EntityFrameworkCoreSelectSingleNoTrackingQuery()
     {
         Step();
-        var result = _benchmarkContext.WeatherForecast.Where(x => x.Id == id).AsNoTracking().Single();
+        WeatherForecast? result = _benchmarkContext.WeatherForecast.Where(x => x.Id == id).AsNoTracking().Single();
     }
 
     [Benchmark(Description = "EF Core Single Compilada")]
     public void EntityFrameworkCoreSelectSingleCompiledQuery()
     {
         Step();
-        var result = CompiledQuery(_benchmarkContext, id);
+        WeatherForecast? result = CompiledQuery(_benchmarkContext, id);
     }
 }

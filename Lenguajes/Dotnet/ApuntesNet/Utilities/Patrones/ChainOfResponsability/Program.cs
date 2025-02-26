@@ -1,9 +1,9 @@
 ﻿// The other part of the client code constructs the actual chain.
 using ChainOfResponsability;
 
-var monkey = new MonkeyHandler();
-var squirrel = new SquirrelHandler();
-var dog = new DogHandler();
+MonkeyHandler? monkey = new();
+SquirrelHandler? squirrel = new();
+DogHandler? dog = new();
 
 
 /**

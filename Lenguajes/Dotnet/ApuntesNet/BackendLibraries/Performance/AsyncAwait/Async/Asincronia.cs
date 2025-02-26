@@ -13,14 +13,14 @@ public class Asincronia
 
     internal async Task ESAsync()
     {
-        var cliente = new HttpClient();
+        HttpClient? cliente = new();
         await cliente.GetStringAsync("https://docs.microsoft.com/en-us/");
         Console.WriteLine("Codigo asincrono E/S terminado");
     }
 
     internal async Task ExecuteIEnumerableAsync()
     {
-        await foreach (var item in RangeAsync(0, int.MaxValue))
+        await foreach (int item in RangeAsync(0, int.MaxValue))
         {
         }
         Console.WriteLine("Codigo asincrono IAsyncEnumerable terminado");

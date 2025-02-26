@@ -4,7 +4,7 @@ internal class ConcreteStrategyB : IStrategy
 {
     public object DoAlgorithm(object data)
     {
-        var list = data as List<string>;
+        List<string>? list = data as List<string>;
         list.Sort();
         list.Reverse();
 

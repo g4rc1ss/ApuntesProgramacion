@@ -12,7 +12,7 @@ internal static class SelectDataMultipleQuery
 {
     internal static async Task SelectDataMultipleQueryAsync(this SelectData select)
     {
-        var sqlMultipleUserPueblo = $@"
+        string? sqlMultipleUserPueblo = $@"
 SELECT Id as {nameof(Usuario.IdUsuario)}
     ,Nombre as {nameof(Usuario.NombreUsuario)}
 FROM Usuario
@@ -23,10 +23,10 @@ SELECT Id as {nameof(Pueblo.IdPueblo)}
 FROM Pueblo
 ORDER BY Id;
 ";
-        var queryMultiple = await select.dbConnection.QueryMultipleAsync(sqlMultipleUserPueblo);
+        SqlMapper.GridReader? queryMultiple = await select.dbConnection.QueryMultipleAsync(sqlMultipleUserPueblo);
 
-        var users = await queryMultiple.ReadAsync<Usuario>();
-        var villages = await queryMultiple.ReadAsync<Pueblo>();
+        IEnumerable<Usuario>? users = await queryMultiple.ReadAsync<Usuario>();
+        IEnumerable<Pueblo>? villages = await queryMultiple.ReadAsync<Pueblo>();
 
         users.Select((x) =>
         {

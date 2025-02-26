@@ -9,7 +9,7 @@ public class InsertData(EntityFrameworkSqlServerContext frameworkSqlServerContex
 
     internal Task<int> InsertDataAsync()
     {
-        var usuarioAgregar = new Usuario
+        Usuario? usuarioAgregar = new()
         {
             Nombre = "Nombre del usuario",
             Edad = 10,

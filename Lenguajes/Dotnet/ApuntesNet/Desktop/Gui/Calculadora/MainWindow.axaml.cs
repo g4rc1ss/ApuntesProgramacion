@@ -17,8 +17,8 @@ public partial class MainWindow : Window
 
     private void Listener(object sender, RoutedEventArgs e)
     {
-        var compo = (Componente)sender;
-        var respuesta = compo.Accion(mostrar);
+        Componente? compo = (Componente)sender;
+        string? respuesta = compo.Accion(mostrar);
 
         if (ComprobarNumero(respuesta))
         {
@@ -54,7 +54,7 @@ public partial class MainWindow : Window
         }
         else if (respuesta.Equals("C"))
         {
-            for (var x = 0; x < _numero.Length; x++)
+            for (int x = 0; x < _numero.Length; x++)
             {
                 _numero[x] = 0;
             }
@@ -76,7 +76,7 @@ public partial class MainWindow : Window
                 return;
             }
 
-            var resultado = Operar(operacion);
+            int resultado = Operar(operacion);
             mostrar.Text = "" + resultado;
             _numero[0] = resultado;
             insertar = true;

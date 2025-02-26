@@ -8,10 +8,10 @@ Console.WriteLine($"Latencia configurada de GC {GCSettings.LatencyMode}");
 
 // Caso 1
 // Tenemos una variable de ambito global que ocupa mucho espacio en memoria y necesitamos limpiarlo después
-var getMemory = () => GC.GetTotalMemory(false) / 1024.0 / 1024.0;
+Func<double>? getMemory = () => GC.GetTotalMemory(false) / 1024.0 / 1024.0;
 
-var objetos = new List<ObjetoPesado>();
-for (var i = 0; i < 1_000_000_00; i++)
+List<ObjetoPesado>? objetos = [];
+for (int i = 0; i < 1_000_000_00; i++)
 {
     objetos.Add(new(0, 1, "Hi"));
 }
@@ -32,15 +32,15 @@ Console.WriteLine($"Memoria después de recolectar elementos {getMemory():F2}MB"
 // El proceso que ocupa toda esta memoria está dentro de un ambito
 static void ProcesarObjetos()
 {
-    var objetos2 = new List<ObjetoPesado>();
-    for (var i = 0; i < 1_000_000_00; i++)
+    List<ObjetoPesado>? objetos2 = [];
+    for (int i = 0; i < 1_000_000_00; i++)
     {
         objetos2.Add(new(0, 1, "Hi"));
     }
 }
 
 // Latency normal
-for (var i = 0; i < 5; i++)
+for (int i = 0; i < 5; i++)
 {
     ProcesarObjetos();
     Console.WriteLine($"Total de memoria al salir del metodo {getMemory():F2} MB");
@@ -54,7 +54,7 @@ GC.Collect();
 // Latency Batch
 GCSettings.LatencyMode = GCLatencyMode.Batch;
 Console.WriteLine($"Latencia configurada de GC {GCSettings.LatencyMode}");
-for (var i = 0; i < 5; i++)
+for (int i = 0; i < 5; i++)
 {
     ProcesarObjetos();
     Console.WriteLine($"Total de memoria al salir del metodo {getMemory():F2} MB");
@@ -68,7 +68,7 @@ GC.Collect();
 // Latency Low
 GCSettings.LatencyMode = GCLatencyMode.LowLatency;
 Console.WriteLine($"Latencia configurada de GC {GCSettings.LatencyMode}");
-for (var i = 0; i < 5; i++)
+for (int i = 0; i < 5; i++)
 {
     ProcesarObjetos();
     Console.WriteLine($"Total de memoria al salir del metodo {getMemory():F2} MB");

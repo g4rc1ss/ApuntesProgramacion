@@ -41,8 +41,8 @@ public class Queue<T> : IEnumerable<T>
 
     public T Dequeue()
     {
-        var value = collection[0];
-        collection = collection.Skip(1).ToArray();
+        T? value = collection[0];
+        collection = [.. collection.Skip(1)];
         indexToAdd--;
         return value;
     }

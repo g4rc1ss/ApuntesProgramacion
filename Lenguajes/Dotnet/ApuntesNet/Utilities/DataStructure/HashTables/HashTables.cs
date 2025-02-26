@@ -8,19 +8,18 @@ public class HashTables<TKey, TValue>
     private int size;
     private ObjectKeyValue[] data;
     private int[] hashIndex;
-    private int count;
 
     public HashTables()
     {
         data = new ObjectKeyValue[3];
-        hashIndex = Enumerable.Range(0, 3).Select(x => -1).ToArray();
+        hashIndex = [.. Enumerable.Range(0, 3).Select(x => -1)];
     }
 
     public void Add(TKey key, TValue value)
     {
         ArgumentNullException.ThrowIfNull(key);
 
-        var existsValue = TryGet(key).exists;
+        bool existsValue = TryGet(key).exists;
         if (existsValue)
         {
             throw new KeyNotFoundException("Key was not found");
@@ -32,9 +31,9 @@ public class HashTables<TKey, TValue>
             Resize();
         }
 
-        var hash = GetHashCode(key);
-        var indexHash = GetIndexHash(hash);
-        var dataIndex = hashIndex[indexHash];
+        int hash = GetHashCode(key);
+        uint indexHash = GetIndexHash(hash);
+        int dataIndex = hashIndex[indexHash];
 
 
         data[size].key = key;
@@ -44,10 +43,10 @@ public class HashTables<TKey, TValue>
 
         if (dataIndex > -1)
         {
-            var dataIndexValue = data[dataIndex];
+            ObjectKeyValue dataIndexValue = data[dataIndex];
             while (true)
             {
-                var next = dataIndexValue.next;
+                int next = dataIndexValue.next;
 
                 if (next == -1 && dataIndexValue.hashCode != 0)
                 {
@@ -70,7 +69,6 @@ public class HashTables<TKey, TValue>
         }
 
         size++;
-        count++;
     }
 
     private void Resize()
@@ -82,16 +80,15 @@ public class HashTables<TKey, TValue>
 
     private void RehashData()
     {
-        var copyData = new ObjectKeyValue[this.data.Length];
+        ObjectKeyValue[]? copyData = new ObjectKeyValue[this.data.Length];
         Array.Copy(data, copyData, copyData.Length);
         Array.Clear(data);
         Array.Clear(hashIndex);
-        hashIndex = Enumerable.Range(0, hashIndex.Length).Select(x => -1).ToArray();
-        var oldSize = size;
+        hashIndex = [.. Enumerable.Range(0, hashIndex.Length).Select(x => -1)];
+        int oldSize = size;
         size = 0;
-        count = 0;
 
-        for (var i = 0; i < oldSize; i++)
+        for (int i = 0; i < oldSize; i++)
         {
             Add(copyData[i].key, copyData[i].value);
         }
@@ -99,7 +96,7 @@ public class HashTables<TKey, TValue>
 
     public TValue Get(TKey key)
     {
-        var (value, _) = TryGet(key);
+        (TValue? value, _) = TryGet(key);
         return value;
     }
 
@@ -107,15 +104,15 @@ public class HashTables<TKey, TValue>
     {
         ArgumentNullException.ThrowIfNull(key);
 
-        var hash = GetHashCode(key);
-        var indexHash = GetIndexHash(hash);
-        var index = hashIndex[indexHash];
+        int hash = GetHashCode(key);
+        uint indexHash = GetIndexHash(hash);
+        int index = hashIndex[indexHash];
         if (index == -1)
         {
             return default;
         }
 
-        var objectKeyValue = data[index];
+        ObjectKeyValue objectKeyValue = data[index];
         // Verificamos si la key existe
         while (true)
         {
@@ -129,7 +126,7 @@ public class HashTables<TKey, TValue>
                 break;
             }
 
-            if (objectKeyValue.next == default && objectKeyValue.hashCode == default)
+            if (objectKeyValue.next == 0 && objectKeyValue.hashCode == 0)
             {
                 break;
             }
@@ -149,8 +146,8 @@ public class HashTables<TKey, TValue>
 
         if (key is string stringKey)
         {
-            using var sha256 = SHA256.Create();
-            var hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(stringKey));
+            using SHA256? sha256 = SHA256.Create();
+            byte[]? hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(stringKey));
             return BitConverter.ToInt32(hash, 0);
         }
 

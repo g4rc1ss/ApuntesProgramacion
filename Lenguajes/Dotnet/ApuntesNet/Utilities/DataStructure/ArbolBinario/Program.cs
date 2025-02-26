@@ -1,11 +1,11 @@
 ﻿using ArbolBinario.Clase;
 
 
-var arbolParaPrueba = CrearArbolConDatosPrueba();
-var path5 = arbolParaPrueba.GetPathOfValue(5);
-var path4 = arbolParaPrueba.GetPathOfValue(4);
+BinaryTree<int>? arbolParaPrueba = CrearArbolConDatosPrueba();
+List<int>? path5 = arbolParaPrueba.GetPathOfValue(5);
+List<int>? path4 = arbolParaPrueba.GetPathOfValue(4);
 
-for (var i = 0; i < (path4.Count < path5.Count ? path4.Count : path5.Count); i++)
+for (int i = 0; i < (path4.Count < path5.Count ? path4.Count : path5.Count); i++)
 {
     if (path4[i] != path5[i])
     {
@@ -16,7 +16,7 @@ for (var i = 0; i < (path4.Count < path5.Count ? path4.Count : path5.Count); i++
 
 static BinaryTree<int> CrearArbolConDatosPrueba()
 {
-    var arbol = new BinaryTree<int>(1);
+    BinaryTree<int>? arbol = new(1);
     // Agregar los hijos izquierdos
     arbol.AddLeftSoon(2);
     arbol.Left.AddLeftSoon(3);

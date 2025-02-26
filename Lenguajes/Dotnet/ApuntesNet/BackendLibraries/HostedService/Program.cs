@@ -3,7 +3,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-var builder = Host.CreateDefaultBuilder(args);
+IHostBuilder? builder = Host.CreateDefaultBuilder(args);
 
 builder.ConfigureServices(services =>
 {
@@ -12,6 +12,6 @@ builder.ConfigureServices(services =>
     services.AddHostedService<OtroHostedService>();
 });
 
-var app = builder.Build();
+IHost? app = builder.Build();
 
 await app.RunAsync();

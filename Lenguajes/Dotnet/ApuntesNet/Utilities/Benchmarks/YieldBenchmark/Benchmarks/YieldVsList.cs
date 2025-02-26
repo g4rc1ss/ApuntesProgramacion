@@ -20,10 +20,10 @@ public class YieldVsList
     [Benchmark]
     public void ExpensiveObjectsWithYield()
     {
-        var response = FakerYieldVsList.WithYield();
+        IEnumerable<int>? response = FakerYieldVsList.WithYield();
 
         // Leemos el yield puesto que es una ejecucion diferida
-        foreach (var item in response)
+        foreach (int item in response)
         {
             ;
         }

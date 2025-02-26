@@ -27,8 +27,8 @@ internal class Originator
 
     private string GenerateRandomString(int length = 10)
     {
-        var allowedSymbols = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        var result = string.Empty;
+        string? allowedSymbols = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        string? result = string.Empty;
 
         while (length > 0)
         {

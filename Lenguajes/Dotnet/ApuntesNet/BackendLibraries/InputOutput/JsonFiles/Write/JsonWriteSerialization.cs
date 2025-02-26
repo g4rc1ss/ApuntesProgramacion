@@ -9,7 +9,7 @@ public class JsonWriteSerialization
 {
     public static async Task UsingJSONAsync(ClaseParaJSON json)
     {
-        using var jsonStream = File.OpenWrite("ruta.json");
+        using FileStream? jsonStream = File.OpenWrite("ruta.json");
         await JsonSerializer.SerializeAsync(jsonStream, json);
     }
 }

@@ -5,7 +5,7 @@ namespace UnmanagedMemoryVsNormalBenchmark;
 [MemoryDiagnoser]
 public class Pointers
 {
-    private readonly int[] _dataMock = Enumerable.Range(0, 1000).ToArray();
+    private readonly int[] _dataMock = [.. Enumerable.Range(0, 1000)];
 
 
     [Benchmark]
@@ -13,7 +13,7 @@ public class Pointers
     {
         fixed (int* ptr = _dataMock)
         {
-            for (var i = 0; i < 1000; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 *(ptr + i) = i;
             }
@@ -23,7 +23,7 @@ public class Pointers
     [Benchmark]
     public void ModifyArrayData()
     {
-        for (var i = 0; i < _dataMock.Length; i++)
+        for (int i = 0; i < _dataMock.Length; i++)
         {
             _dataMock[i] = i;
         }

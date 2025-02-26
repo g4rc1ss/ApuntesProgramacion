@@ -8,9 +8,9 @@ public class Servidor
 
     public static void Conectar()
     {
-        using var miPrimerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        using Socket? miPrimerSocket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         // paso 2 - creamos el socket
-        var miDireccion = new IPEndPoint(IPAddress.Parse("0.0.0.0"), 1234);
+        IPEndPoint? miDireccion = new(IPAddress.Parse("0.0.0.0"), 1234);
         //paso 3 -IPAddress.Any significa que va a escuchar al cliente en toda la red 
         try
         {
@@ -19,7 +19,7 @@ public class Servidor
             miPrimerSocket.Listen(1); // Lo ponemos a escucha
 
             Console.WriteLine("Escuchando...");
-            var escuchar = miPrimerSocket.Accept();
+            Socket? escuchar = miPrimerSocket.Accept();
             //creamos el nuevo socket, para comenzar a trabajar con él
             //La aplicación queda en reposo hasta que el socket se conecte a el cliente
             //Una vez conectado, la aplicación sigue su camino  

@@ -13,23 +13,23 @@ public class AesDecryptText
         {
             Console.WriteLine("Escribe el texto a descifrar");
             //Obtenemos un array de bytes del texto a cifrar
-            var textoCifrado = Encoding.UTF8.GetBytes(Console.ReadLine());
+            byte[]? textoCifrado = Encoding.UTF8.GetBytes(Console.ReadLine());
 
             Console.WriteLine("Escribe la contraseña");
-            var contraseña = Console.ReadLine();
+            string? contraseña = Console.ReadLine();
 
-            var textoDescifrado = default(string);
+            string? textoDescifrado = null;
             using (HashAlgorithm hash = SHA256.Create())
             {
-                using var aesAlg = Aes.Create();
+                using Aes? aesAlg = Aes.Create();
                 aesAlg.Key = hash.ComputeHash(Encoding.UTF8.GetBytes(contraseña));
 
                 // Create a decryptor to perform the stream transform.
-                using var decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+                using ICryptoTransform? decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
                 // Create the streams used for decryption.
-                using var msDecrypt = new MemoryStream(textoCifrado);
-                using var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read);
-                using var srDecrypt = new StreamReader(csDecrypt);
+                using MemoryStream? msDecrypt = new(textoCifrado);
+                using CryptoStream? csDecrypt = new(msDecrypt, decryptor, CryptoStreamMode.Read);
+                using StreamReader? srDecrypt = new(csDecrypt);
                 // Read the decrypted bytes from the decrypting stream
                 // and place them in a string.
                 textoDescifrado = srDecrypt.ReadToEnd();

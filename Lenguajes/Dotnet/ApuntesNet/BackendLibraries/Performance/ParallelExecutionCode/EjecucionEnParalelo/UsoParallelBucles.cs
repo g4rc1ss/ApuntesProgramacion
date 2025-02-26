@@ -10,15 +10,16 @@ internal class UsoParallelBucles
 
     public void BucleForEach()
     {
-        var listas = new List<string> {
+        List<string>? listas =
+        [
             "Hola",
             "Yo",
             "Me",
             "Llamo",
-            "Ralph",
-        };
+            "Ralph"
+        ];
 
-        var option = new ParallelOptions
+        ParallelOptions? option = new()
         {
             MaxDegreeOfParallelism = 2
         };

@@ -6,28 +6,28 @@ using DeferredExecutionYield.YieldEnumerator;
 
 
 
-var yieldEnumerable = new YieldExecution().GetEnumerableWithYield();
-var asyncYield = new YieldExecution().GetAsyncEnumerableWithYieldAsync();
+IEnumerable<int>? yieldEnumerable = new YieldExecution().GetEnumerableWithYield();
+IAsyncEnumerable<int>? asyncYield = new YieldExecution().GetAsyncEnumerableWithYieldAsync();
 
-foreach (var item in yieldEnumerable)
+foreach (int item in yieldEnumerable)
 {
 }
 
 
-await foreach (var item in asyncYield)
+await foreach (int item in asyncYield)
 {
 }
 
-var enumerableExplicito = new ExplicitEnumerable();
-var enumerableAsincronoExplicito = new ExplicitAsyncEnumerable();
+ExplicitEnumerable? enumerableExplicito = new();
+ExplicitAsyncEnumerable? enumerableAsincronoExplicito = new();
 
 
-foreach (var item in enumerableExplicito)
+foreach (int item in enumerableExplicito)
 {
 
 }
 
-await foreach (var item in enumerableAsincronoExplicito)
+await foreach (int item in enumerableAsincronoExplicito)
 {
 
 }

@@ -24,30 +24,30 @@ public class UserController(IOptions<JwtConfig> jwtConfig) : Controller
     [HttpPost("Login")]
     public IActionResult Login(LoginRequest loginRequest)
     {
-        var comprobamosLaPasswordEnBaseDeDatos = true;
+        bool comprobamosLaPasswordEnBaseDeDatos = true;
 
         if (comprobamosLaPasswordEnBaseDeDatos)
         {
-            var authClaims = new List<Claim>
-            {
+            List<Claim>? authClaims =
+            [
                 new(ClaimTypes.Name, loginRequest.UserName),
-                new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            };
+                new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            ];
 
             //foreach (var userRole in userRoles)
             //{
             //    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
             //}
 
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtConfig.SignInKey));
+            SymmetricSecurityKey? authSigningKey = new(Encoding.UTF8.GetBytes(_jwtConfig.SignInKey));
 
-            var token = new JwtSecurityToken(
+            JwtSecurityToken? token = new(
                 issuer: _jwtConfig.Issuer,
                 audience: _jwtConfig.Audience,
                 expires: DateTime.Now.AddMinutes(10),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-                );
+            );
 
             return Json(new
             {
@@ -63,18 +63,12 @@ public class UserController(IOptions<JwtConfig> jwtConfig) : Controller
     [HttpGet("GetUsers")]
     public async Task<IActionResult> GetUsers()
     {
-        var usuarios = new List<UserResponse>
-        {
-            new() {
-                Id = 0,
-                UserName = "usuario1"
-            },
-            new() {
-                Id = 1,
-                UserName = "usuario2",
-            }
-        };
-        var obtenerJson = Json(usuarios);
+        List<UserResponse>? usuarios =
+        [
+            new() { Id = 0, UserName = "usuario1" },
+            new() { Id = 1, UserName = "usuario2", }
+        ];
+        JsonResult? obtenerJson = Json(usuarios);
         return await Task.FromResult(obtenerJson);
     }
 }

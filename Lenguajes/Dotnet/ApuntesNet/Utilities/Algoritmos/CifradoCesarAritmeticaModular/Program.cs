@@ -31,13 +31,13 @@ List<char> letrasSustitucion =
     'Z'
 ];
 
-var frase = "Hola esta es la frase que va a ser encriptada con cifrado cesar abcdefghijklmnopqrstuvwxyz";
+string? frase = "Hola esta es la frase que va a ser encriptada con cifrado cesar abcdefghijklmnopqrstuvwxyz";
 Console.WriteLine(frase);
 
-var fraseCifrada = CifrarFraseCesar(frase);
+string? fraseCifrada = CifrarFraseCesar(frase);
 Console.WriteLine(fraseCifrada);
 
-var fraseDescifrada = DescifrarFrase(fraseCifrada);
+string? fraseDescifrada = DescifrarFrase(fraseCifrada);
 Console.WriteLine(fraseDescifrada);
 
 
@@ -45,12 +45,12 @@ Console.WriteLine(fraseDescifrada);
 string CifrarFraseCesar(string frase)
 {
     frase = frase.ToUpper();
-    var cifrarFrase = new StringBuilder();
-    for (var i = 0; i < frase.Length; i++)
+    StringBuilder? cifrarFrase = new();
+    for (int i = 0; i < frase.Length; i++)
     {
         if (letrasSustitucion.Contains(frase[i]))
         {
-            var letraToAdd = (letrasSustitucion.IndexOf(frase[i]) + NUM_SUSTITUCION) % letrasSustitucion.Count;
+            int letraToAdd = (letrasSustitucion.IndexOf(frase[i]) + NUM_SUSTITUCION) % letrasSustitucion.Count;
             cifrarFrase.Append(letrasSustitucion[letraToAdd]);
         }
         else
@@ -64,12 +64,12 @@ string CifrarFraseCesar(string frase)
 string DescifrarFrase(string frase)
 {
     frase = frase.ToUpper();
-    var descifrarFrase = new StringBuilder();
-    for (var i = 0; i < frase.Length; i++)
+    StringBuilder? descifrarFrase = new();
+    for (int i = 0; i < frase.Length; i++)
     {
         if (letrasSustitucion.Contains(frase[i]))
         {
-            var diccionarioDescifrados = CrearDiccionarioDescifrado(NUM_SUSTITUCION);
+            Dictionary<char, char>? diccionarioDescifrados = CrearDiccionarioDescifrado(NUM_SUSTITUCION);
             descifrarFrase.Append(diccionarioDescifrados[frase[i]]);
         }
         else
@@ -82,11 +82,11 @@ string DescifrarFrase(string frase)
 
 Dictionary<char, char> CrearDiccionarioDescifrado(int clave)
 {
-    var diccionario = new Dictionary<char, char>();
-    for (var i = 0; i < letrasSustitucion.Count; i++)
+    Dictionary<char, char>? diccionario = [];
+    for (int i = 0; i < letrasSustitucion.Count; i++)
     {
-        var index = i - clave;
-        var valor = index < 0 ? letrasSustitucion.Count - Math.Abs(index) : index;
+        int index = i - clave;
+        int valor = index < 0 ? letrasSustitucion.Count - Math.Abs(index) : index;
         diccionario.Add(letrasSustitucion[i], letrasSustitucion[valor]);
     }
     return diccionario;

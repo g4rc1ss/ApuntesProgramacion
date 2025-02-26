@@ -4,7 +4,7 @@ using IdentityServerCookie.Database.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -25,7 +25,7 @@ builder.Services.ConfigureApplicationCookie(cookieConf =>
 
 });
 
-var app = builder.Build();
+WebApplication? app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -49,19 +49,19 @@ app.MapControllerRoute(
 
 
 // Init Database
-using var scope = app.Services.CreateScope();
-var contexto = scope.ServiceProvider.GetRequiredService<IdentityContext>();
+using IServiceScope? scope = app.Services.CreateScope();
+IdentityContext? contexto = scope.ServiceProvider.GetRequiredService<IdentityContext>();
 await contexto.Database.EnsureDeletedAsync();
 await contexto.Database.MigrateAsync();
 
-var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
+RoleManager<Role>? roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
 await roleManager.CreateAsync(new Role
 {
     Name = "Usuario"
 });
 
-var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
-var usuario = new User
+UserManager<User>? userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+User? usuario = new()
 {
     UserName = "usuario",
     Email = "hola@hola.es",

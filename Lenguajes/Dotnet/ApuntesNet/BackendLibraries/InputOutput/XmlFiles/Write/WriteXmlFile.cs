@@ -6,28 +6,28 @@ internal class WriteXmlFile
 {
     public WriteXmlFile(string nombreArchivo)
     {
-        var document = new XmlDocument();
+        XmlDocument? document = new();
 
-        var xmlDeclaration = document.CreateXmlDeclaration("1.0", "UTF-8", null);
-        var elementRoot = document.DocumentElement;
+        XmlDeclaration? xmlDeclaration = document.CreateXmlDeclaration("1.0", "UTF-8", null);
+        XmlElement? elementRoot = document.DocumentElement;
         document.InsertBefore(xmlDeclaration, elementRoot);
 
-        var empresa = document.CreateElement(string.Empty, "empresa", string.Empty);
+        XmlElement? empresa = document.CreateElement(string.Empty, "empresa", string.Empty);
         document.AppendChild(empresa);
 
-        for (var x = 1; x < 4; x++)
+        for (int x = 1; x < 4; x++)
         {
-            var empleado = document.CreateElement(string.Empty, "empleado", string.Empty);
+            XmlElement? empleado = document.CreateElement(string.Empty, "empleado", string.Empty);
             empleado.SetAttribute("id", $"{x}");
             empresa.AppendChild(empleado);
 
-            var nombre = document.CreateElement(string.Empty, "nombre", string.Empty);
-            var textName = document.CreateTextNode($"Empleado {x}");
+            XmlElement? nombre = document.CreateElement(string.Empty, "nombre", string.Empty);
+            XmlText? textName = document.CreateTextNode($"Empleado {x}");
             nombre.AppendChild(textName);
             empleado.AppendChild(nombre);
 
-            var status = document.CreateElement(string.Empty, "status", string.Empty);
-            var textStatus = document.CreateTextNode("activo");
+            XmlElement? status = document.CreateElement(string.Empty, "status", string.Empty);
+            XmlText? textStatus = document.CreateTextNode("activo");
             status.AppendChild(textStatus);
             empleado.AppendChild(status);
         }

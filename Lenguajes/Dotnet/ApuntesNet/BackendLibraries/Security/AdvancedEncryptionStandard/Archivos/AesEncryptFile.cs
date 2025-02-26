@@ -14,7 +14,7 @@ public class AesEncryptFile
         {
             if (!File.Exists(_archivoAES_TXT))
             {
-                var archivoEscritura = File.CreateText(_archivoAES_TXT);
+                StreamWriter? archivoEscritura = File.CreateText(_archivoAES_TXT);
                 archivoEscritura.Write("Esto es una prueba de escritura en un archivo de " +
                     "texto. \n" +
                    "Siguiente Linea jajajaja");
@@ -22,17 +22,17 @@ public class AesEncryptFile
             }
 
             Console.WriteLine("Escribe la contraseña");
-            var contraseña = Console.ReadLine();
+            string? contraseña = Console.ReadLine();
 
             using (HashAlgorithm hash = SHA256.Create())
             {
-                using var aesAlg = Aes.Create();
+                using Aes? aesAlg = Aes.Create();
                 aesAlg.Key = hash.ComputeHash(Encoding.UTF8.GetBytes(contraseña));
 
-                using var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
-                using var fileStreamOutput = new FileStream(_archivoAES_TXT_Cifrado, FileMode.OpenOrCreate, FileAccess.Write);
-                using var cryptStream = new CryptoStream(fileStreamOutput, encryptor, CryptoStreamMode.Write);
-                using var fileStreamInput = new FileStream(_archivoAES_TXT, FileMode.Open, FileAccess.Read);
+                using ICryptoTransform? encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+                using FileStream? fileStreamOutput = new(_archivoAES_TXT_Cifrado, FileMode.OpenOrCreate, FileAccess.Write);
+                using CryptoStream? cryptStream = new(fileStreamOutput, encryptor, CryptoStreamMode.Write);
+                using FileStream? fileStreamInput = new(_archivoAES_TXT, FileMode.Open, FileAccess.Read);
                 for (int data; (data = fileStreamInput.ReadByte()) != -1;)
                 {
                     cryptStream.WriteByte((byte)data);

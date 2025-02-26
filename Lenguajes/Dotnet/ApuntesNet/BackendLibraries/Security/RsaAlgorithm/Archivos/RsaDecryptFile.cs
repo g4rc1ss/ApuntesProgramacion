@@ -13,18 +13,18 @@ public class RsaDecryptFile
         try
         {
             // Instanciamos el algorimo asimétrico RSA
-            using var rsaCrypt = RSA.Create();
+            using RSA? rsaCrypt = RSA.Create();
             // Establecemos la longitud de la clave que queremos usar
             rsaCrypt.KeySize = 4096;
 
-            rsaCrypt.ImportRSAPublicKey(File.ReadAllBytes("public.key"), out var publicKey);
-            rsaCrypt.ImportRSAPrivateKey(File.ReadAllBytes("private.key"), out var privateKey);
+            rsaCrypt.ImportRSAPublicKey(File.ReadAllBytes("public.key"), out int publicKey);
+            rsaCrypt.ImportRSAPrivateKey(File.ReadAllBytes("private.key"), out int privateKey);
 
             // Desencriptamos el mensaje
-            var mensajeDescifrado = rsaCrypt.Decrypt(File.ReadAllBytes(_archivoRSA_CRYPT), RSAEncryptionPadding.Pkcs1);
-            var mensajeOriginal = Encoding.Default.GetString(mensajeDescifrado);
+            byte[]? mensajeDescifrado = rsaCrypt.Decrypt(File.ReadAllBytes(_archivoRSA_CRYPT), RSAEncryptionPadding.Pkcs1);
+            string? mensajeOriginal = Encoding.Default.GetString(mensajeDescifrado);
 
-            using (var archivoEscritura = File.CreateText(_archivoRSA_TXT))
+            using (StreamWriter? archivoEscritura = File.CreateText(_archivoRSA_TXT))
             {
                 archivoEscritura.Write(mensajeOriginal);
             }

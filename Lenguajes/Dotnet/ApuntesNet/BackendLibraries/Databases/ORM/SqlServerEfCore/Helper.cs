@@ -13,7 +13,7 @@ internal class Helper
 {
     public static IServiceProvider CreateDependencyInjection()
     {
-        var builder = Host.CreateDefaultBuilder();
+        IHostBuilder? builder = Host.CreateDefaultBuilder();
         builder.ConfigureAppConfiguration(config =>
         {
 

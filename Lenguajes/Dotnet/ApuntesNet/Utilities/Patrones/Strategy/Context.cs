@@ -29,10 +29,10 @@ internal class Context
     public void DoSomeBusinessLogic()
     {
         Console.WriteLine("Context: Sorting data using the strategy (not sure how it'll do it)");
-        var result = strategy.DoAlgorithm(new List<string> { "a", "b", "c", "d", "e" });
+        object? result = strategy.DoAlgorithm(new List<string> { "a", "b", "c", "d", "e" });
 
-        var resultStr = string.Empty;
-        foreach (var element in result as List<string>)
+        string? resultStr = string.Empty;
+        foreach (string? element in result as List<string>)
         {
             resultStr += element + ",";
         }

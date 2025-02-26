@@ -6,14 +6,14 @@ internal class ReadXmlWithXpath
 {
     public ReadXmlWithXpath(string nombreArchivo)
     {
-        var document = new XPathDocument(nombreArchivo);
-        var navigator = document.CreateNavigator();
+        XPathDocument? document = new(nombreArchivo);
+        XPathNavigator? navigator = document.CreateNavigator();
 
-        var nodes = navigator.Select("/empresa");
+        XPathNodeIterator? nodes = navigator.Select("/empresa");
         nodes.MoveNext();
-        var nodesNavigator = nodes.Current;
+        XPathNavigator? nodesNavigator = nodes.Current;
 
-        var nodesText = nodesNavigator.SelectDescendants(XPathNodeType.Element, false);
+        XPathNodeIterator? nodesText = nodesNavigator.SelectDescendants(XPathNodeType.Element, false);
 
         while (nodesText.MoveNext())
         {

@@ -6,13 +6,13 @@ internal class DeleteMysql
 {
     public DeleteMysql(string connectionString)
     {
-        using var connection = new MySqlConnection(connectionString);
+        using MySqlConnection? connection = new(connectionString);
         try
         {
             connection.Open();
-            var delete = "DELETE FROM `AdoNetMySqlDatabase`.`Empleado` WHERE (`ID` = '2')";
-            using var comandoDelete = new MySqlCommand(delete, connection);
-            var numeroCambios = comandoDelete.ExecuteNonQuery();
+            string? delete = "DELETE FROM `AdoNetMySqlDatabase`.`Empleado` WHERE (`ID` = '2')";
+            using MySqlCommand? comandoDelete = new(delete, connection);
+            int numeroCambios = comandoDelete.ExecuteNonQuery();
             Console.WriteLine($"Rows cambiadas: {numeroCambios}");
         }
         finally

@@ -1,4 +1,4 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddAuthentication("Cookies").AddCookie(option => option.Cookie = new CookieBuilder
@@ -12,14 +12,14 @@ builder.Services.AddAuthentication("Cookies").AddCookie(option => option.Cookie 
 
 });
 
-var razorPages = builder.Services.AddRazorPages();
+IMvcBuilder? razorPages = builder.Services.AddRazorPages();
 
 if (builder.Environment.IsDevelopment())
 {
     razorPages.AddRazorRuntimeCompilation();
 }
 
-var app = builder.Build();
+WebApplication? app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

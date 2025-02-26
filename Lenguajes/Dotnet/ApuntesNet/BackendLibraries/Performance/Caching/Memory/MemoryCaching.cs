@@ -18,15 +18,15 @@ internal class MemoryCaching
 
     public void MemoryCacheWithDI()
     {
-        var memoryCache = _serviceProvider.GetRequiredService<IMemoryCache>();
+        IMemoryCache? memoryCache = _serviceProvider.GetRequiredService<IMemoryCache>();
 
-        var timeStart = DateTime.Now.TimeOfDay;
+        TimeSpan timeStart = DateTime.Now.TimeOfDay;
         Console.WriteLine($"Obtenemos la lista {timeStart}");
         memoryCache.Set(ObjectsToCaching.cacheKey, ObjectsToCaching.listToCache, TimeSpan.FromMinutes(1));
 
         Console.WriteLine($"Obtenemos la lista {DateTime.Now.TimeOfDay}");
 
-        if (memoryCache.TryGetValue<IEnumerable<int>>(ObjectsToCaching.cacheKey, out var listaCacheRecuperada))
+        if (memoryCache.TryGetValue<IEnumerable<int>>(ObjectsToCaching.cacheKey, out IEnumerable<int>? listaCacheRecuperada))
         {
             listaCacheRecuperada.Select(x =>
             {

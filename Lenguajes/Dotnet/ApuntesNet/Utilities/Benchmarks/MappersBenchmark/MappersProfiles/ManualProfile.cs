@@ -14,7 +14,7 @@ public static class ManualProfile
             Message = chat.Message,
             FromUser = chat.UserIdFromNavigation.ToUserModelEntity(),
             ToUser = chat.UserIdToNavigation.ToUserModelEntity(),
-            Properties = chat.PropiedadesNavigation.Select(x => x.ToPropertyModelEntity()).ToList(),
+            Properties = [.. chat.PropiedadesNavigation.Select(x => x.ToPropertyModelEntity())],
         };
     }
 

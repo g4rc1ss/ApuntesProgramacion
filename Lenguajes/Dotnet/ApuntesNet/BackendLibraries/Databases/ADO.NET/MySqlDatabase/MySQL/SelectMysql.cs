@@ -6,15 +6,15 @@ internal class SelectMysql
 {
     public SelectMysql(string connectionString)
     {
-        using var connection = new MySqlConnection(connectionString);
+        using MySqlConnection? connection = new(connectionString);
         try
         {
             connection.Open();
-            var select = "SELECT * FROM Empleado";
+            string? select = "SELECT * FROM Empleado";
 
             // Ejecutamos una select y leemos los datos
-            using var comandoSelect = new MySqlCommand(select, connection);
-            using var leerSelect = comandoSelect.ExecuteReader();
+            using MySqlCommand? comandoSelect = new(select, connection);
+            using MySqlDataReader? leerSelect = comandoSelect.ExecuteReader();
 
             // Leemos el array, cada posicion es el numero de columna por indice
             while (leerSelect.Read())

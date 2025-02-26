@@ -12,7 +12,7 @@ public class ClaseInteractuaRust
 
     public async Task EjecutarDllAsync(CancellationToken cancellationToken = default)
     {
-        var taskCompletionSource = new TaskCompletionSource<int>(TaskCreationOptions.RunContinuationsAsynchronously);
+        TaskCompletionSource<int>? taskCompletionSource = new(TaskCreationOptions.RunContinuationsAsynchronously);
 
         void Callback(int response)
         {
@@ -20,15 +20,17 @@ public class ClaseInteractuaRust
             {
                 taskCompletionSource.SetException(new Exception("No se puede insertar el resultado"));
             }
+
             Console.WriteLine(response);
-        };
+        }
 
         Console.WriteLine($"Hilo de Csharp antes de llamar a la libreria {Thread.CurrentThread.ManagedThreadId}");
         prueba_callback(Callback);
 
-        using (cancellationToken.UnsafeRegister(static (task, ct) => ((TaskCompletionSource)task!).TrySetCanceled(ct), taskCompletionSource))
+        await using (cancellationToken.UnsafeRegister(
+                         static (task, ct) => ((TaskCompletionSource)task!).TrySetCanceled(ct), taskCompletionSource))
         {
-            var stopwatch = Stopwatch.StartNew();
+            Stopwatch? stopwatch = Stopwatch.StartNew();
             await taskCompletionSource.Task;
             stopwatch.Stop();
             Console.WriteLine($"Hilo de Csharp despues de esperar con await {Thread.CurrentThread.ManagedThreadId}");

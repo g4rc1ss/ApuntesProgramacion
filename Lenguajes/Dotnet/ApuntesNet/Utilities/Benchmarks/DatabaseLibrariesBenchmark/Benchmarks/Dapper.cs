@@ -23,13 +23,13 @@ public partial class DatabaseFrameworksPerformance
     public void DapperSelectSingleQuery()
     {
         Step();
-        var sql = @"
+        string? sql = @"
 SELECT * 
 FROM BenchmarkingDatabases.WeatherForecast
 Where Id = @id
 LIMIT 0, 1
 ";
 
-        var result = _dbConnection.QuerySingle<WeatherForecast>(sql, new { Id = id });
+        WeatherForecast? result = _dbConnection.QuerySingle<WeatherForecast>(sql, new { Id = id });
     }
 }

@@ -39,7 +39,7 @@ public class Hotp : Otp
     public static string GeneraHotp(long contador, string claveSecreta, int otpSize = 6,
         OtpHashMode hashMode = OtpHashMode.SHA1)
     {
-        var key = Base32Encoding.Standard.ToBytes(claveSecreta);
+        byte[]? key = Base32Encoding.Standard.ToBytes(claveSecreta);
 
         ValidaParametrosEntrada(key, otpSize);
 
@@ -60,7 +60,7 @@ public class Hotp : Otp
     public static bool ValidaHotp(long contador, string hotp, string claveSecreta, int otpSize = 6,
         OtpHashMode hashMode = OtpHashMode.SHA1)
     {
-        var secretKey = Base32Encoding.Standard.ToBytes(claveSecreta);
+        byte[]? secretKey = Base32Encoding.Standard.ToBytes(claveSecreta);
 
         ValidaParametrosEntrada(secretKey, otpSize);
 

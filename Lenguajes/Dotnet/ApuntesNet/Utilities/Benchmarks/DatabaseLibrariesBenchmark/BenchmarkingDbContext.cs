@@ -10,7 +10,7 @@ internal class BenchmarkingDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var version = new MySqlServerVersion(MySqlServerVersion.LatestSupportedServerVersion);
+        MySqlServerVersion? version = new(MySqlServerVersion.LatestSupportedServerVersion);
         optionsBuilder.UseMySql(Helper.ConnectionString, version);
         base.OnConfiguring(optionsBuilder);
     }

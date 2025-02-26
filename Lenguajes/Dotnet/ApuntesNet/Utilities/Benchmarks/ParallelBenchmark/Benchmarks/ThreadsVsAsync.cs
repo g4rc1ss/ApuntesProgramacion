@@ -18,9 +18,9 @@ public class ThreadsVsAsync
     [Benchmark]
     public async Task ExecuteWithTaskAsync()
     {
-        var lista = new List<Task>();
+        List<Task>? lista = [];
 
-        foreach (var item in _lenght)
+        foreach (int item in _lenght)
         {
             lista.Add(FakerThreadVsAsync.ExecuteTask());
         }
@@ -31,7 +31,7 @@ public class ThreadsVsAsync
     [Benchmark]
     public async Task ExecuteAsyncWithAwaitSecuential()
     {
-        foreach (var item in _lenght)
+        foreach (int item in _lenght)
         {
             await FakerThreadVsAsync.ExecuteTask();
         }
@@ -40,9 +40,9 @@ public class ThreadsVsAsync
     [Benchmark]
     public async Task ExecuteWithAsyncBlocking()
     {
-        var lista = new List<Task>();
+        List<Task>? lista = [];
 
-        foreach (var item in _lenght)
+        foreach (int item in _lenght)
         {
             lista.Add(FakerThreadVsAsync.ExecuteTaskBlocking());
         }

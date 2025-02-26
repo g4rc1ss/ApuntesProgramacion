@@ -5,9 +5,9 @@ internal class CreateFile
     public CreateFile(params string[] archivosCrear)
     {
         // Creamos el archivo en la ruta correspondiente
-        foreach (var archivo in archivosCrear)
+        foreach (string? archivo in archivosCrear)
         {
-            using var file = File.Create(archivo);
+            using FileStream? file = File.Create(archivo);
             Console.WriteLine($"Archivo {archivo} creado");
         }
     }

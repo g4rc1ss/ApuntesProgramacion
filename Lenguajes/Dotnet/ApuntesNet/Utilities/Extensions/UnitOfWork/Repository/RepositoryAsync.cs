@@ -1,6 +1,7 @@
 ﻿using System.Linq.Expressions;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Query;
 
 using UnitOfWork.Repository.Interfaces;
@@ -32,7 +33,7 @@ internal class RepositoryAsync<T> : IRepositoryAsync<T> where T : class
         IQueryable<T> query;
         if (queryCustom == null)
         {
-            var sql = string.Empty;
+            string? sql = string.Empty;
             query = !string.IsNullOrEmpty(sql) ? _dbSet.FromSqlRaw(sql) : _dbSet;
         }
         else
@@ -64,7 +65,7 @@ internal class RepositoryAsync<T> : IRepositoryAsync<T> where T : class
 
     public async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
     {
-        var addEntity = await _dbSet.AddAsync(entity, cancellationToken);
+        EntityEntry<T>? addEntity = await _dbSet.AddAsync(entity, cancellationToken);
         return addEntity.Entity;
     }
 

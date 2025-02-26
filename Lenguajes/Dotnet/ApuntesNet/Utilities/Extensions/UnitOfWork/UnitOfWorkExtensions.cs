@@ -13,8 +13,8 @@ public static class UnitOfWorkExtensions
     /// <returns></returns>
     public static async Task<List<T>> GetListAsync<T>(this IAsyncEnumerable<T> enumerable)
     {
-        var buffer = new List<T>();
-        await foreach (var item in enumerable)
+        List<T>? buffer = [];
+        await foreach (T? item in enumerable)
         {
             buffer.Add(item);
         }

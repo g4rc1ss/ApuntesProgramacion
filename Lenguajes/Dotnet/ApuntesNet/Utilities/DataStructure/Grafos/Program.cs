@@ -1,12 +1,12 @@
 ﻿using Grafos;
 
-var graph = new GraphObject<string, string>();
+GraphObject<string, string>? graph = new();
 
 graph.Add("Hola", "adios");
 graph.Add("Hola", "buenas");
 
-var result = graph.Get("Hola");
-foreach (var data in result)
+IEnumerable<string>? result = graph.Get("Hola");
+foreach (string? data in result)
 {
     Console.WriteLine(data);
 }

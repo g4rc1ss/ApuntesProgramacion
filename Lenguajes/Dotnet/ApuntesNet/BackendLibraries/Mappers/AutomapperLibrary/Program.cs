@@ -3,9 +3,9 @@
 using Microsoft.Extensions.DependencyInjection;
 
 
-var serviceProvider = Helper.GetServiceProvider();
+IServiceProvider? serviceProvider = Helper.GetServiceProvider();
 
-var autoMapping = serviceProvider.GetRequiredService<AutoMappingClasses>();
+AutoMappingClasses? autoMapping = serviceProvider.GetRequiredService<AutoMappingClasses>();
 autoMapping.Mapping();
 
 

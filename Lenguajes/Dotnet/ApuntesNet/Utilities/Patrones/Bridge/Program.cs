@@ -1,7 +1,7 @@
 ﻿using Bridge;
 using Bridge.Implementacion;
 
-var client = new Client();
+Client? client = new();
 
 Abstraction abstraction;
 // Recibimos o creamos una clase de abstraccion con la implementacion correspondiente

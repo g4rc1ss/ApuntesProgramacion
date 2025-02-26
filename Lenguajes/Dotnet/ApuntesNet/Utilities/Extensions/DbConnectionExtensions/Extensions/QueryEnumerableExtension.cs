@@ -40,17 +40,17 @@ public static class QueryEnumerableExtension
     {
         using (dbConnection)
         {
-            using var connect = dbConnection.CreateCommand();
+            using DbCommand? connect = dbConnection.CreateCommand();
             connect.CommandText = sql;
             connect.CommandType = typeOfCommand;
 
-            foreach (var parameter in parameters)
+            foreach (DbParameter? parameter in parameters)
             {
                 connect.Parameters.Add(parameter);
             }
             dbConnection.Open();
 
-            using var rows = connect.ExecuteReader();
+            using DbDataReader? rows = connect.ExecuteReader();
 
             while (rows.Read())
             {

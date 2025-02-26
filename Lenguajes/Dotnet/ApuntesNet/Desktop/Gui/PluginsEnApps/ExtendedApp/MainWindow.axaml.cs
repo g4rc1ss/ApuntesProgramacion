@@ -21,13 +21,13 @@ public partial class MainWindow : Window
 
     private async void CargarPluginsCLick(System.Object sender, RoutedEventArgs e)
     {
-        var openFileDialog1 = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions());
-        var fullPath = openFileDialog1?.FirstOrDefault()?.Path.LocalPath;
-        var name = openFileDialog1?.FirstOrDefault()?.Name;
+        IReadOnlyList<IStorageFile>? openFileDialog1 = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions());
+        string? fullPath = openFileDialog1?.FirstOrDefault()?.Path.LocalPath;
+        string? name = openFileDialog1?.FirstOrDefault()?.Name;
         if (!string.IsNullOrEmpty(fullPath))
         {
-            var plugin = CreateInstanceForAssemblyPath(fullPath);
-            var pluginData = new DllData { Name = name, Path = fullPath };
+            IPlugin? plugin = CreateInstanceForAssemblyPath(fullPath);
+            DllData? pluginData = new() { Name = name, Path = fullPath };
 
             _dllData.Add(pluginData);
             ListaPlugins.ItemsView.Source.Add(pluginData);
@@ -40,7 +40,7 @@ public partial class MainWindow : Window
         {
             if (!string.IsNullOrEmpty(pluginData?.Path))
             {
-                var plugin = CreateInstanceForAssemblyPath(pluginData.Path);
+                IPlugin? plugin = CreateInstanceForAssemblyPath(pluginData.Path);
                 plugin.Execute();
 
                 if (plugin.ExportInterface.fullWindow)
@@ -60,8 +60,8 @@ public partial class MainWindow : Window
 
     private IPlugin CreateInstanceForAssemblyPath(string path)
     {
-        var plugin = Assembly.LoadFrom(path);
-        var pluginType = (
+        Assembly? plugin = Assembly.LoadFrom(path);
+        Type? pluginType = (
             from tipo in plugin.GetTypes()
             where tipo.GetInterface(nameof(IPlugin)) != null
             select tipo
@@ -77,7 +77,7 @@ public partial class MainWindow : Window
 
     private void LoadEventCall(object sender, EventArgs e)
     {
-        var itemToLoad = sender as ExportObject;
+        ExportObject? itemToLoad = sender as ExportObject;
         if (itemToLoad?.ObjectToExport is string export)
         {
             // await DisplayAlert("Plugin", export, "Cancel");

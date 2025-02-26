@@ -5,23 +5,23 @@ using HttpClientVsHttpClientFactory;
 using Microsoft.Extensions.DependencyInjection;
 
 
-var services = new ServiceCollection();
+ServiceCollection? services = new();
 services.AddTransient<PruebaHttpClientFactory>();
 services.AddTransient<PruebaUsingHttpClient>();
 services.AddTransient<PruebaHttpClient>();
 services.AddHttpClient();
 
-var serviceProvider = services.BuildServiceProvider();
+ServiceProvider? serviceProvider = services.BuildServiceProvider();
 
-var endpoint = "https://jsonplaceholder.typicode.com/posts/1";
+string? endpoint = "https://jsonplaceholder.typicode.com/posts/1";
 // Comprobar la IP, puede cambiar
-var ipEndpointToCheck = "172.64.164.25.443";
-var executeCommand = @$"-c ""netstat -an | awk '$5 == \""{ipEndpointToCheck}\""'""";
+string? ipEndpointToCheck = "172.64.164.25.443";
+string? executeCommand = @$"-c ""netstat -an | awk '$5 == \""{ipEndpointToCheck}\""'""";
 
 
-foreach (var item in Enumerable.Range(0, 10))
+foreach (int item in Enumerable.Range(0, 10))
 {
-    var httpClientFactory = serviceProvider.GetRequiredService<PruebaHttpClientFactory>();
+    PruebaHttpClientFactory? httpClientFactory = serviceProvider.GetRequiredService<PruebaHttpClientFactory>();
     await httpClientFactory.ExecutePrueba(endpoint);
 }
 Console.WriteLine("HttpClientFactory");
@@ -31,9 +31,9 @@ Process.Start("bash", executeCommand);
 Console.WriteLine("------------------------------------------------------------------------------------");
 
 
-foreach (var item in Enumerable.Range(0, 10))
+foreach (int item in Enumerable.Range(0, 10))
 {
-    var usingHttpClient = serviceProvider.GetRequiredService<PruebaUsingHttpClient>();
+    PruebaUsingHttpClient? usingHttpClient = serviceProvider.GetRequiredService<PruebaUsingHttpClient>();
     await usingHttpClient.ExecutePrueba(endpoint);
 }
 Console.WriteLine("Using HttpClient");
@@ -43,9 +43,9 @@ Process.Start("bash", executeCommand);
 Console.WriteLine("------------------------------------------------------------------------------------");
 
 
-foreach (var item in Enumerable.Range(0, 10))
+foreach (int item in Enumerable.Range(0, 10))
 {
-    var pruebaHttpClient = serviceProvider.GetRequiredService<PruebaHttpClient>();
+    PruebaHttpClient? pruebaHttpClient = serviceProvider.GetRequiredService<PruebaHttpClient>();
     await pruebaHttpClient.ExecutePrueba(endpoint);
 }
 Console.WriteLine("HttpClient In Ctor");

@@ -14,15 +14,15 @@ public class Bench
     [Benchmark]
     public void ModifyRecord()
     {
-        var benchmarkRecord = new BenchmarkRecord("Hola", 1, 200);
+        BenchmarkRecord? benchmarkRecord = new("Hola", 1, 200);
         _ = benchmarkRecord with { X = "Adios", Y = 50 };
     }
 
     [Benchmark]
     public void CloneRecord()
     {
-        var benchmarkRecord = new BenchmarkRecord("Hola", 1, 200);
-        var cloned = benchmarkRecord with { };
+        BenchmarkRecord? benchmarkRecord = new("Hola", 1, 200);
+        BenchmarkRecord? cloned = benchmarkRecord with { };
     }
 
     [Benchmark]
@@ -39,7 +39,7 @@ public class Bench
     {
         for (int i = 0; i < 100; i++)
         {
-            var benchmarkRecord = new BenchmarkRecord("Hola", 1, 200);
+            BenchmarkRecord? benchmarkRecord = new("Hola", 1, 200);
             _ = benchmarkRecord with { X = "Adios", Y = 50 };
         }
     }
@@ -49,8 +49,8 @@ public class Bench
     {
         for (int i = 0; i < 100; i++)
         {
-            var benchmarkRecord = new BenchmarkRecord("Hola", 1, 200);
-            var cloned = benchmarkRecord with { };
+            BenchmarkRecord? benchmarkRecord = new("Hola", 1, 200);
+            BenchmarkRecord? cloned = benchmarkRecord with { };
         }
     }
 
@@ -63,7 +63,7 @@ public class Bench
     [Benchmark]
     public void ModifyClass()
     {
-        var benchmarkClass = new BenchmarkClass { X = "Hola", Z = 200, Y = 1 };
+        BenchmarkClass? benchmarkClass = new() { X = "Hola", Z = 200, Y = 1 };
         benchmarkClass.X = "Adios";
         benchmarkClass.Y = 50;
     }
@@ -71,8 +71,8 @@ public class Bench
     [Benchmark]
     public void CloneClass()
     {
-        var benchmarkClass = new BenchmarkClass { X = "Hola", Z = 200, Y = 1 };
-        var cloned = new BenchmarkClass { X = benchmarkClass.X, Z = benchmarkClass.Z, Y = benchmarkClass.Y, };
+        BenchmarkClass? benchmarkClass = new() { X = "Hola", Z = 200, Y = 1 };
+        BenchmarkClass? cloned = new() { X = benchmarkClass.X, Z = benchmarkClass.Z, Y = benchmarkClass.Y, };
     }
 
     [Benchmark]
@@ -89,7 +89,7 @@ public class Bench
     {
         for (int i = 0; i < 100; i++)
         {
-            var benchmarkClass = new BenchmarkClass { X = "Hola", Z = 200, Y = 1 };
+            BenchmarkClass? benchmarkClass = new() { X = "Hola", Z = 200, Y = 1 };
             benchmarkClass.X = "Adios";
             benchmarkClass.Y = 50;
         }
@@ -100,8 +100,8 @@ public class Bench
     {
         for (int i = 0; i < 100; i++)
         {
-            var benchmarkClass = new BenchmarkClass { X = "Hola", Z = 200, Y = 1 };
-            var cloned = new BenchmarkClass { X = benchmarkClass.X, Z = benchmarkClass.Z, Y = benchmarkClass.Y, };
+            BenchmarkClass? benchmarkClass = new() { X = "Hola", Z = 200, Y = 1 };
+            BenchmarkClass? cloned = new() { X = benchmarkClass.X, Z = benchmarkClass.Z, Y = benchmarkClass.Y, };
         }
     }
 }

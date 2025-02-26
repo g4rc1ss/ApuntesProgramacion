@@ -1,7 +1,7 @@
 ﻿// The client code.
 using State;
 
-var context = new Context(new ConcreteStateA());
+Context? context = new(new ConcreteStateA());
 context.Request1();
 context.Request2();
 

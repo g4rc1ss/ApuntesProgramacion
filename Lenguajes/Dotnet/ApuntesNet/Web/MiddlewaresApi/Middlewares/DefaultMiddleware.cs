@@ -6,8 +6,8 @@ public class DefaultMiddleware(ILogger<DefaultMiddleware> logger) : IMiddleware
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         // Lo que se ejecuta antes de la resolucion de la request
-        using var memoryStream = new MemoryStream();
-        var original = context.Response.Body;
+        using MemoryStream? memoryStream = new();
+        Stream? original = context.Response.Body;
 
         context.Response.Body = memoryStream;
         logger.LogInformation($"Request Path {context.Request.Path.Value}");
@@ -17,7 +17,7 @@ public class DefaultMiddleware(ILogger<DefaultMiddleware> logger) : IMiddleware
 
         // Lo que se ejecuta despues de la resolucion de la request
         memoryStream.Seek(0, SeekOrigin.Begin);
-        var data = await new StreamReader(context.Response.Body).ReadToEndAsync();
+        string? data = await new StreamReader(context.Response.Body).ReadToEndAsync();
         memoryStream.Seek(0, SeekOrigin.Begin);
 
         logger.LogInformation($"Datos del Response {data}");

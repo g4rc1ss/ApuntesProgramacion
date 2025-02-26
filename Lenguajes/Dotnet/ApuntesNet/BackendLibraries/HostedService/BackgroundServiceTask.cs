@@ -9,7 +9,7 @@ public class BackgroundServiceTask(IServicioInyectado servicioInyectado) : Backg
         while (!stoppingToken.IsCancellationRequested)
         {
             Console.WriteLine("Este es el metodo de Start");
-            var counter = await servicioInyectado.ExecuteAsync(stoppingToken);
+            int counter = await servicioInyectado.ExecuteAsync(stoppingToken);
             Console.WriteLine(counter);
             await Task.Delay(1100, stoppingToken);
         }

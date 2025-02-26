@@ -8,10 +8,10 @@ public static class UnsafeWithPointers
         // Siguen siendo gestionados por el runtime y el GC
         unsafe
         {
-            var value = 42;
+            int value = 42;
 
             // Obtenemos el puntero de la variable creada y asignada por el runtime
-            var ptr = &value;
+            int* ptr = &value;
 
             // Desreferenciamos el puntero(Accedemos al valor)
             Console.WriteLine(*ptr);

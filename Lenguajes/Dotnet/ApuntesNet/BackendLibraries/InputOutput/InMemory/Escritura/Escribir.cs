@@ -6,14 +6,14 @@ internal class Escribir
 {
     internal static async Task<MemoryStream> Write()
     {
-        var firstString = new UnicodeEncoding().GetBytes("Texto a convertir en bytes");
-        var secondString = new UnicodeEncoding().GetBytes("Texto a agregar");
+        byte[]? firstString = new UnicodeEncoding().GetBytes("Texto a convertir en bytes");
+        byte[]? secondString = new UnicodeEncoding().GetBytes("Texto a agregar");
 
-        var memoryStream = new MemoryStream();
+        MemoryStream? memoryStream = new();
 
         await memoryStream.WriteAsync(firstString);
 
-        foreach (var item in secondString)
+        foreach (byte item in secondString)
         {
             memoryStream.WriteByte(item);
         }

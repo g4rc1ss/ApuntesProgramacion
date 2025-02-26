@@ -171,7 +171,7 @@ public class Base32Test
     [Fact]
     public void Base32TestComplex1RandomEncodeDecode()
     {
-        var input = Path.GetRandomFileName();
+        string? input = Path.GetRandomFileName();
         Assert.Equal(input, Decode(Encode(input)));
     }
 

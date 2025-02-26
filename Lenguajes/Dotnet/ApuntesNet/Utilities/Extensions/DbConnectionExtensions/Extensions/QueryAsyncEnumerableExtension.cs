@@ -40,17 +40,17 @@ public static class QueryAsyncEnumerableExtension
     {
         using (dbConnection)
         {
-            using var connect = dbConnection.CreateCommand();
+            using DbCommand? connect = dbConnection.CreateCommand();
             connect.CommandText = sql;
             connect.CommandType = typeOfCommand;
 
-            foreach (var parameter in parameters)
+            foreach (DbParameter? parameter in parameters)
             {
                 connect.Parameters.Add(parameter);
             }
             await dbConnection.OpenAsync();
 
-            using var rows = await connect.ExecuteReaderAsync();
+            using DbDataReader? rows = await connect.ExecuteReaderAsync();
 
             while (await rows.ReadAsync())
             {

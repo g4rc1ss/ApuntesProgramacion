@@ -41,7 +41,7 @@ public class StackCollection<T> : IEnumerable<T>
 
     public T Pop()
     {
-        var value = collection[index];
+        T? value = collection[index];
         Array.Resize(ref collection, collection.Length - 1);
         index--;
         return value;

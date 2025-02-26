@@ -9,8 +9,8 @@
  * 
  */
 
-var component1 = new Component1();
-var component2 = new Component2();
+Component1? component1 = new();
+Component2? component2 = new();
 new ConcreteMediator(component1, component2);
 
 Console.WriteLine("Client triggets operation A.");

@@ -14,9 +14,9 @@ internal class SelectData(IDbConnection dbConnection)
 
     internal async Task SelectDataQueryAsync()
     {
-        var sqlPueblo = @$"SELECT Id as {nameof(Pueblo.IdPueblo)}
+        string? sqlPueblo = @$"SELECT Id as {nameof(Pueblo.IdPueblo)}
                                     ,Nombre as {nameof(Pueblo.NombrePueblo)}
                                 FROM {nameof(Pueblo)}";
-        var respuestaPueblo = await dbConnection.QueryAsync<Pueblo>(sqlPueblo);
+        IEnumerable<Pueblo>? respuestaPueblo = await dbConnection.QueryAsync<Pueblo>(sqlPueblo);
     }
 }

@@ -7,7 +7,7 @@
 // 0b00010 CREATE
 // 0b10000 ADMIN
 // 0b10011 Resultado con los bits activos(1)
-var permission = PermissionWithBitWise.View | PermissionWithBitWise.Create | PermissionWithBitWise.IsAdmin;
+PermissionWithBitWise permission = PermissionWithBitWise.View | PermissionWithBitWise.Create | PermissionWithBitWise.IsAdmin;
 Console.WriteLine(permission);
 
 // Eliminando el permiso IsAdmin

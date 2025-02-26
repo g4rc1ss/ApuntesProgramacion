@@ -2,12 +2,12 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
-var services = new ServiceCollection();
+ServiceCollection? services = new();
 
 services.AddTransient<IServicioInyectado, ServicioInyectado>();
 
-var serviceProvider = services.BuildServiceProvider();
+ServiceProvider? serviceProvider = services.BuildServiceProvider();
 
-var servicio = serviceProvider.GetRequiredService<IServicioInyectado>();
+IServicioInyectado? servicio = serviceProvider.GetRequiredService<IServicioInyectado>();
 
 await servicio.ExecuteAsync();

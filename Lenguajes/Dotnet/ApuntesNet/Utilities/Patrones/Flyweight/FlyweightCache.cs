@@ -11,7 +11,7 @@ internal static class FlyweightCache
 
     public static bool TryGetValue<T>(string id, out T value)
     {
-        var hasValue = Cache.TryGetValue(id, out var objectValue);
+        bool hasValue = Cache.TryGetValue(id, out object? objectValue);
         value = (T)objectValue;
         return hasValue;
     }

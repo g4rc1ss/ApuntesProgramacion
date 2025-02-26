@@ -35,11 +35,11 @@ public static class ExecuteCommandExtension
     {
         using (dbConnection)
         {
-            using var connect = dbConnection.CreateCommand();
+            using DbCommand? connect = dbConnection.CreateCommand();
             connect.CommandText = sql;
             connect.CommandType = typeOfCommand;
 
-            foreach (var parameter in parameters)
+            foreach (DbParameter? parameter in parameters)
             {
                 connect.Parameters.Add(parameter);
             }

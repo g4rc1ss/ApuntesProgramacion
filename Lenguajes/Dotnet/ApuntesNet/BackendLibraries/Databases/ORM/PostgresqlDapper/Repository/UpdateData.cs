@@ -15,7 +15,7 @@ internal class UpdateData(IDbConnection dbConnection)
     internal async Task UpdateDataQueryAsync()
     {
 
-        var updatePueblo = @$"
+        string? updatePueblo = @$"
 UPDATE {nameof(Pueblo)}
 SET nombre = 'Bilbao'
 WHERE Id = @idPueblo;
@@ -25,7 +25,7 @@ SET nombre = 'Ramon'
 WHERE Id = @idUsuario
 ";
 
-        var nChanges = await _dbConnection.ExecuteAsync(updatePueblo, new
+        int nChanges = await _dbConnection.ExecuteAsync(updatePueblo, new
         {
             idPueblo = 1,
             idUsuario = 4,

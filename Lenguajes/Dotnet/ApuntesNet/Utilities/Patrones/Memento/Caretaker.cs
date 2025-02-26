@@ -23,7 +23,7 @@ internal class Caretaker(Originator originator)
             return;
         }
 
-        var memento = _mementos.Last();
+        IMemento? memento = _mementos.Last();
         _mementos.Remove(memento);
 
         Console.WriteLine("Caretaker: Restoring state to: " + memento.GetName());
@@ -42,7 +42,7 @@ internal class Caretaker(Originator originator)
     {
         Console.WriteLine("Caretaker: Here's the list of mementos:");
 
-        foreach (var memento in _mementos)
+        foreach (IMemento? memento in _mementos)
         {
             Console.WriteLine(memento.GetName());
         }

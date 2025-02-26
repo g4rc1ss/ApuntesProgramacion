@@ -11,7 +11,7 @@ internal class PatronBuilder : IPatronBuilder
 
     public string Build()
     {
-        var query = new StringBuilder();
+        StringBuilder? query = new();
 
         query.AppendLine($"SELECT {(!string.IsNullOrEmpty(Select) ? Select : "*")}");
         query.AppendLine($"FROM {From}");

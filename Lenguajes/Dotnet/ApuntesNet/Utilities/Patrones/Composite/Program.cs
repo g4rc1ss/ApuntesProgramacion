@@ -10,12 +10,12 @@
  */
 
 // 
-var articulosNormal = new ArticulosServicio(new Logging());
+ArticulosServicio? articulosNormal = new(new Logging());
 articulosNormal.ConsultarArticulo("fbvgriouhip");
 articulosNormal.GuardarArticulo("kjncbhrvhgr", "fnbherkg");
 
 // 
-var articulos = new ArticulosServicio(new PatronComposite());
+ArticulosServicio? articulos = new(new PatronComposite());
 articulos.ConsultarArticulo("Hola");
 articulos.GuardarArticulo("cbhgoipro", "Hola");
 

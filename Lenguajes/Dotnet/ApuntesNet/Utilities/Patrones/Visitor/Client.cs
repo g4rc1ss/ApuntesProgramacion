@@ -8,7 +8,7 @@ public class Client
     // directs a call to the appropriate operation in the visitor object.
     public static void ClientCode(List<IComponent> components, IVisitor visitor)
     {
-        foreach (var component in components)
+        foreach (IComponent? component in components)
         {
             component.Accept(visitor);
         }

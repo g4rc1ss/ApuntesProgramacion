@@ -5,7 +5,7 @@ internal class YieldExecution
 
     public IEnumerable<int> GetEnumerableWithYield()
     {
-        for (var i = 0; i < 100; i++)
+        for (int i = 0; i < 100; i++)
         {
             yield return i;
         }
@@ -13,7 +13,7 @@ internal class YieldExecution
 
     public async IAsyncEnumerable<int> GetAsyncEnumerableWithYieldAsync()
     {
-        for (var i = 0; i < 100; i++)
+        for (int i = 0; i < 100; i++)
         {
             yield return await Task.FromResult(i);
         }

@@ -14,7 +14,7 @@ internal class UnitOfWork<TContext>(TContext context) : IRepositoryFactory, IUni
     {
         repositories ??= [];
 
-        var type = typeof(TEntity);
+        Type? type = typeof(TEntity);
         if (!repositories.ContainsKey(type))
         {
             repositories[type] = new Repository<TEntity>(Context);
@@ -27,7 +27,7 @@ internal class UnitOfWork<TContext>(TContext context) : IRepositoryFactory, IUni
     {
         repositories ??= [];
 
-        var type = typeof(TEntity);
+        Type? type = typeof(TEntity);
         if (!repositories.ContainsKey(type))
         {
             repositories[type] = new RepositoryAsync<TEntity>(Context);
@@ -40,7 +40,7 @@ internal class UnitOfWork<TContext>(TContext context) : IRepositoryFactory, IUni
     {
         repositories ??= [];
 
-        var type = typeof(TEntity);
+        Type? type = typeof(TEntity);
         if (!repositories.ContainsKey(type))
         {
             repositories[type] = new RepositoryReadOnly<TEntity>(Context);

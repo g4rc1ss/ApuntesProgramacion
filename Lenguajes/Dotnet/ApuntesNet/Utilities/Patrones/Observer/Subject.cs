@@ -30,7 +30,7 @@ public class Subject : ISubject
     {
         Console.WriteLine("Subject: Notifying observers...");
 
-        foreach (var observer in _observers)
+        foreach (IObserver? observer in _observers)
         {
             observer.Update(this);
         }

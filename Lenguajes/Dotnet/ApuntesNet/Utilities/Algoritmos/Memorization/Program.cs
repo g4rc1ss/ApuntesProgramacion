@@ -4,19 +4,19 @@
 using Memorization.Clase;
 
 
-var stopWatch = new Stopwatch();
+Stopwatch? stopWatch = new();
 
 stopWatch.Start();
 Console.WriteLine(CalcularFibonacci(50));
 stopWatch.Stop();
-var tiempoFuncionNormal = stopWatch.Elapsed.TotalMilliseconds;
+double tiempoFuncionNormal = stopWatch.Elapsed.TotalMilliseconds;
 
 stopWatch.Reset();
 
 stopWatch.Start();
 Console.WriteLine(CalcularFibConMemoizacion(50));
 stopWatch.Stop();
-var tiempoFuncionMemoizacion = stopWatch.Elapsed.TotalMilliseconds;
+double tiempoFuncionMemoizacion = stopWatch.Elapsed.TotalMilliseconds;
 
 
 

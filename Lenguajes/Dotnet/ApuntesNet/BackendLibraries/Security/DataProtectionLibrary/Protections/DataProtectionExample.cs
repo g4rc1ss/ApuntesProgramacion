@@ -8,13 +8,13 @@ internal class DataProtectionExample(IDataProtectionProvider dataProtection)
 
     public void ProtectingData()
     {
-        var stringToEncrypt = "Valor original que vamos a encriptar";
+        string? stringToEncrypt = "Valor original que vamos a encriptar";
         Console.WriteLine($"{stringToEncrypt}");
 
-        var valorEncriptado = _dataProtector.Protect(stringToEncrypt);
+        string? valorEncriptado = _dataProtector.Protect(stringToEncrypt);
         Console.WriteLine($"{valorEncriptado}");
 
-        var valorDesencriptado = _dataProtector.Unprotect(valorEncriptado);
+        string? valorDesencriptado = _dataProtector.Unprotect(valorEncriptado);
         Console.WriteLine($"{valorDesencriptado}");
 
     }

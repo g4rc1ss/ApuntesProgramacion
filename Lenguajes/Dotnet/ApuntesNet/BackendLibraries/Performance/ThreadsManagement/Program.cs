@@ -1,4 +1,4 @@
 ﻿using ThreadsManagement.Hilos;
 
-var thread = ThreadsM.StartThread();
+Thread thread = ThreadsM.StartThread();
 ThreadsM.WaitThread(thread);

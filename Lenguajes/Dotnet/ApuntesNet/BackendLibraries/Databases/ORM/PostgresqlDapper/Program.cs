@@ -5,25 +5,25 @@ using PostgresqlDapper;
 using PostgresqlDapper.Repository;
 using PostgresqlDapper.Repository.SelectExtensionMethods;
 
-var serviceProvider = Helper.CreateDependencyInjection();
+IServiceProvider? serviceProvider = Helper.CreateDependencyInjection();
 
-var createTable = serviceProvider.GetRequiredService<CreateTable>();
+CreateTable? createTable = serviceProvider.GetRequiredService<CreateTable>();
 await createTable.CreateTableAsync();
 
-var insertData = serviceProvider.GetRequiredService<InsertData>();
+InsertData? insertData = serviceProvider.GetRequiredService<InsertData>();
 await insertData.InsertDataQueryAsync();
 
-var updateData = serviceProvider.GetRequiredService<UpdateData>();
+UpdateData? updateData = serviceProvider.GetRequiredService<UpdateData>();
 //await updateData.UpdateDataQueryAsync();
 
-var selectData = serviceProvider.GetRequiredService<SelectData>();
+SelectData? selectData = serviceProvider.GetRequiredService<SelectData>();
 await selectData.SelectDataQueryAsync();
 await selectData.SelectDataSingleAsync();
 await selectData.SelectDataMultipleQueryAsync();
 await selectData.SelectDataMappingComplexObjectsAsync();
 
 
-var deleteData = serviceProvider.GetRequiredService<DeleteData>();
+DeleteData? deleteData = serviceProvider.GetRequiredService<DeleteData>();
 await deleteData.DeleteDataQueryAsync();
 
 

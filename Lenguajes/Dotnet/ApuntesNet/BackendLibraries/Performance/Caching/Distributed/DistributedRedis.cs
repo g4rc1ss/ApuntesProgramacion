@@ -21,19 +21,19 @@ internal class DistributedRedis
             options.InstanceName = "localhost";
         });
 
-        var serviceProvider = services.BuildServiceProvider();
+        ServiceProvider? serviceProvider = services.BuildServiceProvider();
         _distributedCache = serviceProvider.GetRequiredService<IDistributedCache>();
     }
 
     public async Task DistributedRedisAsync()
     {
-        var listaSerializada = JsonSerializer.Serialize(ObjectsToCaching.listToCache);
+        string? listaSerializada = JsonSerializer.Serialize(ObjectsToCaching.listToCache);
 
         await _distributedCache.SetStringAsync(ObjectsToCaching.cacheKey, listaSerializada);
 
 
-        var listaSerializadaRecuperada = await _distributedCache.GetStringAsync(ObjectsToCaching.cacheKey);
-        var listaCacheRecuperada = JsonSerializer.Deserialize<IEnumerable<int>>(listaSerializadaRecuperada)!;
+        string? listaSerializadaRecuperada = await _distributedCache.GetStringAsync(ObjectsToCaching.cacheKey);
+        IEnumerable<int>? listaCacheRecuperada = JsonSerializer.Deserialize<IEnumerable<int>>(listaSerializadaRecuperada)!;
 
         if (listaSerializadaRecuperada.Count() > 0)
         {

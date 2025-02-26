@@ -26,7 +26,7 @@ public class Config : ManualConfig
         AddExporter(MarkdownExporter.GitHub);
         AddExporter(HtmlExporter.Default);
 
-        var md = MemoryDiagnoser.Default;
+        MemoryDiagnoser? md = MemoryDiagnoser.Default;
         AddDiagnoser(md);
         AddColumn(TargetMethodColumn.Method);
         AddColumn(StatisticColumn.Mean);

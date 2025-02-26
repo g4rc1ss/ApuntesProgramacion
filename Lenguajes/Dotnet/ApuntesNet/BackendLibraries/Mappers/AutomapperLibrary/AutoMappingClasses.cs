@@ -9,12 +9,12 @@ public class AutoMappingClasses(IMapper mapper)
 
     public void Mapping()
     {
-        var entidad = new PuebloEntity
+        PuebloEntity? entidad = new()
         {
             Id = 1,
             Location = "Algun sitio",
             Name = "bilbao",
         };
-        var response = mapper.Map<PuebloEntityResponse>(entidad);
+        PuebloEntityResponse? response = mapper.Map<PuebloEntityResponse>(entidad);
     }
 }

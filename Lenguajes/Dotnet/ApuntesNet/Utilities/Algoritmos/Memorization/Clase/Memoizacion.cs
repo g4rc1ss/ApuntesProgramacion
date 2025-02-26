@@ -6,7 +6,7 @@ internal class Memoizacion<T, TResult>
 
     public static TResult AddMemoizacion(Func<T, TResult> method, T argument)
     {
-        if (!Diccionario.TryGetValue(argument, out var result))
+        if (!Diccionario.TryGetValue(argument, out TResult? result))
         {
             result = method.Invoke(argument);
             Diccionario.Add(argument, result);

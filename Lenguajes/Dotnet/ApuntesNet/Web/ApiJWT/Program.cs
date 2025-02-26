@@ -7,14 +7,14 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddOptions();
 builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection(nameof(JwtConfig)));
 
-var jwtConfig = builder.Services.BuildServiceProvider().GetRequiredService<IOptions<JwtConfig>>();
+IOptions<JwtConfig>? jwtConfig = builder.Services.BuildServiceProvider().GetRequiredService<IOptions<JwtConfig>>();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -41,7 +41,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApiExample", Version = "v1" });
-    var securitySchema = new OpenApiSecurityScheme
+    OpenApiSecurityScheme? securitySchema = new()
     {
         Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
         Name = "Authorization",
@@ -57,7 +57,7 @@ builder.Services.AddSwaggerGen(c =>
 
     c.AddSecurityDefinition("Bearer", securitySchema);
 
-    var securityRequirement = new OpenApiSecurityRequirement
+    OpenApiSecurityRequirement? securityRequirement = new()
     {
         { securitySchema, new[] { "Bearer" } }
     };
@@ -71,7 +71,7 @@ builder.Services.AddCors(option => option.AddPolicy("open", builder => builder.A
 builder.Services.AddDataProtection();
 
 
-var app = builder.Build();
+WebApplication? app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

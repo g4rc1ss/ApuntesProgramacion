@@ -15,10 +15,10 @@ internal class DeleteData(IDbConnection dbConnection)
     internal async Task DeleteDataQueryAsync()
     {
 
-        var deleteUsuario = @$"
+        string? deleteUsuario = @$"
 DELETE FROM {nameof(Usuario)} 
 WHERE Id = @idUsuario";
-        var nChangesUsuario = await _dbConnection.ExecuteAsync(deleteUsuario.ToString(), new
+        int nChangesUsuario = await _dbConnection.ExecuteAsync(deleteUsuario.ToString(), new
         {
             idUsuario = 2
         });

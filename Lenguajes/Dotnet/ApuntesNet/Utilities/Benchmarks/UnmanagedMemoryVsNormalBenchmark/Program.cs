@@ -3,5 +3,5 @@
 using UnmanagedMemoryVsNormalBenchmark;
 
 
-var runs = new Type[] { typeof(MarshallApi), typeof(Pointers), typeof(StackallocMemory) };
+Type[]? runs = [typeof(MarshallApi), typeof(Pointers), typeof(StackallocMemory)];
 BenchmarkRunner.Run(runs);

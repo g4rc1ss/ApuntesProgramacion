@@ -9,7 +9,7 @@ internal static class SelectDataSingle
 {
     internal static async Task SelectDataSingleAsync(this SelectData select)
     {
-        var sqlPueblo = @$"
+        string? sqlPueblo = @$"
 SELECT Id as {nameof(Pueblo.IdPueblo)}
     ,Nombre as {nameof(Pueblo.NombrePueblo)}
 FROM {nameof(Pueblo)}
@@ -20,6 +20,6 @@ WHERE Id = @IdPueblo
             IdPueblo = 2
         };
 
-        var respuestaPueblo = await select.dbConnection.QuerySingleAsync<Pueblo>(sqlPueblo, parameters);
+        Pueblo? respuestaPueblo = await select.dbConnection.QuerySingleAsync<Pueblo>(sqlPueblo, parameters);
     }
 }

@@ -43,7 +43,7 @@ internal abstract class BaseRepository<T> : IReadRepository<T> where T : class
         IQueryable<T> query = null;
         if (queryCustom == null)
         {
-            var sql = string.Empty;
+            string? sql = string.Empty;
             query = !string.IsNullOrEmpty(sql) ? _dbSet.FromSqlRaw(sql) : _dbSet;
         }
         else

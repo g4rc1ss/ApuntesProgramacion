@@ -7,33 +7,33 @@ public class EnviarEmail
 {
     public void EnvioMail()
     {
-        var servidorDeEnvio = "smtp.gmail.com";
+        string? servidorDeEnvio = "smtp.gmail.com";
 
         //Enviamos el mensaje
         Console.WriteLine("Usuario");
-        var emisor = Console.ReadLine();
+        string? emisor = Console.ReadLine();
 
         Console.WriteLine("Constraseña");
-        var contraseña = Console.ReadLine();
+        string? contraseña = Console.ReadLine();
 
 
         Console.WriteLine("A quien quieres mandar el mensaje?");
-        var receptor = Console.ReadLine();
+        string? receptor = Console.ReadLine();
 
         Console.WriteLine("Asunto");
-        var asunto = Console.ReadLine();
+        string? asunto = Console.ReadLine();
 
         Console.WriteLine("Cuerpo");
-        var cuerpo = Console.ReadLine();
+        string? cuerpo = Console.ReadLine();
 
-        var mensaje = new MailMessage(
+        MailMessage? mensaje = new(
             emisor,
             receptor,
             asunto,
             cuerpo
         );
 
-        using (var cliente = new SmtpClient(servidorDeEnvio))
+        using (SmtpClient? cliente = new(servidorDeEnvio))
         {
             cliente.EnableSsl = true;
             cliente.Credentials = new NetworkCredential(

@@ -26,7 +26,7 @@ public static class HtmlToMarkdown
         if (string.IsNullOrEmpty(source))
             return source;
 
-        var result = Regex.Replace(
+        string? result = Regex.Replace(
             source,
             string.Join("|", Replacements.Keys.Select(k => k.ToString()).ToArray()),
             m => Replacements[m.Value]);

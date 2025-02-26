@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
 
-var iteracionesRecursivas = 0;
-var arrayOrdenado = Enumerable.Range(0, 1000_000_000).ToList();
-var numero = 1000_000_000 - 1;
-var existeNumero = default(bool);
+int iteracionesRecursivas = 0;
+List<int> arrayOrdenado = [.. Enumerable.Range(0, 1000_000_000)];
+int numero = 1000_000_000 - 1;
+bool existeNumero = false;
 Stopwatch stopwatch = new();
 
 Console.WriteLine("\n----------------------- BUSQUEDA NORMAL POR ITERACION -----------------------");
@@ -35,8 +35,8 @@ Console.WriteLine($"{existeNumero} \n" +
 
 bool BusquedaTradicional(in List<int> arrayOrdenado, long numero)
 {
-    var iteraciones = 0;
-    foreach (var item in arrayOrdenado)
+    int iteraciones = 0;
+    foreach (int item in arrayOrdenado)
     {
         iteraciones++;
         if (item == numero)
@@ -51,14 +51,14 @@ bool BusquedaTradicional(in List<int> arrayOrdenado, long numero)
 
 bool BuscarValorIteracion(in List<int> arrayOrdenado, long numero)
 {
-    var iteraciones = 0;
-    var left = 0;
-    var right = arrayOrdenado.Count - 1;
+    int iteraciones = 0;
+    int left = 0;
+    int right = arrayOrdenado.Count - 1;
 
     while (left <= right)
     {
         iteraciones++;
-        var mitad = (right + left) / 2;
+        int mitad = (right + left) / 2;
         if (arrayOrdenado[mitad] == numero)
         {
             Console.WriteLine($"El numero de iteraciones son: {iteraciones}");
@@ -83,8 +83,8 @@ bool BuscarValorIteracion(in List<int> arrayOrdenado, long numero)
 bool BuscarValorRecurviso(in List<int> arrayOrdenado, long numero, int left, int right)
 {
     iteracionesRecursivas++;
-    var mitad = (right + left) / 2;
-    var valorRetorno = default(bool);
+    int mitad = (right + left) / 2;
+    bool valorRetorno = false;
     if (right < left)
     {
         return false;
