@@ -49,9 +49,9 @@
 
     private async void EnviarLogin()
     {
-        var httpClient = HttpClientFactory.CreateClient("API-CleanArchitecture");
-        var loginResponse = await httpClient.PostAsJsonAsync("user/Login", _loginRequest);
-        var jwt = await loginResponse.Content.ReadFromJsonAsync<JsonWebToken>();
+        HttpClient httpClient = HttpClientFactory.CreateClient("API-CleanArchitecture");
+        HttpResponseMessage loginResponse = await httpClient.PostAsJsonAsync("user/Login", _loginRequest);
+        JsonWebToken? jwt = await loginResponse.Content.ReadFromJsonAsync<JsonWebToken>();
 
         await ((AuthenticationProvider)LogInProvider).SetAuthenticationAsync(jwt.Token);
 
