@@ -3,7 +3,6 @@
     <PropertyGroup>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <UserSecretsId>dotnet-PublisherAzureServiceBus-f5105ddd-55ef-487a-bc49-4a525e9f4ac8</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
