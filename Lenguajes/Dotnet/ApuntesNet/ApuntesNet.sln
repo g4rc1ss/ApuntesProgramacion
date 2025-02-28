@@ -315,6 +315,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumerAzServiceBus", "Bac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublisherAzureServiceBus", "BackendLibraries\EventBus\AzureServiceBus\PublisherAzureServiceBus\PublisherAzureServiceBus.csproj", "{7E13A8E3-ECD5-4959-B2F6-F5DD9AB85CAE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Telemetry", "Telemetry", "{77A0A7A1-172E-4D62-989B-CFA5C15B39F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingWithOpenTelemetry", "Web\LoggingWithOpenTelemetry\LoggingWithOpenTelemetry.csproj", "{08B9C9DC-798A-4567-8835-A77ED120252C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -749,6 +753,10 @@ Global
 		{7E13A8E3-ECD5-4959-B2F6-F5DD9AB85CAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E13A8E3-ECD5-4959-B2F6-F5DD9AB85CAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E13A8E3-ECD5-4959-B2F6-F5DD9AB85CAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08B9C9DC-798A-4567-8835-A77ED120252C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08B9C9DC-798A-4567-8835-A77ED120252C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08B9C9DC-798A-4567-8835-A77ED120252C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08B9C9DC-798A-4567-8835-A77ED120252C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -902,6 +910,8 @@ Global
 		{095DF3EB-EB56-49D8-9E1E-384242FF243D} = {44BD6DB1-25A1-424D-A4A7-4115F158DAF5}
 		{9D0B631A-B328-48B5-A291-693FC20E2F9A} = {47236E58-A2E9-4CE8-89E4-32D649A60F5F}
 		{7E13A8E3-ECD5-4959-B2F6-F5DD9AB85CAE} = {47236E58-A2E9-4CE8-89E4-32D649A60F5F}
+		{77A0A7A1-172E-4D62-989B-CFA5C15B39F6} = {1DA159C8-90C4-4281-BD8E-514EF1B0CF3E}
+		{08B9C9DC-798A-4567-8835-A77ED120252C} = {77A0A7A1-172E-4D62-989B-CFA5C15B39F6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E490D0C8-C5A7-4F24-8A9B-CE1635508778}

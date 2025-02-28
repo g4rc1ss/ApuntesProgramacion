@@ -1,0 +1,13 @@
+services:
+  opentelemetry-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    restart: always
+    command: [ "--config=/etc/otel-collector.yaml" ]
+    cpu_count: 1
+    mem_limit: 256M
+    volumes:
+      - ./Observability/otel-collector.yaml:/etc/otel-collector.yaml
+    ports:
+      - "8888:8888"   # Prometheus metrics exposed by the collector
+      - "8889:8889"   # Prometheus exporter metrics
+      - "4317:4317"   # OTLP gRPC receiver
