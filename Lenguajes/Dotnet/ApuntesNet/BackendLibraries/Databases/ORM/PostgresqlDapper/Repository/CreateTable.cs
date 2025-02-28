@@ -7,8 +7,6 @@ namespace PostgresqlDapper.Repository;
 
 internal class CreateTable(IDbConnection dbConnection)
 {
-    private readonly IDbConnection _dbConnection = dbConnection;
-
     public async Task CreateTableAsync()
     {
         string? createUsuario = @"CREATE TABLE Usuario(
@@ -27,7 +25,7 @@ internal class CreateTable(IDbConnection dbConnection)
                                         CONSTRAINT PK_Pueblo PRIMARY KEY (Id))";
 
 
-        await _dbConnection.ExecuteAsync(createPueblo);
-        await _dbConnection.ExecuteAsync(createUsuario);
+        await dbConnection.ExecuteAsync(createPueblo);
+        await dbConnection.ExecuteAsync(createUsuario);
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 
+namespace InteroperabilidadConAsync;
+
 // Creamos el delegado que vamos a enviar a la DLL
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 public delegate void Callback(int response);

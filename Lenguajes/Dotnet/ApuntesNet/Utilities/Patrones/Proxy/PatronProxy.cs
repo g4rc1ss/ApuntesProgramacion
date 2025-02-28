@@ -3,8 +3,6 @@
 // The Proxy has an interface identical to the RealSubject.
 internal class PatronProxy(RealSubject realSubject) : ISubject
 {
-    private readonly RealSubject _realSubject = realSubject;
-
     // The most common applications of the Proxy pattern are lazy loading,
     // caching, controlling the access, logging, etc. A Proxy can perform
     // one of these things and then, depending on the result, pass the
@@ -14,7 +12,7 @@ internal class PatronProxy(RealSubject realSubject) : ISubject
     {
         if (CheckAccess())
         {
-            _realSubject.Request();
+            realSubject.Request();
 
             LogAccess();
         }

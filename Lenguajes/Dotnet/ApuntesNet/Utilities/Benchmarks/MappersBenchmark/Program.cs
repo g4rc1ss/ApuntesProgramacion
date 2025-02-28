@@ -10,38 +10,40 @@ using BenchmarkDotNet.Running;
 
 using MappersBenchmark;
 
-
 BenchmarkRunner.Run<Mappers>(new Config());
 
 
-public class Config : ManualConfig
+namespace MappersBenchmark
 {
-    public const int ITERATIONS = 500;
-
-    public Config()
+    public class Config : ManualConfig
     {
-        AddLogger(ConsoleLogger.Default);
+        public const int ITERATIONS = 500;
 
-        AddExporter(CsvExporter.Default);
-        AddExporter(MarkdownExporter.GitHub);
-        AddExporter(HtmlExporter.Default);
+        public Config()
+        {
+            AddLogger(ConsoleLogger.Default);
 
-        MemoryDiagnoser? md = MemoryDiagnoser.Default;
-        AddDiagnoser(md);
-        AddColumn(TargetMethodColumn.Method);
-        AddColumn(StatisticColumn.Mean);
-        AddColumn(StatisticColumn.StdDev);
-        AddColumn(StatisticColumn.Error);
-        AddColumn(BaselineRatioColumn.RatioMean);
-        AddColumnProvider(DefaultColumnProviders.Metrics);
+            AddExporter(CsvExporter.Default);
+            AddExporter(MarkdownExporter.GitHub);
+            AddExporter(HtmlExporter.Default);
 
-        AddJob(Job.ShortRun
-            .WithLaunchCount(1)
-            .WithWarmupCount(2)
-            .WithUnrollFactor(ITERATIONS)
-            .WithIterationCount(10)
-        );
-        Orderer = new DefaultOrderer(SummaryOrderPolicy.FastestToSlowest);
-        Options |= ConfigOptions.JoinSummary;
+            MemoryDiagnoser? md = MemoryDiagnoser.Default;
+            AddDiagnoser(md);
+            AddColumn(TargetMethodColumn.Method);
+            AddColumn(StatisticColumn.Mean);
+            AddColumn(StatisticColumn.StdDev);
+            AddColumn(StatisticColumn.Error);
+            AddColumn(BaselineRatioColumn.RatioMean);
+            AddColumnProvider(DefaultColumnProviders.Metrics);
+
+            AddJob(Job.ShortRun
+                .WithLaunchCount(1)
+                .WithWarmupCount(2)
+                .WithUnrollFactor(ITERATIONS)
+                .WithIterationCount(10)
+            );
+            Orderer = new DefaultOrderer(SummaryOrderPolicy.FastestToSlowest);
+            Options |= ConfigOptions.JoinSummary;
+        }
     }
 }

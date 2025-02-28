@@ -8,12 +8,10 @@ internal class Caretaker(Originator originator)
 {
     private readonly List<IMemento> _mementos = [];
 
-    private readonly Originator _originator = originator;
-
     public void Backup()
     {
         Console.WriteLine("\nCaretaker: Saving Originator's state...");
-        _mementos.Add(_originator.Save());
+        _mementos.Add(originator.Save());
     }
 
     public void Undo()
@@ -30,7 +28,7 @@ internal class Caretaker(Originator originator)
 
         try
         {
-            _originator.Restore(memento);
+            originator.Restore(memento);
         }
         catch (Exception)
         {

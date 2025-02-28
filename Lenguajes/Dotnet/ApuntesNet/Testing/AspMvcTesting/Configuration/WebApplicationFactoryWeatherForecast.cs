@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿using ApiToTesting;
+
+using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace AspMvcTesting.Configuration;
 

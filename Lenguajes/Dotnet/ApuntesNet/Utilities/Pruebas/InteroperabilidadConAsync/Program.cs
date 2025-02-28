@@ -1,5 +1,7 @@
 ﻿
 
+using InteroperabilidadConAsync;
+
 await new ClaseInteractuaRust().EjecutarDllAsync();
 
 

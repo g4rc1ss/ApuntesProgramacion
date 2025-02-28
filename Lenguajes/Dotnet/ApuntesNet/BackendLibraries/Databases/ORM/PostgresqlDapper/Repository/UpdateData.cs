@@ -10,8 +10,6 @@ namespace PostgresqlDapper.Repository;
 
 internal class UpdateData(IDbConnection dbConnection)
 {
-    private readonly IDbConnection _dbConnection = dbConnection;
-
     internal async Task UpdateDataQueryAsync()
     {
 
@@ -25,7 +23,7 @@ SET nombre = 'Ramon'
 WHERE Id = @idUsuario
 ";
 
-        int nChanges = await _dbConnection.ExecuteAsync(updatePueblo, new
+        int nChanges = await dbConnection.ExecuteAsync(updatePueblo, new
         {
             idPueblo = 1,
             idUsuario = 4,

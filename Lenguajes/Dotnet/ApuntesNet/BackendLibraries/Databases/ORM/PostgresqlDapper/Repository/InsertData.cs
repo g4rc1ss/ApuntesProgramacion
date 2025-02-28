@@ -10,8 +10,6 @@ namespace PostgresqlDapper.Repository;
 
 internal class InsertData(IDbConnection dbConnection)
 {
-    private readonly IDbConnection _dbConnection = dbConnection;
-
     internal async Task InsertDataQueryAsync()
     {
         string? inserts = @$"
@@ -28,7 +26,7 @@ VALUES (@NombreUsuario, currval(pg_get_serial_sequence('pueblo', 'id')));
                 NombreUsuario = "nombre de usuario",
             }).ToList();
 
-        int nChanges = await _dbConnection.ExecuteAsync(inserts, parametros);
+        int nChanges = await dbConnection.ExecuteAsync(inserts, parametros);
 
         Console.WriteLine($"Agregado {nChanges} registros");
     }
