@@ -12,6 +12,7 @@ public partial class EntityFrameworkSqlServerContext(DbContextOptions optionsBui
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(EntityFrameworkSqlServerContext).Assembly);
         base.OnModelCreating(modelBuilder);
     }
 }

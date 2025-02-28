@@ -13,7 +13,7 @@ public class UpdateData(EntityFrameworkSqlServerContext frameworkSqlServerContex
 
         Usuario? usuario = (
             from user in _frameworkSqlServerContext.Usuarios
-            where user.PuebloIdNavigation.Id == idPueblo
+            where user.PuebloNavigation.Id == idPueblo
             select user).Single();
 
         usuario.Nombre = "cnifvbdilcbsuyvrg";

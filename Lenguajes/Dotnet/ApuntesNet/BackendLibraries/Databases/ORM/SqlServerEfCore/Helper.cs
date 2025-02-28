@@ -3,7 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-
 using SqlServerEfCore.Database;
 using SqlServerEfCore.Repository;
 
@@ -16,12 +15,20 @@ internal class Helper
         IHostBuilder? builder = Host.CreateDefaultBuilder();
         builder.ConfigureAppConfiguration(config =>
         {
-
         });
 
         builder.ConfigureServices((hostContext, services) =>
         {
-            services.AddDbContextPool<EntityFrameworkSqlServerContext>(dbContextBuilder => dbContextBuilder.UseSqlServer(hostContext.Configuration.GetConnectionString(nameof(EntityFrameworkSqlServerContext))));
+            string? connectionString = hostContext.Configuration.GetConnectionString(nameof(EntityFrameworkSqlServerContext));
+            services.AddDbContextPool<EntityFrameworkSqlServerContext>(dbContextBuilder =>
+                dbContextBuilder.UseSqlServer(connectionString)
+                    .AddInterceptors(new SoftDeleteInterceptor())
+            );
+
+            services.AddPooledDbContextFactory<EntityFrameworkSqlServerContext>(dbContextBuilder =>
+                dbContextBuilder.UseSqlServer(connectionString)
+                    .AddInterceptors(new SoftDeleteInterceptor())
+            );
 
             services.AddTransient<SelectData>();
             services.AddTransient<InsertData>();
@@ -31,5 +38,4 @@ internal class Helper
 
         return builder.Build().Services;
     }
-
 }

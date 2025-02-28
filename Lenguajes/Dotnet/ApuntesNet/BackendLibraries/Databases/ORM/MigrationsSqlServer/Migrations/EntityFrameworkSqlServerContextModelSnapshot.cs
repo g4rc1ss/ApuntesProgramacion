@@ -30,12 +30,21 @@ namespace MigrationsSqlServer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Pueblos");
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("pueblos", (string)null);
                 });
 
             modelBuilder.Entity("SqlServerEfCore.Database.Entities.Usuario", b =>
@@ -46,11 +55,17 @@ namespace MigrationsSqlServer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Edad")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("FechaHoy")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
@@ -60,20 +75,22 @@ namespace MigrationsSqlServer.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IsDeleted");
+
                     b.HasIndex("PuebloId");
 
-                    b.ToTable("Usuarios");
+                    b.ToTable("usuarios", (string)null);
                 });
 
             modelBuilder.Entity("SqlServerEfCore.Database.Entities.Usuario", b =>
                 {
-                    b.HasOne("SqlServerEfCore.Database.Entities.Pueblo", "PuebloIdNavigation")
+                    b.HasOne("SqlServerEfCore.Database.Entities.Pueblo", "Pueblo")
                         .WithMany("Usuarios")
                         .HasForeignKey("PuebloId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("PuebloIdNavigation");
+                    b.Navigation("Pueblo");
                 });
 
             modelBuilder.Entity("SqlServerEfCore.Database.Entities.Pueblo", b =>

@@ -23,7 +23,7 @@ await deleteService.DeleteDataAsync();
 
 foreach (Usuario? user in allUsers)
 {
-    Console.WriteLine($"Nombre {user.Nombre} - Edad {user.Edad} - Pueblo {user.PuebloIdNavigation.Nombre}");
+    Console.WriteLine($"Nombre {user.Nombre} - Edad {user.Edad} - Pueblo {user.PuebloNavigation.Nombre}");
 }
 
 Console.WriteLine("\n Pulsa una tecla para finalizar");

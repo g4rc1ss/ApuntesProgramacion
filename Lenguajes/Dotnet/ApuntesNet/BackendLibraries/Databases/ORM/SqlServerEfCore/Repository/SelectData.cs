@@ -15,7 +15,7 @@ internal class SelectData(EntityFrameworkSqlServerContext frameworkSqlServerCont
         Pueblo[]? pueblos = await _frameworkSqlServerContext.Pueblos.ToArrayAsync();
         Usuario[]? usuarios = await _frameworkSqlServerContext.Usuarios.ToArrayAsync();
         Pueblo[]? pueblosInclude = await _frameworkSqlServerContext.Pueblos.Include(x => x.Usuarios).ToArrayAsync();
-        Usuario[]? usuariosInclude = await _frameworkSqlServerContext.Usuarios.Include(x => x.PuebloIdNavigation).ToArrayAsync();
+        Usuario[]? usuariosInclude = await _frameworkSqlServerContext.Usuarios.Include(x => x.PuebloNavigation).ToArrayAsync();
 
 
         return await (from usuario in _frameworkSqlServerContext.Usuarios
