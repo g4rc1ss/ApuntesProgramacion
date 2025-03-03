@@ -319,6 +319,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Telemetry", "Telemetry", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingWithOpenTelemetry", "Web\LoggingWithOpenTelemetry\LoggingWithOpenTelemetry.csproj", "{08B9C9DC-798A-4567-8835-A77ED120252C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiRateLimiter", "Web\ApiRateLimiter\ApiRateLimiter.csproj", "{0F88299F-BDD5-4FD8-95C1-7979CB101C78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -757,6 +759,10 @@ Global
 		{08B9C9DC-798A-4567-8835-A77ED120252C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08B9C9DC-798A-4567-8835-A77ED120252C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08B9C9DC-798A-4567-8835-A77ED120252C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F88299F-BDD5-4FD8-95C1-7979CB101C78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F88299F-BDD5-4FD8-95C1-7979CB101C78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F88299F-BDD5-4FD8-95C1-7979CB101C78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F88299F-BDD5-4FD8-95C1-7979CB101C78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -912,6 +918,7 @@ Global
 		{7E13A8E3-ECD5-4959-B2F6-F5DD9AB85CAE} = {47236E58-A2E9-4CE8-89E4-32D649A60F5F}
 		{77A0A7A1-172E-4D62-989B-CFA5C15B39F6} = {1DA159C8-90C4-4281-BD8E-514EF1B0CF3E}
 		{08B9C9DC-798A-4567-8835-A77ED120252C} = {77A0A7A1-172E-4D62-989B-CFA5C15B39F6}
+		{0F88299F-BDD5-4FD8-95C1-7979CB101C78} = {1DA159C8-90C4-4281-BD8E-514EF1B0CF3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E490D0C8-C5A7-4F24-8A9B-CE1635508778}
