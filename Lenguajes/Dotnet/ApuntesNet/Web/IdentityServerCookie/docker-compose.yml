@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # USUARIO PARA CONECTAR ES: SA
   sqlserver_apuntesnet:
@@ -7,7 +5,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2019-latest
     restart: always
     ports:
-      - 1433:1433
+      - "1433:1433"
     environment:
       SA_PASSWORD: Apuntes@Net!
       ACCEPT_EULA: Y

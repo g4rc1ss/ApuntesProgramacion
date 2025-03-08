@@ -1,11 +1,9 @@
-version: '3.9'
-
 services:
   seq-logs:
     container_name: seq_logging
     image: datalust/seq:latest
     ports:
-      - 5341:80
+      - "5341:80"
       - "5342:5342"
       - "45341:45341"
     environment:
@@ -15,4 +13,3 @@ services:
 
 volumes:
   seq_data:
-  sqlserver_data:
